@@ -21,13 +21,17 @@ interface HomePageProps {
   onNavigateToFeatures?: () => void;
   onNavigateToHowItWorks?: () => void;
   onNavigateToSimulations?: () => void;
+  onNavigateToPricing?: () => void;
+  onNavigateToFaq?: () => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
   onNavigateToAi,
   onNavigateToFeatures,
   onNavigateToHowItWorks,
-  onNavigateToSimulations
+  onNavigateToSimulations,
+  onNavigateToPricing,
+  onNavigateToFaq
 }) => {
   const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState('Senior Frontend Engineer');
@@ -41,7 +45,11 @@ export const HomePage: React.FC<HomePageProps> = ({
   };
 
   const handleSelectPlan = (_planName: string) => {
-    handleStartPractice();
+    if (onNavigateToPricing) {
+      onNavigateToPricing();
+    } else {
+      handleStartPractice();
+    }
   };
 
   return (
@@ -55,6 +63,8 @@ export const HomePage: React.FC<HomePageProps> = ({
           if (page === 'features' && onNavigateToFeatures) onNavigateToFeatures();
           if (page === 'how-it-works' && onNavigateToHowItWorks) onNavigateToHowItWorks();
           if (page === 'simulations' && onNavigateToSimulations) onNavigateToSimulations();
+          if (page === 'pricing' && onNavigateToPricing) onNavigateToPricing();
+          if (page === 'faq' && onNavigateToFaq) onNavigateToFaq();
         }}
       />
 

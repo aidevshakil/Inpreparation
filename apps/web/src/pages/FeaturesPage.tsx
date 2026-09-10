@@ -28,6 +28,8 @@ interface FeaturesPageProps {
   onNavigateToHome: () => void;
   onNavigateToHowItWorks?: () => void;
   onNavigateToSimulations?: () => void;
+  onNavigateToPricing?: () => void;
+  onNavigateToFaq?: () => void;
   onNavigateToAi?: () => void;
 }
 
@@ -35,6 +37,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
   onNavigateToHome,
   onNavigateToHowItWorks,
   onNavigateToSimulations,
+  onNavigateToPricing,
+  onNavigateToFaq,
   onNavigateToAi
 }) => {
   const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
@@ -197,6 +201,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
           if (page === 'home') onNavigateToHome();
           if (page === 'how-it-works' && onNavigateToHowItWorks) onNavigateToHowItWorks();
           if (page === 'simulations' && onNavigateToSimulations) onNavigateToSimulations();
+          if (page === 'pricing' && onNavigateToPricing) onNavigateToPricing();
+          if (page === 'faq' && onNavigateToFaq) onNavigateToFaq();
         }}
       />
 

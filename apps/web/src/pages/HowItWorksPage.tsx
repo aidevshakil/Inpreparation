@@ -18,6 +18,8 @@ interface HowItWorksPageProps {
   onNavigateToHome: () => void;
   onNavigateToFeatures: () => void;
   onNavigateToSimulations?: () => void;
+  onNavigateToPricing?: () => void;
+  onNavigateToFaq?: () => void;
   onNavigateToAi?: () => void;
 }
 
@@ -25,6 +27,8 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({
   onNavigateToHome,
   onNavigateToFeatures,
   onNavigateToSimulations,
+  onNavigateToPricing,
+  onNavigateToFaq,
   onNavigateToAi
 }) => {
   const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
@@ -76,6 +80,8 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({
           if (page === 'home') onNavigateToHome();
           if (page === 'features') onNavigateToFeatures();
           if (page === 'simulations' && onNavigateToSimulations) onNavigateToSimulations();
+          if (page === 'pricing' && onNavigateToPricing) onNavigateToPricing();
+          if (page === 'faq' && onNavigateToFaq) onNavigateToFaq();
         }}
       />
 

@@ -28,6 +28,8 @@ interface SimulationsPageProps {
   onNavigateToHome: () => void;
   onNavigateToFeatures: () => void;
   onNavigateToHowItWorks: () => void;
+  onNavigateToPricing?: () => void;
+  onNavigateToFaq?: () => void;
   onNavigateToAi?: () => void;
 }
 
@@ -35,6 +37,8 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
   onNavigateToHome,
   onNavigateToFeatures,
   onNavigateToHowItWorks,
+  onNavigateToPricing,
+  onNavigateToFaq,
   onNavigateToAi
 }) => {
   const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
@@ -323,6 +327,8 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
           if (page === 'home') onNavigateToHome();
           if (page === 'features') onNavigateToFeatures();
           if (page === 'how-it-works') onNavigateToHowItWorks();
+          if (page === 'pricing' && onNavigateToPricing) onNavigateToPricing();
+          if (page === 'faq' && onNavigateToFaq) onNavigateToFaq();
         }}
       />
 

@@ -3,10 +3,12 @@ import { HomePage } from './pages/HomePage';
 import { FeaturesPage } from './pages/FeaturesPage';
 import { HowItWorksPage } from './pages/HowItWorksPage';
 import { SimulationsPage } from './pages/SimulationsPage';
+import { PricingPage } from './pages/PricingPage';
+import { FaqPage } from './pages/FaqPage';
 import { AiChatPage } from './pages/AiChatPage';
 
 export function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'features' | 'how-it-works' | 'simulations' | 'chat'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'chat'>('home');
 
   return (
     <main>
@@ -16,6 +18,8 @@ export function App() {
           onNavigateToFeatures={() => setCurrentPage('features')}
           onNavigateToHowItWorks={() => setCurrentPage('how-it-works')}
           onNavigateToSimulations={() => setCurrentPage('simulations')}
+          onNavigateToPricing={() => setCurrentPage('pricing')}
+          onNavigateToFaq={() => setCurrentPage('faq')}
         />
       )}
 
@@ -24,6 +28,8 @@ export function App() {
           onNavigateToHome={() => setCurrentPage('home')}
           onNavigateToHowItWorks={() => setCurrentPage('how-it-works')}
           onNavigateToSimulations={() => setCurrentPage('simulations')}
+          onNavigateToPricing={() => setCurrentPage('pricing')}
+          onNavigateToFaq={() => setCurrentPage('faq')}
           onNavigateToAi={() => setCurrentPage('chat')}
         />
       )}
@@ -33,6 +39,8 @@ export function App() {
           onNavigateToHome={() => setCurrentPage('home')}
           onNavigateToFeatures={() => setCurrentPage('features')}
           onNavigateToSimulations={() => setCurrentPage('simulations')}
+          onNavigateToPricing={() => setCurrentPage('pricing')}
+          onNavigateToFaq={() => setCurrentPage('faq')}
           onNavigateToAi={() => setCurrentPage('chat')}
         />
       )}
@@ -42,6 +50,30 @@ export function App() {
           onNavigateToHome={() => setCurrentPage('home')}
           onNavigateToFeatures={() => setCurrentPage('features')}
           onNavigateToHowItWorks={() => setCurrentPage('how-it-works')}
+          onNavigateToPricing={() => setCurrentPage('pricing')}
+          onNavigateToFaq={() => setCurrentPage('faq')}
+          onNavigateToAi={() => setCurrentPage('chat')}
+        />
+      )}
+
+      {currentPage === 'pricing' && (
+        <PricingPage
+          onNavigateToHome={() => setCurrentPage('home')}
+          onNavigateToFeatures={() => setCurrentPage('features')}
+          onNavigateToHowItWorks={() => setCurrentPage('how-it-works')}
+          onNavigateToSimulations={() => setCurrentPage('simulations')}
+          onNavigateToFaq={() => setCurrentPage('faq')}
+          onNavigateToAi={() => setCurrentPage('chat')}
+        />
+      )}
+
+      {currentPage === 'faq' && (
+        <FaqPage
+          onNavigateToHome={() => setCurrentPage('home')}
+          onNavigateToFeatures={() => setCurrentPage('features')}
+          onNavigateToHowItWorks={() => setCurrentPage('how-it-works')}
+          onNavigateToSimulations={() => setCurrentPage('simulations')}
+          onNavigateToPricing={() => setCurrentPage('pricing')}
           onNavigateToAi={() => setCurrentPage('chat')}
         />
       )}
