@@ -8,15 +8,19 @@ datasource db {
 }
 
 model User {
-  id            String          @id @default(cuid())
-  email         String          @unique
+  id            String              @id @default(cuid())
+  email         String              @unique
   name          String?
   passwordHash  String?
-  role          String          @default("user") // "user" | "admin" | "moderator"
+  role          String              @default("user") // "user" | "admin" | "moderator"
   avatarUrl     String?
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
+  targetRole    String?             @default("Full Stack Software Engineer")
+  seniority     String?             @default("Senior (L5)")
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
   conversations Conversation[]
+  simulations   SimulationSession[]
+  resumes       ResumeProfile[]
   logs          AuditLog[]
 
   @@map("users")
@@ -44,6 +48,61 @@ model Message {
   createdAt      DateTime     @default(now())
 
   @@map("messages")
+}
+
+model SimulationSession {
+  id              String             @id @default(cuid())
+  userId          String?
+  user            User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+  roleTrack       String             // e.g. "Senior Frontend Engineer"
+  seniorityLevel  String             @default("Senior (L5)")
+  overallScore    Int                @default(85)
+  technicalScore  Int                @default(85)
+  structureScore  Int                @default(85)
+  pacingScore     Int                @default(85)
+  gazeScore       Int                @default(90)
+  wpmAverage      Int                @default(140)
+  fillerCount     Int                @default(3)
+  durationSeconds Int                @default(600)
+  status          String             @default("completed") // "completed" | "in_progress" | "abandoned"
+  feedbackSummary String?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  answers         SimulationAnswer[]
+
+  @@map("simulation_sessions")
+}
+
+model SimulationAnswer {
+  id                  String            @id @default(cuid())
+  sessionId           String
+  session             SimulationSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  questionNumber      Int
+  questionText        String
+  candidateTranscript String
+  starScore           Int               @default(85)
+  suggestedRewrite    String?
+  coachingNotes       String?
+  createdAt           DateTime          @default(now())
+
+  @@map("simulation_answers")
+}
+
+model ResumeProfile {
+  id              String   @id @default(cuid())
+  userId          String?
+  user            User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  fileName        String
+  fileSize        Int      @default(0)
+  fileUrl         String?
+  targetRole      String?
+  skills          String[] @default([])
+  experienceYears Int      @default(3)
+  parsedSummary   String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("resume_profiles")
 }
 
 model AuditLog {
