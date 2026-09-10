@@ -4,8 +4,8 @@ import { Sparkles, Menu, X, Bot, ArrowRight, Video, Layers, Home } from 'lucide-
 interface NavbarProps {
   onStartPractice: (role?: string) => void;
   onNavigateToAi?: () => void;
-  currentPage?: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'chat';
-  onNavigate?: (page: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'chat') => void;
+  currentPage?: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat';
+  onNavigate?: (page: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat') => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -28,10 +28,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navLinks = [
     { label: 'Overview', page: 'home' as const, href: '#hero' },
     { label: 'How It Works', page: 'how-it-works' as const, href: '#how-it-works' },
-    { label: 'Platform Features', page: 'features' as const, href: '#features' },
-    { label: 'Simulations', page: 'simulations' as const, href: '#simulations' },
-    { label: 'Dimensions', page: 'home' as const, href: '#analysis' },
+    { label: 'Features', page: 'features' as const, href: '#features' },
+    { label: 'Role Tracks', page: 'simulations' as const, href: '#simulations' },
     { label: 'Pricing', page: 'pricing' as const, href: '#pricing' },
+    { label: 'About & Mission', page: 'about' as const, href: '#about' },
     { label: 'FAQ', page: 'faq' as const, href: '#faq' },
   ];
 
@@ -51,6 +51,10 @@ export const Navbar: React.FC<NavbarProps> = ({
     } else if (link.page === 'pricing' && onNavigate) {
       e.preventDefault();
       onNavigate('pricing');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (link.page === 'about' && onNavigate) {
+      e.preventDefault();
+      onNavigate('about');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (link.page === 'faq' && onNavigate) {
       e.preventDefault();

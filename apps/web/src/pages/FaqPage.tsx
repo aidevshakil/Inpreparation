@@ -29,6 +29,7 @@ interface FaqPageProps {
   onNavigateToHowItWorks: () => void;
   onNavigateToSimulations: () => void;
   onNavigateToPricing: () => void;
+  onNavigateToAbout?: () => void;
   onNavigateToAi?: () => void;
 }
 
@@ -51,6 +52,7 @@ export const FaqPage: React.FC<FaqPageProps> = ({
   onNavigateToHowItWorks,
   onNavigateToSimulations,
   onNavigateToPricing,
+  onNavigateToAbout,
   onNavigateToAi
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -374,13 +376,15 @@ export const FaqPage: React.FC<FaqPageProps> = ({
       <Navbar
         onStartPractice={handleStartPractice}
         onNavigateToAi={onNavigateToAi}
-        currentPage="home"
+        currentPage="faq"
         onNavigate={(page) => {
           if (page === 'home') onNavigateToHome();
           if (page === 'features') onNavigateToFeatures();
           if (page === 'how-it-works') onNavigateToHowItWorks();
           if (page === 'simulations') onNavigateToSimulations();
           if (page === 'pricing') onNavigateToPricing();
+          if (page === 'about' && onNavigateToAbout) onNavigateToAbout();
+          if (page === 'chat' && onNavigateToAi) onNavigateToAi();
         }}
       />
 
@@ -388,7 +392,7 @@ export const FaqPage: React.FC<FaqPageProps> = ({
         {/* ========================================================
             HERO SECTION: Questions? We've Got Answers.
         ======================================================== */}
-        <section style={{ padding: '60px 0 50px', position: 'relative', overflow: 'hidden' }}>
+        <section style={{ padding: '70px 0 50px', position: 'relative', overflow: 'hidden' }}>
           <div className="bg-ambient-glow" style={{ top: '-15%', left: '20%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(124, 58, 237, 0.35) 0%, transparent 70%)' }} />
           <div className="bg-ambient-glow" style={{ top: '30%', right: '15%', width: '450px', height: '450px', background: 'radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, transparent 70%)' }} />
 
@@ -396,12 +400,12 @@ export const FaqPage: React.FC<FaqPageProps> = ({
             <div style={{ marginBottom: '18px' }}>
               <span className="badge-pill badge-purple">
                 <Sparkles size={14} color="#c084fc" />
-                HELP CENTER & KNOWLEDGE BASE
+                HELP CENTER • KNOWLEDGE BASE
               </span>
             </div>
 
             <h1 style={{
-              fontSize: 'clamp(36px, 5vw, 60px)',
+              fontSize: 'clamp(36px, 5.5vw, 62px)',
               fontWeight: 800,
               letterSpacing: '-0.03em',
               lineHeight: 1.15,
@@ -416,14 +420,13 @@ export const FaqPage: React.FC<FaqPageProps> = ({
             </h1>
 
             <p style={{
-              fontSize: '18px',
+              fontSize: '17px',
               color: '#94a3b8',
               lineHeight: 1.7,
-              maxWidth: '740px',
+              maxWidth: '780px',
               margin: '0 auto 32px'
             }}>
-              Find clear, in-depth answers to everything about InPrep AI, how your AI simulations are scored,
-              and the privacy safeguards behind your audio & video evaluations.
+              Learn how Inprep.AI evaluates your interview performance, how your AI credits work, and the steps your career journey will undergo with our continuous performance calibration.
             </p>
 
             <div style={{
@@ -436,18 +439,18 @@ export const FaqPage: React.FC<FaqPageProps> = ({
               <button
                 onClick={() => handleStartPractice()}
                 className="btn-primary"
-                style={{ fontSize: '16px', padding: '15px 34px' }}
+                style={{ fontSize: '15px', padding: '14px 30px', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
               >
-                <span>Start Free Practice</span>
-                <ArrowRight size={18} />
+                <span>Start Practicing Free</span>
+                <ArrowRight size={16} />
               </button>
 
               <button
-                onClick={() => setIsDemoOpen(true)}
+                onClick={onNavigateToSimulations}
                 className="btn-secondary"
-                style={{ fontSize: '15px', padding: '15px 28px' }}
+                style={{ fontSize: '15px', padding: '14px 26px' }}
               >
-                <span>Explore Help Center</span>
+                <span>Explore Role Tracks</span>
               </button>
             </div>
 
@@ -456,7 +459,7 @@ export const FaqPage: React.FC<FaqPageProps> = ({
               display: 'flex',
               flexWrap: 'wrap',
               justifyContent: 'center',
-              gap: '24px',
+              gap: '16px 24px',
               paddingTop: '20px',
               borderTop: '1px solid rgba(255, 255, 255, 0.08)',
               color: '#cbd5e1',
@@ -464,19 +467,19 @@ export const FaqPage: React.FC<FaqPageProps> = ({
               fontWeight: 500
             }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <ShieldCheck size={16} color="#10b981" /> 100% Privacy Protected
+                <ShieldCheck size={16} color="#06b6d4" /> CV-Contextualized Practice
               </span>
               <span style={{ color: '#475569' }}>•</span>
               <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Zap size={16} color="#818cf8" /> Ultra-low Latency Voice (&lt;300ms)
+                <Zap size={16} color="#818cf8" /> Multimodal Feedback
               </span>
               <span style={{ color: '#475569' }}>•</span>
               <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Layers size={16} color="#06b6d4" /> 500+ Curated Question Packs
+                <Layers size={16} color="#c084fc" /> 500+ Role Frameworks
               </span>
               <span style={{ color: '#475569' }}>•</span>
               <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Award size={16} color="#f59e0b" /> Multi-dimensional Rubrics
+                <Award size={16} color="#10b981" /> Private & Candidate-Centric
               </span>
             </div>
           </div>
@@ -509,7 +512,7 @@ export const FaqPage: React.FC<FaqPageProps> = ({
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search for a question (e.g. How does AI scoring work?, Can I upload my resume?, Camera privacy)..."
+                  placeholder='Search for questions (e.g. "How does AI scoring work?", "What is the 5-Question...")...'
                   style={{
                     background: 'transparent',
                     border: 'none',
@@ -532,12 +535,14 @@ export const FaqPage: React.FC<FaqPageProps> = ({
 
               {/* Quick tags */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 600 }}>Popular:</span>
+                <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 600 }}>Try:</span>
                 {[
-                  'How is speech cadence evaluated?',
-                  'Can I practice without webcam?',
-                  'Is my video recording stored?',
-                  'What is the STAR method?'
+                  'How to start',
+                  'Multimodal overview',
+                  'Computer Vision & privacy',
+                  'Answer blueprints',
+                  'AI credits & billing',
+                  'Responsible AI & privacy'
                 ].map((tag, idx) => (
                   <button
                     key={idx}
@@ -641,26 +646,30 @@ export const FaqPage: React.FC<FaqPageProps> = ({
                   background: 'linear-gradient(135deg, #13192b 0%, #0b0f19 100%)',
                   border: '1px solid rgba(99, 102, 241, 0.3)',
                   borderRadius: '18px',
-                  padding: '24px',
+                  padding: '22px',
                   boxShadow: '0 15px 35px rgba(0, 0, 0, 0.5)'
                 }}>
                   <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'rgba(99, 102, 241, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '12px' }}>
                     <Sparkles size={18} color="#818cf8" />
                   </div>
                   <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#f8fafc', marginBottom: '6px' }}>
-                    Start Your Simulation Loop
+                    Start your simulation today
                   </h3>
                   <p style={{ fontSize: '12px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '16px' }}>
-                    Experience real-world engineering and behavioral pressure with authentic AI interviewer feedback.
+                    Experience realistic live interview simulations with instant multimodal feedback and step-by-step model answer blueprints.
                   </p>
                   <button
                     onClick={() => handleStartPractice()}
                     className="btn-primary btn-sm"
-                    style={{ width: '100%', justifyContent: 'center' }}
+                    style={{ width: '100%', justifyContent: 'center', marginBottom: '10px' }}
                   >
-                    <span>Launch Engineering Mock</span>
+                    <span>Student Engineering Pack</span>
                     <ArrowRight size={13} />
                   </button>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#64748b' }}>
+                    <span>Avg. session: ~15 min</span>
+                    <span>3 Free</span>
+                  </div>
                 </div>
               </div>
 
@@ -797,13 +806,13 @@ export const FaqPage: React.FC<FaqPageProps> = ({
             }}>
               <div>
                 <span className="badge-pill badge-cyan" style={{ marginBottom: '8px' }}>
-                  24/7 CANDIDATE SUCCESS
+                  Need Personalized Guidance?
                 </span>
                 <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#f8fafc', marginTop: '4px' }}>
                   Still Can't Find Your Answer?
                 </h3>
-                <p style={{ fontSize: '13px', color: '#94a3b8', marginTop: '2px' }}>
-                  Our engineering and career coaching team are available around the clock.
+                <p style={{ fontSize: '13px', color: '#94a3b8', marginTop: '2px', maxWidth: '600px' }}>
+                  Our engineering and interview coaching teams are available 24/7. Get custom assistance with technical difficulties or custom rubric requests.
                 </p>
               </div>
 
@@ -823,7 +832,7 @@ export const FaqPage: React.FC<FaqPageProps> = ({
                   style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
                 >
                   <BookOpen size={14} />
-                  <span>Knowledge Base Docs</span>
+                  <span>Knowledge Center</span>
                 </button>
               </div>
             </div>
@@ -845,49 +854,62 @@ export const FaqPage: React.FC<FaqPageProps> = ({
               overflow: 'hidden',
               boxShadow: '0 30px 70px -15px rgba(0, 0, 0, 0.8), 0 0 50px rgba(124, 58, 237, 0.3)'
             }}>
-              <div style={{ position: 'relative', zIndex: 2, maxWidth: '720px', margin: '0 auto' }}>
-                <span className="badge-pill badge-purple" style={{ marginBottom: '16px' }}>
-                  <Sparkles size={13} color="#c084fc" />
-                  ACCELERATE YOUR INTERVIEW READINESS
-                </span>
+              <div style={{ position: 'relative', zIndex: 2, maxWidth: '760px', margin: '0 auto' }}>
+                <div style={{
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '12px',
+                  background: 'linear-gradient(135deg, #7c3aed 0%, #38bdf8 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 16px',
+                  boxShadow: '0 0 20px rgba(124, 58, 237, 0.5)'
+                }}>
+                  <Sparkles size={24} color="#ffffff" />
+                </div>
 
                 <h2 style={{
-                  fontSize: 'clamp(32px, 5vw, 48px)',
+                  fontSize: 'clamp(30px, 4.5vw, 44px)',
                   fontWeight: 800,
                   color: '#ffffff',
                   letterSpacing: '-0.03em',
                   lineHeight: 1.2,
-                  marginBottom: '18px'
+                  marginBottom: '16px'
                 }}>
                   Ready to Practice Your Next Interview?
                 </h2>
 
                 <p style={{
-                  fontSize: '17px',
+                  fontSize: '16px',
                   color: '#cbd5e1',
                   lineHeight: 1.7,
-                  marginBottom: '36px'
+                  marginBottom: '32px'
                 }}>
-                  Simulate real-world engineering pressure, master structured communication, and land top offers.
+                  Stop second-guessing how you perform. Practice under realistic pressure, receive structured multimodal feedback, and improve with every single attempt.
                 </p>
 
-                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '16px' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '16px', marginBottom: '20px' }}>
                   <button
                     onClick={() => handleStartPractice()}
                     className="btn-primary"
-                    style={{ fontSize: '16px', padding: '15px 34px' }}
+                    style={{ fontSize: '15px', padding: '14px 32px', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                   >
-                    <span>Start Free Practice</span>
-                    <ArrowRight size={18} />
+                    <span>Start Practicing Free</span>
+                    <ArrowRight size={16} />
                   </button>
 
                   <button
                     onClick={onNavigateToSimulations}
                     className="btn-secondary"
-                    style={{ fontSize: '15px', padding: '15px 28px' }}
+                    style={{ fontSize: '15px', padding: '14px 26px' }}
                   >
                     <span>Explore Interview Tracks</span>
                   </button>
+                </div>
+
+                <div style={{ fontSize: '12px', color: '#64748b' }}>
+                  Zero credit card required • Instant 2-minute setup • 100% private
                 </div>
               </div>
             </div>
