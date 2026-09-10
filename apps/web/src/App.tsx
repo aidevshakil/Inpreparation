@@ -5,10 +5,11 @@ import { HowItWorksPage } from './pages/HowItWorksPage';
 import { SimulationsPage } from './pages/SimulationsPage';
 import { PricingPage } from './pages/PricingPage';
 import { FaqPage } from './pages/FaqPage';
+import { AboutPage } from './pages/AboutPage';
 import { AiChatPage } from './pages/AiChatPage';
 
 export function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'chat'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat'>('home');
 
   return (
     <main>
@@ -74,6 +75,19 @@ export function App() {
           onNavigateToHowItWorks={() => setCurrentPage('how-it-works')}
           onNavigateToSimulations={() => setCurrentPage('simulations')}
           onNavigateToPricing={() => setCurrentPage('pricing')}
+          onNavigateToAbout={() => setCurrentPage('about')}
+          onNavigateToAi={() => setCurrentPage('chat')}
+        />
+      )}
+
+      {currentPage === 'about' && (
+        <AboutPage
+          onNavigateToHome={() => setCurrentPage('home')}
+          onNavigateToFeatures={() => setCurrentPage('features')}
+          onNavigateToHowItWorks={() => setCurrentPage('how-it-works')}
+          onNavigateToSimulations={() => setCurrentPage('simulations')}
+          onNavigateToPricing={() => setCurrentPage('pricing')}
+          onNavigateToFaq={() => setCurrentPage('faq')}
           onNavigateToAi={() => setCurrentPage('chat')}
         />
       )}
