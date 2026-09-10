@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Menu, X, Bot, ArrowRight, Video } from 'lucide-react';
+import { Sparkles, Menu, X, Bot, ArrowRight, Video, Layers, Home } from 'lucide-react';
 
 interface NavbarProps {
   onStartPractice: (role?: string) => void;
   onNavigateToAi?: () => void;
+  currentPage?: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'chat';
+  onNavigate?: (page: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'chat') => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onStartPractice, onNavigateToAi }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  onStartPractice,
+  onNavigateToAi,
+  currentPage = 'home',
+  onNavigate
+}) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -19,15 +26,46 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartPractice, onNavigateToAi 
   }, []);
 
   const navLinks = [
-    { label: 'Overview', href: '#hero' },
-    { label: 'Why InPrep', href: '#pillars' },
-    { label: 'Journey', href: '#journey' },
-    { label: 'AI Analytics', href: '#analysis' },
-    { label: 'Simulations', href: '#simulations' },
-    { label: 'Model Answers', href: '#model-answers' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'FAQ', href: '#faq' },
+    { label: 'Overview', page: 'home' as const, href: '#hero' },
+    { label: 'How It Works', page: 'how-it-works' as const, href: '#how-it-works' },
+    { label: 'Platform Features', page: 'features' as const, href: '#features' },
+    { label: 'Simulations', page: 'simulations' as const, href: '#simulations' },
+    { label: 'Dimensions', page: 'home' as const, href: '#analysis' },
+    { label: 'Pricing', page: 'pricing' as const, href: '#pricing' },
+    { label: 'FAQ', page: 'faq' as const, href: '#faq' },
   ];
+
+  const handleLinkClick = (link: typeof navLinks[0], e: React.MouseEvent) => {
+    if (link.page === 'features' && onNavigate) {
+      e.preventDefault();
+      onNavigate('features');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (link.page === 'how-it-works' && onNavigate) {
+      e.preventDefault();
+      onNavigate('how-it-works');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (link.page === 'simulations' && onNavigate) {
+      e.preventDefault();
+      onNavigate('simulations');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (link.page === 'pricing' && onNavigate) {
+      e.preventDefault();
+      onNavigate('pricing');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (link.page === 'faq' && onNavigate) {
+      e.preventDefault();
+      onNavigate('faq');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (link.page === 'home' && currentPage !== 'home' && onNavigate) {
+      if (link.label === 'Overview') {
+        e.preventDefault();
+        onNavigate('home');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        onNavigate('home');
+      }
+    }
+  };
 
   return (
     <>
@@ -97,7 +135,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartPractice, onNavigateToAi 
           height: '74px'
         }}>
           {/* Brand Logo */}
-          <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
+          <div
+            onClick={() => onNavigate && onNavigate('home')}
+            style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', textDecoration: 'none' }}
+          >
             <div style={{
               width: '36px',
               height: '36px',
@@ -118,7 +159,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartPractice, onNavigateToAi 
                 Interview Mastery
               </span>
             </div>
-          </a>
+          </div>
 
           {/* Desktop Nav Links */}
           <nav style={{
@@ -126,26 +167,68 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartPractice, onNavigateToAi 
             alignItems: 'center',
             gap: '24px',
           }} className="desktop-nav">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                style={{
-                  color: '#94a3b8',
-                  fontSize: '14px',
-                  fontWeight: 500,
-                  transition: 'color 0.2s ease',
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#f8fafc')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = '#94a3b8')}
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = (link.page === 'features' && currentPage === 'features') ||
+                               (link.label === 'Overview' && currentPage === 'home');
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleLinkClick(link, e)}
+                  style={{
+                    color: isActive ? '#f8fafc' : '#94a3b8',
+                    fontSize: '14px',
+                    fontWeight: isActive ? 700 : 500,
+                    transition: 'color 0.2s ease',
+                    position: 'relative',
+                    cursor: 'pointer'
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#f8fafc')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = isActive ? '#f8fafc' : '#94a3b8')}
+                >
+                  {link.label}
+                  {isActive && (
+                    <span style={{
+                      position: 'absolute',
+                      bottom: '-6px',
+                      left: 0,
+                      right: 0,
+                      height: '2px',
+                      background: 'linear-gradient(90deg, #818cf8 0%, #06b6d4 100%)',
+                      borderRadius: '1px'
+                    }} />
+                  )}
+                </a>
+              );
+            })}
           </nav>
 
           {/* Right Action Area */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            {onNavigate && currentPage !== 'features' && (
+              <button
+                onClick={() => onNavigate('features')}
+                className="btn-secondary btn-sm"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                title="View Full Platform Features"
+              >
+                <Layers size={15} color="#06b6d4" />
+                <span>Deep Dive</span>
+              </button>
+            )}
+
+            {onNavigate && currentPage === 'features' && (
+              <button
+                onClick={() => onNavigate('home')}
+                className="btn-secondary btn-sm"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                title="Return to Home Overview"
+              >
+                <Home size={15} color="#818cf8" />
+                <span>Home</span>
+              </button>
+            )}
+
             {onNavigateToAi && (
               <button
                 onClick={onNavigateToAi}
@@ -204,7 +287,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartPractice, onNavigateToAi 
               <a
                 key={link.label}
                 href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => {
+                  setMobileMenuOpen(false);
+                  handleLinkClick(link, e);
+                }}
                 style={{
                   color: '#cbd5e1',
                   fontSize: '15px',
