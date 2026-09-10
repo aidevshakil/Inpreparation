@@ -18,9 +18,17 @@ import { DemoVideoModal } from '../components/DemoVideoModal';
 
 interface HomePageProps {
   onNavigateToAi?: () => void;
+  onNavigateToFeatures?: () => void;
+  onNavigateToHowItWorks?: () => void;
+  onNavigateToSimulations?: () => void;
 }
 
-export const HomePage: React.FC<HomePageProps> = ({ onNavigateToAi }) => {
+export const HomePage: React.FC<HomePageProps> = ({
+  onNavigateToAi,
+  onNavigateToFeatures,
+  onNavigateToHowItWorks,
+  onNavigateToSimulations
+}) => {
   const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState('Senior Frontend Engineer');
   const [isDemoOpen, setIsDemoOpen] = useState(false);
@@ -42,6 +50,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigateToAi }) => {
       <Navbar
         onStartPractice={handleStartPractice}
         onNavigateToAi={onNavigateToAi}
+        currentPage="home"
+        onNavigate={(page) => {
+          if (page === 'features' && onNavigateToFeatures) onNavigateToFeatures();
+          if (page === 'how-it-works' && onNavigateToHowItWorks) onNavigateToHowItWorks();
+          if (page === 'simulations' && onNavigateToSimulations) onNavigateToSimulations();
+        }}
       />
 
       {/* Main Landing Page Content */}
