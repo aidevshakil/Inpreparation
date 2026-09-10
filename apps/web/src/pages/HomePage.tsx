@@ -1,48 +1,116 @@
-import React from 'react';
-import { Card, Button } from '@packages/ui';
+import React, { useState } from 'react';
+import { Navbar } from '../components/Navbar';
+import { HeroSection } from '../components/HeroSection';
+import { StatsBanner } from '../components/StatsBanner';
+import { ProblemSolutionSection } from '../components/ProblemSolutionSection';
+import { JourneySection } from '../components/JourneySection';
+import { AiAnalysisMatrix } from '../components/AiAnalysisMatrix';
+import { TrackSimulationsSection } from '../components/TrackSimulationsSection';
+import { ModelAnswerSection } from '../components/ModelAnswerSection';
+import { ConfidenceTrackerSection } from '../components/ConfidenceTrackerSection';
+import { ComparisonTableSection } from '../components/ComparisonTableSection';
+import { PricingSection } from '../components/PricingSection';
+import { FaqSection } from '../components/FaqSection';
+import { CtaBanner } from '../components/CtaBanner';
+import { Footer } from '../components/Footer';
+import { LiveSimulationModal } from '../components/LiveSimulationModal';
+import { DemoVideoModal } from '../components/DemoVideoModal';
 
 interface HomePageProps {
-  onNavigateToAi: () => void;
+  onNavigateToAi?: () => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigateToAi }) => {
+  const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState('Senior Frontend Engineer');
+  const [isDemoOpen, setIsDemoOpen] = useState(false);
+
+  const handleStartPractice = (role?: string) => {
+    if (role) {
+      setSelectedRole(role);
+    }
+    setIsSimulatorOpen(true);
+  };
+
+  const handleSelectPlan = (_planName: string) => {
+    handleStartPractice();
+  };
+
   return (
-    <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '48px 24px' }}>
-      <header style={{ textAlign: 'center', marginBottom: '48px' }}>
-        <h1 style={{ fontSize: '42px', fontWeight: 800, marginBottom: '16px', background: 'linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-          Welcome to the Monorepo Web Client
-        </h1>
-        <p style={{ fontSize: '18px', color: '#94a3b8', maxWidth: '600px', margin: '0 auto' }}>
-          Connect seamlessly to the unified Python AI microservice, shared component library, and cross-platform backend.
-        </p>
-      </header>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      {/* Sticky Top Navigation */}
+      <Navbar
+        onStartPractice={handleStartPractice}
+        onNavigateToAi={onNavigateToAi}
+      />
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '40px' }}>
-        <Card title="⚡ AI Assistant Engine" badge="Live AI" subtitle="Interact with LLM Chat and RAG">
-          <p style={{ color: '#cbd5e1', fontSize: '14px', lineHeight: 1.6, margin: '16px 0 20px' }}>
-            Direct integration with the FastAPI AI backend running at <code>services/ai-service</code>.
-          </p>
-          <Button onClick={onNavigateToAi}>Open AI Chat</Button>
-        </Card>
+      {/* Main Landing Page Content */}
+      <main style={{ flex: 1 }}>
+        {/* 1. Hero Section with Live Mockup */}
+        <HeroSection
+          onStartPractice={handleStartPractice}
+          onOpenDemo={() => setIsDemoOpen(true)}
+        />
 
-        <Card title="📱 Flutter Mobile App" badge="Mobile" subtitle="Cross-platform iOS & Android">
-          <p style={{ color: '#cbd5e1', fontSize: '14px', lineHeight: 1.6, margin: '16px 0 20px' }}>
-            Shared API contracts, feature-first architecture located under <code>apps/mobile</code>.
-          </p>
-          <Button variant="outline" onClick={() => alert('Start flutter app: cd apps/mobile && flutter run')}>
-            Explore Mobile
-          </Button>
-        </Card>
+        {/* 2. Stats and Metrics Counter */}
+        <StatsBanner />
 
-        <Card title="📊 Admin Dashboard" badge="Admin" subtitle="Analytics & System Operations">
-          <p style={{ color: '#cbd5e1', fontSize: '14px', lineHeight: 1.6, margin: '16px 0 20px' }}>
-            Dedicated React administrative control panel located at <code>apps/admin</code>.
-          </p>
-          <Button variant="outline" onClick={() => window.open('http://localhost:5174', '_blank')}>
-            Open Admin
-          </Button>
-        </Card>
-      </div>
+        {/* 3. Problem / Solution Pillars (4 Rubric Dimensions) */}
+        <ProblemSolutionSection />
+
+        {/* 4. Complete Practice Journey (01 to 06 Steps) */}
+        <JourneySection
+          onStartPractice={handleStartPractice}
+        />
+
+        {/* 5. Deep Multi-Modal AI Evaluation Matrix */}
+        <AiAnalysisMatrix />
+
+        {/* 6. Targeted Track Simulations & Interactive Scorecards */}
+        <TrackSimulationsSection
+          onStartPractice={handleStartPractice}
+        />
+
+        {/* 7. Side-by-Side Model Answers vs Transcribed Feedback */}
+        <ModelAnswerSection />
+
+        {/* 8. Confidence Tracker & Growth Trajectory Chart */}
+        <ConfidenceTrackerSection />
+
+        {/* 9. Comparison with Generic Chatbots and Traditional Mocks */}
+        <ComparisonTableSection />
+
+        {/* 10. Predictable Transparent Pricing Plans */}
+        <PricingSection
+          onSelectPlan={handleSelectPlan}
+        />
+
+        {/* 11. Frequently Asked Questions (FAQ) */}
+        <FaqSection />
+
+        {/* 12. High-Impact Bottom CTA Banner */}
+        <CtaBanner
+          onStartPractice={() => handleStartPractice()}
+          onOpenEnterprise={() => alert("Thank you! Our enterprise solutions team will reach out promptly.")}
+        />
+      </main>
+
+      {/* Global Footer */}
+      <Footer />
+
+      {/* Live AI Interview Simulator Modal (Fully Functional) */}
+      <LiveSimulationModal
+        isOpen={isSimulatorOpen}
+        onClose={() => setIsSimulatorOpen(false)}
+        initialRole={selectedRole}
+      />
+
+      {/* 2-Min Product Demo Modal */}
+      <DemoVideoModal
+        isOpen={isDemoOpen}
+        onClose={() => setIsDemoOpen(false)}
+        onStartPractice={() => handleStartPractice()}
+      />
     </div>
   );
 };
