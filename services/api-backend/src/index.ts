@@ -9,6 +9,9 @@ import express from 'express';
 import cors from 'cors';
 import { userRouter } from './routes/user.routes';
 import { aiRouter } from './routes/ai.routes';
+import { simulationRouter } from './routes/simulation.routes';
+import { resumeRouter } from './routes/resume.routes';
+import { authRouter } from './routes/auth.routes';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -19,6 +22,9 @@ app.use(express.json());
 // Mount API Routes
 app.use('/api/users', userRouter);
 app.use('/api/ai', aiRouter);
+app.use('/api/simulations', simulationRouter);
+app.use('/api/resumes', resumeRouter);
+app.use('/api/auth', authRouter);
 
 // Health check
 app.get('/api/health', (req, res) => {
