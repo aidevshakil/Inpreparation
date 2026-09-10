@@ -1,0 +1,33 @@
+{
+  "name": "inpreparation-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Unified monorepo for Flutter mobile, React web, React admin, and Python AI service",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:backend": "pnpm --filter @service/api-backend dev",
+    "dev:web": "pnpm --filter @app/web dev",
+    "dev:admin": "pnpm --filter @app/admin dev",
+    "dev:ai": "cd services/ai-service && uvicorn app.main:app --reload --port 8000",
+    "dev:mobile": "cd apps/mobile && flutter run",
+    "db:generate": "pnpm --filter @packages/database db:generate",
+    "db:push": "pnpm --filter @packages/database db:push",
+    "db:studio": "pnpm --filter @packages/database db:studio",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "test:ai": "cd services/ai-service && pytest",
+    "test:mobile": "cd apps/mobile && flutter test",
+    "clean": "turbo run clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "turbo": "^2.4.0",
+    "prettier": "^3.5.0",
+    "typescript": "^5.7.0"
+  },
+  "packageManager": "pnpm@9.15.0"
+}
