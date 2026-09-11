@@ -1,112 +1,118 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
-export const FaqSection: React.FC = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+interface FaqItem {
+  q: string;
+  a: string;
+}
 
-  const faqs = [
-    {
-      q: 'How realistic are the AI interviewers?',
-      a: 'Our AI interviewers utilize ultra-low latency conversational voice models coupled with state-of-the-art reasoning engines. They do not just read scripted questions; they actively listen to your answers, detect ambiguities or missing trade-offs, and dynamically ask contextual follow-up questions just like real human hiring managers.'
-    },
-    {
-      q: 'Can I upload my resume and target job description?',
-      a: 'Yes! In the Pro and Career Fast-Track tiers, you can paste any custom Job Description (JD) and upload your resume. InPrep AI will parse key competencies and calibrate all mock questions specifically around your target role and background.'
-    },
-    {
-      q: 'What camera and microphone setup do I need?',
-      a: 'Any standard laptop webcam or USB camera and microphone will work effortlessly in your browser. No software downloads or extensions are required. If you prefer, you can also practice in text/audio-only mode.'
-    },
-    {
-      q: 'How does the body language and eye contact tracking work?',
-      a: 'Our computer vision engine runs locally in your browser using secure client-side models. It analyzes facial alignment, eye gaze consistency toward the camera, and postural steadiness to help you eliminate nervous habits without storing your raw video on external servers.'
-    },
-    {
-      q: 'Is my audio, video, and personal data secure and private?',
-      a: 'Absolutely. We adhere to enterprise-grade security and privacy protocols. We do not sell your data or use your interview recordings to train public third-party foundation models. You can purge your practice transcripts anytime with 1-click.'
-    },
-    {
-      q: 'Can I practice coding and system design whiteboard sessions?',
-      a: 'Yes! InPrep AI provides integrated code evaluation sandboxes and interactive architecture whiteboard tools where you can draw system blocks, define API schemas, and explain trade-offs to the AI interviewer in real-time.'
-    }
-  ];
+const FAQS: FaqItem[] = [
+  {
+    q: 'What is Inprep AI and who is it built for?',
+    a: 'Inprep AI is a multimodal interview preparation studio built for software engineers, tech leads, engineering managers, and tech professionals. It combines realistic conversational voice AI interviewers with objective setup diagnostics to simulate real-world hiring bars and deliver actionable, rubrics-based feedback.'
+  },
+  {
+    q: 'Why are interviews strictly 5 questions per practice session?',
+    a: 'We purposefully structure practice into calibrated 5-question rounds (~15 minutes). Cognitive science proves that focused, deliberate practice with immediate post-session feedback loops yields 3x faster skill retention and confidence gains than exhausting 60-minute marathons.'
+  },
+  {
+    q: 'Does Inprep AI analyze my emotions or personality?',
+    a: 'No. We uphold strict ethical AI standards with an explicit No-Personality and No-Emotion guarantee. Our camera telemetry analyzes only objective physical setup factors—such as camera eye-level framing, room lighting, and gaze orientation—with zero psychological or emotional conjecture.'
+  },
+  {
+    q: 'Can I upload my CV to tailor the questions?',
+    a: 'Yes! Inprep AI automatically parses your uploaded CV/resume and optional target Job Description (JD) to calibrate question difficulty, architecture trade-offs, and technical domain depth specifically around your background and target role.'
+  }
+];
+
+export const FaqSection: React.FC = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFaq = (idx: number) => {
     setOpenIndex(openIndex === idx ? null : idx);
   };
 
   return (
-    <section id="faq" style={{ padding: '80px 0', position: 'relative' }}>
-      <div className="container-narrow">
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <span className="badge-pill badge-purple" style={{ marginBottom: '14px' }}>
-            FREQUENTLY ASKED QUESTIONS
+    <section id="faq" style={{ padding: '70px 0 80px', position: 'relative' }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 24px' }}>
+        {/* Section Header */}
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <span style={{
+            fontSize: '11px',
+            fontWeight: 700,
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            color: '#38bdf8',
+            display: 'block',
+            marginBottom: '12px'
+          }}>
+            FREQUENTLY ANSWERED
           </span>
+
           <h2 style={{
             fontSize: 'clamp(28px, 4vw, 42px)',
             fontWeight: 800,
-            letterSpacing: '-0.02em',
-            marginBottom: '16px',
+            color: '#ffffff',
+            letterSpacing: '-0.025em',
             lineHeight: 1.2
           }}>
-            Questions About InPrep AI
+            Questions About Inprep AI
           </h2>
-          <p style={{ fontSize: '16px', color: '#94a3b8' }}>
-            Everything you need to know about the product, simulations, and privacy.
-          </p>
         </div>
 
         {/* FAQ Accordion List */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-          {faqs.map((faq, idx) => {
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {FAQS.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div
                 key={idx}
-                className="glass-card"
                 style={{
-                  padding: '0',
-                  background: isOpen ? '#131828' : '#0e121c',
-                  borderColor: isOpen ? 'rgba(99, 102, 241, 0.4)' : 'rgba(255, 255, 255, 0.07)',
-                  transition: 'all 0.25s ease'
+                  background: 'rgba(15, 21, 35, 0.65)',
+                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  borderRadius: '14px',
+                  backdropFilter: 'blur(12px)',
+                  overflow: 'hidden',
+                  transition: 'border-color 0.2s ease, background 0.2s ease'
                 }}
               >
                 <button
                   onClick={() => toggleFaq(idx)}
                   style={{
                     width: '100%',
-                    padding: '22px 24px',
+                    padding: '20px 24px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     background: 'transparent',
                     border: 'none',
-                    color: '#f8fafc',
-                    fontSize: '16px',
-                    fontWeight: 700,
+                    color: '#ffffff',
+                    fontSize: '15px',
+                    fontWeight: 600,
                     textAlign: 'left',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    gap: '16px'
                   }}
                 >
-                  <span>{faq.q}</span>
+                  <span style={{ lineHeight: 1.4 }}>{faq.q}</span>
                   <div style={{
                     transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                     transition: 'transform 0.25s ease',
-                    color: isOpen ? '#818cf8' : '#64748b'
+                    color: isOpen ? '#818cf8' : '#64748b',
+                    flexShrink: 0
                   }}>
-                    <ChevronDown size={20} />
+                    <ChevronDown size={18} />
                   </div>
                 </button>
 
                 {isOpen && (
                   <div style={{
-                    padding: '0 24px 22px',
+                    padding: '0 24px 20px',
                     color: '#94a3b8',
-                    fontSize: '14px',
-                    lineHeight: 1.7,
-                    borderTop: '1px solid rgba(255, 255, 255, 0.05)',
-                    paddingTop: '16px'
+                    fontSize: '13.5px',
+                    lineHeight: 1.65,
+                    borderTop: '1px solid rgba(255, 255, 255, 0.04)',
+                    paddingTop: '14px'
                   }}>
                     {faq.a}
                   </div>

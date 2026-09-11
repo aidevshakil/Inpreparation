@@ -812,12 +812,13 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
               </button>
 
               <button
-                onClick={() => alert("Diagnostic Scorecard PDF download prepared!")}
+                onClick={() => window.print()}
                 className="btn-primary"
                 style={{ flex: 1, justifyContent: 'center' }}
+                title="Print or Save as PDF"
               >
                 <FileText size={15} />
-                <span>Download Detailed PDF Report</span>
+                <span>Save Diagnostic PDF Report</span>
               </button>
             </div>
           </div>

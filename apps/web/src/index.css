@@ -52,6 +52,13 @@ html {
 body {
   font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: var(--bg-main);
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.12) 0%, transparent 60%),
+    radial-gradient(circle at 100% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 0% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+    radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 28px 28px;
+  background-position: 0 0, 0 0, 0 0, -14px -14px;
   color: var(--text-main);
   line-height: 1.6;
   min-height: 100vh;
@@ -278,7 +285,68 @@ body {
   to { opacity: 1; }
 }
 
+@keyframes scanline {
+  0% { transform: translateY(0); opacity: 0.8; }
+  50% { opacity: 0.3; }
+  100% { transform: translateY(120px); opacity: 0.8; }
+}
+
+@keyframes liveWave {
+  0%, 100% { height: 4px; }
+  50% { height: 18px; }
+}
+
+.animate-scanline {
+  animation: scanline 2.5s ease-in-out infinite;
+}
+
+.animate-wave-bar {
+  animation: liveWave 1.2s ease-in-out infinite;
+}
+
+.glow-card-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glow-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 35px rgba(124, 58, 237, 0.25);
+  border-color: rgba(139, 92, 246, 0.5) !important;
+}
+
 /* Code and mono typography */
 .font-mono {
   font-family: 'JetBrains Mono', monospace;
 }
+
+/* Responsive Mobile Navigation & Layout Styles */
+@media (max-width: 900px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .mobile-toggle {
+    display: inline-flex !important;
+  }
+  .nav-login-btn {
+    display: none !important;
+  }
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 32px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+  .nav-cta-btn {
+    padding: 8px 14px !important;
+    font-size: 12px !important;
+  }
+  .container {
+    padding: 0 16px !important;
+  }
+}
+

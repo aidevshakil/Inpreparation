@@ -1,186 +1,263 @@
 import React from 'react';
-import { Check, X, Sparkles } from 'lucide-react';
+import { Eye, CameraOff, Ban, Lock } from 'lucide-react';
+
+interface ComparisonRow {
+  dimension: string;
+  inprep: string;
+  generic: string;
+}
+
+const COMPARISON_ROWS: ComparisonRow[] = [
+  {
+    dimension: 'Evaluation Format',
+    inprep: 'Multimodal (Video, Audio, Tech, Delivery)',
+    generic: 'Text prompt only'
+  },
+  {
+    dimension: 'Interview Length',
+    inprep: 'Strict 5-Question Calibrated Rounds (~15m)',
+    generic: 'Endless open-ended chatting'
+  },
+  {
+    dimension: 'Computer Vision Diagnostics',
+    inprep: 'Objective Framing & Setup Telemetry',
+    generic: 'None'
+  },
+  {
+    dimension: 'Ethical Standards',
+    inprep: 'Explicit No-Personality/Emotion Guarantee',
+    generic: 'Unregulated emotion inference'
+  },
+  {
+    dimension: 'Feedback Depth',
+    inprep: 'Actionable 5-part comparative model answers',
+    generic: 'Generic "Great job!" responses'
+  }
+];
+
+const ETHICAL_PILLARS = [
+  {
+    icon: Eye,
+    iconColor: '#38bdf8',
+    title: 'Transparent Analysis',
+    desc: 'Every metric is accompanied by exact timestamps and rationale.'
+  },
+  {
+    icon: CameraOff,
+    iconColor: '#a855f7',
+    title: 'Observable Only',
+    desc: 'Camera metrics evaluate physical setup factors, never facial expressions.'
+  },
+  {
+    icon: Ban,
+    iconColor: '#38bdf8',
+    title: 'No Profiling',
+    desc: 'Strict prohibition on psychological, emotional, or honesty conjecture.'
+  },
+  {
+    icon: Lock,
+    iconColor: '#34d399',
+    title: 'Candidate Privacy',
+    desc: 'Zero candidate video is ever used to train public foundational models.'
+  }
+];
 
 export const ComparisonTableSection: React.FC = () => {
-  const comparisons = [
-    {
-      feature: 'Real-time Conversational Voice (<300ms Latency)',
-      inprep: true,
-      generic: false,
-      human: true,
-      notes: 'Natural back-and-forth speech cadence with zero typing lag'
-    },
-    {
-      feature: 'Computer Vision Body Language & Eye Contact Tracking',
-      inprep: true,
-      generic: false,
-      human: 'Subjective',
-      notes: 'Precise gaze calibration, nervousness detection, posture analysis'
-    },
-    {
-      feature: 'Dynamic Contextual Follow-up Questions',
-      inprep: true,
-      generic: 'Limited',
-      human: true,
-      notes: 'AI probes deeper into architectural trade-offs when answers are vague'
-    },
-    {
-      feature: 'Instant Multi-Dimensional Diagnostic Scorecard',
-      inprep: true,
-      generic: false,
-      human: 'Delayed (24h+)',
-      notes: 'Sub-second breakdown with STAR analysis, WPM pacing, and model answers'
-    },
-    {
-      feature: 'Custom Job Description & Resume Calibration',
-      inprep: true,
-      generic: true,
-      human: false,
-      notes: 'Target specific company requirements and role seniority levels'
-    },
-    {
-      feature: '24/7 Unlimited Practice On-Demand',
-      inprep: true,
-      generic: true,
-      human: false,
-      notes: 'Practice at midnight before your big interview with zero scheduling'
-    },
-    {
-      feature: 'Average Cost per Full Mock Session',
-      inprep: '$0 – $1.50 / session',
-      generic: 'Text Only',
-      human: '$150 – $250 / hour',
-      isCost: true
-    }
-  ];
-
   return (
-    <section style={{ padding: '80px 0', position: 'relative' }}>
+    <section style={{ padding: '70px 0 80px', position: 'relative' }}>
       <div className="container">
-        {/* Header */}
-        <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 56px' }}>
-          <span className="badge-pill badge-purple" style={{ marginBottom: '14px' }}>
-            WHY WE ARE DIFFERENT
+        {/* Section Header */}
+        <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 48px' }}>
+          <span style={{
+            fontSize: '11px',
+            fontWeight: 700,
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            color: '#818cf8',
+            display: 'block',
+            marginBottom: '12px'
+          }}>
+            WHY INPREP AI
           </span>
+
           <h2 style={{
             fontSize: 'clamp(28px, 4vw, 44px)',
             fontWeight: 800,
-            letterSpacing: '-0.02em',
-            marginBottom: '18px',
-            lineHeight: 1.2
+            color: '#ffffff',
+            letterSpacing: '-0.025em',
+            lineHeight: 1.18,
+            marginBottom: '16px'
           }}>
-            Architected Differently From Generic Chatbots
+            Architected Differently From Generic<br />Chatbots
           </h2>
-          <p style={{ fontSize: '17px', color: '#94a3b8', lineHeight: 1.7 }}>
-            Built from the ground up for authentic interview pressure, conversational voice synthesis, and multi-modal assessment.
+
+          <p style={{
+            fontSize: '15px',
+            color: '#94a3b8',
+            lineHeight: 1.65,
+            maxWidth: '680px',
+            margin: '0 auto'
+          }}>
+            General AI models give passive text compliments. Inprep AI deploys rigorous multimodal rubrics calibrated directly to engineering leadership hiring bars.
           </p>
         </div>
 
         {/* Comparison Table Container */}
         <div style={{
-          background: '#0d121c',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          borderRadius: '24px',
-          overflowX: 'auto',
-          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.5)'
+          background: 'rgba(15, 21, 35, 0.65)',
+          border: '1px solid rgba(255, 255, 255, 0.07)',
+          borderRadius: '20px',
+          padding: '24px 32px',
+          backdropFilter: 'blur(16px)',
+          boxShadow: '0 20px 45px rgba(0, 0, 0, 0.5)',
+          marginBottom: '32px',
+          overflowX: 'auto'
         }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '680px' }}>
             <thead>
-              <tr style={{ background: '#131927', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
-                <th style={{ padding: '20px 24px', color: '#94a3b8', fontSize: '14px', fontWeight: 600, width: '40%' }}>
-                  Features & Capabilities
+              <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
+                <th style={{
+                  padding: '16px 20px 18px 8px',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  color: '#64748b',
+                  width: '32%'
+                }}>
+                  DIMENSION
                 </th>
                 <th style={{
-                  padding: '20px 24px',
-                  color: '#fff',
-                  fontSize: '15px',
-                  fontWeight: 800,
-                  background: 'rgba(99, 102, 241, 0.15)',
-                  borderLeft: '1px solid rgba(99, 102, 241, 0.3)',
-                  borderRight: '1px solid rgba(99, 102, 241, 0.3)',
-                  width: '25%'
+                  padding: '16px 20px 18px',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  color: '#818cf8',
+                  width: '38%'
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <Sparkles size={16} color="#818cf8" />
-                    <span>InPrep AI</span>
-                  </div>
+                  INPREP AI STUDIO
                 </th>
-                <th style={{ padding: '20px 24px', color: '#94a3b8', fontSize: '14px', fontWeight: 600, width: '18%' }}>
-                  Generic ChatGPT
-                </th>
-                <th style={{ padding: '20px 24px', color: '#94a3b8', fontSize: '14px', fontWeight: 600, width: '17%' }}>
-                  Human Mocks
+                <th style={{
+                  padding: '16px 20px 18px',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  color: '#64748b',
+                  width: '30%'
+                }}>
+                  GENERIC CHATBOTS / MOCK TOOLS
                 </th>
               </tr>
             </thead>
             <tbody>
-              {comparisons.map((row, idx) => (
+              {COMPARISON_ROWS.map((row, idx) => (
                 <tr
                   key={idx}
                   style={{
-                    borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
-                    background: idx % 2 === 0 ? 'transparent' : 'rgba(255, 255, 255, 0.01)'
+                    borderBottom: idx === COMPARISON_ROWS.length - 1 ? 'none' : '1px solid rgba(255, 255, 255, 0.04)',
+                    transition: 'background 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'transparent';
                   }}
                 >
-                  <td style={{ padding: '18px 24px' }}>
-                    <div style={{ fontSize: '14px', fontWeight: 600, color: '#f8fafc' }}>
-                      {row.feature}
-                    </div>
-                    {row.notes && (
-                      <div style={{ fontSize: '12px', color: '#64748b', marginTop: '2px' }}>
-                        {row.notes}
-                      </div>
-                    )}
-                  </td>
-
-                  {/* InPrep Column (Highlighted) */}
                   <td style={{
-                    padding: '18px 24px',
-                    background: 'rgba(99, 102, 241, 0.06)',
-                    borderLeft: '1px solid rgba(99, 102, 241, 0.2)',
-                    borderRight: '1px solid rgba(99, 102, 241, 0.2)'
+                    padding: '20px 20px 20px 8px',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    color: '#ffffff'
                   }}>
-                    {typeof row.inprep === 'boolean' ? (
-                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#10b981', fontWeight: 700, fontSize: '13px' }}>
-                        <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(16, 185, 129, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <Check size={14} color="#10b981" />
-                        </div>
-                        <span>Included</span>
-                      </div>
-                    ) : (
-                      <span style={{ fontSize: '14px', fontWeight: 800, color: '#67e8f9' }}>{row.inprep}</span>
-                    )}
+                    {row.dimension}
                   </td>
-
-                  {/* Generic Chatbot Column */}
-                  <td style={{ padding: '18px 24px' }}>
-                    {typeof row.generic === 'boolean' ? (
-                      row.generic ? (
-                        <Check size={18} color="#94a3b8" />
-                      ) : (
-                        <X size={18} color="#64748b" />
-                      )
-                    ) : (
-                      <span style={{ fontSize: '13px', color: '#94a3b8' }}>{row.generic}</span>
-                    )}
+                  <td style={{
+                    padding: '20px',
+                    fontSize: '13px',
+                    fontWeight: 500,
+                    color: '#e2e8f0'
+                  }}>
+                    {row.inprep}
                   </td>
-
-                  {/* Human Mocks Column */}
-                  <td style={{ padding: '18px 24px' }}>
-                    {typeof row.human === 'boolean' ? (
-                      row.human ? (
-                        <Check size={18} color="#94a3b8" />
-                      ) : (
-                        <X size={18} color="#64748b" />
-                      )
-                    ) : (
-                      <span style={{ fontSize: '13px', color: '#94a3b8' }}>{row.human}</span>
-                    )}
+                  <td style={{
+                    padding: '20px',
+                    fontSize: '13px',
+                    fontWeight: 400,
+                    color: '#64748b'
+                  }}>
+                    {row.generic}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* 4 Bottom Ethical / Privacy Cards */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+          gap: '20px'
+        }}>
+          {ETHICAL_PILLARS.map((pillar, idx) => {
+            const Icon = pillar.icon;
+            return (
+              <div
+                key={idx}
+                style={{
+                  background: 'rgba(15, 21, 35, 0.65)',
+                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  borderRadius: '16px',
+                  padding: '24px 22px',
+                  backdropFilter: 'blur(12px)',
+                  transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-3px)';
+                  e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.35)';
+                  e.currentTarget.style.boxShadow = '0 12px 28px rgba(0, 0, 0, 0.45)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <div style={{
+                  marginBottom: '14px',
+                  width: '32px',
+                  height: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'flex-start'
+                }}>
+                  <Icon size={20} color={pillar.iconColor} strokeWidth={2} />
+                </div>
+
+                <h3 style={{
+                  fontSize: '15px',
+                  fontWeight: 700,
+                  color: '#ffffff',
+                  marginBottom: '6px',
+                  letterSpacing: '-0.01em'
+                }}>
+                  {pillar.title}
+                </h3>
+
+                <p style={{
+                  fontSize: '12px',
+                  color: '#64748b',
+                  margin: 0,
+                  lineHeight: 1.55
+                }}>
+                  {pillar.desc}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

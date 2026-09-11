@@ -1,31 +1,34 @@
 import React from 'react';
-import { Users, BookOpen, Star, Building2 } from 'lucide-react';
 
 export const StatsBanner: React.FC = () => {
   const stats = [
     {
-      icon: <Users size={24} color="#818cf8" />,
       value: '10K+',
-      label: 'Active Candidates Prepared',
-      subtext: 'Across 45+ countries worldwide'
+      label: 'Practice Sessions',
+      desc: 'Simulated under authentic high-pressure interview dynamics',
+      valueColor: '#ffffff',
+      labelColor: '#94a3b8'
     },
     {
-      icon: <BookOpen size={24} color="#06b6d4" />,
-      value: '500+',
-      label: 'Interview Roles & Tracks',
-      subtext: 'Software, PM, AI, System Design & HR'
+      value: '50K+',
+      label: 'Questions Answered',
+      desc: 'Strictly five-question calibrated rounds for peak retention',
+      valueColor: '#ffffff',
+      labelColor: '#a5b4fc'
     },
     {
-      icon: <Star size={24} color="#f59e0b" />,
-      value: '4.9/5',
-      label: 'Average Candidate Rating',
-      subtext: 'From 3,500+ verified reviews'
+      value: '4.8 / 5',
+      label: 'Candidate Rating',
+      desc: 'Across L5/L6 software engineers & engineering leaders',
+      valueColor: '#ffffff',
+      labelColor: '#38bdf8'
     },
     {
-      icon: <Building2 size={24} color="#10b981" />,
       value: '100+',
-      label: 'Companies Benchmarked',
-      subtext: 'Google, Meta, Amazon, Stripe rubrics'
+      label: 'Curated Tech Roles',
+      desc: 'Full-stack, Systems, ML, SRE, Product, and Leadership',
+      valueColor: '#34d399',
+      labelColor: '#34d399'
     }
   ];
 
@@ -36,28 +39,30 @@ export const StatsBanner: React.FC = () => {
       zIndex: 2
     }}>
       <div className="container">
+        {/* Header */}
         <div style={{
           textAlign: 'center',
-          marginBottom: '36px'
+          marginBottom: '44px'
         }}>
           <span style={{
-            fontSize: '12px',
+            fontSize: '11px',
             fontWeight: 700,
-            letterSpacing: '0.1em',
+            letterSpacing: '0.12em',
             textTransform: 'uppercase',
-            color: '#64748b',
+            color: '#818cf8',
             display: 'block',
-            marginBottom: '8px'
+            marginBottom: '12px'
           }}>
-            PROVEN TRACK RECORD
+            BATTLE-TESTED RESULTS
           </span>
           <h2 style={{
-            fontSize: '28px',
+            fontSize: 'clamp(28px, 3.8vw, 40px)',
             fontWeight: 800,
-            color: '#f8fafc',
-            letterSpacing: '-0.02em'
+            color: '#ffffff',
+            letterSpacing: '-0.025em',
+            lineHeight: 1.2
           }}>
-            Built to Accelerate Interview Preparation
+            Built for Modern Interview Preparation
           </h2>
         </div>
 
@@ -70,58 +75,48 @@ export const StatsBanner: React.FC = () => {
           {stats.map((stat, idx) => (
             <div
               key={idx}
-              className="glass-card"
               style={{
                 textAlign: 'center',
-                padding: '30px 20px',
-                background: 'linear-gradient(180deg, rgba(19, 24, 38, 0.8) 0%, rgba(10, 14, 23, 0.95) 100%)',
-                border: '1px solid rgba(255, 255, 255, 0.07)',
+                padding: '36px 24px',
+                background: 'rgba(15, 21, 35, 0.65)',
+                border: '1px solid rgba(255, 255, 255, 0.06)',
+                borderRadius: '18px',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                transition: 'all 0.25s ease',
+                backdropFilter: 'blur(12px)'
               }}
+              className="glow-card-hover"
             >
               <div style={{
-                width: '50px',
-                height: '50px',
-                borderRadius: '14px',
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '16px'
-              }}>
-                {stat.icon}
-              </div>
-
-              <div style={{
-                fontSize: '38px',
+                fontSize: '44px',
                 fontWeight: 800,
                 letterSpacing: '-0.03em',
-                background: 'linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                marginBottom: '4px'
+                color: stat.valueColor,
+                lineHeight: 1.1,
+                marginBottom: '8px'
               }}>
                 {stat.value}
               </div>
 
               <div style={{
-                fontSize: '15px',
+                fontSize: '14px',
                 fontWeight: 700,
-                color: '#e2e8f0',
-                marginBottom: '4px'
+                color: stat.labelColor,
+                marginBottom: '8px'
               }}>
                 {stat.label}
               </div>
 
               <div style={{
                 fontSize: '12px',
-                color: '#64748b'
+                color: '#64748b',
+                lineHeight: 1.5,
+                maxWidth: '220px'
               }}>
-                {stat.subtext}
+                {stat.desc}
               </div>
             </div>
           ))}
