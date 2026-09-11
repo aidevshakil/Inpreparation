@@ -1,148 +1,171 @@
-import React, { useState } from 'react';
-import { Smile, Activity, Cpu, Award, CheckCircle2 } from 'lucide-react';
+import React from 'react';
+import { Code2, MessageSquare, Mic, Scan, Shield } from 'lucide-react';
 
 export const AiAnalysisMatrix: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<number>(0);
-
   const dimensions = [
     {
-      id: 0,
-      icon: <Smile size={22} color="#c084fc" />,
-      title: '1. Behavioral & Emotion Analysis',
-      desc: 'Real-time computer vision analyzes eye contact consistency, genuine smile indicators, stress-induced micro-expressions, and composure when faced with unexpected curveball questions.',
-      score: '91%',
-      status: 'High Emotional Intelligence',
+      id: 'technical',
+      icon: <Code2 size={18} color="#a5b4fc" />,
+      title: '1. Technical Evaluation',
+      desc: 'Goes beyond surface keywords. Evaluates architectural trade-offs, failover considerations, Big-O bounds, and system robustness in response to real-world edge cases.',
       metrics: [
-        { label: 'Eye Contact Steadiness', val: '94%' },
-        { label: 'Stress Recovery Latency', val: '1.8s' },
-        { label: 'Positive Affect Score', val: '88%' }
+        { label: 'Algorithmic Complexity & Correctness', value: '92% Precision', color: '#ffffff' },
+        { label: 'Trade-Off Articulation', value: '86% Benchmark', color: '#ffffff' }
       ]
     },
     {
-      id: 1,
-      icon: <Activity size={22} color="#38bdf8" />,
-      title: '2. Conversation Flow & Pacing',
-      desc: 'Deep audio NLP breaks down your speech into words-per-minute tempo, syllable clarity, pause distribution, and flags distracting verbal crutches like "um", "ah", "basically", and "like".',
-      score: '96%',
-      status: 'Optimal 140 WPM Cadence',
+      id: 'communication',
+      icon: <MessageSquare size={18} color="#c084fc" />,
+      title: '2. Communication Analysis',
+      desc: 'Audits your response hierarchy. Measures conciseness, structured progression (Situation → Metric → Outcome), and whether your answer directly addresses the interviewer\'s constraint.',
       metrics: [
-        { label: 'Filler Word Density', val: '< 0.8%' },
-        { label: 'Natural Pause Duration', val: '1.2s avg' },
-        { label: 'Articulation Clarity', val: '98%' }
+        { label: 'Structured Causal Progression', value: 'High (STAR)', color: '#ffffff' },
+        { label: 'Direct Question Relevance', value: '94% Aligned', color: '#ffffff' }
       ]
     },
     {
-      id: 2,
-      icon: <Cpu size={22} color="#34d399" />,
-      title: '3. Technical Accuracy & Logic',
-      desc: 'Evaluates your technical precision, code architecture structure, space-time complexity analysis, and whether you proactively explore scale bottlenecks, failure modes, and database trade-offs.',
-      score: '89%',
-      status: 'Solid Senior Tier Logic',
+      id: 'speech',
+      icon: <Mic size={18} color="#38bdf8" />,
+      title: '3. Speech & Acoustic Analysis',
+      desc: 'Tracks pitch stability, syllable rhythm, prolonged silence spikes (>2.5s), and filler word frequency (e.g. \'like\', \'basically\', \'um\') with timestamp markers.',
       metrics: [
-        { label: 'Architectural Trade-offs', val: '92%' },
-        { label: 'Edge Case Exploration', val: '86%' },
-        { label: 'Algorithmic Big-O Rigor', val: '90%' }
+        { label: 'Pacing Stability', value: '138 WPM (Optimal)', color: '#38bdf8' },
+        { label: 'Filler Density', value: '1.2% (Low Cluster)', color: '#38bdf8' }
       ]
     },
     {
-      id: 3,
-      icon: <Award size={22} color="#fbbf24" />,
-      title: '4. Executive Presence & Impact Matrix',
-      desc: 'Assesses answer conciseness, leadership vocabulary, quantification of business ROI, and adherence to structured communication frameworks like STAR, PREP, and Pyramid Principle.',
-      score: '93%',
-      status: 'Top 5% Candidate',
+      id: 'presentation',
+      icon: <Scan size={18} color="#34d399" />,
+      title: '4. Presentation via Computer Vision',
+      desc: 'Analyzes strictly physical setup variables: head centering, camera distance, ambient illumination uniformity, and posture drift during technical explanations.',
       metrics: [
-        { label: 'STAR Structure Precision', val: '95%' },
-        { label: 'Quantified Impact Metrics', val: '91%' },
-        { label: 'Conciseness & Brevity', val: '93%' }
+        { label: 'Camera Framing & Distance', value: '96% Centered', color: '#34d399' },
+        { label: 'Lighting Differential', value: 'Balanced Contrast', color: '#34d399' }
       ]
     }
   ];
 
   return (
-    <section id="analysis" style={{ padding: '80px 0', position: 'relative' }}>
+    <section id="analysis" style={{ padding: '70px 0 80px', position: 'relative' }}>
       <div className="container">
-        {/* Header */}
-        <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 56px' }}>
-          <span className="badge-pill badge-cyan" style={{ marginBottom: '14px' }}>
-            DEEP AI MULTI-MODAL ANALYSIS
+        {/* Left-Aligned Header */}
+        <div style={{ maxWidth: '780px', marginBottom: '40px' }}>
+          <span style={{
+            fontSize: '11px',
+            fontWeight: 700,
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            color: '#38bdf8',
+            display: 'block',
+            marginBottom: '12px'
+          }}>
+            RIGOROUS MULTIMODAL DIAGNOSTICS
           </span>
+
           <h2 style={{
-            fontSize: 'clamp(28px, 4vw, 44px)',
+            fontSize: 'clamp(30px, 4.4vw, 46px)',
             fontWeight: 800,
-            letterSpacing: '-0.02em',
-            marginBottom: '18px',
-            lineHeight: 1.2
+            color: '#ffffff',
+            letterSpacing: '-0.03em',
+            lineHeight: 1.15,
+            marginBottom: '16px'
           }}>
             AI Evaluates More Than Your Answers
           </h2>
-          <p style={{ fontSize: '17px', color: '#94a3b8', lineHeight: 1.7 }}>
-            Practice in front of our camera and voice engine to receive precise metrics across every dimension that interviewers evaluate.
+
+          <p style={{
+            fontSize: '16px',
+            color: '#94a3b8',
+            lineHeight: 1.6,
+            maxWidth: '660px',
+            margin: 0
+          }}>
+            Our four-pillar multimodal diagnostic engine scans every vector of your performance with millisecond precision.
           </p>
         </div>
 
-        {/* 4 Cards Grid */}
+        {/* 2x2 Grid of Large Cards */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))',
-          gap: '24px',
-          marginBottom: '40px'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+          gap: '20px',
+          marginBottom: '36px'
         }}>
           {dimensions.map((dim) => (
             <div
               key={dim.id}
-              onClick={() => setActiveTab(dim.id)}
-              className="glass-card"
               style={{
-                cursor: 'pointer',
-                border: activeTab === dim.id ? '1px solid rgba(99, 102, 241, 0.6)' : '1px solid rgba(255, 255, 255, 0.08)',
-                background: activeTab === dim.id ? '#141a29' : '#0e121c',
-                boxShadow: activeTab === dim.id ? '0 0 25px rgba(99, 102, 241, 0.2)' : 'none',
+                background: 'rgba(15, 21, 35, 0.65)',
+                border: '1px solid rgba(255, 255, 255, 0.06)',
+                borderRadius: '20px',
+                padding: '30px 26px',
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'space-between'
+                justifyContent: 'space-between',
+                minHeight: '260px',
+                backdropFilter: 'blur(12px)',
+                transition: 'all 0.25s ease'
               }}
+              className="glow-card-hover"
             >
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-                  <div style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: '12px',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
-                    {dim.icon}
-                  </div>
-                  <span style={{ fontSize: '18px', fontWeight: 800, color: '#f8fafc' }}>
-                    {dim.score}
-                  </span>
+                {/* Icon box */}
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '10px',
+                  background: 'rgba(255, 255, 255, 0.04)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: '18px'
+                }}>
+                  {dim.icon}
                 </div>
 
-                <h3 style={{ fontSize: '17px', fontWeight: 700, color: '#f8fafc', marginBottom: '10px' }}>
+                {/* Title */}
+                <h3 style={{
+                  fontSize: '18px',
+                  fontWeight: 700,
+                  color: '#ffffff',
+                  marginBottom: '12px',
+                  letterSpacing: '-0.015em'
+                }}>
                   {dim.title}
                 </h3>
 
-                <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '20px' }}>
+                {/* Description */}
+                <p style={{
+                  fontSize: '13px',
+                  color: '#94a3b8',
+                  lineHeight: 1.65,
+                  marginBottom: '26px'
+                }}>
                   {dim.desc}
                 </p>
               </div>
 
-              {/* Metric rows */}
+              {/* Metrics Rows */}
               <div style={{
-                background: 'rgba(0, 0, 0, 0.3)',
-                borderRadius: '10px',
-                padding: '12px',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '8px'
+                gap: '10px',
+                paddingTop: '16px',
+                borderTop: '1px solid rgba(255, 255, 255, 0.05)'
               }}>
                 {dim.metrics.map((m, mIdx) => (
-                  <div key={mIdx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
+                  <div
+                    key={mIdx}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      fontSize: '13px'
+                    }}
+                  >
                     <span style={{ color: '#94a3b8' }}>{m.label}</span>
-                    <span style={{ color: '#67e8f9', fontWeight: 700 }}>{m.val}</span>
+                    <span style={{ color: m.color, fontWeight: 700 }}>{m.value}</span>
                   </div>
                 ))}
               </div>
@@ -150,45 +173,145 @@ export const AiAnalysisMatrix: React.FC = () => {
           ))}
         </div>
 
-        {/* Live Analysis Showcase Bar */}
+        {/* Responsible AI Transparency Notice Banner */}
         <div style={{
-          background: 'linear-gradient(90deg, #101522 0%, #171e30 100%)',
-          border: '1px solid rgba(99, 102, 241, 0.25)',
-          borderRadius: '16px',
-          padding: '24px 30px',
-          display: 'flex',
-          flexWrap: 'wrap',
+          background: 'rgba(15, 21, 35, 0.75)',
+          border: '1px solid rgba(255, 255, 255, 0.08)',
+          borderRadius: '20px',
+          padding: '28px',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '32px',
           alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '20px'
+          backdropFilter: 'blur(16px)'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          {/* Left: Webcam Calibration View */}
+          <div style={{
+            position: 'relative',
+            height: '210px',
+            borderRadius: '14px',
+            overflow: 'hidden',
+            background: '#090d16',
+            border: '1px solid rgba(6, 182, 212, 0.3)'
+          }}>
+            <img
+              src="/candidate_alex.jpg"
+              alt="Candidate Calibration"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                display: 'block',
+                filter: 'brightness(0.9)'
+              }}
+            />
+
+            {/* Facial bounding box overlay */}
             <div style={{
-              width: '46px',
-              height: '46px',
-              borderRadius: '50%',
-              background: 'rgba(99, 102, 241, 0.15)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#818cf8'
+              position: 'absolute',
+              top: '25%',
+              left: '38%',
+              width: '24%',
+              height: '38%',
+              border: '2px solid #34d399',
+              borderRadius: '8px',
+              boxShadow: '0 0 12px rgba(52, 211, 153, 0.4)'
+            }} />
+
+            {/* Top-Left Tag */}
+            <div style={{
+              position: 'absolute',
+              top: '10px',
+              left: '10px',
+              background: 'rgba(9, 13, 22, 0.85)',
+              padding: '3px 8px',
+              borderRadius: '6px',
+              fontSize: '10px',
+              fontWeight: 700,
+              color: '#38bdf8'
             }}>
-              <CheckCircle2 size={24} />
+              Face Centered: 96%
             </div>
-            <div>
-              <div style={{ fontSize: '16px', fontWeight: 700, color: '#f8fafc' }}>
-                Objective Interview Analysis Multiplier
-              </div>
-              <div style={{ fontSize: '13px', color: '#94a3b8' }}>
-                Replaces subjective human guesswork with standardized, industry-benchmarked hiring rubrics.
-              </div>
+
+            {/* Bottom-Left & Bottom-Right Tags */}
+            <div style={{
+              position: 'absolute',
+              bottom: '10px',
+              left: '10px',
+              background: 'rgba(9, 13, 22, 0.85)',
+              padding: '3px 8px',
+              borderRadius: '6px',
+              fontSize: '10px',
+              color: '#34d399',
+              fontWeight: 600
+            }}>
+              Lighting Contrast: Optimal
+            </div>
+
+            <div style={{
+              position: 'absolute',
+              bottom: '10px',
+              right: '10px',
+              background: 'rgba(9, 13, 22, 0.85)',
+              padding: '3px 8px',
+              borderRadius: '6px',
+              fontSize: '10px',
+              color: '#cbd5e1',
+              fontWeight: 600
+            }}>
+              Angle: Eye-Level
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <span style={{ fontSize: '12px', color: '#a5b4fc', background: 'rgba(99, 102, 241, 0.1)', padding: '6px 12px', borderRadius: '8px' }}>
-              ✓ Full Video + Audio Telemetry Included
-            </span>
+          {/* Right: Transparency Copy */}
+          <div>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '11px',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              color: '#a5b4fc',
+              marginBottom: '10px'
+            }}>
+              <Shield size={14} color="#818cf8" />
+              <span>RESPONSIBLE AI TRANSPARENCY NOTICE</span>
+            </div>
+
+            <h3 style={{
+              fontSize: '22px',
+              fontWeight: 800,
+              color: '#ffffff',
+              letterSpacing: '-0.02em',
+              marginBottom: '10px',
+              lineHeight: 1.25
+            }}>
+              Objective Presentation Analysis. Nothing Else.
+            </h3>
+
+            <p style={{
+              fontSize: '13px',
+              color: '#94a3b8',
+              lineHeight: 1.6,
+              marginBottom: '18px'
+            }}>
+              Our presentation diagnostic focuses strictly on objective, observable setup metrics (webcam positioning, eye level, illumination balance, and video framing).
+            </p>
+
+            {/* Ethical Guarantee Callout */}
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.03)',
+              border: '1px solid rgba(255, 255, 255, 0.07)',
+              borderRadius: '10px',
+              padding: '12px 14px',
+              fontSize: '11px',
+              color: '#cbd5e1',
+              lineHeight: 1.55
+            }}>
+              <strong style={{ color: '#ffffff' }}>• Ethical AI Guarantee:</strong> Inprep AI does <span style={{ textDecoration: 'underline' }}>not</span> infer, evaluate, or score candidate personality, emotion, intelligence, honesty, psychological traits, or mental state.
+            </div>
           </div>
         </div>
       </div>

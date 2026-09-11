@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import { Play, Sparkles, ArrowRight, ShieldCheck, Zap, Layers, Mic, Volume2, Eye, Activity, UserCheck } from 'lucide-react';
+import { ArrowRight, Play, Volume2, Check, Radio, Clock, UserCheck, TrendingUp } from 'lucide-react';
 
 interface HeroSectionProps {
   onStartPractice: (role?: string) => void;
   onOpenDemo: () => void;
+  onNavigateToFeatures?: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onStartPractice, onOpenDemo }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({
+  onStartPractice,
+  onOpenDemo,
+  onNavigateToFeatures
+}) => {
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
-  const [activeMetric, setActiveMetric] = useState<'confidence' | 'tone' | 'clarity'>('confidence');
 
   const toggleSampleVoice = () => {
     if ('speechSynthesis' in window) {
@@ -16,7 +20,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartPractice, onOpe
         window.speechSynthesis.cancel();
         setIsPlayingAudio(false);
       } else {
-        const text = "Hello! I'm Dr. Sarah Lin. Could you explain how React's virtual DOM diffing algorithm optimizes rendering performance under heavy state updates?";
+        const text = "Explain the difference between synchronous and asynchronous programming in Python, highlighting event loops and I/O bound tasks.";
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.rate = 1.0;
         utterance.pitch = 1.05;
@@ -30,52 +34,97 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartPractice, onOpe
     }
   };
 
+  const featurePillars = [
+    {
+      icon: <Radio size={18} color="#818cf8" />,
+      title: 'Multimodal AI Engine',
+      subtitle: 'Tech, voice, syntax & visual signals',
+    },
+    {
+      icon: <Clock size={18} color="#a5b4fc" />,
+      title: 'Strict 5-Question Rounds',
+      subtitle: 'Calibrated for 15-minute mastery',
+    },
+    {
+      icon: <UserCheck size={18} color="#38bdf8" />,
+      title: 'CV & Role Tailored',
+      subtitle: 'Dynamic seniority adaptation',
+    },
+    {
+      icon: <TrendingUp size={18} color="#34d399" />,
+      title: 'Longitudinal Tracking',
+      subtitle: 'Measured readiness trajectory',
+    }
+  ];
+
   return (
-    <section id="hero" style={{ position: 'relative', paddingTop: '48px', paddingBottom: '80px', overflow: 'hidden' }}>
-      {/* Background Glowing Ambient Orbs */}
-      <div className="bg-ambient-glow" style={{ top: '-10%', left: '15%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(124, 58, 237, 0.35) 0%, transparent 70%)' }} />
-      <div className="bg-ambient-glow" style={{ top: '20%', right: '5%', width: '450px', height: '450px', background: 'radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, transparent 70%)' }} />
+    <section id="hero" style={{ position: 'relative', paddingTop: '52px', paddingBottom: '70px', overflow: 'hidden' }}>
+      {/* Ambient background soft glow */}
+      <div className="bg-ambient-glow" style={{ top: '-15%', left: '10%', width: '650px', height: '650px', background: 'radial-gradient(circle, rgba(99, 102, 241, 0.22) 0%, transparent 70%)' }} />
+      <div className="bg-ambient-glow" style={{ top: '20%', right: '2%', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(6, 182, 212, 0.16) 0%, transparent 70%)' }} />
 
       <div className="container">
+        {/* Main 2-Column Hero Grid */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
           gap: '48px',
           alignItems: 'center',
-          minHeight: '620px'
+          marginBottom: '56px'
         }}>
-          {/* Left Column: Headline & Call To Actions */}
+          {/* Left Column: Headline, Copy & CTAs */}
           <div style={{ position: 'relative', zIndex: 2 }}>
-            <div style={{ marginBottom: '20px' }}>
-              <span className="badge-pill badge-purple">
-                <Sparkles size={14} color="#c084fc" />
-                THE NEXT GENERATION INTERVIEW PREPARATION
+            {/* Pill Tag */}
+            <div style={{ marginBottom: '22px' }}>
+              <span style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '6px 14px',
+                background: 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '9999px',
+                fontSize: '11px',
+                fontWeight: 700,
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                color: '#cbd5e1'
+              }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#60a5fa', boxShadow: '0 0 8px #60a5fa' }} />
+                AI-POWERED INTERVIEW PREPARATION
               </span>
             </div>
 
+            {/* Main Headline */}
             <h1 style={{
-              fontSize: 'clamp(36px, 5.5vw, 64px)',
+              fontSize: 'clamp(40px, 5.2vw, 64px)',
               fontWeight: 800,
               lineHeight: 1.1,
-              letterSpacing: '-0.03em',
-              marginBottom: '24px'
+              letterSpacing: '-0.035em',
+              marginBottom: '22px',
+              color: '#ffffff'
             }}>
               Practice Interviews.<br />
-              <span className="gradient-highlight-text" style={{ textShadow: '0 0 40px rgba(168, 85, 247, 0.4)' }}>
+              <span style={{
+                background: 'linear-gradient(135deg, #a78bfa 0%, #60a5fa 55%, #38bdf8 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                display: 'inline-block'
+              }}>
                 Get Real Feedback.
               </span><br />
               Improve Faster.
             </h1>
 
+            {/* Subparagraph */}
             <p style={{
-              fontSize: '18px',
+              fontSize: '17px',
               color: '#94a3b8',
-              lineHeight: 1.7,
-              marginBottom: '36px',
-              maxWidth: '560px'
+              lineHeight: 1.65,
+              marginBottom: '34px',
+              maxWidth: '540px'
             }}>
-              Simulate real-world job interviews with ultra-realistic AI interviewers.
-              Receive instant, deep qualitative & quantitative feedback on your answers, body language, tone, and pacing.
+              Practice realistic interviews with AI and receive actionable feedback on your technical answers, communication, speech, and on-camera presentation.
             </p>
 
             {/* Action Buttons */}
@@ -84,384 +133,447 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartPractice, onOpe
               flexWrap: 'wrap',
               gap: '16px',
               alignItems: 'center',
-              marginBottom: '44px'
+              marginBottom: '32px'
             }}>
               <button
                 onClick={() => onStartPractice()}
-                className="btn-primary"
-                style={{ fontSize: '16px', padding: '15px 32px' }}
+                style={{
+                  background: 'linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)',
+                  color: '#ffffff',
+                  padding: '14px 30px',
+                  borderRadius: '9999px',
+                  fontWeight: 600,
+                  fontSize: '15px',
+                  border: '1px solid rgba(255, 255, 255, 0.25)',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  boxShadow: '0 4px 20px rgba(99, 102, 241, 0.45)',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 6px 28px rgba(99, 102, 241, 0.65)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 20px rgba(99, 102, 241, 0.45)';
+                }}
               >
-                <span>Start Free Practice</span>
-                <ArrowRight size={18} />
+                <span>Start Practicing Free</span>
+                <ArrowRight size={16} />
               </button>
 
               <button
-                onClick={onOpenDemo}
-                className="btn-secondary"
-                style={{ fontSize: '15px', padding: '15px 28px' }}
+                onClick={onNavigateToFeatures ? onNavigateToFeatures : onOpenDemo}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.04)',
+                  color: '#e2e8f0',
+                  padding: '14px 26px',
+                  borderRadius: '9999px',
+                  fontWeight: 600,
+                  fontSize: '15px',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  backdropFilter: 'blur(8px)',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
               >
-                <Play size={16} fill="#e2e8f0" />
-                <span>Watch 2-Min Demo</span>
+                <div style={{
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '50%',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <Play size={10} fill="#e2e8f0" style={{ marginLeft: '1px' }} />
+                </div>
+                <span>Explore Features</span>
               </button>
             </div>
 
-            {/* Social Proof & Value Props */}
+            {/* Trust Points */}
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '14px 20px',
-              maxWidth: '520px',
-              paddingTop: '20px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.08)'
+              display: 'flex',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              gap: '16px',
+              fontSize: '13px',
+              color: '#94a3b8'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#cbd5e1', fontSize: '13px', fontWeight: 500 }}>
-                <ShieldCheck size={18} color="#10b981" />
-                <span>Enterprise Grade Privacy</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#cbd5e1', fontSize: '13px', fontWeight: 500 }}>
-                <Zap size={18} color="#f59e0b" />
-                <span>Instant Detailed Reports</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#cbd5e1', fontSize: '13px', fontWeight: 500 }}>
-                <Layers size={18} color="#6366f1" />
-                <span>500+ Custom Role Scenarios</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#cbd5e1', fontSize: '13px', fontWeight: 500 }}>
-                <Mic size={18} color="#06b6d4" />
-                <span>Real-time AI Voice & Video</span>
-              </div>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <Check size={14} color="#60a5fa" /> No credit card required
+              </span>
+              <span>•</span>
+              <span>Exactly 5 questions per session</span>
+              <span>•</span>
+              <span>Real-time AI coaching</span>
             </div>
           </div>
 
-          {/* Right Column: Interactive Simulation Preview Window */}
+          {/* Right Column: Inprep Live Diagnostic Room Card */}
           <div style={{ position: 'relative', zIndex: 2 }}>
             <div style={{
-              background: '#0e131f',
-              border: '1px solid rgba(99, 102, 241, 0.3)',
+              background: 'linear-gradient(180deg, #111624 0%, #0c101a 100%)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
               borderRadius: '24px',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(124, 58, 237, 0.25)',
+              boxShadow: '0 25px 60px -12px rgba(0, 0, 0, 0.85), 0 0 50px rgba(99, 102, 241, 0.2)',
               overflow: 'hidden',
-              backdropFilter: 'blur(20px)',
+              backdropFilter: 'blur(24px)',
               position: 'relative'
             }}>
               {/* Window Header */}
               <div style={{
-                background: 'rgba(19, 24, 38, 0.95)',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                padding: '12px 18px',
+                background: 'rgba(17, 23, 38, 0.85)',
+                borderBottom: '1px solid rgba(255, 255, 255, 0.07)',
+                padding: '14px 20px',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'space-between',
+                justifyContent: 'space-between'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <div style={{ width: '11px', height: '11px', borderRadius: '50%', background: '#ef4444' }} />
-                  <div style={{ width: '11px', height: '11px', borderRadius: '50%', background: '#f59e0b' }} />
-                  <div style={{ width: '11px', height: '11px', borderRadius: '50%', background: '#10b981' }} />
-                  <span style={{ fontSize: '12px', color: '#94a3b8', marginLeft: '10px', fontWeight: 600 }}>
-                    Senior Frontend Engineer Interview — Live Simulation
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#f87171' }} />
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#fbbf24' }} />
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#34d399' }} />
+                  <span style={{ fontSize: '12px', color: '#94a3b8', marginLeft: '8px', fontWeight: 500 }}>
+                    Inprep Live Diagnostic Room • ID-8492
                   </span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '5px',
-                    fontSize: '11px',
-                    fontWeight: 700,
-                    color: '#ef4444',
-                    background: 'rgba(239, 68, 68, 0.15)',
-                    padding: '3px 8px',
-                    borderRadius: '6px'
-                  }}>
-                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#ef4444', animation: 'pulseGlow 1.5s infinite' }} />
-                    REC 00:04:18
-                  </span>
+
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: '#67e8f9',
+                  background: 'rgba(6, 182, 212, 0.12)',
+                  border: '1px solid rgba(6, 182, 212, 0.25)',
+                  padding: '3px 10px',
+                  borderRadius: '9999px'
+                }}>
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#06b6d4', boxShadow: '0 0 6px #06b6d4' }} />
+                  Active 5-Question Run
                 </div>
               </div>
 
-              {/* Main Video Feeds (AI Interviewer & Candidate) */}
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '12px',
-                padding: '16px',
-                background: '#090d16'
-              }}>
-                {/* Left Stream: AI Interviewer */}
+              {/* Main Content Area */}
+              <div style={{ padding: '20px' }}>
+                {/* Question Info Bar */}
                 <div style={{
-                  position: 'relative',
-                  height: '210px',
-                  borderRadius: '16px',
-                  background: 'linear-gradient(180deg, #182033 0%, #0d121e 100%)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  overflow: 'hidden',
                   display: 'flex',
-                  flexDirection: 'column',
+                  justifyContent: 'space-between',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                  color: '#818cf8',
+                  marginBottom: '10px'
                 }}>
-                  {/* Avatar graphic */}
-                  <div style={{
-                    width: '74px',
-                    height: '74px',
-                    borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    boxShadow: '0 0 25px rgba(99, 102, 241, 0.6)',
-                    marginBottom: '10px',
-                    position: 'relative'
-                  }}>
-                    <UserCheck size={36} color="#ffffff" />
-                    {isPlayingAudio && (
-                      <div style={{
-                        position: 'absolute',
-                        inset: '-6px',
-                        borderRadius: '50%',
-                        border: '2px solid #38bdf8',
-                        animation: 'pulseGlow 1.2s infinite'
-                      }} />
-                    )}
-                  </div>
-
-                  <span style={{ fontSize: '13px', fontWeight: 700, color: '#f8fafc' }}>
-                    Dr. Sarah Lin
+                  <span>QUESTION 2 OF 5 • TECHNICAL CORE</span>
+                  <span style={{ color: '#94a3b8', fontWeight: 500, letterSpacing: 'normal', textTransform: 'none' }}>
+                    Time in Prompt: 01:14
                   </span>
-                  <span style={{ fontSize: '11px', color: '#94a3b8' }}>
-                    Principal Architect AI Interviewer
-                  </span>
+                </div>
 
-                  {/* Audio Wave Visualizer */}
+                {/* Prompt Text */}
+                <div style={{
+                  fontSize: '15px',
+                  fontWeight: 600,
+                  color: '#f8fafc',
+                  lineHeight: 1.5,
+                  marginBottom: '18px'
+                }}>
+                  “Explain the difference between synchronous and asynchronous programming in Python, highlighting event loops and I/O bound tasks.”
+                </div>
+
+                {/* Dual Video Feeds */}
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '14px',
+                  marginBottom: '18px'
+                }}>
+                  {/* Left Stream: AI Interviewer Dr. Sarah Vance */}
                   <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '3px',
-                    marginTop: '12px',
-                    height: '20px'
+                    position: 'relative',
+                    height: '210px',
+                    borderRadius: '14px',
+                    overflow: 'hidden',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    background: '#0a0e18'
                   }}>
-                    {[8, 16, 24, 12, 28, 18, 10, 22, 14, 6].map((h, i) => (
-                      <div
-                        key={i}
+                    <img
+                      src="/interviewer_sarah.jpg"
+                      alt="AI Interviewer Dr. Sarah Vance"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block'
+                      }}
+                    />
+
+                    {/* Top Header Overlay */}
+                    <div style={{
+                      position: 'absolute',
+                      top: '10px',
+                      left: '10px',
+                      right: '10px',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      background: 'rgba(9, 13, 22, 0.75)',
+                      backdropFilter: 'blur(8px)',
+                      padding: '4px 10px',
+                      borderRadius: '6px',
+                      fontSize: '11px',
+                      color: '#f8fafc',
+                      fontWeight: 600
+                    }}>
+                      <span>AI Interviewer • Dr. Sarah Vance</span>
+                      <button
+                        onClick={toggleSampleVoice}
                         style={{
-                          width: '3px',
-                          height: isPlayingAudio ? `${h}px` : '4px',
-                          background: 'linear-gradient(180deg, #38bdf8 0%, #818cf8 100%)',
-                          borderRadius: '2px',
-                          transition: 'height 0.2s ease'
+                          background: 'transparent',
+                          border: 'none',
+                          color: isPlayingAudio ? '#60a5fa' : '#94a3b8',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          padding: '0'
                         }}
-                      />
-                    ))}
-                  </div>
+                        title="Play / Pause Voice"
+                      >
+                        <Volume2 size={13} />
+                      </button>
+                    </div>
 
-                  {/* Top Left Role Badge */}
-                  <div style={{
-                    position: 'absolute',
-                    top: '10px',
-                    left: '10px',
-                    background: 'rgba(0, 0, 0, 0.6)',
-                    padding: '3px 8px',
-                    borderRadius: '6px',
-                    fontSize: '10px',
-                    fontWeight: 600,
-                    color: '#67e8f9',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '4px'
-                  }}>
-                    <Activity size={10} /> AI HOST
-                  </div>
-
-                  {/* Play Voice Button */}
-                  <button
-                    onClick={toggleSampleVoice}
-                    style={{
+                    {/* Bottom Status Overlay */}
+                    <div style={{
                       position: 'absolute',
                       bottom: '10px',
+                      left: '10px',
                       right: '10px',
-                      background: isPlayingAudio ? 'rgba(239, 68, 68, 0.8)' : 'rgba(99, 102, 241, 0.8)',
-                      border: 'none',
-                      color: '#fff',
-                      borderRadius: '8px',
-                      padding: '4px 8px',
-                      fontSize: '11px',
-                      fontWeight: 600,
-                      cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '4px'
-                    }}
-                    title="Hear AI Question Voice"
-                  >
-                    <Volume2 size={12} />
-                    {isPlayingAudio ? 'Mute' : 'Hear Audio'}
-                  </button>
-                </div>
+                      gap: '8px',
+                      background: 'rgba(9, 13, 22, 0.82)',
+                      backdropFilter: 'blur(8px)',
+                      padding: '5px 10px',
+                      borderRadius: '6px',
+                      fontSize: '11px',
+                      color: '#cbd5e1'
+                    }}>
+                      {/* Audio waveform bars */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '2px', height: '14px' }}>
+                        {[8, 14, 20, 10, 16, 8].map((h, i) => (
+                          <div
+                            key={i}
+                            style={{
+                              width: '2.5px',
+                              height: isPlayingAudio ? `${h}px` : '5px',
+                              background: '#38bdf8',
+                              borderRadius: '1px',
+                              transition: 'height 0.2s ease'
+                            }}
+                          />
+                        ))}
+                      </div>
+                      <span style={{ fontWeight: 500 }}>Listening to explanation</span>
+                    </div>
+                  </div>
 
-                {/* Right Stream: Candidate Feed with Tracking HUD */}
-                <div style={{
-                  position: 'relative',
-                  height: '210px',
-                  borderRadius: '16px',
-                  background: 'linear-gradient(180deg, #1a2233 0%, #0d121c 100%)',
-                  border: '1px solid rgba(6, 182, 212, 0.3)',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  {/* Candidate Face Silhouette with bounding box */}
+                  {/* Right Stream: Candidate Preview (You) */}
                   <div style={{
-                    width: '84px',
-                    height: '96px',
-                    borderRadius: '16px',
-                    border: '1px dashed #06b6d4',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
                     position: 'relative',
-                    background: 'rgba(6, 182, 212, 0.05)'
+                    height: '210px',
+                    borderRadius: '14px',
+                    overflow: 'hidden',
+                    border: '1px solid rgba(6, 182, 212, 0.35)',
+                    background: '#0a0e18'
                   }}>
-                    <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#334155', marginBottom: '6px' }} />
-                    <div style={{ width: '56px', height: '24px', borderRadius: '12px 12px 4px 4px', background: '#334155' }} />
+                    <img
+                      src="/candidate_alex.jpg"
+                      alt="Candidate Preview"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block'
+                      }}
+                    />
 
-                    {/* Facial feature tracker dots */}
-                    <div style={{ position: 'absolute', top: '24px', left: '26px', width: '4px', height: '4px', borderRadius: '50%', background: '#10b981' }} />
-                    <div style={{ position: 'absolute', top: '24px', right: '26px', width: '4px', height: '4px', borderRadius: '50%', background: '#10b981' }} />
-                    <div style={{ position: 'absolute', top: '38px', width: '10px', height: '2px', background: '#10b981' }} />
-                  </div>
+                    {/* Top Header Overlay */}
+                    <div style={{
+                      position: 'absolute',
+                      top: '10px',
+                      left: '10px',
+                      right: '10px',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      background: 'rgba(9, 13, 22, 0.75)',
+                      backdropFilter: 'blur(8px)',
+                      padding: '4px 10px',
+                      borderRadius: '6px',
+                      fontSize: '11px',
+                      color: '#f8fafc',
+                      fontWeight: 600
+                    }}>
+                      <span>Candidate Preview (You)</span>
+                      <span style={{
+                        fontSize: '9px',
+                        fontWeight: 700,
+                        color: '#10b981',
+                        background: 'rgba(16, 185, 129, 0.15)',
+                        border: '1px solid rgba(16, 185, 129, 0.3)',
+                        padding: '1px 6px',
+                        borderRadius: '4px'
+                      }}>
+                        Camera 1080p
+                      </span>
+                    </div>
 
-                  <span style={{ fontSize: '13px', fontWeight: 700, color: '#f8fafc', marginTop: '10px' }}>
-                    Alex Chen (You)
-                  </span>
-                  <span style={{ fontSize: '11px', color: '#6ee7b7', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <Eye size={12} /> Eye Contact: 96% Aligned
-                  </span>
-
-                  {/* Top Left Live Tag */}
-                  <div style={{
-                    position: 'absolute',
-                    top: '10px',
-                    left: '10px',
-                    background: 'rgba(0, 0, 0, 0.6)',
-                    padding: '3px 8px',
-                    borderRadius: '6px',
-                    fontSize: '10px',
-                    fontWeight: 600,
-                    color: '#6ee7b7'
-                  }}>
-                    CAMERA ACTIVE
-                  </div>
-
-                  {/* Live HUD telemetry metric */}
-                  <div style={{
-                    position: 'absolute',
-                    bottom: '10px',
-                    left: '10px',
-                    right: '10px',
-                    background: 'rgba(15, 23, 42, 0.85)',
-                    backdropFilter: 'blur(8px)',
-                    padding: '4px 8px',
-                    borderRadius: '6px',
-                    fontSize: '10px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    color: '#94a3b8'
-                  }}>
-                    <span>Cadence: <b style={{ color: '#f8fafc' }}>142 WPM</b></span>
-                    <span>Fillers: <b style={{ color: '#10b981' }}>0 detected</b></span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Live Question Dialogue Subtitle */}
-              <div style={{
-                padding: '16px 20px',
-                background: '#131929',
-                borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
-              }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                  <div style={{
-                    background: 'rgba(99, 102, 241, 0.2)',
-                    padding: '4px 8px',
-                    borderRadius: '6px',
-                    fontSize: '11px',
-                    fontWeight: 700,
-                    color: '#818cf8',
-                    whiteSpace: 'nowrap'
-                  }}>
-                    QUESTION #2
-                  </div>
-                  <p style={{ fontSize: '13px', color: '#e2e8f0', lineHeight: 1.5 }}>
-                    "Could you explain how React's virtual DOM diffing algorithm optimizes rendering performance under heavy state updates?"
-                  </p>
-                </div>
-              </div>
-
-              {/* Bottom Real-Time Telemetry Bar */}
-              <div style={{
-                padding: '14px 20px',
-                background: '#0b0f19',
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: '12px'
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                  <div
-                    onClick={() => setActiveMetric('confidence')}
-                    style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', opacity: activeMetric === 'confidence' ? 1 : 0.6 }}
-                  >
-                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981' }} />
-                    <span style={{ fontSize: '12px', color: '#94a3b8' }}>Confidence:</span>
-                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#10b981' }}>89% (High)</span>
-                  </div>
-
-                  <div
-                    onClick={() => setActiveMetric('tone')}
-                    style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', opacity: activeMetric === 'tone' ? 1 : 0.6 }}
-                  >
-                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#6366f1' }} />
-                    <span style={{ fontSize: '12px', color: '#94a3b8' }}>Tone:</span>
-                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#a5b4fc' }}>Articulate</span>
-                  </div>
-
-                  <div
-                    onClick={() => setActiveMetric('clarity')}
-                    style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', opacity: activeMetric === 'clarity' ? 1 : 0.6 }}
-                  >
-                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#06b6d4' }} />
-                    <span style={{ fontSize: '12px', color: '#94a3b8' }}>Clarity:</span>
-                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#67e8f9' }}>94%</span>
+                    {/* Bottom Status Overlay */}
+                    <div style={{
+                      position: 'absolute',
+                      bottom: '10px',
+                      left: '10px',
+                      right: '10px',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      background: 'rgba(9, 13, 22, 0.82)',
+                      backdropFilter: 'blur(8px)',
+                      padding: '5px 10px',
+                      borderRadius: '6px',
+                      fontSize: '11px',
+                      color: '#cbd5e1'
+                    }}>
+                      <span>Lighting: <strong style={{ color: '#67e8f9' }}>Optimal</strong></span>
+                      <span>Eye-level: <strong style={{ color: '#10b981' }}>Calibrated</strong></span>
+                    </div>
                   </div>
                 </div>
 
-                <button
-                  onClick={() => onStartPractice('Senior Frontend Engineer')}
-                  style={{
-                    background: 'linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)',
-                    border: 'none',
-                    color: '#fff',
-                    borderRadius: '8px',
-                    padding: '6px 14px',
-                    fontSize: '12px',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px'
-                  }}
-                >
-                  <span>Try Answering This</span>
-                  <ArrowRight size={12} />
-                </button>
+                {/* Bottom Speech Telemetry Bar */}
+                <div style={{
+                  background: 'rgba(9, 13, 22, 0.65)',
+                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  borderRadius: '12px',
+                  padding: '10px 14px',
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '10px'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ef4444', animation: 'pulseGlow 1.5s infinite' }} />
+                    <span style={{ fontSize: '12px', fontWeight: 600, color: '#f8fafc' }}>Live Speech Telemetry</span>
+                    <span style={{
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      color: '#cbd5e1',
+                      background: 'rgba(255, 255, 255, 0.08)',
+                      padding: '2px 8px',
+                      borderRadius: '4px'
+                    }}>
+                      REC 01:14
+                    </span>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      color: '#a5b4fc',
+                      background: 'rgba(99, 102, 241, 0.12)',
+                      border: '1px solid rgba(99, 102, 241, 0.25)',
+                      padding: '3px 10px',
+                      borderRadius: '9999px'
+                    }}>
+                      142 WPM • Steady Cadence
+                    </span>
+                    <span style={{
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      color: '#34d399',
+                      background: 'rgba(16, 185, 129, 0.12)',
+                      border: '1px solid rgba(16, 185, 129, 0.25)',
+                      padding: '3px 10px',
+                      borderRadius: '9999px'
+                    }}>
+                      Fillers: 0 in current 30s
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+
+        {/* 4 Bottom Horizontal Feature Pillars (Exactly as in Mockup) */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+          gap: '16px'
+        }}>
+          {featurePillars.map((pillar, idx) => (
+            <div
+              key={idx}
+              style={{
+                background: 'rgba(15, 21, 34, 0.7)',
+                border: '1px solid rgba(255, 255, 255, 0.06)',
+                borderRadius: '16px',
+                padding: '16px 20px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '14px',
+                transition: 'all 0.2s ease'
+              }}
+              className="glow-card-hover"
+            >
+              <div style={{
+                width: '42px',
+                height: '42px',
+                borderRadius: '10px',
+                background: 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0
+              }}>
+                {pillar.icon}
+              </div>
+
+              <div>
+                <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', marginBottom: '2px' }}>
+                  {pillar.title}
+                </div>
+                <div style={{ fontSize: '12px', color: '#94a3b8' }}>
+                  {pillar.subtitle}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

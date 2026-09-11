@@ -1,159 +1,198 @@
-import React, { useState } from 'react';
-import { Target, MessageSquare, Video, Cpu } from 'lucide-react';
+import React from 'react';
+import { Terminal, MessageSquare, Mic, Video } from 'lucide-react';
 
 export const ProblemSolutionSection: React.FC = () => {
-  const [selectedPillar, setSelectedPillar] = useState(0);
-
-  const pillars = [
+  const rubrics = [
     {
-      id: 0,
-      icon: <Target size={22} color="#818cf8" />,
-      title: 'Structured Frameworks',
-      badge: 'STAR / PREP Method',
-      percentage: 88,
-      accentColor: '#818cf8',
-      description: 'Scored on context setting, concrete action clarity, and quantifiable results rather than rambling stories.',
-      benchmarks: ['Clear Situation framing', 'Specific Task ownership', 'Detailed Action execution', 'Measurable Result takeaways']
+      icon: <Terminal size={18} color="#cbd5e1" />,
+      badge: 'Target 85+',
+      badgeBg: 'rgba(255, 255, 255, 0.05)',
+      badgeColor: '#94a3b8',
+      title: 'Technical Accuracy',
+      desc: 'Can you articulate algorithms, boundary constraints, and architectural trade-offs correctly without hesitation?',
+      score: '86 / 100',
+      pct: 86,
+      barColor: '#a78bfa'
     },
     {
-      id: 1,
-      icon: <MessageSquare size={22} color="#06b6d4" />,
-      title: 'Communication & Pacing',
-      badge: 'Cadence & Flow',
-      percentage: 92,
-      accentColor: '#06b6d4',
-      description: 'Monitors optimal speaking rate (130-150 WPM), pauses for emphasis, and eliminates filler words (um, like, basically).',
-      benchmarks: ['Zero filler words (<1%)', '135 WPM optimal pacing', 'Concise 90s response targets', 'Clear vocal inflection']
+      icon: <MessageSquare size={18} color="#cbd5e1" />,
+      badge: 'Target 80+',
+      badgeBg: 'rgba(255, 255, 255, 0.05)',
+      badgeColor: '#94a3b8',
+      title: 'Communication',
+      desc: 'Do you structure your rationale logically using STAR frameworks, crisp problem scopes, and causality?',
+      score: '84 / 100',
+      pct: 84,
+      barColor: '#c084fc'
     },
     {
-      id: 2,
-      icon: <Video size={22} color="#a855f7" />,
-      title: 'Body Language & Tone',
-      badge: 'Presence & Gaze',
-      percentage: 78,
-      accentColor: '#a855f7',
-      description: 'Tracks eye contact alignment to the lens, stable upright posture, natural smiling, and calm composure under tough questions.',
-      benchmarks: ['94%+ Camera eye contact', 'Calm posture & gestures', 'Vocal pitch stability', 'Authentic executive presence']
+      icon: <Mic size={18} color="#38bdf8" />,
+      badge: '120–160 WPM',
+      badgeBg: 'rgba(6, 182, 212, 0.12)',
+      badgeColor: '#38bdf8',
+      title: 'Speech & Delivery',
+      desc: 'Is your delivery cadence within the optimal 120–160 WPM bracket without sudden filler word clusters?',
+      score: '81 / 100',
+      pct: 81,
+      barColor: '#38bdf8'
     },
     {
-      id: 3,
-      icon: <Cpu size={22} color="#10b981" />,
-      title: 'Technical Depth & Logic',
-      badge: 'Trade-off Analysis',
-      percentage: 95,
-      accentColor: '#10b981',
-      description: 'Evaluates correctness of algorithmic complexity, architectural boundary decisions, and thorough edge case coverage.',
-      benchmarks: ['System bottlenecks identified', 'Big-O space/time trade-offs', 'Resilience & failover strategies', 'Clean conceptual hierarchy']
+      icon: <Video size={18} color="#34d399" />,
+      badge: 'Objective CV',
+      badgeBg: 'rgba(16, 185, 129, 0.12)',
+      badgeColor: '#34d399',
+      title: 'Presentation',
+      desc: 'Is your framing, lighting gradient, and webcam posture calibrated for virtual high-stakes conversations?',
+      score: '85 / 100',
+      pct: 85,
+      barColor: '#34d399'
     }
   ];
 
   return (
-    <section id="pillars" style={{ padding: '80px 0', position: 'relative' }}>
+    <section id="features" style={{ padding: '60px 0 90px', position: 'relative' }}>
       <div className="container">
-        {/* Header */}
-        <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 56px' }}>
-          <span className="badge-pill badge-cyan" style={{ marginBottom: '14px' }}>
-            WHY TRADITIONAL PREPARATION FAILS
+        {/* Left-Aligned Header */}
+        <div style={{ maxWidth: '760px', marginBottom: '44px' }}>
+          <span style={{
+            fontSize: '11px',
+            fontWeight: 700,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            color: '#818cf8',
+            display: 'block',
+            marginBottom: '12px'
+          }}>
+            THE COMPLETE INTERVIEW MODEL
           </span>
+
           <h2 style={{
-            fontSize: 'clamp(28px, 4vw, 44px)',
+            fontSize: 'clamp(32px, 4.5vw, 48px)',
             fontWeight: 800,
-            letterSpacing: '-0.02em',
-            marginBottom: '18px',
-            lineHeight: 1.2
+            color: '#ffffff',
+            letterSpacing: '-0.03em',
+            lineHeight: 1.15,
+            marginBottom: '18px'
           }}>
             Interviews Are More Than Just Knowing the Answer.
           </h2>
-          <p style={{ fontSize: '17px', color: '#94a3b8', lineHeight: 1.7 }}>
-            Technical knowledge is only 40% of the evaluation rubric. Hiring managers equally judge communication structure,
-            confidence under ambiguity, pacing, and how effectively you articulate complex engineering trade-offs.
+
+          <p style={{
+            fontSize: '16px',
+            color: '#94a3b8',
+            lineHeight: 1.65,
+            maxWidth: '680px',
+            margin: 0
+          }}>
+            Technical depth is only half the equation. Senior and staff interviewers evaluate how clearly you frame trade-offs, structure reasoning, and maintain confident executive presence under cognitive load.
           </p>
         </div>
 
-        {/* 4 Cards Grid */}
+        {/* 4 Rubric Cards Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))',
-          gap: '24px'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gap: '20px'
         }}>
-          {pillars.map((item) => (
+          {rubrics.map((item, idx) => (
             <div
-              key={item.id}
-              onClick={() => setSelectedPillar(item.id)}
-              className="glass-card"
+              key={idx}
               style={{
-                cursor: 'pointer',
-                borderColor: selectedPillar === item.id ? item.accentColor : 'rgba(255, 255, 255, 0.08)',
-                boxShadow: selectedPillar === item.id ? `0 0 30px ${item.accentColor}25` : 'none',
-                background: selectedPillar === item.id ? '#151b2a' : '#0f1422',
+                background: 'rgba(15, 21, 35, 0.7)',
+                border: '1px solid rgba(255, 255, 255, 0.07)',
+                borderRadius: '18px',
+                padding: '24px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                padding: '28px 24px'
+                minHeight: '260px',
+                backdropFilter: 'blur(12px)',
+                transition: 'all 0.25s ease'
               }}
+              className="glow-card-hover"
             >
               <div>
-                {/* Card Top */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+                {/* Top Row: Icon + Badge */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginBottom: '18px'
+                }}>
                   <div style={{
-                    width: '44px',
-                    height: '44px',
-                    borderRadius: '12px',
-                    background: `${item.accentColor}15`,
-                    border: `1px solid ${item.accentColor}30`,
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '10px',
+                    background: 'rgba(255, 255, 255, 0.04)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
                   }}>
                     {item.icon}
                   </div>
+
                   <span style={{
                     fontSize: '11px',
                     fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    color: item.accentColor,
-                    background: `${item.accentColor}12`,
-                    padding: '4px 10px',
-                    borderRadius: '9999px',
-                    border: `1px solid ${item.accentColor}25`
+                    color: item.badgeColor,
+                    background: item.badgeBg,
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    padding: '3px 10px',
+                    borderRadius: '9999px'
                   }}>
                     {item.badge}
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#f8fafc', marginBottom: '10px' }}>
+                {/* Title */}
+                <h3 style={{
+                  fontSize: '17px',
+                  fontWeight: 700,
+                  color: '#ffffff',
+                  marginBottom: '10px',
+                  letterSpacing: '-0.01em'
+                }}>
                   {item.title}
                 </h3>
 
-                <p style={{ fontSize: '14px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '24px' }}>
-                  {item.description}
+                {/* Description */}
+                <p style={{
+                  fontSize: '13px',
+                  color: '#94a3b8',
+                  lineHeight: 1.6,
+                  marginBottom: '28px'
+                }}>
+                  {item.desc}
                 </p>
-
-                {/* Sub benchmarks */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '24px' }}>
-                  {item.benchmarks.map((bm, bIdx) => (
-                    <div key={bIdx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: '#cbd5e1' }}>
-                      <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: item.accentColor }} />
-                      <span>{bm}</span>
-                    </div>
-                  ))}
-                </div>
               </div>
 
-              {/* Progress Weight Bar */}
+              {/* Bottom Benchmark & Progress Bar */}
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '6px' }}>
-                  <span style={{ color: '#64748b', fontWeight: 600 }}>Rubric Weighting</span>
-                  <span style={{ color: item.accentColor, fontWeight: 700 }}>{item.percentage}%</span>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  fontSize: '11px',
+                  marginBottom: '8px'
+                }}>
+                  <span style={{ color: '#64748b', fontWeight: 600 }}>Benchmark Level</span>
+                  <span style={{ color: '#ffffff', fontWeight: 700 }}>{item.score}</span>
                 </div>
-                <div style={{ width: '100%', height: '6px', background: 'rgba(255, 255, 255, 0.08)', borderRadius: '3px', overflow: 'hidden' }}>
+
+                <div style={{
+                  width: '100%',
+                  height: '5px',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  borderRadius: '9999px',
+                  overflow: 'hidden'
+                }}>
                   <div style={{
-                    width: `${item.percentage}%`,
+                    width: `${item.pct}%`,
                     height: '100%',
-                    background: item.accentColor,
-                    borderRadius: '3px',
-                    transition: 'width 0.8s ease'
+                    background: item.barColor,
+                    borderRadius: '9999px',
+                    boxShadow: `0 0 10px ${item.barColor}50`
                   }} />
                 </div>
               </div>

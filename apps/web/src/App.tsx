@@ -21,6 +21,7 @@ export function App() {
           onNavigateToSimulations={() => setCurrentPage('simulations')}
           onNavigateToPricing={() => setCurrentPage('pricing')}
           onNavigateToFaq={() => setCurrentPage('faq')}
+          onNavigateToAbout={() => setCurrentPage('about')}
         />
       )}
 
