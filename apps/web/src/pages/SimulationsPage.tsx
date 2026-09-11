@@ -50,6 +50,11 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
   const [selectedCompanyFilter, setSelectedCompanyFilter] = useState('All');
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
+  // Calibrator Interactive State
+  const [calibratorTrack, setCalibratorTrack] = useState('Senior Frontend Engineer');
+  const [calibratorTier, setCalibratorTier] = useState('Senior • L5');
+  const [calibratorCompany, setCalibratorCompany] = useState('FAANG / Tier-1 Tech');
+
   // 1. Featured Paths (6 Top Cards)
   const popularPaths = [
     {
@@ -119,7 +124,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
       title: 'Flutter Developer',
       category: 'Mobile',
       level: 'Mid/Senior • L4/L5',
-      company: 'Fast-Growing Startup',
+      company: 'Startup',
       icon: <Smartphone size={20} color="#06b6d4" />,
       questions: '95 Questions',
       tags: ['Dart', 'BLoC', 'Riverpod', 'Clean Architecture', 'Offline Sync']
@@ -129,7 +134,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
       title: 'React Developer',
       category: 'Frontend',
       level: 'Senior • L5 Tier',
-      company: 'FAANG / Top Tech',
+      company: 'FAANG',
       icon: <Layout size={20} color="#a855f7" />,
       questions: '140 Questions',
       tags: ['React 19', 'Next.js', 'Server Components', 'Zustand', 'Performance']
@@ -159,7 +164,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
       title: 'Swift / iOS Developer',
       category: 'Mobile',
       level: 'Senior • L5 Tier',
-      company: 'FAANG / Top Tech',
+      company: 'FAANG',
       icon: <Smartphone size={20} color="#38bdf8" />,
       questions: '105 Questions',
       tags: ['SwiftUI', 'Combine', 'Memory Leaks', 'UIKit', 'Concurrency']
@@ -169,7 +174,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
       title: 'Full Stack Developer',
       category: 'Engineering',
       level: 'Staff • L6 Tier',
-      company: 'FAANG / Top Tech',
+      company: 'FAANG',
       icon: <Code size={20} color="#ec4899" />,
       questions: '160 Questions',
       tags: ['React + Node/Go', 'Full Lifecycle', 'Docker', 'DB Sharding']
@@ -179,7 +184,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
       title: 'DevOps & SRE Engineer',
       category: 'Cloud & DevOps',
       level: 'Senior • L5 Tier',
-      company: 'FAANG / Top Tech',
+      company: 'FAANG',
       icon: <Terminal size={20} color="#67e8f9" />,
       questions: '125 Questions',
       tags: ['Kubernetes', 'Terraform', 'AWS', 'Prometheus', 'CI/CD']
@@ -199,7 +204,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
       title: 'Machine Learning Engineer',
       category: 'AI & Data',
       level: 'Lead • Staff L6',
-      company: 'FAANG / Top Tech',
+      company: 'FAANG',
       icon: <Cpu size={20} color="#c084fc" />,
       questions: '135 Questions',
       tags: ['PyTorch', 'Transformers', 'Triton', 'MLOps', 'Vector DBs']
@@ -209,7 +214,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
       title: 'AI / LLM Engineer',
       category: 'AI & Data',
       level: 'Senior • L5 Tier',
-      company: 'Fast-Growing Startup',
+      company: 'Startup',
       icon: <Sparkles size={20} color="#818cf8" />,
       questions: '145 Questions',
       tags: ['LLMs', 'LangChain', 'RAG Pipelines', 'Fine-Tuning', 'Evals']
@@ -222,14 +227,14 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
       company: 'Enterprise SaaS',
       icon: <Eye size={20} color="#06b6d4" />,
       questions: '90 Questions',
-      tags: ['OpenCV', 'YOLO', 'CNNs', 'Video Stream Processing', 'PyTorch']
+      tags: ['OpenCV', 'YOLO', 'CNNs', 'Video Processing', 'PyTorch']
     },
     {
       id: 'nlp-engineer',
       title: 'NLP Engineer',
       category: 'AI & Data',
       level: 'Senior • L5 Tier',
-      company: 'FAANG / Top Tech',
+      company: 'FAANG',
       icon: <Mic size={20} color="#a855f7" />,
       questions: '100 Questions',
       tags: ['BERT', 'Tokenizers', 'Embeddings', 'NER', 'Vector Indexing']
@@ -249,7 +254,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
       title: 'Cloud Solutions Architect',
       category: 'Architecture',
       level: 'Principal • L7 Tier',
-      company: 'FAANG / Top Tech',
+      company: 'FAANG',
       icon: <Server size={20} color="#10b981" />,
       questions: '150 Questions',
       tags: ['Multi-Cloud', 'AWS Well-Architected', 'Serverless', 'Cost Ops']
@@ -269,7 +274,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
       title: 'Security & AppSec Engineer',
       category: 'Architecture',
       level: 'Senior • L5 Tier',
-      company: 'FAANG / Top Tech',
+      company: 'FAANG',
       icon: <Terminal size={20} color="#ec4899" />,
       questions: '105 Questions',
       tags: ['Threat Modeling', 'OWASP Top 10', 'Pen Testing', 'Zero Trust']
@@ -279,7 +284,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
       title: 'Distributed Systems Architect',
       category: 'Architecture',
       level: 'Principal • L7 Tier',
-      company: 'FAANG / Top Tech',
+      company: 'FAANG',
       icon: <Layers size={20} color="#c084fc" />,
       questions: '175 Questions',
       tags: ['CAP Theorem', 'Raft/Paxos', 'Partitioning', 'Event Sourcing']
@@ -334,17 +339,17 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
 
       <main style={{ flex: 1 }}>
         {/* ========================================================
-            HERO SECTION: Practice the Interview That Matches Your Career
+            HERO SECTION: Practice with Realistic AI for Your Specific Career
         ======================================================== */}
-        <section style={{ padding: '60px 0 50px', position: 'relative', overflow: 'hidden' }}>
-          <div className="bg-ambient-glow" style={{ top: '-15%', left: '20%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(124, 58, 237, 0.35) 0%, transparent 70%)' }} />
-          <div className="bg-ambient-glow" style={{ top: '30%', right: '15%', width: '450px', height: '450px', background: 'radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, transparent 70%)' }} />
+        <section style={{ padding: '64px 0 45px', position: 'relative', overflow: 'hidden' }}>
+          <div className="bg-ambient-glow" style={{ top: '-15%', left: '20%', width: '550px', height: '550px', background: 'radial-gradient(circle, rgba(124, 58, 237, 0.35) 0%, transparent 70%)' }} />
+          <div className="bg-ambient-glow" style={{ top: '30%', right: '15%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, transparent 70%)' }} />
 
           <div className="container" style={{ textAlign: 'center', position: 'relative', zIndex: 2 }}>
             <div style={{ marginBottom: '18px' }}>
-              <span className="badge-pill badge-purple">
+              <span className="badge-pill badge-purple" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '30px', background: 'rgba(124, 58, 237, 0.15)', border: '1px solid rgba(168, 85, 247, 0.3)' }}>
                 <Sparkles size={14} color="#c084fc" />
-                500+ ROLE TRACKS & INTERVIEW SIMULATIONS
+                PRE-CONFIGURED INTERVIEW LIBRARY
               </span>
             </div>
 
@@ -354,12 +359,12 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
               letterSpacing: '-0.03em',
               lineHeight: 1.15,
               marginBottom: '20px',
-              maxWidth: '900px',
+              maxWidth: '920px',
               margin: '0 auto 20px'
             }}>
-              Practice the Interview That{' '}
+              Practice with Realistic AI for{' '}
               <span className="gradient-highlight-text" style={{ textShadow: '0 0 40px rgba(124, 58, 237, 0.4)' }}>
-                Matches Your Career
+                Your Specific Career
               </span>
             </h1>
 
@@ -367,11 +372,10 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
               fontSize: '18px',
               color: '#94a3b8',
               lineHeight: 1.7,
-              maxWidth: '740px',
+              maxWidth: '760px',
               margin: '0 auto 36px'
             }}>
-              Explore 500+ interview simulations across modern engineering disciplines, data & AI tracks,
-              product leadership, and enterprise distributed systems architectures.
+              Select from over 500+ pre-calibrated role tracks, tech stacks, and seniority tiers. Master coding challenges, system design, and behavioral STAR interviews.
             </p>
 
             <div style={{
@@ -398,7 +402,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
                 className="btn-secondary"
                 style={{ fontSize: '15px', padding: '15px 28px' }}
               >
-                <span>Get Personalized Recommendations</span>
+                <span>Get Personalized Track</span>
               </button>
             </div>
 
@@ -412,7 +416,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
               borderTop: '1px solid rgba(255, 255, 255, 0.08)',
               color: '#cbd5e1',
               fontSize: '13px',
-              fontWeight: 500
+              fontWeight: 600
             }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Zap size={16} color="#818cf8" /> 500+ Curated Role Packs
@@ -434,27 +438,27 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
         </section>
 
         {/* ========================================================
-            GLOBAL SEARCH & FILTER CONTROLS BAR
+            GLOBAL SEARCH BAR & QUICK FILTER TAGS
         ======================================================== */}
-        <section style={{ padding: '20px 0 40px', position: 'relative', zIndex: 10 }}>
+        <section style={{ padding: '15px 0 45px', position: 'relative', zIndex: 10 }}>
           <div className="container">
             <div style={{
               background: '#0d121c',
-              border: '1px solid rgba(99, 102, 241, 0.3)',
-              borderRadius: '20px',
+              border: '1px solid rgba(99, 102, 241, 0.35)',
+              borderRadius: '24px',
               padding: '24px',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.6)'
+              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.7)'
             }}>
-              {/* Search Input */}
+              {/* Search Input Box */}
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
-                background: 'rgba(0, 0, 0, 0.3)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                borderRadius: '12px',
-                padding: '12px 18px',
-                marginBottom: '18px'
+                background: 'rgba(0, 0, 0, 0.35)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                borderRadius: '14px',
+                padding: '14px 20px',
+                marginBottom: '16px'
               }}>
                 <Search size={20} color="#818cf8" />
                 <input
@@ -480,6 +484,52 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
                     Clear
                   </button>
                 )}
+              </div>
+
+              {/* Quick Filter Tag Pills */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                flexWrap: 'wrap',
+                marginBottom: '18px',
+                paddingBottom: '16px',
+                borderBottom: '1px solid rgba(255, 255, 255, 0.07)'
+              }}>
+                <span style={{ fontSize: '12px', color: '#94a3b8', fontWeight: 700, marginRight: '4px' }}>
+                  Quick Tracks:
+                </span>
+                {[
+                  { label: 'All Tracks', cat: 'All' },
+                  { label: 'Frontend', cat: 'Frontend' },
+                  { label: 'Backend', cat: 'Backend' },
+                  { label: 'AI & Data', cat: 'AI & Data' },
+                  { label: 'Mobile', cat: 'Mobile' },
+                  { label: 'Cloud & DevOps', cat: 'Cloud & DevOps' },
+                  { label: 'Architecture', cat: 'Architecture' },
+                  { label: 'Engineering', cat: 'Engineering' }
+                ].map((item) => {
+                  const isActive = selectedCategory === item.cat;
+                  return (
+                    <button
+                      key={item.label}
+                      onClick={() => setSelectedCategory(item.cat)}
+                      style={{
+                        background: isActive ? 'rgba(99, 102, 241, 0.25)' : 'rgba(255, 255, 255, 0.04)',
+                        border: isActive ? '1px solid #818cf8' : '1px solid rgba(255, 255, 255, 0.08)',
+                        color: isActive ? '#f8fafc' : '#94a3b8',
+                        padding: '6px 12px',
+                        borderRadius: '20px',
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease'
+                      }}
+                    >
+                      {item.label}
+                    </button>
+                  );
+                })}
               </div>
 
               {/* Filter Dropdowns Grid */}
@@ -512,6 +562,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
                     <option value="Mobile">Mobile (iOS / Flutter)</option>
                     <option value="Cloud & DevOps">Cloud & DevOps</option>
                     <option value="Architecture">Distributed Architecture</option>
+                    <option value="Engineering">Fullstack & Engineering</option>
                   </select>
                 </div>
 
@@ -592,7 +643,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
         {/* ========================================================
             POPULAR INTERVIEW PATHS (6 FEATURED CARDS)
         ======================================================== */}
-        <section style={{ padding: '50px 0', position: 'relative' }}>
+        <section style={{ padding: '45px 0', position: 'relative' }}>
           <div className="container">
             <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 40px' }}>
               <span className="badge-pill badge-cyan" style={{ marginBottom: '12px' }}>
@@ -622,8 +673,18 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
                     flexDirection: 'column',
                     justifyContent: 'space-between',
                     background: 'linear-gradient(180deg, #111728 0%, #0c101c 100%)',
+                    borderRadius: '20px',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
                     cursor: 'pointer',
                     transition: 'all 0.25s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(124, 58, 237, 0.4)';
+                    e.currentTarget.style.transform = 'translateY(-3px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                    e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
                   <div>
@@ -706,12 +767,22 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
                   className="glass-card"
                   style={{
                     padding: '24px',
+                    borderRadius: '18px',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
                     background: '#0e131f',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
                     cursor: 'pointer',
                     transition: 'all 0.25s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.35)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                    e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
                   <div>
@@ -788,7 +859,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
                 { title: 'Cloud & DB', items: ['AWS', 'Kubernetes', 'PostgreSQL', 'Redis', 'Kafka', 'Docker', 'MongoDB'] },
                 { title: 'AI & Data', items: ['PyTorch', 'Vector DBs', 'LangChain', 'HuggingFace', 'Spark', 'Snowflake'] }
               ].map((techGroup, idx) => (
-                <div key={idx} className="glass-card" style={{ padding: '24px', background: '#0e131f' }}>
+                <div key={idx} className="glass-card" style={{ padding: '24px', borderRadius: '18px', background: '#0e131f' }}>
                   <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#f8fafc', marginBottom: '14px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: '8px' }}>
                     {techGroup.title}
                   </h3>
@@ -804,7 +875,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
                           background: 'rgba(99, 102, 241, 0.1)',
                           border: '1px solid rgba(99, 102, 241, 0.2)',
                           color: '#a5b4fc',
-                          padding: '4px 10px',
+                          padding: '5px 10px',
                           borderRadius: '6px',
                           fontSize: '12px',
                           fontWeight: 600,
@@ -823,7 +894,230 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
         </section>
 
         {/* ========================================================
-            NOT SURE WHERE TO START? (CALIBRATE SECTION)
+            ROUND FORMATS: Tailored For Every Stage of Your Loop
+        ======================================================== */}
+        <section style={{ padding: '60px 0', background: 'linear-gradient(180deg, #07090e 0%, #0d121f 100%)' }}>
+          <div className="container">
+            <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 40px' }}>
+              <span className="badge-pill badge-purple" style={{ marginBottom: '12px' }}>
+                PRACTICE FORMATS
+              </span>
+              <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '12px' }}>
+                Tailored for Every Stage of Your Interview Loop
+              </h2>
+              <p style={{ fontSize: '15px', color: '#94a3b8' }}>
+                Target individual interview rounds with dedicated scoring criteria, pacing bounds, and AI personas.
+              </p>
+            </div>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: '20px'
+            }}>
+              {[
+                {
+                  icon: <Code size={24} color="#818cf8" />,
+                  title: 'Technical Coding & Big-O',
+                  badge: 'Algorithms & Sandboxes',
+                  color: '#818cf8',
+                  desc: 'Algorithmic problem solving with automated compiler verification, edge-case probing, and Big-O runtime analysis.',
+                  tags: ['Big-O Analysis', 'Data Structures', 'Live Execution']
+                },
+                {
+                  icon: <Layers size={24} color="#06b6d4" />,
+                  title: 'System Design & Architecture',
+                  badge: 'Scalability & Trade-offs',
+                  color: '#06b6d4',
+                  desc: 'Design high-throughput systems, isolate single points of failure, weigh read-write ratios, and establish consensus.',
+                  tags: ['Distributed Caching', 'CAP Theorem', 'DB Sharding']
+                },
+                {
+                  icon: <Award size={24} color="#a855f7" />,
+                  title: 'Behavioral STAR Leadership',
+                  badge: 'Executive Storytelling',
+                  color: '#a855f7',
+                  desc: 'Articulate your impact using Situation, Task, Action, and Result with quantifiable business metrics and executive composure.',
+                  tags: ['STAR Scoring', 'Conflict Resolution', 'Business ROI']
+                },
+                {
+                  icon: <Zap size={24} color="#f59e0b" />,
+                  title: 'Rapid-Fire Pressure Rounds',
+                  badge: 'Cadence & Brevity',
+                  color: '#f59e0b',
+                  desc: 'Sharpen mental agility with rapid 45-second architectural tradeoffs and unscripted follow-up probes.',
+                  tags: ['45s Timers', 'Unscripted Curveballs', 'Vocal Cadence']
+                }
+              ].map((round, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => handleStartPractice(selectedRole)}
+                  className="glass-card"
+                  style={{
+                    padding: '26px',
+                    borderRadius: '20px',
+                    background: '#0e131f',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = round.color;
+                    e.currentTarget.style.transform = 'translateY(-3px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                      <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: `${round.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        {round.icon}
+                      </div>
+                      <span style={{ fontSize: '10px', fontWeight: 700, color: round.color, background: `${round.color}12`, padding: '3px 8px', borderRadius: '4px' }}>
+                        {round.badge}
+                      </span>
+                    </div>
+
+                    <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#f8fafc', marginBottom: '8px' }}>
+                      {round.title}
+                    </h3>
+                    <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '18px' }}>
+                      {round.desc}
+                    </p>
+                  </div>
+
+                  <div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '16px' }}>
+                      {round.tags.map((t, tIdx) => (
+                        <span key={tIdx} style={{ background: 'rgba(255, 255, 255, 0.03)', fontSize: '11px', color: '#cbd5e1', padding: '2px 7px', borderRadius: '4px' }}>
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px', color: round.color, fontWeight: 700, borderTop: '1px solid rgba(255, 255, 255, 0.06)', paddingTop: '12px' }}>
+                      <span>Start Round Practice</span>
+                      <ArrowRight size={13} />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================
+            SENIORITY & DIFFICULTY TIERS
+        ======================================================== */}
+        <section style={{ padding: '60px 0', position: 'relative' }}>
+          <div className="container">
+            <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 40px' }}>
+              <span className="badge-pill badge-cyan" style={{ marginBottom: '12px' }}>
+                SENIORITY TIERS
+              </span>
+              <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '12px' }}>
+                Calibrated to Exact Industry Hiring Bars
+              </h2>
+              <p style={{ fontSize: '15px', color: '#94a3b8' }}>
+                The AI adjusts probe depth, interruption cadence, and evaluation rubrics to match your target tier.
+              </p>
+            </div>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: '20px'
+            }}>
+              {[
+                {
+                  tier: 'Junior • L3 Tier',
+                  headline: 'Foundational & Syntax',
+                  color: '#06b6d4',
+                  rigor: '65% Rigor',
+                  focus: 'Code fluency, data structures, clean modular functions, and accepting guided hints.',
+                  sample: '"Walk me through how hash table collisions are resolved in memory."'
+                },
+                {
+                  tier: 'Mid-Level • L4 Tier',
+                  headline: 'Production Craft & Trade-offs',
+                  color: '#818cf8',
+                  rigor: '80% Rigor',
+                  focus: 'Error handling, concurrency basics, maintainability, API design, and cross-team collaboration.',
+                  sample: '"How do you prevent N+1 query regressions across our relational ORM layer?"'
+                },
+                {
+                  tier: 'Senior • L5 Tier',
+                  headline: 'Scalability & Deep Ownership',
+                  color: '#a855f7',
+                  rigor: '92% Rigor',
+                  focus: 'Multi-service architecture, performance profiling, latency SLAs, and proactive risk mitigation.',
+                  sample: '"Design an idempotent payment event deduplication pipeline across 3 regions."'
+                },
+                {
+                  tier: 'Staff / Principal • L6+',
+                  headline: 'Strategic ROI & Vision',
+                  color: '#f59e0b',
+                  rigor: '98% Rigor',
+                  focus: 'Cross-organizational strategy, multi-quarter roadmap, SLA guarantees, and board-level technical ROI.',
+                  sample: '"We face 40% margin degradation on cloud egress. Pitch your re-architecture to the VP."'
+                }
+              ].map((tier, idx) => (
+                <div
+                  key={idx}
+                  className="glass-card"
+                  style={{
+                    padding: '26px',
+                    borderRadius: '20px',
+                    background: '#0e131f',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between'
+                  }}
+                >
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: tier.color, textTransform: 'uppercase' }}>
+                        {tier.tier}
+                      </span>
+                      <span style={{ fontSize: '10px', color: '#cbd5e1', background: 'rgba(255,255,255,0.06)', padding: '2px 6px', borderRadius: '4px' }}>
+                        {tier.rigor}
+                      </span>
+                    </div>
+
+                    <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#f8fafc', marginBottom: '10px' }}>
+                      {tier.headline}
+                    </h3>
+                    <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '18px' }}>
+                      {tier.focus}
+                    </p>
+
+                    <div style={{ background: 'rgba(0,0,0,0.35)', padding: '12px', borderRadius: '10px', borderLeft: `3px solid ${tier.color}`, fontSize: '12px', color: '#cbd5e1', fontStyle: 'italic', marginBottom: '18px' }}>
+                      {tier.sample}
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => handleStartPractice(selectedRole)}
+                    className="btn-secondary btn-sm"
+                    style={{ width: '100%', justifyContent: 'center' }}
+                  >
+                    <span>Practice at this Tier</span>
+                    <ArrowRight size={13} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================
+            NOT SURE WHERE TO START? (CALIBRATE & TELEMETRY SECTION)
         ======================================================== */}
         <section id="calibrate-section" style={{ padding: '60px 0', background: 'linear-gradient(180deg, #07090e 0%, #0e1424 100%)' }}>
           <div className="container">
@@ -840,6 +1134,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
                 gap: '36px',
                 alignItems: 'center'
               }}>
+                {/* Left Form */}
                 <div>
                   <span className="badge-pill badge-purple" style={{ marginBottom: '12px' }}>
                     AI TRACK CALIBRATOR
@@ -848,58 +1143,156 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
                     Not Sure Where to Start? Let AI Calibrate Your Track.
                   </h2>
                   <p style={{ fontSize: '15px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '24px' }}>
-                    Answer 3 quick questions about your current experience level and target company tier to get custom recommended question sets.
+                    Configure your current experience level and target company archetype to get custom recommended question sets with real-time telemetry.
                   </p>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '28px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#cbd5e1' }}>
-                      <CheckCircle2 size={16} color="#10b981" />
-                      <span>Custom question strictness from L4 to L7 Principal</span>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '24px' }}>
+                    {/* Role selector */}
+                    <div>
+                      <label style={{ fontSize: '12px', color: '#cbd5e1', fontWeight: 600, display: 'block', marginBottom: '6px' }}>
+                        Target Engineering Role:
+                      </label>
+                      <select
+                        value={calibratorTrack}
+                        onChange={(e) => setCalibratorTrack(e.target.value)}
+                        style={{
+                          width: '100%',
+                          background: '#090d16',
+                          border: '1px solid rgba(255, 255, 255, 0.15)',
+                          color: '#f8fafc',
+                          padding: '10px 12px',
+                          borderRadius: '8px',
+                          fontSize: '13px',
+                          outline: 'none'
+                        }}
+                      >
+                        <option value="Senior Frontend Engineer">Senior Frontend Engineer (React / TypeScript / Web Vitals)</option>
+                        <option value="Staff Distributed Systems Architect">Staff Distributed Systems Architect (Kafka / Sharding)</option>
+                        <option value="AI & Machine Learning Engineer">AI & ML Engineer (LLMs / PyTorch / RAG)</option>
+                        <option value="DevOps & SRE Engineer">DevOps & SRE Engineer (Kubernetes / Terraform)</option>
+                      </select>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#cbd5e1' }}>
-                      <CheckCircle2 size={16} color="#10b981" />
-                      <span>FAANG, FinTech & Enterprise rubrics matched instantly</span>
+
+                    {/* Tier selector */}
+                    <div>
+                      <label style={{ fontSize: '12px', color: '#cbd5e1', fontWeight: 600, display: 'block', marginBottom: '6px' }}>
+                        Target Seniority Level:
+                      </label>
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        {['Mid • L4', 'Senior • L5', 'Staff • L6+'].map((t) => (
+                          <button
+                            key={t}
+                            type="button"
+                            onClick={() => setCalibratorTier(t)}
+                            style={{
+                              flex: 1,
+                              background: calibratorTier === t ? 'rgba(99, 102, 241, 0.25)' : 'rgba(255,255,255,0.04)',
+                              border: calibratorTier === t ? '1px solid #818cf8' : '1px solid rgba(255,255,255,0.08)',
+                              color: calibratorTier === t ? '#fff' : '#94a3b8',
+                              padding: '8px',
+                              borderRadius: '6px',
+                              fontSize: '11px',
+                              fontWeight: 700,
+                              cursor: 'pointer'
+                            }}
+                          >
+                            {t}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Company Archetype */}
+                    <div>
+                      <label style={{ fontSize: '12px', color: '#cbd5e1', fontWeight: 600, display: 'block', marginBottom: '6px' }}>
+                        Company Rubric:
+                      </label>
+                      <select
+                        value={calibratorCompany}
+                        onChange={(e) => setCalibratorCompany(e.target.value)}
+                        style={{
+                          width: '100%',
+                          background: '#090d16',
+                          border: '1px solid rgba(255, 255, 255, 0.15)',
+                          color: '#f8fafc',
+                          padding: '10px 12px',
+                          borderRadius: '8px',
+                          fontSize: '13px',
+                          outline: 'none'
+                        }}
+                      >
+                        <option value="FAANG / Tier-1 Tech">Google / Meta / Tier-1 Tech</option>
+                        <option value="Enterprise SaaS">Stripe / Enterprise SaaS</option>
+                        <option value="High-Growth Startup">Series A/B High-Growth Startup</option>
+                      </select>
                     </div>
                   </div>
 
                   <button
-                    onClick={() => handleStartPractice('Senior Frontend Engineer')}
+                    onClick={() => handleStartPractice(calibratorTrack)}
                     className="btn-primary"
-                    style={{ padding: '14px 28px' }}
+                    style={{ padding: '14px 28px', width: '100%', justifyContent: 'center' }}
                   >
                     <span>Calibrate & Start Simulation</span>
                     <ArrowRight size={16} />
                   </button>
                 </div>
 
-                {/* Match Preview Card */}
+                {/* Right Interactive Match & Telemetry Preview */}
                 <div style={{
-                  background: 'rgba(0, 0, 0, 0.4)',
-                  border: '1px solid rgba(99, 102, 241, 0.25)',
-                  borderRadius: '18px',
-                  padding: '24px'
+                  background: 'rgba(0, 0, 0, 0.45)',
+                  border: '1px solid rgba(99, 102, 241, 0.3)',
+                  borderRadius: '22px',
+                  padding: '28px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '16px'
                 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <span style={{ fontSize: '11px', fontWeight: 800, color: '#10b981', background: 'rgba(16, 185, 129, 0.15)', padding: '3px 8px', borderRadius: '4px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '11px', fontWeight: 800, color: '#10b981', background: 'rgba(16, 185, 129, 0.15)', padding: '4px 10px', borderRadius: '6px' }}>
                       ✦ 96% MATCH CONFIDENCE
                     </span>
-                    <span style={{ fontSize: '12px', color: '#94a3b8' }}>Auto-Calibrated</span>
+                    <span style={{ fontSize: '11px', color: '#94a3b8' }}>Auto-Calibrated Profile</span>
                   </div>
 
-                  <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#f8fafc', marginBottom: '4px' }}>
-                    Senior Fullstack Systems Lead
-                  </h3>
-                  <div style={{ fontSize: '12px', color: '#67e8f9', marginBottom: '16px' }}>
-                    Recommended: 4 Rounds • React, Next.js, Distributed DBs, STAR
+                  <div>
+                    <h3 style={{ fontSize: '19px', fontWeight: 800, color: '#f8fafc' }}>
+                      {calibratorTrack}
+                    </h3>
+                    <div style={{ fontSize: '12px', color: '#67e8f9', marginTop: '2px' }}>
+                      {calibratorTier} • {calibratorCompany}
+                    </div>
                   </div>
 
-                  <div style={{ width: '100%', height: '6px', background: 'rgba(255, 255, 255, 0.08)', borderRadius: '3px', marginBottom: '16px' }}>
+                  <div style={{ width: '100%', height: '6px', background: 'rgba(255, 255, 255, 0.08)', borderRadius: '3px' }}>
                     <div style={{ width: '96%', height: '100%', background: 'linear-gradient(90deg, #6366f1 0%, #06b6d4 100%)', borderRadius: '3px' }} />
                   </div>
 
-                  <div style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5 }}>
-                    "Focuses on high-concurrency state rendering, WebSocket connection management, and STAR method crisis resolution."
+                  {/* Telemetry HUD Mini-Gauges */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                    <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '10px 12px', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                      <div style={{ fontSize: '10px', color: '#94a3b8' }}>Camera Telemetry</div>
+                      <div style={{ fontSize: '14px', fontWeight: 800, color: '#10b981' }}>94% Eye Contact</div>
+                    </div>
+                    <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '10px 12px', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                      <div style={{ fontSize: '10px', color: '#94a3b8' }}>Acoustic Cadence</div>
+                      <div style={{ fontSize: '14px', fontWeight: 800, color: '#f59e0b' }}>142 WPM (Optimal)</div>
+                    </div>
                   </div>
+
+                  {/* Sample Audio Activity Waves */}
+                  <div style={{ background: 'rgba(255, 255, 255, 0.02)', padding: '12px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: '11px', color: '#c084fc', fontWeight: 700 }}>AI Probing Rigor:</span>
+                    <div style={{ display: 'flex', gap: '3px', alignItems: 'center', height: '14px' }}>
+                      {[8, 14, 6, 12, 16, 9, 13, 7, 15, 10].map((h, i) => (
+                        <div key={i} style={{ width: '3px', height: `${h}px`, background: '#818cf8', borderRadius: '2px' }} />
+                      ))}
+                    </div>
+                  </div>
+
+                  <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5 }}>
+                    "Calibrated with multi-region concurrency failure scenarios, STAR trade-off scoring, and real-time behavioral pause analysis."
+                  </p>
                 </div>
               </div>
             </div>
@@ -1030,7 +1423,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
                     className="btn-secondary"
                     style={{ fontSize: '15px', padding: '15px 28px' }}
                   >
-                    <span>Explore Pricing</span>
+                    <span>Back to Overview</span>
                   </button>
                 </div>
               </div>
