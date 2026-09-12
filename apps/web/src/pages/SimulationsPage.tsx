@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Sparkles,
   ArrowRight,
-  Search,
   Code,
   Server,
   Layout,
@@ -16,13 +15,15 @@ import {
   CheckCircle2,
   Zap,
   Mic,
-  Eye,
-  FileText
+  Eye
 } from 'lucide-react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { DemoVideoModal } from '../components/DemoVideoModal';
+import { InterviewLibraryHero } from '../components/interview-library/InterviewLibraryHero';
+import { PopularInterviewPaths } from '../components/interview-library/PopularInterviewPaths';
+import { TargetRoleCatalog } from '../components/interview-library/TargetRoleCatalog';
 
 interface SimulationsPageProps {
   onNavigateToHome: () => void;
@@ -46,66 +47,19 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
   const [selectedRole, setSelectedRole] = useState('Senior Frontend Engineer');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedRoleDomain, setSelectedRoleDomain] = useState('All');
+  const [selectedLevel, setSelectedLevel] = useState('All');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('All');
+  const [selectedFormat, setSelectedFormat] = useState('All');
   const [selectedLevelFilter, setSelectedLevelFilter] = useState('All');
   const [selectedCompanyFilter, setSelectedCompanyFilter] = useState('All');
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
 
   // Calibrator Interactive State
   const [calibratorTrack, setCalibratorTrack] = useState('Senior Frontend Engineer');
   const [calibratorTier, setCalibratorTier] = useState('Senior • L5');
   const [calibratorCompany, setCalibratorCompany] = useState('FAANG / Tier-1 Tech');
-
-  // 1. Featured Paths (6 Top Cards)
-  const popularPaths = [
-    {
-      id: 'swe',
-      title: 'Software Engineering',
-      desc: 'Algorithms, data structures, code quality, clean architecture, and modular scalability.',
-      tags: ['Algorithms', 'System Patterns', 'Clean Code'],
-      icon: <Code size={22} color="#818cf8" />,
-      questions: '150+ Questions'
-    },
-    {
-      id: 'backend',
-      title: 'Backend Development',
-      desc: 'High-throughput microservices, DB indexing, cache strategies, and REST/gRPC API contracts.',
-      tags: ['PostgreSQL', 'Redis', 'Kafka', 'Microservices'],
-      icon: <Server size={22} color="#06b6d4" />,
-      questions: '180+ Questions'
-    },
-    {
-      id: 'frontend',
-      title: 'Frontend Development',
-      desc: 'React 19, Next.js, Core Web Vitals, state management, client performance, and CSS mastery.',
-      tags: ['React 19', 'Next.js', 'State Flow', 'Web Vitals'],
-      icon: <Layout size={22} color="#a855f7" />,
-      questions: '140+ Questions'
-    },
-    {
-      id: 'mobile',
-      title: 'Mobile Development',
-      desc: 'Cross-platform Flutter, React Native, iOS Swift, and Android Kotlin native performance.',
-      tags: ['Flutter', 'Dart', 'SwiftUI', 'Kotlin'],
-      icon: <Smartphone size={22} color="#f59e0b" />,
-      questions: '110+ Questions'
-    },
-    {
-      id: 'devops',
-      title: 'DevOps & Infrastructure',
-      desc: 'Kubernetes orchestration, Terraform IaC, CI/CD pipelines, AWS IAM, and zero-downtime deployments.',
-      tags: ['Kubernetes', 'Terraform', 'AWS', 'Docker'],
-      icon: <Terminal size={22} color="#38bdf8" />,
-      questions: '125+ Questions'
-    },
-    {
-      id: 'ai-ml',
-      title: 'AI & Machine Learning',
-      desc: 'Large Language Models (LLMs), RAG pipelines, PyTorch architecture, fine-tuning, and model latency.',
-      tags: ['PyTorch', 'Vector DBs', 'LLMs', 'Evals'],
-      icon: <Cpu size={22} color="#ec4899" />,
-      questions: '130+ Questions'
-    }
-  ];
 
   // 2. Comprehensive 18 Role Cards Catalog
   const allRoles = [
@@ -339,497 +293,45 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
 
       <main style={{ flex: 1 }}>
         {/* ========================================================
-            HERO SECTION: Practice with Realistic AI for Your Specific Career
+            PART 1: INTERVIEW LIBRARY HERO & SEARCH CONSOLE
         ======================================================== */}
-        <section style={{ padding: '64px 0 45px', position: 'relative', overflow: 'hidden' }}>
-          <div className="bg-ambient-glow" style={{ top: '-15%', left: '20%', width: '550px', height: '550px', background: 'radial-gradient(circle, rgba(124, 58, 237, 0.35) 0%, transparent 70%)' }} />
-          <div className="bg-ambient-glow" style={{ top: '30%', right: '15%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, transparent 70%)' }} />
-
-          <div className="container" style={{ textAlign: 'center', position: 'relative', zIndex: 2 }}>
-            <div style={{ marginBottom: '18px' }}>
-              <span className="badge-pill badge-purple" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '30px', background: 'rgba(124, 58, 237, 0.15)', border: '1px solid rgba(168, 85, 247, 0.3)' }}>
-                <Sparkles size={14} color="#c084fc" />
-                PRE-CONFIGURED INTERVIEW LIBRARY
-              </span>
-            </div>
-
-            <h1 style={{
-              fontSize: 'clamp(36px, 5vw, 60px)',
-              fontWeight: 800,
-              letterSpacing: '-0.03em',
-              lineHeight: 1.15,
-              marginBottom: '20px',
-              maxWidth: '920px',
-              margin: '0 auto 20px'
-            }}>
-              Practice with Realistic AI for{' '}
-              <span className="gradient-highlight-text" style={{ textShadow: '0 0 40px rgba(124, 58, 237, 0.4)' }}>
-                Your Specific Career
-              </span>
-            </h1>
-
-            <p style={{
-              fontSize: '18px',
-              color: '#94a3b8',
-              lineHeight: 1.7,
-              maxWidth: '760px',
-              margin: '0 auto 36px'
-            }}>
-              Select from over 500+ pre-calibrated role tracks, tech stacks, and seniority tiers. Master coding challenges, system design, and behavioral STAR interviews.
-            </p>
-
-            <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              gap: '16px',
-              marginBottom: '36px'
-            }}>
-              <button
-                onClick={() => handleStartPractice()}
-                className="btn-primary"
-                style={{ fontSize: '16px', padding: '15px 34px' }}
-              >
-                <span>Explore Simulations</span>
-                <ArrowRight size={18} />
-              </button>
-
-              <button
-                onClick={() => {
-                  const el = document.getElementById('calibrate-section');
-                  el?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="btn-secondary"
-                style={{ fontSize: '15px', padding: '15px 28px' }}
-              >
-                <span>Get Personalized Track</span>
-              </button>
-            </div>
-
-            {/* Badges Row */}
-            <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              gap: '24px',
-              paddingTop: '20px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-              color: '#cbd5e1',
-              fontSize: '13px',
-              fontWeight: 600
-            }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Zap size={16} color="#818cf8" /> 500+ Curated Role Packs
-              </span>
-              <span style={{ color: '#475569' }}>•</span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Award size={16} color="#06b6d4" /> Real-World FAANG Rubrics
-              </span>
-              <span style={{ color: '#475569' }}>•</span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Cpu size={16} color="#10b981" /> Adaptive Contextual Probing
-              </span>
-              <span style={{ color: '#475569' }}>•</span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <FileText size={16} color="#f59e0b" /> Multi-modal Diagnostic Scorecards
-              </span>
-            </div>
-          </div>
-        </section>
+        <InterviewLibraryHero
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          onSelectPopularTag={(tag) => setSearchQuery(tag)}
+          selectedRoleDomain={selectedRoleDomain}
+          onSelectRoleDomain={setSelectedRoleDomain}
+          selectedLevel={selectedLevel}
+          onSelectLevel={setSelectedLevel}
+          selectedDifficulty={selectedDifficulty}
+          onSelectDifficulty={setSelectedDifficulty}
+          selectedFormat={selectedFormat}
+          onSelectFormat={setSelectedFormat}
+          onResetFilters={clearFilters}
+          onExploreInterviews={() => {
+            const el = document.getElementById('featured-paths-section') || document.getElementById('all-roles-catalog');
+            el?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          onGetRecommendations={() => handleStartPractice()}
+        />
 
         {/* ========================================================
-            GLOBAL SEARCH BAR & QUICK FILTER TAGS
+            PART 2: POPULAR INTERVIEW PATHS (6 FEATURED CARDS)
         ======================================================== */}
-        <section style={{ padding: '15px 0 45px', position: 'relative', zIndex: 10 }}>
-          <div className="container">
-            <div style={{
-              background: '#0d121c',
-              border: '1px solid rgba(99, 102, 241, 0.35)',
-              borderRadius: '24px',
-              padding: '24px',
-              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.7)'
-            }}>
-              {/* Search Input Box */}
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                background: 'rgba(0, 0, 0, 0.35)',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
-                borderRadius: '14px',
-                padding: '14px 20px',
-                marginBottom: '16px'
-              }}>
-                <Search size={20} color="#818cf8" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search roles, technologies, architectures (e.g. React, Distributed Systems, Python, PyTorch, Kafka)..."
-                  style={{
-                    background: 'transparent',
-                    border: 'none',
-                    outline: 'none',
-                    color: '#fff',
-                    fontSize: '15px',
-                    width: '100%',
-                    fontFamily: 'inherit'
-                  }}
-                />
-                {searchQuery && (
-                  <button
-                    onClick={() => setSearchQuery('')}
-                    style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '13px' }}
-                  >
-                    Clear
-                  </button>
-                )}
-              </div>
-
-              {/* Quick Filter Tag Pills */}
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                flexWrap: 'wrap',
-                marginBottom: '18px',
-                paddingBottom: '16px',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.07)'
-              }}>
-                <span style={{ fontSize: '12px', color: '#94a3b8', fontWeight: 700, marginRight: '4px' }}>
-                  Quick Tracks:
-                </span>
-                {[
-                  { label: 'All Tracks', cat: 'All' },
-                  { label: 'Frontend', cat: 'Frontend' },
-                  { label: 'Backend', cat: 'Backend' },
-                  { label: 'AI & Data', cat: 'AI & Data' },
-                  { label: 'Mobile', cat: 'Mobile' },
-                  { label: 'Cloud & DevOps', cat: 'Cloud & DevOps' },
-                  { label: 'Architecture', cat: 'Architecture' },
-                  { label: 'Engineering', cat: 'Engineering' }
-                ].map((item) => {
-                  const isActive = selectedCategory === item.cat;
-                  return (
-                    <button
-                      key={item.label}
-                      onClick={() => setSelectedCategory(item.cat)}
-                      style={{
-                        background: isActive ? 'rgba(99, 102, 241, 0.25)' : 'rgba(255, 255, 255, 0.04)',
-                        border: isActive ? '1px solid #818cf8' : '1px solid rgba(255, 255, 255, 0.08)',
-                        color: isActive ? '#f8fafc' : '#94a3b8',
-                        padding: '6px 12px',
-                        borderRadius: '20px',
-                        fontSize: '11px',
-                        fontWeight: 700,
-                        cursor: 'pointer',
-                        transition: 'all 0.2s ease'
-                      }}
-                    >
-                      {item.label}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Filter Dropdowns Grid */}
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '12px',
-                alignItems: 'center'
-              }}>
-                {/* Category Dropdown */}
-                <div>
-                  <select
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                    style={{
-                      width: '100%',
-                      background: '#131828',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
-                      color: '#f8fafc',
-                      padding: '10px 14px',
-                      borderRadius: '8px',
-                      fontSize: '13px',
-                      outline: 'none'
-                    }}
-                  >
-                    <option value="All">All Categories</option>
-                    <option value="Frontend">Frontend Development</option>
-                    <option value="Backend">Backend Development</option>
-                    <option value="AI & Data">AI, Machine Learning & Data</option>
-                    <option value="Mobile">Mobile (iOS / Flutter)</option>
-                    <option value="Cloud & DevOps">Cloud & DevOps</option>
-                    <option value="Architecture">Distributed Architecture</option>
-                    <option value="Engineering">Fullstack & Engineering</option>
-                  </select>
-                </div>
-
-                {/* Level Dropdown */}
-                <div>
-                  <select
-                    value={selectedLevelFilter}
-                    onChange={(e) => setSelectedLevelFilter(e.target.value)}
-                    style={{
-                      width: '100%',
-                      background: '#131828',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
-                      color: '#f8fafc',
-                      padding: '10px 14px',
-                      borderRadius: '8px',
-                      fontSize: '13px',
-                      outline: 'none'
-                    }}
-                  >
-                    <option value="All">All Seniority Levels</option>
-                    <option value="Mid">Mid-Level (L4)</option>
-                    <option value="Senior">Senior Tier (L5)</option>
-                    <option value="Staff">Staff / Principal (L6+)</option>
-                  </select>
-                </div>
-
-                {/* Company Type Dropdown */}
-                <div>
-                  <select
-                    value={selectedCompanyFilter}
-                    onChange={(e) => setSelectedCompanyFilter(e.target.value)}
-                    style={{
-                      width: '100%',
-                      background: '#131828',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
-                      color: '#f8fafc',
-                      padding: '10px 14px',
-                      borderRadius: '8px',
-                      fontSize: '13px',
-                      outline: 'none'
-                    }}
-                  >
-                    <option value="All">All Company Types</option>
-                    <option value="FAANG">FAANG & Tier-1 Tech</option>
-                    <option value="Enterprise SaaS">Enterprise SaaS</option>
-                    <option value="Startup">Series A/B Startup</option>
-                  </select>
-                </div>
-
-                {/* Results & Clear button */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '8px' }}>
-                  <span style={{ fontSize: '13px', color: '#67e8f9', fontWeight: 700 }}>
-                    Showing {filteredRoles.length} Roles
-                  </span>
-                  {(searchQuery || selectedCategory !== 'All' || selectedLevelFilter !== 'All' || selectedCompanyFilter !== 'All') && (
-                    <button
-                      onClick={clearFilters}
-                      style={{
-                        background: 'rgba(239, 68, 68, 0.15)',
-                        border: '1px solid rgba(239, 68, 68, 0.3)',
-                        color: '#fca5a5',
-                        borderRadius: '6px',
-                        padding: '6px 12px',
-                        fontSize: '11px',
-                        fontWeight: 700,
-                        cursor: 'pointer'
-                      }}
-                    >
-                      Clear Filters
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <PopularInterviewPaths
+          onSelectTrack={(track) => handleStartPractice(track)}
+        />
 
         {/* ========================================================
-            POPULAR INTERVIEW PATHS (6 FEATURED CARDS)
+            PART 3: FIND YOUR TARGET ROLE (18 TARGET ROLES CATALOG)
         ======================================================== */}
-        <section style={{ padding: '45px 0', position: 'relative' }}>
-          <div className="container">
-            <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 40px' }}>
-              <span className="badge-pill badge-cyan" style={{ marginBottom: '12px' }}>
-                FEATURED DOMAINS
-              </span>
-              <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '12px' }}>
-                Popular Interview Paths
-              </h2>
-              <p style={{ fontSize: '15px', color: '#94a3b8' }}>
-                Our most frequently practiced tracks with standardized hiring benchmarks.
-              </p>
-            </div>
-
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '24px'
-            }}>
-              {popularPaths.map((path) => (
-                <div
-                  key={path.id}
-                  onClick={() => handleStartPractice(path.title)}
-                  className="glass-card"
-                  style={{
-                    padding: '28px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    background: 'linear-gradient(180deg, #111728 0%, #0c101c 100%)',
-                    borderRadius: '20px',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    cursor: 'pointer',
-                    transition: 'all 0.25s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(124, 58, 237, 0.4)';
-                    e.currentTarget.style.transform = 'translateY(-3px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                      <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        {path.icon}
-                      </div>
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#67e8f9', background: 'rgba(6, 182, 212, 0.1)', padding: '3px 8px', borderRadius: '6px' }}>
-                        {path.questions}
-                      </span>
-                    </div>
-
-                    <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#f8fafc', marginBottom: '8px' }}>
-                      {path.title}
-                    </h3>
-
-                    <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '20px' }}>
-                      {path.desc}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '16px' }}>
-                      {path.tags.map((tag, tIdx) => (
-                        <span key={tIdx} style={{ background: 'rgba(255, 255, 255, 0.04)', fontSize: '11px', color: '#cbd5e1', padding: '3px 8px', borderRadius: '4px' }}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div style={{
-                      paddingTop: '14px',
-                      borderTop: '1px solid rgba(255, 255, 255, 0.06)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      fontSize: '12px',
-                      color: '#818cf8',
-                      fontWeight: 700
-                    }}>
-                      <span>Launch Practice Track</span>
-                      <ArrowRight size={14} />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ========================================================
-            FIND YOUR TARGET ROLE (18+ ROLES CATALOG GRID)
-        ======================================================== */}
-        <section style={{ padding: '60px 0', background: 'linear-gradient(180deg, #07090e 0%, #0d121f 100%)' }}>
-          <div className="container">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', marginBottom: '36px' }}>
-              <div>
-                <span className="badge-pill badge-purple" style={{ marginBottom: '8px' }}>
-                  ROLE CATALOG
-                </span>
-                <h2 style={{ fontSize: '28px', fontWeight: 800, color: '#f8fafc', marginTop: '6px' }}>
-                  Find Your Target Role ({filteredRoles.length} Tracks)
-                </h2>
-              </div>
-              <span style={{ fontSize: '13px', color: '#94a3b8' }}>
-                Calibrated on real-world hiring assessments & FAANG rubrics
-              </span>
-            </div>
-
-            {/* 18 Roles Grid */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '20px'
-            }}>
-              {filteredRoles.map((role) => (
-                <div
-                  key={role.id}
-                  onClick={() => handleStartPractice(role.title)}
-                  className="glass-card"
-                  style={{
-                    padding: '24px',
-                    borderRadius: '18px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    background: '#0e131f',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    cursor: 'pointer',
-                    transition: 'all 0.25s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.35)';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-                      <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        {role.icon}
-                      </div>
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#a5b4fc', background: 'rgba(99, 102, 241, 0.12)', padding: '3px 8px', borderRadius: '6px' }}>
-                        {role.questions}
-                      </span>
-                    </div>
-
-                    <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#f8fafc', marginBottom: '4px' }}>
-                      {role.title}
-                    </h3>
-
-                    <div style={{ fontSize: '12px', color: '#67e8f9', fontWeight: 600, marginBottom: '14px' }}>
-                      {role.level} • <span style={{ color: '#94a3b8' }}>{role.company}</span>
-                    </div>
-
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '18px' }}>
-                      {role.tags.map((tag, tIdx) => (
-                        <span key={tIdx} style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.06)', fontSize: '11px', color: '#cbd5e1', padding: '2px 6px', borderRadius: '4px' }}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div style={{
-                    paddingTop: '12px',
-                    borderTop: '1px solid rgba(255, 255, 255, 0.06)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    fontSize: '12px',
-                    color: '#818cf8',
-                    fontWeight: 700
-                  }}>
-                    <span>Explore Track</span>
-                    <ArrowRight size={13} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <TargetRoleCatalog
+          searchQuery={searchQuery}
+          selectedRoleDomain={selectedRoleDomain}
+          selectedLevel={selectedLevel}
+          selectedDifficulty={selectedDifficulty}
+          onSelectRole={(role) => handleStartPractice(role)}
+        />
 
         {/* ========================================================
             PRACTICE BY TECHNOLOGY (TECH MATRICES)
