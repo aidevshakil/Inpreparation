@@ -144,7 +144,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       </main>
 
       {/* Global Footer */}
-      <Footer />
+      <Footer
+        onNavigate={(page) => {
+          if (page === 'features' && onNavigateToFeatures) onNavigateToFeatures();
+          if (page === 'how-it-works' && onNavigateToHowItWorks) onNavigateToHowItWorks();
+          if (page === 'simulations' && onNavigateToSimulations) onNavigateToSimulations();
+          if (page === 'pricing' && onNavigateToPricing) onNavigateToPricing();
+          if (page === 'faq' && onNavigateToFaq) onNavigateToFaq();
+          if (page === 'about' && onNavigateToAbout) onNavigateToAbout();
+        }}
+      />
 
       {/* Live AI Interview Simulator Modal (Fully Functional) */}
       <LiveSimulationModal

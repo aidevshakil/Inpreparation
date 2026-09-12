@@ -34,28 +34,13 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const handleLinkClick = (link: typeof navLinks[0], e: React.MouseEvent) => {
     e.preventDefault();
-    if (link.page === 'features') {
-      if (onNavigate) {
-        onNavigate('features');
-      }
+    if (onNavigate && link.page) {
+      onNavigate(link.page);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-
-    if (currentPage === 'home') {
+    } else if (link.href && link.href.startsWith('#')) {
       const targetElement = document.querySelector(link.href);
       if (targetElement) {
         targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else if (onNavigate && link.page) {
-        onNavigate(link.page);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    } else {
-      if (onNavigate && link.page) {
-        onNavigate(link.page);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
   };
