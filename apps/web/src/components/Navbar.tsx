@@ -4,8 +4,8 @@ import { Sparkles, Menu, X, User } from 'lucide-react';
 interface NavbarProps {
   onStartPractice: (role?: string) => void;
   onNavigateToAi?: () => void;
-  currentPage?: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat';
-  onNavigate?: (page: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat') => void;
+  currentPage?: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat' | 'login' | 'signup';
+  onNavigate?: (page: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat' | 'login' | 'signup') => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -113,8 +113,16 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Right CTA Actions: Log In, Get Started Free, User Profile */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          {/* Log In Button */}
           <button
-            onClick={() => onStartPractice()}
+            onClick={() => {
+              if (onNavigate) {
+                onNavigate('login');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              } else {
+                onStartPractice();
+              }
+            }}
             className="nav-login-btn"
             style={{
               background: 'transparent',
@@ -133,7 +141,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
 
           <button
-            onClick={() => onStartPractice()}
+            onClick={() => {
+              if (onNavigate) {
+                onNavigate('signup');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              } else {
+                onStartPractice();
+              }
+            }}
             className="nav-cta-btn"
             style={{
               background: 'linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)',
