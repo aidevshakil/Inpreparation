@@ -3,19 +3,10 @@ import {
   Sparkles,
   ArrowRight,
   Code,
-  Server,
-  Layout,
-  Smartphone,
-  Terminal,
-  Cpu,
-  Database,
   Layers,
   Award,
   ChevronDown,
-  CheckCircle2,
-  Zap,
-  Mic,
-  Eye
+  Zap
 } from 'lucide-react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
@@ -46,13 +37,10 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
   const [isDemoOpen, setIsDemoOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState('Senior Frontend Engineer');
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedRoleDomain, setSelectedRoleDomain] = useState('All');
   const [selectedLevel, setSelectedLevel] = useState('All');
   const [selectedDifficulty, setSelectedDifficulty] = useState('All');
   const [selectedFormat, setSelectedFormat] = useState('All');
-  const [selectedLevelFilter, setSelectedLevelFilter] = useState('All');
-  const [selectedCompanyFilter, setSelectedCompanyFilter] = useState('All');
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
 
@@ -61,213 +49,12 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
   const [calibratorTier, setCalibratorTier] = useState('Senior • L5');
   const [calibratorCompany, setCalibratorCompany] = useState('FAANG / Tier-1 Tech');
 
-  // 2. Comprehensive 18 Role Cards Catalog
-  const allRoles = [
-    {
-      id: 'python-dev',
-      title: 'Python Developer',
-      category: 'Backend',
-      level: 'Senior • L5 Tier',
-      company: 'Enterprise SaaS',
-      icon: <Server size={20} color="#818cf8" />,
-      questions: '120 Questions',
-      tags: ['Python 3.12', 'FastAPI', 'Asyncio', 'Django', 'PyTest']
-    },
-    {
-      id: 'flutter-dev',
-      title: 'Flutter Developer',
-      category: 'Mobile',
-      level: 'Mid/Senior • L4/L5',
-      company: 'Startup',
-      icon: <Smartphone size={20} color="#06b6d4" />,
-      questions: '95 Questions',
-      tags: ['Dart', 'BLoC', 'Riverpod', 'Clean Architecture', 'Offline Sync']
-    },
-    {
-      id: 'react-dev',
-      title: 'React Developer',
-      category: 'Frontend',
-      level: 'Senior • L5 Tier',
-      company: 'FAANG',
-      icon: <Layout size={20} color="#a855f7" />,
-      questions: '140 Questions',
-      tags: ['React 19', 'Next.js', 'Server Components', 'Zustand', 'Performance']
-    },
-    {
-      id: 'nodejs-dev',
-      title: 'Node.js Developer',
-      category: 'Backend',
-      level: 'Senior • L5 Tier',
-      company: 'Enterprise SaaS',
-      icon: <Server size={20} color="#10b981" />,
-      questions: '130 Questions',
-      tags: ['Express', 'NestJS', 'Event Loop', 'Redis', 'WebSockets']
-    },
-    {
-      id: 'django-dev',
-      title: 'Django Developer',
-      category: 'Backend',
-      level: 'Mid-Level • L4',
-      company: 'Enterprise SaaS',
-      icon: <Server size={20} color="#f59e0b" />,
-      questions: '85 Questions',
-      tags: ['ORM Optimization', 'Celery', 'PostgreSQL', 'DRF', 'Caching']
-    },
-    {
-      id: 'swift-dev',
-      title: 'Swift / iOS Developer',
-      category: 'Mobile',
-      level: 'Senior • L5 Tier',
-      company: 'FAANG',
-      icon: <Smartphone size={20} color="#38bdf8" />,
-      questions: '105 Questions',
-      tags: ['SwiftUI', 'Combine', 'Memory Leaks', 'UIKit', 'Concurrency']
-    },
-    {
-      id: 'fullstack-dev',
-      title: 'Full Stack Developer',
-      category: 'Engineering',
-      level: 'Staff • L6 Tier',
-      company: 'FAANG',
-      icon: <Code size={20} color="#ec4899" />,
-      questions: '160 Questions',
-      tags: ['React + Node/Go', 'Full Lifecycle', 'Docker', 'DB Sharding']
-    },
-    {
-      id: 'devops-eng',
-      title: 'DevOps & SRE Engineer',
-      category: 'Cloud & DevOps',
-      level: 'Senior • L5 Tier',
-      company: 'FAANG',
-      icon: <Terminal size={20} color="#67e8f9" />,
-      questions: '125 Questions',
-      tags: ['Kubernetes', 'Terraform', 'AWS', 'Prometheus', 'CI/CD']
-    },
-    {
-      id: 'data-scientist',
-      title: 'Data Scientist',
-      category: 'AI & Data',
-      level: 'Senior • L5 Tier',
-      company: 'Enterprise SaaS',
-      icon: <Database size={20} color="#fbbf24" />,
-      questions: '115 Questions',
-      tags: ['Statistical Modeling', 'Pandas', 'Scikit-Learn', 'SQL', 'A/B Testing']
-    },
-    {
-      id: 'ml-engineer',
-      title: 'Machine Learning Engineer',
-      category: 'AI & Data',
-      level: 'Lead • Staff L6',
-      company: 'FAANG',
-      icon: <Cpu size={20} color="#c084fc" />,
-      questions: '135 Questions',
-      tags: ['PyTorch', 'Transformers', 'Triton', 'MLOps', 'Vector DBs']
-    },
-    {
-      id: 'ai-engineer',
-      title: 'AI / LLM Engineer',
-      category: 'AI & Data',
-      level: 'Senior • L5 Tier',
-      company: 'Startup',
-      icon: <Sparkles size={20} color="#818cf8" />,
-      questions: '145 Questions',
-      tags: ['LLMs', 'LangChain', 'RAG Pipelines', 'Fine-Tuning', 'Evals']
-    },
-    {
-      id: 'computer-vision',
-      title: 'Computer Vision Engineer',
-      category: 'AI & Data',
-      level: 'Senior • L5 Tier',
-      company: 'Enterprise SaaS',
-      icon: <Eye size={20} color="#06b6d4" />,
-      questions: '90 Questions',
-      tags: ['OpenCV', 'YOLO', 'CNNs', 'Video Processing', 'PyTorch']
-    },
-    {
-      id: 'nlp-engineer',
-      title: 'NLP Engineer',
-      category: 'AI & Data',
-      level: 'Senior • L5 Tier',
-      company: 'FAANG',
-      icon: <Mic size={20} color="#a855f7" />,
-      questions: '100 Questions',
-      tags: ['BERT', 'Tokenizers', 'Embeddings', 'NER', 'Vector Indexing']
-    },
-    {
-      id: 'big-data',
-      title: 'Big Data Engineer',
-      category: 'Cloud & DevOps',
-      level: 'Senior • L5 Tier',
-      company: 'Enterprise SaaS',
-      icon: <Database size={20} color="#f59e0b" />,
-      questions: '110 Questions',
-      tags: ['Apache Spark', 'Kafka', 'Snowflake', 'Lakehouse', 'Airflow']
-    },
-    {
-      id: 'cloud-architect',
-      title: 'Cloud Solutions Architect',
-      category: 'Architecture',
-      level: 'Principal • L7 Tier',
-      company: 'FAANG',
-      icon: <Server size={20} color="#10b981" />,
-      questions: '150 Questions',
-      tags: ['Multi-Cloud', 'AWS Well-Architected', 'Serverless', 'Cost Ops']
-    },
-    {
-      id: 'qa-engineer',
-      title: 'QA Automation Engineer',
-      category: 'Engineering',
-      level: 'Mid/Senior • L4/L5',
-      company: 'Enterprise SaaS',
-      icon: <CheckCircle2 size={20} color="#38bdf8" />,
-      questions: '85 Questions',
-      tags: ['Playwright', 'Cypress', 'Selenium', 'Load Testing', 'CI Matrix']
-    },
-    {
-      id: 'security-engineer',
-      title: 'Security & AppSec Engineer',
-      category: 'Architecture',
-      level: 'Senior • L5 Tier',
-      company: 'FAANG',
-      icon: <Terminal size={20} color="#ec4899" />,
-      questions: '105 Questions',
-      tags: ['Threat Modeling', 'OWASP Top 10', 'Pen Testing', 'Zero Trust']
-    },
-    {
-      id: 'distributed-architect',
-      title: 'Distributed Systems Architect',
-      category: 'Architecture',
-      level: 'Principal • L7 Tier',
-      company: 'FAANG',
-      icon: <Layers size={20} color="#c084fc" />,
-      questions: '175 Questions',
-      tags: ['CAP Theorem', 'Raft/Paxos', 'Partitioning', 'Event Sourcing']
-    }
-  ];
-
-  // Filtering Logic
-  const filteredRoles = allRoles.filter((role) => {
-    const matchesSearch =
-      role.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      role.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
-
-    const matchesCategory =
-      selectedCategory === 'All' || role.category === selectedCategory;
-
-    const matchesLevel =
-      selectedLevelFilter === 'All' || role.level.includes(selectedLevelFilter);
-
-    const matchesCompany =
-      selectedCompanyFilter === 'All' || role.company.includes(selectedCompanyFilter);
-
-    return matchesSearch && matchesCategory && matchesLevel && matchesCompany;
-  });
-
   const clearFilters = () => {
     setSearchQuery('');
-    setSelectedCategory('All');
-    setSelectedLevelFilter('All');
-    setSelectedCompanyFilter('All');
+    setSelectedRoleDomain('All');
+    setSelectedLevel('All');
+    setSelectedDifficulty('All');
+    setSelectedFormat('All');
   };
 
   const handleStartPractice = (roleName?: string) => {
