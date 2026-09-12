@@ -1,7 +1,11 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onNavigate?: (page: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about') => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer style={{
       background: '#070a12',
@@ -60,10 +64,10 @@ export const Footer: React.FC = () => {
               PRODUCT
             </div>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px', color: '#8896ab' }}>
-              <li><a href="#features" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Features</a></li>
-              <li><a href="#simulations" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Simulation Modes</a></li>
-              <li><a href="#simulations" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Live Evaluation</a></li>
-              <li><a href="#pricing" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Pricing Plans</a></li>
+              <li><a href="#features" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('features'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s', cursor: 'pointer' }}>Features</a></li>
+              <li><a href="#simulations" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('simulations'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s', cursor: 'pointer' }}>Simulation Modes</a></li>
+              <li><a href="#simulations" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('simulations'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s', cursor: 'pointer' }}>Live Evaluation</a></li>
+              <li><a href="#pricing" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('pricing'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s', cursor: 'pointer' }}>Pricing Plans</a></li>
             </ul>
           </div>
 
@@ -80,10 +84,10 @@ export const Footer: React.FC = () => {
               RESOURCES
             </div>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px', color: '#8896ab' }}>
-              <li><a href="#simulations" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Interview Library</a></li>
-              <li><a href="#faq" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>FAQ</a></li>
-              <li><a href="#model-answers" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Executive Playbooks</a></li>
-              <li><a href="#features" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Voice Diagnostics</a></li>
+              <li><a href="#simulations" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('simulations'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s', cursor: 'pointer' }}>Interview Library</a></li>
+              <li><a href="#faq" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('faq'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s', cursor: 'pointer' }}>FAQ</a></li>
+              <li><a href="#how-it-works" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('how-it-works'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s', cursor: 'pointer' }}>Executive Playbooks</a></li>
+              <li><a href="#features" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('features'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s', cursor: 'pointer' }}>Voice Diagnostics</a></li>
             </ul>
           </div>
 
@@ -100,9 +104,9 @@ export const Footer: React.FC = () => {
               COMPANY
             </div>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px', color: '#8896ab' }}>
-              <li><a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>About Us</a></li>
+              <li><a href="#" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('about'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s', cursor: 'pointer' }}>About Us</a></li>
               <li><a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Careers</a></li>
-              <li><a href="#how-it-works" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Methodology</a></li>
+              <li><a href="#how-it-works" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('how-it-works'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s', cursor: 'pointer' }}>Methodology</a></li>
               <li><a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Contact</a></li>
             </ul>
           </div>
