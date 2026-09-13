@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
-import { IntroResultSimulatorBar, IntroResultState } from '../components/intro-result/IntroResultSimulatorBar';
+import { ProfileAnalysisSimulatorBar, ProfileAnalysisState } from '../components/profile-analysis/ProfileAnalysisSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
-import { IntroResultHeader } from '../components/intro-result/IntroResultHeader';
-import { IntroResultDossierBanner } from '../components/intro-result/IntroResultDossierBanner';
-import { IntroResultCareerSummaryCard } from '../components/intro-result/IntroResultCareerSummaryCard';
-import { IntroResultWhatYouSharedCard } from '../components/intro-result/IntroResultWhatYouSharedCard';
-import { IntroResultPotentialStrengthsCard } from '../components/intro-result/IntroResultPotentialStrengthsCard';
-import { IntroResultPreparationFocusCard } from '../components/intro-result/IntroResultPreparationFocusCard';
-import { IntroResultSubmittedResponsesCard } from '../components/intro-result/IntroResultSubmittedResponsesCard';
-import { IntroResultProfileReadinessCard } from '../components/intro-result/IntroResultProfileReadinessCard';
-import { IntroResultPossibleTracksCard } from '../components/intro-result/IntroResultPossibleTracksCard';
-import { IntroResultTransparencyCards } from '../components/intro-result/IntroResultTransparencyCards';
-import { IntroResultModals } from '../components/intro-result/IntroResultModals';
+import { ProfileAnalysisHeader } from '../components/profile-analysis/ProfileAnalysisHeader';
+import { ProfileAnalysisGlanceCard } from '../components/profile-analysis/ProfileAnalysisGlanceCard';
+import { ProfileAnalysisTransparencyCard } from '../components/profile-analysis/ProfileAnalysisTransparencyCard';
+import { ProfileAnalysisIdentityCard } from '../components/profile-analysis/ProfileAnalysisIdentityCard';
+import { ProfileAnalysisSkillsCard } from '../components/profile-analysis/ProfileAnalysisSkillsCard';
+import { ProfileAnalysisBackgroundCard } from '../components/profile-analysis/ProfileAnalysisBackgroundCard';
+import { ProfileAnalysisStrengthsCard } from '../components/profile-analysis/ProfileAnalysisStrengthsCard';
+import { ProfileAnalysisFocusCard } from '../components/profile-analysis/ProfileAnalysisFocusCard';
+import { ProfileAnalysisReadinessCard } from '../components/profile-analysis/ProfileAnalysisReadinessCard';
+import { ProfileAnalysisCareerDirectionsCard } from '../components/profile-analysis/ProfileAnalysisCareerDirectionsCard';
+import { ProfileAnalysisSidebarCards } from '../components/profile-analysis/ProfileAnalysisSidebarCards';
+import { ProfileAnalysisModals } from '../components/profile-analysis/ProfileAnalysisModals';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { DashboardFooter } from '../components/dashboard/DashboardFooter';
-import { RotateCcw, ListFilter, ArrowRight, Grid } from 'lucide-react';
+import { Download, FileText, Grid, ArrowRight } from 'lucide-react';
 
-interface IntroResultPageProps {
+interface ProfileAnalysisPageProps {
   onNavigateToHome?: () => void;
   onNavigateToDashboard?: () => void;
   onNavigateToProfile?: () => void;
@@ -28,12 +29,13 @@ interface IntroResultPageProps {
   onNavigateToDeviceReadiness?: () => void;
   onNavigateToIntroRoom?: () => void;
   onNavigateToPipelineDiagnostic?: () => void;
-  onNavigateToProfileAnalysis?: () => void;
+  onNavigateToIntroResult?: () => void;
+  onNavigateToRecommendedInterviews?: () => void;
   onNavigateToSimulations?: () => void;
   onNavigateToAi?: () => void;
 }
 
-export const IntroResultPage: React.FC<IntroResultPageProps> = ({
+export const ProfileAnalysisPage: React.FC<ProfileAnalysisPageProps> = ({
   onNavigateToHome: _onNavigateToHome,
   onNavigateToDashboard,
   onNavigateToProfile,
@@ -42,25 +44,23 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
   onNavigateToCvBuilder: _onNavigateToCvBuilder,
   onNavigateToDiagnosticIntake: _onNavigateToDiagnosticIntake,
   onNavigateToDeviceReadiness: _onNavigateToDeviceReadiness,
-  onNavigateToIntroRoom,
+  onNavigateToIntroRoom: _onNavigateToIntroRoom,
   onNavigateToPipelineDiagnostic: _onNavigateToPipelineDiagnostic,
-  onNavigateToProfileAnalysis,
+  onNavigateToIntroResult,
+  onNavigateToRecommendedInterviews,
   onNavigateToSimulations,
   onNavigateToAi,
 }) => {
-  const [simulatorState, setSimulatorState] = useState<IntroResultState>('default_completed');
+  const [simulatorState, setSimulatorState] = useState<ProfileAnalysisState>('default_profile');
   const [activeNav, setActiveNav] = useState<NavItemKey>('assessment');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [showDrawer, setShowDrawer] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showRadarModal, setShowRadarModal] = useState(false);
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
   const [selectedRoleForSimulation, setSelectedRoleForSimulation] = useState('Staff Backend & Systems Architect');
 
-  const handleSimulatorStateChange = (state: IntroResultState) => {
+  const handleSimulatorStateChange = (state: ProfileAnalysisState) => {
     setSimulatorState(state);
-    if (state === 'full_responses_drawer') {
-      setShowDrawer(true);
-    }
   };
 
   const handleSelectNav = (key: NavItemKey) => {
@@ -78,13 +78,6 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
     }
   };
 
-  const handleRetakeConfirm = () => {
-    setSimulatorState('default_completed');
-    if (onNavigateToIntroRoom) {
-      onNavigateToIntroRoom();
-    }
-  };
-
   const handleExploreTrack = (trackName: string) => {
     setSelectedRoleForSimulation(trackName);
     setSimulationModalOpen(true);
@@ -92,13 +85,13 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. Interactive Prototype Simulator Bar */}
-      <IntroResultSimulatorBar
+      {/* 1. Prototype Simulator Bar */}
+      <ProfileAnalysisSimulatorBar
         currentState={simulatorState}
         onStateChange={handleSimulatorStateChange}
       />
 
-      {/* Main Workspace Layout */}
+      {/* Main Workspace Frame */}
       <div style={{ display: 'flex', flex: 1, minHeight: 'calc(100vh - 39px)' }}>
         {/* 2. Left Navigation Sidebar */}
         <DashboardSidebar
@@ -119,13 +112,13 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
 
           {/* Page Inner Container */}
           <div style={{ maxWidth: '1440px', width: '100%', margin: '0 auto', padding: '0 28px 40px 28px' }}>
-            {/* Header with Milestones Stepper, Title, Actions, 5 Parameter Chips */}
-            <IntroResultHeader
-              onNavigateToAssessment={onNavigateToIntroRoom}
-              onRetakeIntroduction={() => setSimulatorState('retake_confirm')}
-              onViewTailoredDrills={() => {
-                if (onNavigateToProfileAnalysis) {
-                  onNavigateToProfileAnalysis();
+            {/* Header with Title, 3 Metric Badges, Action Buttons */}
+            <ProfileAnalysisHeader
+              onNavigateToAssessment={onNavigateToIntroResult}
+              onDownloadPdf={() => alert('Exporting full AI Profile Analysis Dossier to PDF...')}
+              onStartRecommendedInterviews={() => {
+                if (onNavigateToRecommendedInterviews) {
+                  onNavigateToRecommendedInterviews();
                 } else if (onNavigateToSimulations) {
                   onNavigateToSimulations();
                 } else {
@@ -134,52 +127,10 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
               }}
             />
 
-            {/* Error Loading State Banner if in simulator state 4 */}
-            {simulatorState === 'error_loading' && (
-              <div
-                style={{
-                  backgroundColor: 'rgba(239, 68, 68, 0.12)',
-                  border: '1px solid rgba(239, 68, 68, 0.35)',
-                  borderRadius: '14px',
-                  padding: '16px 20px',
-                  marginBottom: '20px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  flexWrap: 'wrap',
-                  gap: '12px',
-                }}
-              >
-                <div>
-                  <h4 style={{ fontSize: '0.9rem', color: '#f87171', fontWeight: 700, margin: '0 0 2px 0' }}>
-                    Error Reloading Ingested Audio Transcripts
-                  </h4>
-                  <p style={{ fontSize: '0.76rem', color: '#fca5a5', margin: 0 }}>
-                    Failed to fetch the synchronized prosody waveform cache. Showing cached profile synthesis.
-                  </p>
-                </div>
-                <button
-                  onClick={() => setSimulatorState('default_completed')}
-                  style={{
-                    padding: '8px 16px',
-                    backgroundColor: '#ef4444',
-                    color: '#ffffff',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '0.78rem',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                  }}
-                >
-                  Retry Fetch
-                </button>
-              </div>
-            )}
-
-            {/* Synthesis Dossier Banner ("Your Career Direction at a Glance") */}
-            <IntroResultDossierBanner
-              onEditProfile={() => setShowEditModal(true)}
-              onDownloadPdf={() => alert('Exporting synthesized Career Assessment Dossier to PDF...')}
+            {/* Career Profile at a Glance + Competency Radar */}
+            <ProfileAnalysisGlanceCard
+              onEditParameters={() => setShowEditModal(true)}
+              onOpenRadarFocus={() => setShowRadarModal(true)}
             />
 
             {/* 2-Column Responsive Layout */}
@@ -193,26 +144,34 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
             >
               {/* Left Column */}
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <IntroResultCareerSummaryCard
-                  onEdit={() => setShowEditModal(true)}
+                <ProfileAnalysisTransparencyCard
+                  onViewCv={onNavigateToCv}
+                  onEditProfile={onNavigateToProfile}
+                  onReviewResponses={onNavigateToIntroResult}
                 />
-                <IntroResultWhatYouSharedCard />
-                <IntroResultPotentialStrengthsCard />
-                <IntroResultPreparationFocusCard />
-                <IntroResultSubmittedResponsesCard
-                  onOpenDrawer={() => setShowDrawer(true)}
+                <ProfileAnalysisIdentityCard
+                  onEdit={() => setShowEditModal(true)}
+                  onViewCitations={() => setSimulatorState('full_synthesis_drawer')}
+                />
+                <ProfileAnalysisSkillsCard
+                  initialFilter={simulatorState === 'skills_filter_active' ? 'architecture' : 'all'}
+                />
+                <ProfileAnalysisBackgroundCard />
+                <ProfileAnalysisStrengthsCard />
+                <ProfileAnalysisFocusCard
+                  onStartDrill={handleExploreTrack}
                 />
               </div>
 
               {/* Right Column */}
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <IntroResultProfileReadinessCard
+                <ProfileAnalysisReadinessCard
                   onCompleteProfile={() => setShowEditModal(true)}
                 />
-                <IntroResultPossibleTracksCard
+                <ProfileAnalysisCareerDirectionsCard
                   onSelectTrack={handleExploreTrack}
                 />
-                <IntroResultTransparencyCards />
+                <ProfileAnalysisSidebarCards />
               </div>
             </div>
 
@@ -236,7 +195,7 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
               {/* Left Buttons */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
                 <button
-                  onClick={() => setSimulatorState('retake_confirm')}
+                  onClick={() => alert('Printing AI Profile Dossier...')}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -252,12 +211,12 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
                     transition: 'all 0.15s ease',
                   }}
                 >
-                  <RotateCcw size={14} />
-                  <span>Retake Introduction Interview</span>
+                  <Download size={14} />
+                  <span>Print / Save PDF</span>
                 </button>
 
                 <button
-                  onClick={() => setShowDrawer(true)}
+                  onClick={onNavigateToIntroResult}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -271,8 +230,8 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
                     transition: 'all 0.15s ease',
                   }}
                 >
-                  <ListFilter size={14} style={{ color: '#818cf8' }} />
-                  <span>Review Full Responses (8)</span>
+                  <FileText size={14} style={{ color: '#818cf8' }} />
+                  <span>Review All Sources &amp; Audio Prompts</span>
                 </button>
               </div>
 
@@ -296,13 +255,13 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
                   }}
                 >
                   <Grid size={14} />
-                  <span>Browse All 48+ Categories</span>
+                  <span>Browse All 48+ Drill Categories</span>
                 </button>
 
                 <button
                   onClick={() => {
-                    if (onNavigateToProfileAnalysis) {
-                      onNavigateToProfileAnalysis();
+                    if (onNavigateToRecommendedInterviews) {
+                      onNavigateToRecommendedInterviews();
                     } else if (onNavigateToSimulations) {
                       onNavigateToSimulations();
                     } else {
@@ -325,7 +284,7 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
                     transition: 'all 0.18s ease',
                   }}
                 >
-                  <span>View Recommended Interviews (4 Tailored)</span>
+                  <span>Start Recommended Interviews (4 Tailored)</span>
                   <ArrowRight size={15} />
                 </button>
               </div>
@@ -337,15 +296,14 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
         </div>
       </div>
 
-      {/* Simulator Modals & Responses Drawer */}
-      <IntroResultModals
+      {/* Simulator Modals & Full Drawer */}
+      <ProfileAnalysisModals
         state={simulatorState}
-        onCloseSimulatorModal={() => setSimulatorState('default_completed')}
-        onConfirmRetake={handleRetakeConfirm}
-        showResponsesDrawer={showDrawer}
-        onCloseResponsesDrawer={() => setShowDrawer(false)}
-        showEditProfileModal={showEditModal}
-        onCloseEditProfileModal={() => setShowEditModal(false)}
+        onCloseSimulatorModal={() => setSimulatorState('default_profile')}
+        showEditModal={showEditModal}
+        onCloseEditModal={() => setShowEditModal(false)}
+        showRadarModal={showRadarModal}
+        onCloseRadarModal={() => setShowRadarModal(false)}
       />
 
       {/* Live Simulation Practice Modal */}
@@ -360,4 +318,4 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
   );
 };
 
-export default IntroResultPage;
+export default ProfileAnalysisPage;
