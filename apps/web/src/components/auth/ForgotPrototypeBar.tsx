@@ -6,6 +6,8 @@ export type ForgotStateMode =
   | 'invalid-format'
   | 'sending'
   | 'sent-success'
+  | 'otp-sent'
+  | 'invalid-code'
   | 'cooldown'
   | 'rate-limit'
   | 'network-error';
@@ -20,14 +22,14 @@ export const ForgotPrototypeBar: React.FC<ForgotPrototypeBarProps> = ({
   onSelectMode
 }) => {
   const modes: { id: ForgotStateMode; label: string }[] = [
-    { id: 'default', label: 'Default' },
+    { id: 'default', label: '1. Enter Email' },
+    { id: 'otp-sent', label: '2. Enter 6-Digit Code' },
+    { id: 'invalid-code', label: 'Invalid Code' },
     { id: 'empty-error', label: 'Empty Error' },
     { id: 'invalid-format', label: 'Invalid Format' },
-    { id: 'sending', label: 'Sending...' },
-    { id: 'sent-success', label: 'Email Sent (Success)' },
+    { id: 'sending', label: 'Sending Code...' },
     { id: 'cooldown', label: 'Cooldown (28s)' },
-    { id: 'rate-limit', label: 'Rate Limit Error' },
-    { id: 'network-error', label: 'Network Error' }
+    { id: 'rate-limit', label: 'Rate Limit' }
   ];
 
   return (

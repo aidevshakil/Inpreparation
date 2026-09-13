@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { DemoVideoModal } from '../components/DemoVideoModal';
+import { useAuth } from '../context/AuthContext';
 
 // Modular Step & Section Widgets
 import { HowItWorksHero } from '../components/how-it-works/HowItWorksHero';
@@ -38,12 +38,11 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({
   onNavigateToFaq,
   onNavigateToAi
 }) => {
-  const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
   const [isDemoOpen, setIsDemoOpen] = useState(false);
 
   // Profile Calibration State
   const [activePathway, setActivePathway] = useState<'upload' | 'role'>('upload');
-  const [selectedRole, setSelectedRole] = useState('Senior Frontend Engineer');
   const [selectedLevel, setSelectedLevel] = useState('Senior Staff');
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>('resume_senior_backend.pdf');
@@ -59,9 +58,13 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({
     }
   };
 
-  const handleStartPractice = (role?: string) => {
-    if (role) setSelectedRole(role);
-    setIsSimulatorOpen(true);
+  const handleStartPractice = (_role?: string) => {
+    if (isAuthenticated) {
+      window.location.hash = 'dashboard';
+    } else {
+      window.location.hash = 'signup';
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -156,13 +159,6 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({
           if (page === 'pricing' && onNavigateToPricing) onNavigateToPricing();
           if (page === 'faq' && onNavigateToFaq) onNavigateToFaq();
         }}
-      />
-
-      {/* Live Simulation Modal */}
-      <LiveSimulationModal
-        isOpen={isSimulatorOpen}
-        onClose={() => setIsSimulatorOpen(false)}
-        initialRole={selectedRole}
       />
 
       {/* Demo Video Modal */}

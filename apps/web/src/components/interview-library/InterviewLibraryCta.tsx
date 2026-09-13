@@ -91,7 +91,7 @@ export const InterviewLibraryCta: React.FC<InterviewLibraryCtaProps> = ({
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
-                <span>Start Practicing Free</span>
+                <span>Sign Up to Start Practice</span>
                 <ArrowRight size={16} />
               </button>
 

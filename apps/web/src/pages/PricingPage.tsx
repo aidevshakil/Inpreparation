@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { DemoVideoModal } from '../components/DemoVideoModal';
+import { useAuth } from '../context/AuthContext';
 import { PricingHeroTierCards } from '../components/pricing/PricingHeroTierCards';
 import { PracticeEstimator } from '../components/pricing/PracticeEstimator';
 import { DiagnosticDifferencePreview } from '../components/pricing/DiagnosticDifferencePreview';
@@ -31,13 +31,16 @@ export const PricingPage: React.FC<PricingPageProps> = ({
   onNavigateToFaq,
   onNavigateToAi
 }) => {
-  const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
   const [isDemoOpen, setIsDemoOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState('Senior Frontend Engineer');
 
-  const handleStartPractice = (roleName?: string) => {
-    if (roleName) setSelectedRole(roleName);
-    setIsSimulatorOpen(true);
+  const handleStartPractice = (_roleName?: string) => {
+    if (isAuthenticated) {
+      window.location.hash = 'dashboard';
+    } else {
+      window.location.hash = 'signup';
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -126,13 +129,6 @@ export const PricingPage: React.FC<PricingPageProps> = ({
           if (page === 'simulations') onNavigateToSimulations();
           if (page === 'faq' && onNavigateToFaq) onNavigateToFaq();
         }}
-      />
-
-      {/* Live Simulation Modal */}
-      <LiveSimulationModal
-        isOpen={isSimulatorOpen}
-        onClose={() => setIsSimulatorOpen(false)}
-        initialRole={selectedRole}
       />
 
       {/* Demo Video Modal */}

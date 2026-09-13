@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PrototypeSimulatorBar, DashboardState } from '../components/dashboard/PrototypeSimulatorBar';
+import type { DashboardState } from '../components/dashboard/PrototypeSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { CockpitHeroBanner } from '../components/dashboard/CockpitHeroBanner';
@@ -16,6 +16,7 @@ import { DashboardProcessingState } from '../components/dashboard/DashboardProce
 import { DashboardSkeletonState } from '../components/dashboard/DashboardSkeletonState';
 import { DashboardErrorState } from '../components/dashboard/DashboardErrorState';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
+import { useAuth } from '../context/AuthContext';
 
 interface CandidateDashboardPageProps {
   onNavigateToHome?: () => void;
@@ -33,11 +34,18 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
   onNavigateToSimulations,
   onNavigateToAi,
 }) => {
+  const { user } = useAuth();
   const [dashboardState, setDashboardState] = useState<DashboardState>('default');
   const [activeNav, setActiveNav] = useState<NavItemKey>('dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState('Senior Backend Engineer');
+  const [selectedRole, setSelectedRole] = useState(user.targetRole || 'Senior Backend Engineer');
+
+  const hasBasicInfo = Boolean(user.name && user.email);
+  const hasSkills = Boolean(user.cvSkills && user.cvSkills.length > 0);
+  const hasCv = Boolean(user.cvFileName);
+  const hasAssessment = Boolean(user.targetRole && user.targetRole !== 'Select Target Role');
+  const hasPreferences = false;
 
   const handleStartInterview = (role?: string) => {
     if (role) setSelectedRole(role);
@@ -59,14 +67,8 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. Top Interactive Prototype Simulator Bar */}
-      <PrototypeSimulatorBar
-        currentState={dashboardState}
-        onStateChange={(state) => setDashboardState(state)}
-      />
-
       {/* Main Workspace Frame */}
-      <div style={{ display: 'flex', flex: 1, minHeight: 'calc(100vh - 39px)' }}>
+      <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
         <DashboardSidebar
           activeItem={activeNav}
@@ -155,10 +157,10 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
               <>
                 {/* Candidate Cockpit Hero */}
                 <CockpitHeroBanner
-                  userName="Shakil"
-                  targetRole="Senior Backend Engineer"
+                  userName={user.name || 'Candidate'}
+                  targetRole={user.targetRole || 'Software Engineer'}
                   focusArea="system concurrency & distributed state"
-                  onStartInterview={() => handleStartInterview('Python Backend Developer (Senior)')}
+                  onStartInterview={() => handleStartInterview(user.targetRole || 'Backend Developer')}
                   onViewRecommendations={() => {
                     const el = document.getElementById('recommended-section');
                     el?.scrollIntoView({ behavior: 'smooth' });
@@ -167,7 +169,12 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
 
                 {/* Profile Completion Milestone Card */}
                 <ProfileCompletionCard
-                  percent={dashboardState === 'completed' ? 100 : 70}
+                  percent={dashboardState === 'completed' ? 100 : undefined}
+                  hasBasicInfo={hasBasicInfo}
+                  hasSkills={hasSkills}
+                  hasCv={hasCv}
+                  hasAssessment={hasAssessment}
+                  hasPreferences={hasPreferences}
                   onCompleteProfile={() => handleStartInterview('Career Assessment Diagnostic')}
                 />
 

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { SignupPrototypeBar, SignupStateMode } from '../components/auth/SignupPrototypeBar';
+import React from 'react';
 import { AuthNavbar } from '../components/auth/AuthNavbar';
 import { SignupFormCard } from '../components/auth/SignupFormCard';
 import { SignupJourneyPreview } from '../components/auth/SignupJourneyPreview';
@@ -26,18 +25,9 @@ export const SignupPage: React.FC<SignupPageProps> = ({
   onNavigateToLogin,
   onSignupSuccess
 }) => {
-  const [signupMode, setSignupMode] = useState<SignupStateMode>('default');
-
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#07090e', color: '#f8fafc' }}>
-      
-      {/* 1. Top Simulator State Control Bar */}
-      <SignupPrototypeBar
-        currentMode={signupMode}
-        onSelectMode={setSignupMode}
-      />
-
-      {/* 2. Candidate Studio Navbar */}
+      {/* 1. Candidate Studio Navbar */}
       <AuthNavbar
         onNavigateHome={onNavigateToHome}
         onNavigateFeatures={onNavigateToFeatures}
@@ -86,7 +76,7 @@ export const SignupPage: React.FC<SignupPageProps> = ({
           {/* Left Column: Registration Card */}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <SignupFormCard
-              mode={signupMode}
+              mode="default"
               onSignupSuccess={() => {
                 if (onSignupSuccess) {
                   onSignupSuccess();

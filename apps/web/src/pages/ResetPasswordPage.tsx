@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { LogIn } from 'lucide-react';
-import { ResetPrototypeBar, ResetStateMode } from '../components/auth/ResetPrototypeBar';
 import { AuthNavbar } from '../components/auth/AuthNavbar';
 import { ResetPasswordCard } from '../components/auth/ResetPasswordCard';
 import { ResetSecurityPreview } from '../components/auth/ResetSecurityPreview';
@@ -29,8 +28,6 @@ export const ResetPasswordPage: React.FC<ResetPasswordPageProps> = ({
   onNavigateToForgot,
   onResetSuccess
 }) => {
-  const [resetMode, setResetMode] = useState<ResetStateMode>('default');
-
   return (
     <div style={{
       minHeight: '100vh',
@@ -39,13 +36,7 @@ export const ResetPasswordPage: React.FC<ResetPasswordPageProps> = ({
       background: '#07090e',
       color: '#f8fafc'
     }}>
-      {/* 1. Top Simulator State Control Bar */}
-      <ResetPrototypeBar
-        currentMode={resetMode}
-        onSelectMode={setResetMode}
-      />
-
-      {/* 2. Candidate Studio Navbar */}
+      {/* 1. Candidate Studio Navbar */}
       <AuthNavbar
         onNavigateHome={onNavigateToHome}
         onNavigateFeatures={onNavigateToFeatures}
@@ -108,7 +99,7 @@ export const ResetPasswordPage: React.FC<ResetPasswordPageProps> = ({
           {/* Left Column: Reset Password Card */}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <ResetPasswordCard
-              mode={resetMode}
+              mode="default"
               onNavigateLogin={onNavigateToLogin}
               onNavigateForgot={onNavigateToForgot}
               onResetSuccess={onResetSuccess || onNavigateToLogin}

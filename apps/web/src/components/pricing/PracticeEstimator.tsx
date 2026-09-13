@@ -21,14 +21,14 @@ export const PracticeEstimator: React.FC<PracticeEstimatorProps> = ({
     btnText: string;
   }> = {
     '1 session/wk': {
-      tierName: 'Free Plan',
+      tierName: 'Starter Plan',
       tierPrice: '$0 / month',
       badge: 'BEST FIT FOR STARTER',
-      desc: 'Ideal for baseline testing and exploring conversational interview simulations before high-stakes loops.',
-      creditsUsed: '~100 / 100 credits',
+      desc: 'Ideal for baseline assessment and exploring curated role questions before high-stakes loops.',
+      creditsUsed: '~50 / 50 credits',
       progressPct: 100,
       bufferStatus: 'Essential Headroom',
-      btnText: 'Get Started Free'
+      btnText: 'Get Started'
     },
     '2 sessions/wk': {
       tierName: 'Pro Plan',

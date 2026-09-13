@@ -15,9 +15,9 @@ import { PricingSection } from '../components/PricingSection';
 import { FaqSection } from '../components/FaqSection';
 import { CtaBanner } from '../components/CtaBanner';
 import { Footer } from '../components/Footer';
-import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { DemoVideoModal } from '../components/DemoVideoModal';
 import { ScheduleDemoModal } from '../components/ScheduleDemoModal';
+import { useAuth } from '../context/AuthContext';
 
 interface HomePageProps {
   onNavigateToAi?: () => void;
@@ -27,6 +27,9 @@ interface HomePageProps {
   onNavigateToPricing?: () => void;
   onNavigateToFaq?: () => void;
   onNavigateToAbout?: () => void;
+  onNavigateToLogin?: () => void;
+  onNavigateToSignup?: () => void;
+  onNavigateToDashboard?: () => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
@@ -36,10 +39,12 @@ export const HomePage: React.FC<HomePageProps> = ({
   onNavigateToSimulations,
   onNavigateToPricing,
   onNavigateToFaq,
-  onNavigateToAbout
+  onNavigateToAbout,
+  onNavigateToLogin,
+  onNavigateToSignup,
+  onNavigateToDashboard,
 }) => {
-  const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState('Senior Frontend Engineer');
+  const { isAuthenticated } = useAuth();
   const [isDemoOpen, setIsDemoOpen] = useState(false);
   const [isEnterpriseOpen, setIsEnterpriseOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -56,11 +61,21 @@ export const HomePage: React.FC<HomePageProps> = ({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleStartPractice = (role?: string) => {
-    if (role) {
-      setSelectedRole(role);
+  const handleStartPractice = (_role?: string) => {
+    if (isAuthenticated) {
+      if (onNavigateToDashboard) {
+        onNavigateToDashboard();
+      } else {
+        window.location.hash = 'dashboard';
+      }
+    } else {
+      if (onNavigateToSignup) {
+        onNavigateToSignup();
+      } else {
+        window.location.hash = 'signup';
+      }
     }
-    setIsSimulatorOpen(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSelectPlan = (_planName: string) => {
@@ -85,6 +100,9 @@ export const HomePage: React.FC<HomePageProps> = ({
           if (page === 'pricing' && onNavigateToPricing) onNavigateToPricing();
           if (page === 'faq' && onNavigateToFaq) onNavigateToFaq();
           if (page === 'about' && onNavigateToAbout) onNavigateToAbout();
+          if (page === 'login' && onNavigateToLogin) onNavigateToLogin();
+          if (page === 'signup' && onNavigateToSignup) onNavigateToSignup();
+          if (page === 'dashboard' && onNavigateToDashboard) onNavigateToDashboard();
         }}
       />
 
@@ -153,13 +171,6 @@ export const HomePage: React.FC<HomePageProps> = ({
           if (page === 'faq' && onNavigateToFaq) onNavigateToFaq();
           if (page === 'about' && onNavigateToAbout) onNavigateToAbout();
         }}
-      />
-
-      {/* Live AI Interview Simulator Modal (Fully Functional) */}
-      <LiveSimulationModal
-        isOpen={isSimulatorOpen}
-        onClose={() => setIsSimulatorOpen(false)}
-        initialRole={selectedRole}
       />
 
       {/* 2-Min Product Demo Modal */}

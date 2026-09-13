@@ -29,8 +29,8 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
   onNavigateForgot,
   onResetSuccess
 }) => {
-  const [password, setPassword] = useState('SuperSecret#2026!');
-  const [confirmPassword, setConfirmPassword] = useState('SuperSecret#2026!');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [localStatus, setLocalStatus] = useState<ResetStateMode>(mode);
@@ -43,9 +43,6 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
     } else if (mode === 'mismatch') {
       setPassword('SuperSecret#2026!');
       setConfirmPassword('DifferentPassword#2026!');
-    } else if (mode === 'default' || mode === 'updating' || mode === 'reset-success') {
-      setPassword('SuperSecret#2026!');
-      setConfirmPassword('SuperSecret#2026!');
     }
   }, [mode]);
 

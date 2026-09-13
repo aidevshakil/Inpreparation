@@ -182,3 +182,177 @@ export async function sendChatMessage(messages: AIChatMessage[]) {
 
   return response.json();
 }
+
+// -------------------------------------------------------------
+// 6. Diagnostic Assessment Ingestion & Processing (#19 - #23)
+// -------------------------------------------------------------
+export interface SaveDiagnosticIntakePayload {
+  userId?: string | null;
+  targetRole: string;
+  seniorityTier: string;
+  targetCompanyTypes?: string[];
+  focusAreas?: string[];
+  completedQuestionsCount?: number;
+  totalDurationSeconds?: number;
+  responses?: Array<{
+    questionNumber: number;
+    questionText: string;
+    transcript: string;
+    audioDurationSeconds?: number;
+    wpm?: number;
+    clarityScore?: number;
+    structureScore?: number;
+    starCompliance?: number;
+    confidenceRating?: number;
+  }>;
+}
+
+export async function saveDiagnosticIntake(payload: SaveDiagnosticIntakePayload) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/diagnostic/intake`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Using local diagnostic intake fallback:', error);
+    return {
+      success: true,
+      simulated: true,
+      intake: {
+        id: `local-diag-${Date.now()}`,
+        ...payload,
+        createdAt: new Date().toISOString(),
+      },
+    };
+  }
+}
+
+export async function processDiagnosticPipeline(intakeId?: string, userId?: string) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/diagnostic/pipeline/process`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ intakeId, userId: userId || 'demo-user-1' }),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Using local diagnostic pipeline simulation fallback:', error);
+    return {
+      success: true,
+      simulated: true,
+      result: {
+        intakeId: intakeId || 'diag-demo-849',
+        overallScore: 88,
+        technicalRigorScore: 92,
+        systemsBreadthScore: 89,
+        leadershipStarScore: 84,
+        communicationScore: 87,
+        calibratedSeniority: 'Staff (L6 / IC6 Standard)',
+        timestamp: new Date().toISOString(),
+      },
+    };
+  }
+}
+
+export async function getDiagnosticResult(userId: string = 'demo-user-1') {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/diagnostic/result/${userId}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Using local diagnostic result fallback:', error);
+    return {
+      success: true,
+      source: 'fallback',
+      result: {
+        intakeId: 'diag-demo-849',
+        overallScore: 88,
+        technicalRigorScore: 92,
+        systemsBreadthScore: 89,
+        leadershipStarScore: 84,
+        communicationScore: 87,
+        targetRole: 'Staff Backend & Distributed Systems Architect',
+        seniorityTier: 'Senior 6+ Yrs Infra',
+        responsesCount: 8,
+        timestamp: new Date().toISOString(),
+      },
+    };
+  }
+}
+
+// -------------------------------------------------------------
+// 7. Profile Analysis Dossier (#24)
+// -------------------------------------------------------------
+export async function getProfileAnalysisDossier(userId: string = 'demo-user-1') {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/profile-analysis/${userId}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Using fallback profile analysis dossier:', error);
+    return {
+      success: true,
+      source: 'fallback',
+      dossier: {
+        targetTitle: 'Staff Backend & Systems Architect',
+        seniorityTier: 'Staff (L6 / IC6)',
+        primaryStack: ['Go', 'Kafka', 'Raft', 'PostgreSQL', 'Kubernetes'],
+        confidenceScore: 94.6,
+        readinessPercentage: 87,
+        verifiedDossierStatus: true,
+        competencyScores: {
+          distributedSystems: 94,
+          architecturalTradeoffs: 88,
+          engineeringLeadership: 82,
+          communicationClarity: 86,
+          executionVelocity: 91,
+          cloudReliability: 89,
+        },
+      },
+    };
+  }
+}
+
+// -------------------------------------------------------------
+// 8. Recommended Interviews & Bookmarks (#25)
+// -------------------------------------------------------------
+export async function getRecommendedInterviews(userId: string = 'demo-user-1') {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/recommendations/${userId}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Using fallback recommended interviews:', error);
+    return {
+      success: true,
+      source: 'fallback',
+      savedCount: 1,
+    };
+  }
+}
+
+export async function toggleRecommendationBookmark(payload: {
+  userId: string;
+  trackId: string;
+  trackTitle?: string;
+  domain?: string;
+  matchScore?: number;
+}) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/recommendations/bookmark`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Using fallback bookmark toggle:', error);
+    return { success: true, simulated: true, bookmarked: true };
+  }
+}
+

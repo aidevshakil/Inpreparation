@@ -279,6 +279,9 @@ export function App() {
           onNavigateToPricing={() => navigateTo('pricing')}
           onNavigateToFaq={() => navigateTo('faq')}
           onNavigateToAbout={() => navigateTo('about')}
+          onNavigateToLogin={() => navigateTo('login')}
+          onNavigateToSignup={() => navigateTo('signup')}
+          onNavigateToDashboard={() => navigateTo('dashboard')}
         />
       )}
 
@@ -407,7 +410,7 @@ export function App() {
           onNavigateToFaq={() => navigateTo('faq')}
           onNavigateToLogin={() => navigateTo('login')}
           onNavigateToSignup={() => navigateTo('signup')}
-          onVerificationSuccess={() => navigateTo('dashboard')}
+          onVerificationSuccess={() => navigateTo('diagnostic-intake')}
         />
       )}
 

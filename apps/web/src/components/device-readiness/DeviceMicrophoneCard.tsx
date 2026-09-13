@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Mic, MicOff, Volume2, Sparkles, CheckCircle2 } from 'lucide-react';
 
 interface DeviceMicrophoneCardProps {
@@ -14,21 +14,99 @@ export const DeviceMicrophoneCard: React.FC<DeviceMicrophoneCardProps> = ({
 }) => {
   const [noiseSuppression, setNoiseSuppression] = useState(true);
   const [isTesting, setIsTesting] = useState(false);
+  const [liveVolume, setLiveVolume] = useState<number>(0);
+  const [currentDbfs, setCurrentDbfs] = useState<string>('-18.4 dBFS');
+  const [audioDevices, setAudioDevices] = useState<MediaDeviceInfo[]>([]);
+  const [selectedMicId, setSelectedMicId] = useState<string>('');
 
-  const decibelBars = [
-    { height: 16, active: true },
-    { height: 20, active: true },
-    { height: 26, active: true },
-    { height: 32, active: true },
-    { height: 38, active: true },
-    { height: 42, active: true },
-    { height: 44, active: true },
-    { height: 40, active: true },
-    { height: 34, active: true },
-    { height: 28, active: true },
-    { height: 20, active: false },
-    { height: 14, active: false },
-  ];
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
+  const animFrameRef = useRef<number | null>(null);
+
+  // Enumerate Audio Input Devices
+  useEffect(() => {
+    if (navigator.mediaDevices?.enumerateDevices) {
+      navigator.mediaDevices.enumerateDevices().then((devices) => {
+        const mics = devices.filter((d) => d.kind === 'audioinput');
+        setAudioDevices(mics);
+        if (mics.length > 0 && !selectedMicId) {
+          setSelectedMicId(mics[0].deviceId);
+        }
+      }).catch((e) => console.warn('Audio device enumeration error:', e));
+    }
+  }, []);
+
+  // Live Microphone Audio Analyzer Loop
+  useEffect(() => {
+    let stream: MediaStream | null = null;
+
+    if (!isMicBlocked && navigator.mediaDevices?.getUserMedia) {
+      const constraints: MediaStreamConstraints = {
+        audio: selectedMicId ? { deviceId: { exact: selectedMicId } } : true,
+      };
+
+      navigator.mediaDevices
+        .getUserMedia(constraints)
+        .then((s) => {
+          stream = s;
+          const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+          if (AudioContextClass) {
+            const ctx = new AudioContextClass();
+            audioContextRef.current = ctx;
+            const analyser = ctx.createAnalyser();
+            analyser.fftSize = 64;
+            analyserRef.current = analyser;
+
+            const source = ctx.createMediaStreamSource(s);
+            source.connect(analyser);
+
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+
+            const updateMeter = () => {
+              if (analyserRef.current) {
+                analyserRef.current.getByteFrequencyData(dataArray);
+                let sum = 0;
+                for (let i = 0; i < bufferLength; i++) {
+                  sum += dataArray[i];
+                }
+                const average = sum / bufferLength;
+                const normalized = Math.min(100, Math.round((average / 128) * 100));
+                setLiveVolume(normalized);
+
+                const dbfs = normalized > 0 ? (normalized * 0.4 - 40).toFixed(1) : '-60.0';
+                setCurrentDbfs(`${dbfs} dBFS`);
+              }
+              animFrameRef.current = requestAnimationFrame(updateMeter);
+            };
+
+            updateMeter();
+          }
+        })
+        .catch((e) => {
+          console.warn('Microphone audio stream permission not granted or unavailable:', e);
+        });
+    }
+
+    return () => {
+      if (animFrameRef.current) {
+        cancelAnimationFrame(animFrameRef.current);
+      }
+      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+        audioContextRef.current.close().catch(() => {});
+      }
+      if (stream) {
+        stream.getTracks().forEach((track) => track.stop());
+      }
+    };
+  }, [isMicBlocked, selectedMicId]);
+
+  const decibelBars = Array.from({ length: 12 }, (_, idx) => {
+    const threshold = (idx + 1) * 8;
+    const active = liveVolume > 0 ? liveVolume >= threshold : idx < 9;
+    const height = 12 + idx * 3;
+    return { height, active };
+  });
 
   return (
     <div
@@ -61,6 +139,8 @@ export const DeviceMicrophoneCard: React.FC<DeviceMicrophoneCardProps> = ({
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <select
+            value={selectedMicId}
+            onChange={(e) => setSelectedMicId(e.target.value)}
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.04)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -72,11 +152,21 @@ export const DeviceMicrophoneCard: React.FC<DeviceMicrophoneCardProps> = ({
               cursor: 'pointer',
             }}
           >
-            <option value="builtin">MacBook Pro Microphone (CoreAudio Built-in)</option>
-            <option value="usb">Shure MV7 USB Dynamic Mic</option>
+            {audioDevices.length > 0 ? (
+              audioDevices.map((d, idx) => (
+                <option key={d.deviceId || idx} value={d.deviceId}>
+                  {d.label || `Microphone ${idx + 1}`}
+                </option>
+              ))
+            ) : (
+              <>
+                <option value="builtin">MacBook Pro Microphone (CoreAudio Built-in)</option>
+                <option value="usb">Shure MV7 USB Dynamic Mic</option>
+              </>
+            )}
           </select>
 
-          <span style={{ fontSize: '0.7rem', color: '#94a3b8' }}>Gain: 78%</span>
+          <span style={{ fontSize: '0.7rem', color: '#94a3b8' }}>Live Audio</span>
         </div>
       </div>
 
@@ -143,7 +233,7 @@ export const DeviceMicrophoneCard: React.FC<DeviceMicrophoneCardProps> = ({
                 Live Decibel Meter (dBFS)
               </span>
               <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#38bdf8' }}>
-                -18.4 dBFS
+                {currentDbfs}
               </span>
             </div>
 

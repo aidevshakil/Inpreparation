@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Video, VideoOff, Grid } from 'lucide-react';
 
 interface DeviceCameraPreviewCardProps {
@@ -14,6 +14,60 @@ export const DeviceCameraPreviewCard: React.FC<DeviceCameraPreviewCardProps> = (
 }) => {
   const [isMirrored, setIsMirrored] = useState(true);
   const [showGrid, setShowGrid] = useState(true);
+  const [videoDevices, setVideoDevices] = useState<MediaDeviceInfo[]>([]);
+  const [selectedDeviceId, setSelectedDeviceId] = useState<string>('');
+  const [hasLiveStream, setHasLiveStream] = useState<boolean>(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // Enumerate video devices
+  useEffect(() => {
+    if (navigator.mediaDevices?.enumerateDevices) {
+      navigator.mediaDevices.enumerateDevices().then((devices) => {
+        const cameras = devices.filter((d) => d.kind === 'videoinput');
+        setVideoDevices(cameras);
+        if (cameras.length > 0 && !selectedDeviceId) {
+          setSelectedDeviceId(cameras[0].deviceId);
+        }
+      }).catch((e) => console.warn('Camera enumeration error:', e));
+    }
+  }, []);
+
+  // Attach real camera stream
+  useEffect(() => {
+    let activeStream: MediaStream | null = null;
+
+    if (isCameraOn && navigator.mediaDevices?.getUserMedia) {
+      const constraints: MediaStreamConstraints = {
+        video: selectedDeviceId ? { deviceId: { exact: selectedDeviceId } } : true,
+        audio: false,
+      };
+
+      navigator.mediaDevices
+        .getUserMedia(constraints)
+        .then((stream) => {
+          activeStream = stream;
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+            setHasLiveStream(true);
+          }
+        })
+        .catch((err) => {
+          console.warn('Live webcam not accessible or permission denied, using preview fallback:', err);
+          setHasLiveStream(false);
+        });
+    } else {
+      setHasLiveStream(false);
+    }
+
+    return () => {
+      if (activeStream) {
+        activeStream.getTracks().forEach((track) => track.stop());
+      }
+      if (videoRef.current) {
+        videoRef.current.srcObject = null;
+      }
+    };
+  }, [isCameraOn, selectedDeviceId]);
 
   return (
     <div
@@ -47,6 +101,8 @@ export const DeviceCameraPreviewCard: React.FC<DeviceCameraPreviewCardProps> = (
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           {/* Camera selector dropdown */}
           <select
+            value={selectedDeviceId}
+            onChange={(e) => setSelectedDeviceId(e.target.value)}
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.04)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -58,8 +114,18 @@ export const DeviceCameraPreviewCard: React.FC<DeviceCameraPreviewCardProps> = (
               cursor: 'pointer',
             }}
           >
-            <option value="builtin">FaceTime HD Camera (Built-in)</option>
-            <option value="external">External 4K Pro Webcam</option>
+            {videoDevices.length > 0 ? (
+              videoDevices.map((dev, idx) => (
+                <option key={dev.deviceId || idx} value={dev.deviceId}>
+                  {dev.label || `Camera ${idx + 1}`}
+                </option>
+              ))
+            ) : (
+              <>
+                <option value="builtin">FaceTime HD Camera (Built-in)</option>
+                <option value="external">External 4K Pro Webcam</option>
+              </>
+            )}
           </select>
 
           {/* Resolution Badge */}
@@ -78,7 +144,7 @@ export const DeviceCameraPreviewCard: React.FC<DeviceCameraPreviewCardProps> = (
             }}
           >
             <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#10b981' }} />
-            <span>1080p @ 30fps</span>
+            <span>{hasLiveStream ? 'Live Webcam 1080p' : 'Preview Mode'}</span>
           </span>
         </div>
       </div>
@@ -101,19 +167,36 @@ export const DeviceCameraPreviewCard: React.FC<DeviceCameraPreviewCardProps> = (
       >
         {isCameraOn ? (
           <>
-            {/* Camera Video Image */}
-            <img
-              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800"
-              alt="Live candidate camera preview"
+            {/* Live Camera Video Feed */}
+            <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              muted
               style={{
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
                 transform: isMirrored ? 'scaleX(-1)' : 'none',
                 filter: isPoorLighting ? 'brightness(0.6) contrast(1.2)' : 'none',
-                transition: 'all 0.3s ease',
+                display: hasLiveStream ? 'block' : 'none',
               }}
             />
+
+            {!hasLiveStream && (
+              <img
+                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800"
+                alt="Live candidate camera preview"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  transform: isMirrored ? 'scaleX(-1)' : 'none',
+                  filter: isPoorLighting ? 'brightness(0.6) contrast(1.2)' : 'none',
+                  transition: 'all 0.3s ease',
+                }}
+              />
+            )}
 
             {/* Grid Overlay */}
             {showGrid && (

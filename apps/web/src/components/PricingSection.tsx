@@ -52,7 +52,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
           gap: '24px',
           alignItems: 'stretch'
         }}>
-          {/* Plan 1: Free Practice */}
+          {/* Plan 1: Starter Account */}
           <div style={{
             background: 'rgba(15, 21, 35, 0.65)',
             border: '1px solid rgba(255, 255, 255, 0.07)',
@@ -73,7 +73,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
                 color: '#94a3b8',
                 marginBottom: '16px'
               }}>
-                FREE PRACTICE
+                STARTER ACCOUNT
               </div>
 
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '16px' }}>
@@ -92,32 +92,32 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
                 marginBottom: '28px',
                 minHeight: '42px'
               }}>
-                Ideal for assessing your current interview posture and trying the 5–question multimodal format.
+                Profile setup, CV vector analysis, and introduction assessment calibration. Live practice requires Pro.
               </p>
 
               {/* Feature List */}
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#cbd5e1' }}>
                   <Check size={16} color="#34d399" strokeWidth={2.5} style={{ flexShrink: 0 }} />
-                  <span>1 Full 5–Question Interview / mo</span>
+                  <span>Profile & Automated CV Parsing</span>
                 </li>
                 <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#cbd5e1' }}>
                   <Check size={16} color="#34d399" strokeWidth={2.5} style={{ flexShrink: 0 }} />
-                  <span>Technical & Communication Score</span>
+                  <span>Curated Question Bank (50+ Roles)</span>
                 </li>
                 <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#cbd5e1' }}>
                   <Check size={16} color="#34d399" strokeWidth={2.5} style={{ flexShrink: 0 }} />
-                  <span>Computer Vision Setup Audit</span>
+                  <span>Introduction Interview Intake</span>
                 </li>
                 <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#475569' }}>
                   <Minus size={16} color="#475569" strokeWidth={2} style={{ flexShrink: 0 }} />
-                  <span>Historical Delta Tracking</span>
+                  <span>Live AI Mock Simulations (Pro Tier)</span>
                 </li>
               </ul>
             </div>
 
             <button
-              onClick={() => onSelectPlan('Free Practice')}
+              onClick={() => onSelectPlan('Starter')}
               style={{
                 width: '100%',
                 padding: '13px 20px',
@@ -139,7 +139,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
                 e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
               }}
             >
-              Start Free
+              Get Started
             </button>
           </div>
 

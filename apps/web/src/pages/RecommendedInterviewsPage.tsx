@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { RecommendedInterviewsSimulatorBar, RecommendedInterviewsState } from '../components/recommended-interviews/RecommendedInterviewsSimulatorBar';
+import React, { useState, useEffect } from 'react';
+import type { RecommendedInterviewsState } from '../components/recommended-interviews/RecommendedInterviewsSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { RecommendedInterviewsHeader } from '../components/recommended-interviews/RecommendedInterviewsHeader';
@@ -12,6 +12,8 @@ import { RecommendedInterviewsComplianceBanner } from '../components/recommended
 import { RecommendedInterviewsRubricModal } from '../components/recommended-interviews/RecommendedInterviewsRubricModal';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { DashboardFooter } from '../components/dashboard/DashboardFooter';
+import { useAuth } from '../context/AuthContext';
+import { getRecommendedInterviews } from '../services/api';
 
 interface RecommendedInterviewsPageProps {
   onNavigateToHome?: () => void;
@@ -46,6 +48,7 @@ export const RecommendedInterviewsPage: React.FC<RecommendedInterviewsPageProps>
   onNavigateToSimulations,
   onNavigateToAi,
 }) => {
+  const { user } = useAuth();
   const [simulatorState, setSimulatorState] = useState<RecommendedInterviewsState>('default_tailored');
   const [activeNav, setActiveNav] = useState<NavItemKey>('library');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -56,13 +59,15 @@ export const RecommendedInterviewsPage: React.FC<RecommendedInterviewsPageProps>
   const [rubricTrackName, setRubricTrackName] = useState('Staff Backend & Distributed Systems Architecture');
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
   const [activeSimulationRole, setActiveSimulationRole] = useState('Staff Backend & Systems Architect');
+  const [_savedCount, setSavedCount] = useState(1);
 
-  const handleSimulatorStateChange = (state: RecommendedInterviewsState) => {
-    setSimulatorState(state);
-    if (state === 'view_rubric_modal') {
-      setRubricModalOpen(true);
-    }
-  };
+  useEffect(() => {
+    getRecommendedInterviews(user.id).then((res) => {
+      if (res && res.savedCount !== undefined) {
+        setSavedCount(res.savedCount);
+      }
+    }).catch((e) => console.warn('Fetch recommendations error:', e));
+  }, [user.id]);
 
   const handleSelectNav = (key: NavItemKey) => {
     setActiveNav(key);
@@ -102,14 +107,8 @@ export const RecommendedInterviewsPage: React.FC<RecommendedInterviewsPageProps>
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. Prototype Simulator Bar */}
-      <RecommendedInterviewsSimulatorBar
-        currentState={simulatorState}
-        onStateChange={handleSimulatorStateChange}
-      />
-
       {/* Main Workspace Frame */}
-      <div style={{ display: 'flex', flex: 1, minHeight: 'calc(100vh - 39px)' }}>
+      <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
         <DashboardSidebar
           activeItem={activeNav}

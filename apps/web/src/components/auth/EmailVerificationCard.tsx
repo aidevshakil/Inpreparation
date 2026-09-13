@@ -378,8 +378,8 @@ export const EmailVerificationCard: React.FC<EmailVerificationCardProps> = ({
               e.currentTarget.style.boxShadow = '0 4px 16px rgba(99, 102, 241, 0.35)';
             }}
           >
-            <ExternalLink size={16} />
-            <span>{localStatus === 'verified-success' ? 'Continue to Sandbox' : 'Open Email App'}</span>
+            {localStatus === 'verified-success' ? <ArrowRight size={16} /> : <ExternalLink size={16} />}
+            <span>{localStatus === 'verified-success' ? 'Start Introduction Interview' : 'Open Email App'}</span>
           </button>
 
           {/* 2. Secondary Button: Resend Verification Email */}

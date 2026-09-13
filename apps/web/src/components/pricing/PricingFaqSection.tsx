@@ -11,8 +11,8 @@ export const PricingFaqSection: React.FC = () => {
 
   const faqs: FaqItem[] = [
     {
-      question: 'Can I really use Inprep AI for free?',
-      answer: 'Yes! The Free plan gives you 150 starter AI credits per month, access to our curated question bank across 50+ roles, basic diagnostic reports, and 1 full practice simulation every month—completely free forever, no credit card required.'
+      question: 'Can I use Inprep AI for free?',
+      answer: 'Yes! The Starter plan gives you a free account to build your professional profile, analyze your CV with skill extraction, calibrate your introductory baseline assessment, and explore our 50+ role track questions. Full multimodal live AI mock interview simulations require an active Pro or Premium plan.'
     },
     {
       question: 'What happens when I use up my monthly credits?',

@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { LogIn } from 'lucide-react';
-import { ForgotPrototypeBar, ForgotStateMode } from '../components/auth/ForgotPrototypeBar';
 import { AuthNavbar } from '../components/auth/AuthNavbar';
 import { ForgotPasswordCard } from '../components/auth/ForgotPasswordCard';
 import { ForgotReadinessPreview } from '../components/auth/ForgotReadinessPreview';
@@ -29,18 +28,9 @@ export const ForgotPasswordPage: React.FC<ForgotPasswordPageProps> = ({
   onNavigateToSignup,
   onNavigateToReset
 }) => {
-  const [forgotMode, setForgotMode] = useState<ForgotStateMode>('default');
-
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#07090e', color: '#f8fafc' }}>
-      
-      {/* 1. Top Simulator State Control Bar */}
-      <ForgotPrototypeBar
-        currentMode={forgotMode}
-        onSelectMode={setForgotMode}
-      />
-
-      {/* 2. Candidate Studio Navbar */}
+      {/* 1. Candidate Studio Navbar */}
       <AuthNavbar
         onNavigateHome={onNavigateToHome}
         onNavigateFeatures={onNavigateToFeatures}
@@ -92,7 +82,7 @@ export const ForgotPasswordPage: React.FC<ForgotPasswordPageProps> = ({
           {/* Left Column: Password Recovery Card */}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <ForgotPasswordCard
-              mode={forgotMode}
+              mode="default"
               onNavigateLogin={onNavigateToLogin}
               onNavigateSignup={onNavigateToSignup}
               onNavigateReset={onNavigateToReset}

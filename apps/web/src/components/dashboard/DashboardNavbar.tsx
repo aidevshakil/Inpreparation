@@ -6,9 +6,22 @@ interface DashboardNavbarProps {
   onSearch?: (query: string) => void;
 }
 
+import { useAuth } from '../../context/AuthContext';
+
 export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
   onToggleSidebar,
 }) => {
+  const { user } = useAuth();
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .substring(0, 2)
+      .toUpperCase();
+  };
+
   return (
     <header
       style={{
@@ -65,77 +78,43 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
           />
           <input
             type="text"
-            placeholder="Search interview, skills, rubrics, or role archetypes..."
+            placeholder="Search interviews, rubrics, metrics, or type 'help'..."
             style={{
               width: '100%',
-              height: '38px',
-              padding: '0 52px 0 40px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
+              backgroundColor: 'rgba(255, 255, 255, 0.03)',
               border: '1px solid rgba(255, 255, 255, 0.08)',
               borderRadius: '10px',
+              padding: '9px 14px 9px 38px',
               color: '#f8fafc',
               fontSize: '0.82rem',
               outline: 'none',
-              transition: 'border-color 0.2s, background-color 0.2s',
-            }}
-            onFocus={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.5)';
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+              transition: 'all 0.18s ease',
             }}
           />
-          <kbd
-            style={{
-              position: 'absolute',
-              right: '10px',
-              padding: '2px 6px',
-              backgroundColor: 'rgba(255, 255, 255, 0.08)',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
-              borderRadius: '5px',
-              color: '#94a3b8',
-              fontSize: '0.7rem',
-              fontFamily: 'inherit',
-              pointerEvents: 'none',
-            }}
-          >
-            ⌘K
-          </kbd>
         </div>
       </div>
 
-      {/* Right Controls */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        {/* AI Engine Status Pill */}
+      {/* Right / Quick Actions & User */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        {/* Workspace Link */}
         <div
           style={{
-            display: 'flex',
+            display: 'inline-flex',
             alignItems: 'center',
-            gap: '8px',
-            backgroundColor: 'rgba(16, 185, 129, 0.1)',
-            border: '1px solid rgba(16, 185, 129, 0.25)',
+            gap: '6px',
             padding: '5px 12px',
-            borderRadius: '9999px',
-            fontSize: '0.75rem',
-            color: '#34d399',
-            fontWeight: 500,
+            borderRadius: '8px',
+            backgroundColor: 'rgba(255, 255, 255, 0.03)',
+            border: '1px solid rgba(255, 255, 255, 0.07)',
+            fontSize: '0.74rem',
+            color: '#94a3b8',
           }}
         >
-          <span
-            style={{
-              width: '7px',
-              height: '7px',
-              borderRadius: '50%',
-              backgroundColor: '#10b981',
-              boxShadow: '0 0 8px #10b981',
-            }}
-          />
-          <span>AI Engine Online</span>
+          <Link2 size={13} style={{ color: '#818cf8' }} />
+          <span>Candidate Workspace</span>
         </div>
 
-        {/* Quick Action Icons */}
+        {/* Theme mode icon */}
         <button
           style={{
             width: '36px',
@@ -150,30 +129,12 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
             cursor: 'pointer',
             transition: 'all 0.18s ease',
           }}
-          title="Toggle Theme"
+          title="Dark Mode Active"
         >
           <Moon size={16} />
         </button>
 
-        <button
-          style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '9px',
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#94a3b8',
-            cursor: 'pointer',
-            transition: 'all 0.18s ease',
-          }}
-          title="Telemetry Connection"
-        >
-          <Link2 size={16} />
-        </button>
-
+        {/* Notification Bell */}
         <button
           style={{
             width: '36px',
@@ -233,10 +194,10 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
               fontWeight: 700,
             }}
           >
-            SA
+            {getInitials(user.name || 'Candidate')}
           </div>
           <span style={{ fontSize: '0.8rem', color: '#e2e8f0', fontWeight: 500 }}>
-            Shakil Ahamed
+            {user.name || 'Candidate User'}
           </span>
           <ChevronDown size={14} style={{ color: '#64748b' }} />
         </div>

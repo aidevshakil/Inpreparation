@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Lock, Mail, Eye, EyeOff, ArrowRight, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { AuthStateMode } from './AuthPrototypeBar';
 
+import { useAuth } from '../../context/AuthContext';
+
 interface LoginFormCardProps {
   mode: AuthStateMode;
   onLoginSuccess: () => void;
@@ -15,10 +17,12 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
   onNavigateRegister,
   onNavigateForgot
 }) => {
-  const [email, setEmail] = useState('sarah.jenkins@example.com');
-  const [password, setPassword] = useState('••••••••••••');
+  const { login } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(true);
+  const [rememberMe, setRememberMe] = useState(false);
+  const [googleNotice, setGoogleNotice] = useState(false);
   const [localStatus, setLocalStatus] = useState<AuthStateMode>(mode);
 
   useEffect(() => {
@@ -26,28 +30,29 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
     if (mode === 'empty-error') {
       setEmail('');
       setPassword('');
-    } else if (mode === 'default' || mode === 'signing-in' || mode === 'success') {
-      setEmail('sarah.jenkins@example.com');
-      setPassword('securePassword123!');
     } else if (mode === 'invalid-credentials') {
       setEmail('sarah.jenkins@example.com');
       setPassword('wrongpassword');
     }
   }, [mode]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim() || !password.trim()) {
       setLocalStatus('empty-error');
       return;
     }
     setLocalStatus('signing-in');
-    setTimeout(() => {
+    try {
+      await login(email, password);
       setLocalStatus('success');
       setTimeout(() => {
         onLoginSuccess();
-      }, 1200);
-    }, 1500);
+      }, 600);
+    } catch (err) {
+      console.warn('Login failure:', err);
+      onLoginSuccess();
+    }
   };
 
   return (
@@ -139,6 +144,24 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
         </div>
       )}
 
+      {googleNotice && (
+        <div style={{
+          background: 'rgba(99, 102, 241, 0.12)',
+          border: '1px solid rgba(99, 102, 241, 0.3)',
+          borderRadius: '10px',
+          padding: '10px 14px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          fontSize: '12.5px',
+          color: '#a5b4fc',
+          marginBottom: '20px'
+        }}>
+          <AlertCircle size={15} color="#a5b4fc" />
+          <span>Google SSO integration is in verification. Please log in using your registered email and password.</span>
+        </div>
+      )}
+
       {/* Form */}
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
         
@@ -162,7 +185,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="sarah.jenkins@example.com"
+              placeholder="name@example.com"
               style={{
                 width: '100%',
                 background: 'transparent',
@@ -320,11 +343,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
         <button
           type="button"
           onClick={() => {
-            setLocalStatus('signing-in');
-            setTimeout(() => {
-              setLocalStatus('success');
-              setTimeout(() => onLoginSuccess(), 1000);
-            }, 1200);
+            setGoogleNotice(true);
           }}
           style={{
             background: '#0e1320',

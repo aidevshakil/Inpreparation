@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { AuthPrototypeBar, AuthStateMode } from '../components/auth/AuthPrototypeBar';
+import React from 'react';
 import { AuthNavbar } from '../components/auth/AuthNavbar';
 import { LoginFormCard } from '../components/auth/LoginFormCard';
 import { AuthReadinessPreview } from '../components/auth/AuthReadinessPreview';
@@ -30,18 +29,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({
   onNavigateToForgot,
   onLoginSuccess
 }) => {
-  const [authMode, setAuthMode] = useState<AuthStateMode>('default');
-
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#07090e', color: '#f8fafc' }}>
-      
-      {/* 1. Top Simulator State Control Bar */}
-      <AuthPrototypeBar
-        currentMode={authMode}
-        onSelectMode={setAuthMode}
-      />
-
-      {/* 2. Candidate Studio Navbar */}
+      {/* 1. Candidate Studio Navbar */}
       <AuthNavbar
         onNavigateHome={onNavigateToHome}
         onNavigateFeatures={onNavigateToFeatures}
@@ -90,7 +80,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
           {/* Left Column: Login Card */}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <LoginFormCard
-              mode={authMode}
+              mode="default"
               onLoginSuccess={() => {
                 if (onLoginSuccess) {
                   onLoginSuccess();

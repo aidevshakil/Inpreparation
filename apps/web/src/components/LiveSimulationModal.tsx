@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, Mic, MicOff, Video, VideoOff, Volume2, Sparkles, CheckCircle2, ArrowRight, RefreshCw, AlertTriangle, UserCheck, FileText, Database } from 'lucide-react';
+import { X, Mic, MicOff, Video, VideoOff, Sparkles, CheckCircle2, ArrowRight, RefreshCw, AlertTriangle, UserCheck, FileText, Database } from 'lucide-react';
 import { saveSimulationScorecard } from '../services/api';
 
 interface LiveSimulationModalProps {
@@ -26,7 +26,6 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
   // Interview state
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userSpeechInput, setUserSpeechInput] = useState('');
-  const [isAiSpeaking, setIsAiSpeaking] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [conversationHistory, setConversationHistory] = useState<Array<{ sender: 'ai' | 'user'; text: string; score?: number }>>([]);
 
@@ -131,26 +130,11 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
 
   if (!isOpen) return null;
 
-  // Speak AI Question with Web Speech API
-  const speakQuestion = (text: string) => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 1.0;
-      utterance.pitch = 1.0;
-      utterance.onstart = () => setIsAiSpeaking(true);
-      utterance.onend = () => setIsAiSpeaking(false);
-      utterance.onerror = () => setIsAiSpeaking(false);
-      window.speechSynthesis.speak(utterance);
-    }
-  };
-
   const startInterview = () => {
     setStage('active');
     setCurrentQuestionIndex(0);
     const firstQ = currentQuestions[0];
     setConversationHistory([{ sender: 'ai', text: firstQ }]);
-    speakQuestion(firstQ);
   };
 
   const toggleMic = () => {
@@ -188,14 +172,10 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
       const nextQ = currentQuestions[nextIndex];
       newHistory.push({ sender: 'ai', text: nextQ });
       setConversationHistory(newHistory);
-      speakQuestion(nextQ);
     } else {
       // Completed all questions -> Generate Diagnostic Report & Save to Database
       setConversationHistory(newHistory);
       setStage('report');
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
 
       // Persist to PostgreSQL Database via Prisma Backend
       setDbSaveStatus('saving');
@@ -464,8 +444,8 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                 height: '240px',
                 borderRadius: '16px',
                 background: 'linear-gradient(180deg, #161e30 0%, #0c101a 100%)',
-                border: isAiSpeaking ? '2px solid #818cf8' : '1px solid rgba(255, 255, 255, 0.08)',
-                boxShadow: isAiSpeaking ? '0 0 30px rgba(124, 58, 237, 0.4)' : 'none',
+                border: '1px solid rgba(99, 102, 241, 0.3)',
+                boxShadow: '0 0 25px rgba(99, 102, 241, 0.15)',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -484,62 +464,34 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                   position: 'relative'
                 }}>
                   <UserCheck size={38} color="#fff" />
-                  {isAiSpeaking && (
-                    <div style={{
-                      position: 'absolute',
-                      inset: '-6px',
-                      borderRadius: '50%',
-                      border: '2px solid #38bdf8',
-                      animation: 'pulseGlow 1s infinite'
-                    }} />
-                  )}
                 </div>
 
                 <div style={{ fontSize: '14px', fontWeight: 800, color: '#f8fafc' }}>
                   {selectedPersona}
                 </div>
-                <div style={{ fontSize: '11px', color: isAiSpeaking ? '#38bdf8' : '#64748b', fontWeight: 600 }}>
-                  {isAiSpeaking ? '● Speaking Question...' : 'Listening to Candidate...'}
+                <div style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#38bdf8', display: 'inline-block' }} />
+                  <span>Question Displayed On Screen</span>
                 </div>
 
-                {/* Animated waves */}
-                <div style={{ display: 'flex', gap: '3px', marginTop: '12px', height: '20px' }}>
-                  {[10, 18, 26, 14, 28, 20, 12, 24, 16, 8].map((h, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        width: '3px',
-                        height: isAiSpeaking ? `${h}px` : '4px',
-                        background: '#818cf8',
-                        borderRadius: '2px',
-                        transition: 'height 0.15s ease'
-                      }}
-                    />
-                  ))}
+                {/* Visual Prompt Indicator */}
+                <div style={{
+                  position: 'absolute',
+                  top: '12px',
+                  right: '12px',
+                  background: 'rgba(99, 102, 241, 0.2)',
+                  border: '1px solid rgba(99, 102, 241, 0.3)',
+                  color: '#a5b4fc',
+                  borderRadius: '8px',
+                  padding: '4px 8px',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px'
+                }}>
+                  <span>Visual Q&A Mode</span>
                 </div>
-
-                <button
-                  onClick={() => speakQuestion(currentQuestions[currentQuestionIndex])}
-                  style={{
-                    position: 'absolute',
-                    top: '12px',
-                    right: '12px',
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    border: 'none',
-                    color: '#cbd5e1',
-                    borderRadius: '8px',
-                    padding: '4px 8px',
-                    fontSize: '11px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '4px'
-                  }}
-                  title="Repeat Audio"
-                >
-                  <Volume2 size={12} />
-                  <span>Repeat</span>
-                </button>
               </div>
 
               {/* Right: Candidate Camera Stream */}

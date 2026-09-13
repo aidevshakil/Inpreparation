@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { DemoVideoModal } from '../components/DemoVideoModal';
+import { useAuth } from '../context/AuthContext';
 import { FAQ_CATEGORIES } from '../components/faq/faqData';
 import { FaqHeroSearch } from '../components/faq/FaqHeroSearch';
 import { FaqSidebar } from '../components/faq/FaqSidebar';
@@ -29,6 +29,7 @@ export const FaqPage: React.FC<FaqPageProps> = ({
   onNavigateToAbout,
   onNavigateToAi
 }) => {
+  const { isAuthenticated } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategoryId, setActiveCategoryId] = useState('getting-started');
   const [openQuestionIds, setOpenQuestionIds] = useState<string[]>([
@@ -36,13 +37,15 @@ export const FaqPage: React.FC<FaqPageProps> = ({
     'cv-1',
     'vc-1'
   ]);
-  const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
   const [isDemoOpen, setIsDemoOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState('Senior Frontend Engineer');
 
-  const handleStartPractice = (roleName?: string) => {
-    if (roleName) setSelectedRole(roleName);
-    setIsSimulatorOpen(true);
+  const handleStartPractice = (_roleName?: string) => {
+    if (isAuthenticated) {
+      window.location.hash = 'dashboard';
+    } else {
+      window.location.hash = 'signup';
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleToggleQuestion = (questionId: string) => {
@@ -171,13 +174,6 @@ export const FaqPage: React.FC<FaqPageProps> = ({
           if (page === 'pricing') onNavigateToPricing();
           if (page === 'about' && onNavigateToAbout) onNavigateToAbout();
         }}
-      />
-
-      {/* Live Simulation Modal */}
-      <LiveSimulationModal
-        isOpen={isSimulatorOpen}
-        onClose={() => setIsSimulatorOpen(false)}
-        initialRole={selectedRole}
       />
 
       {/* Demo Video Modal */}

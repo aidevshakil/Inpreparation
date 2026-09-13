@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ProfileAnalysisSimulatorBar, ProfileAnalysisState } from '../components/profile-analysis/ProfileAnalysisSimulatorBar';
+import type { ProfileAnalysisState } from '../components/profile-analysis/ProfileAnalysisSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { ProfileAnalysisHeader } from '../components/profile-analysis/ProfileAnalysisHeader';
@@ -17,6 +17,8 @@ import { ProfileAnalysisModals } from '../components/profile-analysis/ProfileAna
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { DashboardFooter } from '../components/dashboard/DashboardFooter';
 import { Download, FileText, Grid, ArrowRight } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { getProfileAnalysisDossier } from '../services/api';
 
 interface ProfileAnalysisPageProps {
   onNavigateToHome?: () => void;
@@ -51,6 +53,7 @@ export const ProfileAnalysisPage: React.FC<ProfileAnalysisPageProps> = ({
   onNavigateToSimulations,
   onNavigateToAi,
 }) => {
+  const { user } = useAuth();
   const [simulatorState, setSimulatorState] = useState<ProfileAnalysisState>('default_profile');
   const [activeNav, setActiveNav] = useState<NavItemKey>('assessment');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -58,10 +61,15 @@ export const ProfileAnalysisPage: React.FC<ProfileAnalysisPageProps> = ({
   const [showRadarModal, setShowRadarModal] = useState(false);
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
   const [selectedRoleForSimulation, setSelectedRoleForSimulation] = useState('Staff Backend & Systems Architect');
+  const [_dossierData, setDossierData] = useState<any>(null);
 
-  const handleSimulatorStateChange = (state: ProfileAnalysisState) => {
-    setSimulatorState(state);
-  };
+  React.useEffect(() => {
+    getProfileAnalysisDossier(user.id).then((res) => {
+      if (res && res.dossier) {
+        setDossierData(res.dossier);
+      }
+    }).catch((e) => console.warn('Fetch profile analysis dossier error:', e));
+  }, [user.id]);
 
   const handleSelectNav = (key: NavItemKey) => {
     setActiveNav(key);
@@ -85,14 +93,8 @@ export const ProfileAnalysisPage: React.FC<ProfileAnalysisPageProps> = ({
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. Prototype Simulator Bar */}
-      <ProfileAnalysisSimulatorBar
-        currentState={simulatorState}
-        onStateChange={handleSimulatorStateChange}
-      />
-
       {/* Main Workspace Frame */}
-      <div style={{ display: 'flex', flex: 1, minHeight: 'calc(100vh - 39px)' }}>
+      <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
         <DashboardSidebar
           activeItem={activeNav}

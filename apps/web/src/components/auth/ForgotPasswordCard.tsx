@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
-  Lock,
   ArrowRight,
   ArrowLeft,
-  CheckCircle2,
   AlertCircle,
   Loader2,
   ShieldCheck,
-  Clock
+  Clock,
+  KeyRound,
+  RotateCcw
 } from 'lucide-react';
 import { ForgotStateMode } from './ForgotPrototypeBar';
 
@@ -24,35 +24,43 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
   onNavigateSignup,
   onNavigateReset
 }) => {
-  const [email, setEmail] = useState('alex.rivera@example.com');
+  const [step, setStep] = useState<'email' | 'otp'>('email');
+  const [email, setEmail] = useState('');
   const [localStatus, setLocalStatus] = useState<ForgotStateMode>(mode);
-  const [cooldownSeconds, setCooldownSeconds] = useState(28);
+  const [cooldownSeconds, setCooldownSeconds] = useState(0);
+  const [otpDigits, setOtpDigits] = useState<string[]>(['', '', '', '', '', '']);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
     setLocalStatus(mode);
     if (mode === 'empty-error') {
       setEmail('');
+      setStep('email');
     } else if (mode === 'invalid-format') {
-      setEmail('alex.rivera-invalid-email');
-    } else if (mode === 'default' || mode === 'sending' || mode === 'sent-success' || mode === 'cooldown') {
-      setEmail('alex.rivera@example.com');
-      if (mode === 'cooldown') {
-        setCooldownSeconds(28);
-      }
+      setEmail('invalid-email');
+      setStep('email');
+    } else if (mode === 'otp-sent' || mode === 'sent-success') {
+      setStep('otp');
+    } else if (mode === 'invalid-code') {
+      setStep('otp');
+      setOtpDigits(['0', '0', '0', '0', '0', '0']);
+    } else if (mode === 'cooldown') {
+      setCooldownSeconds(28);
     }
   }, [mode]);
 
   useEffect(() => {
     let timer: ReturnType<typeof setInterval>;
-    if (localStatus === 'cooldown' && cooldownSeconds > 0) {
+    if (cooldownSeconds > 0) {
       timer = setInterval(() => {
         setCooldownSeconds((prev) => (prev > 1 ? prev - 1 : 0));
       }, 1000);
     }
     return () => clearInterval(timer);
-  }, [localStatus, cooldownSeconds]);
+  }, [cooldownSeconds]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Handle email submit -> send OTP
+  const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) {
       setLocalStatus('empty-error');
@@ -64,8 +72,67 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
     }
     setLocalStatus('sending');
     setTimeout(() => {
-      setLocalStatus('sent-success');
-    }, 1400);
+      setLocalStatus('otp-sent');
+      setStep('otp');
+      setCooldownSeconds(30);
+    }, 1200);
+  };
+
+  // Handle OTP digit changes
+  const handleDigitChange = (index: number, val: string) => {
+    const cleanVal = val.replace(/[^0-9]/g, '');
+    const newDigits = [...otpDigits];
+    
+    if (cleanVal.length > 1) {
+      // Paste handling
+      const pasted = cleanVal.slice(0, 6).split('');
+      for (let i = 0; i < 6; i++) {
+        newDigits[i] = pasted[i] || '';
+      }
+      setOtpDigits(newDigits);
+      inputRefs.current[Math.min(pasted.length, 5)]?.focus();
+      return;
+    }
+
+    newDigits[index] = cleanVal;
+    setOtpDigits(newDigits);
+
+    if (cleanVal && index < 5) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Backspace' && !otpDigits[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
+  };
+
+  // Handle OTP verification submit -> proceed to reset password
+  const handleOtpVerify = (e: React.FormEvent) => {
+    e.preventDefault();
+    const fullCode = otpDigits.join('');
+    if (fullCode.length < 6) {
+      setLocalStatus('invalid-code');
+      return;
+    }
+
+    setLocalStatus('sending');
+    setTimeout(() => {
+      if (fullCode === '000000') {
+        setLocalStatus('invalid-code');
+      } else {
+        if (onNavigateReset) {
+          onNavigateReset();
+        }
+      }
+    }, 900);
+  };
+
+  const handleResendCode = () => {
+    if (cooldownSeconds > 0) return;
+    setCooldownSeconds(30);
+    setLocalStatus('otp-sent');
   };
 
   return (
@@ -100,12 +167,12 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
           fontWeight: 700,
           color: '#c084fc'
         }}>
-          <Lock size={12} color="#c084fc" />
-          <span>Account Security & Credential Recovery</span>
+          <KeyRound size={12} color="#c084fc" />
+          <span>6-Digit Verification Code Recovery</span>
         </div>
 
         <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 600, letterSpacing: '0.05em' }}>
-          Step 1 of 3
+          {step === 'email' ? 'Step 1 of 3' : 'Step 2 of 3'}
         </span>
       </div>
 
@@ -117,7 +184,7 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
         letterSpacing: '-0.025em',
         marginBottom: '8px'
       }}>
-        Forgot Your Password?
+        {step === 'email' ? 'Forgot Your Password?' : 'Enter 6-Digit Code'}
       </h1>
 
       <p style={{
@@ -126,7 +193,9 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
         lineHeight: 1.55,
         marginBottom: '24px'
       }}>
-        No worries. Enter the email address associated with your Inprep AI account and we’ll send you secure instructions to reset your password.
+        {step === 'email'
+          ? 'Enter the email address associated with your Inprep AI account and we’ll send a secure 6-digit verification code.'
+          : <>We sent a 6-digit verification code to <strong style={{ color: '#f8fafc' }}>{email}</strong>. Enter it below to reset your password.</>}
       </p>
 
       {/* Error & Success Notifications */}
@@ -144,10 +213,17 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
         </div>
       )}
 
+      {localStatus === 'invalid-code' && (
+        <div style={errorBoxStyle}>
+          <AlertCircle size={15} color="#f87171" />
+          <span>Invalid or expired verification code. Please check and try again.</span>
+        </div>
+      )}
+
       {localStatus === 'rate-limit' && (
         <div style={errorBoxStyle}>
           <AlertCircle size={15} color="#f87171" />
-          <span>Too many recovery attempts. Please wait 15 minutes before retrying.</span>
+          <span>Too many attempts. Please wait a few minutes before retrying.</span>
         </div>
       )}
 
@@ -158,159 +234,219 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
         </div>
       )}
 
-      {localStatus === 'sent-success' && (
-        <div style={{
-          background: 'rgba(16, 185, 129, 0.12)',
-          border: '1px solid rgba(16, 185, 129, 0.3)',
-          borderRadius: '10px',
-          padding: '12px 14px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '8px',
-          fontSize: '12.5px',
-          color: '#34d399',
-          lineHeight: 1.5,
-          marginBottom: '20px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-            <CheckCircle2 size={16} color="#34d399" style={{ flexShrink: 0, marginTop: '2px' }} />
-            <span>
-              Recovery email dispatched to <strong>{email || 'your email'}</strong>. Check your inbox and spam folder.
-            </span>
+      {step === 'email' ? (
+        /* STEP 1: EMAIL ENTRY FORM */
+        <form onSubmit={handleEmailSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          
+          <div>
+            <label style={{
+              display: 'block',
+              fontSize: '11px',
+              fontWeight: 800,
+              color: '#cbd5e1',
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              marginBottom: '8px'
+            }}>
+              REGISTERED EMAIL ADDRESS <span style={{ color: '#f43f5e' }}>*</span>
+            </label>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              background: '#0e1320',
+              border: localStatus === 'empty-error' || localStatus === 'invalid-format' ? '1px solid #ef4444' : '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '12px',
+              padding: '12px 14px',
+              transition: 'all 0.2s ease'
+            }}>
+              <span style={{ color: '#64748b', marginRight: '10px', fontWeight: 600, fontSize: '15px' }}>
+                @
+              </span>
+              <input
+                type="text"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="name@example.com"
+                style={{
+                  width: '100%',
+                  background: 'transparent',
+                  border: 'none',
+                  outline: 'none',
+                  color: '#ffffff',
+                  fontSize: '14px',
+                  fontFamily: 'inherit'
+                }}
+              />
+            </div>
+            <div style={{ fontSize: '11.5px', color: '#64748b', marginTop: '6px' }}>
+              We'll send a 6-digit verification code valid for 10 minutes.
+            </div>
           </div>
 
-          {onNavigateReset && (
-            <button
-              type="button"
-              onClick={onNavigateReset}
-              style={{
-                background: 'rgba(16, 185, 129, 0.15)',
-                border: '1px solid rgba(16, 185, 129, 0.4)',
-                borderRadius: '6px',
-                color: '#ffffff',
-                padding: '6px 12px',
-                fontSize: '11.5px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                width: 'fit-content',
-                marginTop: '4px'
-              }}
-            >
-              <span>Test Reset Password Screen →</span>
-            </button>
-          )}
-        </div>
+          <button
+            type="submit"
+            disabled={localStatus === 'sending'}
+            style={{
+              background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+              color: '#ffffff',
+              border: 'none',
+              borderRadius: '12px',
+              padding: '13px',
+              fontSize: '14.5px',
+              fontWeight: 700,
+              cursor: localStatus === 'sending' ? 'not-allowed' : 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)',
+              transition: 'all 0.2s ease',
+              marginTop: '8px'
+            }}
+          >
+            {localStatus === 'sending' ? (
+              <>
+                <Loader2 size={16} className="animate-spin" />
+                <span>Sending 6-Digit Code...</span>
+              </>
+            ) : (
+              <>
+                <span>Send 6-Digit Verification Code</span>
+                <ArrowRight size={16} />
+              </>
+            )}
+          </button>
+
+        </form>
+      ) : (
+        /* STEP 2: 6-DIGIT OTP ENTRY FORM */
+        <form onSubmit={handleOtpVerify} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+          
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+              <label style={{
+                fontSize: '11px',
+                fontWeight: 800,
+                color: '#cbd5e1',
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+              }}>
+                6-DIGIT VERIFICATION CODE <span style={{ color: '#f43f5e' }}>*</span>
+              </label>
+              <button
+                type="button"
+                onClick={() => setStep('email')}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: '#818cf8',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  padding: 0
+                }}
+              >
+                Change Email
+              </button>
+            </div>
+
+            {/* 6 Digit Input Boxes */}
+            <div style={{ display: 'flex', gap: '8px', justifyContent: 'space-between' }}>
+              {otpDigits.map((digit, idx) => (
+                <input
+                  key={idx}
+                  ref={(el) => (inputRefs.current[idx] = el)}
+                  type="text"
+                  maxLength={1}
+                  value={digit}
+                  onChange={(e) => handleDigitChange(idx, e.target.value)}
+                  onKeyDown={(e) => handleKeyDown(idx, e)}
+                  style={{
+                    width: '46px',
+                    height: '52px',
+                    textAlign: 'center',
+                    fontSize: '20px',
+                    fontWeight: 800,
+                    color: '#ffffff',
+                    background: '#0e1320',
+                    border: digit ? '1px solid #818cf8' : '1px solid rgba(255, 255, 255, 0.12)',
+                    borderRadius: '12px',
+                    outline: 'none',
+                    boxShadow: digit ? '0 0 12px rgba(129, 140, 248, 0.25)' : 'none',
+                    transition: 'all 0.15s ease'
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Resend Timer & Action */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', fontSize: '11.5px' }}>
+              <span style={{ color: '#64748b' }}>
+                Code expires in 10:00
+              </span>
+              {cooldownSeconds > 0 ? (
+                <span style={{ color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <Clock size={12} /> Resend in {cooldownSeconds}s
+                </span>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleResendCode}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: '#818cf8',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    padding: 0
+                  }}
+                >
+                  <RotateCcw size={12} /> Resend Code
+                </button>
+              )}
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={localStatus === 'sending'}
+            style={{
+              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+              color: '#ffffff',
+              border: 'none',
+              borderRadius: '12px',
+              padding: '13px',
+              fontSize: '14.5px',
+              fontWeight: 700,
+              cursor: localStatus === 'sending' ? 'not-allowed' : 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              boxShadow: '0 4px 20px rgba(16, 185, 129, 0.4)',
+              transition: 'all 0.2s ease',
+              marginTop: '4px'
+            }}
+          >
+            {localStatus === 'sending' ? (
+              <>
+                <Loader2 size={16} className="animate-spin" />
+                <span>Verifying Code...</span>
+              </>
+            ) : (
+              <>
+                <span>Verify Code &amp; Reset Password</span>
+                <ArrowRight size={16} />
+              </>
+            )}
+          </button>
+
+        </form>
       )}
-
-      {/* Form */}
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-        
-        {/* Email Address */}
-        <div>
-          <label style={{
-            display: 'block',
-            fontSize: '11px',
-            fontWeight: 800,
-            color: '#cbd5e1',
-            letterSpacing: '0.06em',
-            textTransform: 'uppercase',
-            marginBottom: '8px'
-          }}>
-            EMAIL ADDRESS <span style={{ color: '#f43f5e' }}>*</span>
-          </label>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            background: '#0e1320',
-            border: localStatus === 'empty-error' || localStatus === 'invalid-format' ? '1px solid #ef4444' : '1px solid rgba(255, 255, 255, 0.1)',
-            borderRadius: '12px',
-            padding: '12px 14px',
-            transition: 'all 0.2s ease'
-          }}>
-            <span style={{ color: '#64748b', marginRight: '10px', fontWeight: 600, fontSize: '15px' }}>
-              @
-            </span>
-            <input
-              type="text"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="alex.rivera@example.com"
-              style={{
-                width: '100%',
-                background: 'transparent',
-                border: 'none',
-                outline: 'none',
-                color: '#ffffff',
-                fontSize: '14px',
-                fontFamily: 'inherit'
-              }}
-            />
-          </div>
-          <div style={{ fontSize: '11.5px', color: '#64748b', marginTop: '6px' }}>
-            We’ll dispatch an authenticated one-time recovery token valid for 30 minutes.
-          </div>
-        </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={localStatus === 'sending' || (localStatus === 'cooldown' && cooldownSeconds > 0)}
-          style={{
-            background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-            color: '#ffffff',
-            border: 'none',
-            borderRadius: '12px',
-            padding: '13px',
-            fontSize: '14.5px',
-            fontWeight: 700,
-            cursor: localStatus === 'sending' || (localStatus === 'cooldown' && cooldownSeconds > 0) ? 'not-allowed' : 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '8px',
-            boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)',
-            transition: 'all 0.2s ease',
-            marginTop: '8px'
-          }}
-          onMouseEnter={(e) => {
-            if (localStatus !== 'sending' && localStatus !== 'cooldown') {
-              e.currentTarget.style.transform = 'translateY(-1px)';
-              e.currentTarget.style.boxShadow = '0 6px 25px rgba(99, 102, 241, 0.55)';
-            }
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 4px 20px rgba(99, 102, 241, 0.4)';
-          }}
-        >
-          {localStatus === 'sending' ? (
-            <>
-              <Loader2 size={16} className="animate-spin" />
-              <span>Sending Recovery Link...</span>
-            </>
-          ) : localStatus === 'cooldown' && cooldownSeconds > 0 ? (
-            <>
-              <Clock size={16} />
-              <span>Resend in {cooldownSeconds}s</span>
-            </>
-          ) : localStatus === 'sent-success' ? (
-            <>
-              <CheckCircle2 size={16} />
-              <span>Link Dispatched (Resend)</span>
-            </>
-          ) : (
-            <>
-              <span>Send Reset Link</span>
-              <ArrowRight size={16} />
-            </>
-          )}
-        </button>
-
-      </form>
 
       {/* Navigation Links */}
       <div style={{
@@ -338,8 +474,6 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
             padding: 0,
             transition: 'color 0.15s ease'
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = '#ffffff')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = '#cbd5e1')}
         >
           <ArrowLeft size={14} />
           <span>Back to Log In</span>
@@ -374,7 +508,7 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
         lineHeight: 1.5
       }}>
         <ShieldCheck size={14} color="#64748b" style={{ flexShrink: 0, marginTop: '1px' }} />
-        <span>Your account credentials are encrypted. Never share your password or one-time reset link with anyone.</span>
+        <span>Verification codes are cryptographically secured and valid for a single recovery session. Never share your OTP with anyone.</span>
       </div>
 
     </div>
@@ -393,3 +527,4 @@ const errorBoxStyle: React.CSSProperties = {
   color: '#f87171',
   marginBottom: '18px'
 };
+

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CvPrototypeSimulatorBar, CvSimulatorState } from '../components/cv/CvPrototypeSimulatorBar';
+import type { CvSimulatorState } from '../components/cv/CvPrototypeSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { CvActiveMasterCard } from '../components/cv/CvActiveMasterCard';
@@ -63,21 +63,8 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. Interactive Prototype Simulator Bar */}
-      <CvPrototypeSimulatorBar
-        currentState={simulatorState}
-        onStateChange={(state) => {
-          setSimulatorState(state);
-          if (state === 'replace_dialog') {
-            setReplaceModalOpen(true);
-          } else {
-            setReplaceModalOpen(false);
-          }
-        }}
-      />
-
       {/* Main Workspace Frame */}
-      <div style={{ display: 'flex', flex: 1, minHeight: 'calc(100vh - 39px)' }}>
+      <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
         <DashboardSidebar
           activeItem={activeNav}

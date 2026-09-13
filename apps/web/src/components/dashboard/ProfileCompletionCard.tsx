@@ -3,26 +3,45 @@ import { Check, Circle, X, CheckCircle2 } from 'lucide-react';
 
 interface ProfileCompletionCardProps {
   percent?: number;
+  hasBasicInfo?: boolean;
+  hasSkills?: boolean;
+  hasCv?: boolean;
+  hasAssessment?: boolean;
+  hasPreferences?: boolean;
   onCompleteProfile?: () => void;
 }
 
 export const ProfileCompletionCard: React.FC<ProfileCompletionCardProps> = ({
-  percent = 70,
+  percent,
+  hasBasicInfo = true,
+  hasSkills = false,
+  hasCv = false,
+  hasAssessment = false,
+  hasPreferences = false,
   onCompleteProfile,
 }) => {
   const [dismissed, setDismissed] = useState(false);
 
   if (dismissed) return null;
 
-  const is100Percent = percent >= 100;
-
-  const steps = [
-    { label: 'Basic Info', completed: true },
-    { label: 'Skill & Tech', completed: true },
-    { label: 'CV Uploaded', completed: true },
-    { label: 'Career assessment', completed: is100Percent, current: !is100Percent },
-    { label: 'Company preference', completed: is100Percent },
+  let foundCurrent = false;
+  const rawSteps = [
+    { label: 'Basic Info', completed: hasBasicInfo },
+    { label: 'Skill & Tech', completed: hasSkills },
+    { label: 'CV Uploaded', completed: hasCv },
+    { label: 'Career assessment', completed: hasAssessment },
+    { label: 'Company preference', completed: hasPreferences },
   ];
+
+  const steps = rawSteps.map((s) => {
+    const isCurrent = !s.completed && !foundCurrent;
+    if (isCurrent) foundCurrent = true;
+    return { ...s, current: isCurrent };
+  });
+
+  const completedCount = steps.filter((s) => s.completed).length;
+  const displayPercent = percent !== undefined ? percent : Math.round((completedCount / steps.length) * 100);
+  const is100Percent = displayPercent >= 100;
 
   return (
     <div
@@ -75,7 +94,7 @@ export const ProfileCompletionCard: React.FC<ProfileCompletionCardProps> = ({
                   fill="none"
                   stroke="#818cf8"
                   strokeWidth="3.5"
-                  strokeDasharray={`${percent}, 100`}
+                  strokeDasharray={`${displayPercent}, 100`}
                 />
               </svg>
             </div>
@@ -99,7 +118,7 @@ export const ProfileCompletionCard: React.FC<ProfileCompletionCardProps> = ({
                 border: is100Percent ? '1px solid rgba(16, 185, 129, 0.35)' : '1px solid rgba(99, 102, 241, 0.35)',
               }}
             >
-              {percent}% Complete
+              {displayPercent}% Complete
             </span>
           </div>
 

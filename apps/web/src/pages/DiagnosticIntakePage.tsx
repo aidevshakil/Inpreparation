@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DiagnosticSimulatorBar, DiagnosticState } from '../components/diagnostic-intake/DiagnosticSimulatorBar';
+import type { DiagnosticState } from '../components/diagnostic-intake/DiagnosticSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { DiagnosticHeader } from '../components/diagnostic-intake/DiagnosticHeader';
@@ -36,7 +36,7 @@ export const DiagnosticIntakePage: React.FC<DiagnosticIntakePageProps> = ({
   onNavigateToSimulations,
   onNavigateToAi,
 }) => {
-  const [simulatorState, setSimulatorState] = useState<DiagnosticState>('text_mode');
+  const [simulatorState] = useState<DiagnosticState>('text_mode');
   const [activeNav, setActiveNav] = useState<NavItemKey>('assessment');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
@@ -86,33 +86,6 @@ export const DiagnosticIntakePage: React.FC<DiagnosticIntakePageProps> = ({
 
   const currentQ = questions[currentStep - 1] || questions[0];
 
-  const handleSimulatorStateChange = (state: DiagnosticState) => {
-    setSimulatorState(state);
-    if (state === 'text_mode') {
-      setResponseMode('text');
-      setIsRecording(false);
-      setExitModalOpen(false);
-    } else if (state === 'voice_ready') {
-      setResponseMode('voice');
-      setIsRecording(false);
-      setExitModalOpen(false);
-    } else if (state === 'voice_recording') {
-      setResponseMode('voice');
-      setIsRecording(true);
-      setExitModalOpen(false);
-    } else if (state === 'camera_mode') {
-      setResponseMode('camera');
-      setIsRecording(false);
-      setExitModalOpen(false);
-    } else if (state === 'perm_fallback') {
-      setResponseMode('text');
-      setIsRecording(false);
-      setExitModalOpen(false);
-    } else if (state === 'exit_modal') {
-      setExitModalOpen(true);
-    }
-  };
-
   const handleSelectNav = (key: NavItemKey) => {
     setActiveNav(key);
     if (key === 'dashboard' && onNavigateToDashboard) {
@@ -147,14 +120,8 @@ export const DiagnosticIntakePage: React.FC<DiagnosticIntakePageProps> = ({
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. Interactive Prototype Simulator Bar */}
-      <DiagnosticSimulatorBar
-        currentState={simulatorState}
-        onStateChange={handleSimulatorStateChange}
-      />
-
       {/* Main Workspace Frame */}
-      <div style={{ display: 'flex', flex: 1, minHeight: 'calc(100vh - 39px)' }}>
+      <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
         <DashboardSidebar
           activeItem={activeNav}

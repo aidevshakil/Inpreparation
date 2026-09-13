@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ArrowRight, Play, Volume2, Check, Radio, Clock, UserCheck, TrendingUp } from 'lucide-react';
+import React from 'react';
+import { ArrowRight, Play, Check, Radio, Clock, UserCheck, TrendingUp } from 'lucide-react';
 
 interface HeroSectionProps {
   onStartPractice: (role?: string) => void;
@@ -12,28 +12,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onOpenDemo,
   onNavigateToFeatures
 }) => {
-  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
-
-  const toggleSampleVoice = () => {
-    if ('speechSynthesis' in window) {
-      if (isPlayingAudio) {
-        window.speechSynthesis.cancel();
-        setIsPlayingAudio(false);
-      } else {
-        const text = "Explain the difference between synchronous and asynchronous programming in Python, highlighting event loops and I/O bound tasks.";
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 1.0;
-        utterance.pitch = 1.05;
-        utterance.onend = () => setIsPlayingAudio(false);
-        utterance.onerror = () => setIsPlayingAudio(false);
-        window.speechSynthesis.speak(utterance);
-        setIsPlayingAudio(true);
-      }
-    } else {
-      setIsPlayingAudio(!isPlayingAudio);
-    }
-  };
-
   const featurePillars = [
     {
       icon: <Radio size={18} color="#818cf8" />,
@@ -347,21 +325,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                       fontWeight: 600
                     }}>
                       <span>AI Interviewer • Dr. Sarah Vance</span>
-                      <button
-                        onClick={toggleSampleVoice}
-                        style={{
-                          background: 'transparent',
-                          border: 'none',
-                          color: isPlayingAudio ? '#60a5fa' : '#94a3b8',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          padding: '0'
-                        }}
-                        title="Play / Pause Voice"
-                      >
-                        <Volume2 size={13} />
-                      </button>
+                      <span style={{
+                        fontSize: '9px',
+                        fontWeight: 700,
+                        color: '#38bdf8',
+                        background: 'rgba(56, 189, 248, 0.15)',
+                        border: '1px solid rgba(56, 189, 248, 0.3)',
+                        padding: '1px 6px',
+                        borderRadius: '4px'
+                      }}>
+                        Visual Q&A
+                      </span>
                     </div>
 
                     {/* Bottom Status Overlay */}
@@ -380,22 +354,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                       fontSize: '11px',
                       color: '#cbd5e1'
                     }}>
-                      {/* Audio waveform bars */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '2px', height: '14px' }}>
-                        {[8, 14, 20, 10, 16, 8].map((h, i) => (
-                          <div
-                            key={i}
-                            style={{
-                              width: '2.5px',
-                              height: isPlayingAudio ? `${h}px` : '5px',
-                              background: '#38bdf8',
-                              borderRadius: '1px',
-                              transition: 'height 0.2s ease'
-                            }}
-                          />
-                        ))}
-                      </div>
-                      <span style={{ fontWeight: 500 }}>Listening to explanation</span>
+                      <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
+                      <span style={{ fontWeight: 500 }}>Question displayed on screen</span>
                     </div>
                   </div>
 

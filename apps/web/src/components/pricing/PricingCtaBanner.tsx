@@ -115,7 +115,7 @@ export const PricingCtaBanner: React.FC<PricingCtaBannerProps> = ({
                   e.currentTarget.style.boxShadow = '0 4px 20px rgba(129, 140, 248, 0.4), 0 0 15px rgba(165, 180, 252, 0.3)';
                 }}
               >
-                <span>Start Practicing Free</span>
+                <span>Get Started Now</span>
               </button>
 
               <button
@@ -150,7 +150,7 @@ export const PricingCtaBanner: React.FC<PricingCtaBannerProps> = ({
               color: '#64748b',
               fontWeight: 500
             }}>
-              Start free. Upgrade when you need more. No credit card required.
+              Create your account, calibrate your baseline, and unlock Pro interview simulations.
             </div>
           </div>
         </div>

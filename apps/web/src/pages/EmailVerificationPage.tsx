@@ -1,9 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { LogIn } from 'lucide-react';
-import {
-  EmailVerificationPrototypeBar,
-  EmailVerificationStateMode
-} from '../components/auth/EmailVerificationPrototypeBar';
 import { AuthNavbar } from '../components/auth/AuthNavbar';
 import { EmailVerificationCard } from '../components/auth/EmailVerificationCard';
 import { EmailVerificationJourneyPreview } from '../components/auth/EmailVerificationJourneyPreview';
@@ -32,8 +28,6 @@ export const EmailVerificationPage: React.FC<EmailVerificationPageProps> = ({
   onNavigateToSignup,
   onVerificationSuccess
 }) => {
-  const [verifyMode, setVerifyMode] = useState<EmailVerificationStateMode>('default');
-
   return (
     <div style={{
       minHeight: '100vh',
@@ -42,13 +36,7 @@ export const EmailVerificationPage: React.FC<EmailVerificationPageProps> = ({
       background: '#07090e',
       color: '#f8fafc'
     }}>
-      {/* 1. Top Simulator State Control Bar */}
-      <EmailVerificationPrototypeBar
-        currentMode={verifyMode}
-        onSelectMode={setVerifyMode}
-      />
-
-      {/* 2. Candidate Studio Navbar */}
+      {/* 1. Candidate Studio Navbar */}
       <AuthNavbar
         onNavigateHome={onNavigateToHome}
         onNavigateFeatures={onNavigateToFeatures}
@@ -111,7 +99,7 @@ export const EmailVerificationPage: React.FC<EmailVerificationPageProps> = ({
           {/* Left Column: Email Verification Card */}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <EmailVerificationCard
-              mode={verifyMode}
+              mode="default"
               emailAddress="s•••••@example.com"
               onNavigateHome={onNavigateToHome}
               onNavigateLogin={onNavigateToLogin}

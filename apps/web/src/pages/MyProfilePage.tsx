@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ProfileSimulatorBar, ProfileSimulatorState } from '../components/profile/ProfileSimulatorBar';
+import type { ProfileSimulatorState } from '../components/profile/ProfileSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { ProfileHeroCard } from '../components/profile/ProfileHeroCard';
@@ -151,14 +151,8 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. Interactive Prototype Simulator Bar */}
-      <ProfileSimulatorBar
-        currentState={simulatorState}
-        onStateChange={(state) => setSimulatorState(state)}
-      />
-
       {/* Main Workspace Frame */}
-      <div style={{ display: 'flex', flex: 1, minHeight: 'calc(100vh - 39px)' }}>
+      <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
         <DashboardSidebar
           activeItem={activeNav}

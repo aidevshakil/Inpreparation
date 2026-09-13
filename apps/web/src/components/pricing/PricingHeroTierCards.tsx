@@ -13,27 +13,26 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
   const plans = [
     {
       id: 'free',
-      name: 'Free',
-      badge: 'STARTER',
+      name: 'Starter Profile',
+      badge: 'FREE ACCOUNT',
       badgeBg: 'rgba(255, 255, 255, 0.06)',
       badgeColor: '#94a3b8',
-      desc: 'Get started with AI interview practice',
+      desc: 'Build your profile & explore question library',
       priceMonthly: 0,
       priceYearly: 0,
-      priceSubtext: 'Completely free, no credit card required',
-      priceSubtextColor: '#38bdf8',
-      featuresHeader: 'INCLUDED FEATURES',
+      priceSubtext: 'Free account forever. Practice requires Pro.',
+      priceSubtextColor: '#94a3b8',
+      featuresHeader: 'INCLUDED IN STARTER',
       features: [
-        { text: 'Create professional profile & manual builder', isZap: false, isCloud: false },
+        { text: 'Create professional profile & CV builder', isZap: false, isCloud: false },
         { text: 'Upload CV with basic keyword extraction', isZap: false, isCloud: false },
-        { text: 'Baseline AI career assessment & fit calibration', isZap: false, isCloud: false },
-        { text: 'Access selected foundational interview tracks', isZap: false, isCloud: false },
-        { text: 'Limited synthetic interview practice sessions', isZap: false, isCloud: false },
-        { text: 'High-level baseline interview score & feedback', isZap: false, isCloud: false },
-        { text: 'Core progress tracking dashboard', isZap: false, isCloud: false },
-        { text: '100 AI usage credits / month', isZap: true, isCloud: false }
+        { text: 'Introductory diagnostic & fit calibration', isZap: false, isCloud: false },
+        { text: 'Explore curated questions across 50+ roles', isZap: false, isCloud: false },
+        { text: 'Full AI Interview Simulations (Locked - Pro)', isZap: false, isCloud: false },
+        { text: 'Diagnostic analytics & progress radar', isZap: false, isCloud: false },
+        { text: '50 AI exploration credits', isZap: true, isCloud: false }
       ],
-      btnText: 'Start Free',
+      btnText: 'Create Free Account',
       isPopular: false
     },
     {
