@@ -16,6 +16,7 @@ interface UploadCvPageProps {
   onNavigateToProfile?: () => void;
   onNavigateToCv?: () => void;
   onNavigateToCvAnalysis?: () => void;
+  onNavigateToCvBuilder?: () => void;
   onNavigateToSimulations?: () => void;
   onNavigateToAi?: () => void;
 }
@@ -26,6 +27,7 @@ export const UploadCvPage: React.FC<UploadCvPageProps> = ({
   onNavigateToProfile,
   onNavigateToCv,
   onNavigateToCvAnalysis,
+  onNavigateToCvBuilder,
   onNavigateToSimulations,
   onNavigateToAi,
 }) => {
@@ -168,7 +170,10 @@ export const UploadCvPage: React.FC<UploadCvPageProps> = ({
                 </button>
 
                 <button
-                  onClick={() => alert('Opening manual CV builder...')}
+                  onClick={() => {
+                    if (onNavigateToCvBuilder) onNavigateToCvBuilder();
+                    else alert('Opening manual CV builder...');
+                  }}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -212,7 +217,12 @@ export const UploadCvPage: React.FC<UploadCvPageProps> = ({
             >
               <CvUploadWhatNextCard />
               <CvUploadTipsCard />
-              <CvUploadManualBuilderCard onBuildManually={() => alert('Opening interactive CV builder...')} />
+              <CvUploadManualBuilderCard
+                onBuildManually={() => {
+                  if (onNavigateToCvBuilder) onNavigateToCvBuilder();
+                  else alert('Opening interactive CV builder...');
+                }}
+              />
             </div>
 
             {/* Privacy & Compliance Banner */}

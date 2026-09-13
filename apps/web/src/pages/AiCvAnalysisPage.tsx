@@ -23,6 +23,7 @@ interface AiCvAnalysisPageProps {
   onNavigateToProfile?: () => void;
   onNavigateToCv?: () => void;
   onNavigateToUploadCv?: () => void;
+  onNavigateToCvBuilder?: () => void;
   onNavigateToSimulations?: () => void;
   onNavigateToAi?: () => void;
 }
@@ -33,6 +34,7 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
   onNavigateToProfile,
   onNavigateToCv,
   onNavigateToUploadCv,
+  onNavigateToCvBuilder,
   onNavigateToSimulations,
   onNavigateToAi,
 }) => {
@@ -261,7 +263,7 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
                   <AiAnalysisRoleAlignmentCard
                     onSelectRole={(role) => alert(`Calibrating simulation profile for: ${role}`)}
                   />
-                  <AiAnalysisFeedbackCard onEnhanceInEditor={onNavigateToCv} />
+                  <AiAnalysisFeedbackCard onEnhanceInEditor={onNavigateToCvBuilder || onNavigateToCv} />
                   <AiAnalysisPrivacyCard onManagePrivacy={() => alert('Opening Privacy Settings Modal')} />
                 </div>
               </div>

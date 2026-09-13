@@ -21,6 +21,7 @@ interface MyCvPageProps {
   onNavigateToProfile?: () => void;
   onNavigateToUploadCv?: () => void;
   onNavigateToCvAnalysis?: () => void;
+  onNavigateToCvBuilder?: () => void;
   onNavigateToSimulations?: () => void;
   onNavigateToAi?: () => void;
 }
@@ -31,6 +32,7 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
   onNavigateToProfile,
   onNavigateToUploadCv,
   onNavigateToCvAnalysis,
+  onNavigateToCvBuilder,
   onNavigateToSimulations,
   onNavigateToAi,
 }) => {
@@ -145,7 +147,10 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
               {/* Top Right Action Buttons */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', alignSelf: 'center' }}>
                 <button
-                  onClick={() => alert('Opening manual CV builder...')}
+                  onClick={() => {
+                    if (onNavigateToCvBuilder) onNavigateToCvBuilder();
+                    else alert('Opening manual CV builder...');
+                  }}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
