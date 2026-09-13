@@ -15,12 +15,16 @@ import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { CandidateDashboardPage } from './pages/CandidateDashboardPage';
 import { MyProfilePage } from './pages/MyProfilePage';
 import { MyCvPage } from './pages/MyCvPage';
+import { UploadCvPage } from './pages/UploadCvPage';
+import { AiCvAnalysisPage } from './pages/AiCvAnalysisPage';
 
 export type AppPage =
   | 'home'
   | 'dashboard'
   | 'profile'
   | 'cv'
+  | 'upload-cv'
+  | 'ai-cv-analysis'
   | 'features'
   | 'how-it-works'
   | 'simulations'
@@ -35,12 +39,12 @@ export type AppPage =
   | 'reset-password';
 
 export function App() {
-  const [currentPage, setCurrentPage] = useState<AppPage>('cv');
+  const [currentPage, setCurrentPage] = useState<AppPage>('ai-cv-analysis');
 
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '') as AppPage;
-      if (hash && ['home', 'dashboard', 'profile', 'cv', 'features', 'how-it-works', 'simulations', 'pricing', 'faq', 'about', 'chat', 'login', 'signup', 'forgot', 'verify-email', 'reset-password'].includes(hash)) {
+      if (hash && ['home', 'dashboard', 'profile', 'cv', 'upload-cv', 'ai-cv-analysis', 'features', 'how-it-works', 'simulations', 'pricing', 'faq', 'about', 'chat', 'login', 'signup', 'forgot', 'verify-email', 'reset-password'].includes(hash)) {
         setCurrentPage(hash);
       }
     };
@@ -60,11 +64,37 @@ export function App() {
 
   return (
     <main>
+      {currentPage === 'ai-cv-analysis' && (
+        <AiCvAnalysisPage
+          onNavigateToHome={() => navigateTo('home')}
+          onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToUploadCv={() => navigateTo('upload-cv')}
+          onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToAi={() => navigateTo('chat')}
+        />
+      )}
+
+      {currentPage === 'upload-cv' && (
+        <UploadCvPage
+          onNavigateToHome={() => navigateTo('home')}
+          onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToCvAnalysis={() => navigateTo('ai-cv-analysis')}
+          onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToAi={() => navigateTo('chat')}
+        />
+      )}
+
       {currentPage === 'cv' && (
         <MyCvPage
           onNavigateToHome={() => navigateTo('home')}
           onNavigateToDashboard={() => navigateTo('dashboard')}
           onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToUploadCv={() => navigateTo('upload-cv')}
+          onNavigateToCvAnalysis={() => navigateTo('ai-cv-analysis')}
           onNavigateToSimulations={() => navigateTo('simulations')}
           onNavigateToAi={() => navigateTo('chat')}
         />
