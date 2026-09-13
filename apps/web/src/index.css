@@ -370,6 +370,12 @@ body {
   .profile-content-grid {
     grid-template-columns: 1fr !important;
   }
+  .cv-top-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .cv-body-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 @media (max-width: 768px) {

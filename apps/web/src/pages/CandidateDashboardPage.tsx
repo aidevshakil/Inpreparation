@@ -20,6 +20,7 @@ import { LiveSimulationModal } from '../components/LiveSimulationModal';
 interface CandidateDashboardPageProps {
   onNavigateToHome?: () => void;
   onNavigateToProfile?: () => void;
+  onNavigateToCv?: () => void;
   onNavigateToSimulations?: () => void;
   onNavigateToAi?: () => void;
   onNavigateToPricing?: () => void;
@@ -28,6 +29,7 @@ interface CandidateDashboardPageProps {
 export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
   onNavigateToHome: _onNavigateToHome,
   onNavigateToProfile,
+  onNavigateToCv,
   onNavigateToSimulations,
   onNavigateToAi,
 }) => {
@@ -46,6 +48,8 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
     setActiveNav(key);
     if (key === 'profile' && onNavigateToProfile) {
       onNavigateToProfile();
+    } else if (key === 'cv' && onNavigateToCv) {
+      onNavigateToCv();
     } else if (key === 'library' && onNavigateToSimulations) {
       onNavigateToSimulations();
     } else if (key === 'assessment') {

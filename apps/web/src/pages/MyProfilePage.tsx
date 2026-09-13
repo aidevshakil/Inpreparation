@@ -18,6 +18,7 @@ import { Check, AlertTriangle, Loader2, Save } from 'lucide-react';
 interface MyProfilePageProps {
   onNavigateToHome?: () => void;
   onNavigateToDashboard?: () => void;
+  onNavigateToCv?: () => void;
   onNavigateToSimulations?: () => void;
   onNavigateToAi?: () => void;
 }
@@ -25,6 +26,7 @@ interface MyProfilePageProps {
 export const MyProfilePage: React.FC<MyProfilePageProps> = ({
   onNavigateToHome,
   onNavigateToDashboard,
+  onNavigateToCv,
   onNavigateToSimulations,
   onNavigateToAi,
 }) => {
@@ -131,6 +133,8 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
     setActiveNav(key);
     if (key === 'dashboard' && onNavigateToDashboard) {
       onNavigateToDashboard();
+    } else if (key === 'cv' && onNavigateToCv) {
+      onNavigateToCv();
     } else if (key === 'library' && onNavigateToSimulations) {
       onNavigateToSimulations();
     } else if (key === 'assessment') {

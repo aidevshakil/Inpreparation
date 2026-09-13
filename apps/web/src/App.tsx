@@ -14,11 +14,13 @@ import { EmailVerificationPage } from './pages/EmailVerificationPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { CandidateDashboardPage } from './pages/CandidateDashboardPage';
 import { MyProfilePage } from './pages/MyProfilePage';
+import { MyCvPage } from './pages/MyCvPage';
 
 export type AppPage =
   | 'home'
   | 'dashboard'
   | 'profile'
+  | 'cv'
   | 'features'
   | 'how-it-works'
   | 'simulations'
@@ -33,12 +35,12 @@ export type AppPage =
   | 'reset-password';
 
 export function App() {
-  const [currentPage, setCurrentPage] = useState<AppPage>('profile');
+  const [currentPage, setCurrentPage] = useState<AppPage>('cv');
 
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '') as AppPage;
-      if (hash && ['home', 'dashboard', 'profile', 'features', 'how-it-works', 'simulations', 'pricing', 'faq', 'about', 'chat', 'login', 'signup', 'forgot', 'verify-email', 'reset-password'].includes(hash)) {
+      if (hash && ['home', 'dashboard', 'profile', 'cv', 'features', 'how-it-works', 'simulations', 'pricing', 'faq', 'about', 'chat', 'login', 'signup', 'forgot', 'verify-email', 'reset-password'].includes(hash)) {
         setCurrentPage(hash);
       }
     };
@@ -58,10 +60,21 @@ export function App() {
 
   return (
     <main>
+      {currentPage === 'cv' && (
+        <MyCvPage
+          onNavigateToHome={() => navigateTo('home')}
+          onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToAi={() => navigateTo('chat')}
+        />
+      )}
+
       {currentPage === 'profile' && (
         <MyProfilePage
           onNavigateToHome={() => navigateTo('home')}
           onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToCv={() => navigateTo('cv')}
           onNavigateToSimulations={() => navigateTo('simulations')}
           onNavigateToAi={() => navigateTo('chat')}
         />
@@ -71,6 +84,7 @@ export function App() {
         <CandidateDashboardPage
           onNavigateToHome={() => navigateTo('home')}
           onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
           onNavigateToSimulations={() => navigateTo('simulations')}
           onNavigateToAi={() => navigateTo('chat')}
           onNavigateToPricing={() => navigateTo('pricing')}
