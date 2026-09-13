@@ -10,20 +10,33 @@ interface CompletionItem {
 
 interface ProfileCompletionSidebarCardProps {
   percentage?: number;
+  hasBasicInfo?: boolean;
+  hasProfInfo?: boolean;
+  hasSkills?: boolean;
+  hasCv?: boolean;
+  hasAssessment?: boolean;
   onCompleteMissing?: () => void;
 }
 
 export const ProfileCompletionSidebarCard: React.FC<ProfileCompletionSidebarCardProps> = ({
-  percentage = 85,
+  percentage,
+  hasBasicInfo = true,
+  hasProfInfo = true,
+  hasSkills = false,
+  hasCv = false,
+  hasAssessment = false,
   onCompleteMissing,
 }) => {
   const items: CompletionItem[] = [
-    { id: 'basic', label: 'Basic Information', score: '100%', completed: true },
-    { id: 'prof', label: 'Professional Information', score: '100%', completed: true },
-    { id: 'skills', label: 'Technical Skills (7 tags)', score: '100%', completed: true },
-    { id: 'cv', label: 'CV Uploaded & Parsed', score: '100%', completed: true },
-    { id: 'assessment', label: 'AI Career Assessment', score: 'Pending', completed: false },
+    { id: 'basic', label: 'Basic Information', score: hasBasicInfo ? '100%' : 'Incomplete', completed: hasBasicInfo },
+    { id: 'prof', label: 'Professional Information', score: hasProfInfo ? '100%' : 'Incomplete', completed: hasProfInfo },
+    { id: 'skills', label: 'Technical Skills', score: hasSkills ? '100%' : 'Pending', completed: hasSkills },
+    { id: 'cv', label: 'CV Uploaded & Parsed', score: hasCv ? '100%' : 'Pending', completed: hasCv },
+    { id: 'assessment', label: 'AI Career Assessment', score: hasAssessment ? '100%' : 'Pending', completed: hasAssessment },
   ];
+
+  const completedCount = items.filter((it) => it.completed).length;
+  const displayPercentage = percentage !== undefined ? percentage : Math.round((completedCount / items.length) * 100);
 
   return (
     <div
@@ -56,7 +69,7 @@ export const ProfileCompletionSidebarCard: React.FC<ProfileCompletionSidebarCard
             color: '#a5b4fc',
           }}
         >
-          {percentage}% Complete
+          {displayPercentage}% Complete
         </span>
       </div>
 

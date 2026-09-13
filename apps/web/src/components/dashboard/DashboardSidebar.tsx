@@ -31,6 +31,8 @@ export type NavItemKey =
   | 'settings'
   | 'help';
 
+import { useAuth } from '../../context/AuthContext';
+
 interface DashboardSidebarProps {
   activeItem: NavItemKey;
   onSelectItem: (item: NavItemKey) => void;
@@ -45,9 +47,21 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
   onSelectItem,
   collapsed = false,
   onToggleCollapse,
-  creditsRemaining = 78,
-  totalCredits = 100,
+  creditsRemaining: propCreditsRemaining,
+  totalCredits: propTotalCredits,
 }) => {
+  const { user } = useAuth();
+  const creditsRemaining = propCreditsRemaining !== undefined ? propCreditsRemaining : user.creditsRemaining;
+  const totalCredits = propTotalCredits !== undefined ? propTotalCredits : user.totalCredits;
+
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .substring(0, 2)
+      .toUpperCase();
+  };
   const primaryNavItems = [
     { key: 'dashboard' as NavItemKey, label: 'Dashboard', icon: LayoutDashboard },
     { key: 'profile' as NavItemKey, label: 'My Profile', icon: User },
@@ -457,7 +471,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
               flexShrink: 0,
             }}
           >
-            SA
+            {getInitials(user.name || 'Candidate')}
           </div>
 
           {!collapsed && (
@@ -473,9 +487,9 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                     textOverflow: 'ellipsis',
                   }}
                 >
-                  Shakil Ahamed
+                  {user.name || 'Candidate User'}
                 </span>
-                <span style={{ color: '#64748b', fontSize: '0.68rem' }}>Candidate Pro</span>
+                <span style={{ color: '#64748b', fontSize: '0.68rem' }}>{user.targetRole || 'Candidate Pro'}</span>
               </div>
               <button
                 style={{

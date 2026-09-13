@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IntroRoomSimulatorBar, IntroRoomState } from '../components/intro-room/IntroRoomSimulatorBar';
+import type { IntroRoomState } from '../components/intro-room/IntroRoomSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { IntroRoomHeader } from '../components/intro-room/IntroRoomHeader';
@@ -49,15 +49,6 @@ export const IntroRoomPage: React.FC<IntroRoomPageProps> = ({
   const [responseMode, setResponseMode] = useState<IntroResponseMode>('camera_voice');
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
 
-  const handleSimulatorStateChange = (state: IntroRoomState) => {
-    setSimulatorState(state);
-    if (state === 'audio_only') {
-      setResponseMode('voice_only');
-    } else if (state === 'ready') {
-      setResponseMode('camera_voice');
-    }
-  };
-
   const handleSelectNav = (key: NavItemKey) => {
     setActiveNav(key);
     if (key === 'dashboard' && onNavigateToDashboard) {
@@ -91,14 +82,8 @@ export const IntroRoomPage: React.FC<IntroRoomPageProps> = ({
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. Interactive Prototype Simulator Bar */}
-      <IntroRoomSimulatorBar
-        currentState={simulatorState}
-        onStateChange={handleSimulatorStateChange}
-      />
-
       {/* Main Workspace Frame */}
-      <div style={{ display: 'flex', flex: 1, minHeight: 'calc(100vh - 39px)' }}>
+      <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
         <DashboardSidebar
           activeItem={activeNav}

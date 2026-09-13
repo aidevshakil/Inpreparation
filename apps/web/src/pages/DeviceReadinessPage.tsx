@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DeviceReadinessSimulatorBar, DeviceReadinessState } from '../components/device-readiness/DeviceReadinessSimulatorBar';
+import type { DeviceReadinessState } from '../components/device-readiness/DeviceReadinessSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { DeviceReadinessHeader } from '../components/device-readiness/DeviceReadinessHeader';
@@ -42,32 +42,13 @@ export const DeviceReadinessPage: React.FC<DeviceReadinessPageProps> = ({
   onNavigateToSimulations,
   onNavigateToAi,
 }) => {
-  const [simulatorState, setSimulatorState] = useState<DeviceReadinessState>('ready');
+  const [simulatorState] = useState<DeviceReadinessState>('ready');
   const [activeNav, setActiveNav] = useState<NavItemKey>('assessment');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [exitModalOpen, setExitModalOpen] = useState(false);
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
   const [isDiagnosticsRunning, setIsDiagnosticsRunning] = useState(false);
-
-  const handleSimulatorStateChange = (state: DeviceReadinessState) => {
-    setSimulatorState(state);
-    if (state === 'camera_off') {
-      setIsCameraOn(false);
-      setExitModalOpen(false);
-    } else if (state === 'ready') {
-      setIsCameraOn(true);
-      setExitModalOpen(false);
-    } else if (state === 'exit_dialog') {
-      setExitModalOpen(true);
-    } else if (state === 'running_checks') {
-      setIsDiagnosticsRunning(true);
-      setTimeout(() => setIsDiagnosticsRunning(false), 2000);
-      setExitModalOpen(false);
-    } else {
-      setExitModalOpen(false);
-    }
-  };
 
   const handleSelectNav = (key: NavItemKey) => {
     setActiveNav(key);
@@ -94,14 +75,8 @@ export const DeviceReadinessPage: React.FC<DeviceReadinessPageProps> = ({
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. Interactive Prototype Simulator Bar */}
-      <DeviceReadinessSimulatorBar
-        currentState={simulatorState}
-        onStateChange={handleSimulatorStateChange}
-      />
-
       {/* Main Workspace Frame */}
-      <div style={{ display: 'flex', flex: 1, minHeight: 'calc(100vh - 39px)' }}>
+      <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
         <DashboardSidebar
           activeItem={activeNav}

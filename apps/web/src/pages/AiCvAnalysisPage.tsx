@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AiAnalysisSimulatorBar, AiAnalysisState } from '../components/cv-analysis/AiAnalysisSimulatorBar';
+import type { AiAnalysisState } from '../components/cv-analysis/AiAnalysisSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { AiAnalysisFileHeader } from '../components/cv-analysis/AiAnalysisFileHeader';
@@ -59,14 +59,8 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. Interactive Prototype Simulator Bar */}
-      <AiAnalysisSimulatorBar
-        currentState={simulatorState}
-        onStateChange={(state) => setSimulatorState(state)}
-      />
-
       {/* Main Workspace Frame */}
-      <div style={{ display: 'flex', flex: 1, minHeight: 'calc(100vh - 39px)' }}>
+      <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
         <DashboardSidebar
           activeItem={activeNav}

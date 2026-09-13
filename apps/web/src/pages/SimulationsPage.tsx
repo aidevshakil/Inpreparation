@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { DemoVideoModal } from '../components/DemoVideoModal';
+import { useAuth } from '../context/AuthContext';
 import { InterviewLibraryHero } from '../components/interview-library/InterviewLibraryHero';
 import { PopularInterviewPaths } from '../components/interview-library/PopularInterviewPaths';
 import { TargetRoleCatalog } from '../components/interview-library/TargetRoleCatalog';
@@ -33,9 +33,8 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
   onNavigateToFaq,
   onNavigateToAi
 }) => {
-  const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
   const [isDemoOpen, setIsDemoOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState('Senior Frontend Engineer');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRoleDomain, setSelectedRoleDomain] = useState('All');
   const [selectedLevel, setSelectedLevel] = useState('All');
@@ -50,9 +49,13 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
     setSelectedFormat('All');
   };
 
-  const handleStartPractice = (roleName?: string) => {
-    if (roleName) setSelectedRole(roleName);
-    setIsSimulatorOpen(true);
+  const handleStartPractice = (_roleName?: string) => {
+    if (isAuthenticated) {
+      window.location.hash = 'dashboard';
+    } else {
+      window.location.hash = 'signup';
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -194,13 +197,6 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
       </main>
 
       <Footer />
-
-      {/* Live Simulation Modal */}
-      <LiveSimulationModal
-        isOpen={isSimulatorOpen}
-        onClose={() => setIsSimulatorOpen(false)}
-        initialRole={selectedRole}
-      />
 
       {/* Demo Video Modal */}
       <DemoVideoModal

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PipelineDiagnosticSimulatorBar, PipelineDiagnosticState } from '../components/pipeline-diagnostic/PipelineDiagnosticSimulatorBar';
+import type { PipelineDiagnosticState } from '../components/pipeline-diagnostic/PipelineDiagnosticSimulatorBar';
 import { PipelineDiagnosticTopNav } from '../components/pipeline-diagnostic/PipelineDiagnosticTopNav';
 import { PipelineDiagnosticHeader } from '../components/pipeline-diagnostic/PipelineDiagnosticHeader';
 import { PipelineHeroSynthesisCard } from '../components/pipeline-diagnostic/PipelineHeroSynthesisCard';
@@ -45,10 +45,6 @@ export const PipelineDiagnosticPage: React.FC<PipelineDiagnosticPageProps> = ({
   const [showLogModal, setShowLogModal] = useState(false);
   const [showTranscriptModal, setShowTranscriptModal] = useState(false);
 
-  const handleSimulatorStateChange = (state: PipelineDiagnosticState) => {
-    setSimulatorState(state);
-  };
-
   const getBottomActionText = () => {
     switch (simulatorState) {
       case 'initializing':
@@ -70,12 +66,6 @@ export const PipelineDiagnosticPage: React.FC<PipelineDiagnosticPageProps> = ({
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. Prototype Simulator Bar */}
-      <PipelineDiagnosticSimulatorBar
-        currentState={simulatorState}
-        onStateChange={handleSimulatorStateChange}
-      />
-
       {/* 2. Top Header Navigation Bar */}
       <PipelineDiagnosticTopNav
         onNavigateToWorkspace={onNavigateToDashboard}

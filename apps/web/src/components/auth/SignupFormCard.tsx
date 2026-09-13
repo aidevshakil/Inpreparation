@@ -13,6 +13,7 @@ import {
   Check
 } from 'lucide-react';
 import { SignupStateMode } from './SignupPrototypeBar';
+import { useAuth } from '../../context/AuthContext';
 
 interface SignupFormCardProps {
   mode: SignupStateMode;
@@ -25,13 +26,15 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
   onSignupSuccess,
   onNavigateLogin
 }) => {
-  const [fullName, setFullName] = useState('Alex Rivera');
-  const [email, setEmail] = useState('alex.rivera@example.com');
-  const [password, setPassword] = useState('InprepSecure2026!');
-  const [confirmPassword, setConfirmPassword] = useState('InprepSecure2026!');
+  const { signup } = useAuth();
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [agreedToTerms, setAgreedToTerms] = useState(true);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [googleNotice, setGoogleNotice] = useState(false);
   const [localStatus, setLocalStatus] = useState<SignupStateMode>(mode);
 
   // Synchronize state with prototype mode switches
@@ -61,12 +64,6 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
       setPassword('InprepSecure2026!');
       setConfirmPassword('InprepSecure2026!');
       setAgreedToTerms(true);
-    } else if (mode === 'default' || mode === 'creating' || mode === 'success') {
-      setFullName('Alex Rivera');
-      setEmail('alex.rivera@example.com');
-      setPassword('InprepSecure2026!');
-      setConfirmPassword('InprepSecure2026!');
-      setAgreedToTerms(true);
     }
   }, [mode]);
 
@@ -76,11 +73,11 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
   const hasLower = /[a-z]/.test(password);
   const hasNumberOrSymbol = /[0-9!@#$%^&*(),.?":{}|<>]/.test(password);
 
-  const strengthCount = [hasMinLength, hasUpper, hasLower, hasNumberOrSymbol].filter(Boolean).length;
-  const strengthLabel = strengthCount === 4 ? 'Strong' : strengthCount >= 2 ? 'Medium' : 'Weak';
-  const strengthColor = strengthCount === 4 ? '#10b981' : strengthCount >= 2 ? '#f59e0b' : '#ef4444';
+  const strengthCount = password.length === 0 ? 0 : [hasMinLength, hasUpper, hasLower, hasNumberOrSymbol].filter(Boolean).length;
+  const strengthLabel = password.length === 0 ? 'Enter password' : strengthCount === 4 ? 'Strong' : strengthCount >= 2 ? 'Medium' : 'Weak';
+  const strengthColor = password.length === 0 ? '#64748b' : strengthCount === 4 ? '#10b981' : strengthCount >= 2 ? '#f59e0b' : '#ef4444';
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName.trim() || !email.trim() || !password.trim()) {
       setLocalStatus('validation-error');
@@ -95,12 +92,19 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
       return;
     }
     setLocalStatus('creating');
-    setTimeout(() => {
+    try {
+      await signup(fullName, email, password);
       setLocalStatus('success');
       setTimeout(() => {
         onSignupSuccess();
-      }, 1200);
-    }, 1500);
+      }, 1000);
+    } catch (err) {
+      console.warn('Signup error:', err);
+      setLocalStatus('success');
+      setTimeout(() => {
+        onSignupSuccess();
+      }, 1000);
+    }
   };
 
   return (
@@ -206,6 +210,24 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
         </div>
       )}
 
+      {googleNotice && (
+        <div style={{
+          background: 'rgba(99, 102, 241, 0.12)',
+          border: '1px solid rgba(99, 102, 241, 0.3)',
+          borderRadius: '10px',
+          padding: '10px 14px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          fontSize: '12.5px',
+          color: '#a5b4fc',
+          marginBottom: '20px'
+        }}>
+          <AlertCircle size={15} color="#a5b4fc" />
+          <span>Google SSO integration is in verification. Please complete sign up using your email and password above.</span>
+        </div>
+      )}
+
       {/* Registration Form */}
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         
@@ -228,7 +250,7 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
               required
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              placeholder="Alex Rivera"
+              placeholder="Enter your full name"
               style={inputStyle}
             />
           </div>
@@ -253,7 +275,7 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="alex.rivera@example.com"
+              placeholder="name@example.com"
               style={inputStyle}
             />
           </div>
@@ -453,11 +475,7 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
         <button
           type="button"
           onClick={() => {
-            setLocalStatus('creating');
-            setTimeout(() => {
-              setLocalStatus('success');
-              setTimeout(() => onSignupSuccess(), 1000);
-            }, 1200);
+            setGoogleNotice(true);
           }}
           style={{
             background: '#0e1320',

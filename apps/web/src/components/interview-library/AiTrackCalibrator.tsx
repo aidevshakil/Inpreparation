@@ -424,7 +424,7 @@ export const AiTrackCalibrator: React.FC<AiTrackCalibratorProps> = ({
                   e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
                 }}
               >
-                Ready to Launch
+                Sign Up to Practice
               </button>
             </div>
 

@@ -21,6 +21,9 @@ model User {
   conversations Conversation[]
   simulations   SimulationSession[]
   resumes       ResumeProfile[]
+  diagnostics   DiagnosticIntake[]
+  profileAnalyses ProfileAnalysis[]
+  savedTracks   UserSavedTrack[]
   logs          AuditLog[]
 
   @@map("users")
@@ -103,6 +106,93 @@ model ResumeProfile {
   updatedAt       DateTime @updatedAt
 
   @@map("resume_profiles")
+}
+
+// -------------------------------------------------------------
+// Career Diagnostic Assessment Models (#19 - #23)
+// -------------------------------------------------------------
+model DiagnosticIntake {
+  id                      String                  @id @default(cuid())
+  userId                  String?
+  user                    User?                   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  targetRole              String                  @default("Staff Backend & Distributed Systems Architect")
+  seniorityTier           String                  @default("Senior 6+ Yrs Infra")
+  targetCompanyTypes      String[]                @default(["FAANG / Big Tech", "High-Growth Unicorn"])
+  focusAreas              String[]                @default(["Distributed Consensus", "High Concurrency", "STAR Leadership"])
+  completedQuestionsCount Int                     @default(8)
+  totalDurationSeconds    Int                     @default(840)
+  overallScore            Int                     @default(88)
+  technicalRigorScore     Int                     @default(92)
+  systemsBreadthScore     Int                     @default(89)
+  leadershipStarScore     Int                     @default(84)
+  communicationScore      Int                     @default(87)
+  status                  String                  @default("completed") // "in_progress" | "completed" | "analyzed"
+  responses               DiagnosticPromptResponse[]
+  createdAt               DateTime                @default(now())
+  updatedAt               DateTime                @updatedAt
+
+  @@map("diagnostic_intakes")
+}
+
+model DiagnosticPromptResponse {
+  id                   String           @id @default(cuid())
+  intakeId             String
+  intake               DiagnosticIntake @relation(fields: [intakeId], references: [id], onDelete: Cascade)
+  questionNumber       Int
+  questionText         String
+  transcript           String
+  audioDurationSeconds Int              @default(90)
+  wpm                  Int              @default(142)
+  clarityScore         Int              @default(88)
+  structureScore       Int              @default(86)
+  starCompliance       Int              @default(90)
+  confidenceRating     Int              @default(88)
+  createdAt            DateTime         @default(now())
+
+  @@map("diagnostic_prompt_responses")
+}
+
+// -------------------------------------------------------------
+// AI Profile Analysis Dossier Models (#24)
+// -------------------------------------------------------------
+model ProfileAnalysis {
+  id                    String   @id @default(cuid())
+  userId                String?
+  user                  User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  targetTitle           String   @default("Staff Backend & Systems Architect")
+  seniorityTier         String   @default("Staff (L6 / IC6)")
+  primaryStack          String[] @default(["Go", "Kafka", "Raft", "PostgreSQL", "Kubernetes"])
+  confidenceScore       Float    @default(94.6)
+  readinessPercentage   Int      @default(87)
+  verifiedDossierStatus Boolean  @default(true)
+  distributedSystems    Int      @default(94)
+  architecturalTradeoffs Int     @default(88)
+  engineeringLeadership Int      @default(82)
+  communicationClarity  Int      @default(86)
+  executionVelocity     Int      @default(91)
+  cloudReliability      Int      @default(89)
+  calibratedTrajectory  String   @default("Staff Systems Trajectory (L6 Target)")
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@map("profile_analyses")
+}
+
+// -------------------------------------------------------------
+// User Saved & Bookmarked Recommendations (#25)
+// -------------------------------------------------------------
+model UserSavedTrack {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trackId    String
+  trackTitle String
+  domain     String
+  matchScore Int      @default(92)
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, trackId])
+  @@map("user_saved_tracks")
 }
 
 model AuditLog {

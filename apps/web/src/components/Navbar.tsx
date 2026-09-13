@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Menu, X } from 'lucide-react';
+import { Sparkles, Menu, X, LayoutDashboard } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 interface NavbarProps {
   onStartPractice: (role?: string) => void;
@@ -9,10 +10,11 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  onStartPractice,
+  onStartPractice: _onStartPractice,
   currentPage = 'home',
   onNavigate
 }) => {
+  const { isAuthenticated, user } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -32,18 +34,22 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'FAQ', page: 'faq' as const, href: '#faq' },
   ];
 
+  const handleNavigatePage = (page: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat' | 'login' | 'signup' | 'dashboard') => {
+    if (onNavigate) {
+      onNavigate(page);
+    }
+    window.location.hash = page;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleLinkClick = (link: typeof navLinks[0], e: React.MouseEvent) => {
     e.preventDefault();
-    if (onNavigate && link.page) {
-      onNavigate(link.page);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (link.href && link.href.startsWith('#')) {
-      const targetElement = document.querySelector(link.href);
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
+    handleNavigatePage(link.page);
   };
+
+  const userInitials = user?.name
+    ? user.name.split(' ').map((n) => n[0]).filter(Boolean).slice(0, 2).join('').toUpperCase()
+    : 'SA';
 
   return (
     <header
@@ -65,10 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       }}>
         {/* Brand Logo: Clean purple rounded badge + Inprep AI */}
         <div
-          onClick={() => {
-            if (currentPage !== 'home' && onNavigate) onNavigate('home');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
+          onClick={() => handleNavigatePage('home')}
           style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', userSelect: 'none' }}
         >
           <div style={{
@@ -97,116 +100,132 @@ export const Navbar: React.FC<NavbarProps> = ({
               href={link.href}
               onClick={(e) => handleLinkClick(link, e)}
               style={{
-                color: '#94a3b8',
+                color: currentPage === link.page ? '#818cf8' : '#94a3b8',
                 fontSize: '14px',
                 fontWeight: 500,
                 textDecoration: 'none',
                 transition: 'color 0.2s ease',
               }}
               onMouseEnter={(e) => (e.currentTarget.style.color = '#ffffff')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = '#94a3b8')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = currentPage === link.page ? '#818cf8' : '#94a3b8')}
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        {/* Right CTA Actions: Log In, Get Started Free, User Profile */}
+        {/* Right CTA Actions: Conditional on Authentication Status */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          {/* Log In Button */}
-          <button
-            onClick={() => {
-              if (onNavigate) {
-                onNavigate('login');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              } else {
-                onStartPractice();
-              }
-            }}
-            className="nav-login-btn"
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: '#cbd5e1',
-              fontSize: '14px',
-              fontWeight: 600,
-              cursor: 'pointer',
-              padding: '8px 12px',
-              transition: 'color 0.2s'
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = '#ffffff')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = '#cbd5e1')}
-          >
-            Log In
-          </button>
+          {!isAuthenticated ? (
+            <>
+              {/* Log In Button */}
+              <button
+                onClick={() => handleNavigatePage('login')}
+                className="nav-login-btn"
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: '#cbd5e1',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  padding: '8px 14px',
+                  transition: 'color 0.2s'
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#ffffff')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#cbd5e1')}
+              >
+                Log In
+              </button>
 
-          <button
-            onClick={() => {
-              if (onNavigate) {
-                onNavigate('signup');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              } else {
-                onStartPractice();
-              }
-            }}
-            className="nav-cta-btn"
-            style={{
-              background: 'linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              color: '#ffffff',
-              borderRadius: '9999px',
-              padding: '10px 22px',
-              fontSize: '14px',
-              fontWeight: 600,
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              boxShadow: '0 4px 18px rgba(99, 102, 241, 0.4)',
-              transition: 'all 0.2s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-1px)';
-              e.currentTarget.style.boxShadow = '0 6px 24px rgba(99, 102, 241, 0.6)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 18px rgba(99, 102, 241, 0.4)';
-            }}
-          >
-            <span>Get Started Free</span>
-          </button>
+              {/* Get Started Button */}
+              <button
+                onClick={() => handleNavigatePage('signup')}
+                className="nav-cta-btn"
+                style={{
+                  background: 'linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  color: '#ffffff',
+                  borderRadius: '9999px',
+                  padding: '10px 22px',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  boxShadow: '0 4px 18px rgba(99, 102, 241, 0.4)',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                  e.currentTarget.style.boxShadow = '0 6px 24px rgba(99, 102, 241, 0.6)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 18px rgba(99, 102, 241, 0.4)';
+                }}
+              >
+                <span>Get Started</span>
+              </button>
+            </>
+          ) : (
+            <>
+              {/* Authenticated User: Dashboard shortcut */}
+              <button
+                onClick={() => handleNavigatePage('dashboard')}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  color: '#cbd5e1',
+                  borderRadius: '100px',
+                  padding: '8px 16px',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                  e.currentTarget.style.color = '#ffffff';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                  e.currentTarget.style.color = '#cbd5e1';
+                }}
+              >
+                <LayoutDashboard size={14} color="#818cf8" />
+                <span>Dashboard</span>
+              </button>
 
-          {/* User profile avatar circle -> Candidate Studio Dashboard */}
-          <button
-            onClick={() => {
-              if (onNavigate) {
-                onNavigate('dashboard');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              } else {
-                onStartPractice();
-              }
-            }}
-            style={{
-              width: '38px',
-              height: '38px',
-              borderRadius: '50%',
-              background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#ffffff',
-              fontSize: '13px',
-              fontWeight: 700,
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              boxShadow: '0 2px 10px rgba(124, 58, 237, 0.35)',
-            }}
-            title="Candidate Studio Dashboard"
-          >
-            SA
-          </button>
+              {/* User profile avatar circle */}
+              <button
+                onClick={() => handleNavigatePage('dashboard')}
+                style={{
+                  width: '38px',
+                  height: '38px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#ffffff',
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 2px 10px rgba(124, 58, 237, 0.35)',
+                }}
+                title={`Logged in as ${user?.name || 'Candidate'}`}
+              >
+                {userInitials}
+              </button>
+            </>
+          )}
 
           {/* Mobile menu toggle button */}
           <button
@@ -261,13 +280,32 @@ export const Navbar: React.FC<NavbarProps> = ({
             </a>
           ))}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '10px' }}>
-            <button
-              onClick={() => { setMobileMenuOpen(false); onStartPractice(); }}
-              className="btn-primary"
-              style={{ width: '100%', justifyContent: 'center' }}
-            >
-              Get Started Free
-            </button>
+            {!isAuthenticated ? (
+              <>
+                <button
+                  onClick={() => { setMobileMenuOpen(false); handleNavigatePage('login'); }}
+                  className="btn-secondary"
+                  style={{ width: '100%', justifyContent: 'center' }}
+                >
+                  Log In
+                </button>
+                <button
+                  onClick={() => { setMobileMenuOpen(false); handleNavigatePage('signup'); }}
+                  className="btn-primary"
+                  style={{ width: '100%', justifyContent: 'center' }}
+                >
+                  Get Started
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => { setMobileMenuOpen(false); handleNavigatePage('dashboard'); }}
+                className="btn-primary"
+                style={{ width: '100%', justifyContent: 'center' }}
+              >
+                Go to Dashboard
+              </button>
+            )}
           </div>
         </div>
       )}

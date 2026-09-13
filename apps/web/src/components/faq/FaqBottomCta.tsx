@@ -97,7 +97,7 @@ export const FaqBottomCta: React.FC<FaqBottomCtaProps> = ({
                   e.currentTarget.style.boxShadow = '0 4px 20px rgba(124, 58, 237, 0.4)';
                 }}
               >
-                <span>Start Practicing Free</span>
+                <span>Start Preparing</span>
                 <ArrowRight size={16} />
               </button>
 
@@ -123,7 +123,7 @@ export const FaqBottomCta: React.FC<FaqBottomCtaProps> = ({
                   e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
                 }}
               >
-                <span>Explore Interview Library</span>
+                <span>Explore Simulations</span>
               </button>
             </div>
 
@@ -133,7 +133,7 @@ export const FaqBottomCta: React.FC<FaqBottomCtaProps> = ({
               color: '#64748b',
               fontWeight: 500
             }}>
-              Start free. No credit card required • Exactly 5 questions per practice interview.
+              Calibrate your career baseline and practice with AI.
             </div>
           </div>
         </div>

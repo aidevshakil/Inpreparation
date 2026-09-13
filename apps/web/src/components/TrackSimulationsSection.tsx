@@ -356,7 +356,6 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
               </div>
             </div>
 
-            {/* Launch Action */}
             <button
               onClick={() => onStartPractice(active.role)}
               style={{
@@ -378,7 +377,7 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
                 transition: 'all 0.2s ease'
               }}
             >
-              <span>Launch {active.role}</span>
+              <span>Sign Up to Practice {active.role}</span>
               <ArrowRight size={14} />
             </button>
           </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CvUploadSimulatorBar, CvUploadState } from '../components/cv-upload/CvUploadSimulatorBar';
+import type { CvUploadState } from '../components/cv-upload/CvUploadSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { CvUploadHeroDropzone } from '../components/cv-upload/CvUploadHeroDropzone';
@@ -66,14 +66,8 @@ export const UploadCvPage: React.FC<UploadCvPageProps> = ({
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. Interactive Prototype Simulator Bar */}
-      <CvUploadSimulatorBar
-        currentState={simulatorState}
-        onStateChange={(state) => setSimulatorState(state)}
-      />
-
       {/* Main Workspace Frame */}
-      <div style={{ display: 'flex', flex: 1, minHeight: 'calc(100vh - 39px)' }}>
+      <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
         <DashboardSidebar
           activeItem={activeNav}

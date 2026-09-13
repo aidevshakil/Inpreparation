@@ -25,8 +25,8 @@ import {
   Volume2
 } from 'lucide-react';
 import { Navbar } from '../components/Navbar';
-import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { DemoVideoModal } from '../components/DemoVideoModal';
+import { useAuth } from '../context/AuthContext';
 
 interface AboutPageProps {
   onNavigateToHome: () => void;
@@ -45,11 +45,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({
   onNavigateToSimulations,
   onNavigateToPricing,
   onNavigateToFaq,
-  onNavigateToAi,
+  onNavigateToAi
 }) => {
-  const [simulationModalOpen, setSimulationModalOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
   const [demoModalOpen, setDemoModalOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState('Full Stack Software Engineer');
   const [activeRubricTab, setActiveRubricTab] = useState<'structure' | 'problemSolving' | 'relevance' | 'communication' | 'presence'>('structure');
 
   // Interactive Live Telemetry Simulator State
@@ -58,9 +57,13 @@ export const AboutPage: React.FC<AboutPageProps> = ({
   const [interactiveGaze, setInteractiveGaze] = useState(94);
   const [activeEcosystemNode, setActiveEcosystemNode] = useState<string>('core');
 
-  const startPractice = (role?: string) => {
-    if (role) setSelectedRole(role);
-    setSimulationModalOpen(true);
+  const startPractice = (_role?: string) => {
+    if (isAuthenticated) {
+      window.location.hash = 'dashboard';
+    } else {
+      window.location.hash = 'signup';
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const rubricDetails = {
@@ -250,7 +253,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
                 gap: '10px'
               }}
             >
-              <span>Start Free Practice</span>
+              <span>Start Preparing</span>
               <ArrowRight size={17} />
             </button>
 
@@ -2038,7 +2041,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             margin: '0 auto 36px',
             lineHeight: 1.6
           }}>
-            Start practicing today with 3 free simulations. No credit card required. Experience the power of AI-driven interview preparation.
+            Experience the power of comprehensive AI-driven interview preparation and calibrated feedback.
           </p>
 
           <div style={{
@@ -2053,7 +2056,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
               className="btn-primary"
               style={{ padding: '14px 32px', fontSize: '15px', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
             >
-              <span>Start Free Practice</span>
+              <span>Start Preparing</span>
               <ArrowRight size={16} />
             </button>
 
@@ -2175,13 +2178,6 @@ export const AboutPage: React.FC<AboutPageProps> = ({
           </div>
         </div>
       </footer>
-
-      {/* Live AI Simulation Modal */}
-      <LiveSimulationModal
-        isOpen={simulationModalOpen}
-        onClose={() => setSimulationModalOpen(false)}
-        initialRole={selectedRole}
-      />
 
       {/* Demo Video Modal */}
       <DemoVideoModal

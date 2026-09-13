@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CvBuilderSimulatorBar, CvBuilderState } from '../components/cv-builder/CvBuilderSimulatorBar';
+import type { CvBuilderState } from '../components/cv-builder/CvBuilderSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { CvBuilderHeader } from '../components/cv-builder/CvBuilderHeader';
@@ -37,7 +37,7 @@ export const CvBuilderPage: React.FC<CvBuilderPageProps> = ({
   onNavigateToSimulations,
   onNavigateToAi,
 }) => {
-  const [simulatorState, setSimulatorState] = useState<CvBuilderState>('default');
+  const [simulatorState] = useState<CvBuilderState>('default');
   const [activeNav, setActiveNav] = useState<NavItemKey>('cv');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [aiModalOpen, setAiModalOpen] = useState(false);
@@ -131,20 +131,6 @@ export const CvBuilderPage: React.FC<CvBuilderPageProps> = ({
   ]);
 
   const [activeTemplate, setActiveTemplate] = useState<CvTemplateType>('modern');
-
-  // Handle Simulator State Changes
-  const handleSimulatorStateChange = (state: CvBuilderState) => {
-    setSimulatorState(state);
-    if (state === 'ai_modal') {
-      setAiModalOpen(true);
-    } else if (state === 'template_pro') {
-      setActiveTemplate('professional');
-    } else if (state === 'template_min') {
-      setActiveTemplate('minimal');
-    } else if (state === 'default') {
-      setActiveTemplate('modern');
-    }
-  };
 
   const handleSelectNav = (key: NavItemKey) => {
     setActiveNav(key);
@@ -248,14 +234,8 @@ export const CvBuilderPage: React.FC<CvBuilderPageProps> = ({
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. Interactive Prototype Simulator Bar */}
-      <CvBuilderSimulatorBar
-        currentState={simulatorState}
-        onStateChange={handleSimulatorStateChange}
-      />
-
       {/* Main Workspace Frame */}
-      <div style={{ display: 'flex', flex: 1, minHeight: 'calc(100vh - 39px)' }}>
+      <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
         <DashboardSidebar
           activeItem={activeNav}

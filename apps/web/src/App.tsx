@@ -22,6 +22,9 @@ import { DiagnosticIntakePage } from './pages/DiagnosticIntakePage';
 import { DeviceReadinessPage } from './pages/DeviceReadinessPage';
 import { IntroRoomPage } from './pages/IntroRoomPage';
 import { PipelineDiagnosticPage } from './pages/PipelineDiagnosticPage';
+import { IntroResultPage } from './pages/IntroResultPage';
+import { ProfileAnalysisPage } from './pages/ProfileAnalysisPage';
+import { RecommendedInterviewsPage } from './pages/RecommendedInterviewsPage';
 
 export type AppPage =
   | 'home'
@@ -35,6 +38,9 @@ export type AppPage =
   | 'device-readiness'
   | 'intro-room'
   | 'pipeline-diagnostic'
+  | 'intro-result'
+  | 'profile-analysis'
+  | 'recommended-interviews'
   | 'features'
   | 'how-it-works'
   | 'simulations'
@@ -49,12 +55,12 @@ export type AppPage =
   | 'reset-password';
 
 export function App() {
-  const [currentPage, setCurrentPage] = useState<AppPage>('pipeline-diagnostic');
+  const [currentPage, setCurrentPage] = useState<AppPage>('recommended-interviews');
 
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '') as AppPage;
-      if (hash && ['home', 'dashboard', 'profile', 'cv', 'upload-cv', 'ai-cv-analysis', 'cv-builder', 'diagnostic-intake', 'device-readiness', 'intro-room', 'pipeline-diagnostic', 'features', 'how-it-works', 'simulations', 'pricing', 'faq', 'about', 'chat', 'login', 'signup', 'forgot', 'verify-email', 'reset-password'].includes(hash)) {
+      if (hash && ['home', 'dashboard', 'profile', 'cv', 'upload-cv', 'ai-cv-analysis', 'cv-builder', 'diagnostic-intake', 'device-readiness', 'intro-room', 'pipeline-diagnostic', 'intro-result', 'profile-analysis', 'recommended-interviews', 'features', 'how-it-works', 'simulations', 'pricing', 'faq', 'about', 'chat', 'login', 'signup', 'forgot', 'verify-email', 'reset-password'].includes(hash)) {
         setCurrentPage(hash);
       }
     };
@@ -74,6 +80,62 @@ export function App() {
 
   return (
     <main>
+      {currentPage === 'recommended-interviews' && (
+        <RecommendedInterviewsPage
+          onNavigateToHome={() => navigateTo('home')}
+          onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToCvAnalysis={() => navigateTo('ai-cv-analysis')}
+          onNavigateToCvBuilder={() => navigateTo('cv-builder')}
+          onNavigateToDiagnosticIntake={() => navigateTo('diagnostic-intake')}
+          onNavigateToDeviceReadiness={() => navigateTo('device-readiness')}
+          onNavigateToIntroRoom={() => navigateTo('intro-room')}
+          onNavigateToPipelineDiagnostic={() => navigateTo('pipeline-diagnostic')}
+          onNavigateToIntroResult={() => navigateTo('intro-result')}
+          onNavigateToProfileAnalysis={() => navigateTo('profile-analysis')}
+          onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToAi={() => navigateTo('chat')}
+        />
+      )}
+
+      {currentPage === 'profile-analysis' && (
+        <ProfileAnalysisPage
+          onNavigateToHome={() => navigateTo('home')}
+          onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToCvAnalysis={() => navigateTo('ai-cv-analysis')}
+          onNavigateToCvBuilder={() => navigateTo('cv-builder')}
+          onNavigateToDiagnosticIntake={() => navigateTo('diagnostic-intake')}
+          onNavigateToDeviceReadiness={() => navigateTo('device-readiness')}
+          onNavigateToIntroRoom={() => navigateTo('intro-room')}
+          onNavigateToPipelineDiagnostic={() => navigateTo('pipeline-diagnostic')}
+          onNavigateToIntroResult={() => navigateTo('intro-result')}
+          onNavigateToRecommendedInterviews={() => navigateTo('recommended-interviews')}
+          onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToAi={() => navigateTo('chat')}
+        />
+      )}
+
+      {currentPage === 'intro-result' && (
+        <IntroResultPage
+          onNavigateToHome={() => navigateTo('home')}
+          onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToCvAnalysis={() => navigateTo('ai-cv-analysis')}
+          onNavigateToCvBuilder={() => navigateTo('cv-builder')}
+          onNavigateToDiagnosticIntake={() => navigateTo('diagnostic-intake')}
+          onNavigateToDeviceReadiness={() => navigateTo('device-readiness')}
+          onNavigateToIntroRoom={() => navigateTo('intro-room')}
+          onNavigateToPipelineDiagnostic={() => navigateTo('pipeline-diagnostic')}
+          onNavigateToProfileAnalysis={() => navigateTo('profile-analysis')}
+          onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToAi={() => navigateTo('chat')}
+        />
+      )}
+
       {currentPage === 'pipeline-diagnostic' && (
         <PipelineDiagnosticPage
           onNavigateToHome={() => navigateTo('home')}
@@ -85,6 +147,7 @@ export function App() {
           onNavigateToDiagnosticIntake={() => navigateTo('diagnostic-intake')}
           onNavigateToDeviceReadiness={() => navigateTo('device-readiness')}
           onNavigateToIntroRoom={() => navigateTo('intro-room')}
+          onNavigateToIntroResult={() => navigateTo('intro-result')}
           onNavigateToSimulations={() => navigateTo('simulations')}
           onNavigateToAi={() => navigateTo('chat')}
         />
@@ -216,6 +279,9 @@ export function App() {
           onNavigateToPricing={() => navigateTo('pricing')}
           onNavigateToFaq={() => navigateTo('faq')}
           onNavigateToAbout={() => navigateTo('about')}
+          onNavigateToLogin={() => navigateTo('login')}
+          onNavigateToSignup={() => navigateTo('signup')}
+          onNavigateToDashboard={() => navigateTo('dashboard')}
         />
       )}
 
@@ -344,7 +410,7 @@ export function App() {
           onNavigateToFaq={() => navigateTo('faq')}
           onNavigateToLogin={() => navigateTo('login')}
           onNavigateToSignup={() => navigateTo('signup')}
-          onVerificationSuccess={() => navigateTo('dashboard')}
+          onVerificationSuccess={() => navigateTo('diagnostic-intake')}
         />
       )}
 

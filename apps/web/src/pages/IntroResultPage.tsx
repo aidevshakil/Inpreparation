@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IntroResultSimulatorBar, IntroResultState } from '../components/intro-result/IntroResultSimulatorBar';
+import type { IntroResultState } from '../components/intro-result/IntroResultSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { IntroResultHeader } from '../components/intro-result/IntroResultHeader';
@@ -28,6 +28,7 @@ interface IntroResultPageProps {
   onNavigateToDeviceReadiness?: () => void;
   onNavigateToIntroRoom?: () => void;
   onNavigateToPipelineDiagnostic?: () => void;
+  onNavigateToProfileAnalysis?: () => void;
   onNavigateToSimulations?: () => void;
   onNavigateToAi?: () => void;
 }
@@ -43,6 +44,7 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
   onNavigateToDeviceReadiness: _onNavigateToDeviceReadiness,
   onNavigateToIntroRoom,
   onNavigateToPipelineDiagnostic: _onNavigateToPipelineDiagnostic,
+  onNavigateToProfileAnalysis,
   onNavigateToSimulations,
   onNavigateToAi,
 }) => {
@@ -53,13 +55,6 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
   const [showEditModal, setShowEditModal] = useState(false);
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
   const [selectedRoleForSimulation, setSelectedRoleForSimulation] = useState('Staff Backend & Systems Architect');
-
-  const handleSimulatorStateChange = (state: IntroResultState) => {
-    setSimulatorState(state);
-    if (state === 'full_responses_drawer') {
-      setShowDrawer(true);
-    }
-  };
 
   const handleSelectNav = (key: NavItemKey) => {
     setActiveNav(key);
@@ -90,14 +85,8 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
-      {/* 1. Interactive Prototype Simulator Bar */}
-      <IntroResultSimulatorBar
-        currentState={simulatorState}
-        onStateChange={handleSimulatorStateChange}
-      />
-
       {/* Main Workspace Layout */}
-      <div style={{ display: 'flex', flex: 1, minHeight: 'calc(100vh - 39px)' }}>
+      <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
         <DashboardSidebar
           activeItem={activeNav}
@@ -122,7 +111,9 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
               onNavigateToAssessment={onNavigateToIntroRoom}
               onRetakeIntroduction={() => setSimulatorState('retake_confirm')}
               onViewTailoredDrills={() => {
-                if (onNavigateToSimulations) {
+                if (onNavigateToProfileAnalysis) {
+                  onNavigateToProfileAnalysis();
+                } else if (onNavigateToSimulations) {
                   onNavigateToSimulations();
                 } else {
                   setSimulationModalOpen(true);
@@ -297,7 +288,9 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
 
                 <button
                   onClick={() => {
-                    if (onNavigateToSimulations) {
+                    if (onNavigateToProfileAnalysis) {
+                      onNavigateToProfileAnalysis();
+                    } else if (onNavigateToSimulations) {
                       onNavigateToSimulations();
                     } else {
                       setSimulationModalOpen(true);

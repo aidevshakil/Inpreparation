@@ -31,8 +31,8 @@ import {
 } from 'lucide-react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { DemoVideoModal } from '../components/DemoVideoModal';
+import { useAuth } from '../context/AuthContext';
 
 interface FeaturesPageProps {
   onNavigateToHome: () => void;
@@ -51,15 +51,18 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
   onNavigateToFaq,
   onNavigateToAi
 }) => {
-  const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
   const [isDemoOpen, setIsDemoOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState('Senior Frontend Engineer');
   const [selectedEvalDimension, setSelectedEvalDimension] = useState(0);
   const [copiedAnswer, setCopiedAnswer] = useState(false);
 
-  const handleStartPractice = (role?: string) => {
-    if (role) setSelectedRole(role);
-    setIsSimulatorOpen(true);
+  const handleStartPractice = (_role?: string) => {
+    if (isAuthenticated) {
+      window.location.hash = 'dashboard';
+    } else {
+      window.location.hash = 'signup';
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleCopyModelAnswer = () => {
@@ -345,7 +348,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   transition: 'all 0.2s ease'
                 }}
               >
-                <span>Start Practicing Free</span>
+                <span>Start Preparing</span>
                 <ArrowRight size={16} />
               </button>
 
@@ -2403,7 +2406,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                       transition: 'all 0.2s ease'
                     }}
                   >
-                    <span>Get Started Free</span>
+                    <span>Get Started Now</span>
                     <ArrowRight size={16} />
                   </button>
 
@@ -2434,13 +2437,6 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
 
       {/* Global Footer */}
       <Footer />
-
-      {/* Live Simulation Modal */}
-      <LiveSimulationModal
-        isOpen={isSimulatorOpen}
-        onClose={() => setIsSimulatorOpen(false)}
-        initialRole={selectedRole}
-      />
 
       {/* Demo Video Modal */}
       <DemoVideoModal

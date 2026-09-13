@@ -12,6 +12,9 @@ import { aiRouter } from './routes/ai.routes';
 import { simulationRouter } from './routes/simulation.routes';
 import { resumeRouter } from './routes/resume.routes';
 import { authRouter } from './routes/auth.routes';
+import { diagnosticRouter } from './routes/diagnostic.routes';
+import { profileAnalysisRouter } from './routes/profile-analysis.routes';
+import { recommendationsRouter } from './routes/recommendations.routes';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -25,6 +28,9 @@ app.use('/api/ai', aiRouter);
 app.use('/api/simulations', simulationRouter);
 app.use('/api/resumes', resumeRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/diagnostic', diagnosticRouter);
+app.use('/api/profile-analysis', profileAnalysisRouter);
+app.use('/api/recommendations', recommendationsRouter);
 
 // Health check
 app.get('/api/health', (req, res) => {
