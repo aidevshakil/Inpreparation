@@ -19,6 +19,8 @@ interface MyCvPageProps {
   onNavigateToHome?: () => void;
   onNavigateToDashboard?: () => void;
   onNavigateToProfile?: () => void;
+  onNavigateToUploadCv?: () => void;
+  onNavigateToCvAnalysis?: () => void;
   onNavigateToSimulations?: () => void;
   onNavigateToAi?: () => void;
 }
@@ -27,6 +29,8 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
   onNavigateToHome,
   onNavigateToDashboard,
   onNavigateToProfile,
+  onNavigateToUploadCv,
+  onNavigateToCvAnalysis,
   onNavigateToSimulations,
   onNavigateToAi,
 }) => {
@@ -161,7 +165,13 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
                 </button>
 
                 <button
-                  onClick={() => setReplaceModalOpen(true)}
+                  onClick={() => {
+                    if (onNavigateToUploadCv) {
+                      onNavigateToUploadCv();
+                    } else {
+                      setReplaceModalOpen(true);
+                    }
+                  }}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -228,8 +238,14 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
                   fileSize="142 KB"
                   uploadDate="Uploaded Sep 10, 2026"
                   vectorizedTime="Vectorized 2h ago"
-                  onFullPreview={() => alert('Opening full screen preview...')}
-                  onSkillMatrix={() => alert('Displaying Skill Matrix breakdown...')}
+                  onFullPreview={() => {
+                    if (onNavigateToCvAnalysis) onNavigateToCvAnalysis();
+                    else alert('Opening full screen preview...');
+                  }}
+                  onSkillMatrix={() => {
+                    if (onNavigateToCvAnalysis) onNavigateToCvAnalysis();
+                    else alert('Displaying Skill Matrix breakdown...');
+                  }}
                   onReplaceCv={() => setReplaceModalOpen(true)}
                   onDownload={() => alert('Downloading resume PDF...')}
                   onShare={() => alert('Share link copied to clipboard!')}
@@ -242,7 +258,10 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
                   hasError={simulatorState === 'error'}
                   onFileSelect={() => {
                     setSimulatorState('uploading');
-                    setTimeout(() => setSimulatorState('default'), 1200);
+                    setTimeout(() => {
+                      setSimulatorState('default');
+                      if (onNavigateToCvAnalysis) onNavigateToCvAnalysis();
+                    }, 1200);
                   }}
                 />
               </div>
@@ -269,7 +288,10 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
               {/* Left Column: OCR Preview Canvas & Version History Table */}
               <div>
                 <CvOcrPreviewCanvas
-                  onExpandDossier={() => alert('Expanding full interactive candidate dossier...')}
+                  onExpandDossier={() => {
+                    if (onNavigateToCvAnalysis) onNavigateToCvAnalysis();
+                    else alert('Expanding full interactive candidate dossier...');
+                  }}
                 />
 
                 <CvVersionHistoryTable
@@ -282,7 +304,10 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
               <div style={{ position: 'sticky', top: '120px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 <CvStrengthCalibratorCard
                   score={84}
-                  onViewDeepBreakdown={() => alert('Opening deep diagnostic breakdown...')}
+                  onViewDeepBreakdown={() => {
+                    if (onNavigateToCvAnalysis) onNavigateToCvAnalysis();
+                    else alert('Opening deep diagnostic breakdown...');
+                  }}
                 />
 
                 <CvExecutiveAiSynthesisCard
