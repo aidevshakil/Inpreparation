@@ -22,6 +22,7 @@ interface PipelineDiagnosticPageProps {
   onNavigateToDiagnosticIntake?: () => void;
   onNavigateToDeviceReadiness?: () => void;
   onNavigateToIntroRoom?: () => void;
+  onNavigateToIntroResult?: () => void;
   onNavigateToSimulations?: () => void;
   onNavigateToAi?: () => void;
 }
@@ -36,6 +37,7 @@ export const PipelineDiagnosticPage: React.FC<PipelineDiagnosticPageProps> = ({
   onNavigateToDiagnosticIntake: _onNavigateToDiagnosticIntake,
   onNavigateToDeviceReadiness: _onNavigateToDeviceReadiness,
   onNavigateToIntroRoom,
+  onNavigateToIntroResult,
   onNavigateToSimulations,
   onNavigateToAi: _onNavigateToAi,
 }) => {
@@ -175,8 +177,12 @@ export const PipelineDiagnosticPage: React.FC<PipelineDiagnosticPageProps> = ({
             <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
               <button
                 onClick={() => {
-                  if (simulatorState === 'completed' && onNavigateToSimulations) {
-                    onNavigateToSimulations();
+                  if (simulatorState === 'completed') {
+                    if (onNavigateToIntroResult) {
+                      onNavigateToIntroResult();
+                    } else if (onNavigateToSimulations) {
+                      onNavigateToSimulations();
+                    }
                   } else {
                     setSimulatorState('completed');
                   }
