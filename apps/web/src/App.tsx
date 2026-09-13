@@ -17,6 +17,8 @@ import { MyProfilePage } from './pages/MyProfilePage';
 import { MyCvPage } from './pages/MyCvPage';
 import { UploadCvPage } from './pages/UploadCvPage';
 import { AiCvAnalysisPage } from './pages/AiCvAnalysisPage';
+import { CvBuilderPage } from './pages/CvBuilderPage';
+import { DiagnosticIntakePage } from './pages/DiagnosticIntakePage';
 
 export type AppPage =
   | 'home'
@@ -25,6 +27,8 @@ export type AppPage =
   | 'cv'
   | 'upload-cv'
   | 'ai-cv-analysis'
+  | 'cv-builder'
+  | 'diagnostic-intake'
   | 'features'
   | 'how-it-works'
   | 'simulations'
@@ -39,12 +43,12 @@ export type AppPage =
   | 'reset-password';
 
 export function App() {
-  const [currentPage, setCurrentPage] = useState<AppPage>('ai-cv-analysis');
+  const [currentPage, setCurrentPage] = useState<AppPage>('diagnostic-intake');
 
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '') as AppPage;
-      if (hash && ['home', 'dashboard', 'profile', 'cv', 'upload-cv', 'ai-cv-analysis', 'features', 'how-it-works', 'simulations', 'pricing', 'faq', 'about', 'chat', 'login', 'signup', 'forgot', 'verify-email', 'reset-password'].includes(hash)) {
+      if (hash && ['home', 'dashboard', 'profile', 'cv', 'upload-cv', 'ai-cv-analysis', 'cv-builder', 'diagnostic-intake', 'features', 'how-it-works', 'simulations', 'pricing', 'faq', 'about', 'chat', 'login', 'signup', 'forgot', 'verify-email', 'reset-password'].includes(hash)) {
         setCurrentPage(hash);
       }
     };
@@ -64,12 +68,38 @@ export function App() {
 
   return (
     <main>
+      {currentPage === 'diagnostic-intake' && (
+        <DiagnosticIntakePage
+          onNavigateToHome={() => navigateTo('home')}
+          onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToCvAnalysis={() => navigateTo('ai-cv-analysis')}
+          onNavigateToCvBuilder={() => navigateTo('cv-builder')}
+          onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToAi={() => navigateTo('chat')}
+        />
+      )}
+
+      {currentPage === 'cv-builder' && (
+        <CvBuilderPage
+          onNavigateToHome={() => navigateTo('home')}
+          onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToCvAnalysis={() => navigateTo('ai-cv-analysis')}
+          onNavigateToUploadCv={() => navigateTo('upload-cv')}
+          onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToAi={() => navigateTo('chat')}
+        />
+      )}
       {currentPage === 'ai-cv-analysis' && (
         <AiCvAnalysisPage
           onNavigateToHome={() => navigateTo('home')}
           onNavigateToDashboard={() => navigateTo('dashboard')}
           onNavigateToProfile={() => navigateTo('profile')}
           onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToCvBuilder={() => navigateTo('cv-builder')}
           onNavigateToUploadCv={() => navigateTo('upload-cv')}
           onNavigateToSimulations={() => navigateTo('simulations')}
           onNavigateToAi={() => navigateTo('chat')}
@@ -83,6 +113,7 @@ export function App() {
           onNavigateToProfile={() => navigateTo('profile')}
           onNavigateToCv={() => navigateTo('cv')}
           onNavigateToCvAnalysis={() => navigateTo('ai-cv-analysis')}
+          onNavigateToCvBuilder={() => navigateTo('cv-builder')}
           onNavigateToSimulations={() => navigateTo('simulations')}
           onNavigateToAi={() => navigateTo('chat')}
         />
@@ -95,6 +126,7 @@ export function App() {
           onNavigateToProfile={() => navigateTo('profile')}
           onNavigateToUploadCv={() => navigateTo('upload-cv')}
           onNavigateToCvAnalysis={() => navigateTo('ai-cv-analysis')}
+          onNavigateToCvBuilder={() => navigateTo('cv-builder')}
           onNavigateToSimulations={() => navigateTo('simulations')}
           onNavigateToAi={() => navigateTo('chat')}
         />
