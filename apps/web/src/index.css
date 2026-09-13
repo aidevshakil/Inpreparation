@@ -350,3 +350,37 @@ body {
   }
 }
 
+/* Dashboard Animations & Responsive Media Queries */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin-animate {
+  animation: spin 1s linear infinite;
+}
+
+@media (max-width: 1024px) {
+  .executive-metrics-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .simulated-focus-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .profile-content-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-sidebar-toggle {
+    display: inline-flex !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .kpi-sub-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
