@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Menu, X, User } from 'lucide-react';
+import { Sparkles, Menu, X } from 'lucide-react';
 
 interface NavbarProps {
   onStartPractice: (role?: string) => void;
   onNavigateToAi?: () => void;
-  currentPage?: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat' | 'login' | 'signup';
-  onNavigate?: (page: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat' | 'login' | 'signup') => void;
+  currentPage?: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat' | 'login' | 'signup' | 'dashboard';
+  onNavigate?: (page: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat' | 'login' | 'signup' | 'dashboard') => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -177,25 +177,35 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span>Get Started Free</span>
           </button>
 
-          {/* User profile avatar circle */}
+          {/* User profile avatar circle -> Candidate Studio Dashboard */}
           <button
-            onClick={() => onStartPractice()}
+            onClick={() => {
+              if (onNavigate) {
+                onNavigate('dashboard');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              } else {
+                onStartPractice();
+              }
+            }}
             style={{
               width: '38px',
               height: '38px',
               borderRadius: '50%',
-              background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
+              background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#cbd5e1',
+              color: '#ffffff',
+              fontSize: '13px',
+              fontWeight: 700,
               cursor: 'pointer',
-              transition: 'all 0.2s ease'
+              transition: 'all 0.2s ease',
+              boxShadow: '0 2px 10px rgba(124, 58, 237, 0.35)',
             }}
-            title="User Profile"
+            title="Candidate Studio Dashboard"
           >
-            <User size={18} />
+            SA
           </button>
 
           {/* Mobile menu toggle button */}
