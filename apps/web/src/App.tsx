@@ -7,9 +7,14 @@ import { PricingPage } from './pages/PricingPage';
 import { FaqPage } from './pages/FaqPage';
 import { AboutPage } from './pages/AboutPage';
 import { AiChatPage } from './pages/AiChatPage';
+import { LoginPage } from './pages/LoginPage';
+import { SignupPage } from './pages/SignupPage';
+import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
+import { EmailVerificationPage } from './pages/EmailVerificationPage';
+import { ResetPasswordPage } from './pages/ResetPasswordPage';
 
 export function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat' | 'login' | 'signup' | 'forgot' | 'verify-email' | 'reset-password'>('home');
 
   return (
     <main>
@@ -95,6 +100,77 @@ export function App() {
 
       {currentPage === 'chat' && (
         <AiChatPage onBack={() => setCurrentPage('home')} />
+      )}
+
+      {currentPage === 'login' && (
+        <LoginPage
+          onNavigateToHome={() => setCurrentPage('home')}
+          onNavigateToFeatures={() => setCurrentPage('features')}
+          onNavigateToHowItWorks={() => setCurrentPage('how-it-works')}
+          onNavigateToSimulations={() => setCurrentPage('simulations')}
+          onNavigateToPricing={() => setCurrentPage('pricing')}
+          onNavigateToFaq={() => setCurrentPage('faq')}
+          onNavigateToAbout={() => setCurrentPage('about')}
+          onNavigateToAi={() => setCurrentPage('chat')}
+          onNavigateToSignup={() => setCurrentPage('signup')}
+          onNavigateToForgot={() => setCurrentPage('forgot')}
+          onLoginSuccess={() => setCurrentPage('simulations')}
+        />
+      )}
+
+      {currentPage === 'signup' && (
+        <SignupPage
+          onNavigateToHome={() => setCurrentPage('home')}
+          onNavigateToFeatures={() => setCurrentPage('features')}
+          onNavigateToHowItWorks={() => setCurrentPage('how-it-works')}
+          onNavigateToSimulations={() => setCurrentPage('simulations')}
+          onNavigateToPricing={() => setCurrentPage('pricing')}
+          onNavigateToFaq={() => setCurrentPage('faq')}
+          onNavigateToLogin={() => setCurrentPage('login')}
+          onSignupSuccess={() => setCurrentPage('verify-email')}
+        />
+      )}
+
+      {currentPage === 'forgot' && (
+        <ForgotPasswordPage
+          onNavigateToHome={() => setCurrentPage('home')}
+          onNavigateToFeatures={() => setCurrentPage('features')}
+          onNavigateToHowItWorks={() => setCurrentPage('how-it-works')}
+          onNavigateToSimulations={() => setCurrentPage('simulations')}
+          onNavigateToPricing={() => setCurrentPage('pricing')}
+          onNavigateToFaq={() => setCurrentPage('faq')}
+          onNavigateToLogin={() => setCurrentPage('login')}
+          onNavigateToSignup={() => setCurrentPage('signup')}
+          onNavigateToReset={() => setCurrentPage('reset-password')}
+        />
+      )}
+
+      {currentPage === 'verify-email' && (
+        <EmailVerificationPage
+          onNavigateToHome={() => setCurrentPage('home')}
+          onNavigateToFeatures={() => setCurrentPage('features')}
+          onNavigateToHowItWorks={() => setCurrentPage('how-it-works')}
+          onNavigateToSimulations={() => setCurrentPage('simulations')}
+          onNavigateToPricing={() => setCurrentPage('pricing')}
+          onNavigateToFaq={() => setCurrentPage('faq')}
+          onNavigateToLogin={() => setCurrentPage('login')}
+          onNavigateToSignup={() => setCurrentPage('signup')}
+          onVerificationSuccess={() => setCurrentPage('simulations')}
+        />
+      )}
+
+      {currentPage === 'reset-password' && (
+        <ResetPasswordPage
+          onNavigateToHome={() => setCurrentPage('home')}
+          onNavigateToFeatures={() => setCurrentPage('features')}
+          onNavigateToHowItWorks={() => setCurrentPage('how-it-works')}
+          onNavigateToSimulations={() => setCurrentPage('simulations')}
+          onNavigateToPricing={() => setCurrentPage('pricing')}
+          onNavigateToFaq={() => setCurrentPage('faq')}
+          onNavigateToLogin={() => setCurrentPage('login')}
+          onNavigateToForgot={() => setCurrentPage('forgot')}
+          onResetSuccess={() => setCurrentPage('login')}
+        />
       )}
     </main>
   );

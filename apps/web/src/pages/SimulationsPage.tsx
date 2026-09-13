@@ -1,13 +1,4 @@
 import React, { useState } from 'react';
-import {
-  Sparkles,
-  ArrowRight,
-  Code,
-  Layers,
-  Award,
-  ChevronDown,
-  Zap
-} from 'lucide-react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
@@ -15,6 +6,15 @@ import { DemoVideoModal } from '../components/DemoVideoModal';
 import { InterviewLibraryHero } from '../components/interview-library/InterviewLibraryHero';
 import { PopularInterviewPaths } from '../components/interview-library/PopularInterviewPaths';
 import { TargetRoleCatalog } from '../components/interview-library/TargetRoleCatalog';
+import { TechStackMatrix } from '../components/interview-library/TechStackMatrix';
+import { SeniorityLevelTracks } from '../components/interview-library/SeniorityLevelTracks';
+import { ChallengeCalibration } from '../components/interview-library/ChallengeCalibration';
+import { AiTrackCalibrator } from '../components/interview-library/AiTrackCalibrator';
+import { SampleTrackBlueprint } from '../components/interview-library/SampleTrackBlueprint';
+import { PlatformStandards } from '../components/interview-library/PlatformStandards';
+import { TransparencyBanner } from '../components/interview-library/TransparencyBanner';
+import { InterviewLibraryFaq } from '../components/interview-library/InterviewLibraryFaq';
+import { InterviewLibraryCta } from '../components/interview-library/InterviewLibraryCta';
 
 interface SimulationsPageProps {
   onNavigateToHome: () => void;
@@ -41,13 +41,6 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
   const [selectedLevel, setSelectedLevel] = useState('All');
   const [selectedDifficulty, setSelectedDifficulty] = useState('All');
   const [selectedFormat, setSelectedFormat] = useState('All');
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
-
-
-  // Calibrator Interactive State
-  const [calibratorTrack, setCalibratorTrack] = useState('Senior Frontend Engineer');
-  const [calibratorTier, setCalibratorTier] = useState('Senior • L5');
-  const [calibratorCompany, setCalibratorCompany] = useState('FAANG / Tier-1 Tech');
 
   const clearFilters = () => {
     setSearchQuery('');
@@ -121,604 +114,83 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
         />
 
         {/* ========================================================
-            PRACTICE BY TECHNOLOGY (TECH MATRICES)
+            PART 4A: PRACTICE BY TECHNOLOGY (TECH MATRIX)
         ======================================================== */}
-        <section style={{ padding: '60px 0', position: 'relative' }}>
-          <div className="container">
-            <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 40px' }}>
-              <span className="badge-pill badge-cyan" style={{ marginBottom: '12px' }}>
-                TECHNOLOGY DRILLS
-              </span>
-              <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '12px' }}>
-                Practice by Technology
-              </h2>
-              <p style={{ fontSize: '15px', color: '#94a3b8' }}>
-                Drill down into language internals, framework lifecycles, database performance, and distributed systems.
-              </p>
-            </div>
-
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-              gap: '20px'
-            }}>
-              {[
-                { title: 'Languages', items: ['Python', 'TypeScript', 'Go', 'Java', 'Rust', 'Swift', 'Kotlin', 'C++'] },
-                { title: 'Web & Frameworks', items: ['React 19', 'Next.js', 'FastAPI', 'Node.js', 'Django', 'NestJS', 'Spring Boot'] },
-                { title: 'Cloud & DB', items: ['AWS', 'Kubernetes', 'PostgreSQL', 'Redis', 'Kafka', 'Docker', 'MongoDB'] },
-                { title: 'AI & Data', items: ['PyTorch', 'Vector DBs', 'LangChain', 'HuggingFace', 'Spark', 'Snowflake'] }
-              ].map((techGroup, idx) => (
-                <div key={idx} className="glass-card" style={{ padding: '24px', borderRadius: '18px', background: '#0e131f' }}>
-                  <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#f8fafc', marginBottom: '14px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: '8px' }}>
-                    {techGroup.title}
-                  </h3>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                    {techGroup.items.map((it, iIdx) => (
-                      <span
-                        key={iIdx}
-                        onClick={() => {
-                          setSearchQuery(it);
-                          window.scrollTo({ top: 350, behavior: 'smooth' });
-                        }}
-                        style={{
-                          background: 'rgba(99, 102, 241, 0.1)',
-                          border: '1px solid rgba(99, 102, 241, 0.2)',
-                          color: '#a5b4fc',
-                          padding: '5px 10px',
-                          borderRadius: '6px',
-                          fontSize: '12px',
-                          fontWeight: 600,
-                          cursor: 'pointer',
-                          transition: 'all 0.2s'
-                        }}
-                      >
-                        {it}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <TechStackMatrix
+          onSelectTechnology={(tech) => {
+            setSearchQuery(tech);
+            const el = document.getElementById('all-roles-catalog');
+            el?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        />
 
         {/* ========================================================
-            ROUND FORMATS: Tailored For Every Stage of Your Loop
+            PART 4B: SENIORITY ALIGNMENT (PRACTICE AT THE RIGHT LEVEL)
         ======================================================== */}
-        <section style={{ padding: '60px 0', background: 'linear-gradient(180deg, #07090e 0%, #0d121f 100%)' }}>
-          <div className="container">
-            <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 40px' }}>
-              <span className="badge-pill badge-purple" style={{ marginBottom: '12px' }}>
-                PRACTICE FORMATS
-              </span>
-              <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '12px' }}>
-                Tailored for Every Stage of Your Interview Loop
-              </h2>
-              <p style={{ fontSize: '15px', color: '#94a3b8' }}>
-                Target individual interview rounds with dedicated scoring criteria, pacing bounds, and AI personas.
-              </p>
-            </div>
-
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: '20px'
-            }}>
-              {[
-                {
-                  icon: <Code size={24} color="#818cf8" />,
-                  title: 'Technical Coding & Big-O',
-                  badge: 'Algorithms & Sandboxes',
-                  color: '#818cf8',
-                  desc: 'Algorithmic problem solving with automated compiler verification, edge-case probing, and Big-O runtime analysis.',
-                  tags: ['Big-O Analysis', 'Data Structures', 'Live Execution']
-                },
-                {
-                  icon: <Layers size={24} color="#06b6d4" />,
-                  title: 'System Design & Architecture',
-                  badge: 'Scalability & Trade-offs',
-                  color: '#06b6d4',
-                  desc: 'Design high-throughput systems, isolate single points of failure, weigh read-write ratios, and establish consensus.',
-                  tags: ['Distributed Caching', 'CAP Theorem', 'DB Sharding']
-                },
-                {
-                  icon: <Award size={24} color="#a855f7" />,
-                  title: 'Behavioral STAR Leadership',
-                  badge: 'Executive Storytelling',
-                  color: '#a855f7',
-                  desc: 'Articulate your impact using Situation, Task, Action, and Result with quantifiable business metrics and executive composure.',
-                  tags: ['STAR Scoring', 'Conflict Resolution', 'Business ROI']
-                },
-                {
-                  icon: <Zap size={24} color="#f59e0b" />,
-                  title: 'Rapid-Fire Pressure Rounds',
-                  badge: 'Cadence & Brevity',
-                  color: '#f59e0b',
-                  desc: 'Sharpen mental agility with rapid 45-second architectural tradeoffs and unscripted follow-up probes.',
-                  tags: ['45s Timers', 'Unscripted Curveballs', 'Vocal Cadence']
-                }
-              ].map((round, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => handleStartPractice(selectedRole)}
-                  className="glass-card"
-                  style={{
-                    padding: '26px',
-                    borderRadius: '20px',
-                    background: '#0e131f',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = round.color;
-                    e.currentTarget.style.transform = 'translateY(-3px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                      <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: `${round.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        {round.icon}
-                      </div>
-                      <span style={{ fontSize: '10px', fontWeight: 700, color: round.color, background: `${round.color}12`, padding: '3px 8px', borderRadius: '4px' }}>
-                        {round.badge}
-                      </span>
-                    </div>
-
-                    <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#f8fafc', marginBottom: '8px' }}>
-                      {round.title}
-                    </h3>
-                    <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '18px' }}>
-                      {round.desc}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '16px' }}>
-                      {round.tags.map((t, tIdx) => (
-                        <span key={tIdx} style={{ background: 'rgba(255, 255, 255, 0.03)', fontSize: '11px', color: '#cbd5e1', padding: '2px 7px', borderRadius: '4px' }}>
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px', color: round.color, fontWeight: 700, borderTop: '1px solid rgba(255, 255, 255, 0.06)', paddingTop: '12px' }}>
-                      <span>Start Round Practice</span>
-                      <ArrowRight size={13} />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <SeniorityLevelTracks
+          onSelectLevel={(level) => handleStartPractice(level)}
+        />
 
         {/* ========================================================
-            SENIORITY & DIFFICULTY TIERS
+            PART 5A: CHOOSE YOUR CHALLENGE (CHALLENGE CALIBRATION)
         ======================================================== */}
-        <section style={{ padding: '60px 0', position: 'relative' }}>
-          <div className="container">
-            <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 40px' }}>
-              <span className="badge-pill badge-cyan" style={{ marginBottom: '12px' }}>
-                SENIORITY TIERS
-              </span>
-              <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '12px' }}>
-                Calibrated to Exact Industry Hiring Bars
-              </h2>
-              <p style={{ fontSize: '15px', color: '#94a3b8' }}>
-                The AI adjusts probe depth, interruption cadence, and evaluation rubrics to match your target tier.
-              </p>
-            </div>
-
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: '20px'
-            }}>
-              {[
-                {
-                  tier: 'Junior • L3 Tier',
-                  headline: 'Foundational & Syntax',
-                  color: '#06b6d4',
-                  rigor: '65% Rigor',
-                  focus: 'Code fluency, data structures, clean modular functions, and accepting guided hints.',
-                  sample: '"Walk me through how hash table collisions are resolved in memory."'
-                },
-                {
-                  tier: 'Mid-Level • L4 Tier',
-                  headline: 'Production Craft & Trade-offs',
-                  color: '#818cf8',
-                  rigor: '80% Rigor',
-                  focus: 'Error handling, concurrency basics, maintainability, API design, and cross-team collaboration.',
-                  sample: '"How do you prevent N+1 query regressions across our relational ORM layer?"'
-                },
-                {
-                  tier: 'Senior • L5 Tier',
-                  headline: 'Scalability & Deep Ownership',
-                  color: '#a855f7',
-                  rigor: '92% Rigor',
-                  focus: 'Multi-service architecture, performance profiling, latency SLAs, and proactive risk mitigation.',
-                  sample: '"Design an idempotent payment event deduplication pipeline across 3 regions."'
-                },
-                {
-                  tier: 'Staff / Principal • L6+',
-                  headline: 'Strategic ROI & Vision',
-                  color: '#f59e0b',
-                  rigor: '98% Rigor',
-                  focus: 'Cross-organizational strategy, multi-quarter roadmap, SLA guarantees, and board-level technical ROI.',
-                  sample: '"We face 40% margin degradation on cloud egress. Pitch your re-architecture to the VP."'
-                }
-              ].map((tier, idx) => (
-                <div
-                  key={idx}
-                  className="glass-card"
-                  style={{
-                    padding: '26px',
-                    borderRadius: '20px',
-                    background: '#0e131f',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between'
-                  }}
-                >
-                  <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                      <span style={{ fontSize: '11px', fontWeight: 800, color: tier.color, textTransform: 'uppercase' }}>
-                        {tier.tier}
-                      </span>
-                      <span style={{ fontSize: '10px', color: '#cbd5e1', background: 'rgba(255,255,255,0.06)', padding: '2px 6px', borderRadius: '4px' }}>
-                        {tier.rigor}
-                      </span>
-                    </div>
-
-                    <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#f8fafc', marginBottom: '10px' }}>
-                      {tier.headline}
-                    </h3>
-                    <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '18px' }}>
-                      {tier.focus}
-                    </p>
-
-                    <div style={{ background: 'rgba(0,0,0,0.35)', padding: '12px', borderRadius: '10px', borderLeft: `3px solid ${tier.color}`, fontSize: '12px', color: '#cbd5e1', fontStyle: 'italic', marginBottom: '18px' }}>
-                      {tier.sample}
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => handleStartPractice(selectedRole)}
-                    className="btn-secondary btn-sm"
-                    style={{ width: '100%', justifyContent: 'center' }}
-                  >
-                    <span>Practice at this Tier</span>
-                    <ArrowRight size={13} />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ChallengeCalibration
+          onSelectDifficulty={(diff) => {
+            setSelectedDifficulty(diff);
+            const el = document.getElementById('all-roles-catalog');
+            el?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        />
 
         {/* ========================================================
-            NOT SURE WHERE TO START? (CALIBRATE & TELEMETRY SECTION)
+            PART 5B: INTELLIGENT TRACK MATCHING (AI TRACK CALIBRATOR)
         ======================================================== */}
-        <section id="calibrate-section" style={{ padding: '60px 0', background: 'linear-gradient(180deg, #07090e 0%, #0e1424 100%)' }}>
-          <div className="container">
-            <div style={{
-              background: 'linear-gradient(135deg, #12192b 0%, #0b0f19 100%)',
-              border: '1px solid rgba(99, 102, 241, 0.35)',
-              borderRadius: '28px',
-              padding: '40px',
-              boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.8)'
-            }}>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '36px',
-                alignItems: 'center'
-              }}>
-                {/* Left Form */}
-                <div>
-                  <span className="badge-pill badge-purple" style={{ marginBottom: '12px' }}>
-                    AI TRACK CALIBRATOR
-                  </span>
-                  <h2 style={{ fontSize: '28px', fontWeight: 800, color: '#f8fafc', marginBottom: '12px' }}>
-                    Not Sure Where to Start? Let AI Calibrate Your Track.
-                  </h2>
-                  <p style={{ fontSize: '15px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '24px' }}>
-                    Configure your current experience level and target company archetype to get custom recommended question sets with real-time telemetry.
-                  </p>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '24px' }}>
-                    {/* Role selector */}
-                    <div>
-                      <label style={{ fontSize: '12px', color: '#cbd5e1', fontWeight: 600, display: 'block', marginBottom: '6px' }}>
-                        Target Engineering Role:
-                      </label>
-                      <select
-                        value={calibratorTrack}
-                        onChange={(e) => setCalibratorTrack(e.target.value)}
-                        style={{
-                          width: '100%',
-                          background: '#090d16',
-                          border: '1px solid rgba(255, 255, 255, 0.15)',
-                          color: '#f8fafc',
-                          padding: '10px 12px',
-                          borderRadius: '8px',
-                          fontSize: '13px',
-                          outline: 'none'
-                        }}
-                      >
-                        <option value="Senior Frontend Engineer">Senior Frontend Engineer (React / TypeScript / Web Vitals)</option>
-                        <option value="Staff Distributed Systems Architect">Staff Distributed Systems Architect (Kafka / Sharding)</option>
-                        <option value="AI & Machine Learning Engineer">AI & ML Engineer (LLMs / PyTorch / RAG)</option>
-                        <option value="DevOps & SRE Engineer">DevOps & SRE Engineer (Kubernetes / Terraform)</option>
-                      </select>
-                    </div>
-
-                    {/* Tier selector */}
-                    <div>
-                      <label style={{ fontSize: '12px', color: '#cbd5e1', fontWeight: 600, display: 'block', marginBottom: '6px' }}>
-                        Target Seniority Level:
-                      </label>
-                      <div style={{ display: 'flex', gap: '8px' }}>
-                        {['Mid • L4', 'Senior • L5', 'Staff • L6+'].map((t) => (
-                          <button
-                            key={t}
-                            type="button"
-                            onClick={() => setCalibratorTier(t)}
-                            style={{
-                              flex: 1,
-                              background: calibratorTier === t ? 'rgba(99, 102, 241, 0.25)' : 'rgba(255,255,255,0.04)',
-                              border: calibratorTier === t ? '1px solid #818cf8' : '1px solid rgba(255,255,255,0.08)',
-                              color: calibratorTier === t ? '#fff' : '#94a3b8',
-                              padding: '8px',
-                              borderRadius: '6px',
-                              fontSize: '11px',
-                              fontWeight: 700,
-                              cursor: 'pointer'
-                            }}
-                          >
-                            {t}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Company Archetype */}
-                    <div>
-                      <label style={{ fontSize: '12px', color: '#cbd5e1', fontWeight: 600, display: 'block', marginBottom: '6px' }}>
-                        Company Rubric:
-                      </label>
-                      <select
-                        value={calibratorCompany}
-                        onChange={(e) => setCalibratorCompany(e.target.value)}
-                        style={{
-                          width: '100%',
-                          background: '#090d16',
-                          border: '1px solid rgba(255, 255, 255, 0.15)',
-                          color: '#f8fafc',
-                          padding: '10px 12px',
-                          borderRadius: '8px',
-                          fontSize: '13px',
-                          outline: 'none'
-                        }}
-                      >
-                        <option value="FAANG / Tier-1 Tech">Google / Meta / Tier-1 Tech</option>
-                        <option value="Enterprise SaaS">Stripe / Enterprise SaaS</option>
-                        <option value="High-Growth Startup">Series A/B High-Growth Startup</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => handleStartPractice(calibratorTrack)}
-                    className="btn-primary"
-                    style={{ padding: '14px 28px', width: '100%', justifyContent: 'center' }}
-                  >
-                    <span>Calibrate & Start Simulation</span>
-                    <ArrowRight size={16} />
-                  </button>
-                </div>
-
-                {/* Right Interactive Match & Telemetry Preview */}
-                <div style={{
-                  background: 'rgba(0, 0, 0, 0.45)',
-                  border: '1px solid rgba(99, 102, 241, 0.3)',
-                  borderRadius: '22px',
-                  padding: '28px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '16px'
-                }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '11px', fontWeight: 800, color: '#10b981', background: 'rgba(16, 185, 129, 0.15)', padding: '4px 10px', borderRadius: '6px' }}>
-                      ✦ 96% MATCH CONFIDENCE
-                    </span>
-                    <span style={{ fontSize: '11px', color: '#94a3b8' }}>Auto-Calibrated Profile</span>
-                  </div>
-
-                  <div>
-                    <h3 style={{ fontSize: '19px', fontWeight: 800, color: '#f8fafc' }}>
-                      {calibratorTrack}
-                    </h3>
-                    <div style={{ fontSize: '12px', color: '#67e8f9', marginTop: '2px' }}>
-                      {calibratorTier} • {calibratorCompany}
-                    </div>
-                  </div>
-
-                  <div style={{ width: '100%', height: '6px', background: 'rgba(255, 255, 255, 0.08)', borderRadius: '3px' }}>
-                    <div style={{ width: '96%', height: '100%', background: 'linear-gradient(90deg, #6366f1 0%, #06b6d4 100%)', borderRadius: '3px' }} />
-                  </div>
-
-                  {/* Telemetry HUD Mini-Gauges */}
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                    <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '10px 12px', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                      <div style={{ fontSize: '10px', color: '#94a3b8' }}>Camera Telemetry</div>
-                      <div style={{ fontSize: '14px', fontWeight: 800, color: '#10b981' }}>94% Eye Contact</div>
-                    </div>
-                    <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '10px 12px', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                      <div style={{ fontSize: '10px', color: '#94a3b8' }}>Acoustic Cadence</div>
-                      <div style={{ fontSize: '14px', fontWeight: 800, color: '#f59e0b' }}>142 WPM (Optimal)</div>
-                    </div>
-                  </div>
-
-                  {/* Sample Audio Activity Waves */}
-                  <div style={{ background: 'rgba(255, 255, 255, 0.02)', padding: '12px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: '11px', color: '#c084fc', fontWeight: 700 }}>AI Probing Rigor:</span>
-                    <div style={{ display: 'flex', gap: '3px', alignItems: 'center', height: '14px' }}>
-                      {[8, 14, 6, 12, 16, 9, 13, 7, 15, 10].map((h, i) => (
-                        <div key={i} style={{ width: '3px', height: `${h}px`, background: '#818cf8', borderRadius: '2px' }} />
-                      ))}
-                    </div>
-                  </div>
-
-                  <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5 }}>
-                    "Calibrated with multi-region concurrency failure scenarios, STAR trade-off scoring, and real-time behavioral pause analysis."
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <AiTrackCalibrator
+          onStartPractice={(role) => handleStartPractice(role)}
+          onBuildProfile={() => handleStartPractice()}
+        />
 
         {/* ========================================================
-            FAQ ACCORDION SECTION
+            PART 6A: SAMPLE TRACK BLUEPRINT (PYTHON BACKEND DEVELOPER)
         ======================================================== */}
-        <section style={{ padding: '60px 0', position: 'relative' }}>
-          <div className="container" style={{ maxWidth: '820px' }}>
-            <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-              <span className="badge-pill badge-purple" style={{ marginBottom: '12px' }}>
-                FREQUENTLY ASKED QUESTIONS
-              </span>
-              <h2 style={{ fontSize: '28px', fontWeight: 800, color: '#f8fafc' }}>
-                Questions About Simulation Tracks
-              </h2>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {[
-                {
-                  q: 'How are the 500+ interview questions calibrated?',
-                  a: 'Our questions are curated by reviewing over 3,000+ real interview debriefs and rubrics from top tech firms like Google, Meta, Amazon, and Stripe across multiple seniority tiers.'
-                },
-                {
-                  q: 'Can I upload my own custom job description?',
-                  a: 'Yes! In our practice studio, you can paste any custom job description to have the AI dynamically generate role-specific questions tailored to that exact listing.'
-                },
-                {
-                  q: 'Do the simulations support live coding and whiteboard design?',
-                  a: 'Yes, our interactive simulation studio includes integrated architecture canvases and code evaluation sandboxes for real-time technical problem solving.'
-                },
-                {
-                  q: 'How realistic is the AI interviewer audio and follow-up probing?',
-                  a: 'We use ultra-low latency (<300ms) bidirectional conversational speech models that listen, pause naturally, and ask contextual follow-up questions when answers are incomplete or lack trade-off depth.'
-                }
-              ].map((faq, idx) => {
-                const isOpen = openFaqIndex === idx;
-                return (
-                  <div key={idx} className="glass-card" style={{ padding: '0', background: '#0e131f' }}>
-                    <button
-                      onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                      style={{
-                        width: '100%',
-                        padding: '18px 20px',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        background: 'transparent',
-                        border: 'none',
-                        color: '#f8fafc',
-                        fontSize: '15px',
-                        fontWeight: 700,
-                        cursor: 'pointer',
-                        textAlign: 'left'
-                      }}
-                    >
-                      <span>{faq.q}</span>
-                      <ChevronDown size={18} style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s', color: '#818cf8' }} />
-                    </button>
-                    {isOpen && (
-                      <div style={{ padding: '0 20px 18px', fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, borderTop: '1px solid rgba(255, 255, 255, 0.05)', paddingTop: '12px' }}>
-                        {faq.a}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+        <SampleTrackBlueprint
+          onStartPractice={(role) => handleStartPractice(role)}
+          onViewCurriculum={() => {
+            const el = document.getElementById('all-roles-catalog');
+            el?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        />
 
         {/* ========================================================
-            BOTTOM CTA BANNER
+            PART 6B: PLATFORM STANDARDS (WHAT EVERY INTERVIEW INCLUDES)
         ======================================================== */}
-        <section style={{ padding: '60px 0 100px', position: 'relative' }}>
-          <div className="container">
-            <div style={{
-              background: 'linear-gradient(135deg, #1e1b4b 0%, #0f172a 50%, #082f49 100%)',
-              border: '1px solid rgba(124, 58, 237, 0.4)',
-              borderRadius: '32px',
-              padding: '60px 32px',
-              textAlign: 'center',
-              position: 'relative',
-              overflow: 'hidden',
-              boxShadow: '0 30px 70px -15px rgba(0, 0, 0, 0.8), 0 0 50px rgba(124, 58, 237, 0.3)'
-            }}>
-              <div style={{ position: 'relative', zIndex: 2, maxWidth: '720px', margin: '0 auto' }}>
-                <span className="badge-pill badge-purple" style={{ marginBottom: '16px' }}>
-                  <Sparkles size={13} color="#c084fc" />
-                  START YOUR PREPARATION JOURNEY
-                </span>
+        <PlatformStandards />
 
-                <h2 style={{
-                  fontSize: 'clamp(32px, 5vw, 48px)',
-                  fontWeight: 800,
-                  color: '#ffffff',
-                  letterSpacing: '-0.03em',
-                  lineHeight: 1.2,
-                  marginBottom: '18px'
-                }}>
-                  Find Your Next Interview Challenge
-                </h2>
+        {/* ========================================================
+            PART 7A: TRANSPARENCY & OBSERVABLE SIGNALS STANDARD
+        ======================================================== */}
+        <TransparencyBanner
+          onReadStandard={() => {
+            const el = document.getElementById('all-roles-catalog');
+            el?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        />
 
-                <p style={{
-                  fontSize: '17px',
-                  color: '#cbd5e1',
-                  lineHeight: 1.7,
-                  marginBottom: '36px'
-                }}>
-                  Join thousands of candidates who transformed their interview readiness with InPrep AI.
-                </p>
+        {/* ========================================================
+            PART 7B: FREQUENTLY ASKED QUESTIONS (FAQ ACCORDION)
+        ======================================================== */}
+        <InterviewLibraryFaq />
 
-                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '16px' }}>
-                  <button
-                    onClick={() => handleStartPractice()}
-                    className="btn-primary"
-                    style={{ fontSize: '16px', padding: '15px 34px' }}
-                  >
-                    <span>Start Free Practice Now</span>
-                    <ArrowRight size={18} />
-                  </button>
-
-                  <button
-                    onClick={onNavigateToHome}
-                    className="btn-secondary"
-                    style={{ fontSize: '15px', padding: '15px 28px' }}
-                  >
-                    <span>Back to Overview</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* ========================================================
+            PART 8: FIND YOUR NEXT INTERVIEW CHALLENGE (BOTTOM CTA)
+        ======================================================== */}
+        <InterviewLibraryCta
+          onStartPracticing={() => handleStartPractice()}
+          onBrowseRoles={() => {
+            const el = document.getElementById('all-roles-catalog');
+            el?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        />
       </main>
 
       <Footer />
