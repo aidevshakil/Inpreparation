@@ -24,6 +24,7 @@ model User {
   resumes       ResumeProfile[]
   diagnostics   DiagnosticIntake[]
   profileAnalyses ProfileAnalysis[]
+  candidateProfile CandidateProfile?
   savedTracks   UserSavedTrack[]
   logs          AuditLog[]
 
@@ -217,5 +218,39 @@ model VerificationToken {
 
   @@index([email, code])
   @@map("verification_tokens")
+}
+
+// -------------------------------------------------------------
+// Candidate Full Profile Settings
+// -------------------------------------------------------------
+model CandidateProfile {
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  phone               String?
+  location            String?
+  language            String   @default("en-US")
+  
+  currentRole         String?
+  targetRole          String?
+  seniority           String?
+  yearsOfExperience   Float?
+  currentIndustry     String?
+  targetIndustry      String?
+  
+  skills              String[] @default([])
+  skillDepths         Json     @default("[]") // Array of {id, name, level, dotColor}
+  
+  jobTypes            String[] @default([])
+  workModalities      String[] @default([])
+  interviewFocusAreas String[] @default([])
+  difficulty          String   @default("advanced")
+  careerGoal          String?
+  
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@map("candidate_profiles")
 }
 

@@ -14,6 +14,7 @@ import { resumeRouter } from './routes/resume.routes';
 import { authRouter } from './routes/auth.routes';
 import { diagnosticRouter } from './routes/diagnostic.routes';
 import { profileAnalysisRouter } from './routes/profile-analysis.routes';
+import { profileRouter } from './routes/profile.routes';
 import { recommendationsRouter } from './routes/recommendations.routes';
 
 const app = express();
@@ -30,6 +31,7 @@ app.use('/api/resumes', resumeRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/diagnostic', diagnosticRouter);
 app.use('/api/profile-analysis', profileAnalysisRouter);
+app.use('/api/profile', profileRouter);
 app.use('/api/recommendations', recommendationsRouter);
 
 // Health check
