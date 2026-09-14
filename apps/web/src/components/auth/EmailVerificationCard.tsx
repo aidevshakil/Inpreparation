@@ -47,7 +47,7 @@ export const EmailVerificationCard: React.FC<EmailVerificationCardProps> = ({
   useEffect(() => {
     setLocalStatus(mode);
     if (mode === 'cooldown') {
-      setCooldownSeconds(30);
+      setCooldownSeconds(120);
     }
   }, [mode]);
 
@@ -61,26 +61,53 @@ export const EmailVerificationCard: React.FC<EmailVerificationCardProps> = ({
     return () => clearInterval(timer);
   }, [cooldownSeconds]);
 
+  const handlePaste = (e: React.ClipboardEvent) => {
+    e.preventDefault();
+    const pastedText = e.clipboardData.getData('text');
+    const cleanNumbers = pastedText.replace(/\D/g, '').slice(0, 6);
+    if (!cleanNumbers) return;
+
+    const newDigits = ['', '', '', '', '', ''];
+    for (let i = 0; i < cleanNumbers.length; i++) {
+      newDigits[i] = cleanNumbers[i];
+    }
+    setOtpDigits(newDigits);
+    setErrorMessage(null);
+
+    // Focus the box following the pasted digits
+    const nextFocusIndex = Math.min(cleanNumbers.length, 5);
+    inputRefs.current[nextFocusIndex]?.focus();
+
+    // If a full 6-digit code was pasted, automatically verify
+    if (cleanNumbers.length === 6) {
+      handleVerify(cleanNumbers);
+    }
+  };
+
   const handleOtpChange = (index: number, value: string) => {
     // Only accept numbers
     const cleanValue = value.replace(/\D/g, '');
-    const newDigits = [...otpDigits];
 
+    // If user pasted or typed multiple digits
     if (cleanValue.length > 1) {
-      // Handle paste
-      const pastedDigits = cleanValue.slice(0, 6).split('');
-      for (let i = 0; i < 6; i++) {
-        newDigits[i] = pastedDigits[i] || '';
+      const cleanNumbers = cleanValue.slice(0, 6);
+      const newDigits = ['', '', '', '', '', ''];
+      for (let i = 0; i < cleanNumbers.length; i++) {
+        newDigits[i] = cleanNumbers[i];
       }
       setOtpDigits(newDigits);
-      const nextFocus = Math.min(pastedDigits.length, 5);
+      setErrorMessage(null);
+
+      const nextFocus = Math.min(cleanNumbers.length, 5);
       inputRefs.current[nextFocus]?.focus();
-      if (pastedDigits.length === 6) {
-        handleVerify(newDigits.join(''));
+
+      if (cleanNumbers.length === 6) {
+        handleVerify(cleanNumbers);
       }
       return;
     }
 
+    const newDigits = [...otpDigits];
     newDigits[index] = cleanValue.slice(-1);
     setOtpDigits(newDigits);
     setErrorMessage(null);
@@ -145,7 +172,7 @@ export const EmailVerificationCard: React.FC<EmailVerificationCardProps> = ({
     try {
       await sendVerificationOtp(emailAddress, 'signup');
       setLocalStatus('resent-banner');
-      setCooldownSeconds(30);
+      setCooldownSeconds(120);
       setOtpDigits(['', '', '', '', '', '']);
       inputRefs.current[0]?.focus();
     } catch (err: any) {
@@ -312,7 +339,7 @@ export const EmailVerificationCard: React.FC<EmailVerificationCardProps> = ({
             }}
           >
             <CheckCircle2 size={16} style={{ flexShrink: 0 }} />
-            <span>New 6-digit verification code dispatched. Valid for 15 minutes.</span>
+            <span>New 6-digit verification code dispatched. Valid for 5 minutes.</span>
           </div>
         )}
 
@@ -377,17 +404,21 @@ export const EmailVerificationCard: React.FC<EmailVerificationCardProps> = ({
             <span>Enter 6-Digit Code</span>
           </label>
 
-          <div style={{ display: 'flex', gap: '8px', justifyContent: 'space-between' }}>
+          <div
+            style={{ display: 'flex', gap: '8px', justifyContent: 'space-between' }}
+            onPaste={handlePaste}
+          >
             {otpDigits.map((digit, idx) => (
               <input
                 key={idx}
                 ref={(el) => (inputRefs.current[idx] = el)}
                 type="text"
                 inputMode="numeric"
-                maxLength={1}
+                maxLength={6}
                 value={digit}
                 onChange={(e) => handleOtpChange(idx, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(idx, e)}
+                onPaste={handlePaste}
                 style={{
                   width: '46px',
                   height: '52px',
@@ -471,38 +502,7 @@ export const EmailVerificationCard: React.FC<EmailVerificationCardProps> = ({
             )}
           </button>
 
-          {/* 2. Secondary Button: Open Webmail */}
-          <button
-            type="button"
-            onClick={handleOpenEmailApp}
-            style={{
-              width: '100%',
-              padding: '11px',
-              borderRadius: '10px',
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              color: '#94a3b8',
-              fontSize: '13px',
-              fontWeight: 500,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              transition: 'all 0.18s ease',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
-              e.currentTarget.style.color = '#f1f5f9';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
-              e.currentTarget.style.color = '#94a3b8';
-            }}
-          >
-            <ExternalLink size={14} />
-            <span>Open Email Inbox</span>
-          </button>
+
 
           {/* 3. Resend Code Trigger */}
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '6px' }}>

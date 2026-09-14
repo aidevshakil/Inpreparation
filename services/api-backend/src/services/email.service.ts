@@ -1,39 +1,44 @@
+import path from 'path';
+import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 import type { Transporter } from 'nodemailer';
 
-// Email Transporter configuration
-let transporter: Transporter | null = null;
+function loadEnvironmentVariables() {
+  // Always load latest .env from root and local dir
+  dotenv.config({ path: path.resolve(process.cwd(), '.env'), override: true });
+  dotenv.config({ path: path.resolve(__dirname, '../../../.env'), override: true });
+  dotenv.config({ path: path.resolve(__dirname, '../../.env'), override: true });
+}
 
 function getTransporter(): Transporter {
-  if (!transporter) {
-    const host = process.env.SMTP_HOST || 'smtp.gmail.com';
-    const port = parseInt(process.env.SMTP_PORT || '587', 10);
-    const secure = process.env.SMTP_SECURE === 'true' || port === 465;
-    const user = process.env.SMTP_USER;
-    const pass = process.env.SMTP_PASS;
+  loadEnvironmentVariables();
 
-    if (user && pass) {
-      transporter = nodemailer.createTransport({
-        host,
-        port,
-        secure,
-        auth: {
-          user,
-          pass,
-        },
-      });
-      console.log(`[EmailService] Configured live SMTP transporter (${host}:${port}) with user ${user}`);
-    } else {
-      // Fallback dev transporter: log-only mode
-      transporter = nodemailer.createTransport({
-        streamTransport: true,
-        newline: 'windows',
-        buffer: true,
-      });
-      console.log('[EmailService] SMTP credentials not set. Running in local test/stream mode.');
-    }
+  const host = process.env.SMTP_HOST || 'smtp.gmail.com';
+  const port = parseInt(process.env.SMTP_PORT || '587', 10);
+  const secure = process.env.SMTP_SECURE === 'true' || port === 465;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+
+  if (user && pass) {
+    console.log(`[EmailService] Creating live SMTP transporter for ${user} via ${host}:${port}...`);
+    return nodemailer.createTransport({
+      host,
+      port,
+      secure,
+      auth: {
+        user,
+        pass,
+      },
+    });
   }
-  return transporter;
+
+  // Fallback dev transporter: log-only mode
+  console.log('[EmailService] Warning: SMTP credentials not detected. Running in local test mode.');
+  return nodemailer.createTransport({
+    streamTransport: true,
+    newline: 'windows',
+    buffer: true,
+  });
 }
 
 export interface SendOtpEmailOptions {
@@ -50,6 +55,7 @@ export async function sendOtpEmail({
   type = 'signup',
 }: SendOtpEmailOptions): Promise<{ success: boolean; messageId?: string; simulated?: boolean }> {
   try {
+    loadEnvironmentVariables();
     const fromAddress = process.env.EMAIL_FROM || '"Inprep AI" <no-reply@inprep.ai>';
     const isLiveSmtp = Boolean(process.env.SMTP_USER && process.env.SMTP_PASS);
 

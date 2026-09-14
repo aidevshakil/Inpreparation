@@ -35,9 +35,9 @@ authRouter.post('/register', async (req: Request, res: Response) => {
       });
     }
 
-    // Generate 6-digit OTP code valid for 15 minutes
+    // Generate 6-digit OTP code valid for 5 minutes
     const otpCode = generateOtpCode();
-    const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
+    const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
 
     // Invalidate existing tokens for this email and save new token
     try {
@@ -92,7 +92,7 @@ authRouter.post('/send-otp', async (req: Request, res: Response) => {
     const userName = user?.name || cleanEmail.split('@')[0];
 
     const otpCode = generateOtpCode();
-    const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
+    const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
 
     try {
       await (prisma as any).verificationToken.deleteMany({
