@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Shield,
   Mail,
   ExternalLink,
   RotateCw,
-  Edit3,
   ArrowRight,
   Info,
-  Lock,
   Check,
   CheckCircle2,
   AlertCircle,
-  AlertTriangle,
-  Loader2
+  Loader2,
+  KeyRound,
 } from 'lucide-react';
 import { EmailVerificationStateMode } from './EmailVerificationPrototypeBar';
+import { verifyEmailOtp, sendVerificationOtp } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 
 interface EmailVerificationCardProps {
-  mode: EmailVerificationStateMode;
+  mode?: EmailVerificationStateMode;
   emailAddress?: string;
   onNavigateHome: () => void;
   onNavigateLogin: () => void;
@@ -26,332 +26,405 @@ interface EmailVerificationCardProps {
 }
 
 export const EmailVerificationCard: React.FC<EmailVerificationCardProps> = ({
-  mode,
-  emailAddress = 's•••••@example.com',
-  onNavigateHome,
+  mode = 'default',
+  emailAddress: propEmailAddress,
+  onNavigateHome: _onNavigateHome,
   onNavigateLogin,
   onNavigateSignup,
-  onVerificationSuccess
+  onVerificationSuccess,
 }) => {
+  const { user, updateUser } = useAuth();
+  const emailAddress = propEmailAddress || user?.email || 'candidate@inprep.ai';
+
   const [localStatus, setLocalStatus] = useState<EmailVerificationStateMode>(mode);
-  const [cooldownSeconds, setCooldownSeconds] = useState(28);
+  const [cooldownSeconds, setCooldownSeconds] = useState(0);
+  const [otpDigits, setOtpDigits] = useState<string[]>(['', '', '', '', '', '']);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [isResending, setIsResending] = useState(false);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
     setLocalStatus(mode);
     if (mode === 'cooldown') {
-      setCooldownSeconds(28);
+      setCooldownSeconds(30);
     }
   }, [mode]);
 
   useEffect(() => {
     let timer: ReturnType<typeof setInterval>;
-    if (localStatus === 'cooldown' && cooldownSeconds > 0) {
+    if (cooldownSeconds > 0) {
       timer = setInterval(() => {
         setCooldownSeconds((prev) => (prev > 1 ? prev - 1 : 0));
       }, 1000);
     }
     return () => clearInterval(timer);
-  }, [localStatus, cooldownSeconds]);
+  }, [cooldownSeconds]);
 
-  const handleResend = () => {
-    if (localStatus === 'cooldown' && cooldownSeconds > 0) return;
-    setLocalStatus('resending');
-    setTimeout(() => {
+  const handleOtpChange = (index: number, value: string) => {
+    // Only accept numbers
+    const cleanValue = value.replace(/\D/g, '');
+    const newDigits = [...otpDigits];
+
+    if (cleanValue.length > 1) {
+      // Handle paste
+      const pastedDigits = cleanValue.slice(0, 6).split('');
+      for (let i = 0; i < 6; i++) {
+        newDigits[i] = pastedDigits[i] || '';
+      }
+      setOtpDigits(newDigits);
+      const nextFocus = Math.min(pastedDigits.length, 5);
+      inputRefs.current[nextFocus]?.focus();
+      if (pastedDigits.length === 6) {
+        handleVerify(newDigits.join(''));
+      }
+      return;
+    }
+
+    newDigits[index] = cleanValue.slice(-1);
+    setOtpDigits(newDigits);
+    setErrorMessage(null);
+
+    // Auto-focus next box
+    if (cleanValue && index < 5) {
+      inputRefs.current[index + 1]?.focus();
+    }
+
+    // Auto-submit if all 6 digits are filled
+    const fullCode = newDigits.join('');
+    if (fullCode.length === 6 && !newDigits.includes('')) {
+      handleVerify(fullCode);
+    }
+  };
+
+  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Backspace' && !otpDigits[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
+  };
+
+  const handleVerify = async (codeToVerify?: string) => {
+    const code = codeToVerify || otpDigits.join('');
+    if (code.length < 6) {
+      setErrorMessage('Please enter the full 6-digit code sent to your email.');
+      return;
+    }
+
+    setIsVerifying(true);
+    setErrorMessage(null);
+
+    try {
+      const response = await verifyEmailOtp(emailAddress, code);
+      if (response && response.success) {
+        updateUser({ isEmailVerified: true });
+        setLocalStatus('verified-success');
+        setTimeout(() => {
+          if (onVerificationSuccess) {
+            onVerificationSuccess();
+          } else {
+            onNavigateLogin();
+          }
+        }, 1200);
+      } else {
+        setErrorMessage(response.error || 'Invalid verification code.');
+        setLocalStatus('validation-error' as any);
+      }
+    } catch (err: any) {
+      setErrorMessage(err.message || 'Verification failed. Please check your code.');
+      setLocalStatus('validation-error' as any);
+    } finally {
+      setIsVerifying(false);
+    }
+  };
+
+  const handleResend = async () => {
+    if (cooldownSeconds > 0 || isResending) return;
+    setIsResending(true);
+    setErrorMessage(null);
+
+    try {
+      await sendVerificationOtp(emailAddress, 'signup');
       setLocalStatus('resent-banner');
-    }, 900);
+      setCooldownSeconds(30);
+      setOtpDigits(['', '', '', '', '', '']);
+      inputRefs.current[0]?.focus();
+    } catch (err: any) {
+      setErrorMessage('Failed to resend code. Please try again in a moment.');
+    } finally {
+      setIsResending(false);
+    }
   };
 
   const handleOpenEmailApp = () => {
-    // Attempt standard mailto / webmail redirect or mock
-    window.open('https://mail.google.com', '_blank');
+    const domain = emailAddress.split('@')[1]?.toLowerCase();
+    if (domain === 'gmail.com') {
+      window.open('https://mail.google.com', '_blank');
+    } else if (domain === 'outlook.com' || domain === 'hotmail.com') {
+      window.open('https://outlook.live.com', '_blank');
+    } else if (domain === 'yahoo.com') {
+      window.open('https://mail.yahoo.com', '_blank');
+    } else {
+      window.open(`https://${domain || 'mail.google.com'}`, '_blank');
+    }
   };
 
   return (
     <div style={{ width: '100%', maxWidth: '440px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      
       {/* Main Glassmorphic Card */}
-      <div style={{
-        background: 'rgba(10, 14, 23, 0.85)',
-        backdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
-        borderRadius: '20px',
-        padding: '32px',
-        boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '22px'
-      }}>
-
+      <div
+        style={{
+          background: 'rgba(10, 14, 23, 0.85)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255, 255, 255, 0.08)',
+          borderRadius: '20px',
+          padding: '32px',
+          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '20px',
+        }}
+      >
         {/* Top Header Badge & Step Counter */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '5px 12px',
-            borderRadius: '9999px',
-            background: 'rgba(99, 102, 241, 0.12)',
-            border: '1px solid rgba(99, 102, 241, 0.25)',
-            fontSize: '11px',
-            fontWeight: 600,
-            color: '#a5b4fc',
-            letterSpacing: '0.02em'
-          }}>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '5px 12px',
+              borderRadius: '9999px',
+              background: 'rgba(99, 102, 241, 0.12)',
+              border: '1px solid rgba(99, 102, 241, 0.25)',
+              fontSize: '11px',
+              fontWeight: 600,
+              color: '#a5b4fc',
+              letterSpacing: '0.02em',
+            }}
+          >
             <Shield size={13} color="#818cf8" />
             <span>Account Security &amp; Identity</span>
           </div>
 
-          <div style={{
-            fontSize: '11px',
-            fontWeight: 700,
-            color: '#64748b',
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase'
-          }}>
+          <div
+            style={{
+              fontSize: '11px',
+              fontWeight: 700,
+              color: '#64748b',
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+            }}
+          >
             STEP 2 OF 3
           </div>
         </div>
 
         {/* Centered Email Envelope Illustration */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '6px', marginBottom: '2px' }}>
-          <div style={{
-            position: 'relative',
-            width: '82px',
-            height: '82px',
-            borderRadius: '20px',
-            background: 'linear-gradient(145deg, #182035 0%, #0d1322 100%)',
-            border: '1px solid rgba(99, 102, 241, 0.3)',
-            boxShadow: '0 10px 30px rgba(99, 102, 241, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.15)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            <Mail size={36} color="#818cf8" strokeWidth={1.8} />
-            
-            {/* Small checkmark badge overlay on bottom-right */}
-            <div style={{
-              position: 'absolute',
-              bottom: '-3px',
-              right: '-3px',
-              width: '24px',
-              height: '24px',
-              borderRadius: '50%',
-              background: '#6366f1',
-              border: '2.5px solid #0a0e17',
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '4px', marginBottom: '2px' }}>
+          <div
+            style={{
+              position: 'relative',
+              width: '76px',
+              height: '76px',
+              borderRadius: '20px',
+              background: 'linear-gradient(145deg, #182035 0%, #0d1322 100%)',
+              border: '1px solid rgba(99, 102, 241, 0.3)',
+              boxShadow: '0 10px 30px rgba(99, 102, 241, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.15)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 2px 8px rgba(99, 102, 241, 0.6)'
-            }}>
-              <Check size={13} color="#ffffff" strokeWidth={3} />
+            }}
+          >
+            <Mail size={32} color="#818cf8" strokeWidth={1.8} />
+
+            {/* Small badge overlay on bottom-right */}
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '-3px',
+                right: '-3px',
+                width: '22px',
+                height: '22px',
+                borderRadius: '50%',
+                background: '#6366f1',
+                border: '2.5px solid #0a0e17',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 2px 8px rgba(99, 102, 241, 0.6)',
+              }}
+            >
+              <Check size={12} color="#ffffff" strokeWidth={3} />
             </div>
           </div>
         </div>
 
         {/* Headings */}
         <div style={{ textAlign: 'center' }}>
-          <h1 style={{
-            fontSize: '26px',
-            fontWeight: 800,
-            color: '#ffffff',
-            letterSpacing: '-0.02em',
-            margin: '0 0 10px 0'
-          }}>
+          <h1
+            style={{
+              fontSize: '24px',
+              fontWeight: 800,
+              color: '#ffffff',
+              letterSpacing: '-0.02em',
+              margin: '0 0 8px 0',
+            }}
+          >
             Verify Your Email
           </h1>
-          <p style={{
-            fontSize: '13px',
-            color: '#94a3b8',
-            lineHeight: 1.55,
-            margin: 0
-          }}>
-            We've sent an authenticated verification link to your email address. Please check your inbox to activate your account.
+          <p
+            style={{
+              fontSize: '13px',
+              color: '#94a3b8',
+              lineHeight: 1.5,
+              margin: 0,
+            }}
+          >
+            We've sent a 6-digit verification code to:
           </p>
+          <div
+            style={{
+              fontSize: '13.5px',
+              fontWeight: 600,
+              color: '#818cf8',
+              marginTop: '4px',
+              fontFamily: 'monospace',
+            }}
+          >
+            {emailAddress}
+          </div>
         </div>
 
         {/* Dynamic State Alerts */}
         {localStatus === 'resent-banner' && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            padding: '11px 14px',
-            borderRadius: '10px',
-            background: 'rgba(16, 185, 129, 0.12)',
-            border: '1px solid rgba(16, 185, 129, 0.3)',
-            color: '#34d399',
-            fontSize: '12px',
-            lineHeight: 1.4
-          }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              padding: '11px 14px',
+              borderRadius: '10px',
+              background: 'rgba(16, 185, 129, 0.12)',
+              border: '1px solid rgba(16, 185, 129, 0.3)',
+              color: '#34d399',
+              fontSize: '12px',
+              lineHeight: 1.4,
+            }}
+          >
             <CheckCircle2 size={16} style={{ flexShrink: 0 }} />
-            <span>Verification token resent successfully. Valid for 30 minutes.</span>
+            <span>New 6-digit verification code dispatched. Valid for 15 minutes.</span>
           </div>
         )}
 
         {localStatus === 'verified-success' && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            padding: '12px 14px',
-            borderRadius: '10px',
-            background: 'rgba(99, 102, 241, 0.15)',
-            border: '1px solid rgba(99, 102, 241, 0.4)',
-            color: '#a5b4fc',
-            fontSize: '12px',
-            lineHeight: 1.4
-          }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              padding: '12px 14px',
+              borderRadius: '10px',
+              background: 'rgba(99, 102, 241, 0.15)',
+              border: '1px solid rgba(99, 102, 241, 0.4)',
+              color: '#a5b4fc',
+              fontSize: '12px',
+              lineHeight: 1.4,
+            }}
+          >
             <CheckCircle2 size={16} color="#818cf8" style={{ flexShrink: 0 }} />
             <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
               <strong style={{ color: '#ffffff' }}>Account Verified Successfully!</strong>
-              <span>Redirecting you to candidate onboarding &amp; sandbox...</span>
+              <span>Redirecting you to candidate onboarding &amp; cockpit...</span>
             </div>
           </div>
         )}
 
-        {localStatus === 'link-expired' && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            padding: '11px 14px',
-            borderRadius: '10px',
-            background: 'rgba(245, 158, 11, 0.12)',
-            border: '1px solid rgba(245, 158, 11, 0.3)',
-            color: '#fbbf24',
-            fontSize: '12px',
-            lineHeight: 1.4
-          }}>
-            <AlertTriangle size={16} style={{ flexShrink: 0 }} />
-            <span>This verification link has expired. Request a new token below.</span>
-          </div>
-        )}
-
-        {localStatus === 'rate-limit' && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            padding: '11px 14px',
-            borderRadius: '10px',
-            background: 'rgba(239, 68, 68, 0.12)',
-            border: '1px solid rgba(239, 68, 68, 0.3)',
-            color: '#f87171',
-            fontSize: '12px',
-            lineHeight: 1.4
-          }}>
-            <AlertCircle size={16} style={{ flexShrink: 0 }} />
-            <span>Rate limit reached: Maximum 3 token dispatches per 15 minutes.</span>
-          </div>
-        )}
-
-        {localStatus === 'network-error' && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            padding: '11px 14px',
-            borderRadius: '10px',
-            background: 'rgba(239, 68, 68, 0.12)',
-            border: '1px solid rgba(239, 68, 68, 0.3)',
-            color: '#f87171',
-            fontSize: '12px',
-            lineHeight: 1.4
-          }}>
-            <AlertCircle size={16} style={{ flexShrink: 0 }} />
-            <span>Gateway connection timeout. Check network connection and retry.</span>
-          </div>
-        )}
-
-        {/* Destination Account Container */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          background: 'rgba(255, 255, 255, 0.03)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          borderRadius: '12px',
-          padding: '12px 14px',
-          gap: '12px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '8px',
-              background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+        {errorMessage && (
+          <div
+            style={{
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              color: '#94a3b8'
-            }}>
-              <Mail size={16} />
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span style={{
-                fontSize: '10.5px',
-                fontWeight: 600,
-                color: '#64748b',
-                textTransform: 'uppercase',
-                letterSpacing: '0.04em'
-              }}>
-                Destination Account
-              </span>
-              <span style={{
-                fontSize: '13.5px',
-                fontWeight: 600,
-                color: '#f1f5f9',
-                fontFamily: 'monospace'
-              }}>
-                {emailAddress}
-              </span>
-            </div>
+              gap: '10px',
+              padding: '11px 14px',
+              borderRadius: '10px',
+              background: 'rgba(239, 68, 68, 0.12)',
+              border: '1px solid rgba(239, 68, 68, 0.3)',
+              color: '#f87171',
+              fontSize: '12px',
+              lineHeight: 1.4,
+            }}
+          >
+            <AlertCircle size={16} style={{ flexShrink: 0 }} />
+            <span>{errorMessage}</span>
           </div>
+        )}
 
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            padding: '4px 10px',
-            borderRadius: '9999px',
-            background: 'rgba(16, 185, 129, 0.1)',
-            border: '1px solid rgba(16, 185, 129, 0.25)',
-            fontSize: '11px',
-            fontWeight: 600,
-            color: '#34d399',
-            whiteSpace: 'nowrap'
-          }}>
-            <span style={{
-              width: '6px',
-              height: '6px',
-              borderRadius: '50%',
-              background: '#10b981',
-              boxShadow: '0 0 6px #10b981'
-            }} />
-            <span>Link Sent</span>
+        {/* 6-DIGIT OTP INPUTS CONTAINER */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <label
+            style={{
+              fontSize: '11px',
+              fontWeight: 700,
+              color: '#94a3b8',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+          >
+            <KeyRound size={13} color="#818cf8" />
+            <span>Enter 6-Digit Code</span>
+          </label>
+
+          <div style={{ display: 'flex', gap: '8px', justifyContent: 'space-between' }}>
+            {otpDigits.map((digit, idx) => (
+              <input
+                key={idx}
+                ref={(el) => (inputRefs.current[idx] = el)}
+                type="text"
+                inputMode="numeric"
+                maxLength={1}
+                value={digit}
+                onChange={(e) => handleOtpChange(idx, e.target.value)}
+                onKeyDown={(e) => handleKeyDown(idx, e)}
+                style={{
+                  width: '46px',
+                  height: '52px',
+                  textAlign: 'center',
+                  fontSize: '20px',
+                  fontWeight: 700,
+                  fontFamily: 'monospace',
+                  color: '#ffffff',
+                  backgroundColor: digit ? 'rgba(99, 102, 241, 0.12)' : 'rgba(255, 255, 255, 0.04)',
+                  border: digit ? '2px solid #818cf8' : '1px solid rgba(255, 255, 255, 0.12)',
+                  borderRadius: '12px',
+                  outline: 'none',
+                  transition: 'all 0.18s ease',
+                  boxShadow: digit ? '0 0 12px rgba(99, 102, 241, 0.3)' : 'none',
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = '#818cf8';
+                  e.currentTarget.style.boxShadow = '0 0 12px rgba(99, 102, 241, 0.35)';
+                }}
+                onBlur={(e) => {
+                  if (!otpDigits[idx]) {
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }
+                }}
+              />
+            ))}
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          
-          {/* 1. Primary Button: Open Email App */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '4px' }}>
+          {/* 1. Primary Button: Verify Code */}
           <button
             type="button"
-            onClick={() => {
-              if (localStatus === 'verified-success') {
-                if (onVerificationSuccess) {
-                  onVerificationSuccess();
-                } else {
-                  onNavigateLogin();
-                }
-              } else {
-                handleOpenEmailApp();
-              }
-            }}
+            disabled={isVerifying || localStatus === 'verified-success'}
+            onClick={() => handleVerify()}
             style={{
               width: '100%',
               padding: '13px',
@@ -361,188 +434,175 @@ export const EmailVerificationCard: React.FC<EmailVerificationCardProps> = ({
               color: '#ffffff',
               fontSize: '14px',
               fontWeight: 600,
-              cursor: 'pointer',
+              cursor: isVerifying ? 'not-allowed' : 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '8px',
               boxShadow: '0 4px 16px rgba(99, 102, 241, 0.35)',
-              transition: 'all 0.2s ease'
+              transition: 'all 0.2s ease',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-1px)';
-              e.currentTarget.style.boxShadow = '0 6px 20px rgba(99, 102, 241, 0.45)';
+              if (!isVerifying) {
+                e.currentTarget.style.transform = 'translateY(-1px)';
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(99, 102, 241, 0.45)';
+              }
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
               e.currentTarget.style.boxShadow = '0 4px 16px rgba(99, 102, 241, 0.35)';
             }}
           >
-            {localStatus === 'verified-success' ? <ArrowRight size={16} /> : <ExternalLink size={16} />}
-            <span>{localStatus === 'verified-success' ? 'Start Introduction Interview' : 'Open Email App'}</span>
-          </button>
-
-          {/* 2. Secondary Button: Resend Verification Email */}
-          <button
-            type="button"
-            disabled={localStatus === 'resending' || (localStatus === 'cooldown' && cooldownSeconds > 0)}
-            onClick={handleResend}
-            style={{
-              width: '100%',
-              padding: '12px',
-              borderRadius: '10px',
-              background: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
-              color: localStatus === 'resending' || (localStatus === 'cooldown' && cooldownSeconds > 0) ? '#64748b' : '#e2e8f0',
-              fontSize: '13.5px',
-              fontWeight: 500,
-              cursor: localStatus === 'resending' || (localStatus === 'cooldown' && cooldownSeconds > 0) ? 'not-allowed' : 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px',
-              transition: 'all 0.2s ease'
-            }}
-            onMouseEnter={(e) => {
-              if (localStatus !== 'resending' && !(localStatus === 'cooldown' && cooldownSeconds > 0)) {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.07)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (localStatus !== 'resending' && !(localStatus === 'cooldown' && cooldownSeconds > 0)) {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)';
-              }
-            }}
-          >
-            {localStatus === 'resending' ? (
+            {isVerifying ? (
               <>
-                <Loader2 size={15} style={{ animation: 'spin 1s linear infinite' }} />
-                <span>Dispatching Token...</span>
+                <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} />
+                <span>Verifying Code...</span>
               </>
-            ) : localStatus === 'cooldown' && cooldownSeconds > 0 ? (
+            ) : localStatus === 'verified-success' ? (
               <>
-                <RotateCw size={15} />
-                <span>Resend available in {cooldownSeconds}s</span>
+                <CheckCircle2 size={16} />
+                <span>Verified! Redirecting...</span>
               </>
             ) : (
               <>
-                <RotateCw size={15} />
-                <span>Resend Verification Email</span>
+                <ArrowRight size={16} />
+                <span>Verify &amp; Activate Account</span>
               </>
             )}
           </button>
-        </div>
 
-        {/* Change Email & Wrong Account Links */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          fontSize: '12.5px',
-          color: '#94a3b8',
-          paddingTop: '2px'
-        }}>
+          {/* 2. Secondary Button: Open Webmail */}
           <button
             type="button"
-            onClick={onNavigateSignup}
+            onClick={handleOpenEmailApp}
             style={{
-              background: 'transparent',
-              border: 'none',
-              padding: 0,
+              width: '100%',
+              padding: '11px',
+              borderRadius: '10px',
+              background: 'rgba(255, 255, 255, 0.03)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
               color: '#94a3b8',
+              fontSize: '13px',
+              fontWeight: 500,
               cursor: 'pointer',
-              display: 'inline-flex',
+              display: 'flex',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: '6px',
-              fontSize: '12.5px'
+              transition: 'all 0.18s ease',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#94a3b8'; }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
+              e.currentTarget.style.color = '#f1f5f9';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
+              e.currentTarget.style.color = '#94a3b8';
+            }}
           >
-            <Edit3 size={13} />
-            <span>Change Email Address</span>
+            <ExternalLink size={14} />
+            <span>Open Email Inbox</span>
           </button>
 
+          {/* 3. Resend Code Trigger */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '6px' }}>
+            <button
+              type="button"
+              disabled={isResending || cooldownSeconds > 0}
+              onClick={handleResend}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: cooldownSeconds > 0 ? '#64748b' : '#818cf8',
+                fontSize: '12.5px',
+                fontWeight: 600,
+                cursor: cooldownSeconds > 0 ? 'not-allowed' : 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '4px 8px',
+                transition: 'color 0.2s',
+              }}
+              onMouseEnter={(e) => {
+                if (cooldownSeconds === 0) e.currentTarget.style.color = '#a5b4fc';
+              }}
+              onMouseLeave={(e) => {
+                if (cooldownSeconds === 0) e.currentTarget.style.color = '#818cf8';
+              }}
+            >
+              {isResending ? (
+                <>
+                  <Loader2 size={13} style={{ animation: 'spin 1s linear infinite' }} />
+                  <span>Sending code...</span>
+                </>
+              ) : cooldownSeconds > 0 ? (
+                <>
+                  <RotateCw size={13} />
+                  <span>Resend code in {cooldownSeconds}s</span>
+                </>
+              ) : (
+                <>
+                  <RotateCw size={13} />
+                  <span>Didn't receive the code? Resend</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Change Email Link */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '12px',
+            color: '#64748b',
+            borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+            paddingTop: '12px',
+          }}
+        >
+          <span>Wrong email address?</span>
           <button
             type="button"
             onClick={onNavigateSignup}
             style={{
               background: 'transparent',
               border: 'none',
-              padding: 0,
-              color: '#94a3b8',
+              color: '#818cf8',
+              fontWeight: 600,
               cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '4px',
-              fontSize: '12.5px'
+              marginLeft: '6px',
+              padding: 0,
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = '#818cf8'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#94a3b8'; }}
           >
-            <span>Wrong account? Sign Up</span>
-            <ArrowRight size={12} />
+            Change email
           </button>
         </div>
+      </div>
 
-        {/* Info Callout Box */}
-        <div style={{
-          display: 'flex',
-          gap: '10px',
-          padding: '12px 14px',
-          borderRadius: '10px',
-          background: 'rgba(255, 255, 255, 0.02)',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
-          color: '#94a3b8',
-          fontSize: '11.5px',
-          lineHeight: 1.5
-        }}>
-          <Info size={15} color="#64748b" style={{ flexShrink: 0, marginTop: '2px' }} />
-          <span>
-            Didn't receive the email? Check your spam or junk folder, or wait 30 seconds to request a fresh token. Delivery depends on external email provider filters.
-          </span>
-        </div>
-
-        {/* Security / Encryption Guarantee */}
-        <div style={{
+      {/* Security & Spam Notice */}
+      <div
+        style={{
           display: 'flex',
           alignItems: 'flex-start',
-          gap: '8px',
-          fontSize: '11px',
+          gap: '10px',
+          padding: '12px 16px',
+          borderRadius: '12px',
+          background: 'rgba(255, 255, 255, 0.02)',
+          border: '1px solid rgba(255, 255, 255, 0.05)',
+          fontSize: '11.5px',
           color: '#64748b',
-          lineHeight: 1.45,
-          paddingTop: '2px'
-        }}>
-          <Lock size={12} color="#64748b" style={{ flexShrink: 0, marginTop: '2px' }} />
-          <span>
-            Your email helps protect your mock recordings, telemetry benchmarks, and multi-vector interview results.
-          </span>
-        </div>
-
+          lineHeight: 1.5,
+        }}
+      >
+        <Info size={14} color="#64748b" style={{ flexShrink: 0, marginTop: '2px' }} />
+        <span>
+          Can't find the email? Check your <strong>Spam / Junk</strong> folder or make sure your SMTP credentials in{' '}
+          <code>.env</code> are active. (In local dev mode, code is also logged to backend terminal).
+        </span>
       </div>
-
-      {/* Return to Homepage Link */}
-      <div style={{ textAlign: 'center' }}>
-        <button
-          type="button"
-          onClick={onNavigateHome}
-          style={{
-            background: 'transparent',
-            border: 'none',
-            color: '#64748b',
-            fontSize: '12.5px',
-            cursor: 'pointer',
-            transition: 'color 0.15s ease'
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = '#94a3b8'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = '#64748b'; }}
-        >
-          ← Return to Inprep AI homepage
-        </button>
-      </div>
-
     </div>
   );
 };
+

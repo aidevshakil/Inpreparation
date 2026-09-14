@@ -16,6 +16,7 @@ model User {
   avatarUrl     String?
   targetRole    String?             @default("Full Stack Software Engineer")
   seniority     String?             @default("Senior (L5)")
+  isEmailVerified Boolean           @default(false)
   createdAt     DateTime            @default(now())
   updatedAt     DateTime            @updatedAt
   conversations Conversation[]
@@ -205,3 +206,16 @@ model AuditLog {
 
   @@map("audit_logs")
 }
+
+model VerificationToken {
+  id        String   @id @default(cuid())
+  email     String
+  code      String   // 6-digit OTP code or verification token
+  type      String   @default("email_verification") // "email_verification" | "password_reset"
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email, code])
+  @@map("verification_tokens")
+}
+
