@@ -80,186 +80,118 @@ export const Navbar: React.FC<NavbarProps> = ({
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        backgroundColor: scrolled ? 'rgba(8, 12, 20, 0.92)' : 'rgba(8, 12, 20, 0.75)',
-        backdropFilter: 'blur(16px)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.07)',
-        transition: 'all 0.3s ease',
+        backgroundColor: scrolled ? 'rgba(0, 0, 0, 0.8)' : 'rgba(0, 0, 0, 0.5)',
+        backdropFilter: 'blur(12px)',
+        borderBottom: '1px solid var(--border-subtle)',
+        transition: 'all 0.2s ease',
       }}
     >
-      <div className="container" style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        height: '76px'
-      }}>
-        {/* Brand Logo: Clean purple rounded badge + Inprep AI */}
+      <div className="container flex items-center justify-between" style={{ height: '70px' }}>
+        {/* Brand Logo */}
         <div
           onClick={() => handleNavigatePage('home')}
-          style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', userSelect: 'none' }}
+          className="flex items-center gap-2"
+          style={{ cursor: 'pointer', userSelect: 'none' }}
         >
           <div style={{
-            width: '38px',
-            height: '38px',
-            borderRadius: '11px',
-            background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+            width: '32px',
+            height: '32px',
+            borderRadius: '8px',
+            backgroundColor: 'var(--text-main)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 4px 16px rgba(99, 102, 241, 0.45)',
-            border: '1px solid rgba(255, 255, 255, 0.2)'
           }}>
-            <Sparkles size={20} color="#ffffff" />
+            <Sparkles size={18} color="var(--bg-main)" />
           </div>
-          <span style={{ fontSize: '20px', fontWeight: 800, color: '#f8fafc', letterSpacing: '-0.02em' }}>
-            Inprep <span style={{ color: '#818cf8' }}>AI</span>
+          <span style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)' }}>
+            Inprep <span style={{ color: 'var(--text-secondary)' }}>AI</span>
           </span>
         </div>
 
         {/* Center Desktop Navigation Links */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '32px' }} className="desktop-nav">
+        <nav className="desktop-nav flex items-center gap-6">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
               onClick={(e) => handleLinkClick(link, e)}
               style={{
-                color: currentPage === link.page ? '#818cf8' : '#94a3b8',
+                color: currentPage === link.page ? 'var(--text-main)' : 'var(--text-secondary)',
                 fontSize: '14px',
                 fontWeight: 500,
                 textDecoration: 'none',
                 transition: 'color 0.2s ease',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#ffffff')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = currentPage === link.page ? '#818cf8' : '#94a3b8')}
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        {/* Right CTA Actions: Conditional on Authentication Status */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        {/* Right CTA Actions */}
+        <div className="flex items-center gap-4">
           {!isAuthenticated ? (
-            <>
-              {/* Log In Button */}
+            <div className="desktop-nav flex items-center gap-4">
               <button
                 onClick={() => handleNavigatePage('login')}
-                className="nav-login-btn"
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: '#cbd5e1',
+                  color: 'var(--text-secondary)',
                   fontSize: '14px',
-                  fontWeight: 600,
+                  fontWeight: 500,
                   cursor: 'pointer',
-                  padding: '8px 14px',
                   transition: 'color 0.2s'
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#ffffff')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = '#cbd5e1')}
               >
                 Log In
               </button>
-
-              {/* Get Started Button */}
               <button
                 onClick={() => handleNavigatePage('signup')}
-                className="nav-cta-btn"
-                style={{
-                  background: 'linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  color: '#ffffff',
-                  borderRadius: '9999px',
-                  padding: '10px 22px',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  boxShadow: '0 4px 18px rgba(99, 102, 241, 0.4)',
-                  transition: 'all 0.2s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-1px)';
-                  e.currentTarget.style.boxShadow = '0 6px 24px rgba(99, 102, 241, 0.6)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 18px rgba(99, 102, 241, 0.4)';
-                }}
+                className="btn btn-primary btn-sm"
               >
-                <span>Get Started</span>
+                Get Started
               </button>
-            </>
+            </div>
           ) : (
-            <>
-              {/* Authenticated User: Dashboard shortcut */}
+            <div className="flex items-center gap-4">
               <button
                 onClick={() => handleNavigatePage('dashboard')}
-                style={{
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  color: '#cbd5e1',
-                  borderRadius: '100px',
-                  padding: '8px 16px',
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  transition: 'all 0.2s'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
-                  e.currentTarget.style.color = '#ffffff';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-                  e.currentTarget.style.color = '#cbd5e1';
-                }}
+                className="btn btn-secondary btn-sm desktop-nav flex items-center gap-2"
               >
-                <LayoutDashboard size={14} color="#818cf8" />
+                <LayoutDashboard size={14} />
                 <span>Dashboard</span>
               </button>
 
-              {/* User profile dropdown button container */}
               <div style={{ position: 'relative' }} ref={dropdownRef}>
                 <button
                   onClick={() => setProfileDropdownOpen((prev) => !prev)}
+                  className="flex items-center gap-2"
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    padding: '4px 10px 4px 4px',
-                    backgroundColor: profileDropdownOpen
-                      ? 'rgba(99, 102, 241, 0.15)'
-                      : 'rgba(255, 255, 255, 0.05)',
-                    border: profileDropdownOpen
-                      ? '1px solid rgba(99, 102, 241, 0.4)'
-                      : '1px solid rgba(255, 255, 255, 0.15)',
-                    borderRadius: '9999px',
+                    padding: '4px 8px 4px 4px',
+                    backgroundColor: profileDropdownOpen ? 'var(--bg-card)' : 'transparent',
+                    border: '1px solid',
+                    borderColor: profileDropdownOpen ? 'var(--border-accent)' : 'transparent',
+                    borderRadius: 'var(--radius-full)',
                     cursor: 'pointer',
                     transition: 'all 0.2s ease',
                   }}
-                  title={`Logged in as ${user?.name || 'Candidate'}`}
                   aria-expanded={profileDropdownOpen}
                 >
                   <div
                     style={{
-                      width: '32px',
-                      height: '32px',
+                      width: '28px',
+                      height: '28px',
                       borderRadius: '50%',
-                      background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)',
-                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      backgroundColor: 'var(--bg-surface)',
+                      border: '1px solid var(--border-subtle)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: '#ffffff',
-                      fontSize: '12px',
-                      fontWeight: 700,
-                      boxShadow: '0 2px 10px rgba(124, 58, 237, 0.35)',
+                      color: 'var(--text-main)',
+                      fontSize: '11px',
+                      fontWeight: 600,
                     }}
                   >
                     {userInitials}
@@ -267,217 +199,96 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <ChevronDown
                     size={14}
                     style={{
-                      color: profileDropdownOpen ? '#818cf8' : '#94a3b8',
+                      color: 'var(--text-secondary)',
                       transform: profileDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                       transition: 'transform 0.2s ease',
                     }}
                   />
                 </button>
 
-                {/* Dropdown Menu */}
                 {profileDropdownOpen && (
                   <div
                     style={{
                       position: 'absolute',
-                      top: 'calc(100% + 10px)',
+                      top: 'calc(100% + 8px)',
                       right: 0,
-                      width: '260px',
-                      backgroundColor: '#0c101a',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
-                      borderRadius: '16px',
-                      boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05)',
-                      padding: '10px',
+                      width: '220px',
+                      backgroundColor: 'var(--bg-card)',
+                      border: '1px solid var(--border-subtle)',
+                      borderRadius: 'var(--radius-md)',
+                      boxShadow: 'var(--shadow-lg)',
+                      padding: '8px',
                       zIndex: 200,
                       display: 'flex',
                       flexDirection: 'column',
                       gap: '4px',
-                      backdropFilter: 'blur(24px)',
                     }}
                   >
-                    {/* Header Info */}
-                    <div
-                      style={{
-                        padding: '8px 10px 10px 10px',
-                        borderBottom: '1px solid rgba(255, 255, 255, 0.07)',
-                        marginBottom: '4px',
-                      }}
-                    >
-                      <div style={{ color: '#f8fafc', fontSize: '0.86rem', fontWeight: 600 }}>
+                    <div style={{ padding: '8px', borderBottom: '1px solid var(--border-subtle)', marginBottom: '4px' }}>
+                      <div style={{ color: 'var(--text-main)', fontSize: '13px', fontWeight: 600 }}>
                         {user.name || 'Candidate'}
                       </div>
-                      <div style={{ color: '#94a3b8', fontSize: '0.72rem' }}>
+                      <div style={{ color: 'var(--text-muted)', fontSize: '11px' }}>
                         {user.email || 'candidate@inprep.ai'}
                       </div>
                     </div>
 
                     <button
                       onClick={() => handleNavigatePage('profile')}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px',
-                        padding: '9px 12px',
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                        borderRadius: '10px',
-                        color: '#cbd5e1',
-                        fontSize: '0.82rem',
-                        fontWeight: 500,
-                        cursor: 'pointer',
-                        textAlign: 'left',
-                        width: '100%',
-                        transition: 'all 0.15s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
-                        e.currentTarget.style.color = '#ffffff';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'transparent';
-                        e.currentTarget.style.color = '#cbd5e1';
-                      }}
+                      className="btn btn-outline flex items-center justify-start gap-2 w-full"
+                      style={{ border: 'none', padding: '8px', fontSize: '13px' }}
                     >
-                      <User size={16} color="#818cf8" />
-                      <span>My Profile</span>
+                      <User size={14} /> My Profile
                     </button>
-
                     <button
                       onClick={() => handleNavigatePage('cv')}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px',
-                        padding: '9px 12px',
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                        borderRadius: '10px',
-                        color: '#cbd5e1',
-                        fontSize: '0.82rem',
-                        fontWeight: 500,
-                        cursor: 'pointer',
-                        textAlign: 'left',
-                        width: '100%',
-                        transition: 'all 0.15s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
-                        e.currentTarget.style.color = '#ffffff';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'transparent';
-                        e.currentTarget.style.color = '#cbd5e1';
-                      }}
+                      className="btn btn-outline flex items-center justify-start gap-2 w-full"
+                      style={{ border: 'none', padding: '8px', fontSize: '13px' }}
                     >
-                      <FileText size={16} color="#38bdf8" />
-                      <span>My CV</span>
+                      <FileText size={14} /> My CV
                     </button>
-
                     <button
                       onClick={() => handleNavigatePage('dashboard')}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px',
-                        padding: '9px 12px',
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                        borderRadius: '10px',
-                        color: '#cbd5e1',
-                        fontSize: '0.82rem',
-                        fontWeight: 500,
-                        cursor: 'pointer',
-                        textAlign: 'left',
-                        width: '100%',
-                        transition: 'all 0.15s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
-                        e.currentTarget.style.color = '#ffffff';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'transparent';
-                        e.currentTarget.style.color = '#cbd5e1';
-                      }}
+                      className="btn btn-outline flex items-center justify-start gap-2 w-full"
+                      style={{ border: 'none', padding: '8px', fontSize: '13px' }}
                     >
-                      <LayoutDashboard size={16} color="#a855f7" />
-                      <span>Candidate Dashboard</span>
+                      <LayoutDashboard size={14} /> Dashboard
                     </button>
 
-                    <div
-                      style={{
-                        margin: '4px 0',
-                        height: '1px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                      }}
-                    />
+                    <div style={{ height: '1px', backgroundColor: 'var(--border-subtle)', margin: '4px 0' }} />
 
                     <button
                       onClick={handleLogout}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px',
-                        padding: '9px 12px',
-                        backgroundColor: 'rgba(239, 68, 68, 0.06)',
-                        border: '1px solid rgba(239, 68, 68, 0.18)',
-                        borderRadius: '10px',
-                        color: '#f87171',
-                        fontSize: '0.82rem',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        textAlign: 'left',
-                        width: '100%',
-                        transition: 'all 0.15s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.16)';
-                        e.currentTarget.style.color = '#fca5a5';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.06)';
-                        e.currentTarget.style.color = '#f87171';
-                      }}
+                      className="btn btn-outline flex items-center justify-start gap-2 w-full"
+                      style={{ border: 'none', padding: '8px', fontSize: '13px', color: 'var(--color-error)' }}
                     >
-                      <LogOut size={16} color="#f87171" />
-                      <span>Log Out</span>
+                      <LogOut size={14} /> Log Out
                     </button>
                   </div>
                 )}
               </div>
-            </>
+            </div>
           )}
 
-          {/* Mobile menu toggle button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            style={{
-              display: 'none',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              color: '#fff',
-              borderRadius: '8px',
-              padding: '8px',
-              cursor: 'pointer',
-            }}
-            className="mobile-toggle"
+            className="mobile-toggle btn btn-outline btn-sm"
+            style={{ display: 'none', padding: '6px' }}
             aria-label="Toggle Navigation"
           >
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
         <div style={{
-          background: 'rgba(8, 12, 20, 0.98)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-          padding: '20px 24px',
+          backgroundColor: 'var(--bg-surface)',
+          borderBottom: '1px solid var(--border-subtle)',
+          padding: '16px 24px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '14px'
+          gap: '12px'
         }}>
           {navLinks.map((link) => (
             <a
@@ -488,31 +299,28 @@ export const Navbar: React.FC<NavbarProps> = ({
                 handleLinkClick(link, e);
               }}
               style={{
-                color: '#cbd5e1',
-                fontSize: '15px',
+                color: 'var(--text-main)',
+                fontSize: '14px',
                 fontWeight: 500,
                 padding: '8px 0',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
-                textDecoration: 'none'
+                borderBottom: '1px solid var(--border-subtle)',
               }}
             >
               {link.label}
             </a>
           ))}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '10px' }}>
+          <div className="flex-col gap-2 mt-2">
             {!isAuthenticated ? (
               <>
                 <button
                   onClick={() => { setMobileMenuOpen(false); handleNavigatePage('login'); }}
-                  className="btn-secondary"
-                  style={{ width: '100%', justifyContent: 'center' }}
+                  className="btn btn-secondary w-full"
                 >
                   Log In
                 </button>
                 <button
                   onClick={() => { setMobileMenuOpen(false); handleNavigatePage('signup'); }}
-                  className="btn-primary"
-                  style={{ width: '100%', justifyContent: 'center' }}
+                  className="btn btn-primary w-full"
                 >
                   Get Started
                 </button>
@@ -521,37 +329,15 @@ export const Navbar: React.FC<NavbarProps> = ({
               <>
                 <button
                   onClick={() => { setMobileMenuOpen(false); handleNavigatePage('dashboard'); }}
-                  className="btn-primary"
-                  style={{ width: '100%', justifyContent: 'center' }}
+                  className="btn btn-secondary w-full"
                 >
-                  Go to Dashboard
-                </button>
-                <button
-                  onClick={() => { setMobileMenuOpen(false); handleNavigatePage('profile'); }}
-                  className="btn-secondary"
-                  style={{ width: '100%', justifyContent: 'center' }}
-                >
-                  My Profile
+                  Dashboard
                 </button>
                 <button
                   onClick={() => { setMobileMenuOpen(false); logout(); handleNavigatePage('home'); }}
-                  style={{
-                    width: '100%',
-                    justifyContent: 'center',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                    border: '1px solid rgba(239, 68, 68, 0.3)',
-                    color: '#f87171',
-                    borderRadius: '8px',
-                    padding: '10px',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                  }}
+                  className="btn btn-outline w-full"
+                  style={{ color: 'var(--color-error)' }}
                 >
-                  <LogOut size={16} />
                   Log Out
                 </button>
               </>
@@ -562,4 +348,3 @@ export const Navbar: React.FC<NavbarProps> = ({
     </header>
   );
 };
-

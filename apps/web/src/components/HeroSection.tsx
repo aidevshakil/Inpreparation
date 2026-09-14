@@ -14,187 +14,84 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 }) => {
   const featurePillars = [
     {
-      icon: <Radio size={18} color="#818cf8" />,
+      icon: <Radio size={18} />,
       title: 'Multimodal AI Engine',
       subtitle: 'Tech, voice, syntax & visual signals',
     },
     {
-      icon: <Clock size={18} color="#a5b4fc" />,
+      icon: <Clock size={18} />,
       title: 'Strict 5-Question Rounds',
       subtitle: 'Calibrated for 15-minute mastery',
     },
     {
-      icon: <UserCheck size={18} color="#38bdf8" />,
+      icon: <UserCheck size={18} />,
       title: 'CV & Role Tailored',
       subtitle: 'Dynamic seniority adaptation',
     },
     {
-      icon: <TrendingUp size={18} color="#34d399" />,
+      icon: <TrendingUp size={18} />,
       title: 'Longitudinal Tracking',
       subtitle: 'Measured readiness trajectory',
     }
   ];
 
   return (
-    <section id="hero" style={{ position: 'relative', paddingTop: '52px', paddingBottom: '70px', overflow: 'hidden' }}>
-      {/* Ambient background soft glow */}
-      <div className="bg-ambient-glow" style={{ top: '-15%', left: '10%', width: '650px', height: '650px', background: 'radial-gradient(circle, rgba(99, 102, 241, 0.22) 0%, transparent 70%)' }} />
-      <div className="bg-ambient-glow" style={{ top: '20%', right: '2%', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(6, 182, 212, 0.16) 0%, transparent 70%)' }} />
-
+    <section id="hero" style={{ padding: '80px 0', overflow: 'hidden' }}>
       <div className="container">
-        {/* Main 2-Column Hero Grid */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '48px',
+          gap: '64px',
           alignItems: 'center',
-          marginBottom: '56px'
+          marginBottom: '64px'
         }}>
           {/* Left Column: Headline, Copy & CTAs */}
-          <div style={{ position: 'relative', zIndex: 2 }}>
-            {/* Pill Tag */}
-            <div style={{ marginBottom: '22px' }}>
-              <span style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '6px 14px',
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                borderRadius: '9999px',
-                fontSize: '11px',
-                fontWeight: 700,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color: '#cbd5e1'
-              }}>
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#60a5fa', boxShadow: '0 0 8px #60a5fa' }} />
-                AI-POWERED INTERVIEW PREPARATION
-              </span>
+          <div className="flex-col gap-6">
+            <div className="badge" style={{ alignSelf: 'flex-start' }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--primary-color)' }} />
+              AI-POWERED INTERVIEW PREPARATION
             </div>
 
-            {/* Main Headline */}
             <h1 style={{
               fontSize: 'clamp(40px, 5.2vw, 64px)',
               fontWeight: 800,
               lineHeight: 1.1,
               letterSpacing: '-0.035em',
-              marginBottom: '22px',
-              color: '#ffffff'
             }}>
               Practice Interviews.<br />
-              <span style={{
-                background: 'linear-gradient(135deg, #a78bfa 0%, #60a5fa 55%, #38bdf8 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                display: 'inline-block'
-              }}>
+              <span style={{ color: 'var(--text-secondary)' }}>
                 Get Real Feedback.
               </span><br />
               Improve Faster.
             </h1>
 
-            {/* Subparagraph */}
-            <p style={{
-              fontSize: '17px',
-              color: '#94a3b8',
-              lineHeight: 1.65,
-              marginBottom: '34px',
-              maxWidth: '540px'
-            }}>
+            <p style={{ fontSize: '18px', maxWidth: '540px' }}>
               Practice realistic interviews with AI and receive actionable feedback on your technical answers, communication, speech, and on-camera presentation.
             </p>
 
-            {/* Action Buttons */}
-            <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '16px',
-              alignItems: 'center',
-              marginBottom: '32px'
-            }}>
+            <div className="flex flex-wrap items-center gap-4">
               <button
                 onClick={() => onStartPractice()}
-                style={{
-                  background: 'linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)',
-                  color: '#ffffff',
-                  padding: '14px 30px',
-                  borderRadius: '9999px',
-                  fontWeight: 600,
-                  fontSize: '15px',
-                  border: '1px solid rgba(255, 255, 255, 0.25)',
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  boxShadow: '0 4px 20px rgba(99, 102, 241, 0.45)',
-                  transition: 'all 0.2s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 6px 28px rgba(99, 102, 241, 0.65)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 20px rgba(99, 102, 241, 0.45)';
-                }}
+                className="btn btn-primary"
+                style={{ padding: '14px 30px', fontSize: '16px' }}
               >
                 <span>Start Practicing Free</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={18} />
               </button>
 
               <button
                 onClick={onNavigateToFeatures ? onNavigateToFeatures : onOpenDemo}
-                style={{
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  color: '#e2e8f0',
-                  padding: '14px 26px',
-                  borderRadius: '9999px',
-                  fontWeight: 600,
-                  fontSize: '15px',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  backdropFilter: 'blur(8px)',
-                  transition: 'all 0.2s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
+                className="btn btn-outline"
+                style={{ padding: '14px 26px', fontSize: '16px' }}
               >
-                <div style={{
-                  width: '24px',
-                  height: '24px',
-                  borderRadius: '50%',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  <Play size={10} fill="#e2e8f0" style={{ marginLeft: '1px' }} />
-                </div>
+                <Play size={16} />
                 <span>Explore Features</span>
               </button>
             </div>
 
-            {/* Trust Points */}
-            <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              alignItems: 'center',
-              gap: '16px',
-              fontSize: '13px',
-              color: '#94a3b8'
-            }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Check size={14} color="#60a5fa" /> No credit card required
+            <div className="flex flex-wrap items-center gap-4 text-muted" style={{ fontSize: '14px' }}>
+              <span className="flex items-center gap-2">
+                <Check size={16} /> No credit card required
               </span>
               <span>•</span>
               <span>Exactly 5 questions per session</span>
@@ -203,319 +100,65 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
           </div>
 
-          {/* Right Column: Inprep Live Diagnostic Room Card */}
-          <div style={{ position: 'relative', zIndex: 2 }}>
-            <div style={{
-              background: 'linear-gradient(180deg, #111624 0%, #0c101a 100%)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: '24px',
-              boxShadow: '0 25px 60px -12px rgba(0, 0, 0, 0.85), 0 0 50px rgba(99, 102, 241, 0.2)',
-              overflow: 'hidden',
-              backdropFilter: 'blur(24px)',
-              position: 'relative'
-            }}>
-              {/* Window Header */}
-              <div style={{
-                background: 'rgba(17, 23, 38, 0.85)',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.07)',
-                padding: '14px 20px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#f87171' }} />
-                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#fbbf24' }} />
-                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#34d399' }} />
-                  <span style={{ fontSize: '12px', color: '#94a3b8', marginLeft: '8px', fontWeight: 500 }}>
-                    Inprep Live Diagnostic Room • ID-8492
-                  </span>
-                </div>
+          {/* Right Column: Clean Mockup */}
+          <div className="card" style={{ padding: '0', overflow: 'hidden' }}>
+            {/* Window Header */}
+            <div className="flex items-center justify-between" style={{ padding: '16px 24px', borderBottom: '1px solid var(--border-subtle)', backgroundColor: 'var(--bg-surface)' }}>
+              <div className="flex items-center gap-2">
+                <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: 'var(--border-focus)' }} />
+                <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: 'var(--border-focus)' }} />
+                <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: 'var(--border-focus)' }} />
+              </div>
+              <div className="badge" style={{ backgroundColor: 'transparent' }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--color-success)' }} />
+                Active Diagnostic
+              </div>
+            </div>
 
-                <div style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  color: '#67e8f9',
-                  background: 'rgba(6, 182, 212, 0.12)',
-                  border: '1px solid rgba(6, 182, 212, 0.25)',
-                  padding: '3px 10px',
-                  borderRadius: '9999px'
-                }}>
-                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#06b6d4', boxShadow: '0 0 6px #06b6d4' }} />
-                  Active 5-Question Run
-                </div>
+            <div className="flex-col gap-6" style={{ padding: '24px' }}>
+              <div className="flex items-center justify-between" style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-secondary)' }}>
+                <span>QUESTION 2 OF 5</span>
+                <span>01:14</span>
               </div>
 
-              {/* Main Content Area */}
-              <div style={{ padding: '20px' }}>
-                {/* Question Info Bar */}
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  fontSize: '11px',
-                  fontWeight: 700,
-                  letterSpacing: '0.06em',
-                  textTransform: 'uppercase',
-                  color: '#818cf8',
-                  marginBottom: '10px'
-                }}>
-                  <span>QUESTION 2 OF 5 • TECHNICAL CORE</span>
-                  <span style={{ color: '#94a3b8', fontWeight: 500, letterSpacing: 'normal', textTransform: 'none' }}>
-                    Time in Prompt: 01:14
-                  </span>
+              <div style={{ fontSize: '18px', fontWeight: 600, lineHeight: 1.5 }}>
+                “Explain the difference between synchronous and asynchronous programming in Python, highlighting event loops and I/O bound tasks.”
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div style={{ height: '200px', backgroundColor: 'var(--bg-surface)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
+                  [AI Interviewer Video Feed]
                 </div>
-
-                {/* Prompt Text */}
-                <div style={{
-                  fontSize: '15px',
-                  fontWeight: 600,
-                  color: '#f8fafc',
-                  lineHeight: 1.5,
-                  marginBottom: '18px'
-                }}>
-                  “Explain the difference between synchronous and asynchronous programming in Python, highlighting event loops and I/O bound tasks.”
+                <div style={{ height: '200px', backgroundColor: 'var(--bg-surface)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
+                  [Candidate Video Feed]
                 </div>
-
-                {/* Dual Video Feeds */}
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '14px',
-                  marginBottom: '18px'
-                }}>
-                  {/* Left Stream: AI Interviewer Dr. Sarah Vance */}
-                  <div style={{
-                    position: 'relative',
-                    height: '210px',
-                    borderRadius: '14px',
-                    overflow: 'hidden',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    background: '#0a0e18'
-                  }}>
-                    <img
-                      src="/interviewer_sarah.jpg"
-                      alt="AI Interviewer Dr. Sarah Vance"
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        display: 'block'
-                      }}
-                    />
-
-                    {/* Top Header Overlay */}
-                    <div style={{
-                      position: 'absolute',
-                      top: '10px',
-                      left: '10px',
-                      right: '10px',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      background: 'rgba(9, 13, 22, 0.75)',
-                      backdropFilter: 'blur(8px)',
-                      padding: '4px 10px',
-                      borderRadius: '6px',
-                      fontSize: '11px',
-                      color: '#f8fafc',
-                      fontWeight: 600
-                    }}>
-                      <span>AI Interviewer • Dr. Sarah Vance</span>
-                      <span style={{
-                        fontSize: '9px',
-                        fontWeight: 700,
-                        color: '#38bdf8',
-                        background: 'rgba(56, 189, 248, 0.15)',
-                        border: '1px solid rgba(56, 189, 248, 0.3)',
-                        padding: '1px 6px',
-                        borderRadius: '4px'
-                      }}>
-                        Visual Q&A
-                      </span>
-                    </div>
-
-                    {/* Bottom Status Overlay */}
-                    <div style={{
-                      position: 'absolute',
-                      bottom: '10px',
-                      left: '10px',
-                      right: '10px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      background: 'rgba(9, 13, 22, 0.82)',
-                      backdropFilter: 'blur(8px)',
-                      padding: '5px 10px',
-                      borderRadius: '6px',
-                      fontSize: '11px',
-                      color: '#cbd5e1'
-                    }}>
-                      <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
-                      <span style={{ fontWeight: 500 }}>Question displayed on screen</span>
-                    </div>
-                  </div>
-
-                  {/* Right Stream: Candidate Preview (You) */}
-                  <div style={{
-                    position: 'relative',
-                    height: '210px',
-                    borderRadius: '14px',
-                    overflow: 'hidden',
-                    border: '1px solid rgba(6, 182, 212, 0.35)',
-                    background: '#0a0e18'
-                  }}>
-                    <img
-                      src="/candidate_alex.jpg"
-                      alt="Candidate Preview"
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        display: 'block'
-                      }}
-                    />
-
-                    {/* Top Header Overlay */}
-                    <div style={{
-                      position: 'absolute',
-                      top: '10px',
-                      left: '10px',
-                      right: '10px',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      background: 'rgba(9, 13, 22, 0.75)',
-                      backdropFilter: 'blur(8px)',
-                      padding: '4px 10px',
-                      borderRadius: '6px',
-                      fontSize: '11px',
-                      color: '#f8fafc',
-                      fontWeight: 600
-                    }}>
-                      <span>Candidate Preview (You)</span>
-                      <span style={{
-                        fontSize: '9px',
-                        fontWeight: 700,
-                        color: '#10b981',
-                        background: 'rgba(16, 185, 129, 0.15)',
-                        border: '1px solid rgba(16, 185, 129, 0.3)',
-                        padding: '1px 6px',
-                        borderRadius: '4px'
-                      }}>
-                        Camera 1080p
-                      </span>
-                    </div>
-
-                    {/* Bottom Status Overlay */}
-                    <div style={{
-                      position: 'absolute',
-                      bottom: '10px',
-                      left: '10px',
-                      right: '10px',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      background: 'rgba(9, 13, 22, 0.82)',
-                      backdropFilter: 'blur(8px)',
-                      padding: '5px 10px',
-                      borderRadius: '6px',
-                      fontSize: '11px',
-                      color: '#cbd5e1'
-                    }}>
-                      <span>Lighting: <strong style={{ color: '#67e8f9' }}>Optimal</strong></span>
-                      <span>Eye-level: <strong style={{ color: '#10b981' }}>Calibrated</strong></span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Bottom Speech Telemetry Bar */}
-                <div style={{
-                  background: 'rgba(9, 13, 22, 0.65)',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
-                  borderRadius: '12px',
-                  padding: '10px 14px',
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: '10px'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ef4444', animation: 'pulseGlow 1.5s infinite' }} />
-                    <span style={{ fontSize: '12px', fontWeight: 600, color: '#f8fafc' }}>Live Speech Telemetry</span>
-                    <span style={{
-                      fontSize: '11px',
-                      fontWeight: 700,
-                      color: '#cbd5e1',
-                      background: 'rgba(255, 255, 255, 0.08)',
-                      padding: '2px 8px',
-                      borderRadius: '4px'
-                    }}>
-                      REC 01:14
-                    </span>
-                  </div>
-
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      color: '#a5b4fc',
-                      background: 'rgba(99, 102, 241, 0.12)',
-                      border: '1px solid rgba(99, 102, 241, 0.25)',
-                      padding: '3px 10px',
-                      borderRadius: '9999px'
-                    }}>
-                      142 WPM • Steady Cadence
-                    </span>
-                    <span style={{
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      color: '#34d399',
-                      background: 'rgba(16, 185, 129, 0.12)',
-                      border: '1px solid rgba(16, 185, 129, 0.25)',
-                      padding: '3px 10px',
-                      borderRadius: '9999px'
-                    }}>
-                      Fillers: 0 in current 30s
-                    </span>
-                  </div>
+              </div>
+              
+              <div className="flex items-center justify-between" style={{ padding: '16px', backgroundColor: 'var(--bg-surface)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
+                <div className="flex items-center gap-4">
+                  <span style={{ fontSize: '14px', fontWeight: 600 }}>Live Telemetry</span>
+                  <div className="badge">142 WPM</div>
+                  <div className="badge">0 Fillers</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* 4 Bottom Horizontal Feature Pillars (Exactly as in Mockup) */}
+        {/* 4 Bottom Horizontal Feature Pillars */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          gap: '16px'
+          gap: '24px'
         }}>
           {featurePillars.map((pillar, idx) => (
-            <div
-              key={idx}
-              style={{
-                background: 'rgba(15, 21, 34, 0.7)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
-                borderRadius: '16px',
-                padding: '16px 20px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '14px',
-                transition: 'all 0.2s ease'
-              }}
-              className="glow-card-hover"
-            >
+            <div key={idx} className="card flex items-start gap-4">
               <div style={{
-                width: '42px',
-                height: '42px',
-                borderRadius: '10px',
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                width: '48px',
+                height: '48px',
+                borderRadius: 'var(--radius-md)',
+                backgroundColor: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -524,13 +167,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 {pillar.icon}
               </div>
 
-              <div>
-                <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc', marginBottom: '2px' }}>
-                  {pillar.title}
-                </div>
-                <div style={{ fontSize: '12px', color: '#94a3b8' }}>
-                  {pillar.subtitle}
-                </div>
+              <div className="flex-col gap-1">
+                <div style={{ fontSize: '16px', fontWeight: 600 }}>{pillar.title}</div>
+                <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>{pillar.subtitle}</div>
               </div>
             </div>
           ))}

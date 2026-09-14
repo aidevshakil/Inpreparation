@@ -3,6 +3,7 @@ import {
   Search,
   Bell,
   Moon,
+  Sun,
   Link2,
   ChevronDown,
   Menu,
@@ -36,28 +37,36 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
 }) => {
   const { user, logout } = useAuth();
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const notifRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setProfileDropdownOpen(false);
       }
+      if (notifRef.current && !notifRef.current.contains(event.target as Node)) {
+        setNotificationsOpen(false);
+      }
     };
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setProfileDropdownOpen(false);
+        setNotificationsOpen(false);
       }
     };
-    if (profileDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('keydown', handleKeyDown);
-    }
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [profileDropdownOpen]);
+  }, []);
 
   const getInitials = (name: string) => {
     return name
@@ -91,553 +100,190 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
   };
 
   return (
-    <header
-      style={{
-        height: '64px',
-        backgroundColor: 'rgba(10, 14, 23, 0.85)',
-        backdropFilter: 'blur(16px)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.07)',
-        padding: '0 24px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: '16px',
-        position: 'sticky',
-        top: '39px',
-        zIndex: 40,
-      }}
-    >
+    <header className="flex items-center justify-between gap-4" style={{
+      height: '64px',
+      padding: '0 24px',
+      backgroundColor: 'var(--bg-main)',
+      borderBottom: '1px solid var(--border-subtle)',
+      position: 'sticky',
+      top: 0,
+      zIndex: 40,
+    }}>
       {/* Left / Search Section */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, maxWidth: '640px' }}>
+      <div className="flex items-center gap-4 flex-1" style={{ maxWidth: '640px' }}>
         {onToggleSidebar && (
           <button
             onClick={onToggleSidebar}
-            style={{
-              display: 'none',
-              background: 'transparent',
-              border: 'none',
-              color: '#94a3b8',
-              cursor: 'pointer',
-              padding: '6px',
-            }}
-            aria-label="Toggle Navigation"
             className="mobile-sidebar-toggle"
+            style={{ display: 'none', background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '6px' }}
+            aria-label="Toggle Navigation"
           >
             <Menu size={20} />
           </button>
         )}
 
-        <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
-          <Search
-            size={16}
-            style={{
-              position: 'absolute',
-              left: '14px',
-              color: '#64748b',
-              pointerEvents: 'none',
-            }}
-          />
+        <div style={{ position: 'relative', display: 'block', width: '100%' }}>
+          <Search size={16} style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: '12px', color: 'var(--text-muted)', pointerEvents: 'none' }} />
           <input
             type="text"
+            className="input"
             placeholder="Search interviews, rubrics, metrics, or type 'help'..."
-            style={{
-              width: '100%',
-              backgroundColor: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: '10px',
-              padding: '9px 14px 9px 38px',
-              color: '#f8fafc',
-              fontSize: '0.82rem',
-              outline: 'none',
-              transition: 'all 0.18s ease',
-            }}
+            style={{ paddingLeft: '36px', height: '36px', width: '100%' }}
           />
         </div>
       </div>
 
       {/* Right / Quick Actions & User */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <div className="flex items-center gap-2">
         {/* Workspace Link */}
-        <div
-          onClick={() => handleNavigate('dashboard')}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            padding: '5px 12px',
-            borderRadius: '8px',
-            backgroundColor: 'rgba(255, 255, 255, 0.03)',
-            border: '1px solid rgba(255, 255, 255, 0.07)',
-            fontSize: '0.74rem',
-            color: '#94a3b8',
-            cursor: 'pointer',
-            transition: 'all 0.18s ease',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.07)';
-            e.currentTarget.style.color = '#f8fafc';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
-            e.currentTarget.style.color = '#94a3b8';
-          }}
-          title="Go to Candidate Dashboard"
-        >
-          <Link2 size={13} style={{ color: '#818cf8' }} />
+        <button onClick={() => { alert('You are already in the Candidate Workspace!'); }} className="btn btn-outline" style={{ height: '36px', padding: '0 12px', fontSize: '13px', border: 'none' }}>
+          <Link2 size={14} style={{ color: 'var(--primary-color)' }} />
           <span>Candidate Workspace</span>
-        </div>
+        </button>
 
         {/* Theme mode icon */}
-        <button
-          style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '9px',
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#94a3b8',
-            cursor: 'pointer',
-            transition: 'all 0.18s ease',
-          }}
-          title="Dark Mode Active"
+        <button 
+          onClick={() => setIsDarkMode(!isDarkMode)} 
+          className="btn btn-outline" 
+          style={{ width: '36px', height: '36px', padding: 0, border: 'none' }} 
+          title="Toggle Theme"
         >
-          <Moon size={16} />
+          {isDarkMode ? <Moon size={16} /> : <Sun size={16} />}
         </button>
 
         {/* Notification Bell */}
-        <button
-          style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '9px',
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#94a3b8',
-            cursor: 'pointer',
-            position: 'relative',
-            transition: 'all 0.18s ease',
-          }}
-          title="Notifications"
-        >
-          <Bell size={16} />
-          <span
-            style={{
-              position: 'absolute',
-              top: '7px',
-              right: '7px',
-              width: '6px',
-              height: '6px',
-              borderRadius: '50%',
-              backgroundColor: '#a855f7',
-            }}
-          />
-        </button>
+        <div style={{ position: 'relative' }} ref={notifRef}>
+          <button 
+            onClick={() => setNotificationsOpen(!notificationsOpen)}
+            className="btn btn-outline relative" 
+            style={{ width: '36px', height: '36px', padding: 0, border: 'none', backgroundColor: notificationsOpen ? 'var(--bg-surface)' : 'transparent' }} 
+            title="Notifications"
+          >
+            <Bell size={16} />
+            <span style={{ position: 'absolute', top: '8px', right: '8px', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--color-error)' }} />
+          </button>
+
+          {/* Notifications Dropdown Menu */}
+          {notificationsOpen && (
+            <div className="card flex-col gap-1" style={{
+              position: 'absolute', top: 'calc(100% + 8px)', right: 0, width: '280px',
+              padding: '16px', zIndex: 100, backgroundColor: 'var(--bg-card)',
+            }}>
+              <h3 style={{ fontSize: '14px', marginBottom: '8px' }}>Notifications</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center', justifyContent: 'center', padding: '16px 0', color: 'var(--text-muted)' }}>
+                <Bell size={24} style={{ opacity: 0.5 }} />
+                <span style={{ fontSize: '13px' }}>No new notifications</span>
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* User profile dropdown chip container */}
         <div style={{ position: 'relative' }} ref={dropdownRef}>
           <button
-            onClick={() => setProfileDropdownOpen((prev) => !prev)}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '4px 10px 4px 5px',
-              backgroundColor: profileDropdownOpen
-                ? 'rgba(99, 102, 241, 0.15)'
-                : 'rgba(255, 255, 255, 0.04)',
-              border: profileDropdownOpen
-                ? '1px solid rgba(99, 102, 241, 0.4)'
-                : '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: '9999px',
-              cursor: 'pointer',
-              marginLeft: '4px',
-              transition: 'all 0.18s ease',
+            onClick={() => {
+              setProfileDropdownOpen((prev) => !prev);
+              setNotificationsOpen(false);
             }}
-            onMouseEnter={(e) => {
-              if (!profileDropdownOpen) {
-                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.16)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (!profileDropdownOpen) {
-                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-              }
-            }}
+            className="btn btn-outline flex items-center gap-2"
+            style={{ padding: '4px 10px 4px 4px', borderRadius: '9999px', height: '36px', marginLeft: '4px', border: 'none', backgroundColor: profileDropdownOpen ? 'var(--bg-surface)' : 'transparent' }}
             aria-expanded={profileDropdownOpen}
             aria-haspopup="true"
           >
-            <div
-              style={{
-                width: '28px',
-                height: '28px',
-                borderRadius: '50%',
-                background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#ffffff',
-                fontSize: '0.72rem',
-                fontWeight: 700,
-                boxShadow: '0 2px 8px rgba(124, 58, 237, 0.3)',
-              }}
-            >
+            <div style={{
+              width: '28px', height: '28px', borderRadius: '50%',
+              backgroundColor: 'var(--primary-color)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              color: '#ffffff', fontSize: '12px', fontWeight: 600,
+            }}>
               {getInitials(user.name || 'Candidate')}
             </div>
-            <span style={{ fontSize: '0.8rem', color: '#e2e8f0', fontWeight: 500 }}>
+            <span style={{ fontSize: '13px', fontWeight: 500, color: 'var(--text-main)' }}>
               {user.name || 'Candidate User'}
             </span>
-            <ChevronDown
-              size={14}
-              style={{
-                color: profileDropdownOpen ? '#818cf8' : '#64748b',
-                transform: profileDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                transition: 'transform 0.2s ease, color 0.2s ease',
-              }}
-            />
+            <ChevronDown size={14} style={{ color: 'var(--text-muted)' }} />
           </button>
 
           {/* Profile Dropdown Menu */}
           {profileDropdownOpen && (
-            <div
-              style={{
-                position: 'absolute',
-                top: 'calc(100% + 8px)',
-                right: 0,
-                width: '280px',
-                backgroundColor: '#0c101a',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
-                borderRadius: '16px',
-                boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05)',
-                padding: '12px',
-                zIndex: 100,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '4px',
-                backdropFilter: 'blur(24px)',
-              }}
-            >
+            <div className="card flex-col gap-1" style={{
+              position: 'absolute', top: 'calc(100% + 8px)', right: 0, width: '280px',
+              padding: '12px', zIndex: 100, backgroundColor: 'var(--bg-card)',
+            }}>
               {/* Header Info */}
-              <div
-                style={{
-                  padding: '10px 12px 12px 12px',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.07)',
-                  marginBottom: '4px',
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-                  <div
-                    style={{
-                      width: '38px',
-                      height: '38px',
-                      borderRadius: '50%',
-                      background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#ffffff',
-                      fontSize: '0.85rem',
-                      fontWeight: 700,
-                      boxShadow: '0 2px 10px rgba(124, 58, 237, 0.4)',
-                      flexShrink: 0,
-                    }}
-                  >
+              <div className="flex-col gap-2" style={{ padding: '4px 8px 12px 8px', borderBottom: '1px solid var(--border-subtle)' }}>
+                <div className="flex items-center gap-3">
+                  <div style={{
+                    width: '40px', height: '40px', borderRadius: '50%',
+                    backgroundColor: 'var(--primary-color)', flexShrink: 0,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: '#ffffff', fontSize: '14px', fontWeight: 600,
+                  }}>
                     {getInitials(user.name || 'Candidate')}
                   </div>
-                  <div style={{ minWidth: 0, flex: 1 }}>
-                    <div
-                      style={{
-                        color: '#f8fafc',
-                        fontSize: '0.88rem',
-                        fontWeight: 600,
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                      }}
-                    >
+                  <div className="flex-col" style={{ overflow: 'hidden' }}>
+                    <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-main)', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
                       {user.name || 'Candidate User'}
                     </div>
-                    <div
-                      style={{
-                        color: '#94a3b8',
-                        fontSize: '0.72rem',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                      }}
-                    >
+                    <div style={{ fontSize: '12px', color: 'var(--text-secondary)', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
                       {user.email || 'candidate@inprep.ai'}
                     </div>
                   </div>
                 </div>
 
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '6px 10px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                    borderRadius: '8px',
-                    border: '1px solid rgba(255, 255, 255, 0.05)',
-                  }}
-                >
-                  <span
-                    style={{
-                      color: '#818cf8',
-                      fontSize: '0.7rem',
-                      fontWeight: 600,
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      maxWidth: '140px',
-                    }}
-                  >
+                <div className="flex items-center justify-between" style={{ padding: '6px 10px', backgroundColor: 'var(--bg-surface)', borderRadius: '6px' }}>
+                  <span style={{ color: 'var(--primary-color)', fontSize: '12px', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '140px' }}>
                     {user.targetRole || 'Candidate Pro'}
                   </span>
-                  <span
-                    style={{
-                      color: '#34d399',
-                      fontSize: '0.68rem',
-                      fontWeight: 600,
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '3px',
-                    }}
-                  >
-                    <Zap size={11} fill="#34d399" color="#34d399" />
+                  <span className="flex items-center gap-1" style={{ color: 'var(--color-success)', fontSize: '12px', fontWeight: 600 }}>
+                    <Zap size={12} fill="currentColor" />
                     {user.creditsRemaining} cr
                   </span>
                 </div>
               </div>
 
               {/* Menu Items */}
-              <button
-                onClick={() => handleNavigate('profile')}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '9px 12px',
-                  backgroundColor: 'transparent',
-                  border: 'none',
-                  borderRadius: '10px',
-                  color: '#cbd5e1',
-                  fontSize: '0.82rem',
-                  fontWeight: 500,
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                  width: '100%',
-                  transition: 'all 0.15s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
-                  e.currentTarget.style.color = '#ffffff';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = '#cbd5e1';
-                }}
-              >
-                <User size={16} color="#818cf8" />
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span>My Profile</span>
-                  <span style={{ fontSize: '0.68rem', color: '#64748b' }}>Account & career targets</span>
-                </div>
-              </button>
+              <div className="flex-col gap-1 mt-2">
+                {[
+                  { id: 'profile', icon: User, color: 'var(--primary-color)', title: 'My Profile', desc: 'Account & career targets' },
+                  { id: 'cv', icon: FileText, color: 'var(--color-info)', title: 'My CV / Resume', desc: 'ATS score & skill graph' },
+                  { id: 'dashboard', icon: LayoutDashboard, color: 'var(--color-warning)', title: 'Candidate Dashboard', desc: 'Readiness & practice cockpit' },
+                  { id: 'simulations', icon: Sparkles, color: 'var(--color-success)', title: 'Interview Library', desc: 'Simulations & rubrics' },
+                  { id: 'home', icon: Globe, color: 'var(--text-muted)', title: 'Public Landing', desc: 'Overview & features' },
+                ].map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => handleNavigate(item.id)}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 12px',
+                      backgroundColor: 'transparent', border: 'none', borderRadius: '8px', cursor: 'pointer', textAlign: 'left', width: '100%'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-surface)'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                  >
+                    <item.icon size={16} color={item.color} />
+                    <div className="flex-col">
+                      <span style={{ fontSize: '13px', fontWeight: 500, color: 'var(--text-main)' }}>{item.title}</span>
+                      <span style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>{item.desc}</span>
+                    </div>
+                  </button>
+                ))}
 
-              <button
-                onClick={() => handleNavigate('cv')}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '9px 12px',
-                  backgroundColor: 'transparent',
-                  border: 'none',
-                  borderRadius: '10px',
-                  color: '#cbd5e1',
-                  fontSize: '0.82rem',
-                  fontWeight: 500,
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                  width: '100%',
-                  transition: 'all 0.15s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
-                  e.currentTarget.style.color = '#ffffff';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = '#cbd5e1';
-                }}
-              >
-                <FileText size={16} color="#38bdf8" />
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span>My CV / Resume</span>
-                  <span style={{ fontSize: '0.68rem', color: '#64748b' }}>ATS score & skill graph</span>
-                </div>
-              </button>
+                <div style={{ margin: '4px 0', height: '1px', backgroundColor: 'var(--border-subtle)' }} />
 
-              <button
-                onClick={() => handleNavigate('dashboard')}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '9px 12px',
-                  backgroundColor: 'transparent',
-                  border: 'none',
-                  borderRadius: '10px',
-                  color: '#cbd5e1',
-                  fontSize: '0.82rem',
-                  fontWeight: 500,
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                  width: '100%',
-                  transition: 'all 0.15s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
-                  e.currentTarget.style.color = '#ffffff';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = '#cbd5e1';
-                }}
-              >
-                <LayoutDashboard size={16} color="#a855f7" />
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span>Candidate Dashboard</span>
-                  <span style={{ fontSize: '0.68rem', color: '#64748b' }}>Readiness & practice cockpit</span>
-                </div>
-              </button>
-
-              <button
-                onClick={() => handleNavigate('simulations')}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '9px 12px',
-                  backgroundColor: 'transparent',
-                  border: 'none',
-                  borderRadius: '10px',
-                  color: '#cbd5e1',
-                  fontSize: '0.82rem',
-                  fontWeight: 500,
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                  width: '100%',
-                  transition: 'all 0.15s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
-                  e.currentTarget.style.color = '#ffffff';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = '#cbd5e1';
-                }}
-              >
-                <Sparkles size={16} color="#f59e0b" />
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span>Interview Library</span>
-                  <span style={{ fontSize: '0.68rem', color: '#64748b' }}>Simulations & rubrics</span>
-                </div>
-              </button>
-
-              <button
-                onClick={() => handleNavigate('home')}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '9px 12px',
-                  backgroundColor: 'transparent',
-                  border: 'none',
-                  borderRadius: '10px',
-                  color: '#cbd5e1',
-                  fontSize: '0.82rem',
-                  fontWeight: 500,
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                  width: '100%',
-                  transition: 'all 0.15s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
-                  e.currentTarget.style.color = '#ffffff';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = '#cbd5e1';
-                }}
-              >
-                <Globe size={16} color="#64748b" />
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span>Public Landing</span>
-                  <span style={{ fontSize: '0.68rem', color: '#64748b' }}>Overview & features</span>
-                </div>
-              </button>
-
-              {/* Divider */}
-              <div
-                style={{
-                  margin: '6px 4px',
-                  height: '1px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                }}
-              />
-
-              {/* Logout Button */}
-              <button
-                onClick={handleLogout}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '10px 12px',
-                  backgroundColor: 'rgba(239, 68, 68, 0.06)',
-                  border: '1px solid rgba(239, 68, 68, 0.18)',
-                  borderRadius: '10px',
-                  color: '#f87171',
-                  fontSize: '0.82rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                  width: '100%',
-                  transition: 'all 0.15s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.16)';
-                  e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.35)';
-                  e.currentTarget.style.color = '#fca5a5';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.06)';
-                  e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.18)';
-                  e.currentTarget.style.color = '#f87171';
-                }}
-              >
-                <LogOut size={16} color="#f87171" />
-                <span>Log Out</span>
-              </button>
+                <button
+                  onClick={handleLogout}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 12px',
+                    backgroundColor: 'transparent', border: 'none', borderRadius: '8px', cursor: 'pointer', textAlign: 'left', width: '100%'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.1)'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                >
+                  <LogOut size={16} color="var(--color-error)" />
+                  <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-error)' }}>Log Out</span>
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -645,4 +291,3 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
     </header>
   );
 };
-
