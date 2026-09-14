@@ -445,6 +445,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
 
         {/* User Card */}
         <div
+          onClick={() => onSelectItem('profile')}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -454,7 +455,18 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
             backgroundColor: 'rgba(255, 255, 255, 0.02)',
             borderRadius: '10px',
             border: '1px solid rgba(255, 255, 255, 0.04)',
+            cursor: 'pointer',
+            transition: 'all 0.18s ease',
           }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
+            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.02)';
+            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.04)';
+          }}
+          title={collapsed ? `${user.name || 'Candidate'} - View Profile` : 'Click to view profile'}
         >
           <div
             style={{
@@ -499,6 +511,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                   cursor: 'pointer',
                   padding: '2px',
                 }}
+                title="View Profile"
               >
                 <MoreVertical size={16} />
               </button>

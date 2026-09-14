@@ -124,6 +124,11 @@ export const RecommendedInterviewsPage: React.FC<RecommendedInterviewsPageProps>
           {/* Top Navbar */}
           <DashboardNavbar
             onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
+            onNavigateToDashboard={onNavigateToDashboard}
+            onNavigateToProfile={onNavigateToProfile}
+            onNavigateToCv={onNavigateToCv}
+            onNavigateToSimulations={onNavigateToSimulations}
+            onNavigateToHome={_onNavigateToHome}
           />
 
           {/* Page Inner Container */}

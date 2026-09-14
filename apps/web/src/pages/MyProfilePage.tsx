@@ -168,6 +168,10 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
           {/* 3. Studio Navbar */}
           <DashboardNavbar
             onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
+            onNavigateToDashboard={onNavigateToDashboard}
+            onNavigateToCv={onNavigateToCv}
+            onNavigateToSimulations={onNavigateToSimulations}
+            onNavigateToHome={onNavigateToHome}
           />
 
           {/* 4. Main Body */}

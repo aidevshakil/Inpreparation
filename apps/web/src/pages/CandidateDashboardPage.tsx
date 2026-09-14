@@ -84,6 +84,10 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
           {/* 3. Studio Navbar */}
           <DashboardNavbar
             onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
+            onNavigateToProfile={onNavigateToProfile}
+            onNavigateToCv={onNavigateToCv}
+            onNavigateToSimulations={onNavigateToSimulations}
+            onNavigateToHome={_onNavigateToHome}
           />
 
           {/* 4. Dashboard Inner Body */}
