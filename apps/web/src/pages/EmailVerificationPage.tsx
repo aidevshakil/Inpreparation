@@ -4,6 +4,7 @@ import { AuthNavbar } from '../components/auth/AuthNavbar';
 import { EmailVerificationCard } from '../components/auth/EmailVerificationCard';
 import { EmailVerificationJourneyPreview } from '../components/auth/EmailVerificationJourneyPreview';
 import { AuthFooter } from '../components/auth/AuthFooter';
+import { useAuth } from '../context/AuthContext';
 
 interface EmailVerificationPageProps {
   onNavigateToHome: () => void;
@@ -28,6 +29,8 @@ export const EmailVerificationPage: React.FC<EmailVerificationPageProps> = ({
   onNavigateToSignup,
   onVerificationSuccess
 }) => {
+  const { user } = useAuth();
+  const currentEmail = user?.email || 'candidate@inprep.ai';
   return (
     <div style={{
       minHeight: '100vh',
@@ -100,7 +103,7 @@ export const EmailVerificationPage: React.FC<EmailVerificationPageProps> = ({
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <EmailVerificationCard
               mode="default"
-              emailAddress="s•••••@example.com"
+              emailAddress={currentEmail}
               onNavigateHome={onNavigateToHome}
               onNavigateLogin={onNavigateToLogin}
               onNavigateSignup={onNavigateToSignup}

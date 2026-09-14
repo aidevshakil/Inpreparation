@@ -110,6 +110,11 @@ export const ProfileAnalysisPage: React.FC<ProfileAnalysisPageProps> = ({
           {/* Top Navbar */}
           <DashboardNavbar
             onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
+            onNavigateToDashboard={onNavigateToDashboard}
+            onNavigateToProfile={onNavigateToProfile}
+            onNavigateToCv={onNavigateToCv}
+            onNavigateToSimulations={onNavigateToSimulations}
+            onNavigateToHome={_onNavigateToHome}
           />
 
           {/* Page Inner Container */}

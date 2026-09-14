@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Sparkles, Menu, X, LayoutDashboard } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Sparkles, Menu, X, LayoutDashboard, User, LogOut, FileText, ChevronDown } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 interface NavbarProps {
   onStartPractice: (role?: string) => void;
   onNavigateToAi?: () => void;
-  currentPage?: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat' | 'login' | 'signup' | 'dashboard';
-  onNavigate?: (page: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat' | 'login' | 'signup' | 'dashboard') => void;
+  currentPage?: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat' | 'login' | 'signup' | 'dashboard' | 'profile' | 'cv';
+  onNavigate?: (page: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat' | 'login' | 'signup' | 'dashboard' | 'profile' | 'cv') => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -14,9 +14,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   currentPage = 'home',
   onNavigate
 }) => {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +28,20 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setProfileDropdownOpen(false);
+      }
+    };
+    if (profileDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [profileDropdownOpen]);
+
   const navLinks = [
     { label: 'Features', page: 'features' as const, href: '#features' },
     { label: 'How It Works', page: 'how-it-works' as const, href: '#how-it-works' },
@@ -34,12 +50,19 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'FAQ', page: 'faq' as const, href: '#faq' },
   ];
 
-  const handleNavigatePage = (page: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat' | 'login' | 'signup' | 'dashboard') => {
+  const handleNavigatePage = (page: 'home' | 'features' | 'how-it-works' | 'simulations' | 'pricing' | 'faq' | 'about' | 'chat' | 'login' | 'signup' | 'dashboard' | 'profile' | 'cv') => {
+    setProfileDropdownOpen(false);
     if (onNavigate) {
       onNavigate(page);
     }
     window.location.hash = page;
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleLogout = () => {
+    setProfileDropdownOpen(false);
+    logout();
+    handleNavigatePage('home');
   };
 
   const handleLinkClick = (link: typeof navLinks[0], e: React.MouseEvent) => {
@@ -201,29 +224,226 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span>Dashboard</span>
               </button>
 
-              {/* User profile avatar circle */}
-              <button
-                onClick={() => handleNavigatePage('dashboard')}
-                style={{
-                  width: '38px',
-                  height: '38px',
-                  borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#ffffff',
-                  fontSize: '13px',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  boxShadow: '0 2px 10px rgba(124, 58, 237, 0.35)',
-                }}
-                title={`Logged in as ${user?.name || 'Candidate'}`}
-              >
-                {userInitials}
-              </button>
+              {/* User profile dropdown button container */}
+              <div style={{ position: 'relative' }} ref={dropdownRef}>
+                <button
+                  onClick={() => setProfileDropdownOpen((prev) => !prev)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '4px 10px 4px 4px',
+                    backgroundColor: profileDropdownOpen
+                      ? 'rgba(99, 102, 241, 0.15)'
+                      : 'rgba(255, 255, 255, 0.05)',
+                    border: profileDropdownOpen
+                      ? '1px solid rgba(99, 102, 241, 0.4)'
+                      : '1px solid rgba(255, 255, 255, 0.15)',
+                    borderRadius: '9999px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                  }}
+                  title={`Logged in as ${user?.name || 'Candidate'}`}
+                  aria-expanded={profileDropdownOpen}
+                >
+                  <div
+                    style={{
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '50%',
+                      background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)',
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#ffffff',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      boxShadow: '0 2px 10px rgba(124, 58, 237, 0.35)',
+                    }}
+                  >
+                    {userInitials}
+                  </div>
+                  <ChevronDown
+                    size={14}
+                    style={{
+                      color: profileDropdownOpen ? '#818cf8' : '#94a3b8',
+                      transform: profileDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                      transition: 'transform 0.2s ease',
+                    }}
+                  />
+                </button>
+
+                {/* Dropdown Menu */}
+                {profileDropdownOpen && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 'calc(100% + 10px)',
+                      right: 0,
+                      width: '260px',
+                      backgroundColor: '#0c101a',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      borderRadius: '16px',
+                      boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05)',
+                      padding: '10px',
+                      zIndex: 200,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '4px',
+                      backdropFilter: 'blur(24px)',
+                    }}
+                  >
+                    {/* Header Info */}
+                    <div
+                      style={{
+                        padding: '8px 10px 10px 10px',
+                        borderBottom: '1px solid rgba(255, 255, 255, 0.07)',
+                        marginBottom: '4px',
+                      }}
+                    >
+                      <div style={{ color: '#f8fafc', fontSize: '0.86rem', fontWeight: 600 }}>
+                        {user.name || 'Candidate'}
+                      </div>
+                      <div style={{ color: '#94a3b8', fontSize: '0.72rem' }}>
+                        {user.email || 'candidate@inprep.ai'}
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => handleNavigatePage('profile')}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        padding: '9px 12px',
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        borderRadius: '10px',
+                        color: '#cbd5e1',
+                        fontSize: '0.82rem',
+                        fontWeight: 500,
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                        width: '100%',
+                        transition: 'all 0.15s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
+                        e.currentTarget.style.color = '#ffffff';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.color = '#cbd5e1';
+                      }}
+                    >
+                      <User size={16} color="#818cf8" />
+                      <span>My Profile</span>
+                    </button>
+
+                    <button
+                      onClick={() => handleNavigatePage('cv')}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        padding: '9px 12px',
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        borderRadius: '10px',
+                        color: '#cbd5e1',
+                        fontSize: '0.82rem',
+                        fontWeight: 500,
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                        width: '100%',
+                        transition: 'all 0.15s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
+                        e.currentTarget.style.color = '#ffffff';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.color = '#cbd5e1';
+                      }}
+                    >
+                      <FileText size={16} color="#38bdf8" />
+                      <span>My CV</span>
+                    </button>
+
+                    <button
+                      onClick={() => handleNavigatePage('dashboard')}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        padding: '9px 12px',
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        borderRadius: '10px',
+                        color: '#cbd5e1',
+                        fontSize: '0.82rem',
+                        fontWeight: 500,
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                        width: '100%',
+                        transition: 'all 0.15s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
+                        e.currentTarget.style.color = '#ffffff';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.color = '#cbd5e1';
+                      }}
+                    >
+                      <LayoutDashboard size={16} color="#a855f7" />
+                      <span>Candidate Dashboard</span>
+                    </button>
+
+                    <div
+                      style={{
+                        margin: '4px 0',
+                        height: '1px',
+                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                      }}
+                    />
+
+                    <button
+                      onClick={handleLogout}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        padding: '9px 12px',
+                        backgroundColor: 'rgba(239, 68, 68, 0.06)',
+                        border: '1px solid rgba(239, 68, 68, 0.18)',
+                        borderRadius: '10px',
+                        color: '#f87171',
+                        fontSize: '0.82rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                        width: '100%',
+                        transition: 'all 0.15s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.16)';
+                        e.currentTarget.style.color = '#fca5a5';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.06)';
+                        e.currentTarget.style.color = '#f87171';
+                      }}
+                    >
+                      <LogOut size={16} color="#f87171" />
+                      <span>Log Out</span>
+                    </button>
+                  </div>
+                )}
+              </div>
             </>
           )}
 
@@ -298,13 +518,43 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </button>
               </>
             ) : (
-              <button
-                onClick={() => { setMobileMenuOpen(false); handleNavigatePage('dashboard'); }}
-                className="btn-primary"
-                style={{ width: '100%', justifyContent: 'center' }}
-              >
-                Go to Dashboard
-              </button>
+              <>
+                <button
+                  onClick={() => { setMobileMenuOpen(false); handleNavigatePage('dashboard'); }}
+                  className="btn-primary"
+                  style={{ width: '100%', justifyContent: 'center' }}
+                >
+                  Go to Dashboard
+                </button>
+                <button
+                  onClick={() => { setMobileMenuOpen(false); handleNavigatePage('profile'); }}
+                  className="btn-secondary"
+                  style={{ width: '100%', justifyContent: 'center' }}
+                >
+                  My Profile
+                </button>
+                <button
+                  onClick={() => { setMobileMenuOpen(false); logout(); handleNavigatePage('home'); }}
+                  style={{
+                    width: '100%',
+                    justifyContent: 'center',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    border: '1px solid rgba(239, 68, 68, 0.3)',
+                    color: '#f87171',
+                    borderRadius: '8px',
+                    padding: '10px',
+                    fontSize: '14px',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                  }}
+                >
+                  <LogOut size={16} />
+                  Log Out
+                </button>
+              </>
             )}
           </div>
         </div>
@@ -312,3 +562,4 @@ export const Navbar: React.FC<NavbarProps> = ({
     </header>
   );
 };
+

@@ -80,6 +80,10 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
           {/* 3. Studio Navbar */}
           <DashboardNavbar
             onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
+            onNavigateToDashboard={onNavigateToDashboard}
+            onNavigateToProfile={onNavigateToProfile}
+            onNavigateToSimulations={onNavigateToSimulations}
+            onNavigateToHome={onNavigateToHome}
           />
 
           {/* 4. Main Body Content */}

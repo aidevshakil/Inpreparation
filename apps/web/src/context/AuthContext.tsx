@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { loginUser } from '../services/api';
+import { loginUser, registerUser } from '../services/api';
 
 export interface UserProfile {
   id: string;
@@ -15,6 +15,7 @@ export interface UserProfile {
   cvFileName?: string;
   cvSkills?: string[];
   cvAtsScore?: number;
+  isEmailVerified?: boolean;
 }
 
 interface AuthContextType {
@@ -108,19 +109,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signup = async (name: string, email: string, _password?: string): Promise<boolean> => {
     setIsLoading(true);
     try {
+      const cleanEmail = email.trim().toLowerCase();
+      const cleanName = (name.trim() || cleanEmail.split('@')[0]);
+
+      const result = await registerUser(cleanName, cleanEmail);
+
       const newUser: UserProfile = {
-        id: `usr-${Date.now()}`,
-        name: name.trim() || email.split('@')[0],
-        email: email.trim(),
+        id: result?.user?.id || `usr-${Date.now()}`,
+        name: cleanName,
+        email: cleanEmail,
         role: 'user',
-        avatarUrl: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name || email)}`,
-        targetRole: 'Select Target Role',
-        seniority: 'Entry / Mid',
+        avatarUrl: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(cleanName)}`,
+        targetRole: result?.user?.targetRole || 'Select Target Role',
+        seniority: result?.user?.seniority || 'Entry / Mid',
         creditsRemaining: 100,
         totalCredits: 100,
         cvFileName: undefined,
         cvSkills: [],
         cvAtsScore: undefined,
+        isEmailVerified: false,
       };
       setUser(newUser);
       setIsAuthenticated(true);
