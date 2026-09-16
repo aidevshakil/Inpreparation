@@ -16,6 +16,7 @@ interface SimulationsPageProps {
   onNavigateToRecommendedInterviews?: () => void;
   onNavigateToCategories?: () => void;
   onNavigateToSearch?: () => void;
+  onNavigateToSimulationDetails?: () => void;
   onNavigateToAi?: () => void;
 }
 
@@ -28,6 +29,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
   onNavigateToRecommendedInterviews,
   onNavigateToCategories,
   onNavigateToSearch,
+  onNavigateToSimulationDetails,
   onNavigateToAi,
 }) => {
   const { user } = useAuth();
@@ -48,9 +50,13 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
     else if (key === 'improvement' && onNavigateToAi) onNavigateToAi();
   };
 
-  const handleStartSimulationTrack = (trackName: string) => {
-    setActiveSimulationRole(trackName);
-    setSimulationModalOpen(true);
+  const handleStartSimulationTrack = (role: string) => {
+    if (onNavigateToSimulationDetails) {
+      onNavigateToSimulationDetails();
+    } else {
+      setActiveSimulationRole(role);
+      setSimulationModalOpen(true);
+    }
   };
 
   return (

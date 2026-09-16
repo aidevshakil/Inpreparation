@@ -136,8 +136,7 @@ export const IntroResultDossierBanner: React.FC<IntroResultDossierBannerProps> =
         </div>
 
         {/* Col 2 - Target Role Highlight */}
-        <div
-          style={{
+        <div style={{ padding: '0 16px', borderRight: '1px solid rgba(255, 255, 255, 0.08)', flex: '1 1 200px' }}>
           <h5 style={{ fontSize: '0.64rem', color: '#94a3b8', margin: '0 0 4px 0', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
             Current Background
           </h5>

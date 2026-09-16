@@ -26,6 +26,8 @@ import { IntroResultPage } from './pages/IntroResultPage';
 import { ProfileAnalysisPage } from './pages/ProfileAnalysisPage';
 import { RecommendedInterviewsPage } from './pages/RecommendedInterviewsPage';
 import { InterviewCategoriesPage } from './pages/InterviewCategoriesPage';
+import { SearchFilterPage } from './pages/SearchFilterPage';
+import { SimulationDetailsPage } from './pages/SimulationDetailsPage';
 
 export type AppPage =
   | 'home'
@@ -43,6 +45,8 @@ export type AppPage =
   | 'profile-analysis'
   | 'recommended-interviews'
   | 'categories'
+  | 'search'
+  | 'simulation-details'
   | 'features'
   | 'how-it-works'
   | 'simulations'
@@ -182,13 +186,10 @@ export function App() {
           onNavigateToDashboard={() => navigateTo('dashboard')}
           onNavigateToProfile={() => navigateTo('profile')}
           onNavigateToCv={() => navigateTo('cv')}
-          onNavigateToCvAnalysis={() => navigateTo('ai-cv-analysis')}
-          onNavigateToCvBuilder={() => navigateTo('cv-builder')}
-          onNavigateToDiagnosticIntake={() => navigateTo('diagnostic-intake')}
-          onNavigateToDeviceReadiness={() => navigateTo('device-readiness')}
-          onNavigateToIntroRoom={() => navigateTo('intro-room')}
-          onNavigateToIntroResult={() => navigateTo('intro-result')}
           onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToSearch={() => navigateTo('search')}
+          onNavigateToCategories={() => navigateTo('categories')}
+          onNavigateToIntroResult={() => navigateTo('intro-result')}
           onNavigateToAi={() => navigateTo('chat')}
         />
       )}
@@ -215,13 +216,12 @@ export function App() {
           onNavigateToDashboard={() => navigateTo('dashboard')}
           onNavigateToProfile={() => navigateTo('profile')}
           onNavigateToCv={() => navigateTo('cv')}
-          onNavigateToCvAnalysis={() => navigateTo('ai-cv-analysis')}
-          onNavigateToCvBuilder={() => navigateTo('cv-builder')}
-          onNavigateToDiagnosticIntake={() => navigateTo('diagnostic-intake')}
-          onNavigateToDeviceReadiness={() => navigateTo('device-readiness')}
-          onNavigateToIntroRoom={() => navigateTo('intro-room')}
           onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToSearch={() => navigateTo('search')}
+          onNavigateToSimulationDetails={() => navigateTo('simulation-details')}
+          onNavigateToIntroRoom={() => navigateTo('intro-room')}
           onNavigateToAi={() => navigateTo('chat')}
+          onNavigateToCategories={() => navigateTo('categories')}
         />
       )}
 
@@ -306,6 +306,7 @@ export function App() {
           onNavigateToCv={() => navigateTo('cv')}
           onNavigateToSimulations={() => navigateTo('simulations')}
           onNavigateToCategories={() => navigateTo('categories')}
+          onNavigateToSearch={() => navigateTo('search')}
           onNavigateToAi={() => navigateTo('chat')}
           onNavigateToPricing={() => navigateTo('pricing')}
         />
@@ -351,11 +352,43 @@ export function App() {
       {currentPage === 'simulations' && (
         <SimulationsPage
           onNavigateToHome={() => navigateTo('home')}
-          onNavigateToFeatures={() => navigateTo('features')}
-          onNavigateToHowItWorks={() => navigateTo('how-it-works')}
-          onNavigateToPricing={() => navigateTo('pricing')}
-          onNavigateToFaq={() => navigateTo('faq')}
+          onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToProfileAnalysis={() => navigateTo('profile-analysis')}
+          onNavigateToRecommendedInterviews={() => navigateTo('recommended-interviews')}
+          onNavigateToCategories={() => navigateTo('categories')}
+          onNavigateToSearch={() => navigateTo('search')}
           onNavigateToAi={() => navigateTo('chat')}
+        />
+      )}
+
+      {currentPage === 'search' && (
+        <SearchFilterPage
+          onNavigateToHome={() => navigateTo('home')}
+          onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToProfileAnalysis={() => navigateTo('profile-analysis')}
+          onNavigateToRecommendedInterviews={() => navigateTo('recommended-interviews')}
+          onNavigateToCategories={() => navigateTo('categories')}
+          onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToSimulationDetails={() => navigateTo('simulation-details')}
+          onNavigateToAi={() => navigateTo('chat')}
+        />
+      )}
+
+      {currentPage === 'simulation-details' && (
+        <SimulationDetailsPage
+          onNavigateToHome={() => navigateTo('home')}
+          onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToSearch={() => navigateTo('search')}
+          onNavigateToAi={() => navigateTo('chat')}
+          onNavigateToCategories={() => navigateTo('categories')}
+          onNavigateToDeviceCheck={() => navigateTo('device-readiness')}
         />
       )}
 
