@@ -66,9 +66,9 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
+    <div className="flex-col h-full" style={{ minHeight: '100vh', backgroundColor: 'var(--bg-main)', color: 'var(--text-main)' }}>
       {/* Main Workspace Frame */}
-      <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
+      <div className="flex w-full" style={{ flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
         <DashboardSidebar
           activeItem={activeNav}
@@ -80,7 +80,7 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
         />
 
         {/* Right Content Column */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, backgroundColor: '#090c15' }}>
+        <div className="flex-col" style={{ flex: 1, minWidth: 0, backgroundColor: 'var(--bg-surface)' }}>
           {/* 3. Studio Navbar */}
           <DashboardNavbar
             onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import type { ProfileSimulatorState } from '../components/profile/ProfileSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
@@ -34,6 +34,7 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
   const [activeNav, setActiveNav] = useState<NavItemKey>('profile');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [assessmentModalOpen, setAssessmentModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   // Form State
   const [fullName, setFullName] = useState('Shakil Ahamed');
@@ -77,6 +78,42 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
   const [careerGoal, setCareerGoal] = useState(
     'Transitioning from Flutter mobile development to high-scale Python/FastAPI distributed systems. Want to master concurrency, event-driven queue architectures (RabbitMQ/Kafka), and communicate architectural trade-offs concisely without rambling.'
   );
+
+  const userId = 'usr_prototype_123'; // Hardcoded for prototyping
+  const fetchProfile = useCallback(async () => {
+    try {
+      const res = await fetch(`http://localhost:3002/api/profile/${userId}`);
+      if (!res.ok) throw new Error('Failed to fetch');
+      const data = await res.json();
+      
+      if (data.user) {
+        setFullName(data.user.name || 'Anonymous');
+      }
+      if (data.phone) setPhone(data.phone);
+      if (data.location) setLocation(data.location);
+      if (data.language) setLanguage(data.language);
+      if (data.currentRole) setCurrentRole(data.currentRole);
+      if (data.targetRole) setTargetRole(data.targetRole);
+      if (data.seniority) setSeniority(data.seniority);
+      if (data.yearsOfExperience) setYearsOfExperience(data.yearsOfExperience.toString());
+      if (data.currentIndustry) setCurrentIndustry(data.currentIndustry);
+      if (data.targetIndustry) setTargetIndustry(data.targetIndustry);
+      if (data.skills?.length > 0) setSkills(data.skills);
+      if (data.skillDepths?.length > 0) setSkillDepths(data.skillDepths);
+      if (data.jobTypes?.length > 0) setJobTypes(data.jobTypes);
+      if (data.workModalities?.length > 0) setWorkModalities(data.workModalities);
+      if (data.interviewFocusAreas?.length > 0) setInterviewFocusAreas(data.interviewFocusAreas);
+      if (data.difficulty) setDifficulty(data.difficulty as SimulationDifficulty);
+      if (data.careerGoal) setCareerGoal(data.careerGoal);
+      
+    } catch (err) {
+      console.error('Failed to fetch profile', err);
+    }
+  }, [userId]);
+
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
 
   const handleAddSkill = (skill: string) => {
     if (!skills.includes(skill)) {
@@ -122,11 +159,41 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
     setSimulatorState('unsaved');
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setSimulatorState('saving');
-    setTimeout(() => {
+    try {
+      const res = await fetch(`http://localhost:3002/api/profile/${userId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: fullName,
+          phone,
+          location,
+          language,
+          currentRole,
+          targetRole,
+          seniority,
+          yearsOfExperience,
+          currentIndustry,
+          targetIndustry,
+          skills,
+          skillDepths,
+          jobTypes,
+          workModalities,
+          interviewFocusAreas,
+          difficulty,
+          careerGoal,
+        }),
+      });
+      if (!res.ok) throw new Error('Failed to save');
+      
       setSimulatorState('saved');
-    }, 1000);
+      setIsEditing(false);
+      setTimeout(() => setSimulatorState('default'), 3000);
+    } catch (err) {
+      console.error('Failed to save profile', err);
+      setSimulatorState('api_error');
+    }
   };
 
   const handleSelectNav = (key: NavItemKey) => {
@@ -147,7 +214,6 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
   };
 
   const isSaving = simulatorState === 'saving';
-  const isUnsaved = simulatorState === 'unsaved';
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
@@ -224,56 +290,48 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
               </div>
 
               {/* Action Buttons */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', alignSelf: 'center' }}>
-                <button
-                  onClick={() => setSimulatorState('default')}
-                  style={{
-                    padding: '10px 18px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    borderRadius: '10px',
-                    color: '#cbd5e1',
-                    fontSize: '0.84rem',
-                    fontWeight: 500,
-                    cursor: 'pointer',
-                  }}
-                >
-                  Cancel
-                </button>
-
-                <button
-                  onClick={handleSave}
-                  disabled={isSaving}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    padding: '10px 22px',
-                    background: isUnsaved || isSaving
-                      ? 'linear-gradient(135deg, #7c3aed, #4f46e5)'
-                      : 'rgba(99, 102, 241, 0.25)',
-                    color: '#ffffff',
-                    border: isUnsaved || isSaving ? 'none' : '1px solid rgba(99, 102, 241, 0.35)',
-                    borderRadius: '10px',
-                    fontSize: '0.84rem',
-                    fontWeight: 600,
-                    cursor: isSaving ? 'not-allowed' : 'pointer',
-                    boxShadow: isUnsaved ? '0 4px 18px rgba(124, 58, 237, 0.45)' : 'none',
-                    transition: 'all 0.18s ease',
-                  }}
-                >
-                  {isSaving ? (
-                    <>
-                      <Loader2 size={15} className="spin-animate" />
-                      <span>Saving Changes...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Save size={15} />
-                      <span>Save Changes</span>
-                    </>
-                  )}
-                </button>
+              <div className="flex items-center gap-3 self-center">
+                {!isEditing ? (
+                  <button
+                    onClick={() => setIsEditing(true)}
+                    className="btn btn-primary"
+                    style={{ padding: '10px 22px', fontSize: '14px' }}
+                  >
+                    Edit Profile
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => {
+                        setIsEditing(false);
+                        setSimulatorState('default');
+                        fetchProfile(); // Revert any unsaved changes
+                      }}
+                      className="btn btn-outline"
+                      style={{ padding: '10px 18px', fontSize: '14px' }}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleSave}
+                      disabled={isSaving}
+                      className="btn btn-primary"
+                      style={{ padding: '10px 22px', fontSize: '14px' }}
+                    >
+                      {isSaving ? (
+                        <>
+                          <Loader2 size={16} className="spin-animate" />
+                          <span>Saving Changes...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Save size={16} />
+                          <span>Save Changes</span>
+                        </>
+                      )}
+                    </button>
+                  </>
+                )}
               </div>
             </div>
 
@@ -358,8 +416,9 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
               className="profile-content-grid"
             >
               {/* Left Column: 4 Form Steps */}
-              <div>
+              <div className="flex-col gap-6">
                 <ProfileBasicInfoSection
+                  isEditing={isEditing}
                   fullName={fullName}
                   email={email}
                   phone={phone}
@@ -385,6 +444,7 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
                 />
 
                 <ProfileProfessionalInfoSection
+                  isEditing={isEditing}
                   currentRole={currentRole}
                   targetRole={targetRole}
                   seniority={seniority}
@@ -419,6 +479,7 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
                 />
 
                 <ProfileTechnicalSkillsSection
+                  isEditing={isEditing}
                   skills={skills}
                   onAddSkill={handleAddSkill}
                   onRemoveSkill={handleRemoveSkill}
@@ -427,6 +488,7 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
                 />
 
                 <ProfileCareerPreferencesSection
+                  isEditing={isEditing}
                   jobTypes={jobTypes}
                   onToggleJobType={handleToggleJobType}
                   workModalities={workModalities}

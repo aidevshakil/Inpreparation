@@ -29,93 +29,45 @@ export const ProfileCompletionSidebarCard: React.FC<ProfileCompletionSidebarCard
 }) => {
   const items: CompletionItem[] = [
     { id: 'basic', label: 'Basic Information', score: hasBasicInfo ? '100%' : 'Incomplete', completed: hasBasicInfo },
-    { id: 'prof', label: 'Professional Information', score: hasProfInfo ? '100%' : 'Incomplete', completed: hasProfInfo },
+    { id: 'prof', label: 'Professional Info', score: hasProfInfo ? '100%' : 'Incomplete', completed: hasProfInfo },
     { id: 'skills', label: 'Technical Skills', score: hasSkills ? '100%' : 'Pending', completed: hasSkills },
-    { id: 'cv', label: 'CV Uploaded & Parsed', score: hasCv ? '100%' : 'Pending', completed: hasCv },
-    { id: 'assessment', label: 'AI Career Assessment', score: hasAssessment ? '100%' : 'Pending', completed: hasAssessment },
+    { id: 'cv', label: 'CV Uploaded', score: hasCv ? '100%' : 'Pending', completed: hasCv },
+    { id: 'assessment', label: 'AI Assessment', score: hasAssessment ? '100%' : 'Pending', completed: hasAssessment },
   ];
 
   const completedCount = items.filter((it) => it.completed).length;
   const displayPercentage = percentage !== undefined ? percentage : Math.round((completedCount / items.length) * 100);
 
   return (
-    <div
-      style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
-        borderRadius: '16px',
-        padding: '18px',
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
-        marginBottom: '16px',
-      }}
-    >
+    <div className="card" style={{ marginBottom: '16px' }}>
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-        <span
-          style={{
-            fontSize: '0.68rem',
-            fontWeight: 700,
-            letterSpacing: '0.8px',
-            color: '#818cf8',
-            textTransform: 'uppercase',
-          }}
-        >
+      <div className="flex items-center justify-between" style={{ marginBottom: '14px' }}>
+        <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.8px', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
           Profile Completion
         </span>
-        <span
-          style={{
-            fontSize: '0.74rem',
-            fontWeight: 700,
-            color: '#a5b4fc',
-          }}
-        >
+        <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--primary-color)' }}>
           {displayPercentage}% Complete
         </span>
       </div>
 
       {/* Checklist items */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', marginBottom: '16px' }}>
+      <div className="flex-col" style={{ gap: '10px', marginBottom: '16px' }}>
         {items.map((item) => (
-          <div
-            key={item.id}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              fontSize: '0.75rem',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div key={item.id} className="flex items-center justify-between" style={{ fontSize: '12px' }}>
+            <div className="flex items-center" style={{ gap: '8px' }}>
               {item.completed ? (
-                <div
-                  style={{
-                    width: '14px',
-                    height: '14px',
-                    borderRadius: '50%',
-                    backgroundColor: 'rgba(16, 185, 129, 0.2)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#10b981',
-                  }}
-                >
+                <div style={{ width: '14px', height: '14px', borderRadius: '50%', backgroundColor: 'rgba(16, 185, 129, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-success)' }}>
                   <Check size={10} strokeWidth={3} />
                 </div>
               ) : (
-                <Circle size={12} color="#f59e0b" />
+                <Circle size={12} color="var(--color-warning)" />
               )}
-              <span style={{ color: item.completed ? '#e2e8f0' : '#fbbf24' }}>
+              <span style={{ color: item.completed ? 'var(--text-main)' : 'var(--text-secondary)' }}>
                 {item.label}
               </span>
             </div>
 
-            <span
-              style={{
-                fontSize: '0.7rem',
-                fontWeight: 600,
-                color: item.completed ? '#10b981' : '#f59e0b',
-              }}
-            >
+            <span style={{ fontSize: '11px', fontWeight: 600, color: item.completed ? 'var(--color-success)' : 'var(--color-warning)' }}>
               {item.score}
             </span>
           </div>
@@ -125,33 +77,11 @@ export const ProfileCompletionSidebarCard: React.FC<ProfileCompletionSidebarCard
       {/* CTA Button */}
       <button
         onClick={onCompleteMissing}
-        style={{
-          width: '100%',
-          padding: '8px 12px',
-          backgroundColor: 'rgba(99, 102, 241, 0.14)',
-          border: '1px solid rgba(99, 102, 241, 0.3)',
-          borderRadius: '9px',
-          color: '#c7d2fe',
-          fontSize: '0.76rem',
-          fontWeight: 600,
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '6px',
-          transition: 'all 0.18s ease',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.backgroundColor = 'rgba(99, 102, 241, 0.25)';
-          e.currentTarget.style.color = '#ffffff';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.backgroundColor = 'rgba(99, 102, 241, 0.14)';
-          e.currentTarget.style.color = '#c7d2fe';
-        }}
+        className="btn btn-outline"
+        style={{ width: '100%', justifyContent: 'center' }}
       >
         <span>Complete Missing Items</span>
-        <ArrowRight size={13} />
+        <ArrowRight size={14} />
       </button>
     </div>
   );

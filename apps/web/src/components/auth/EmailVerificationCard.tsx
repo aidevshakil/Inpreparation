@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   Shield,
   Mail,
-  ExternalLink,
   RotateCw,
   ArrowRight,
   Info,
@@ -74,21 +73,17 @@ export const EmailVerificationCard: React.FC<EmailVerificationCardProps> = ({
     setOtpDigits(newDigits);
     setErrorMessage(null);
 
-    // Focus the box following the pasted digits
     const nextFocusIndex = Math.min(cleanNumbers.length, 5);
     inputRefs.current[nextFocusIndex]?.focus();
 
-    // If a full 6-digit code was pasted, automatically verify
     if (cleanNumbers.length === 6) {
       handleVerify(cleanNumbers);
     }
   };
 
   const handleOtpChange = (index: number, value: string) => {
-    // Only accept numbers
     const cleanValue = value.replace(/\D/g, '');
 
-    // If user pasted or typed multiple digits
     if (cleanValue.length > 1) {
       const cleanNumbers = cleanValue.slice(0, 6);
       const newDigits = ['', '', '', '', '', ''];
@@ -112,12 +107,10 @@ export const EmailVerificationCard: React.FC<EmailVerificationCardProps> = ({
     setOtpDigits(newDigits);
     setErrorMessage(null);
 
-    // Auto-focus next box
     if (cleanValue && index < 5) {
       inputRefs.current[index + 1]?.focus();
     }
 
-    // Auto-submit if all 6 digits are filled
     const fullCode = newDigits.join('');
     if (fullCode.length === 6 && !newDigits.includes('')) {
       handleVerify(fullCode);
@@ -182,232 +175,104 @@ export const EmailVerificationCard: React.FC<EmailVerificationCardProps> = ({
     }
   };
 
-  const handleOpenEmailApp = () => {
-    const domain = emailAddress.split('@')[1]?.toLowerCase();
-    if (domain === 'gmail.com') {
-      window.open('https://mail.google.com', '_blank');
-    } else if (domain === 'outlook.com' || domain === 'hotmail.com') {
-      window.open('https://outlook.live.com', '_blank');
-    } else if (domain === 'yahoo.com') {
-      window.open('https://mail.yahoo.com', '_blank');
-    } else {
-      window.open(`https://${domain || 'mail.google.com'}`, '_blank');
-    }
-  };
-
   return (
-    <div style={{ width: '100%', maxWidth: '440px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      {/* Main Glassmorphic Card */}
-      <div
-        style={{
-          background: 'rgba(10, 14, 23, 0.85)',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          borderRadius: '20px',
-          padding: '32px',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
-          position: 'relative',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '20px',
-        }}
-      >
+    <div style={{ width: '100%', maxWidth: '420px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <div className="card flex-col gap-6" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        
         {/* Top Header Badge & Step Counter */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '5px 12px',
-              borderRadius: '9999px',
-              background: 'rgba(99, 102, 241, 0.12)',
-              border: '1px solid rgba(99, 102, 241, 0.25)',
-              fontSize: '11px',
-              fontWeight: 600,
-              color: '#a5b4fc',
-              letterSpacing: '0.02em',
-            }}
-          >
-            <Shield size={13} color="#818cf8" />
-            <span>Account Security &amp; Identity</span>
+        <div className="flex items-center justify-between">
+          <div className="badge">
+            <Shield size={12} /> Account Security
           </div>
-
-          <div
-            style={{
-              fontSize: '11px',
-              fontWeight: 700,
-              color: '#64748b',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-            }}
-          >
+          <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.05em' }}>
             STEP 2 OF 3
           </div>
         </div>
 
         {/* Centered Email Envelope Illustration */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '4px', marginBottom: '2px' }}>
-          <div
-            style={{
-              position: 'relative',
-              width: '76px',
-              height: '76px',
-              borderRadius: '20px',
-              background: 'linear-gradient(145deg, #182035 0%, #0d1322 100%)',
-              border: '1px solid rgba(99, 102, 241, 0.3)',
-              boxShadow: '0 10px 30px rgba(99, 102, 241, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.15)',
+        <div className="flex justify-center">
+          <div style={{
+            position: 'relative',
+            width: '64px',
+            height: '64px',
+            borderRadius: '16px',
+            backgroundColor: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <Mail size={28} color="var(--text-main)" strokeWidth={1.5} />
+            <div style={{
+              position: 'absolute',
+              bottom: '-4px',
+              right: '-4px',
+              width: '20px',
+              height: '20px',
+              borderRadius: '50%',
+              backgroundColor: 'var(--primary-color)',
+              border: '2px solid var(--bg-card)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-            }}
-          >
-            <Mail size={32} color="#818cf8" strokeWidth={1.8} />
-
-            {/* Small badge overlay on bottom-right */}
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '-3px',
-                right: '-3px',
-                width: '22px',
-                height: '22px',
-                borderRadius: '50%',
-                background: '#6366f1',
-                border: '2.5px solid #0a0e17',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 2px 8px rgba(99, 102, 241, 0.6)',
-              }}
-            >
+            }}>
               <Check size={12} color="#ffffff" strokeWidth={3} />
             </div>
           </div>
         </div>
 
         {/* Headings */}
-        <div style={{ textAlign: 'center' }}>
-          <h1
-            style={{
-              fontSize: '24px',
-              fontWeight: 800,
-              color: '#ffffff',
-              letterSpacing: '-0.02em',
-              margin: '0 0 8px 0',
-            }}
-          >
-            Verify Your Email
-          </h1>
-          <p
-            style={{
-              fontSize: '13px',
-              color: '#94a3b8',
-              lineHeight: 1.5,
-              margin: 0,
-            }}
-          >
-            We've sent a 6-digit verification code to:
-          </p>
-          <div
-            style={{
-              fontSize: '13.5px',
-              fontWeight: 600,
-              color: '#818cf8',
-              marginTop: '4px',
-              fontFamily: 'monospace',
-            }}
-          >
+        <div className="text-center">
+          <h1 style={{ fontSize: '22px', marginBottom: '8px' }}>Verify Your Email</h1>
+          <p style={{ fontSize: '14px', margin: 0 }}>We've sent a 6-digit code to:</p>
+          <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-main)', marginTop: '4px' }}>
             {emailAddress}
           </div>
         </div>
 
         {/* Dynamic State Alerts */}
         {localStatus === 'resent-banner' && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              padding: '11px 14px',
-              borderRadius: '10px',
-              background: 'rgba(16, 185, 129, 0.12)',
-              border: '1px solid rgba(16, 185, 129, 0.3)',
-              color: '#34d399',
-              fontSize: '12px',
-              lineHeight: 1.4,
-            }}
-          >
-            <CheckCircle2 size={16} style={{ flexShrink: 0 }} />
-            <span>New 6-digit verification code dispatched. Valid for 5 minutes.</span>
+          <div style={{
+            display: 'flex', gap: '8px', padding: '12px', borderRadius: '8px',
+            backgroundColor: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.2)',
+            color: 'var(--color-success)', fontSize: '13px'
+          }}>
+            <CheckCircle2 size={16} />
+            <span>New verification code dispatched. Valid for 5 minutes.</span>
           </div>
         )}
 
         {localStatus === 'verified-success' && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              padding: '12px 14px',
-              borderRadius: '10px',
-              background: 'rgba(99, 102, 241, 0.15)',
-              border: '1px solid rgba(99, 102, 241, 0.4)',
-              color: '#a5b4fc',
-              fontSize: '12px',
-              lineHeight: 1.4,
-            }}
-          >
-            <CheckCircle2 size={16} color="#818cf8" style={{ flexShrink: 0 }} />
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-              <strong style={{ color: '#ffffff' }}>Account Verified Successfully!</strong>
-              <span>Redirecting you to candidate onboarding &amp; cockpit...</span>
+          <div style={{
+            display: 'flex', gap: '8px', padding: '12px', borderRadius: '8px',
+            backgroundColor: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.2)',
+            color: 'var(--color-info)', fontSize: '13px'
+          }}>
+            <CheckCircle2 size={16} />
+            <div className="flex-col">
+              <strong>Account Verified!</strong>
+              <span>Redirecting you...</span>
             </div>
           </div>
         )}
 
         {errorMessage && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              padding: '11px 14px',
-              borderRadius: '10px',
-              background: 'rgba(239, 68, 68, 0.12)',
-              border: '1px solid rgba(239, 68, 68, 0.3)',
-              color: '#f87171',
-              fontSize: '12px',
-              lineHeight: 1.4,
-            }}
-          >
-            <AlertCircle size={16} style={{ flexShrink: 0 }} />
+          <div style={{
+            display: 'flex', gap: '8px', padding: '12px', borderRadius: '8px',
+            backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)',
+            color: 'var(--color-error)', fontSize: '13px'
+          }}>
+            <AlertCircle size={16} />
             <span>{errorMessage}</span>
           </div>
         )}
 
         {/* 6-DIGIT OTP INPUTS CONTAINER */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          <label
-            style={{
-              fontSize: '11px',
-              fontWeight: 700,
-              color: '#94a3b8',
-              textTransform: 'uppercase',
-              letterSpacing: '0.06em',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-            }}
-          >
-            <KeyRound size={13} color="#818cf8" />
-            <span>Enter 6-Digit Code</span>
+        <div className="flex-col gap-2">
+          <label className="label flex items-center gap-2">
+            <KeyRound size={14} /> Enter 6-Digit Code
           </label>
-
-          <div
-            style={{ display: 'flex', gap: '8px', justifyContent: 'space-between' }}
-            onPaste={handlePaste}
-          >
+          <div className="flex justify-between gap-2" onPaste={handlePaste}>
             {otpDigits.map((digit, idx) => (
               <input
                 key={idx}
@@ -420,29 +285,21 @@ export const EmailVerificationCard: React.FC<EmailVerificationCardProps> = ({
                 onKeyDown={(e) => handleKeyDown(idx, e)}
                 onPaste={handlePaste}
                 style={{
-                  width: '46px',
-                  height: '52px',
+                  width: '100%',
+                  height: '48px',
                   textAlign: 'center',
-                  fontSize: '20px',
-                  fontWeight: 700,
-                  fontFamily: 'monospace',
-                  color: '#ffffff',
-                  backgroundColor: digit ? 'rgba(99, 102, 241, 0.12)' : 'rgba(255, 255, 255, 0.04)',
-                  border: digit ? '2px solid #818cf8' : '1px solid rgba(255, 255, 255, 0.12)',
-                  borderRadius: '12px',
+                  fontSize: '18px',
+                  fontWeight: 600,
+                  color: 'var(--text-main)',
+                  backgroundColor: 'var(--bg-surface)',
+                  border: digit ? '1px solid var(--border-focus)' : '1px solid var(--border-subtle)',
+                  borderRadius: 'var(--radius-md)',
                   outline: 'none',
-                  transition: 'all 0.18s ease',
-                  boxShadow: digit ? '0 0 12px rgba(99, 102, 241, 0.3)' : 'none',
+                  transition: 'border-color 0.2s ease',
                 }}
-                onFocus={(e) => {
-                  e.currentTarget.style.borderColor = '#818cf8';
-                  e.currentTarget.style.boxShadow = '0 0 12px rgba(99, 102, 241, 0.35)';
-                }}
+                onFocus={(e) => e.currentTarget.style.borderColor = 'var(--primary-color)'}
                 onBlur={(e) => {
-                  if (!otpDigits[idx]) {
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }
+                  if (!otpDigits[idx]) e.currentTarget.style.borderColor = 'var(--border-subtle)';
                 }}
               />
             ))}
@@ -450,131 +307,56 @@ export const EmailVerificationCard: React.FC<EmailVerificationCardProps> = ({
         </div>
 
         {/* Action Buttons */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '4px' }}>
-          {/* 1. Primary Button: Verify Code */}
+        <div className="flex-col gap-4">
           <button
             type="button"
             disabled={isVerifying || localStatus === 'verified-success'}
             onClick={() => handleVerify()}
-            style={{
-              width: '100%',
-              padding: '13px',
-              borderRadius: '10px',
-              background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-              border: 'none',
-              color: '#ffffff',
-              fontSize: '14px',
-              fontWeight: 600,
-              cursor: isVerifying ? 'not-allowed' : 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px',
-              boxShadow: '0 4px 16px rgba(99, 102, 241, 0.35)',
-              transition: 'all 0.2s ease',
-            }}
-            onMouseEnter={(e) => {
-              if (!isVerifying) {
-                e.currentTarget.style.transform = 'translateY(-1px)';
-                e.currentTarget.style.boxShadow = '0 6px 20px rgba(99, 102, 241, 0.45)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 16px rgba(99, 102, 241, 0.35)';
-            }}
+            className="btn btn-primary w-full"
+            style={{ height: '44px' }}
           >
             {isVerifying ? (
-              <>
-                <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} />
-                <span>Verifying Code...</span>
-              </>
+              <><Loader2 size={16} className="spin-animate" /> Verifying...</>
             ) : localStatus === 'verified-success' ? (
-              <>
-                <CheckCircle2 size={16} />
-                <span>Verified! Redirecting...</span>
-              </>
+              <><CheckCircle2 size={16} /> Verified!</>
             ) : (
-              <>
-                <ArrowRight size={16} />
-                <span>Verify &amp; Activate Account</span>
-              </>
+              <><ArrowRight size={16} /> Verify &amp; Activate Account</>
             )}
           </button>
 
-
-
-          {/* 3. Resend Code Trigger */}
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '6px' }}>
+          <div className="flex justify-center">
             <button
               type="button"
               disabled={isResending || cooldownSeconds > 0}
               onClick={handleResend}
               style={{
-                background: 'transparent',
-                border: 'none',
-                color: cooldownSeconds > 0 ? '#64748b' : '#818cf8',
-                fontSize: '12.5px',
-                fontWeight: 600,
+                background: 'transparent', border: 'none',
+                color: cooldownSeconds > 0 ? 'var(--text-muted)' : 'var(--text-secondary)',
+                fontSize: '13px', fontWeight: 500,
                 cursor: cooldownSeconds > 0 ? 'not-allowed' : 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '4px 8px',
-                transition: 'color 0.2s',
-              }}
-              onMouseEnter={(e) => {
-                if (cooldownSeconds === 0) e.currentTarget.style.color = '#a5b4fc';
-              }}
-              onMouseLeave={(e) => {
-                if (cooldownSeconds === 0) e.currentTarget.style.color = '#818cf8';
+                display: 'flex', alignItems: 'center', gap: '6px'
               }}
             >
               {isResending ? (
-                <>
-                  <Loader2 size={13} style={{ animation: 'spin 1s linear infinite' }} />
-                  <span>Sending code...</span>
-                </>
+                <><Loader2 size={14} className="spin-animate" /> Sending code...</>
               ) : cooldownSeconds > 0 ? (
-                <>
-                  <RotateCw size={13} />
-                  <span>Resend code in {cooldownSeconds}s</span>
-                </>
+                <><RotateCw size={14} /> Resend code in {cooldownSeconds}s</>
               ) : (
-                <>
-                  <RotateCw size={13} />
-                  <span>Didn't receive the code? Resend</span>
-                </>
+                <><RotateCw size={14} /> Didn't receive the code? Resend</>
               )}
             </button>
           </div>
         </div>
 
         {/* Change Email Link */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '12px',
-            color: '#64748b',
-            borderTop: '1px solid rgba(255, 255, 255, 0.06)',
-            paddingTop: '12px',
-          }}
-        >
-          <span>Wrong email address?</span>
+        <div style={{
+          display: 'flex', justifyContent: 'center', fontSize: '13px', color: 'var(--text-muted)',
+          borderTop: '1px solid var(--border-subtle)', paddingTop: '16px'
+        }}>
+          Wrong email address? 
           <button
-            type="button"
             onClick={onNavigateSignup}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: '#818cf8',
-              fontWeight: 600,
-              cursor: 'pointer',
-              marginLeft: '6px',
-              padding: 0,
-            }}
+            style={{ background: 'transparent', border: 'none', color: 'var(--primary-color)', fontWeight: 500, cursor: 'pointer', marginLeft: '4px' }}
           >
             Change email
           </button>
@@ -582,27 +364,16 @@ export const EmailVerificationCard: React.FC<EmailVerificationCardProps> = ({
       </div>
 
       {/* Security & Spam Notice */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'flex-start',
-          gap: '10px',
-          padding: '12px 16px',
-          borderRadius: '12px',
-          background: 'rgba(255, 255, 255, 0.02)',
-          border: '1px solid rgba(255, 255, 255, 0.05)',
-          fontSize: '11.5px',
-          color: '#64748b',
-          lineHeight: 1.5,
-        }}
-      >
-        <Info size={14} color="#64748b" style={{ flexShrink: 0, marginTop: '2px' }} />
+      <div style={{
+        display: 'flex', gap: '10px', padding: '12px 16px', borderRadius: 'var(--radius-md)',
+        backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-subtle)',
+        fontSize: '12px', color: 'var(--text-secondary)'
+      }}>
+        <Info size={14} style={{ flexShrink: 0, marginTop: '2px' }} />
         <span>
-          Can't find the email? Check your <strong>Spam / Junk</strong> folder or make sure your SMTP credentials in{' '}
-          <code>.env</code> are active. (In local dev mode, code is also logged to backend terminal).
+          Can't find the email? Check your <strong>Spam / Junk</strong> folder or make sure your SMTP credentials in <code>.env</code> are active.
         </span>
       </div>
     </div>
   );
 };
-

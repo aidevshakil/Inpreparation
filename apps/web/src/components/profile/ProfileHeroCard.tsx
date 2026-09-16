@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Briefcase, Clock, Check, Upload } from 'lucide-react';
+import { Mail, Briefcase, Clock, Check, Upload, ChevronRight } from 'lucide-react';
 
 interface ProfileHeroCardProps {
   name?: string;
@@ -28,37 +28,11 @@ export const ProfileHeroCard: React.FC<ProfileHeroCardProps> = ({
 }) => {
   return (
     <div
-      style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
-        borderRadius: '20px',
-        padding: '24px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: '24px',
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
-        marginBottom: '24px',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
+      className="card flex flex-wrap"
+      style={{ gap: '24px', marginBottom: '24px', position: 'relative', overflow: 'hidden' }}
     >
-      {/* Background Accent Glow */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '-30%',
-          left: '-10%',
-          width: '260px',
-          height: '260px',
-          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }}
-      />
-
       {/* Left Avatar + Candidate Information */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '22px', flex: 1, minWidth: '320px' }}>
+      <div className="flex items-start" style={{ gap: '22px', flex: 1, minWidth: '320px' }}>
         {/* Avatar with Verified Badge */}
         <div style={{ position: 'relative' }}>
           <div
@@ -66,15 +40,14 @@ export const ProfileHeroCard: React.FC<ProfileHeroCardProps> = ({
               width: '84px',
               height: '84px',
               borderRadius: '20px',
-              background: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%)',
-              border: '2px solid rgba(129, 140, 248, 0.4)',
+              backgroundColor: 'var(--bg-main)',
+              border: '1px solid var(--border-subtle)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#ffffff',
-              fontSize: '1.75rem',
+              color: 'var(--text-main)',
+              fontSize: '28px',
               fontWeight: 800,
-              boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
             }}
           >
             SA
@@ -88,12 +61,11 @@ export const ProfileHeroCard: React.FC<ProfileHeroCardProps> = ({
               width: '24px',
               height: '24px',
               borderRadius: '50%',
-              backgroundColor: '#10b981',
+              backgroundColor: 'var(--color-success)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              border: '2px solid #0e121c',
-              boxShadow: '0 0 10px rgba(16, 185, 129, 0.6)',
+              border: '2px solid var(--bg-surface)',
             }}
           >
             <Check size={14} strokeWidth={3} color="#ffffff" />
@@ -101,97 +73,55 @@ export const ProfileHeroCard: React.FC<ProfileHeroCardProps> = ({
         </div>
 
         {/* Details and Tagline */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div className="flex-col" style={{ gap: '8px' }}>
           {/* Name & Tier Pills */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-            <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#ffffff', margin: 0, letterSpacing: '-0.02em' }}>
+          <div className="flex items-center flex-wrap" style={{ gap: '10px' }}>
+            <h2 style={{ fontSize: '22px', fontWeight: 700, color: 'var(--text-main)', margin: 0, letterSpacing: '-0.02em' }}>
               {name}
             </h2>
 
-            <span
-              style={{
-                fontSize: '0.72rem',
-                fontWeight: 600,
-                padding: '2px 9px',
-                borderRadius: '9999px',
-                backgroundColor: 'rgba(99, 102, 241, 0.18)',
-                color: '#a5b4fc',
-                border: '1px solid rgba(99, 102, 241, 0.35)',
-              }}
-            >
+            <span className="badge" style={{ backgroundColor: 'var(--bg-main)' }}>
               Pro Candidate
             </span>
 
-            <span
-              style={{
-                fontSize: '0.72rem',
-                fontWeight: 600,
-                padding: '2px 9px',
-                borderRadius: '9999px',
-                backgroundColor: 'rgba(16, 185, 129, 0.15)',
-                color: '#34d399',
-                border: '1px solid rgba(16, 185, 129, 0.3)',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '4px',
-              }}
-            >
+            <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: 'var(--color-success)', borderColor: 'rgba(16, 185, 129, 0.2)' }}>
               <span>Verified</span>
               <Check size={12} strokeWidth={2.5} />
             </span>
           </div>
 
           {/* Metadata Row */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '16px',
-              flexWrap: 'wrap',
-              fontSize: '0.78rem',
-              color: '#94a3b8',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Mail size={14} style={{ color: '#64748b' }} />
+          <div className="flex items-center flex-wrap" style={{ gap: '16px', fontSize: '13px', color: 'var(--text-secondary)' }}>
+            <div className="flex items-center" style={{ gap: '6px' }}>
+              <Mail size={14} style={{ color: 'var(--text-muted)' }} />
               <span>{email}</span>
             </div>
 
-            <span style={{ color: '#334155' }}>•</span>
+            <span style={{ color: 'var(--border-subtle)' }}>•</span>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Briefcase size={14} style={{ color: '#64748b' }} />
-              <span>
-                {currentRole} <span style={{ color: '#818cf8' }}>➔</span> {targetRole}
-              </span>
+            <div className="flex items-center" style={{ gap: '6px' }}>
+              <Briefcase size={14} style={{ color: 'var(--text-muted)' }} />
+              <div className="flex items-center gap-1">
+                <span>{currentRole}</span>
+                <ChevronRight size={12} style={{ color: 'var(--text-muted)' }} />
+                <span style={{ fontWeight: 500, color: 'var(--text-main)' }}>{targetRole}</span>
+              </div>
             </div>
 
-            <span style={{ color: '#334155' }}>•</span>
+            <span style={{ color: 'var(--border-subtle)' }}>•</span>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Clock size={14} style={{ color: '#64748b' }} />
+            <div className="flex items-center" style={{ gap: '6px' }}>
+              <Clock size={14} style={{ color: 'var(--text-muted)' }} />
               <span>{experience}</span>
             </div>
           </div>
 
           {/* Action Links */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginTop: '4px' }}>
+          <div className="flex items-center" style={{ gap: '14px', marginTop: '4px' }}>
             <button
               onClick={onUploadPhoto}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '5px 12px',
-                borderRadius: '8px',
-                backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#e2e8f0',
-                fontSize: '0.74rem',
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.15s ease',
-              }}
+              className="btn btn-outline btn-sm"
+              style={{ padding: '6px 12px' }}
             >
               <Upload size={12} />
               <span>Upload Photo</span>
@@ -202,11 +132,12 @@ export const ProfileHeroCard: React.FC<ProfileHeroCardProps> = ({
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: '#94a3b8',
-                fontSize: '0.74rem',
+                color: 'var(--text-muted)',
+                fontSize: '12px',
                 cursor: 'pointer',
-                textDecoration: 'underline',
               }}
+              onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+              onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
             >
               Replace
             </button>
@@ -216,11 +147,12 @@ export const ProfileHeroCard: React.FC<ProfileHeroCardProps> = ({
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: '#f43f5e',
-                fontSize: '0.74rem',
+                color: 'var(--color-error)',
+                fontSize: '12px',
                 cursor: 'pointer',
-                textDecoration: 'underline',
               }}
+              onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+              onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
             >
               Remove
             </button>
@@ -230,25 +162,27 @@ export const ProfileHeroCard: React.FC<ProfileHeroCardProps> = ({
 
       {/* Right Profile Completion Progress Box */}
       <div
+        className="flex-col justify-center"
         style={{
           minWidth: '240px',
+          maxWidth: '300px',
           padding: '16px',
-          backgroundColor: 'rgba(255, 255, 255, 0.02)',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
-          borderRadius: '14px',
+          backgroundColor: 'var(--bg-main)',
+          border: '1px solid var(--border-subtle)',
+          borderRadius: '12px',
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-          <span style={{ fontSize: '0.76rem', color: '#cbd5e1', fontWeight: 600 }}>Profile Completion</span>
-          <span style={{ fontSize: '0.86rem', color: '#818cf8', fontWeight: 800 }}>{completionPercent}%</span>
+        <div className="flex items-center justify-between" style={{ marginBottom: '8px' }}>
+          <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: 500 }}>Profile Completion</span>
+          <span style={{ fontSize: '14px', color: 'var(--primary-color)', fontWeight: 700 }}>{completionPercent}%</span>
         </div>
 
         {/* Progress Bar */}
         <div
           style={{
             width: '100%',
-            height: '7px',
-            backgroundColor: 'rgba(255, 255, 255, 0.08)',
+            height: '6px',
+            backgroundColor: 'var(--border-subtle)',
             borderRadius: '9999px',
             overflow: 'hidden',
             marginBottom: '8px',
@@ -258,14 +192,14 @@ export const ProfileHeroCard: React.FC<ProfileHeroCardProps> = ({
             style={{
               width: `${completionPercent}%`,
               height: '100%',
-              background: 'linear-gradient(90deg, #6366f1, #a855f7)',
+              backgroundColor: 'var(--primary-color)',
               borderRadius: '9999px',
             }}
           />
         </div>
 
-        <div style={{ fontSize: '0.72rem', color: '#fbbf24', display: 'flex', alignItems: 'center', gap: '4px' }}>
-          <span>1 item remaining: <strong style={{ color: '#fef3c7' }}>{remainingItem}</strong></span>
+        <div style={{ fontSize: '11px', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <span>1 item remaining: <strong style={{ color: 'var(--text-main)', fontWeight: 500 }}>{remainingItem}</strong></span>
         </div>
       </div>
     </div>
