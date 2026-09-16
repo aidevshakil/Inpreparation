@@ -12,17 +12,14 @@ import {
   Loader2,
   Check
 } from 'lucide-react';
-import { SignupStateMode } from './SignupPrototypeBar';
 import { useAuth } from '../../context/AuthContext';
 
 interface SignupFormCardProps {
-  mode: SignupStateMode;
   onSignupSuccess: () => void;
   onNavigateLogin: () => void;
 }
 
 export const SignupFormCard: React.FC<SignupFormCardProps> = ({
-  mode,
   onSignupSuccess,
   onNavigateLogin
 }) => {
@@ -35,37 +32,7 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [googleNotice, setGoogleNotice] = useState(false);
-  const [localStatus, setLocalStatus] = useState<SignupStateMode>(mode);
-
-  // Synchronize state with prototype mode switches
-  useEffect(() => {
-    setLocalStatus(mode);
-    if (mode === 'validation-error') {
-      setFullName('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
-      setAgreedToTerms(false);
-    } else if (mode === 'weak-password') {
-      setFullName('Alex Rivera');
-      setEmail('alex.rivera@example.com');
-      setPassword('pass');
-      setConfirmPassword('pass');
-      setAgreedToTerms(true);
-    } else if (mode === 'password-mismatch') {
-      setFullName('Alex Rivera');
-      setEmail('alex.rivera@example.com');
-      setPassword('InprepSecure2026!');
-      setConfirmPassword('DifferentPass2026!');
-      setAgreedToTerms(true);
-    } else if (mode === 'conflict-error') {
-      setFullName('Alex Rivera');
-      setEmail('existing.user@example.com');
-      setPassword('InprepSecure2026!');
-      setConfirmPassword('InprepSecure2026!');
-      setAgreedToTerms(true);
-    }
-  }, [mode]);
+  const [localStatus, setLocalStatus] = useState<string>('default');
 
   // Dynamic Password Validation
   const hasMinLength = password.length >= 8;
@@ -229,7 +196,7 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
       )}
 
       {/* Registration Form */}
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <form onSubmit={handleSubmit} autoComplete="off" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         
         {/* Full Name */}
         <div>
@@ -249,6 +216,7 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
               type="text"
               required
               value={fullName}
+              autoComplete="name"
               onChange={(e) => setFullName(e.target.value)}
               placeholder="Enter your full name"
               style={inputStyle}
@@ -274,6 +242,7 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
               type="email"
               required
               value={email}
+              autoComplete="off"
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.com"
               style={inputStyle}
@@ -304,6 +273,7 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
               type={showPassword ? 'text' : 'password'}
               required
               value={password}
+              autoComplete="new-password"
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••••••"
               style={inputStyle}
@@ -379,6 +349,7 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
               type={showConfirmPassword ? 'text' : 'password'}
               required
               value={confirmPassword}
+              autoComplete="new-password"
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="••••••••••••"
               style={inputStyle}

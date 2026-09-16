@@ -352,18 +352,7 @@ export async function getDiagnosticResult(userId: string = 'demo-user-1') {
     return {
       success: true,
       source: 'fallback',
-      result: {
-        intakeId: 'diag-demo-849',
-        overallScore: 88,
-        technicalRigorScore: 92,
-        systemsBreadthScore: 89,
-        leadershipStarScore: 84,
-        communicationScore: 87,
-        targetRole: 'Staff Backend & Distributed Systems Architect',
-        seniorityTier: 'Senior 6+ Yrs Infra',
-        responsesCount: 8,
-        timestamp: new Date().toISOString(),
-      },
+      result: null,
     };
   }
 }
@@ -381,22 +370,7 @@ export async function getProfileAnalysisDossier(userId: string = 'demo-user-1') 
     return {
       success: true,
       source: 'fallback',
-      dossier: {
-        targetTitle: 'Staff Backend & Systems Architect',
-        seniorityTier: 'Staff (L6 / IC6)',
-        primaryStack: ['Go', 'Kafka', 'Raft', 'PostgreSQL', 'Kubernetes'],
-        confidenceScore: 94.6,
-        readinessPercentage: 87,
-        verifiedDossierStatus: true,
-        competencyScores: {
-          distributedSystems: 94,
-          architecturalTradeoffs: 88,
-          engineeringLeadership: 82,
-          communicationClarity: 86,
-          executionVelocity: 91,
-          cloudReliability: 89,
-        },
-      },
+      dossier: null,
     };
   }
 }
@@ -414,7 +388,7 @@ export async function getRecommendedInterviews(userId: string = 'demo-user-1') {
     return {
       success: true,
       source: 'fallback',
-      savedCount: 1,
+      savedCount: 0,
     };
   }
 }

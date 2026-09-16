@@ -54,14 +54,19 @@ export type AppPage =
   | 'verify-email'
   | 'reset-password';
 
+import { useAuth } from './context/AuthContext';
+
 export function App() {
-  const [currentPage, setCurrentPage] = useState<AppPage>('recommended-interviews');
+  const [currentPage, setCurrentPage] = useState<AppPage>('home');
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '') as AppPage;
       if (hash && ['home', 'dashboard', 'profile', 'cv', 'upload-cv', 'ai-cv-analysis', 'cv-builder', 'diagnostic-intake', 'device-readiness', 'intro-room', 'pipeline-diagnostic', 'intro-result', 'profile-analysis', 'recommended-interviews', 'features', 'how-it-works', 'simulations', 'pricing', 'faq', 'about', 'chat', 'login', 'signup', 'forgot', 'verify-email', 'reset-password'].includes(hash)) {
         setCurrentPage(hash);
+      } else if (!window.location.hash) {
+        setCurrentPage('home');
       }
     };
 
@@ -71,6 +76,19 @@ export function App() {
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
+
+  useEffect(() => {
+    // Auto login & redirect logic: 
+    // If the website is opened at root (no hash) or explicitly at #home,
+    // and the user is authenticated, we show the landing page briefly, 
+    // then auto redirect to the dashboard.
+    if ((currentPage === 'home' && (!window.location.hash || window.location.hash === '#home')) && isAuthenticated) {
+      const timer = setTimeout(() => {
+        navigateTo('dashboard');
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [currentPage, isAuthenticated]);
 
   const navigateTo = (page: AppPage) => {
     setCurrentPage(page);

@@ -76,7 +76,6 @@ export const SignupPage: React.FC<SignupPageProps> = ({
           {/* Left Column: Registration Card */}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <SignupFormCard
-              mode="default"
               onSignupSuccess={() => {
                 if (onSignupSuccess) {
                   onSignupSuccess();

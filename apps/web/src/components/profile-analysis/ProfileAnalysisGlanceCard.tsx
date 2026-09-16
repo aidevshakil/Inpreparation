@@ -4,21 +4,30 @@ import { Edit3, Info, Maximize2 } from 'lucide-react';
 interface ProfileAnalysisGlanceCardProps {
   onEditParameters?: () => void;
   onOpenRadarFocus?: () => void;
+  dossierData?: any;
 }
 
 export const ProfileAnalysisGlanceCard: React.FC<ProfileAnalysisGlanceCardProps> = ({
   onEditParameters,
   onOpenRadarFocus,
+  dossierData,
 }) => {
   const [hoveredAxis, setHoveredAxis] = useState<number | null>(null);
 
-  const radarData = [
-    { label: 'Dist. Consensus', value: 88 },
-    { label: 'High-Throughput IO', value: 92 },
-    { label: 'CAP Trade-Offs', value: 82 },
-    { label: 'System Resilience', value: 85 },
-    { label: 'Staff Mentorship', value: 76 },
-    { label: 'Architecture Reviews', value: 90 },
+  const radarData = dossierData ? [
+    { label: 'Dist. Systems', value: dossierData.distributedSystems || 0 },
+    { label: 'Arch. Trade-Offs', value: dossierData.architecturalTradeoffs || 0 },
+    { label: 'Leadership', value: dossierData.engineeringLeadership || 0 },
+    { label: 'Communication', value: dossierData.communicationClarity || 0 },
+    { label: 'Exec. Velocity', value: dossierData.executionVelocity || 0 },
+    { label: 'Cloud Reliability', value: dossierData.cloudReliability || 0 },
+  ] : [
+    { label: 'Dist. Systems', value: 0 },
+    { label: 'Arch. Trade-Offs', value: 0 },
+    { label: 'Leadership', value: 0 },
+    { label: 'Communication', value: 0 },
+    { label: 'Exec. Velocity', value: 0 },
+    { label: 'Cloud Reliability', value: 0 },
   ];
 
   // Radar geometry calculations
@@ -122,7 +131,7 @@ export const ProfileAnalysisGlanceCard: React.FC<ProfileAnalysisGlanceCardProps>
                 CURRENT ROLE
               </div>
               <div style={{ fontSize: '0.82rem', color: '#f8fafc', fontWeight: 700 }}>
-                Senior Backend &amp; Distributed Systems
+                {dossierData ? dossierData.targetTitle : 'No Role Set'}
               </div>
             </div>
 
@@ -139,7 +148,7 @@ export const ProfileAnalysisGlanceCard: React.FC<ProfileAnalysisGlanceCardProps>
                 TARGET ROLE
               </div>
               <div style={{ fontSize: '0.82rem', color: '#ffffff', fontWeight: 800 }}>
-                Staff Backend &amp; Systems Architect (L6+)
+                {dossierData ? dossierData.targetTitle : 'No Target Set'}
               </div>
             </div>
 
@@ -155,7 +164,7 @@ export const ProfileAnalysisGlanceCard: React.FC<ProfileAnalysisGlanceCardProps>
                 EXPERIENCE BAND
               </div>
               <div style={{ fontSize: '0.82rem', color: '#f8fafc', fontWeight: 700 }}>
-                6+ Years • Tier-1 FinTech &amp; Cloud Infra
+                {dossierData ? dossierData.seniorityTier : '0 Years'}
               </div>
             </div>
 
@@ -171,7 +180,7 @@ export const ProfileAnalysisGlanceCard: React.FC<ProfileAnalysisGlanceCardProps>
                 CORE ARCHITECTURAL FOCUS
               </div>
               <div style={{ fontSize: '0.82rem', color: '#f8fafc', fontWeight: 700 }}>
-                High-Throughput Distributed &amp; Consensus
+                {dossierData && dossierData.primaryStack ? dossierData.primaryStack.join(', ') : 'None'}
               </div>
             </div>
           </div>
@@ -190,7 +199,7 @@ export const ProfileAnalysisGlanceCard: React.FC<ProfileAnalysisGlanceCardProps>
           >
             <Info size={14} style={{ color: '#818cf8', flexShrink: 0, marginTop: '2px' }} />
             <p style={{ fontSize: '0.72rem', color: '#cbd5e1', lineHeight: 1.45, margin: 0 }}>
-              <strong style={{ color: '#c084fc' }}>PRIMARY CALIBRATION LEVEL: Staff (L6)</strong> • Calibrates mock drills around large-scale data distribution, CAP trade-off articulation, and cross-team architectural reviews.
+              <strong style={{ color: '#c084fc' }}>PRIMARY CALIBRATION LEVEL: {dossierData ? dossierData.seniorityTier : 'None'}</strong> • Calibrates mock drills around large-scale data distribution, CAP trade-off articulation, and cross-team architectural reviews.
             </p>
           </div>
         </div>

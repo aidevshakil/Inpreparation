@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Play, Check, Radio, Clock, UserCheck, TrendingUp } from 'lucide-react';
+import { ArrowRight, Play, Check, Radio, Clock, UserCheck, TrendingUp, Mic } from 'lucide-react';
 
 interface HeroSectionProps {
   onStartPractice: (role?: string) => void;
@@ -14,66 +14,85 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 }) => {
   const featurePillars = [
     {
-      icon: <Radio size={18} />,
+      icon: <Radio size={20} color="#818cf8" />,
+      bg: 'rgba(129, 140, 248, 0.1)',
       title: 'Multimodal AI Engine',
       subtitle: 'Tech, voice, syntax & visual signals',
     },
     {
-      icon: <Clock size={18} />,
+      icon: <Clock size={20} color="#6366f1" />,
+      bg: 'rgba(99, 102, 241, 0.1)',
       title: 'Strict 5-Question Rounds',
       subtitle: 'Calibrated for 15-minute mastery',
     },
     {
-      icon: <UserCheck size={18} />,
+      icon: <UserCheck size={20} color="#38bdf8" />,
+      bg: 'rgba(56, 189, 248, 0.1)',
       title: 'CV & Role Tailored',
       subtitle: 'Dynamic seniority adaptation',
     },
     {
-      icon: <TrendingUp size={18} />,
+      icon: <TrendingUp size={20} color="#10b981" />,
+      bg: 'rgba(16, 185, 129, 0.1)',
       title: 'Longitudinal Tracking',
       subtitle: 'Measured readiness trajectory',
     }
   ];
 
   return (
-    <section id="hero" style={{ padding: '80px 0', overflow: 'hidden' }}>
+    <section id="hero" style={{ padding: '100px 0', overflow: 'hidden' }}>
       <div className="container">
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
           gap: '64px',
           alignItems: 'center',
-          marginBottom: '64px'
+          marginBottom: '80px'
         }}>
           {/* Left Column: Headline, Copy & CTAs */}
           <div className="flex-col gap-6">
-            <div className="badge" style={{ alignSelf: 'flex-start' }}>
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--primary-color)' }} />
-              AI-POWERED INTERVIEW PREPARATION
+            <div className="badge" style={{ alignSelf: 'flex-start', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 14px' }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#38bdf8' }} />
+              <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.05em', color: '#cbd5e1' }}>AI-POWERED INTERVIEW PREPARATION</span>
             </div>
 
             <h1 style={{
-              fontSize: 'clamp(40px, 5.2vw, 64px)',
+              fontSize: 'clamp(42px, 5.5vw, 68px)',
               fontWeight: 800,
-              lineHeight: 1.1,
-              letterSpacing: '-0.035em',
+              lineHeight: 1.15,
+              letterSpacing: '-0.03em',
             }}>
               Practice Interviews.<br />
-              <span style={{ color: 'var(--text-secondary)' }}>
+              <span style={{ 
+                background: 'linear-gradient(90deg, #93c5fd 0%, #38bdf8 100%)', 
+                WebkitBackgroundClip: 'text', 
+                WebkitTextFillColor: 'transparent' 
+              }}>
                 Get Real Feedback.
               </span><br />
               Improve Faster.
             </h1>
 
-            <p style={{ fontSize: '18px', maxWidth: '540px' }}>
+            <p style={{ fontSize: '17px', color: '#94a3b8', maxWidth: '540px', lineHeight: 1.6 }}>
               Practice realistic interviews with AI and receive actionable feedback on your technical answers, communication, speech, and on-camera presentation.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4 mt-2">
               <button
                 onClick={() => onStartPractice()}
-                className="btn btn-primary"
-                style={{ padding: '14px 30px', fontSize: '16px' }}
+                className="btn"
+                style={{ 
+                  padding: '16px 32px', 
+                  fontSize: '16px',
+                  fontWeight: 600,
+                  background: 'linear-gradient(90deg, #6366f1 0%, #a855f7 100%)',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '100px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
               >
                 <span>Start Practicing Free</span>
                 <ArrowRight size={18} />
@@ -81,64 +100,139 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
               <button
                 onClick={onNavigateToFeatures ? onNavigateToFeatures : onOpenDemo}
-                className="btn btn-outline"
-                style={{ padding: '14px 26px', fontSize: '16px' }}
+                className="btn"
+                style={{ 
+                  padding: '16px 32px', 
+                  fontSize: '16px',
+                  fontWeight: 600,
+                  backgroundColor: 'rgba(255,255,255,0.05)',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '100px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
               >
-                <Play size={16} />
-                <span>Explore Features</span>
+                <Play size={18} />
+                <span>See How It Works</span>
               </button>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 text-muted" style={{ fontSize: '14px' }}>
+            <div className="flex flex-wrap items-center gap-4 mt-4" style={{ fontSize: '13px', color: '#cbd5e1', fontWeight: 500 }}>
               <span className="flex items-center gap-2">
-                <Check size={16} /> No credit card required
+                <Check size={14} color="#38bdf8" /> No credit card required
               </span>
-              <span>•</span>
-              <span>Exactly 5 questions per session</span>
-              <span>•</span>
-              <span>Real-time AI coaching</span>
+              <span style={{ color: '#475569' }}>•</span>
+              <span className="flex items-center gap-2">
+                <Check size={14} color="#38bdf8" /> Exactly 5 questions per session
+              </span>
+              <span style={{ color: '#475569' }}>•</span>
+              <span className="flex items-center gap-2">
+                <Check size={14} color="#38bdf8" /> Real-time AI coaching
+              </span>
             </div>
           </div>
 
           {/* Right Column: Clean Mockup */}
-          <div className="card" style={{ padding: '0', overflow: 'hidden' }}>
+          <div className="card" style={{ padding: '0', overflow: 'hidden', backgroundColor: '#11131a', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '16px', boxShadow: '0 24px 48px rgba(0,0,0,0.4)' }}>
             {/* Window Header */}
-            <div className="flex items-center justify-between" style={{ padding: '16px 24px', borderBottom: '1px solid var(--border-subtle)', backgroundColor: 'var(--bg-surface)' }}>
-              <div className="flex items-center gap-2">
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: 'var(--border-focus)' }} />
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: 'var(--border-focus)' }} />
-                <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: 'var(--border-focus)' }} />
+            <div className="flex items-center justify-between" style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#ef4444' }} />
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#eab308' }} />
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#22c55e' }} />
+                </div>
+                <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>
+                  Inprep Live Diagnostic Room • ID-8492
+                </span>
               </div>
-              <div className="badge" style={{ backgroundColor: 'transparent' }}>
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--color-success)' }} />
-                Active Diagnostic
+              <div style={{ backgroundColor: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', padding: '4px 10px', borderRadius: '100px', fontSize: '11px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#38bdf8' }} />
+                Active 5-Question Run
               </div>
             </div>
 
             <div className="flex-col gap-6" style={{ padding: '24px' }}>
-              <div className="flex items-center justify-between" style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-secondary)' }}>
-                <span>QUESTION 2 OF 5</span>
-                <span>01:14</span>
+              <div className="flex items-center justify-between" style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', letterSpacing: '0.05em' }}>
+                <span>QUESTION 2 OF 5 • TECHNICAL CORE</span>
+                <span>Time in Prompt: 01:14</span>
               </div>
 
-              <div style={{ fontSize: '18px', fontWeight: 600, lineHeight: 1.5 }}>
+              <div style={{ fontSize: '18px', fontWeight: 600, lineHeight: 1.5, color: '#f8fafc' }}>
                 “Explain the difference between synchronous and asynchronous programming in Python, highlighting event loops and I/O bound tasks.”
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                <div style={{ height: '200px', backgroundColor: 'var(--bg-surface)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
-                  [AI Interviewer Video Feed]
+                {/* AI Interviewer Video */}
+                <div style={{ height: '220px', backgroundColor: '#1e293b', borderRadius: '12px', overflow: 'hidden', position: 'relative', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <img src="/assets/ai_interviewer.jpg" alt="AI Interviewer" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} />
+                  
+                  {/* Top overlay */}
+                  <div style={{ position: 'absolute', top: '12px', left: '12px', fontSize: '12px', fontWeight: 600, color: '#fff', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
+                    AI Interviewer • Dr. Sarah Vance
+                  </div>
+                  <div style={{ position: 'absolute', top: '12px', right: '12px', backgroundColor: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(4px)', padding: '4px', borderRadius: '4px' }}>
+                    <Mic size={14} color="#fff" />
+                  </div>
+
+                  {/* Bottom overlay */}
+                  <div style={{ position: 'absolute', bottom: '12px', left: '12px', right: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div className="flex items-end gap-1" style={{ height: '20px' }}>
+                      <div style={{ width: '3px', height: '12px', backgroundColor: '#38bdf8', borderRadius: '2px' }} />
+                      <div style={{ width: '3px', height: '20px', backgroundColor: '#38bdf8', borderRadius: '2px' }} />
+                      <div style={{ width: '3px', height: '16px', backgroundColor: '#38bdf8', borderRadius: '2px' }} />
+                      <div style={{ width: '3px', height: '10px', backgroundColor: '#38bdf8', borderRadius: '2px' }} />
+                    </div>
+                    <span style={{ fontSize: '12px', fontWeight: 500, color: '#cbd5e1' }}>Listening to explanation</span>
+                  </div>
                 </div>
-                <div style={{ height: '200px', backgroundColor: 'var(--bg-surface)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
-                  [Candidate Video Feed]
+
+                {/* Candidate Video */}
+                <div style={{ height: '220px', backgroundColor: '#1e293b', borderRadius: '12px', overflow: 'hidden', position: 'relative', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <img src="/assets/candidate.jpg" alt="Candidate" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} />
+                  
+                  {/* AI Scanning bounding box visual */}
+                  <div style={{ position: 'absolute', top: '20%', left: '20%', right: '20%', bottom: '20%', border: '1px dashed rgba(56, 189, 248, 0.4)', borderRadius: '8px' }} />
+
+                  {/* Top overlay */}
+                  <div style={{ position: 'absolute', top: '12px', left: '12px', fontSize: '12px', fontWeight: 600, color: '#fff', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
+                    Candidate Preview<br/>(You)
+                  </div>
+                  <div style={{ position: 'absolute', top: '12px', right: '12px', backgroundColor: 'rgba(34, 197, 94, 0.15)', border: '1px solid rgba(34, 197, 94, 0.3)', padding: '4px 8px', borderRadius: '4px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <span style={{ fontSize: '10px', color: '#4ade80', fontWeight: 600 }}>Camera</span>
+                    <span style={{ fontSize: '11px', color: '#4ade80', fontWeight: 700 }}>1080p</span>
+                  </div>
+
+                  {/* Bottom overlay */}
+                  <div style={{ position: 'absolute', bottom: '12px', left: '12px', right: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div style={{ fontSize: '11px', fontWeight: 500, backgroundColor: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>
+                      <span style={{ color: '#cbd5e1' }}>Lighting: </span>
+                      <span style={{ color: '#38bdf8' }}>Optimal</span>
+                    </div>
+                    <div style={{ fontSize: '11px', fontWeight: 500, backgroundColor: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>
+                      <span style={{ color: '#cbd5e1' }}>Eye-level: </span>
+                      <span style={{ color: '#4ade80' }}>Calibrated</span>
+                    </div>
+                  </div>
                 </div>
               </div>
               
-              <div className="flex items-center justify-between" style={{ padding: '16px', backgroundColor: 'var(--bg-surface)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' }}>
-                <div className="flex items-center gap-4">
-                  <span style={{ fontSize: '14px', fontWeight: 600 }}>Live Telemetry</span>
-                  <div className="badge">142 WPM</div>
-                  <div className="badge">0 Fillers</div>
+              {/* Telemetry Footer */}
+              <div className="flex-col gap-3" style={{ padding: '16px', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div className="flex items-center gap-3">
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#f87171', boxShadow: '0 0 8px #f87171' }} />
+                  <span style={{ fontSize: '13px', fontWeight: 700, color: '#f8fafc' }}>Live Speech Telemetry</span>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: '#94a3b8', backgroundColor: 'rgba(255,255,255,0.1)', padding: '2px 6px', borderRadius: '4px' }}>REC 01:14</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div style={{ backgroundColor: 'rgba(99, 102, 241, 0.15)', color: '#a855f7', padding: '4px 10px', borderRadius: '100px', fontSize: '11px', fontWeight: 600 }}>
+                    142 WPM • Steady Cadence
+                  </div>
+                  <div style={{ backgroundColor: 'rgba(34, 197, 94, 0.15)', color: '#4ade80', padding: '4px 10px', borderRadius: '100px', fontSize: '11px', fontWeight: 600 }}>
+                    Fillers: 0 in current 30s
+                  </div>
                 </div>
               </div>
             </div>
@@ -149,16 +243,23 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          gap: '24px'
+          gap: '20px'
         }}>
           {featurePillars.map((pillar, idx) => (
-            <div key={idx} className="card flex items-start gap-4">
+            <div key={idx} style={{ 
+              backgroundColor: 'rgba(255,255,255,0.02)', 
+              border: '1px solid rgba(255,255,255,0.05)', 
+              borderRadius: '16px', 
+              padding: '20px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px'
+            }}>
               <div style={{
-                width: '48px',
-                height: '48px',
-                borderRadius: 'var(--radius-md)',
-                backgroundColor: 'var(--bg-surface)',
-                border: '1px solid var(--border-subtle)',
+                width: '44px',
+                height: '44px',
+                borderRadius: '12px',
+                backgroundColor: pillar.bg,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -168,8 +269,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
 
               <div className="flex-col gap-1">
-                <div style={{ fontSize: '16px', fontWeight: 600 }}>{pillar.title}</div>
-                <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>{pillar.subtitle}</div>
+                <div style={{ fontSize: '14px', fontWeight: 600, color: '#f8fafc' }}>{pillar.title}</div>
+                <div style={{ fontSize: '12px', color: '#94a3b8' }}>{pillar.subtitle}</div>
               </div>
             </div>
           ))}

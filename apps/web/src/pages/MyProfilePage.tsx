@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useAuth } from '../context/AuthContext';
 import type { ProfileSimulatorState } from '../components/profile/ProfileSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
@@ -36,53 +37,37 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
   const [assessmentModalOpen, setAssessmentModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
+  const { user } = useAuth();
+  
   // Form State
-  const [fullName, setFullName] = useState('Shakil Ahamed');
-  const [email] = useState('shakil.ahamed@example.com');
-  const [phone, setPhone] = useState('+1 (555) 349-8201');
-  const [location, setLocation] = useState('San Francisco, CA, United States');
+  const [fullName, setFullName] = useState('');
+  const [email] = useState('');
+  const [phone, setPhone] = useState('');
+  const [location, setLocation] = useState('');
   const [language, setLanguage] = useState('en-US');
 
-  const [currentRole, setCurrentRole] = useState('Flutter Developer');
-  const [targetRole, setTargetRole] = useState('Backend Developer (Python / Go)');
-  const [seniority, setSeniority] = useState('mid');
-  const [yearsOfExperience, setYearsOfExperience] = useState('3.5');
-  const [currentIndustry, setCurrentIndustry] = useState('fintech');
-  const [targetIndustry, setTargetIndustry] = useState('high-scale-saas');
+  const [currentRole, setCurrentRole] = useState('');
+  const [targetRole, setTargetRole] = useState('');
+  const [seniority, setSeniority] = useState('');
+  const [yearsOfExperience, setYearsOfExperience] = useState('0');
+  const [currentIndustry, setCurrentIndustry] = useState('');
+  const [targetIndustry, setTargetIndustry] = useState('');
 
-  const [skills, setSkills] = useState<string[]>([
-    'Python',
-    'Flutter',
-    'Dart',
-    'FastAPI',
-    'PostgreSQL',
-    'Machine Learning',
-    'Docker',
-  ]);
+  const [skills, setSkills] = useState<string[]>([]);
 
-  const [skillDepths, setSkillDepths] = useState<SkillDepthItem[]>([
-    { id: 'python', name: 'Python (Backend & Concurrency)', level: 'advanced', dotColor: '#818cf8' },
-    { id: 'flutter', name: 'Flutter & Dart (Mobile Arch)', level: 'advanced', dotColor: '#38bdf8' },
-    { id: 'postgres', name: 'PostgreSQL & Query Optimization', level: 'intermediate', dotColor: '#34d399' },
-  ]);
+  const [skillDepths, setSkillDepths] = useState<SkillDepthItem[]>([]);
 
-  const [jobTypes, setJobTypes] = useState<JobType[]>(['full-time']);
-  const [workModalities, setWorkModalities] = useState<WorkModality[]>(['remote', 'hybrid']);
-  const [interviewFocusAreas, setInterviewFocusAreas] = useState<string[]>([
-    'tech_depth',
-    'sys_design',
-    'prob_solving',
-    'role_spec',
-  ]);
-  const [difficulty, setDifficulty] = useState<SimulationDifficulty>('advanced');
-  const [careerGoal, setCareerGoal] = useState(
-    'Transitioning from Flutter mobile development to high-scale Python/FastAPI distributed systems. Want to master concurrency, event-driven queue architectures (RabbitMQ/Kafka), and communicate architectural trade-offs concisely without rambling.'
-  );
+  const [jobTypes, setJobTypes] = useState<JobType[]>([]);
+  const [workModalities, setWorkModalities] = useState<WorkModality[]>([]);
+  const [interviewFocusAreas, setInterviewFocusAreas] = useState<string[]>([]);
+  const [difficulty, setDifficulty] = useState<SimulationDifficulty>('intermediate');
+  const [careerGoal, setCareerGoal] = useState('');
 
-  const userId = 'usr_prototype_123'; // Hardcoded for prototyping
+  const userId = user?.id || '';
   const fetchProfile = useCallback(async () => {
     try {
-      const res = await fetch(`http://localhost:3002/api/profile/${userId}`);
+      if (!userId) return;
+      const res = await fetch(`http://localhost:5000/api/profile/${userId}`);
       if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
       
@@ -162,7 +147,8 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
   const handleSave = async () => {
     setSimulatorState('saving');
     try {
-      const res = await fetch(`http://localhost:3002/api/profile/${userId}`, {
+      if (!userId) return;
+      const res = await fetch(`http://localhost:5000/api/profile/${userId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -393,13 +379,13 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
 
             {/* Profile Hero Overview Card */}
             <ProfileHeroCard
-              name={fullName}
-              email={email}
-              currentRole={currentRole}
-              targetRole={targetRole}
-              experience={`${seniority === 'senior' ? 'Senior' : 'Intermediate'} (${yearsOfExperience} yrs exp)`}
-              completionPercent={85}
-              remainingItem="Career Assessment"
+              name={fullName || 'New User'}
+              email={email || user?.email || ''}
+              currentRole={currentRole || 'No Role Set'}
+              targetRole={targetRole || 'No Target Role'}
+              experience={`${seniority ? seniority.charAt(0).toUpperCase() + seniority.slice(1) : 'Unknown'} (${yearsOfExperience || 0} yrs exp)`}
+              completionPercent={10}
+              remainingItem="Complete Basic Info"
               onUploadPhoto={() => alert('Photo upload dialog...')}
               onReplacePhoto={() => alert('Replace photo...')}
               onRemovePhoto={() => alert('Photo removed.')}
@@ -511,14 +497,14 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
               {/* Right Column: Sticky Sidebar Cards */}
               <div style={{ position: 'sticky', top: '120px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 <ProfileCompletionSidebarCard
-                  percentage={85}
+                  percentage={10}
                   onCompleteMissing={() => setAssessmentModalOpen(true)}
                 />
 
                 <ProfileConnectedCvCard
-                  fileName="Shakil_Ahamed_Resume.pdf"
-                  fileSize="142 KB"
-                  parsedDate="Parsed 3 days ago"
+                  fileName=""
+                  fileSize=""
+                  parsedDate=""
                   onViewCv={() => alert('Opening CV preview viewer...')}
                   onUpdateCv={() => alert('Opening CV upload modal...')}
                 />

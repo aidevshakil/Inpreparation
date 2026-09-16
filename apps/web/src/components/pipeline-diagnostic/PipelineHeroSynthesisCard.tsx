@@ -4,10 +4,12 @@ import { PipelineDiagnosticState } from './PipelineDiagnosticSimulatorBar';
 
 interface PipelineHeroSynthesisCardProps {
   state: PipelineDiagnosticState;
+  diagnosticData?: any;
 }
 
 export const PipelineHeroSynthesisCard: React.FC<PipelineHeroSynthesisCardProps> = ({
   state,
+  diagnosticData,
 }) => {
   const [notifyEnabled, setNotifyEnabled] = useState(true);
 

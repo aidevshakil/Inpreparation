@@ -19,46 +19,8 @@ profileAnalysisRouter.get('/:userId', async (req: Request, res: Response) => {
     if (!analysis) {
       return res.status(200).json({
         success: true,
-        source: 'default_calibrated',
-        dossier: {
-          id: 'analysis-l6-dossier-01',
-          userId: userId || 'demo-user-1',
-          targetTitle: 'Staff Backend & Systems Architect',
-          seniorityTier: 'Staff (L6 / IC6)',
-          primaryStack: ['Go', 'Kafka', 'Raft', 'PostgreSQL', 'Kubernetes'],
-          confidenceScore: 94.6,
-          readinessPercentage: 87,
-          verifiedDossierStatus: true,
-          competencyScores: {
-            distributedSystems: 94,
-            architecturalTradeoffs: 88,
-            engineeringLeadership: 82,
-            communicationClarity: 86,
-            executionVelocity: 91,
-            cloudReliability: 89,
-          },
-          coreStrengths: [
-            {
-              title: 'High-Throughput Distributed State Machines',
-              desc: 'Demonstrated deep grasp of Raft log replication and partition quorum reconciliation.',
-              tag: 'Top 3% Cohort',
-            },
-            {
-              title: 'PostgreSQL Internals & Query Optimization',
-              desc: 'Articulated MVCC index bloat, lock escalation avoidance, and write-ahead log tuning.',
-              tag: 'Verified',
-            },
-          ],
-          priorityFocusAreas: [
-            {
-              title: 'Cross-Org Engineering Alignment',
-              gap: 'Responses leaned heavily technical; needs more emphasis on RFC consensus across non-infra teams.',
-              recommendation: 'Complete Staff IC Leadership Simulation (Module #04)',
-            },
-          ],
-          calibratedTrajectory: 'Staff Systems Trajectory (L6 Target)',
-          lastUpdated: new Date().toISOString(),
-        },
+        source: 'database',
+        dossier: null,
       });
     }
 

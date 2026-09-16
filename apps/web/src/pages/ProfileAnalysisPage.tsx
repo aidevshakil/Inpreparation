@@ -138,6 +138,7 @@ export const ProfileAnalysisPage: React.FC<ProfileAnalysisPageProps> = ({
             <ProfileAnalysisGlanceCard
               onEditParameters={() => setShowEditModal(true)}
               onOpenRadarFocus={() => setShowRadarModal(true)}
+              dossierData={_dossierData}
             />
 
             {/* 2-Column Responsive Layout */}
@@ -174,6 +175,7 @@ export const ProfileAnalysisPage: React.FC<ProfileAnalysisPageProps> = ({
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <ProfileAnalysisReadinessCard
                   onCompleteProfile={() => setShowEditModal(true)}
+                  dossierData={_dossierData}
                 />
                 <ProfileAnalysisCareerDirectionsCard
                   onSelectTrack={handleExploreTrack}
