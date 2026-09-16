@@ -10,6 +10,7 @@ interface RecommendedInterviewsGridProps {
   onSelectTrack: (trackName: string) => void;
   onViewRubric: (trackName: string) => void;
   onResetFilters: () => void;
+  recommendationsList?: any[];
 }
 
 export const RecommendedInterviewsGrid: React.FC<RecommendedInterviewsGridProps> = ({
@@ -20,6 +21,7 @@ export const RecommendedInterviewsGrid: React.FC<RecommendedInterviewsGridProps>
   onSelectTrack,
   onViewRubric,
   onResetFilters,
+  recommendationsList,
 }) => {
   const [savedTracks, setSavedTracks] = useState<string[]>(['staff-leadership']);
   const [expandedReason, setExpandedReason] = useState<{ [key: string]: boolean }>({});
@@ -120,6 +122,8 @@ export const RecommendedInterviewsGrid: React.FC<RecommendedInterviewsGridProps>
     },
   ];
 
+  const effectiveRecommendations = recommendationsList && recommendationsList.length > 0 ? recommendationsList : allRecommendations;
+
   // Simulator State 2: Loading / Skeletons
   if (state === 'loading_skeletons') {
     return (
@@ -158,10 +162,10 @@ export const RecommendedInterviewsGrid: React.FC<RecommendedInterviewsGridProps>
   }
 
   // Filter items
-  let filtered = allRecommendations;
+  let filtered = effectiveRecommendations;
 
   if (state === 'filtered_backend_ai') {
-    filtered = allRecommendations.slice(0, 2);
+    filtered = effectiveRecommendations.slice(0, 2);
   } else if (state === 'no_recs_state') {
     filtered = [];
   } else {

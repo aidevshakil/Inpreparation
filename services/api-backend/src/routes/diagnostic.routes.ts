@@ -21,10 +21,10 @@ diagnosticRouter.post('/intake', async (req: Request, res: Response) => {
       ? await (prisma as any).diagnosticIntake.create({
           data: {
             userId: userId || null,
-            targetRole: targetRole || 'Staff Backend & Distributed Systems Architect',
-            seniorityTier: seniorityTier || 'Senior 6+ Yrs Infra',
-            targetCompanyTypes: targetCompanyTypes || ['FAANG / Big Tech', 'High-Growth Unicorn'],
-            focusAreas: focusAreas || ['Distributed Consensus', 'High Concurrency', 'STAR Leadership'],
+            targetRole: targetRole || 'General Assessment',
+            seniorityTier: seniorityTier || 'Not Specified',
+            targetCompanyTypes: targetCompanyTypes || [],
+            focusAreas: focusAreas || [],
             completedQuestionsCount: completedQuestionsCount || (responses ? responses.length : 8),
             totalDurationSeconds: totalDurationSeconds || 840,
             status: 'completed',
@@ -91,23 +91,14 @@ diagnosticRouter.post('/pipeline/process', async (req: Request, res: Response) =
       systemsBreadthScore,
       leadershipStarScore,
       communicationScore,
-      calibratedSeniority: 'Staff (L6 / IC6 Standard)',
+      calibratedSeniority: 'General Level',
       processingStages: [
         { name: 'Phonetic & Audio Ingestion', status: 'completed', latencyMs: 310 },
         { name: 'STAR Semantic Grounding', status: 'completed', latencyMs: 420 },
-        { name: 'Distributed Systems Rigor Analysis', status: 'completed', latencyMs: 580 },
         { name: 'Competency Radar Synthesis', status: 'completed', latencyMs: 390 },
-        { name: 'Interview Vector Indexing', status: 'completed', latencyMs: 250 },
       ],
-      strengths: [
-        'Consensus & Raft protocol state machine articulation',
-        'Partition tolerance & CAP trade-off mitigation',
-        'Structured STAR framework delivery',
-      ],
-      growthAreas: [
-        'Multi-region replication lag recovery metrics',
-        'Cross-organizational RFC conflict management depth',
-      ],
+      strengths: [],
+      growthAreas: [],
       timestamp: new Date().toISOString(),
     };
 

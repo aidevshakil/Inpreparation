@@ -14,6 +14,7 @@ import { DiagnosticResponsibleAiCard } from '../components/diagnostic-intake/Dia
 import { DiagnosticNextStepsCard } from '../components/diagnostic-intake/DiagnosticNextStepsCard';
 import { DiagnosticExitModal } from '../components/diagnostic-intake/DiagnosticExitModal';
 import { DashboardFooter } from '../components/dashboard/DashboardFooter';
+import { useAuth } from '../context/AuthContext';
 
 interface DiagnosticIntakePageProps {
   onNavigateToHome?: () => void;
@@ -43,10 +44,9 @@ export const DiagnosticIntakePage: React.FC<DiagnosticIntakePageProps> = ({
   const [exitModalOpen, setExitModalOpen] = useState(false);
   const [responseMode, setResponseMode] = useState<ResponseMode>('text');
   const [isRecording, setIsRecording] = useState(false);
-
-  const [narrativeText, setNarrativeText] = useState(
-    "I am a Senior Backend and Distributed Systems Engineer with over 6 years of experience building high-throughput microservices using Python, FastAPI, and Go. Currently, I'm focusing on event-driven streaming architectures with Apache Kafka and optimizing database concurrency in PostgreSQL. I'm preparing for Staff / Lead Backend engineering interviews with an emphasis on distributed systems design and trade-off defense."
-  );
+  const { user } = useAuth();
+  
+  const [narrativeText, setNarrativeText] = useState("");
 
   const questions = [
     {
@@ -203,18 +203,18 @@ export const DiagnosticIntakePage: React.FC<DiagnosticIntakePageProps> = ({
               {/* Right Column: Active Dossier & Interviewer Insights */}
               <div>
                 <DiagnosticActiveDossierCard
-                  fileName="Shakil_CV_2026.pdf"
-                  targetRole="Staff Backend / Distributed Systems Architect"
-                  experienceLevel="Senior (6+ yrs)"
-                  cvScore={84}
-                  coreStack={['Python', 'Go', 'FastAPI', 'Kafka', 'PostgreSQL', 'Redis']}
+                  fileName={user?.cvFileName || "No CV Uploaded"}
+                  targetRole={user?.targetRole && user.targetRole !== 'Select Target Role' ? user.targetRole : "General Assessment"}
+                  experienceLevel={user?.yearsOfExperience ? `${user.yearsOfExperience} years` : "Not Specified"}
+                  cvScore={user?.cvFileName ? 75 : 0}
+                  coreStack={[]}
                   onEditDossier={onNavigateToCvAnalysis || onNavigateToCv}
                 />
 
                 <DiagnosticInsightCard
                   title='Focus on the "Why", Not Just the "What"'
-                  insightBody="In Staff-level engineering interviews, interviewers listen for your architectural rationale, not just an encyclopedic recitation of tools. When describing your trajectory, explain why you selected event-driven architectures over RPCs for critical workloads."
-                  calibratedFor="Staff Level (L6+)"
+                  insightBody="In senior engineering interviews, interviewers listen for your architectural rationale, not just an encyclopedic recitation of tools. When describing your trajectory, explain why you selected specific architectures for critical workloads."
+                  calibratedFor={user?.targetRole && user.targetRole !== 'Select Target Role' ? user.targetRole : "General Level"}
                 />
 
                 <DiagnosticResponsibleAiCard />

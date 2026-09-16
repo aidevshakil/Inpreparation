@@ -10,6 +10,7 @@ interface IntroResultModalsProps {
   onCloseResponsesDrawer: () => void;
   showEditProfileModal: boolean;
   onCloseEditProfileModal: () => void;
+  diagnosticData?: any;
 }
 
 export const IntroResultModals: React.FC<IntroResultModalsProps> = ({
@@ -20,73 +21,16 @@ export const IntroResultModals: React.FC<IntroResultModalsProps> = ({
   onCloseResponsesDrawer,
   showEditProfileModal,
   onCloseEditProfileModal,
+  diagnosticData,
 }) => {
-  const allResponses = [
-    {
-      id: 1,
-      title: 'Prompt 1: Professional Trajectory & Technical Ownership',
-      duration: '1m 48s',
-      fidelity: '98.2%',
-      quote:
-        'I am a Senior Backend and Distributed Systems Engineer with over 6 years of experience... focusing on event-driven streaming with Kafka and PostgreSQL concurrency patterns... looking forward to leading architecture reviews at scale.',
-    },
-    {
-      id: 2,
-      title: 'Prompt 2: Scalable Architecture & System Design',
-      duration: '2m 12s',
-      fidelity: '97.8%',
-      quote:
-        'When designing our financial settlement pipeline, we decomposed the monolith into asynchronous ledger workers using transactional outbox and Kafka idempotent producers.',
-    },
-    {
-      id: 3,
-      title: 'Prompt 3: Concurrency & Lock Contention Mitigations',
-      duration: '1m 34s',
-      fidelity: '99.1%',
-      quote:
-        'To avoid distributed lock bottlenecks in PostgreSQL under high transaction bursts, we implemented optimistic locking with version columns and partitioned hot row buckets.',
-    },
-    {
-      id: 4,
-      title: 'Prompt 4: CAP Theorem Trade-offs in Production',
-      duration: '2m 05s',
-      fidelity: '96.5%',
-      quote:
-        'We prioritized partition tolerance and eventual consistency for analytical reporting streams, while retaining strong consistency for direct payment authorizations.',
-    },
-    {
-      id: 5,
-      title: 'Prompt 5: Technical Leadership & Cross-Functional Mentorship',
-      duration: '1m 55s',
-      fidelity: '98.4%',
-      quote:
-        'I established automated architectural RFC reviews, mentored 4 junior engineers on distributed debugging, and standardized our zero-downtime database migration checklist.',
-    },
-    {
-      id: 6,
-      title: 'Prompt 6: Multi-Datacenter Failover & Disaster Recovery',
-      duration: '1m 40s',
-      fidelity: '97.2%',
-      quote:
-        'Our disaster recovery strategy relied on active-passive cross-region replication with automatic DNS failover and Kafka MirrorMaker2 for zero-loss topic replication.',
-    },
-    {
-      id: 7,
-      title: 'Prompt 7: API Governance & Microservices Decoupling',
-      duration: '1m 28s',
-      fidelity: '98.9%',
-      quote:
-        'We transitioned inter-service communication to protobuf-backed gRPC with strict schema compatibility checks in CI to eliminate breaking runtime contracts.',
-    },
-    {
-      id: 8,
-      title: 'Prompt 8: Career Objectives & Staff Engineering Goals',
-      duration: '1m 15s',
-      fidelity: '99.5%',
-      quote:
-        'My goal is to step into a Staff Backend Architect role where I can drive large-scale platform resilience, lead engineering strategy, and scale distributed backend systems.',
-    },
-  ];
+  const allResponses = diagnosticData?.responses?.length > 0 ? diagnosticData.responses.map((r: any, idx: number) => ({
+    id: idx + 1,
+    title: `Prompt ${idx + 1}: ${r.questionText || 'Response'}`,
+    duration: 'N/A',
+    fidelity: 'N/A',
+    quote: r.transcript || r.responseText || 'No transcription recorded.',
+  })) : [];
+
 
   // 1. Retake Confirmation Modal
   if (state === 'retake_confirm') {
@@ -484,7 +428,7 @@ export const IntroResultModals: React.FC<IntroResultModalsProps> = ({
               </label>
               <input
                 type="text"
-                defaultValue="Senior Backend Engineer (Distributed Systems, Kafka)"
+                defaultValue={diagnosticData ? 'General Background' : ''}
                 style={{
                   width: '100%',
                   padding: '9px 12px',
@@ -504,7 +448,7 @@ export const IntroResultModals: React.FC<IntroResultModalsProps> = ({
               </label>
               <input
                 type="text"
-                defaultValue="Staff Backend & Architect (L6+ Systems)"
+                defaultValue={diagnosticData?.targetRole || ''}
                 style={{
                   width: '100%',
                   padding: '9px 12px',
@@ -524,7 +468,7 @@ export const IntroResultModals: React.FC<IntroResultModalsProps> = ({
               </label>
               <input
                 type="text"
-                defaultValue="Senior (6+ Years)"
+                defaultValue={diagnosticData?.seniorityTier || ''}
                 style={{
                   width: '100%',
                   padding: '9px 12px',

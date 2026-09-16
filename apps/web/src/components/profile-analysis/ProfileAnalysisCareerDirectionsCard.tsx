@@ -3,18 +3,20 @@ import { ArrowRight } from 'lucide-react';
 
 interface ProfileAnalysisCareerDirectionsCardProps {
   onSelectTrack?: (trackName: string) => void;
+  targetRole?: string;
 }
 
 export const ProfileAnalysisCareerDirectionsCard: React.FC<ProfileAnalysisCareerDirectionsCardProps> = ({
   onSelectTrack,
+  targetRole = 'Target Role',
 }) => {
   const tracks = [
     {
-      id: 'staff-backend',
-      title: 'Staff Backend Architect',
+      id: 'target-role-track',
+      title: targetRole,
       match: '94% Match • Recommended',
       isRecommended: true,
-      description: 'L6 Systems Design, multi-region scalability, and concurrency review defense.',
+      description: `Targeted practice for ${targetRole} level expectations and system design.`,
       drillsCount: '6 Drills',
     },
     {

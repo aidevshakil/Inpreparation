@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { DashboardState } from '../components/dashboard/PrototypeSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
@@ -17,12 +17,14 @@ import { DashboardSkeletonState } from '../components/dashboard/DashboardSkeleto
 import { DashboardErrorState } from '../components/dashboard/DashboardErrorState';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { useAuth } from '../context/AuthContext';
+import { getDiagnosticResult, getUserSimulationHistory, getProfileAnalysisDossier } from '../services/api';
 
 interface CandidateDashboardPageProps {
   onNavigateToHome?: () => void;
   onNavigateToProfile?: () => void;
   onNavigateToCv?: () => void;
   onNavigateToSimulations?: () => void;
+  onNavigateToCategories?: () => void;
   onNavigateToAi?: () => void;
   onNavigateToPricing?: () => void;
 }
@@ -32,14 +34,66 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
   onNavigateToProfile,
   onNavigateToCv,
   onNavigateToSimulations,
+  onNavigateToCategories,
   onNavigateToAi,
 }) => {
   const { user } = useAuth();
-  const [dashboardState, setDashboardState] = useState<DashboardState>('default');
+  const [dashboardState, setDashboardState] = useState<DashboardState>('skeleton');
   const [activeNav, setActiveNav] = useState<NavItemKey>('dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState(user.targetRole || 'Senior Backend Engineer');
+
+  // API Data State
+  const [readinessScore, setReadinessScore] = useState<number>(0);
+  const [benchmarkLevel, setBenchmarkLevel] = useState<string>('N/A');
+
+  useEffect(() => {
+    let isMounted = true;
+    
+    async function fetchDashboardData() {
+      if (!user?.id) return;
+      
+      try {
+        setDashboardState('skeleton');
+        
+        // Fetch all dashboard widgets in parallel
+        const [simHistory, diagResult, profileAnalysis] = await Promise.all([
+          getUserSimulationHistory(user.id),
+          getDiagnosticResult(user.id),
+          getProfileAnalysisDossier(user.id)
+        ]);
+        
+        if (!isMounted) return;
+
+        // Process Diagnostic Result for Readiness Suite
+        if (diagResult && diagResult.result && diagResult.result.overallScore) {
+          setReadinessScore(diagResult.result.overallScore);
+          setBenchmarkLevel(diagResult.result.calibratedSeniority || 'L5');
+        } else {
+          setReadinessScore(0);
+          setBenchmarkLevel('Needs Assessment');
+        }
+
+        // Determine Dashboard State based on history
+        if (simHistory && simHistory.totalSessions > 0) {
+          setDashboardState('completed');
+        } else {
+          setDashboardState('empty');
+        }
+
+      } catch (error) {
+        console.error('Failed to load dashboard data:', error);
+        if (isMounted) setDashboardState('error');
+      }
+    }
+
+    fetchDashboardData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [user?.id]);
 
   const hasBasicInfo = Boolean(user.name && user.email);
   const hasSkills = Boolean(user.cvSkills && user.cvSkills.length > 0);
@@ -60,6 +114,8 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
       onNavigateToCv();
     } else if (key === 'library' && onNavigateToSimulations) {
       onNavigateToSimulations();
+    } else if (key === 'categories' && onNavigateToCategories) {
+      onNavigateToCategories();
     } else if (key === 'assessment') {
       handleStartInterview('System Concurrency & Architecture');
     }
@@ -75,8 +131,8 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
           onSelectItem={handleSelectNav}
           collapsed={sidebarCollapsed}
           onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
-          creditsRemaining={dashboardState === 'empty' ? 100 : 78}
-          totalCredits={100}
+          creditsRemaining={user.creditsRemaining}
+          totalCredits={user.totalCredits}
         />
 
         {/* Right Content Column */}
@@ -106,20 +162,25 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
             {dashboardState === 'skeleton' && <DashboardSkeletonState />}
 
             {dashboardState === 'error' && (
-              <DashboardErrorState onRetry={() => setDashboardState('default')} />
+              <DashboardErrorState onRetry={() => setDashboardState('skeleton')} />
             )}
 
             {dashboardState === 'processing' && (
               <>
                 <CockpitHeroBanner
-                  userName="Shakil"
+                  userName={user.name}
                   targetRole={selectedRole}
                   onStartInterview={() => handleStartInterview()}
                   onViewRecommendations={() => {}}
                 />
                 <DashboardProcessingState />
                 <ExecutiveReadinessSuite
-                  readinessScore={82}
+                  readinessScore={readinessScore}
+                  firstAttemptScore={0}
+                  targetBenchmark={85}
+                  benchmarkLevel={benchmarkLevel}
+                  targetRoleLevel={user.targetRole}
+                  percentileRank={0}
                   onViewPerformance={() => {}}
                 />
                 <ActivityAndTrendSection />
@@ -130,15 +191,15 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
             {dashboardState === 'empty' && (
               <>
                 <CockpitHeroBanner
-                  userName="Shakil"
-                  targetRole="Senior Backend Engineer"
+                  userName={user.name}
+                  targetRole={user.targetRole || "Target Role Needed"}
                   focusArea="initial baseline calibration & CV sync"
                   onStartInterview={() => handleStartInterview()}
                   onViewRecommendations={() => {}}
                 />
                 <DashboardEmptyState
                   onStartInterview={() => handleStartInterview()}
-                  onUploadCV={() => alert('Opening CV Upload Modal...')}
+                  onUploadCV={() => { if (onNavigateToCv) onNavigateToCv(); }}
                   onTakeBaseline={() => handleStartInterview('Full-Stack Calibration Baseline')}
                 />
                 <RecommendedTracksSection
@@ -148,7 +209,7 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
                 <QuickNavAndAlgorithmSection
                   onStartInterview={() => handleStartInterview()}
                   onBrowseLibrary={onNavigateToSimulations}
-                  onUploadCV={() => alert('Opening CV Upload Modal...')}
+                  onUploadCV={() => { if (onNavigateToCv) onNavigateToCv(); }}
                   onCareerBaseline={() => handleStartInterview('Career Baseline Test')}
                   onImprovementPlan={() => {}}
                   onManageCredits={() => {}}
@@ -184,11 +245,11 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
 
                 {/* Executive Readiness Metrics Suite */}
                 <ExecutiveReadinessSuite
-                  readinessScore={dashboardState === 'completed' ? 91 : 82}
-                  firstAttemptScore={71}
+                  readinessScore={readinessScore}
+                  firstAttemptScore={0}
                   targetBenchmark={85}
-                  benchmarkLevel="BENCHMARK: L6"
-                  targetRoleLevel="Staff Level"
+                  benchmarkLevel={benchmarkLevel}
+                  targetRoleLevel={user.targetRole}
                   percentileRank={12}
                   onViewPerformance={() => {}}
                 />
@@ -223,7 +284,7 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
                 <QuickNavAndAlgorithmSection
                   onStartInterview={() => handleStartInterview()}
                   onBrowseLibrary={onNavigateToSimulations}
-                  onUploadCV={() => alert('Opening CV Upload & Skill Graph Sync...')}
+                  onUploadCV={() => { if (onNavigateToCv) onNavigateToCv(); }}
                   onCareerBaseline={() => handleStartInterview('Career Baseline Test')}
                   onImprovementPlan={() => {
                     if (onNavigateToAi) onNavigateToAi();

@@ -29,7 +29,8 @@ export type NavItemKey =
   | 'improvement'
   | 'notifications'
   | 'settings'
-  | 'help';
+  | 'help'
+  | 'categories';
 
 import { useAuth } from '../../context/AuthContext';
 
@@ -62,19 +63,35 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
       .substring(0, 2)
       .toUpperCase();
   };
-  const primaryNavItems = [
-    { key: 'dashboard' as NavItemKey, label: 'Dashboard', icon: LayoutDashboard },
-    { key: 'profile' as NavItemKey, label: 'My Profile', icon: User },
-    { key: 'cv' as NavItemKey, label: 'My CV', icon: FileText, badge: 'Parsed', badgeColor: '#10b981' },
-    { key: 'assessment' as NavItemKey, label: 'Career Assessment', icon: Compass },
-    { key: 'library' as NavItemKey, label: 'Interview Library', icon: BookOpen },
-    { key: 'recommended' as NavItemKey, label: 'Recommended', icon: Sparkles, badge: '4', badgeColor: '#6366f1' },
-    { key: 'history' as NavItemKey, label: 'Interview History', icon: History },
-    { key: 'performance' as NavItemKey, label: 'Performance', icon: TrendingUp },
-    { key: 'improvement' as NavItemKey, label: 'Improvement Plan', icon: Target },
+  const navGroups = [
+    {
+      title: 'DIAGNOSTIC CORE',
+      items: [
+        { key: 'dashboard' as NavItemKey, label: 'Dashboard', icon: LayoutDashboard },
+        { key: 'profile' as NavItemKey, label: 'My Profile', icon: User },
+        { key: 'cv' as NavItemKey, label: 'My CV', icon: FileText, badge: 'Parsed', badgeColor: '#10b981' },
+        { key: 'assessment' as NavItemKey, label: 'Career Assessment', icon: Compass, badge: '#24 Completed', badgeColor: '#38bdf8' },
+      ],
+    },
+    {
+      title: 'INTERVIEW PREP SUITE',
+      items: [
+        { key: 'recommended' as NavItemKey, label: 'Recommended Interviews', icon: Sparkles, badge: '4 New', badgeColor: '#6366f1' },
+        { key: 'library' as NavItemKey, label: 'Interview Library', icon: BookOpen },
+        { key: 'categories' as NavItemKey, label: 'Interview Categories', icon: Target },
+        { key: 'history' as NavItemKey, label: 'Practice History', icon: History },
+      ],
+    },
+    {
+      title: 'INTELLIGENCE',
+      items: [
+        { key: 'performance' as NavItemKey, label: 'Performance Analytics', icon: TrendingUp },
+        { key: 'improvement' as NavItemKey, label: 'AI Improvement Plan', icon: Zap },
+      ],
+    },
   ];
 
-  const secondaryNavItems = [
+  const systemItems = [
     { key: 'notifications' as NavItemKey, label: 'Notifications', icon: Bell, hasDot: true },
     { key: 'settings' as NavItemKey, label: 'Settings', icon: Settings },
     { key: 'help' as NavItemKey, label: 'Help & Support', icon: HelpCircle },
@@ -199,95 +216,101 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
           </button>
         </div>
 
-        {/* Primary Navigation Links */}
-        <div style={{ padding: '14px 10px 6px 10px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
-          {primaryNavItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeItem === item.key;
-            return (
-              <button
-                key={item.key}
-                onClick={() => onSelectItem(item.key)}
-                style={{
-                  width: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  padding: collapsed ? '9px 0' : '9px 12px',
-                  justifyContent: collapsed ? 'center' : 'flex-start',
-                  backgroundColor: isActive ? 'rgba(99, 102, 241, 0.16)' : 'transparent',
-                  color: isActive ? '#ffffff' : '#94a3b8',
-                  border: 'none',
-                  borderRadius: '9px',
-                  fontSize: '0.82rem',
-                  fontWeight: isActive ? 600 : 500,
-                  cursor: 'pointer',
-                  transition: 'all 0.15s ease',
-                  position: 'relative',
-                  textAlign: 'left',
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
-                    e.currentTarget.style.color = '#f1f5f9';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                    e.currentTarget.style.color = '#94a3b8';
-                  }
-                }}
-                title={collapsed ? item.label : undefined}
-              >
-                {isActive && (
-                  <span
+        {/* Navigation Groups */}
+        <div style={{ padding: '14px 10px 6px 10px', display: 'flex', flexDirection: 'column', gap: '16px', overflowY: 'auto' }}>
+          {navGroups.map((group, groupIdx) => (
+            <div key={groupIdx} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              {!collapsed && (
+                <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#64748b', letterSpacing: '0.5px', paddingLeft: '12px', marginBottom: '2px', textTransform: 'uppercase' }}>
+                  {group.title}
+                </div>
+              )}
+              {group.items.map((item) => {
+                const Icon = item.icon;
+                const isActive = activeItem === item.key;
+                return (
+                  <button
+                    key={item.key}
+                    onClick={() => onSelectItem(item.key)}
                     style={{
-                      position: 'absolute',
-                      left: 0,
-                      top: '18%',
-                      bottom: '18%',
-                      width: '3px',
-                      backgroundColor: '#6366f1',
-                      borderRadius: '0 4px 4px 0',
+                      width: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: collapsed ? '9px 0' : '9px 12px',
+                      justifyContent: collapsed ? 'center' : 'flex-start',
+                      backgroundColor: isActive ? 'rgba(99, 102, 241, 0.16)' : 'transparent',
+                      color: isActive ? '#ffffff' : '#94a3b8',
+                      border: 'none',
+                      borderRadius: '9px',
+                      fontSize: '0.82rem',
+                      fontWeight: isActive ? 600 : 500,
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease',
+                      position: 'relative',
+                      textAlign: 'left',
                     }}
-                  />
-                )}
-                <Icon
-                  size={17}
-                  style={{
-                    color: isActive ? '#818cf8' : '#64748b',
-                    flexShrink: 0,
-                  }}
-                />
-                {!collapsed && (
-                  <>
-                    <span style={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                      {item.label}
-                    </span>
-                    {item.badge && (
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+                        e.currentTarget.style.color = '#f1f5f9';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.color = '#94a3b8';
+                      }
+                    }}
+                    title={collapsed ? item.label : undefined}
+                  >
+                    {isActive && (
                       <span
                         style={{
-                          fontSize: '0.66rem',
-                          fontWeight: 600,
-                          padding: '2px 7px',
-                          borderRadius: '9999px',
-                          backgroundColor:
-                            item.badge === 'Parsed'
-                              ? 'rgba(16, 185, 129, 0.18)'
-                              : 'rgba(99, 102, 241, 0.22)',
-                          color: item.badgeColor,
-                          border: `1px solid ${item.badge === 'Parsed' ? 'rgba(16, 185, 129, 0.3)' : 'rgba(99, 102, 241, 0.3)'}`,
+                          position: 'absolute',
+                          left: 0,
+                          top: '18%',
+                          bottom: '18%',
+                          width: '3px',
+                          backgroundColor: '#6366f1',
+                          borderRadius: '0 4px 4px 0',
                         }}
-                      >
-                        {item.badge}
-                      </span>
+                      />
                     )}
-                  </>
-                )}
-              </button>
-            );
-          })}
+                    <Icon
+                      size={17}
+                      style={{
+                        color: isActive ? '#818cf8' : '#64748b',
+                        flexShrink: 0,
+                      }}
+                    />
+                    {!collapsed && (
+                      <>
+                        <span style={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {item.label}
+                        </span>
+                        {item.badge && (
+                          <span
+                            style={{
+                              fontSize: '0.62rem',
+                              fontWeight: 600,
+                              padding: '2px 6px',
+                              borderRadius: '9999px',
+                              backgroundColor: item.badgeColor ? `${item.badgeColor}25` : 'rgba(99, 102, 241, 0.22)',
+                              color: item.badgeColor || '#a5b4fc',
+                              border: `1px solid ${item.badgeColor ? `${item.badgeColor}40` : 'rgba(99, 102, 241, 0.3)'}`,
+                            }}
+                          >
+                            {item.badge}
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          ))}
         </div>
 
         {/* Divider */}
@@ -299,9 +322,14 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
           }}
         />
 
-        {/* Secondary Navigation Links */}
-        <div style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
-          {secondaryNavItems.map((item) => {
+        {/* SYSTEM Navigation Links */}
+        <div style={{ padding: '0 10px 10px 10px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+          {!collapsed && (
+            <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#64748b', letterSpacing: '0.5px', paddingLeft: '12px', marginBottom: '2px', marginTop: '4px', textTransform: 'uppercase' }}>
+              SYSTEM
+            </div>
+          )}
+          {systemItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeItem === item.key;
             return (

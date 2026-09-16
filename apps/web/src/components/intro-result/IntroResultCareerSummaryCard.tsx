@@ -3,10 +3,14 @@ import { Edit2, Copy, RotateCcw, Check, Info } from 'lucide-react';
 
 interface IntroResultCareerSummaryCardProps {
   onEdit?: () => void;
+  diagnosticData?: any;
+  targetRole?: string;
 }
 
 export const IntroResultCareerSummaryCard: React.FC<IntroResultCareerSummaryCardProps> = ({
   onEdit,
+  diagnosticData,
+  targetRole = 'General Assessment',
 }) => {
   const [copied, setCopied] = useState(false);
 
@@ -120,13 +124,13 @@ export const IntroResultCareerSummaryCard: React.FC<IntroResultCareerSummaryCard
       </div>
 
       {/* Paragraphs */}
-      <div style={{ fontSize: '0.82rem', color: '#cbd5e1', lineHeight: 1.6, marginBottom: '16px' }}>
-        <p style={{ margin: '0 0 12px 0' }}>
-          Shakil is an accomplished Senior Backend and Distributed Systems Engineer with 6+ years of production experience architecting high-throughput financial pipelines and resilient event-driven systems. He has demonstrated consistent technical ownership across Kafka streaming clusters, PostgreSQL concurrency mitigation, and microservice decoupling at FinScale Labs and Nexura Tech.
+      <div style={{ fontSize: '0.8rem', color: '#cbd5e1', lineHeight: 1.6, marginBottom: '20px' }}>
+        <p style={{ marginBottom: '12px' }}>
+          {diagnosticData ? `User is an accomplished professional targeting the ${targetRole} level. They have demonstrated consistent technical ownership across multiple complex engineering challenges.` : `Awaiting AI synthesis based on ingested session. Targeting ${targetRole}.`}
         </p>
 
         <p style={{ margin: 0 }}>
-          His stated trajectory centers on Staff Backend Engineer and Distributed Systems Architect roles. Key career objectives include strengthening executive-level architectural trade-off articulation under CAP constraints, presenting multi-datacenter disaster recovery strategies, and leading cross-functional engineering reviews at scale.
+          {diagnosticData ? `Their stated trajectory centers on ${targetRole} roles. Key career objectives include strengthening executive-level architectural trade-off articulation.` : 'Once synthesis is complete, a high-level career summary will be generated here.'}
         </p>
       </div>
 

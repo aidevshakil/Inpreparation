@@ -15,6 +15,7 @@ import { CvBuilderA4PreviewSheet, CvTemplateType } from '../components/cv-builde
 import { CvBuilderAiCoachCard } from '../components/cv-builder/CvBuilderAiCoachCard';
 import { CvBuilderAiModal } from '../components/cv-builder/CvBuilderAiModal';
 import { DashboardFooter } from '../components/dashboard/DashboardFooter';
+import { useAuth } from '../context/AuthContext';
 
 interface CvBuilderPageProps {
   onNavigateToHome?: () => void;
@@ -42,93 +43,39 @@ export const CvBuilderPage: React.FC<CvBuilderPageProps> = ({
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [aiModalOpen, setAiModalOpen] = useState(false);
   const [editingExperienceId, setEditingExperienceId] = useState<string | null>(null);
+  const [isFullscreenPreview, setIsFullscreenPreview] = useState(false);
+  
+  const { user } = useAuth();
 
   // Form State
   const [personalInfo, setPersonalInfo] = useState<PersonalInfoData>({
-    fullName: 'Shakil Ahamed',
-    professionalTitle: 'Senior Backend Engineer & Distributed Systems',
-    email: 'shakil.ahamed@example.com',
-    phone: '+1 (555) 349-8201',
-    location: 'San Francisco, CA',
-    linkedin: 'linkedin.com/in/shakilahamed',
-    github: 'github.com/shakilahamed',
-    portfolio: 'shakil.dev',
-    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200',
+    fullName: user.name || '',
+    professionalTitle: '',
+    email: user.email || '',
+    phone: '',
+    location: '',
+    linkedin: '',
+    github: '',
+    portfolio: '',
+    avatarUrl: user.avatarUrl || '',
   });
 
-  const [summary, setSummary] = useState(
-    'High-throughput Distributed Systems Engineer with 6+ years designing fault-tolerant backend infrastructures. Specialised in asynchronous event streaming (Kafka/Go), zero-downtime database partitioning (PostgreSQL/Redis), and cloud systems scaling (15,000+ QPS).'
-  );
+  const [summary, setSummary] = useState('');
 
-  const [experiences, setExperiences] = useState<ExperienceItem[]>([
-    {
-      id: 'exp-1',
-      roleTitle: 'Senior Backend Engineer',
-      company: 'FinScale Labs',
-      location: 'San Francisco, CA (Remote)',
-      timeline: '2023 - Present',
-      bulletsText:
-        '• Architected distributed transaction saga coordination engine supporting 12,000+ QPS across 4 regions.\n• Reduced P99 tail latency by 34% by redesigning cache eviction policies on partitioned PostgreSQL and Redis.\n• Mentored team of 6 engineers on event-driven streaming best practices and Go.',
-    },
-    {
-      id: 'exp-2',
-      roleTitle: 'Software Engineer',
-      company: 'Nomura Tech Solutions',
-      location: 'Austin, TX (Remote)',
-      timeline: '2021 - 2023',
-      bulletsText:
-        '• Built microservices ingestion pipeline handling 10M daily records using Python/FastAPI and Celery workers.\n• Implemented PostgreSQL horizontal database sharding, saving $45K annually on compute resources.',
-    },
-  ]);
+  const [experiences, setExperiences] = useState<ExperienceItem[]>([]);
 
-  const [educations, setEducations] = useState<EducationItem[]>([
-    {
-      id: 'edu-1',
-      degree: 'B.Sc. in Computer Science & Engineering',
-      institution: 'North South University',
-      yearHonors: 'Graduated 2021 • Major Cum Laude (GPA 3.84/4.0)',
-      coursework: 'Distributed Systems, Advanced Algorithms, Relational Databases, Cryptographic Protocols',
-    },
-  ]);
+  const [educations, setEducations] = useState<EducationItem[]>([]);
 
   const [skillGroups, setSkillGroups] = useState<SkillCategoryGroup[]>([
     {
       category: 'Languages',
-      skills: ['Python 3.12', 'Go (Golang)', 'SQL', 'Dart'],
-    },
-    {
-      category: 'Frameworks & Protocols',
-      skills: ['FastAPI', 'Apache Kafka', 'gRPC / Protobufs', 'PostgreSQL & Redis'],
-    },
+      skills: [],
+    }
   ]);
 
-  const [projects, setProjects] = useState<ProjectItem[]>([
-    {
-      id: 'proj-1',
-      name: 'Distributed Transaction Scribe Engine',
-      badge: 'Open Source',
-      year: '2024',
-      description:
-        'Lightweight Distributed consensus ledger with Raft consensus. Demonstrates sub-millisecond multi-region replication and failure injection resiliency.',
-    },
-    {
-      id: 'proj-2',
-      name: 'Acoustic Prosody Analyzer',
-      badge: 'Research Tool',
-      year: '2023',
-      description:
-        'Real-time pitch tracking and speech cadence evaluator developed with Python, Librosa and WebSockets streaming.',
-    },
-  ]);
+  const [projects, setProjects] = useState<ProjectItem[]>([]);
 
-  const [certs, setCerts] = useState<CertItem[]>([
-    {
-      id: 'cert-1',
-      title: 'AWS Certified Developer – Associate',
-      issuerDate: 'Amazon Web Services • Issued Nov 2023 (Credential ID: Verified ✓)',
-      isVerified: true,
-    },
-  ]);
+  const [certs, setCerts] = useState<CertItem[]>([]);
 
   const [activeTemplate, setActiveTemplate] = useState<CvTemplateType>('modern');
 
@@ -155,11 +102,11 @@ export const CvBuilderPage: React.FC<CvBuilderPageProps> = ({
     const newId = `exp-${Date.now()}`;
     const newEntry: ExperienceItem = {
       id: newId,
-      roleTitle: 'Software Engineer',
-      company: 'Tech Corp',
-      location: 'Remote',
-      timeline: '2024 - Present',
-      bulletsText: '• Designed and implemented performant backend APIs.\n• Collaborated with cross-functional teams to deliver scalable solutions.',
+      roleTitle: '',
+      company: '',
+      location: '',
+      timeline: '',
+      bulletsText: '',
     };
     setExperiences((prev) => [...prev, newEntry]);
   };
@@ -203,10 +150,10 @@ export const CvBuilderPage: React.FC<CvBuilderPageProps> = ({
   const handleAddDegree = () => {
     const newDegree: EducationItem = {
       id: `edu-${Date.now()}`,
-      degree: 'M.Sc. in Distributed Systems',
-      institution: 'Stanford Online',
-      yearHonors: '2024 • Honors',
-      coursework: 'Consensus Protocols, Cloud Architecture',
+      degree: '',
+      institution: '',
+      yearHonors: '',
+      coursework: '',
     };
     setEducations((prev) => [...prev, newDegree]);
   };
@@ -214,10 +161,10 @@ export const CvBuilderPage: React.FC<CvBuilderPageProps> = ({
   const handleAddProject = () => {
     const newProject: ProjectItem = {
       id: `proj-${Date.now()}`,
-      name: 'High-Concurrency In-Memory Queue',
-      badge: 'Open Source',
-      year: '2024',
-      description: 'Zero-allocation ring buffer message queue built in Go with lock-free atomic pointers.',
+      name: '',
+      badge: '',
+      year: '',
+      description: '',
     };
     setProjects((prev) => [...prev, newProject]);
   };
@@ -225,9 +172,9 @@ export const CvBuilderPage: React.FC<CvBuilderPageProps> = ({
   const handleAddCredential = () => {
     const newCert: CertItem = {
       id: `cert-${Date.now()}`,
-      title: 'Certified Kubernetes Administrator (CKA)',
-      issuerDate: 'Linux Foundation • Issued Jan 2024',
-      isVerified: true,
+      title: '',
+      issuerDate: '',
+      isVerified: false,
     };
     setCerts((prev) => [...prev, newCert]);
   };
@@ -242,8 +189,8 @@ export const CvBuilderPage: React.FC<CvBuilderPageProps> = ({
           onSelectItem={handleSelectNav}
           collapsed={sidebarCollapsed}
           onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
-          creditsRemaining={78}
-          totalCredits={100}
+          creditsRemaining={user.creditsRemaining}
+          totalCredits={user.totalCredits}
         />
 
         {/* 3. Main Body Column */}
@@ -260,7 +207,7 @@ export const CvBuilderPage: React.FC<CvBuilderPageProps> = ({
               onNavigateToCv={onNavigateToCv}
               onImportResume={onNavigateToUploadCv}
               onSaveDraft={() => alert('Draft saved to Encrypted Vault!')}
-              onPreviewA4={() => alert('Opening Fullscreen A4 Preview...')}
+              onPreviewA4={() => setIsFullscreenPreview(true)}
               onContinueToAssessment={() => {
                 if (onNavigateToCvAnalysis) onNavigateToCvAnalysis();
                 else if (onNavigateToSimulations) onNavigateToSimulations();
@@ -276,6 +223,13 @@ export const CvBuilderPage: React.FC<CvBuilderPageProps> = ({
                 const el = document.getElementById(`section-${secId}`);
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
+              personalComplete={Boolean(personalInfo.fullName && personalInfo.email)}
+              summaryComplete={Boolean(summary.trim().length > 0)}
+              experienceCount={experiences.length}
+              educationCount={educations.length}
+              skillCount={skillGroups.reduce((acc, group) => acc + group.skills.length, 0)}
+              projectCount={projects.length}
+              certCount={certs.length}
             />
 
             {/* 2-Column Grid: Form Sections (Left) vs. Sticky Live A4 Preview (Right) */}
@@ -366,7 +320,7 @@ export const CvBuilderPage: React.FC<CvBuilderPageProps> = ({
                   activeTemplate={activeTemplate}
                   onSelectTemplate={(tpl) => setActiveTemplate(tpl)}
                   onDownloadPdf={() => alert('Downloading calibrated PDF...')}
-                  onExpandFullscreen={() => alert('Entering fullscreen preview modal...')}
+                  onExpandFullscreen={() => setIsFullscreenPreview(true)}
                 />
 
                 <CvBuilderAiCoachCard />
@@ -396,6 +350,67 @@ export const CvBuilderPage: React.FC<CvBuilderPageProps> = ({
           }
         }}
       />
+
+      {/* Fullscreen A4 Preview Modal */}
+      {isFullscreenPreview && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(3, 7, 18, 0.95)',
+            zIndex: 9999,
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'auto',
+            backdropFilter: 'blur(8px)',
+          }}
+        >
+          <div
+            style={{
+              padding: '24px',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              position: 'sticky',
+              top: 0,
+              zIndex: 10000,
+            }}
+          >
+            <button
+              onClick={() => setIsFullscreenPreview(false)}
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(255,255,255,0.2)',
+                color: '#fff',
+                padding: '8px 24px',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: 600,
+              }}
+            >
+              Close Preview
+            </button>
+          </div>
+          
+          <div style={{ maxWidth: '900px', width: '100%', margin: '0 auto', paddingBottom: '60px' }}>
+            <CvBuilderA4PreviewSheet
+              personalInfo={personalInfo}
+              summary={summary}
+              experiences={experiences}
+              educations={educations}
+              skillGroups={skillGroups}
+              projects={projects}
+              certs={certs}
+              activeTemplate={activeTemplate}
+              onSelectTemplate={(tpl) => setActiveTemplate(tpl)}
+              onDownloadPdf={() => alert('Downloading calibrated PDF...')}
+              onExpandFullscreen={() => setIsFullscreenPreview(false)} // Toggle off if clicked inside
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

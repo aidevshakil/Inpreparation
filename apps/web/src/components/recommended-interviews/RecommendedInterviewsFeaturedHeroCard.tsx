@@ -2,17 +2,21 @@ import React, { useState } from 'react';
 import { ArrowRight, Bookmark, Sparkles, FileText, CheckCircle2, Shield, Activity } from 'lucide-react';
 
 interface RecommendedInterviewsFeaturedHeroCardProps {
-  onStartSimulation?: () => void;
-  onViewRubric?: () => void;
+  onStartSimulation?: (track: string) => void;
+  onViewRubric?: (track: string) => void;
+  targetRole?: string;
+  recommendationsData?: any;
 }
 
 export const RecommendedInterviewsFeaturedHeroCard: React.FC<RecommendedInterviewsFeaturedHeroCardProps> = ({
   onStartSimulation,
   onViewRubric,
+  targetRole = 'Staff Backend Architect',
+  recommendationsData,
 }) => {
   const [isSaved, setIsSaved] = useState(false);
 
-  const skills = [
+  const skills = recommendationsData?.featuredSkills || [
     'Go Runtime',
     'Apache Kafka',
     'Distributed Consensus',
@@ -96,11 +100,11 @@ export const RecommendedInterviewsFeaturedHeroCard: React.FC<RecommendedIntervie
           </div>
 
           <h2 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#ffffff', margin: '0 0 10px 0', letterSpacing: '-0.01em' }}>
-            Staff Backend &amp; Distributed Systems Architecture
+            {targetRole}
           </h2>
 
           <p style={{ fontSize: '0.82rem', color: '#cbd5e1', lineHeight: 1.55, margin: '0 0 16px 0' }}>
-            Practice articulating complex high-concurrency trade-offs, Raft consensus split-brain mitigation, multi-datacenter data consistency, and cross-functional leadership under ambiguous operational constraints.
+            {recommendationsData?.featuredDescription || 'Practice articulating complex high-concurrency trade-offs, Raft consensus split-brain mitigation, multi-datacenter data consistency, and cross-functional leadership under ambiguous operational constraints.'}
           </p>
 
           {/* Parameter Grid Matrix */}
@@ -188,7 +192,7 @@ export const RecommendedInterviewsFeaturedHeroCard: React.FC<RecommendedIntervie
           {/* Action Row */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
             <button
-              onClick={onStartSimulation}
+              onClick={() => onStartSimulation && onStartSimulation(targetRole)}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -210,7 +214,7 @@ export const RecommendedInterviewsFeaturedHeroCard: React.FC<RecommendedIntervie
             </button>
 
             <button
-              onClick={onViewRubric}
+              onClick={() => onViewRubric && onViewRubric(targetRole)}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',

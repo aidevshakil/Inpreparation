@@ -1,8 +1,11 @@
 import { Router, Request, Response } from 'express';
 import { prisma } from '@packages/database';
 import { sendOtpEmail } from '../services/email.service';
+import { OAuth2Client } from 'google-auth-library';
 
 export const authRouter = Router();
+
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID || 'your-google-client-id-here');
 
 // Helper to generate a secure 6-digit numeric OTP
 function generateOtpCode(): string {
@@ -248,3 +251,63 @@ authRouter.post('/login', async (req: Request, res: Response) => {
   }
 });
 
+// -------------------------------------------------------------
+// 5. GOOGLE OAUTH LOGIN
+// -------------------------------------------------------------
+authRouter.post('/google', async (req: Request, res: Response) => {
+  try {
+    const { accessToken } = req.body;
+    if (!accessToken) {
+      return res.status(400).json({ error: 'Access token is required' });
+    }
+
+    // Use the google client to get user info from the access token
+    const tokenInfo = await googleClient.getTokenInfo(accessToken);
+    const userInfoResponse = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    
+    if (!userInfoResponse.ok) {
+      return res.status(401).json({ error: 'Invalid Google access token' });
+    }
+    
+    const payload = await userInfoResponse.json();
+    const cleanEmail = payload.email.trim().toLowerCase();
+
+    let user = await prisma.user.findUnique({
+      where: { email: cleanEmail },
+      include: {
+        simulations: {
+          take: 5,
+          orderBy: { createdAt: 'desc' },
+        },
+      },
+    });
+
+    if (!user) {
+      user = await prisma.user.create({
+        data: {
+          email: cleanEmail,
+          name: payload.name || cleanEmail.split('@')[0],
+          targetRole: 'Full Stack Software Engineer',
+          isEmailVerified: true, // Google verified
+        },
+        include: {
+          simulations: true,
+        },
+      });
+    }
+
+    res.json({ 
+      success: true, 
+      message: 'Logged in via Google successfully', 
+      user: {
+        ...user,
+        picture: payload.picture,
+      }
+    });
+  } catch (error: any) {
+    console.error('[Auth Google SSO Error]:', error);
+    res.status(500).json({ error: error.message });
+  }
+});

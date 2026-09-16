@@ -1,17 +1,16 @@
 import React from 'react';
 import { Briefcase, Target, Sliders } from 'lucide-react';
 
-export const IntroResultWhatYouSharedCard: React.FC = () => {
-  const skills = [
-    'Go (Golang)',
-    'Python',
-    'Apache Kafka',
-    'PostgreSQL',
-    'Redis',
-    'gRPC',
-    'Distributed Consensus',
-    'Docker & K8s',
-  ];
+interface IntroResultWhatYouSharedCardProps {
+  diagnosticData?: any;
+  targetRole?: string;
+}
+
+export const IntroResultWhatYouSharedCard: React.FC<IntroResultWhatYouSharedCardProps> = ({
+  diagnosticData,
+  targetRole = 'General Assessment',
+}) => {
+  const skills = diagnosticData?.focusAreas || [];
 
   return (
     <div
@@ -70,10 +69,10 @@ export const IntroResultWhatYouSharedCard: React.FC = () => {
           </div>
 
           <div style={{ fontSize: '0.82rem', color: '#f8fafc', fontWeight: 600, marginBottom: '2px' }}>
-            FinScale Labs (Sr. Systems Eng)
+            {diagnosticData ? 'Company Target: ' + (diagnosticData?.targetCompanyTypes?.[0] || 'Not specified') : 'Awaiting data'}
           </div>
           <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>
-            Previously: Nexura Tech (Backend Specialist)
+            {diagnosticData ? 'Targeting: ' + (diagnosticData?.seniorityTier || 'Not specified') : ''}
           </div>
         </div>
 
@@ -94,10 +93,10 @@ export const IntroResultWhatYouSharedCard: React.FC = () => {
           </div>
 
           <div style={{ fontSize: '0.82rem', color: '#f8fafc', fontWeight: 600, marginBottom: '2px' }}>
-            Staff L6+ Promotion Readiness
+            {targetRole}
           </div>
           <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>
-            Mastering high-scale system design articulation
+            {diagnosticData ? 'Focusing on architectural articulation' : 'Pending Synthesis'}
           </div>
         </div>
       </div>
@@ -109,7 +108,7 @@ export const IntroResultWhatYouSharedCard: React.FC = () => {
         </div>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-          {skills.map((skill) => (
+          {skills.length > 0 ? skills.map((skill: string) => (
             <span
               key={skill}
               style={{
@@ -123,7 +122,9 @@ export const IntroResultWhatYouSharedCard: React.FC = () => {
             >
               {skill}
             </span>
-          ))}
+          )) : (
+            <span style={{ fontSize: '0.72rem', color: '#64748b' }}>No verified skills yet</span>
+          )}
         </div>
       </div>
 
@@ -145,7 +146,7 @@ export const IntroResultWhatYouSharedCard: React.FC = () => {
           <Sliders size={14} style={{ color: '#818cf8' }} />
           <span style={{ fontSize: '0.74rem', color: '#94a3b8' }}>Preferred Interview Mode:</span>
           <span style={{ fontSize: '0.78rem', color: '#f8fafc', fontWeight: 600 }}>
-            Staff System Architecture + STAR Behavioral Defense
+            {targetRole} Interview Mode
           </span>
         </div>
 

@@ -15,6 +15,7 @@ import { IntroRoomModals } from '../components/intro-room/IntroRoomModals';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { DashboardFooter } from '../components/dashboard/DashboardFooter';
 import { ArrowLeft, ArrowRight, Settings2 } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 interface IntroRoomPageProps {
   onNavigateToHome?: () => void;
@@ -48,6 +49,9 @@ export const IntroRoomPage: React.FC<IntroRoomPageProps> = ({
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [responseMode, setResponseMode] = useState<IntroResponseMode>('camera_voice');
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
+  const { user } = useAuth();
+  
+  const displayRole = user?.targetRole && user.targetRole !== 'Select Target Role' ? user.targetRole : "General Assessment";
 
   const handleSelectNav = (key: NavItemKey) => {
     setActiveNav(key);
@@ -141,6 +145,7 @@ export const IntroRoomPage: React.FC<IntroRoomPageProps> = ({
                   isCameraOn={responseMode === 'camera_voice' && simulatorState !== 'audio_only'}
                 />
                 <IntroRoomTelemetryCard
+                  trackName={displayRole}
                   onNavigateToDeviceCheck={onNavigateToDeviceReadiness}
                 />
                 <IntroRoomPracticeGuidelinesCard />
@@ -264,7 +269,7 @@ export const IntroRoomPage: React.FC<IntroRoomPageProps> = ({
         <LiveSimulationModal
           isOpen={simulationModalOpen}
           onClose={() => setSimulationModalOpen(false)}
-          initialRole="Staff Backend Architect"
+          initialRole={displayRole}
         />
       )}
     </div>

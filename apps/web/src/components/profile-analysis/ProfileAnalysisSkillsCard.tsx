@@ -3,10 +3,12 @@ import { Layers } from 'lucide-react';
 
 interface ProfileAnalysisSkillsCardProps {
   initialFilter?: string;
+  dossierData?: any;
 }
 
 export const ProfileAnalysisSkillsCard: React.FC<ProfileAnalysisSkillsCardProps> = ({
   initialFilter = 'all',
+  dossierData,
 }) => {
   const [activeFilter, setActiveFilter] = useState<'all' | 'languages' | 'data' | 'architecture' | 'cloud'>(
     initialFilter as any
@@ -128,7 +130,7 @@ export const ProfileAnalysisSkillsCard: React.FC<ProfileAnalysisSkillsCardProps>
 
       {/* Skill Categories */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '20px' }}>
-        {filteredGroups.map((group) => (
+        {dossierData ? filteredGroups.map((group) => (
           <div key={group.title}>
             <div style={{ fontSize: '0.64rem', color: '#64748b', fontWeight: 700, letterSpacing: '0.6px', marginBottom: '8px' }}>
               {group.title}
@@ -167,7 +169,9 @@ export const ProfileAnalysisSkillsCard: React.FC<ProfileAnalysisSkillsCardProps>
               ))}
             </div>
           </div>
-        ))}
+        )) : (
+          <div style={{ fontSize: '0.74rem', color: '#64748b' }}>Awaiting skills extraction from profile and audio...</div>
+        )}
       </div>
 
       {/* Legend */}

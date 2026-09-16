@@ -15,6 +15,7 @@ import { DeviceExitDialogModal } from '../components/device-readiness/DeviceExit
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { DashboardFooter } from '../components/dashboard/DashboardFooter';
 import { ArrowLeft, ArrowRight, Save } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 interface DeviceReadinessPageProps {
   onNavigateToHome?: () => void;
@@ -49,6 +50,9 @@ export const DeviceReadinessPage: React.FC<DeviceReadinessPageProps> = ({
   const [exitModalOpen, setExitModalOpen] = useState(false);
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
   const [isDiagnosticsRunning, setIsDiagnosticsRunning] = useState(false);
+  const { user } = useAuth();
+  
+  const displayRole = user?.targetRole && user.targetRole !== 'Select Target Role' ? user.targetRole : "General Assessment";
 
   const handleSelectNav = (key: NavItemKey) => {
     setActiveNav(key);
@@ -97,7 +101,7 @@ export const DeviceReadinessPage: React.FC<DeviceReadinessPageProps> = ({
           {/* Page Inner Container */}
           <div style={{ maxWidth: '1440px', width: '100%', margin: '0 auto', padding: '0 28px 40px 28px' }}>
             {/* Header with Badges & Metadata */}
-            <DeviceReadinessHeader interviewRole="Staff Systems Architect" />
+            <DeviceReadinessHeader interviewRole={displayRole} />
 
             {/* Readiness Summary Banner Card */}
             <DeviceReadinessBannerCard
@@ -144,7 +148,7 @@ export const DeviceReadinessPage: React.FC<DeviceReadinessPageProps> = ({
                 />
 
                 <DeviceSessionConfigCard
-                  trackName="Staff Backend Architect"
+                  trackName={displayRole}
                   simulationLength="5 Diagnostic Adaptive Prompts"
                   feedbackChannels="Speech Prosody + Systems Depth"
                   onSwitchAudioOnly={() => setIsCameraOn(false)}
@@ -261,7 +265,7 @@ export const DeviceReadinessPage: React.FC<DeviceReadinessPageProps> = ({
         <LiveSimulationModal
           isOpen={simulationModalOpen}
           onClose={() => setSimulationModalOpen(false)}
-          initialRole="Staff Backend Architect"
+          initialRole={displayRole}
         />
       )}
     </div>

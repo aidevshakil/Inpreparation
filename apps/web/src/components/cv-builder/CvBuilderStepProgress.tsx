@@ -12,20 +12,45 @@ interface StepItem {
 interface CvBuilderStepProgressProps {
   activeSection?: string;
   onSelectSection?: (sectionId: string) => void;
+  personalComplete?: boolean;
+  summaryComplete?: boolean;
+  experienceCount?: number;
+  educationCount?: number;
+  skillCount?: number;
+  projectCount?: number;
+  certCount?: number;
 }
 
 export const CvBuilderStepProgress: React.FC<CvBuilderStepProgressProps> = ({
   activeSection = 'personal',
-  onSelectSection,
+  personalComplete = false,
+  summaryComplete = false,
+  experienceCount = 0,
+  educationCount = 0,
+  skillCount = 0,
+  projectCount = 0,
+  certCount = 0,
 }) => {
+  const totalSteps = 7;
+  let completedCount = 0;
+  if (personalComplete) completedCount++;
+  if (summaryComplete) completedCount++;
+  if (experienceCount > 0) completedCount++;
+  if (educationCount > 0) completedCount++;
+  if (skillCount > 0) completedCount++;
+  if (projectCount > 0) completedCount++;
+  if (certCount > 0) completedCount++;
+
+  const percentage = Math.round((completedCount / totalSteps) * 100);
+
   const steps: StepItem[] = [
-    { id: 'personal', number: 1, label: 'Personal', status: 'Completed', isComplete: true },
-    { id: 'summary', number: 2, label: 'Summary', status: 'Completed', isComplete: true },
-    { id: 'experience', number: 3, label: 'Experience', status: '2 entries', isComplete: true },
-    { id: 'education', number: 4, label: 'Education', status: '1 entry', isComplete: true },
-    { id: 'skills', number: 5, label: 'Skills', status: '8 tags', isComplete: true },
-    { id: 'projects', number: 6, label: 'Projects', status: '2 entries', isComplete: true },
-    { id: 'certs', number: 7, label: 'Certs', status: '1 entry', isComplete: true },
+    { id: 'personal', number: 1, label: 'Personal', status: personalComplete ? 'Completed' : 'Pending', isComplete: personalComplete },
+    { id: 'summary', number: 2, label: 'Summary', status: summaryComplete ? 'Completed' : 'Pending', isComplete: summaryComplete },
+    { id: 'experience', number: 3, label: 'Experience', status: `${experienceCount} entr${experienceCount === 1 ? 'y' : 'ies'}`, isComplete: experienceCount > 0 },
+    { id: 'education', number: 4, label: 'Education', status: `${educationCount} entr${educationCount === 1 ? 'y' : 'ies'}`, isComplete: educationCount > 0 },
+    { id: 'skills', number: 5, label: 'Skills', status: `${skillCount} tag${skillCount === 1 ? '' : 's'}`, isComplete: skillCount > 0 },
+    { id: 'projects', number: 6, label: 'Projects', status: `${projectCount} entr${projectCount === 1 ? 'y' : 'ies'}`, isComplete: projectCount > 0 },
+    { id: 'certs', number: 7, label: 'Certs', status: `${certCount} entr${certCount === 1 ? 'y' : 'ies'}`, isComplete: certCount > 0 },
     { id: 'additional', number: 8, label: 'Additional', status: 'Optional', isComplete: false },
   ];
 
@@ -66,7 +91,7 @@ export const CvBuilderStepProgress: React.FC<CvBuilderStepProgressProps> = ({
               border: '1px solid rgba(99, 102, 241, 0.3)',
             }}
           >
-            75% Readiness Calibration
+            {percentage}% Readiness Calibration
           </span>
         </div>
 
@@ -88,7 +113,7 @@ export const CvBuilderStepProgress: React.FC<CvBuilderStepProgressProps> = ({
       >
         <div
           style={{
-            width: '75%',
+            width: `${percentage}%`,
             height: '100%',
             background: 'linear-gradient(90deg, #6366f1, #38bdf8)',
             borderRadius: '9999px',

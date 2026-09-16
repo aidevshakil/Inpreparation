@@ -5,12 +5,14 @@ interface ProfileAnalysisHeaderProps {
   onNavigateToAssessment?: () => void;
   onDownloadPdf?: () => void;
   onStartRecommendedInterviews?: () => void;
+  targetRole?: string;
 }
 
 export const ProfileAnalysisHeader: React.FC<ProfileAnalysisHeaderProps> = ({
   onNavigateToAssessment,
   onDownloadPdf,
   onStartRecommendedInterviews,
+  targetRole = 'Target Role',
 }) => {
   return (
     <div style={{ marginBottom: '24px' }}>
@@ -200,7 +202,7 @@ export const ProfileAnalysisHeader: React.FC<ProfileAnalysisHeaderProps> = ({
               RADAR TAXONOMY
             </div>
             <div style={{ fontSize: '0.78rem', color: '#f8fafc', fontWeight: 600 }}>
-              Staff Systems &amp; Architecture Framework
+              {targetRole} Framework
             </div>
           </div>
         </div>

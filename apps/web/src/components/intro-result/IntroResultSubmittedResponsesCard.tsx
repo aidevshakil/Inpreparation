@@ -3,10 +3,12 @@ import { Play, Pause, Volume2, CheckCircle2, ExternalLink } from 'lucide-react';
 
 interface IntroResultSubmittedResponsesCardProps {
   onOpenDrawer?: () => void;
+  diagnosticData?: any;
 }
 
 export const IntroResultSubmittedResponsesCard: React.FC<IntroResultSubmittedResponsesCardProps> = ({
   onOpenDrawer,
+  diagnosticData,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -168,7 +170,7 @@ export const IntroResultSubmittedResponsesCard: React.FC<IntroResultSubmittedRes
             paddingLeft: '10px',
           }}
         >
-          &ldquo;I am a Senior Backend and Distributed Systems Engineer with over 6 years of experience... focusing on event-driven streaming with Kafka and PostgreSQL concurrency patterns... looking forward to leading architecture reviews at scale.&rdquo;
+          &ldquo;{diagnosticData?.responses?.[0]?.transcript || diagnosticData?.responses?.[0]?.responseText || 'No transcription recorded for this session.'}&rdquo;
         </p>
 
         {/* Footer Meta */}

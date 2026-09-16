@@ -1,33 +1,12 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
+interface ProfileAnalysisStrengthsCardProps {
+  dossierData?: any;
+}
 
-export const ProfileAnalysisStrengthsCard: React.FC = () => {
-  const strengths = [
-    {
-      title: 'Quantifiable Distributed Impact',
-      citation: '[CV + Q1]',
-      badgeColor: '#38bdf8',
-      description: 'Demonstrated production experience reducing p99 tail latencies by 35% on critical settlement pipelines.',
-    },
-    {
-      title: 'Event-Driven Rigor',
-      citation: '[Q1: Deep Dive]',
-      badgeColor: '#c084fc',
-      description: 'Clear intuition regarding partition offsets, idempotency keys, and transactional outbox patterns.',
-    },
-    {
-      title: 'Decisive Architecture Trade-offs',
-      citation: '[Q4: Trade-offs]',
-      badgeColor: '#818cf8',
-      description: 'Articulated clear trade-offs between asynchronous event streaming vs synchronous gRPC calls under strict SLA.',
-    },
-    {
-      title: 'Staff-Level Architectural Vision',
-      citation: '[Career Goals]',
-      badgeColor: '#34d399',
-      description: 'Proactively preparing for multi-region active-active database failover and cross-team RFC governance.',
-    },
-  ];
+export const ProfileAnalysisStrengthsCard: React.FC<ProfileAnalysisStrengthsCardProps> = ({ dossierData }) => {
+  const strengths = dossierData?.strengths || [];
+
 
   return (
     <div
@@ -61,7 +40,7 @@ export const ProfileAnalysisStrengthsCard: React.FC = () => {
           marginBottom: '14px',
         }}
       >
-        {strengths.map((s, idx) => (
+        {strengths.length > 0 ? strengths.map((s: any, idx: number) => (
           <div
             key={idx}
             style={{
@@ -73,18 +52,20 @@ export const ProfileAnalysisStrengthsCard: React.FC = () => {
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
               <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#f8fafc' }}>
-                {s.title}
+                {s.title || `Strength ${idx + 1}`}
               </div>
-              <span style={{ fontSize: '0.64rem', color: s.badgeColor, fontFamily: 'monospace', fontWeight: 600 }}>
-                {s.citation}
+              <span style={{ fontSize: '0.64rem', color: s.badgeColor || '#38bdf8', fontFamily: 'monospace', fontWeight: 600 }}>
+                {s.citation || '[Analyzed]'}
               </span>
             </div>
 
             <p style={{ fontSize: '0.74rem', color: '#cbd5e1', lineHeight: 1.45, margin: 0 }}>
-              {s.description}
+              {s.description || s}
             </p>
           </div>
-        ))}
+        )) : (
+          <div style={{ fontSize: '0.74rem', color: '#64748b' }}>Awaiting strengths synthesis...</div>
+        )}
       </div>
 
       <p style={{ fontSize: '0.68rem', color: '#64748b', margin: 0 }}>

@@ -16,6 +16,8 @@ interface InterviewLibraryHeroProps {
   onResetFilters: () => void;
   onExploreInterviews: () => void;
   onGetRecommendations: () => void;
+  primaryCtaText?: string;
+  secondaryCtaText?: string;
 }
 
 export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
@@ -32,7 +34,9 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
   onSelectFormat,
   onResetFilters,
   onExploreInterviews,
-  onGetRecommendations
+  onGetRecommendations,
+  primaryCtaText = 'Explore Interviews',
+  secondaryCtaText = 'Get Personalized Recommendations'
 }) => {
   const popularTags = [
     'Python Developer',
@@ -129,7 +133,7 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
                 e.currentTarget.style.boxShadow = '0 4px 20px rgba(99, 102, 241, 0.4)';
               }}
             >
-              <span>Explore Interviews</span>
+              <span>{primaryCtaText}</span>
               <ArrowRight size={15} />
             </button>
 
@@ -159,7 +163,7 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
               }}
             >
               <Sparkles size={15} color="#c084fc" />
-              <span>Get Personalized Recommendations</span>
+              <span>{secondaryCtaText}</span>
             </button>
           </div>
 

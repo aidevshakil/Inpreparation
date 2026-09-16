@@ -1,6 +1,10 @@
 import React from 'react';
 
-export const PipelineWhatHappensNextCard: React.FC = () => {
+interface PipelineWhatHappensNextCardProps {
+  targetRole?: string;
+}
+
+export const PipelineWhatHappensNextCard: React.FC<PipelineWhatHappensNextCardProps> = ({ targetRole = "General Assessment" }) => {
   const nextMilestones = [
     {
       number: 1,
@@ -10,7 +14,7 @@ export const PipelineWhatHappensNextCard: React.FC = () => {
     {
       number: 2,
       title: 'Personalized Mock Drills',
-      description: 'Tailored drill pathways targeted for Staff/Principal scale.',
+      description: `Tailored drill pathways targeted for ${targetRole} scale.`,
     },
     {
       number: 3,

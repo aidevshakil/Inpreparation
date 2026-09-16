@@ -3,19 +3,21 @@ import { ArrowRight } from 'lucide-react';
 
 interface IntroResultPossibleTracksCardProps {
   onSelectTrack?: (trackName: string) => void;
+  targetRole?: string;
 }
 
 export const IntroResultPossibleTracksCard: React.FC<IntroResultPossibleTracksCardProps> = ({
   onSelectTrack,
+  targetRole = 'General Assessment',
 }) => {
   const tracks = [
     {
-      id: 'staff-backend',
+      id: 'target-role-track',
       tag: 'High Match • Recommended',
       isRecommended: true,
       promptsCount: '6 Adaptive Prompts',
-      title: 'Staff Backend & Systems Architect',
-      description: 'Targeted for L6+ distributed scalability, concurrency locks, and architectural review defense.',
+      title: targetRole,
+      description: `Targeted practice for ${targetRole} level expectations.`,
     },
     {
       id: 'distributed-systems',
