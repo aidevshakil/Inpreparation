@@ -12,9 +12,9 @@ import {
   Bell,
   Settings,
   HelpCircle,
-  ChevronsLeft,
   MoreVertical,
   Zap,
+  SlidersHorizontal,
 } from 'lucide-react';
 
 export type NavItemKey =
@@ -30,7 +30,8 @@ export type NavItemKey =
   | 'notifications'
   | 'settings'
   | 'help'
-  | 'categories';
+  | 'categories'
+  | 'search';
 
 import { useAuth } from '../../context/AuthContext';
 
@@ -74,17 +75,18 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
       ],
     },
     {
-      title: 'INTERVIEW PREP SUITE',
+      title: 'INTERVIEW STUDIO',
       items: [
         { key: 'recommended' as NavItemKey, label: 'Recommended Interviews', icon: Sparkles, badge: '4 New', badgeColor: '#6366f1' },
         { key: 'library' as NavItemKey, label: 'Interview Library', icon: BookOpen },
         { key: 'categories' as NavItemKey, label: 'Interview Categories', icon: Target },
-        { key: 'history' as NavItemKey, label: 'Practice History', icon: History },
+        { key: 'search' as NavItemKey, label: 'Search & Filter', icon: SlidersHorizontal },
       ],
     },
     {
       title: 'INTELLIGENCE',
       items: [
+        { key: 'history' as NavItemKey, label: 'Practice History', icon: History },
         { key: 'performance' as NavItemKey, label: 'Performance Analytics', icon: TrendingUp },
         { key: 'improvement' as NavItemKey, label: 'AI Improvement Plan', icon: Zap },
       ],
