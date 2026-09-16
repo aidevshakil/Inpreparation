@@ -6,6 +6,7 @@ interface RecommendedInterviewsRubricModalProps {
   onClose: () => void;
   trackName: string;
   onStartSimulation: () => void;
+  targetRole?: string;
 }
 
 export const RecommendedInterviewsRubricModal: React.FC<RecommendedInterviewsRubricModalProps> = ({
@@ -13,6 +14,7 @@ export const RecommendedInterviewsRubricModal: React.FC<RecommendedInterviewsRub
   onClose,
   trackName,
   onStartSimulation,
+  targetRole = 'Target Role',
 }) => {
   if (!isOpen) return null;
 
@@ -100,7 +102,7 @@ export const RecommendedInterviewsRubricModal: React.FC<RecommendedInterviewsRub
 
             <div>
               <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
-                {trackName || 'Staff Backend & Distributed Systems Architecture'}
+                {trackName || targetRole}
               </h3>
               <span style={{ fontSize: '0.72rem', color: '#a5b4fc', fontWeight: 600 }}>
                 Rubric &amp; Evaluation Blueprint (Staff L6+ Standard)

@@ -9,6 +9,9 @@ interface ProfileAnalysisModalsProps {
   onCloseEditModal: () => void;
   showRadarModal: boolean;
   onCloseRadarModal: () => void;
+  userName?: string;
+  targetRole?: string;
+  dossierData?: any;
 }
 
 export const ProfileAnalysisModals: React.FC<ProfileAnalysisModalsProps> = ({
@@ -18,6 +21,9 @@ export const ProfileAnalysisModals: React.FC<ProfileAnalysisModalsProps> = ({
   onCloseEditModal,
   showRadarModal,
   onCloseRadarModal,
+  userName = 'User',
+  targetRole = 'Target Role',
+  dossierData,
 }) => {
   // 1. Edit Profile Modal (Simulator State 2 or trigger)
   if (showEditModal || state === 'edit_summary_modal') {
@@ -71,7 +77,7 @@ export const ProfileAnalysisModals: React.FC<ProfileAnalysisModalsProps> = ({
               </label>
               <input
                 type="text"
-                defaultValue="Shakil Ahamed • Senior Backend & Distributed Systems"
+                defaultValue={`${userName} • ${dossierData ? 'Professional Dossier' : 'General Background'}`}
                 style={{
                   width: '100%',
                   padding: '9px 12px',
@@ -91,7 +97,7 @@ export const ProfileAnalysisModals: React.FC<ProfileAnalysisModalsProps> = ({
               </label>
               <input
                 type="text"
-                defaultValue="Staff Backend & Systems Architect (L6+)"
+                defaultValue={targetRole}
                 style={{
                   width: '100%',
                   padding: '9px 12px',
@@ -111,7 +117,7 @@ export const ProfileAnalysisModals: React.FC<ProfileAnalysisModalsProps> = ({
               </label>
               <textarea
                 rows={4}
-                defaultValue="Shakil Ahamed is a high-impact Senior Backend and Distributed Systems Engineer with 6+ years of specialized experience architecting large-scale, high-concurrency event-driven platforms."
+                defaultValue={dossierData ? `${userName} is targeting ${targetRole} roles...` : `Awaiting AI synthesis based on ingested profile.`}
                 style={{
                   width: '100%',
                   padding: '9px 12px',

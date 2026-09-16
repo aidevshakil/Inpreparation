@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { CvSimulatorState } from '../components/cv/CvPrototypeSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
@@ -14,6 +14,7 @@ import { CvReplaceModal } from '../components/cv/CvReplaceModal';
 import { DashboardFooter } from '../components/dashboard/DashboardFooter';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { FileEdit, UploadCloud, Cpu, CheckCircle2 } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 interface MyCvPageProps {
   onNavigateToHome?: () => void;
@@ -36,11 +37,23 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
   onNavigateToSimulations,
   onNavigateToAi,
 }) => {
-  const [simulatorState, setSimulatorState] = useState<CvSimulatorState>('default');
+  const { user } = useAuth();
+  const hasCv = Boolean(user.cvFileName);
+
+  const [simulatorState, setSimulatorState] = useState<CvSimulatorState>(hasCv ? 'default' : 'empty');
   const [activeNav, setActiveNav] = useState<NavItemKey>('cv');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [replaceModalOpen, setReplaceModalOpen] = useState(false);
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
+
+  // Sync state if user object updates
+  useEffect(() => {
+    if (!hasCv && simulatorState !== 'uploading' && simulatorState !== 'dragging') {
+      setSimulatorState('empty');
+    } else if (hasCv && simulatorState === 'empty') {
+      setSimulatorState('default');
+    }
+  }, [hasCv, simulatorState]);
 
   const handleSelectNav = (key: NavItemKey) => {
     setActiveNav(key);
@@ -71,8 +84,8 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
           onSelectItem={handleSelectNav}
           collapsed={sidebarCollapsed}
           onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
-          creditsRemaining={78}
-          totalCredits={100}
+          creditsRemaining={user.creditsRemaining}
+          totalCredits={user.totalCredits}
         />
 
         {/* Right Content Column */}
@@ -230,10 +243,10 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
                 className="cv-top-grid"
               >
                 <CvActiveMasterCard
-                  fileName="Shakil_Ahamed_Resume_2026.pdf"
-                  fileSize="142 KB"
-                  uploadDate="Uploaded Sep 10, 2026"
-                  vectorizedTime="Vectorized 2h ago"
+                  fileName={user.cvFileName || "Active_Resume.pdf"}
+                  fileSize="-"
+                  uploadDate="Uploaded recently"
+                  vectorizedTime="Vectorized"
                   onFullPreview={() => {
                     if (onNavigateToCvAnalysis) onNavigateToCvAnalysis();
                     else alert('Opening full screen preview...');
@@ -272,55 +285,57 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
             )}
 
             {/* Main Content & Sticky Sidebar Grid */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'minmax(340px, 2fr) minmax(300px, 1fr)',
-                gap: '24px',
-                alignItems: 'start',
-              }}
-              className="cv-body-grid"
-            >
-              {/* Left Column: OCR Preview Canvas & Version History Table */}
-              <div>
-                <CvOcrPreviewCanvas
-                  onExpandDossier={() => {
-                    if (onNavigateToCvAnalysis) onNavigateToCvAnalysis();
-                    else alert('Expanding full interactive candidate dossier...');
-                  }}
-                />
+            {simulatorState !== 'empty' && (
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'minmax(340px, 2fr) minmax(300px, 1fr)',
+                  gap: '24px',
+                  alignItems: 'start',
+                }}
+                className="cv-body-grid"
+              >
+                {/* Left Column: OCR Preview Canvas & Version History Table */}
+                <div>
+                  <CvOcrPreviewCanvas
+                    onExpandDossier={() => {
+                      if (onNavigateToCvAnalysis) onNavigateToCvAnalysis();
+                      else alert('Expanding full interactive candidate dossier...');
+                    }}
+                  />
 
-                <CvVersionHistoryTable
-                  onRollback={(vId) => alert(`Rolling back active master to version ${vId}...`)}
-                  onDownloadVersion={(vId) => alert(`Downloading archived copy ${vId}...`)}
-                />
+                  <CvVersionHistoryTable
+                    onRollback={(vId) => alert(`Rolling back active master to version ${vId}...`)}
+                    onDownloadVersion={(vId) => alert(`Downloading archived copy ${vId}...`)}
+                  />
+                </div>
+
+                {/* Right Column: Sticky Sidebar Diagnostics & Calibrator */}
+                <div style={{ position: 'sticky', top: '120px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <CvStrengthCalibratorCard
+                    score={user.cvAtsScore || 0}
+                    onViewDeepBreakdown={() => {
+                      if (onNavigateToCvAnalysis) onNavigateToCvAnalysis();
+                      else alert('Opening deep diagnostic breakdown...');
+                    }}
+                  />
+
+                  <CvExecutiveAiSynthesisCard
+                    onEnhanceWithAi={() => {
+                      if (onNavigateToAi) onNavigateToAi();
+                    }}
+                  />
+
+                  <CvCalibratedMockPipelineCard
+                    onStartCalibratedMock={() => setSimulationModalOpen(true)}
+                  />
+
+                  <CvEncryptedVaultCard
+                    onManageSecurity={() => alert('Opening Vault security & encryption settings...')}
+                  />
+                </div>
               </div>
-
-              {/* Right Column: Sticky Sidebar Diagnostics & Calibrator */}
-              <div style={{ position: 'sticky', top: '120px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <CvStrengthCalibratorCard
-                  score={84}
-                  onViewDeepBreakdown={() => {
-                    if (onNavigateToCvAnalysis) onNavigateToCvAnalysis();
-                    else alert('Opening deep diagnostic breakdown...');
-                  }}
-                />
-
-                <CvExecutiveAiSynthesisCard
-                  onEnhanceWithAi={() => {
-                    if (onNavigateToAi) onNavigateToAi();
-                  }}
-                />
-
-                <CvCalibratedMockPipelineCard
-                  onStartCalibratedMock={() => setSimulationModalOpen(true)}
-                />
-
-                <CvEncryptedVaultCard
-                  onManageSecurity={() => alert('Opening Vault security & encryption settings...')}
-                />
-              </div>
-            </div>
+            )}
 
             {/* Footer */}
             <DashboardFooter />
@@ -347,7 +362,7 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
         <LiveSimulationModal
           isOpen={simulationModalOpen}
           onClose={() => setSimulationModalOpen(false)}
-          initialRole="Python Backend Developer (Senior)"
+          initialRole={user.targetRole || "Software Engineer"}
         />
       )}
     </div>

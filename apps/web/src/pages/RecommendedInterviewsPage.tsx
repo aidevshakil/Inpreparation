@@ -29,6 +29,7 @@ interface RecommendedInterviewsPageProps {
   onNavigateToIntroResult?: () => void;
   onNavigateToProfileAnalysis?: () => void;
   onNavigateToSimulations?: () => void;
+  onNavigateToCategories?: () => void;
   onNavigateToAi?: () => void;
 }
 
@@ -46,6 +47,7 @@ export const RecommendedInterviewsPage: React.FC<RecommendedInterviewsPageProps>
   onNavigateToIntroResult: _onNavigateToIntroResult,
   onNavigateToProfileAnalysis,
   onNavigateToSimulations,
+  onNavigateToCategories,
   onNavigateToAi,
 }) => {
   const { user } = useAuth();
@@ -60,14 +62,18 @@ export const RecommendedInterviewsPage: React.FC<RecommendedInterviewsPageProps>
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
   const [activeSimulationRole, setActiveSimulationRole] = useState('Staff Backend & Systems Architect');
   const [_savedCount, setSavedCount] = useState(1);
+  const [recommendationsData, setRecommendationsData] = useState<any>(null);
 
   useEffect(() => {
     getRecommendedInterviews(user.id).then((res) => {
-      if (res && res.savedCount !== undefined) {
-        setSavedCount(res.savedCount);
+      if (res) {
+        if (res.savedCount !== undefined) setSavedCount(res.savedCount);
+        if (res.recommendations) setRecommendationsData(res);
       }
     }).catch((e) => console.warn('Fetch recommendations error:', e));
   }, [user.id]);
+
+  const displayRole = user?.targetRole || 'Target Role';
 
   const handleSelectNav = (key: NavItemKey) => {
     setActiveNav(key);
@@ -81,6 +87,8 @@ export const RecommendedInterviewsPage: React.FC<RecommendedInterviewsPageProps>
       onNavigateToProfileAnalysis();
     } else if (key === 'library' && onNavigateToSimulations) {
       onNavigateToSimulations();
+    } else if (key === 'categories' && onNavigateToCategories) {
+      onNavigateToCategories();
     } else if (key === 'improvement' && onNavigateToAi) {
       onNavigateToAi();
     }
@@ -143,12 +151,15 @@ export const RecommendedInterviewsPage: React.FC<RecommendedInterviewsPageProps>
             {/* Recommendations Basis Banner */}
             <RecommendedInterviewsBasisBanner
               onAdjustParameters={onNavigateToProfile}
+              targetRole={displayRole}
             />
 
             {/* Featured Hero Simulation Card */}
             <RecommendedInterviewsFeaturedHeroCard
-              onStartSimulation={() => handleStartSimulationTrack('Staff Backend & Distributed Systems Architecture')}
-              onViewRubric={() => handleOpenRubric('Staff Backend & Distributed Systems Architecture')}
+              onStartSimulation={(track) => handleStartSimulationTrack(track || displayRole)}
+              onViewRubric={(track) => handleOpenRubric(track || displayRole)}
+              targetRole={displayRole}
+              recommendationsData={recommendationsData}
             />
 
             {/* Filter Bar */}
@@ -171,13 +182,16 @@ export const RecommendedInterviewsPage: React.FC<RecommendedInterviewsPageProps>
               onSelectTrack={handleStartSimulationTrack}
               onViewRubric={handleOpenRubric}
               onResetFilters={handleResetFilters}
+              recommendationsList={recommendationsData?.list}
             />
 
             {/* Explore by Career Direction Category Cards & Saved Box */}
             <RecommendedInterviewsExploreDomains
               onBrowseLibrary={onNavigateToSimulations}
-              onViewSaved={() => handleStartSimulationTrack('Staff Backend & Systems Architect')}
+              onViewSaved={() => handleStartSimulationTrack(displayRole)}
               onSelectDomain={(domain) => handleStartSimulationTrack(domain)}
+              targetRole={displayRole}
+              savedCount={_savedCount}
             />
 
             {/* Compliance & Privacy Banner */}
@@ -204,6 +218,7 @@ export const RecommendedInterviewsPage: React.FC<RecommendedInterviewsPageProps>
           setRubricModalOpen(false);
           handleStartSimulationTrack(rubricTrackName);
         }}
+        targetRole={displayRole}
       />
 
       {/* Live Simulation Practice Modal */}

@@ -13,6 +13,7 @@ import {
   Check
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useGoogleLogin } from '@react-oauth/google';
 
 interface SignupFormCardProps {
   onSignupSuccess: () => void;
@@ -23,7 +24,7 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
   onSignupSuccess,
   onNavigateLogin
 }) => {
-  const { signup } = useAuth();
+  const { signup, loginWithGoogleProvider } = useAuth();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,6 +34,36 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [googleNotice, setGoogleNotice] = useState(false);
   const [localStatus, setLocalStatus] = useState<string>('default');
+
+  // Prevent auto-fill on load but allow suggestions on click
+  const [emailReadOnly, setEmailReadOnly] = useState(true);
+  const [passwordReadOnly, setPasswordReadOnly] = useState(true);
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      setLocalStatus('creating');
+      try {
+        if (loginWithGoogleProvider) {
+          const success = await loginWithGoogleProvider(tokenResponse.access_token);
+          if (success) {
+            setLocalStatus('success');
+            setTimeout(() => {
+              onSignupSuccess();
+            }, 1000);
+          } else {
+            setLocalStatus('conflict-error');
+          }
+        }
+      } catch (err) {
+        console.warn('Google Signup failure:', err);
+        setLocalStatus('network-error');
+      }
+    },
+    onError: (error) => {
+      console.warn('Google Signup Failed:', error);
+      setLocalStatus('conflict-error');
+    },
+  });
 
   // Dynamic Password Validation
   const hasMinLength = password.length >= 8;
@@ -148,7 +179,7 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
       {localStatus === 'conflict-error' && (
         <div style={errorBoxStyle}>
           <AlertCircle size={15} color="#f87171" />
-          <span>An account with this email already exists. Please log in.</span>
+          <span>An error occurred during authentication. Please try again.</span>
         </div>
       )}
 
@@ -191,7 +222,7 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
           marginBottom: '20px'
         }}>
           <AlertCircle size={15} color="#a5b4fc" />
-          <span>Google SSO integration is in verification. Please complete sign up using your email and password above.</span>
+          <span>Google SSO integration is partially configured. Ensure your Client ID is added to .env</span>
         </div>
       )}
 
@@ -241,8 +272,10 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
             <input
               type="email"
               required
+              autoComplete="email"
+              readOnly={emailReadOnly}
+              onFocus={() => setEmailReadOnly(false)}
               value={email}
-              autoComplete="off"
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.com"
               style={inputStyle}
@@ -272,8 +305,10 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
             <input
               type={showPassword ? 'text' : 'password'}
               required
-              value={password}
               autoComplete="new-password"
+              readOnly={passwordReadOnly}
+              onFocus={() => setPasswordReadOnly(false)}
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••••••"
               style={inputStyle}
@@ -445,9 +480,7 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
         {/* Google OAuth Button */}
         <button
           type="button"
-          onClick={() => {
-            setGoogleNotice(true);
-          }}
+          onClick={() => googleLogin()}
           style={{
             background: '#0e1320',
             border: '1px solid rgba(255, 255, 255, 0.1)',

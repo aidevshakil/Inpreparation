@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 import type { IntroResultState } from '../components/intro-result/IntroResultSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
@@ -54,7 +55,24 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
   const [showDrawer, setShowDrawer] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
-  const [selectedRoleForSimulation, setSelectedRoleForSimulation] = useState('Staff Backend & Systems Architect');
+
+  const { user } = useAuth();
+  const [diagnosticData, setDiagnosticData] = useState<any>(null);
+  const displayRole = user?.targetRole && user.targetRole !== 'Select Target Role' ? user.targetRole : "General Assessment";
+  const [selectedRoleForSimulation, setSelectedRoleForSimulation] = useState(displayRole);
+
+  useEffect(() => {
+    if (user?.id) {
+      fetch(`http://localhost:5000/api/diagnostics/latest?userId=${user.id}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.diagnostic) {
+            setDiagnosticData(data.diagnostic);
+          }
+        })
+        .catch(err => console.warn('Fetch diagnostic error:', err));
+    }
+  }, [user?.id]);
 
   const handleSelectNav = (key: NavItemKey) => {
     setActiveNav(key);
@@ -167,6 +185,8 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
             <IntroResultDossierBanner
               onEditProfile={() => setShowEditModal(true)}
               onDownloadPdf={() => alert('Exporting synthesized Career Assessment Dossier to PDF...')}
+              targetRole={displayRole}
+              diagnosticData={diagnosticData}
             />
 
             {/* 2-Column Responsive Layout */}
@@ -182,12 +202,15 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <IntroResultCareerSummaryCard
                   onEdit={() => setShowEditModal(true)}
+                  targetRole={displayRole}
+                  diagnosticData={diagnosticData}
                 />
-                <IntroResultWhatYouSharedCard />
-                <IntroResultPotentialStrengthsCard />
-                <IntroResultPreparationFocusCard />
+                <IntroResultWhatYouSharedCard diagnosticData={diagnosticData} targetRole={displayRole} />
+                <IntroResultPotentialStrengthsCard diagnosticData={diagnosticData} />
+                <IntroResultPreparationFocusCard diagnosticData={diagnosticData} />
                 <IntroResultSubmittedResponsesCard
                   onOpenDrawer={() => setShowDrawer(true)}
+                  diagnosticData={diagnosticData}
                 />
               </div>
 
@@ -198,6 +221,7 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
                 />
                 <IntroResultPossibleTracksCard
                   onSelectTrack={handleExploreTrack}
+                  targetRole={displayRole}
                 />
                 <IntroResultTransparencyCards />
               </div>
@@ -333,6 +357,7 @@ export const IntroResultPage: React.FC<IntroResultPageProps> = ({
         onCloseResponsesDrawer={() => setShowDrawer(false)}
         showEditProfileModal={showEditModal}
         onCloseEditProfileModal={() => setShowEditModal(false)}
+        diagnosticData={diagnosticData}
       />
 
       {/* Live Simulation Practice Modal */}

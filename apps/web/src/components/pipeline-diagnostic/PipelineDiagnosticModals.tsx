@@ -11,6 +11,8 @@ interface PipelineDiagnosticModalsProps {
   onCloseLogModal: () => void;
   showTranscriptModal: boolean;
   onCloseTranscriptModal: () => void;
+  diagnosticData?: any;
+  targetRole?: string;
 }
 
 export const PipelineDiagnosticModals: React.FC<PipelineDiagnosticModalsProps> = ({
@@ -22,6 +24,8 @@ export const PipelineDiagnosticModals: React.FC<PipelineDiagnosticModalsProps> =
   onCloseLogModal,
   showTranscriptModal,
   onCloseTranscriptModal,
+  diagnosticData,
+  targetRole = 'General Assessment',
 }) => {
   // Modal 1: Failure Dialog (Simulator State 6)
   if (state === 'failure_dialog') {
@@ -299,12 +303,12 @@ export const PipelineDiagnosticModals: React.FC<PipelineDiagnosticModalsProps> =
               gap: '4px',
             }}
           >
-            <div>[14:32:08.112] [INGEST] WebRTC audio/video streams captured from 8 prompts.</div>
-            <div>[14:32:09.430] [CRYPTO] Payload SHA-256: 8f4b...39a1 verified.</div>
-            <div>[14:32:11.890] [ASR] Whisper-v3 prosody tokenizer active: 2,640 tokens synthesized.</div>
-            <div>[14:32:15.220] [LLM] Extracting distributed systems competencies &amp; architecture keywords...</div>
-            <div style={{ color: '#34d399' }}>[14:32:18.050] [EMBED] Vector embedding alignment: 768-dim space computed.</div>
-            <div style={{ color: '#38bdf8' }}>[14:32:20.100] [RADAR] Synthesizing Seniority Anchor: Staff Backend Engineer.</div>
+            <div>[14:32:08.112] [INGEST] WebRTC audio/video streams captured.</div>
+            <div>[14:32:09.430] [CRYPTO] Payload SHA-256 verified.</div>
+            <div>[14:32:11.890] [ASR] Whisper-v3 prosody tokenizer active.</div>
+            <div>[14:32:15.220] [LLM] Extracting competencies & architecture keywords...</div>
+            <div style={{ color: '#34d399' }}>[14:32:18.050] [EMBED] Vector embedding alignment computed.</div>
+            <div style={{ color: '#38bdf8' }}>[14:32:20.100] [RADAR] Synthesizing Seniority Anchor: {targetRole}.</div>
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
@@ -386,18 +390,22 @@ export const PipelineDiagnosticModals: React.FC<PipelineDiagnosticModalsProps> =
               gap: '12px',
             }}
           >
-            <div>
-              <strong style={{ color: '#818cf8' }}>Q1. Professional Trajectory:</strong>
-              <p style={{ margin: '4px 0 0 0', color: '#94a3b8' }}>
-                &ldquo;I am a Senior Backend and Distributed Systems Engineer with over 6 years of experience... focusing on event-driven streaming with Kafka and PostgreSQL concurrency patterns... looking forward to leading architecture reviews at scale.&rdquo;
-              </p>
-            </div>
-            <div>
-              <strong style={{ color: '#818cf8' }}>Q2. Architectural Trade-offs:</strong>
-              <p style={{ margin: '4px 0 0 0', color: '#94a3b8' }}>
-                &ldquo;When choosing between strict serializability and high availability in our payment service, we designed idempotent ledger consumers with outbox pattern to guarantee at-least-once delivery without distributed locks.&rdquo;
-              </p>
-            </div>
+            {diagnosticData?.responses && diagnosticData.responses.length > 0 ? (
+              diagnosticData.responses.map((resp: any, idx: number) => (
+                <div key={idx}>
+                  <strong style={{ color: '#818cf8' }}>Q{idx + 1}. {resp.questionText || 'Response'}:</strong>
+                  <p style={{ margin: '4px 0 0 0', color: '#94a3b8' }}>
+                    &ldquo;{resp.transcript || resp.responseText || 'No transcription recorded.'}&rdquo;
+                  </p>
+                </div>
+              ))
+            ) : (
+              <div>
+                <p style={{ margin: 0, color: '#94a3b8' }}>
+                  No transcript data recorded for this session yet.
+                </p>
+              </div>
+            )}
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>

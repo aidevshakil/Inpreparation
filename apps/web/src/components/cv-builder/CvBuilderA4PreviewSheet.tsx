@@ -260,7 +260,7 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
                 letterSpacing: '-0.02em',
               }}
             >
-              {personalInfo.fullName || 'Shakil Ahamed'}
+              {personalInfo.fullName || '[Full Name]'}
             </h2>
             <div
               style={{
@@ -270,7 +270,7 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
                 marginBottom: '6px',
               }}
             >
-              {personalInfo.professionalTitle || 'Senior Backend Engineer & Distributed Systems'}
+              {personalInfo.professionalTitle || '[Target Role / Title]'}
             </div>
             <div
               style={{
@@ -283,13 +283,13 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
                 gap: '4px',
               }}
             >
-              <span>{personalInfo.location || 'San Francisco, CA'}</span>
+              <span>{personalInfo.location || '[Location]'}</span>
               <span>•</span>
-              <span>{personalInfo.phone || '+1 (555) 349-8201'}</span>
+              <span>{personalInfo.phone || '[Phone]'}</span>
               <span>•</span>
-              <span style={{ color: '#2563eb' }}>{personalInfo.email || 'shakil.ahamed@example.com'}</span>
+              <span style={{ color: '#2563eb' }}>{personalInfo.email || '[Email Address]'}</span>
               <span>•</span>
-              <span style={{ color: '#2563eb' }}>{personalInfo.linkedin || 'linkedin.com/in/shakilahamed'}</span>
+              <span style={{ color: '#2563eb' }}>{personalInfo.linkedin || '[LinkedIn Profile]'}</span>
             </div>
           </div>
 

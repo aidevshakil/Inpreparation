@@ -1,26 +1,11 @@
 import React from 'react';
 
-export const IntroResultPreparationFocusCard: React.FC = () => {
-  const topics = [
-    {
-      number: 1,
-      title: 'Distributed System Trade-Off Articulation',
-      description:
-        'Practice explicitly framing CAP theorem choices and data consistency constraints under strict latency SLAs during architecture rounds.',
-    },
-    {
-      number: 2,
-      title: 'Cross-Functional Leadership & Mentorship (STAR)',
-      description:
-        'Format past conflict resolution and architecture review stories into structured Staff behavioral frameworks.',
-    },
-    {
-      number: 3,
-      title: 'Failure Modes & Disaster Recovery Deep Dives',
-      description:
-        'Prepare detailed explanations for Kafka broker partition rebalancing and active-active database failover mechanisms.',
-    },
-  ];
+interface IntroResultPreparationFocusCardProps {
+  diagnosticData?: any;
+}
+
+export const IntroResultPreparationFocusCard: React.FC<IntroResultPreparationFocusCardProps> = ({ diagnosticData }) => {
+  const focusAreas = diagnosticData?.growthAreas || [];
 
   return (
     <div
@@ -62,10 +47,10 @@ export const IntroResultPreparationFocusCard: React.FC = () => {
       </div>
 
       {/* 3 Numbered Focus Rows */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        {topics.map((t) => (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {focusAreas.length > 0 ? focusAreas.map((area: any, idx: number) => (
           <div
-            key={t.number}
+            key={idx}
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -92,19 +77,23 @@ export const IntroResultPreparationFocusCard: React.FC = () => {
                 marginTop: '1px',
               }}
             >
-              {t.number}
+              {idx + 1}
             </div>
 
             <div>
               <h4 style={{ fontSize: '0.82rem', fontWeight: 700, color: '#f8fafc', margin: '0 0 3px 0' }}>
-                {t.title}
+                {area.title || `Focus Area ${idx + 1}`}
               </h4>
               <p style={{ fontSize: '0.74rem', color: '#94a3b8', lineHeight: 1.45, margin: 0 }}>
-                {t.description}
+                {area.description || area}
               </p>
             </div>
           </div>
-        ))}
+        )) : (
+          <div style={{ fontSize: '0.74rem', color: '#64748b' }}>
+            No preparation focus areas identified yet.
+          </div>
+        )}
       </div>
     </div>
   );

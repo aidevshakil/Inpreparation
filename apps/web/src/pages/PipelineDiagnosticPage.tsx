@@ -48,6 +48,7 @@ export const PipelineDiagnosticPage: React.FC<PipelineDiagnosticPageProps> = ({
 
   const { user } = useAuth();
   const [diagnosticData, setDiagnosticData] = useState<any>(null);
+  const displayRole = user?.targetRole && user.targetRole !== 'Select Target Role' ? user.targetRole : "General Assessment";
 
   useEffect(() => {
     if (user?.id) {
@@ -117,7 +118,7 @@ export const PipelineDiagnosticPage: React.FC<PipelineDiagnosticPageProps> = ({
             {/* Right Column */}
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <PipelineSessionSummaryCard diagnosticData={diagnosticData} />
-              <PipelineWhatHappensNextCard />
+              <PipelineWhatHappensNextCard targetRole={displayRole} />
               <PipelinePrivacyCard />
             </div>
           </div>
@@ -244,6 +245,8 @@ export const PipelineDiagnosticPage: React.FC<PipelineDiagnosticPageProps> = ({
         onCloseLogModal={() => setShowLogModal(false)}
         showTranscriptModal={showTranscriptModal}
         onCloseTranscriptModal={() => setShowTranscriptModal(false)}
+        diagnosticData={diagnosticData}
+        targetRole={displayRole}
       />
     </div>
   );

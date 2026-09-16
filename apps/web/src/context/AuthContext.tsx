@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { loginUser, registerUser } from '../services/api';
+import { loginUser, registerUser, loginWithGoogle } from '../services/api';
 
 export interface UserProfile {
   id: string;
@@ -23,6 +23,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (email: string, password?: string) => Promise<boolean>;
+  loginWithGoogleProvider?: (accessToken: string) => Promise<boolean>;
   signup: (name: string, email: string, password?: string) => Promise<boolean>;
   logout: () => void;
   updateUser: (updates: Partial<UserProfile>) => void;
@@ -86,7 +87,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           id: result.user.id || user.id,
           email: result.user.email || email,
           name: result.user.name || email.split('@')[0],
-          targetRole: result.user.targetRole || user.targetRole,
+          targetRole: result.user.targetRole || 'Select Target Role',
+          seniority: result.user.seniority || 'Entry / Mid',
+          creditsRemaining: result.user.creditsRemaining ?? 100,
+          totalCredits: result.user.totalCredits ?? 100,
+          cvFileName: result.user.cvFileName || undefined,
+          cvSkills: result.user.cvSkills || [],
+          cvAtsScore: result.user.cvAtsScore || undefined,
+          isEmailVerified: result.user.isEmailVerified || false,
         };
         setUser(updated);
         setIsAuthenticated(true);
@@ -101,6 +109,40 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setIsAuthenticated(true);
       localStorage.setItem('inprep_authenticated', 'true');
       return true;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const loginWithGoogleProvider = async (accessToken: string): Promise<boolean> => {
+    setIsLoading(true);
+    try {
+      const result = await loginWithGoogle(accessToken);
+      if (result && result.user) {
+        const updated: UserProfile = {
+          ...user,
+          id: result.user.id || user.id,
+          email: result.user.email || user.email,
+          name: result.user.name || user.name,
+          targetRole: result.user.targetRole || 'Select Target Role',
+          avatarUrl: result.user.picture || user.avatarUrl,
+          seniority: result.user.seniority || 'Entry / Mid',
+          creditsRemaining: result.user.creditsRemaining ?? 100,
+          totalCredits: result.user.totalCredits ?? 100,
+          cvFileName: result.user.cvFileName || undefined,
+          cvSkills: result.user.cvSkills || [],
+          cvAtsScore: result.user.cvAtsScore || undefined,
+          isEmailVerified: result.user.isEmailVerified || true,
+        };
+        setUser(updated);
+        setIsAuthenticated(true);
+        localStorage.setItem('inprep_authenticated', 'true');
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error('Google Login error:', error);
+      return false;
     } finally {
       setIsLoading(false);
     }
@@ -173,6 +215,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isAuthenticated,
         isLoading,
         login,
+        loginWithGoogleProvider,
         signup,
         logout,
         updateUser,

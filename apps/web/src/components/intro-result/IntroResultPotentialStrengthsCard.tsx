@@ -1,28 +1,12 @@
 import React from 'react';
 
-export const IntroResultPotentialStrengthsCard: React.FC = () => {
-  const strengths = [
-    {
-      title: 'Quantifiable Distributed Impact',
-      citation: '[CV + Q1]',
-      description: 'Demonstrated experience reducing tail latencies by 35% on critical settlement flows.',
-    },
-    {
-      title: 'Event-Driven Architecture',
-      citation: '[Q1: Deep Dive]',
-      description: 'Strong intuition regarding partition offsets, idempotency keys, and outbox patterns.',
-    },
-    {
-      title: 'Clear Decision Rationale',
-      citation: '[Q4: Trade-offs]',
-      description: 'Articulated concrete trade-offs between asynchronous queues vs synchronous gRPC calls.',
-    },
-    {
-      title: 'Staff-Level Trajectory',
-      citation: '[Career Goals]',
-      description: 'Proactively seeking system design rigor and multi-team technical alignment challenges.',
-    },
-  ];
+interface IntroResultPotentialStrengthsCardProps {
+  diagnosticData?: any;
+}
+
+export const IntroResultPotentialStrengthsCard: React.FC<IntroResultPotentialStrengthsCardProps> = ({ diagnosticData }) => {
+  const strengths = diagnosticData?.strengths || [];
+
 
   return (
     <div
@@ -64,7 +48,7 @@ export const IntroResultPotentialStrengthsCard: React.FC = () => {
           marginBottom: '14px',
         }}
       >
-        {strengths.map((s, idx) => (
+        {strengths.length > 0 ? strengths.map((s: any, idx: number) => (
           <div
             key={idx}
             style={{
@@ -84,10 +68,14 @@ export const IntroResultPotentialStrengthsCard: React.FC = () => {
             </div>
 
             <p style={{ fontSize: '0.74rem', color: '#94a3b8', lineHeight: 1.45, margin: 0 }}>
-              {s.description}
+              {s.description || s}
             </p>
           </div>
-        ))}
+        )) : (
+          <div style={{ fontSize: '0.74rem', color: '#64748b' }}>
+            No verified strengths recorded yet. Complete more drills to generate insights.
+          </div>
+        )}
       </div>
 
       <p style={{ fontSize: '0.68rem', color: '#64748b', margin: 0 }}>

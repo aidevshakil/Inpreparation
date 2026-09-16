@@ -2,10 +2,12 @@ import React from 'react';
 import { Compass, ExternalLink, CheckCircle2 } from 'lucide-react';
 
 interface IntroRoomTelemetryCardProps {
+  trackName?: string;
   onNavigateToDeviceCheck?: () => void;
 }
 
 export const IntroRoomTelemetryCard: React.FC<IntroRoomTelemetryCardProps> = ({
+  trackName = 'General Assessment',
   onNavigateToDeviceCheck,
 }) => {
   return (
@@ -59,7 +61,7 @@ export const IntroRoomTelemetryCard: React.FC<IntroRoomTelemetryCardProps> = ({
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.74rem' }}>
           <span style={{ color: '#94a3b8' }}>Target Track:</span>
-          <span style={{ color: '#f8fafc', fontWeight: 700 }}>Staff Backend Architect</span>
+          <span style={{ color: '#f8fafc', fontWeight: 700 }}>{trackName}</span>
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.74rem' }}>

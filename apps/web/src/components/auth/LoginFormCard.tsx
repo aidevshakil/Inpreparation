@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Lock, Mail, Eye, EyeOff, ArrowRight, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { AuthStateMode } from './AuthPrototypeBar';
+import { useGoogleLogin } from '@react-oauth/google';
 
 import { useAuth } from '../../context/AuthContext';
 
@@ -17,13 +18,43 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
   onNavigateRegister,
   onNavigateForgot
 }) => {
-  const { login } = useAuth();
+  const { login, loginWithGoogleProvider } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [googleNotice, setGoogleNotice] = useState(false);
   const [localStatus, setLocalStatus] = useState<AuthStateMode>(mode);
+
+  // Prevent auto-fill on load but allow suggestions on click
+  const [emailReadOnly, setEmailReadOnly] = useState(true);
+  const [passwordReadOnly, setPasswordReadOnly] = useState(true);
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      setLocalStatus('signing-in');
+      try {
+        if (loginWithGoogleProvider) {
+          const success = await loginWithGoogleProvider(tokenResponse.access_token);
+          if (success) {
+            setLocalStatus('success');
+            setTimeout(() => {
+              onLoginSuccess();
+            }, 600);
+          } else {
+            setLocalStatus('invalid-credentials');
+          }
+        }
+      } catch (err) {
+        console.warn('Google Auth failure:', err);
+        setLocalStatus('network-error');
+      }
+    },
+    onError: (error) => {
+      console.warn('Google Login Failed:', error);
+      setLocalStatus('invalid-credentials');
+    },
+  });
 
   useEffect(() => {
     setLocalStatus(mode);
@@ -158,7 +189,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
           marginBottom: '20px'
         }}>
           <AlertCircle size={15} color="#a5b4fc" />
-          <span>Google SSO integration is in verification. Please log in using your registered email and password.</span>
+          <span>Google SSO integration is partially configured. Ensure your Client ID is added to .env</span>
         </div>
       )}
 
@@ -183,7 +214,9 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
             <input
               type="email"
               required
-              autoComplete="off"
+              autoComplete="username"
+              readOnly={emailReadOnly}
+              onFocus={() => setEmailReadOnly(false)}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.com"
@@ -235,7 +268,9 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
             <input
               type={showPassword ? 'text' : 'password'}
               required
-              autoComplete="new-password"
+              autoComplete="current-password"
+              readOnly={passwordReadOnly}
+              onFocus={() => setPasswordReadOnly(false)}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••••••"
@@ -344,9 +379,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
         {/* Google OAuth Button */}
         <button
           type="button"
-          onClick={() => {
-            setGoogleNotice(true);
-          }}
+          onClick={() => googleLogin()}
           style={{
             background: '#0e1320',
             border: '1px solid rgba(255, 255, 255, 0.1)',

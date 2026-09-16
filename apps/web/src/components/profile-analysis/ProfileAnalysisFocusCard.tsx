@@ -3,49 +3,15 @@ import { Target, ArrowRight } from 'lucide-react';
 
 interface ProfileAnalysisFocusCardProps {
   onStartDrill?: (topic: string) => void;
+  dossierData?: any;
 }
 
 export const ProfileAnalysisFocusCard: React.FC<ProfileAnalysisFocusCardProps> = ({
   onStartDrill,
+  dossierData,
 }) => {
-  const focusAreas = [
-    {
-      id: 1,
-      number: '1',
-      title: 'High-Concurrency CAP Trade-Off Articulation',
-      priority: 'High Priority',
-      priorityColor: '#f87171',
-      priorityBg: 'rgba(239, 68, 68, 0.15)',
-      priorityBorder: 'rgba(239, 68, 68, 0.3)',
-      description:
-        'Practice structured articulation of CAP theorem consistency models and latency trade-offs during live architectural whiteboard rounds.',
-      buttonText: 'Start Drill Practice',
-    },
-    {
-      id: 2,
-      number: '2',
-      title: 'Multi-Datacenter Disaster Recovery & Failover Strategies',
-      priority: 'Priority: High',
-      priorityColor: '#fbbf24',
-      priorityBg: 'rgba(251, 191, 36, 0.15)',
-      priorityBorder: 'rgba(251, 191, 36, 0.3)',
-      description:
-        'Deep dive into Kafka broker partition rebalancing, split-brain mitigation, and active-active database failover protocols.',
-      buttonText: 'Select Practice',
-    },
-    {
-      id: 3,
-      number: '3',
-      title: 'Cross-Functional Engineering Governance (STAR Framework)',
-      priority: 'Priority: Medium',
-      priorityColor: '#c084fc',
-      priorityBg: 'rgba(168, 85, 247, 0.15)',
-      priorityBorder: 'rgba(168, 85, 247, 0.3)',
-      description:
-        'Structure stories detailing technical trade-offs, conflict resolution with product managers, and junior mentorship.',
-      buttonText: 'Select Practice',
-    },
-  ];
+  const focusAreas = dossierData?.growthAreas || [];
+
 
   return (
     <div
@@ -97,9 +63,9 @@ export const ProfileAnalysisFocusCard: React.FC<ProfileAnalysisFocusCardProps> =
 
       {/* 3 Focus Rows */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        {focusAreas.map((area) => (
+        {focusAreas.length > 0 ? focusAreas.map((area: any, idx: number) => (
           <div
-            key={area.id}
+            key={idx}
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -115,7 +81,7 @@ export const ProfileAnalysisFocusCard: React.FC<ProfileAnalysisFocusCardProps> =
             <div style={{ flex: 1, minWidth: '280px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
                 <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#f8fafc' }}>
-                  {area.number}. {area.title}
+                  {idx + 1}. {area.title || `Focus Area ${idx + 1}`}
                 </span>
 
                 <span
@@ -124,43 +90,45 @@ export const ProfileAnalysisFocusCard: React.FC<ProfileAnalysisFocusCardProps> =
                     fontWeight: 700,
                     padding: '2px 7px',
                     borderRadius: '4px',
-                    backgroundColor: area.priorityBg,
-                    color: area.priorityColor,
-                    border: `1px solid ${area.priorityBorder}`,
+                    backgroundColor: area.priorityBg || 'rgba(168, 85, 247, 0.15)',
+                    color: area.priorityColor || '#c084fc',
+                    border: `1px solid ${area.priorityBorder || 'rgba(168, 85, 247, 0.3)'}`,
                   }}
                 >
-                  {area.priority}
+                  {area.priority || 'Priority: Medium'}
                 </span>
               </div>
 
               <p style={{ fontSize: '0.74rem', color: '#94a3b8', lineHeight: 1.45, margin: 0 }}>
-                {area.description}
+                {area.description || area}
               </p>
             </div>
 
             <button
-              onClick={() => onStartDrill && onStartDrill(area.title)}
+              onClick={() => onStartDrill && onStartDrill(area.title || area)}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '5px',
                 padding: '8px 14px',
-                backgroundColor: area.id === 1 ? '#4f46e5' : 'rgba(255, 255, 255, 0.04)',
-                border: area.id === 1 ? 'none' : '1px solid rgba(255, 255, 255, 0.08)',
+                backgroundColor: idx === 0 ? '#4f46e5' : 'rgba(255, 255, 255, 0.04)',
+                border: idx === 0 ? 'none' : '1px solid rgba(255, 255, 255, 0.08)',
                 borderRadius: '8px',
                 color: '#ffffff',
                 fontSize: '0.74rem',
                 fontWeight: 600,
                 cursor: 'pointer',
-                boxShadow: area.id === 1 ? '0 2px 10px rgba(79, 70, 229, 0.3)' : 'none',
+                boxShadow: idx === 0 ? '0 2px 10px rgba(79, 70, 229, 0.3)' : 'none',
                 flexShrink: 0,
               }}
             >
-              <span>{area.buttonText}</span>
+              <span>{area.buttonText || 'Select Practice'}</span>
               <ArrowRight size={12} />
             </button>
           </div>
-        ))}
+        )) : (
+          <div style={{ fontSize: '0.74rem', color: '#64748b' }}>Awaiting suggested practices synthesis...</div>
+        )}
       </div>
     </div>
   );

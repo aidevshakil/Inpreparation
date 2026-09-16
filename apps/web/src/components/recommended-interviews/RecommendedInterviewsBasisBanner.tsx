@@ -3,10 +3,12 @@ import { Sparkles, TrendingUp, Code2, Target, Mic, Award, Edit3 } from 'lucide-r
 
 interface RecommendedInterviewsBasisBannerProps {
   onAdjustParameters?: () => void;
+  targetRole?: string;
 }
 
 export const RecommendedInterviewsBasisBanner: React.FC<RecommendedInterviewsBasisBannerProps> = ({
   onAdjustParameters,
+  targetRole = 'Staff Backend Architect',
 }) => {
   return (
     <div
@@ -127,7 +129,7 @@ export const RecommendedInterviewsBasisBanner: React.FC<RecommendedInterviewsBas
               CAREER TARGET
             </div>
             <div style={{ fontSize: '0.78rem', color: '#f8fafc', fontWeight: 600 }}>
-              Staff Backend Architect
+              {targetRole}
             </div>
           </div>
         </div>

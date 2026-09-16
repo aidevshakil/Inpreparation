@@ -5,12 +5,16 @@ interface RecommendedInterviewsExploreDomainsProps {
   onBrowseLibrary?: () => void;
   onViewSaved?: () => void;
   onSelectDomain?: (domain: string) => void;
+  targetRole?: string;
+  savedCount?: number;
 }
 
 export const RecommendedInterviewsExploreDomains: React.FC<RecommendedInterviewsExploreDomainsProps> = ({
   onBrowseLibrary,
   onViewSaved,
   onSelectDomain,
+  targetRole = 'Target Role',
+  savedCount = 0,
 }) => {
   const domains = [
     {
@@ -231,10 +235,10 @@ export const RecommendedInterviewsExploreDomains: React.FC<RecommendedInterviews
             <Bookmark size={16} style={{ color: '#c084fc' }} fill="#c084fc" />
             <div>
               <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#f8fafc' }}>
-                1 Saved Simulation
+                {savedCount} Saved Simulation{savedCount !== 1 ? 's' : ''}
               </div>
               <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>
-                Staff Backend &amp; Systems Arch
+                {targetRole}
               </div>
             </div>
           </div>

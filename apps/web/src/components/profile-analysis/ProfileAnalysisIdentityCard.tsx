@@ -4,15 +4,23 @@ import { UserCheck, Copy, Edit2, Check, Shield } from 'lucide-react';
 interface ProfileAnalysisIdentityCardProps {
   onEdit?: () => void;
   onViewCitations?: () => void;
+  dossierData?: any;
+  targetRole?: string;
+  userName?: string;
 }
 
 export const ProfileAnalysisIdentityCard: React.FC<ProfileAnalysisIdentityCardProps> = ({
   onEdit,
   onViewCitations,
+  dossierData,
+  targetRole = 'Target Role',
+  userName = 'User',
 }) => {
   const [copied, setCopied] = useState(false);
 
-  const identityText = `Shakil Ahamed is a high-impact Senior Backend and Distributed Systems Engineer with 6+ years of specialized experience architecting large-scale, high-concurrency event-driven platforms. He has demonstrated technical leadership across Kafka streaming clusters, PostgreSQL concurrency mitigation, and microservice decoupling at FinScale Labs and Nexura Tech.\n\nAt FinScale Labs, he engineered resilient clearing pipelines delivering sub-50ms p99 latencies for high-volume transactions while leading technical design RFCs. His target trajectory focuses on Staff Backend Engineer and Distributed Systems Architect roles, specializing in large-scale system resilience, multi-datacenter consensus, and cross-functional engineering alignment.\n\nShakil is particularly strong in distributed data synchronization, Kafka partition failover strategies, and database sharding patterns. In mock rounds, he will focus on articulating complex architectural trade-offs under high-stress constraints.`;
+  const identityText = dossierData
+    ? `${userName} is a highly capable professional targeting ${targetRole} roles. They have demonstrated consistent technical ownership across multiple projects.\n\nTheir target trajectory focuses on ${targetRole} and related system architecture roles, specializing in large-scale system resilience and cross-functional engineering alignment.\n\n${userName} is particularly strong in distributed systems. In mock rounds, they will focus on articulating complex architectural trade-offs.`
+    : `Awaiting AI synthesis based on ingested profile and audio session. Targeting ${targetRole}.`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(identityText);
@@ -91,18 +99,17 @@ export const ProfileAnalysisIdentityCard: React.FC<ProfileAnalysisIdentityCardPr
         </div>
       </div>
 
-      {/* 3 Synthesized Paragraphs */}
       <div style={{ fontSize: '0.82rem', color: '#cbd5e1', lineHeight: 1.6, display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '16px' }}>
         <p style={{ margin: 0 }}>
-          <strong style={{ color: '#ffffff' }}>Shakil Ahamed</strong> is a high-impact Senior Backend and Distributed Systems Engineer with 6+ years of specialized experience architecting large-scale, high-concurrency event-driven platforms. He has demonstrated technical leadership across Kafka streaming clusters, PostgreSQL concurrency mitigation, and microservice decoupling at FinScale Labs and Nexura Tech.
+          <strong style={{ color: '#ffffff' }}>{userName}</strong> {dossierData ? `is a highly capable professional targeting ${targetRole} roles. They have demonstrated consistent technical ownership across multiple projects.` : `is awaiting AI synthesis. Target trajectory: ${targetRole}.`}
         </p>
 
         <p style={{ margin: 0 }}>
-          At FinScale Labs, he engineered resilient clearing pipelines delivering sub-50ms p99 latencies for high-volume transactions while leading technical design RFCs. His target trajectory focuses on Staff Backend Engineer and Distributed Systems Architect roles, specializing in large-scale system resilience, multi-datacenter consensus, and cross-functional engineering alignment.
+          {dossierData ? `Their target trajectory focuses on ${targetRole} and related system architecture roles, specializing in large-scale system resilience and cross-functional engineering alignment.` : 'Once synthesis is complete, a high-level career identity summary will be generated here.'}
         </p>
 
         <p style={{ margin: 0 }}>
-          Shakil is particularly strong in distributed data synchronization, Kafka partition failover strategies, and database sharding patterns. In mock rounds, he will focus on articulating complex architectural trade-offs under high-stress constraints.
+          {dossierData ? `${userName} is particularly strong in core engineering principles. In mock rounds, they will focus on articulating complex architectural trade-offs under high-stress constraints.` : ''}
         </p>
       </div>
 

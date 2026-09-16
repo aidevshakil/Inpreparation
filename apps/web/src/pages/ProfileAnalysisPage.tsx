@@ -91,6 +91,8 @@ export const ProfileAnalysisPage: React.FC<ProfileAnalysisPageProps> = ({
     setSimulationModalOpen(true);
   };
 
+  const displayRole = user?.targetRole || 'Target Role';
+
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
       {/* Main Workspace Frame */}
@@ -132,6 +134,7 @@ export const ProfileAnalysisPage: React.FC<ProfileAnalysisPageProps> = ({
                   setSimulationModalOpen(true);
                 }
               }}
+              targetRole={displayRole}
             />
 
             {/* Career Profile at a Glance + Competency Radar */}
@@ -160,14 +163,19 @@ export const ProfileAnalysisPage: React.FC<ProfileAnalysisPageProps> = ({
                 <ProfileAnalysisIdentityCard
                   onEdit={() => setShowEditModal(true)}
                   onViewCitations={() => setSimulatorState('full_synthesis_drawer')}
+                  dossierData={_dossierData}
+                  targetRole={displayRole}
+                  userName={user?.name || 'User'}
                 />
                 <ProfileAnalysisSkillsCard
                   initialFilter={simulatorState === 'skills_filter_active' ? 'architecture' : 'all'}
+                  dossierData={_dossierData}
                 />
-                <ProfileAnalysisBackgroundCard />
-                <ProfileAnalysisStrengthsCard />
+                <ProfileAnalysisBackgroundCard dossierData={_dossierData} />
+                <ProfileAnalysisStrengthsCard dossierData={_dossierData} />
                 <ProfileAnalysisFocusCard
                   onStartDrill={handleExploreTrack}
+                  dossierData={_dossierData}
                 />
               </div>
 
@@ -179,6 +187,7 @@ export const ProfileAnalysisPage: React.FC<ProfileAnalysisPageProps> = ({
                 />
                 <ProfileAnalysisCareerDirectionsCard
                   onSelectTrack={handleExploreTrack}
+                  targetRole={displayRole}
                 />
                 <ProfileAnalysisSidebarCards />
               </div>
@@ -313,6 +322,9 @@ export const ProfileAnalysisPage: React.FC<ProfileAnalysisPageProps> = ({
         onCloseEditModal={() => setShowEditModal(false)}
         showRadarModal={showRadarModal}
         onCloseRadarModal={() => setShowRadarModal(false)}
+        userName={user?.name || 'User'}
+        targetRole={displayRole}
+        dossierData={_dossierData}
       />
 
       {/* Live Simulation Practice Modal */}

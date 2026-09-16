@@ -23,6 +23,25 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// Request & Response Logger Middleware
+app.use((req, res, next) => {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] Request: ${req.method} ${req.url}`);
+  
+  if (req.method !== 'GET' && Object.keys(req.body || {}).length > 0) {
+    console.log(`[${timestamp}] Request Body:`, JSON.stringify(req.body, null, 2));
+  }
+
+  // Intercept res.json to log the response
+  const originalJson = res.json;
+  res.json = function (body) {
+    console.log(`[${timestamp}] Response for ${req.method} ${req.url}:`, JSON.stringify(body, null, 2));
+    return originalJson.call(this, body);
+  };
+
+  next();
+});
+
 // Mount API Routes
 app.use('/api/users', userRouter);
 app.use('/api/ai', aiRouter);
