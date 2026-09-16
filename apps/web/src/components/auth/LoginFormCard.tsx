@@ -183,6 +183,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
             <input
               type="email"
               required
+              autoComplete="off"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.com"
@@ -234,6 +235,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
             <input
               type={showPassword ? 'text' : 'password'}
               required
+              autoComplete="new-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••••••"

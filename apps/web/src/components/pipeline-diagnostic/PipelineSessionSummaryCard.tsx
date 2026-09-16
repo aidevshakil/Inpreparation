@@ -1,7 +1,17 @@
 import React from 'react';
 import { ShieldCheck, EyeOff } from 'lucide-react';
 
-export const PipelineSessionSummaryCard: React.FC = () => {
+interface PipelineSessionSummaryCardProps {
+  diagnosticData?: any;
+}
+
+export const PipelineSessionSummaryCard: React.FC<PipelineSessionSummaryCardProps> = ({ diagnosticData }) => {
+  const completedQuestionsCount = diagnosticData?.completedQuestionsCount || 0;
+  const totalDurationSeconds = diagnosticData?.totalDurationSeconds || 0;
+
+  const minutes = Math.floor(totalDurationSeconds / 60);
+  const seconds = totalDurationSeconds % 60;
+
   return (
     <div
       style={{
@@ -50,17 +60,17 @@ export const PipelineSessionSummaryCard: React.FC = () => {
 
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.76rem' }}>
           <span style={{ color: '#94a3b8' }}>Questions Completed</span>
-          <span style={{ color: '#f8fafc', fontWeight: 600 }}>8 of 8 Prompts</span>
+          <span style={{ color: '#f8fafc', fontWeight: 600 }}>{completedQuestionsCount} of 8 Prompts</span>
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.76rem' }}>
           <span style={{ color: '#94a3b8' }}>Multimodal Ingestion</span>
-          <span style={{ color: '#38bdf8', fontWeight: 600 }}>1080p Video + High-Fi Audio</span>
+          <span style={{ color: '#38bdf8', fontWeight: 600 }}>{diagnosticData ? '1080p Video + High-Fi Audio' : 'No Data'}</span>
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.76rem' }}>
           <span style={{ color: '#94a3b8' }}>Total Speech Captured</span>
-          <span style={{ color: '#f8fafc', fontWeight: 600 }}>14m 22s</span>
+          <span style={{ color: '#f8fafc', fontWeight: 600 }}>{minutes}m {seconds}s</span>
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.76rem' }}>

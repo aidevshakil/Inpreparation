@@ -3,17 +3,27 @@ import { PenTool } from 'lucide-react';
 
 interface ProfileAnalysisReadinessCardProps {
   onCompleteProfile?: () => void;
+  dossierData?: any;
 }
 
 export const ProfileAnalysisReadinessCard: React.FC<ProfileAnalysisReadinessCardProps> = ({
   onCompleteProfile,
+  dossierData,
 }) => {
-  const readinessItems = [
+  const readinessPercent = dossierData ? dossierData.readinessPercentage : 0;
+  
+  const readinessItems = dossierData ? [
     { label: 'Basic Info & Verification', percentage: 100, color: '#10b981' },
     { label: 'CV & Resume Ingestion', percentage: 100, color: '#10b981' },
     { label: 'Career Goals & Seniority', percentage: 100, color: '#10b981' },
     { label: 'Technical Stack Granularity', percentage: 85, color: '#38bdf8' },
     { label: 'Interview Preferences Setup', percentage: 75, color: '#818cf8' },
+  ] : [
+    { label: 'Basic Info & Verification', percentage: 0, color: '#64748b' },
+    { label: 'CV & Resume Ingestion', percentage: 0, color: '#64748b' },
+    { label: 'Career Goals & Seniority', percentage: 0, color: '#64748b' },
+    { label: 'Technical Stack Granularity', percentage: 0, color: '#64748b' },
+    { label: 'Interview Preferences Setup', percentage: 0, color: '#64748b' },
   ];
 
   return (
@@ -46,12 +56,12 @@ export const ProfileAnalysisReadinessCard: React.FC<ProfileAnalysisReadinessCard
             fontWeight: 700,
             padding: '2px 8px',
             borderRadius: '9999px',
-            backgroundColor: 'rgba(99, 102, 241, 0.2)',
-            color: '#a5b4fc',
-            border: '1px solid rgba(99, 102, 241, 0.4)',
+            backgroundColor: readinessPercent > 50 ? 'rgba(99, 102, 241, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+            color: readinessPercent > 50 ? '#a5b4fc' : '#94a3b8',
+            border: readinessPercent > 50 ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid rgba(255, 255, 255, 0.1)',
           }}
         >
-          78% Ready
+          {readinessPercent}% Ready
         </span>
       </div>
 
@@ -115,7 +125,7 @@ export const ProfileAnalysisReadinessCard: React.FC<ProfileAnalysisReadinessCard
         }}
       >
         <PenTool size={13} style={{ color: '#818cf8' }} />
-        <span>Complete Remaining Details (22%)</span>
+        <span>{readinessPercent === 100 ? 'Edit Profile' : `Complete Remaining Details (${100 - readinessPercent}%)`}</span>
       </button>
     </div>
   );

@@ -139,19 +139,8 @@ diagnosticRouter.get('/result/:userId', async (req: Request, res: Response) => {
     if (!intake) {
       return res.status(200).json({
         success: true,
-        source: 'default_calibrated',
-        result: {
-          intakeId: 'diag-demo-849',
-          overallScore: 88,
-          technicalRigorScore: 92,
-          systemsBreadthScore: 89,
-          leadershipStarScore: 84,
-          communicationScore: 87,
-          targetRole: 'Staff Backend & Distributed Systems Architect',
-          seniorityTier: 'Senior 6+ Yrs Infra',
-          responsesCount: 8,
-          timestamp: new Date().toISOString(),
-        },
+        source: 'database',
+        result: null,
       });
     }
 
@@ -162,6 +151,40 @@ diagnosticRouter.get('/result/:userId', async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('Failed to get diagnostic result:', error);
+    res.status(500).json({ error: error.message || 'Database fetch error' });
+  }
+});
+
+// 4. GET LATEST DIAGNOSTIC RESULT BY USER ID (Query Param)
+diagnosticRouter.get('/latest', async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.query;
+    if (!userId || typeof userId !== 'string') {
+      return res.status(400).json({ error: 'userId query parameter is required' });
+    }
+
+    let intake = null;
+    if ((prisma as any).diagnosticIntake) {
+      intake = await (prisma as any).diagnosticIntake.findFirst({
+        where: { userId },
+        orderBy: { createdAt: 'desc' },
+        include: { responses: true },
+      });
+    }
+
+    if (!intake) {
+      return res.status(200).json({
+        success: true,
+        diagnostic: null,
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      diagnostic: intake,
+    });
+  } catch (error: any) {
+    console.error('Failed to get latest diagnostic:', error);
     res.status(500).json({ error: error.message || 'Database fetch error' });
   }
 });

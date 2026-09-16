@@ -3,11 +3,15 @@ import { MessageSquareQuote, ArrowRight } from 'lucide-react';
 
 interface PipelineQuotePreviewCardProps {
   onOpenTranscript?: () => void;
+  diagnosticData?: any;
 }
 
 export const PipelineQuotePreviewCard: React.FC<PipelineQuotePreviewCardProps> = ({
   onOpenTranscript,
+  diagnosticData,
 }) => {
+  const quote = diagnosticData?.responses?.[0]?.responseText || "Awaiting real-time telemetry from candidate audio ingest. No responses collected yet.";
+  
   return (
     <div
       style={{
@@ -43,12 +47,12 @@ export const PipelineQuotePreviewCard: React.FC<PipelineQuotePreviewCardProps> =
             fontWeight: 700,
             padding: '2px 8px',
             borderRadius: '9999px',
-            backgroundColor: 'rgba(56, 189, 248, 0.12)',
-            color: '#38bdf8',
-            border: '1px solid rgba(56, 189, 248, 0.3)',
+            backgroundColor: diagnosticData ? 'rgba(56, 189, 248, 0.12)' : 'rgba(255, 255, 255, 0.05)',
+            color: diagnosticData ? '#38bdf8' : '#94a3b8',
+            border: diagnosticData ? '1px solid rgba(56, 189, 248, 0.3)' : '1px solid rgba(255, 255, 255, 0.1)',
           }}
         >
-          98.2% Transcription Fidelity
+          {diagnosticData ? '98.2% Transcription Fidelity' : 'Waiting for Data'}
         </span>
       </div>
 
@@ -71,7 +75,7 @@ export const PipelineQuotePreviewCard: React.FC<PipelineQuotePreviewCardProps> =
             margin: 0,
           }}
         >
-          &ldquo;I am a Senior Backend and Distributed Systems Engineer with over 6 years of experience... focusing on event-driven streaming with Kafka and PostgreSQL concurrency patterns... looking forward to leading architecture reviews at scale.&rdquo;
+          &ldquo;{quote}&rdquo;
         </p>
       </div>
 

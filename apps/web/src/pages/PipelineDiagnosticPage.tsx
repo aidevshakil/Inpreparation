@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { PipelineDiagnosticState } from '../components/pipeline-diagnostic/PipelineDiagnosticSimulatorBar';
 import { PipelineDiagnosticTopNav } from '../components/pipeline-diagnostic/PipelineDiagnosticTopNav';
 import { PipelineDiagnosticHeader } from '../components/pipeline-diagnostic/PipelineDiagnosticHeader';
@@ -11,6 +11,7 @@ import { PipelinePrivacyCard } from '../components/pipeline-diagnostic/PipelineP
 import { PipelineDiagnosticModals } from '../components/pipeline-diagnostic/PipelineDiagnosticModals';
 import { DashboardFooter } from '../components/dashboard/DashboardFooter';
 import { RefreshCw, Terminal, ArrowRight } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 interface PipelineDiagnosticPageProps {
   onNavigateToHome?: () => void;
@@ -44,6 +45,22 @@ export const PipelineDiagnosticPage: React.FC<PipelineDiagnosticPageProps> = ({
   const [simulatorState, setSimulatorState] = useState<PipelineDiagnosticState>('step_3_active');
   const [showLogModal, setShowLogModal] = useState(false);
   const [showTranscriptModal, setShowTranscriptModal] = useState(false);
+
+  const { user } = useAuth();
+  const [diagnosticData, setDiagnosticData] = useState<any>(null);
+
+  useEffect(() => {
+    if (user?.id) {
+      fetch(`http://localhost:5000/api/diagnostics/latest?userId=${user.id}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.diagnostic) {
+            setDiagnosticData(data.diagnostic);
+          }
+        })
+        .catch(err => console.warn('Fetch diagnostic error:', err));
+    }
+  }, [user?.id]);
 
   const getBottomActionText = () => {
     switch (simulatorState) {
@@ -89,16 +106,17 @@ export const PipelineDiagnosticPage: React.FC<PipelineDiagnosticPageProps> = ({
           >
             {/* Left Column */}
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <PipelineHeroSynthesisCard state={simulatorState} />
-              <PipelineTelemetryStagesCard state={simulatorState} />
+              <PipelineHeroSynthesisCard state={simulatorState} diagnosticData={diagnosticData} />
+              <PipelineTelemetryStagesCard state={simulatorState} diagnosticData={diagnosticData} />
               <PipelineQuotePreviewCard
                 onOpenTranscript={() => setShowTranscriptModal(true)}
+                diagnosticData={diagnosticData}
               />
             </div>
 
             {/* Right Column */}
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <PipelineSessionSummaryCard />
+              <PipelineSessionSummaryCard diagnosticData={diagnosticData} />
               <PipelineWhatHappensNextCard />
               <PipelinePrivacyCard />
             </div>

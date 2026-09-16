@@ -4,105 +4,68 @@ import { PipelineDiagnosticState } from './PipelineDiagnosticSimulatorBar';
 
 interface PipelineTelemetryStagesCardProps {
   state: PipelineDiagnosticState;
+  diagnosticData?: any;
 }
 
 type StageStatus = 'completed' | 'in_progress' | 'queued' | 'warning';
 
 export const PipelineTelemetryStagesCard: React.FC<PipelineTelemetryStagesCardProps> = ({
   state,
+  diagnosticData,
 }) => {
   const getStageStatuses = (): { [key: number]: StageStatus } => {
     switch (state) {
       case 'initializing':
-        return {
-          1: 'in_progress',
-          2: 'queued',
-          3: 'queued',
-          4: 'queued',
-          5: 'queued',
-        };
+        return { 1: 'in_progress', 2: 'queued', 3: 'queued', 4: 'queued', 5: 'queued' };
       case 'step_3_active':
-        return {
-          1: 'completed',
-          2: 'completed',
-          3: 'in_progress',
-          4: 'queued',
-          5: 'queued',
-        };
+        return { 1: 'completed', 2: 'completed', 3: 'in_progress', 4: 'queued', 5: 'queued' };
       case 'step_5_finishing':
-        return {
-          1: 'completed',
-          2: 'completed',
-          3: 'completed',
-          4: 'completed',
-          5: 'in_progress',
-        };
+        return { 1: 'completed', 2: 'completed', 3: 'completed', 4: 'completed', 5: 'in_progress' };
       case 'completed':
-        return {
-          1: 'completed',
-          2: 'completed',
-          3: 'completed',
-          4: 'completed',
-          5: 'completed',
-        };
+        return { 1: 'completed', 2: 'completed', 3: 'completed', 4: 'completed', 5: 'completed' };
       case 'partial_fallback':
-        return {
-          1: 'completed',
-          2: 'completed',
-          3: 'warning',
-          4: 'queued',
-          5: 'queued',
-        };
       case 'failure_dialog':
-        return {
-          1: 'completed',
-          2: 'completed',
-          3: 'warning',
-          4: 'queued',
-          5: 'queued',
-        };
+        return { 1: 'completed', 2: 'completed', 3: 'warning', 4: 'queued', 5: 'queued' };
       default:
-        return {
-          1: 'completed',
-          2: 'completed',
-          3: 'in_progress',
-          4: 'queued',
-          5: 'queued',
-        };
+        return { 1: 'completed', 2: 'completed', 3: 'in_progress', 4: 'queued', 5: 'queued' };
     }
   };
 
   const statuses = getStageStatuses();
 
+  const completedCount = diagnosticData?.completedQuestionsCount || 0;
+  const wpm = diagnosticData?.responses?.[0]?.wpm || 0;
+  const role = diagnosticData?.targetRole || 'Unknown Role';
+
   const stages = [
     {
       id: 1,
       title: '1. Collecting & Validating Responses',
-      description: '8 of 8 multimodal prompts captured, sha256 checksums verified, payload unpacked.',
+      description: diagnosticData ? `${completedCount} multimodal prompts captured, sha256 checksums verified.` : 'Awaiting data capture.',
       status: statuses[1],
     },
     {
       id: 2,
       title: '2. Transcribing Audio & Speech Prosody',
-      description: 'Converted 8 audio streams into 2,640 synchronized tokens; pace mapped at ~138 WPM.',
+      description: diagnosticData ? `Audio streams converted; pace mapped at ~${wpm} WPM.` : 'Awaiting audio processing.',
       status: statuses[2],
     },
     {
       id: 3,
       title: '3. Organizing Career Information & Skills',
-      description: 'Structuring background, distributed systems stack, and Staff-level career objectives from parsed transcript and CV.',
+      description: diagnosticData ? `Structuring background and objectives for ${role}.` : 'Awaiting transcription data.',
       status: statuses[3],
     },
     {
       id: 4,
       title: '4. Generating Career Insights & Radar',
-      description: 'Identifying technical strengths, architectural trade-off depth, and personalized preparation milestones.',
+      description: diagnosticData ? 'Identifying technical strengths and personalized preparation milestones.' : 'Awaiting insights generation.',
       status: statuses[4],
     },
     {
       id: 5,
       title: '5. Preparing Tailored Interview Recommendations',
-      description: 'Mapping stated goals with Staff Backend & Systems Architect drill tracks.',
+      description: diagnosticData ? `Mapping stated goals with ${role} drill tracks.` : 'Awaiting track matching.',
       status: statuses[5],
     },
   ];
