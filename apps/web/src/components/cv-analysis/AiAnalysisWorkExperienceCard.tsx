@@ -1,7 +1,7 @@
 import React from 'react';
 import { Plus, CheckCircle2, AlertCircle, TrendingUp, Layers, ExternalLink } from 'lucide-react';
 
-interface WorkExperienceEntry {
+export interface WorkExperienceEntry {
   title: string;
   badge?: string;
   company: string;
@@ -14,15 +14,19 @@ interface WorkExperienceEntry {
 }
 
 interface AiAnalysisWorkExperienceCardProps {
+  initialExperiences?: WorkExperienceEntry[];
   onAddRole?: () => void;
   onEditExperience?: (index: number) => void;
 }
 
 export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCardProps> = ({
+  initialExperiences,
   onAddRole,
   onEditExperience,
 }) => {
-  const experiences: WorkExperienceEntry[] = [
+  const experiences: WorkExperienceEntry[] = (initialExperiences && initialExperiences.length > 0)
+    ? initialExperiences
+    : [
     {
       title: 'Senior Backend Engineer',
       badge: 'Current Role',

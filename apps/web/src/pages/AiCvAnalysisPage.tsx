@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { AiAnalysisState } from '../components/cv-analysis/AiAnalysisSimulatorBar';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
@@ -17,6 +17,7 @@ import { AiAnalysisNextStepBar } from '../components/cv-analysis/AiAnalysisNextS
 import { DashboardFooter } from '../components/dashboard/DashboardFooter';
 import { AlertTriangle, RefreshCw, Loader2, FileWarning, FileText } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { getLatestCvAnalysis, triggerCvAnalysis } from '../services/api';
 
 interface AiCvAnalysisPageProps {
   onNavigateToHome?: () => void;
@@ -42,7 +43,45 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
   const [simulatorState, setSimulatorState] = useState<AiAnalysisState>('complete');
   const [activeNav, setActiveNav] = useState<NavItemKey>('cv');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [analysisData, setAnalysisData] = useState<any>(null);
+  const [isLoadingAnalysis, setIsLoadingAnalysis] = useState(false);
   const { user } = useAuth();
+
+  // Load latest AI Analysis for current user or file
+  useEffect(() => {
+    let isMounted = true;
+    async function loadAnalysis() {
+      if (!user.cvFileName) return;
+      setIsLoadingAnalysis(true);
+      try {
+        const res = await getLatestCvAnalysis(user.id || 'demo-user-1');
+        if (isMounted && res && res.analysis) {
+          setAnalysisData(res.analysis);
+        } else if (isMounted) {
+          // Trigger on-the-fly synthesis
+          const triggered = await triggerCvAnalysis({
+            userId: user.id,
+            fileName: user.cvFileName || 'Uploaded_CV.pdf',
+            targetRole: user.targetRole || 'Full Stack Software Engineer',
+            skills: user.cvSkills && user.cvSkills.length > 0 ? user.cvSkills : ['TypeScript', 'React', 'Node.js', 'PostgreSQL'],
+            experienceYears: Number(user.yearsOfExperience) || 3,
+          });
+          if (isMounted && triggered && triggered.analysis) {
+            setAnalysisData(triggered.analysis);
+          }
+        }
+      } catch (err) {
+        console.warn('Could not load CV analysis, using fallback:', err);
+      } finally {
+        if (isMounted) setIsLoadingAnalysis(false);
+      }
+    }
+
+    loadAnalysis();
+    return () => {
+      isMounted = false;
+    };
+  }, [user.cvFileName, user.id, user.targetRole, user.yearsOfExperience]);
 
   const handleSelectNav = (key: NavItemKey) => {
     setActiveNav(key);
@@ -156,9 +195,24 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
                   parsedTime="Seconds ago"
                   onNavigateToCv={onNavigateToCv}
                   onDownloadDossier={() => alert('Downloading Dossier PDF...')}
-                  onReanalyzeCv={() => {
+                  onReanalyzeCv={async () => {
                     setSimulatorState('processing');
-                    setTimeout(() => setSimulatorState('complete'), 1500);
+                    try {
+                      const res = await triggerCvAnalysis({
+                        userId: user.id,
+                        fileName: user.cvFileName || 'Uploaded_CV.pdf',
+                        targetRole: user.targetRole || 'Full Stack Software Engineer',
+                        skills: user.cvSkills && user.cvSkills.length > 0 ? user.cvSkills : ['TypeScript', 'React', 'Node.js', 'PostgreSQL'],
+                        experienceYears: Number(user.yearsOfExperience) || 3,
+                      });
+                      if (res && res.analysis) {
+                        setAnalysisData(res.analysis);
+                      }
+                    } catch (e) {
+                      console.warn('Re-analysis error:', e);
+                    } finally {
+                      setSimulatorState('complete');
+                    }
                   }}
                   onContinueToAssessment={() => {
                     if (onNavigateToSimulations) onNavigateToSimulations();
@@ -169,7 +223,7 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
                 />
 
                 {/* Simulated State Conditional Views */}
-                {simulatorState === 'processing' && (
+                {(simulatorState === 'processing' || isLoadingAnalysis) && (
                   <div
                     style={{
                       backgroundColor: 'rgba(14, 18, 28, 0.9)',
@@ -302,16 +356,27 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
                   >
                     {/* Left Column (Dossier & Extraction Details) */}
                     <div>
-                      <AiAnalysisProfessionalSummaryCard isEditMode={simulatorState === 'edit_mode'} />
+                      <AiAnalysisProfessionalSummaryCard
+                        isEditMode={simulatorState === 'edit_mode'}
+                        initialSummary={analysisData?.professionalSummary}
+                        onSaveSummary={(newSummary) => {
+                          setAnalysisData((prev: any) => ({ ...prev, professionalSummary: newSummary }));
+                        }}
+                      />
                       <AiAnalysisSkillsTaxonomyCard
+                        initialCategories={analysisData?.skillsTaxonomy}
                         onAddSkill={() => alert('Open Add Skill Modal')}
                         onMarkInaccuracies={() => alert('Feedback modal: report CV taxonomy discrepancy')}
                       />
                       <AiAnalysisWorkExperienceCard
+                        initialExperiences={analysisData?.workExperience}
                         onAddRole={() => alert('Open Add Role Modal')}
                         onEditExperience={(idx) => alert(`Editing experience entry #${idx + 1}`)}
                       />
-                      <AiAnalysisProjectsCard onAddProject={() => alert('Open Add Project Modal')} />
+                      <AiAnalysisProjectsCard
+                        initialProjects={analysisData?.projects}
+                        onAddProject={() => alert('Open Add Project Modal')}
+                      />
                       <AiAnalysisEducationCertCard
                         onEditEducation={() => alert('Editing Education')}
                         onAddCertification={() => alert('Adding Certification')}
@@ -320,12 +385,20 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
 
                     {/* Right Column (Strength Scoring & Role Alignment) */}
                     <div>
-                      <AiAnalysisCvStrengthScoreCard />
-                      <AiAnalysisTechnicalCoverageCard />
+                      <AiAnalysisCvStrengthScoreCard
+                        overallScore={analysisData?.overallStrengthScore}
+                      />
+                      <AiAnalysisTechnicalCoverageCard
+                        coverageMap={analysisData?.technicalCoverage}
+                      />
                       <AiAnalysisRoleAlignmentCard
+                        initialPaths={analysisData?.roleAlignments}
                         onSelectRole={(role) => alert(`Calibrating simulation profile for: ${role}`)}
                       />
-                      <AiAnalysisFeedbackCard onEnhanceInEditor={onNavigateToCvBuilder || onNavigateToCv} />
+                      <AiAnalysisFeedbackCard
+                        improvements={analysisData?.improvements}
+                        onEnhanceInEditor={onNavigateToCvBuilder || onNavigateToCv}
+                      />
                       <AiAnalysisPrivacyCard onManagePrivacy={() => alert('Opening Privacy Settings Modal')} />
                     </div>
                   </div>

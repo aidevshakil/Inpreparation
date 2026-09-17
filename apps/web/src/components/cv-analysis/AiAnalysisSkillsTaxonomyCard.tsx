@@ -1,21 +1,25 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
 
-interface SkillCategory {
+export interface SkillCategory {
   title: string;
   skills: string[];
 }
 
 interface AiAnalysisSkillsTaxonomyCardProps {
+  initialCategories?: SkillCategory[];
   onAddSkill?: () => void;
   onMarkInaccuracies?: () => void;
 }
 
 export const AiAnalysisSkillsTaxonomyCard: React.FC<AiAnalysisSkillsTaxonomyCardProps> = ({
+  initialCategories,
   onAddSkill,
   onMarkInaccuracies,
 }) => {
-  const categories: SkillCategory[] = [
+  const categories: SkillCategory[] = (initialCategories && initialCategories.length > 0)
+    ? initialCategories
+    : [
     {
       title: 'LANGUAGES & SCRIPTING',
       skills: ['Python 3.12', 'Go (Golang)', 'Dart', 'SQL (PostgreSQL dialects)', 'Bash / Shell'],

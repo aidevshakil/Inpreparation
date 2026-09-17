@@ -1,13 +1,33 @@
 import React from 'react';
 
-interface CoverageDomain {
+export interface CoverageDomain {
   domain: string;
   percentage: number;
   colorGrad: string;
 }
 
-export const AiAnalysisTechnicalCoverageCard: React.FC = () => {
-  const domains: CoverageDomain[] = [
+interface AiAnalysisTechnicalCoverageCardProps {
+  coverageMap?: Record<string, number>;
+}
+
+export const AiAnalysisTechnicalCoverageCard: React.FC<AiAnalysisTechnicalCoverageCardProps> = ({
+  coverageMap,
+}) => {
+  const gradients = [
+    'linear-gradient(90deg, #6366f1, #818cf8)',
+    'linear-gradient(90deg, #38bdf8, #60a5fa)',
+    'linear-gradient(90deg, #818cf8, #c084fc)',
+    'linear-gradient(90deg, #34d399, #10b981)',
+    'linear-gradient(90deg, #f59e0b, #fbbf24)',
+  ];
+
+  const domains: CoverageDomain[] = coverageMap && Object.keys(coverageMap).length > 0
+    ? Object.entries(coverageMap).map(([domain, percentage], idx) => ({
+        domain,
+        percentage,
+        colorGrad: gradients[idx % gradients.length],
+      }))
+    : [
     {
       domain: 'Backend Distributed Architecture',
       percentage: 92,

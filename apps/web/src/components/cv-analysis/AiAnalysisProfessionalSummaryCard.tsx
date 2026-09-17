@@ -3,15 +3,33 @@ import { Edit2, Check, Sparkles } from 'lucide-react';
 
 interface AiAnalysisProfessionalSummaryCardProps {
   isEditMode?: boolean;
+  initialSummary?: string;
+  onSaveSummary?: (newSummary: string) => void;
 }
 
 export const AiAnalysisProfessionalSummaryCard: React.FC<AiAnalysisProfessionalSummaryCardProps> = ({
   isEditMode = false,
+  initialSummary,
+  onSaveSummary,
 }) => {
   const [editing, setEditing] = useState(isEditMode);
   const [summary, setSummary] = useState(
+    initialSummary ||
     'Staff-aspiring Software Engineer with 3.5+ years of production experience building high-throughput microservices using Python, FastAPI, and Go, combined with native mobile client experience in Flutter and Dart. Proven track record eliminating P99 tail latencies by 34% through distributed event backbones (Apache Kafka) and partitioned database clusters (PostgreSQL & Redis).'
   );
+
+  React.useEffect(() => {
+    if (initialSummary) {
+      setSummary(initialSummary);
+    }
+  }, [initialSummary]);
+
+  const handleSave = () => {
+    setEditing(false);
+    if (onSaveSummary) {
+      onSaveSummary(summary);
+    }
+  };
 
   return (
     <div
@@ -47,7 +65,13 @@ export const AiAnalysisProfessionalSummaryCard: React.FC<AiAnalysisProfessionalS
         </div>
 
         <button
-          onClick={() => setEditing(!editing)}
+          onClick={() => {
+            if (editing) {
+              handleSave();
+            } else {
+              setEditing(true);
+            }
+          }}
           style={{
             background: 'transparent',
             border: 'none',

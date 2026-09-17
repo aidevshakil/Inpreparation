@@ -1,7 +1,7 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
 
-interface ProjectEntry {
+export interface ProjectEntry {
   title: string;
   badge?: string;
   badgeColor?: string;
@@ -11,13 +11,17 @@ interface ProjectEntry {
 }
 
 interface AiAnalysisProjectsCardProps {
+  initialProjects?: ProjectEntry[];
   onAddProject?: () => void;
 }
 
 export const AiAnalysisProjectsCard: React.FC<AiAnalysisProjectsCardProps> = ({
+  initialProjects,
   onAddProject,
 }) => {
-  const projects: ProjectEntry[] = [
+  const projects: ProjectEntry[] = (initialProjects && initialProjects.length > 0)
+    ? initialProjects
+    : [
     {
       title: 'Distributed Transaction Saga Engine',
       badge: 'L6-ready',
