@@ -12,7 +12,7 @@
     "dev:backend": "pnpm --filter @service/api-backend dev",
     "dev:web": "pnpm --filter @app/web dev",
     "dev:admin": "pnpm --filter @app/admin dev",
-    "dev:ai": "cd services/ai-service && uvicorn app.main:app --reload --port 8000",
+    "dev:ai": "cd services/ai-service && .venv\\Scripts\\python -m uvicorn app.main:app --reload --port 8000",
     "dev:mobile": "cd apps/mobile && flutter run",
     "db:generate": "pnpm --filter @packages/database db:generate",
     "db:push": "pnpm --filter @packages/database db:push",
@@ -20,7 +20,7 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "test:ai": "cd services/ai-service && pytest",
+    "test:ai": "cd services/ai-service && .venv\\Scripts\\python -m pytest",
     "test:mobile": "cd apps/mobile && flutter test",
     "clean": "turbo run clean && rm -rf node_modules"
   },
