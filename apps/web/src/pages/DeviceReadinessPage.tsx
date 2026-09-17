@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
-import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
-import { useAuth } from '../context/AuthContext';
 import { 
-  ArrowLeft, Search, Bell, Video, Mic, Speaker, Activity, Shield, CheckCircle2, 
-  ChevronDown, Settings, AlertCircle, Play, Info, CheckSquare, Server, Lock, Check,
+  Search, Bell, Video, Mic, Speaker, Activity, Shield, CheckCircle2, 
+  ChevronDown, Play, CheckSquare, Server, Lock, Check,
   RefreshCw, Scan
 } from 'lucide-react';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
@@ -23,7 +21,7 @@ interface DeviceReadinessPageProps {
 }
 
 export const DeviceReadinessPage: React.FC<DeviceReadinessPageProps> = ({
-  onNavigateToHome,
+  onNavigateToHome: _onNavigateToHome,
   onNavigateToDashboard,
   onNavigateToProfile,
   onNavigateToCv,
@@ -34,7 +32,6 @@ export const DeviceReadinessPage: React.FC<DeviceReadinessPageProps> = ({
   onNavigateToAi,
   onNavigateToCategories,
 }) => {
-  const { user } = useAuth();
   const [activeNav, setActiveNav] = useState<NavItemKey>('search');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);

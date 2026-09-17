@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { 
-  CheckCircle2, Clock, Terminal, Shield, Lock, Eye, CheckSquare, Server, 
-  RefreshCw, CornerDownRight, Activity
+  CheckCircle2, Clock, Terminal, Shield, Lock, Eye, Server, 
+  RefreshCw, CornerDownRight
 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
 
 interface PipelineDiagnosticPageProps {
   onNavigateToHome?: () => void;
@@ -27,9 +26,8 @@ export const PipelineDiagnosticPage: React.FC<PipelineDiagnosticPageProps> = ({
   onNavigateToSearch,
   onNavigateToAi,
   onNavigateToCategories,
-  onNavigateToIntroResult,
+  onNavigateToIntroResult: _onNavigateToIntroResult,
 }) => {
-  const { user } = useAuth();
   const [activeNav, setActiveNav] = useState<NavItemKey>('dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 

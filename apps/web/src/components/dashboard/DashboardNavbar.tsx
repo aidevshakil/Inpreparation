@@ -232,9 +232,30 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
                 </div>
 
                 <div className="flex items-center justify-between" style={{ padding: '6px 10px', backgroundColor: 'var(--bg-surface)', borderRadius: '6px' }}>
-                  <span style={{ color: 'var(--primary-color)', fontSize: '12px', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '140px' }}>
-                    {user.targetRole || 'Candidate Pro'}
-                  </span>
+                  <button
+                    onClick={() => handleNavigate('profile')}
+                    title={user.targetRole && user.targetRole !== 'Select Target Role' ? `Target Role: ${user.targetRole}` : 'Click to set your target role'}
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      padding: 0,
+                      color: user.targetRole && user.targetRole !== 'Select Target Role' && user.targetRole !== 'Full Stack Software Engineer'
+                        ? 'var(--primary-color)'
+                        : 'var(--text-muted)',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      maxWidth: '175px',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                    }}
+                  >
+                    {user.targetRole && user.targetRole !== 'Select Target Role' && user.targetRole !== 'Full Stack Software Engineer'
+                      ? user.targetRole
+                      : '+ Set Target Role'}
+                  </button>
                   <span className="flex items-center gap-1" style={{ color: 'var(--color-success)', fontSize: '12px', fontWeight: 600 }}>
                     <Zap size={12} fill="currentColor" />
                     {user.creditsRemaining} cr

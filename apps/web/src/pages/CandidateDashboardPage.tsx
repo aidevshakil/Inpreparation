@@ -25,6 +25,8 @@ interface CandidateDashboardPageProps {
   onNavigateToCv?: () => void;
   onNavigateToSimulations?: () => void;
   onNavigateToCategories?: () => void;
+  onNavigateToSearch?: () => void;
+  onNavigateToPerformance?: () => void;
   onNavigateToAi?: () => void;
   onNavigateToPricing?: () => void;
 }
@@ -35,6 +37,8 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
   onNavigateToCv,
   onNavigateToSimulations,
   onNavigateToCategories,
+  onNavigateToSearch,
+  onNavigateToPerformance,
   onNavigateToAi,
 }) => {
   const { user } = useAuth();
@@ -42,7 +46,7 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
   const [activeNav, setActiveNav] = useState<NavItemKey>('dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState(user.targetRole || 'Senior Backend Engineer');
+  const [selectedRole, setSelectedRole] = useState(user?.targetRole || 'Senior Backend Engineer');
 
   // API Data State
   const [readinessScore, setReadinessScore] = useState<number>(0);
@@ -58,7 +62,7 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
         setDashboardState('skeleton');
         
         // Fetch all dashboard widgets in parallel
-        const [simHistory, diagResult, profileAnalysis] = await Promise.all([
+        const [simHistory, diagResult, _profileAnalysis] = await Promise.all([
           getUserSimulationHistory(user.id),
           getDiagnosticResult(user.id),
           getProfileAnalysisDossier(user.id)
@@ -116,6 +120,12 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
       onNavigateToSimulations();
     } else if (key === 'categories' && onNavigateToCategories) {
       onNavigateToCategories();
+    } else if (key === 'search' && onNavigateToSearch) {
+      onNavigateToSearch();
+    } else if (key === 'performance' && onNavigateToPerformance) {
+      onNavigateToPerformance();
+    } else if (key === 'history' && onNavigateToSimulations) {
+      onNavigateToSimulations();
     } else if (key === 'assessment') {
       handleStartInterview('System Concurrency & Architecture');
     }

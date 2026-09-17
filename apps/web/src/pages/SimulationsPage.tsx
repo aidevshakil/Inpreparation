@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { TargetRoleCatalog } from '../components/interview-library/TargetRoleCatalog';
 import { DashboardFooter } from '../components/dashboard/DashboardFooter';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
-import { useAuth } from '../context/AuthContext';
 import { Search, Filter, ChevronDown, CheckCircle2, Bookmark, BarChart2 } from 'lucide-react';
 
 interface SimulationsPageProps {
@@ -32,7 +31,6 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
   onNavigateToSimulationDetails,
   onNavigateToAi,
 }) => {
-  const { user } = useAuth();
   const [activeNav, setActiveNav] = useState<NavItemKey>('library');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);

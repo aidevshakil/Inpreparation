@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
-import { ZoomIn, Maximize2, ExternalLink, MapPin, Mail, Phone, Globe } from 'lucide-react';
+import { ZoomIn, Maximize2, ExternalLink, MapPin, Mail, Globe } from 'lucide-react';
 
 interface CvOcrPreviewCanvasProps {
+  candidateName?: string;
+  candidateRole?: string;
+  candidateLocation?: string;
+  candidateEmail?: string;
+  candidateSkills?: string[];
   onExpandDossier?: () => void;
 }
 
 export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
+  candidateName,
+  candidateRole,
+  candidateLocation,
+  candidateEmail,
+  candidateSkills,
   onExpandDossier,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -97,27 +107,23 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
         {/* Resume Header */}
         <div style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: '14px', marginBottom: '14px' }}>
           <h2 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#ffffff', margin: '0 0 4px 0', letterSpacing: '-0.02em' }}>
-            Shakil Ahamed
+            {candidateName || 'Candidate Dossier'}
           </h2>
           <div style={{ fontSize: '0.84rem', fontWeight: 600, color: '#818cf8', marginBottom: '8px' }}>
-            Senior Backend • Distributed Systems • Concurrency Specialist
+            {candidateRole || 'Software Engineering Professional'}
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap', fontSize: '0.72rem', color: '#94a3b8' }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-              <MapPin size={11} color="#64748b" /> San Francisco, CA (Open to Remote)
+              <MapPin size={11} color="#64748b" /> {candidateLocation || 'Open to Remote'}
             </span>
             <span>•</span>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-              <Mail size={11} color="#64748b" /> shakil.ahamed@example.com
+              <Mail size={11} color="#64748b" /> {candidateEmail || 'candidate@example.com'}
             </span>
             <span>•</span>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-              <Phone size={11} color="#64748b" /> +1 (555) 349-8201
-            </span>
-            <span>•</span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-              <Globe size={11} color="#64748b" /> github.com/shakilahamed
+              <Globe size={11} color="#64748b" /> inprep.ai/dossier
             </span>
           </div>
         </div>
@@ -128,7 +134,7 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
             Executive Summary
           </div>
           <p style={{ fontSize: '0.76rem', color: '#cbd5e1', lineHeight: 1.55, margin: 0 }}>
-            Staff-aspiring backend engineer with 3.5+ years of production experience scaling high-throughput Python/FastAPI microservices, distributed event backbones (Apache Kafka), and low-latency storage engines. Proven track record eliminating P99 tail latencies by 34% and migrating monolithic systems to event-driven architectures sustaining 12,000+ QPS with high fault-tolerance.
+            {candidateRole ? `${candidateRole} with verified competencies.` : 'Software engineer with verified competencies and specialized interview readiness.'} Profile extracted and calibrated across technical rubrics.
           </p>
         </div>
 
@@ -138,23 +144,23 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
             Technical Competencies
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '10px', fontSize: '0.74rem' }}>
-            <div>
-              <strong style={{ color: '#f8fafc' }}>Languages:</strong>{' '}
-              <span style={{ color: '#94a3b8' }}>Python 3.12, Go (Golang), Dart, SQL, Bash</span>
-            </div>
-            <div>
-              <strong style={{ color: '#f8fafc' }}>Frameworks &amp; Protocols:</strong>{' '}
-              <span style={{ color: '#94a3b8' }}>FastAPI, Asyncio, gRPC, REST, Celery, Flutter</span>
-            </div>
-            <div>
-              <strong style={{ color: '#f8fafc' }}>Data, Cache &amp; Messaging:</strong>{' '}
-              <span style={{ color: '#94a3b8' }}>PostgreSQL (Partitioning), Redis, Kafka, Elasticsearch</span>
-            </div>
-            <div>
-              <strong style={{ color: '#f8fafc' }}>Cloud, Infra &amp; Observability:</strong>{' '}
-              <span style={{ color: '#94a3b8' }}>Docker, Kubernetes (EKS), AWS (ECS, S3, RDS), Prometheus</span>
-            </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+            {(candidateSkills && candidateSkills.length > 0 ? candidateSkills : ['TypeScript', 'React', 'Node.js', 'System Architecture']).map((sk) => (
+              <span
+                key={sk}
+                style={{
+                  padding: '4px 10px',
+                  backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                  border: '1px solid rgba(99, 102, 241, 0.25)',
+                  borderRadius: '6px',
+                  fontSize: '0.74rem',
+                  color: '#e0e7ff',
+                  fontWeight: 500,
+                }}
+              >
+                {sk}
+              </span>
+            ))}
           </div>
         </div>
 

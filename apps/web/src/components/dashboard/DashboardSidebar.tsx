@@ -15,6 +15,7 @@ import {
   MoreVertical,
   Zap,
   SlidersHorizontal,
+  ChevronsLeft,
 } from 'lucide-react';
 
 export type NavItemKey =

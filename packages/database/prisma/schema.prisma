@@ -14,8 +14,8 @@ model User {
   passwordHash  String?
   role          String              @default("user") // "user" | "admin" | "moderator"
   avatarUrl     String?
-  targetRole    String?             @default("Full Stack Software Engineer")
-  seniority     String?             @default("Senior (L5)")
+  targetRole    String?
+  seniority     String?
   isEmailVerified Boolean           @default(false)
   createdAt     DateTime            @default(now())
   updatedAt     DateTime            @updatedAt

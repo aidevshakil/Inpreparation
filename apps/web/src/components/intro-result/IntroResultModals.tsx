@@ -284,7 +284,7 @@ export const IntroResultModals: React.FC<IntroResultModalsProps> = ({
               gap: '16px',
             }}
           >
-            {allResponses.map((r) => (
+            {allResponses.map((r: any) => (
               <div
                 key={r.id}
                 style={{

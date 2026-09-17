@@ -22,7 +22,7 @@ import { DiagnosticIntakePage } from './pages/DiagnosticIntakePage';
 import { DeviceReadinessPage } from './pages/DeviceReadinessPage';
 import { IntroRoomPage } from './pages/IntroRoomPage';
 import { PipelineDiagnosticPage } from './pages/PipelineDiagnosticPage';
-import { IntroResultPage } from './pages/IntroResultPage';
+import { InterviewResultPage } from './pages/InterviewResultPage';
 import { ProfileAnalysisPage } from './pages/ProfileAnalysisPage';
 import { RecommendedInterviewsPage } from './pages/RecommendedInterviewsPage';
 import { InterviewCategoriesPage } from './pages/InterviewCategoriesPage';
@@ -42,6 +42,8 @@ export type AppPage =
   | 'intro-room'
   | 'pipeline-diagnostic'
   | 'intro-result'
+  | 'interview-result'
+  | 'performance'
   | 'profile-analysis'
   | 'recommended-interviews'
   | 'categories'
@@ -69,7 +71,42 @@ export function App() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '') as AppPage;
-      if (hash && ['home', 'dashboard', 'profile', 'cv', 'upload-cv', 'ai-cv-analysis', 'cv-builder', 'diagnostic-intake', 'device-readiness', 'intro-room', 'pipeline-diagnostic', 'intro-result', 'profile-analysis', 'recommended-interviews', 'categories', 'features', 'how-it-works', 'simulations', 'pricing', 'faq', 'about', 'chat', 'login', 'signup', 'forgot', 'verify-email', 'reset-password'].includes(hash)) {
+      if (
+        hash &&
+        [
+          'home',
+          'dashboard',
+          'profile',
+          'cv',
+          'upload-cv',
+          'ai-cv-analysis',
+          'cv-builder',
+          'diagnostic-intake',
+          'device-readiness',
+          'intro-room',
+          'pipeline-diagnostic',
+          'intro-result',
+          'interview-result',
+          'performance',
+          'profile-analysis',
+          'recommended-interviews',
+          'categories',
+          'search',
+          'simulation-details',
+          'features',
+          'how-it-works',
+          'simulations',
+          'pricing',
+          'faq',
+          'about',
+          'chat',
+          'login',
+          'signup',
+          'forgot',
+          'verify-email',
+          'reset-password',
+        ].includes(hash)
+      ) {
         setCurrentPage(hash);
       } else if (!window.location.hash) {
         setCurrentPage('home');
@@ -162,21 +199,17 @@ export function App() {
         />
       )}
 
-      {currentPage === 'intro-result' && (
-        <IntroResultPage
+      {(currentPage === 'interview-result' || currentPage === 'performance' || currentPage === 'intro-result') && (
+        <InterviewResultPage
           onNavigateToHome={() => navigateTo('home')}
           onNavigateToDashboard={() => navigateTo('dashboard')}
           onNavigateToProfile={() => navigateTo('profile')}
           onNavigateToCv={() => navigateTo('cv')}
-          onNavigateToCvAnalysis={() => navigateTo('ai-cv-analysis')}
-          onNavigateToCvBuilder={() => navigateTo('cv-builder')}
-          onNavigateToDiagnosticIntake={() => navigateTo('diagnostic-intake')}
-          onNavigateToDeviceReadiness={() => navigateTo('device-readiness')}
-          onNavigateToIntroRoom={() => navigateTo('intro-room')}
-          onNavigateToPipelineDiagnostic={() => navigateTo('pipeline-diagnostic')}
-          onNavigateToProfileAnalysis={() => navigateTo('profile-analysis')}
           onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToCategories={() => navigateTo('categories')}
+          onNavigateToSearch={() => navigateTo('search')}
           onNavigateToAi={() => navigateTo('chat')}
+          onNavigateToAssessment={() => navigateTo('diagnostic-intake')}
         />
       )}
 
@@ -307,6 +340,7 @@ export function App() {
           onNavigateToSimulations={() => navigateTo('simulations')}
           onNavigateToCategories={() => navigateTo('categories')}
           onNavigateToSearch={() => navigateTo('search')}
+          onNavigateToPerformance={() => navigateTo('performance')}
           onNavigateToAi={() => navigateTo('chat')}
           onNavigateToPricing={() => navigateTo('pricing')}
         />
