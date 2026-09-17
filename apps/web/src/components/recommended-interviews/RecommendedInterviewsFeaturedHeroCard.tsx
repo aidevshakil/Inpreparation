@@ -152,7 +152,7 @@ export const RecommendedInterviewsFeaturedHeroCard: React.FC<RecommendedIntervie
               SKILLS EVALUATED
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-              {skills.map((s) => (
+              {skills.map((s: string) => (
                 <span
                   key={s}
                   style={{

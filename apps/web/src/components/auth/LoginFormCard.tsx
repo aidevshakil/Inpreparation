@@ -23,7 +23,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const [googleNotice, setGoogleNotice] = useState(false);
+  const [googleNotice] = useState(false);
   const [localStatus, setLocalStatus] = useState<AuthStateMode>(mode);
 
   // Prevent auto-fill on load but allow suggestions on click

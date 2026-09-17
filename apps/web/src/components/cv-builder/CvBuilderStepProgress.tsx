@@ -23,6 +23,7 @@ interface CvBuilderStepProgressProps {
 
 export const CvBuilderStepProgress: React.FC<CvBuilderStepProgressProps> = ({
   activeSection = 'personal',
+  onSelectSection,
   personalComplete = false,
   summaryComplete = false,
   experienceCount = 0,

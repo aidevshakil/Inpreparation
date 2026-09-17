@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
-import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
-import { TargetRoleCatalog } from '../components/interview-library/TargetRoleCatalog';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { Search, X, SlidersHorizontal, Lock, Check, ChevronDown, Bell, HelpCircle, CheckCircle2, Bookmark, Sparkles, LayoutGrid, List, Compass } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
 
 interface SearchFilterPageProps {
   onNavigateToHome?: () => void;
@@ -20,7 +17,7 @@ interface SearchFilterPageProps {
 }
 
 export const SearchFilterPage: React.FC<SearchFilterPageProps> = ({
-  onNavigateToHome,
+  onNavigateToHome: _onNavigateToHome,
   onNavigateToDashboard,
   onNavigateToProfile,
   onNavigateToCv,
@@ -31,7 +28,6 @@ export const SearchFilterPage: React.FC<SearchFilterPageProps> = ({
   onNavigateToSimulationDetails,
   onNavigateToAi,
 }) => {
-  const { user } = useAuth();
   const [activeNav, setActiveNav] = useState<NavItemKey>('search');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [searchQuery, setSearchQuery] = useState('Python');

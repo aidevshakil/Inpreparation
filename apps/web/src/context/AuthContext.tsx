@@ -9,6 +9,7 @@ export interface UserProfile {
   avatarUrl?: string;
   targetRole: string;
   seniority: string;
+  yearsOfExperience?: string | number;
   creditsRemaining: number;
   totalCredits: number;
   token?: string;
@@ -38,6 +39,7 @@ const DEFAULT_USER: UserProfile = {
   avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200',
   targetRole: 'Staff Backend & Distributed Systems Architect',
   seniority: 'Senior (6+ Yrs Infra)',
+  yearsOfExperience: '6+',
   creditsRemaining: 840,
   totalCredits: 1000,
   cvFileName: 'Shakil_Ahmed_Staff_Architect_CV.pdf',
@@ -52,7 +54,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const stored = localStorage.getItem('inprep_user');
       if (stored) {
-        return JSON.parse(stored);
+        const parsed = JSON.parse(stored);
+        if (parsed && typeof parsed === 'object') {
+          return { ...DEFAULT_USER, ...parsed };
+        }
       }
     } catch (e) {
       console.warn('Failed to parse stored user:', e);

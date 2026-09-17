@@ -9,7 +9,7 @@ interface PipelineHeroSynthesisCardProps {
 
 export const PipelineHeroSynthesisCard: React.FC<PipelineHeroSynthesisCardProps> = ({
   state,
-  diagnosticData,
+  diagnosticData: _diagnosticData,
 }) => {
   const [notifyEnabled, setNotifyEnabled] = useState(true);
 

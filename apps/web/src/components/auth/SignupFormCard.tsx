@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   User,
   Mail,
@@ -32,7 +32,7 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
-  const [googleNotice, setGoogleNotice] = useState(false);
+  const [googleNotice] = useState(false);
   const [localStatus, setLocalStatus] = useState<string>('default');
 
   // Prevent auto-fill on load but allow suggestions on click

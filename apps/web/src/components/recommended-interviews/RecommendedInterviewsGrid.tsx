@@ -175,7 +175,7 @@ export const RecommendedInterviewsGrid: React.FC<RecommendedInterviewsGridProps>
         (r) =>
           r.title.toLowerCase().includes(q) ||
           r.description.toLowerCase().includes(q) ||
-          r.skills.some((s) => s.toLowerCase().includes(q))
+          r.skills.some((s: string) => s.toLowerCase().includes(q))
       );
     }
     if (selectedRole !== 'all') {
@@ -371,7 +371,7 @@ export const RecommendedInterviewsGrid: React.FC<RecommendedInterviewsGridProps>
 
                 {/* Skills Pills */}
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '14px' }}>
-                  {item.skills.map((skill) => (
+                  {item.skills.map((skill: string) => (
                     <span
                       key={skill}
                       style={{

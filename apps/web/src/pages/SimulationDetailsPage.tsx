@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
-import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { 
   ArrowLeft, Share2, Download, Bookmark, Clock, CheckCircle2, Mic, Shield, 
-  Target, Info, ChevronRight, CheckSquare, Zap, Activity, Cpu, Database, 
-  Server, Lock, Sparkles, Bell, FileText, Check
+  Target, Info, CheckSquare, Zap, Activity, Cpu, Database, 
+  Server, Lock, Bell, FileText, Check
 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
 
 interface SimulationDetailsPageProps {
   onNavigateToHome?: () => void;
@@ -22,7 +20,7 @@ interface SimulationDetailsPageProps {
 }
 
 export const SimulationDetailsPage: React.FC<SimulationDetailsPageProps> = ({
-  onNavigateToHome,
+  onNavigateToHome: _onNavigateToHome,
   onNavigateToDashboard,
   onNavigateToProfile,
   onNavigateToCv,
@@ -32,11 +30,10 @@ export const SimulationDetailsPage: React.FC<SimulationDetailsPageProps> = ({
   onNavigateToCategories,
   onNavigateToDeviceCheck,
 }) => {
-  const { user } = useAuth();
   const [activeNav, setActiveNav] = useState<NavItemKey>('search');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
-  const [activeSimulationRole, setActiveSimulationRole] = useState('Python Backend Concurrency');
+  const [activeSimulationRole] = useState('Python Backend Concurrency');
 
   const handleSelectNav = (key: NavItemKey) => {
     setActiveNav(key);

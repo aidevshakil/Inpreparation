@@ -1,21 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Mic, Video, PhoneOff, Activity, Lock, Maximize2, Settings, Zap, 
   CheckCircle2, Clock, PauseCircle, RotateCcw, ChevronUp, Play, Shield
 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
 
 interface IntroRoomPageProps {
   onNavigateToHome?: () => void;
   onNavigateToDashboard?: () => void;
   onNavigateToResult?: () => void;
+  onNavigateToProfile?: () => void;
+  onNavigateToCv?: () => void;
+  onNavigateToCvAnalysis?: () => void;
+  onNavigateToCvBuilder?: () => void;
+  onNavigateToDiagnosticIntake?: () => void;
+  onNavigateToDeviceReadiness?: () => void;
+  onNavigateToPipelineDiagnostic?: () => void;
+  onNavigateToSimulations?: () => void;
+  onNavigateToAi?: () => void;
 }
 
 export const IntroRoomPage: React.FC<IntroRoomPageProps> = ({
   onNavigateToDashboard,
   onNavigateToResult,
 }) => {
-  const { user } = useAuth();
   const [scratchpadText, setScratchpadText] = useState(`1. Offload Argon2 CPU-bound hashing using loop.run_in_executor(ProcessPoolExecutor, ...) to bypass GIL lock completely.
 2. Pool connections via asyncpg with min_size=20, max_size=50 to prevent connection thrash under 50k req/min.
 3. Apply Token-bucket backpressure queue using asyncio.Queue with maxsize=1000 to drop early and`);
