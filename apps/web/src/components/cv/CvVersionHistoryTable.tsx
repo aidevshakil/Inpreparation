@@ -11,15 +11,17 @@ interface CvVersion {
 }
 
 interface CvVersionHistoryTableProps {
+  versions?: CvVersion[];
   onRollback?: (versionId: string) => void;
   onDownloadVersion?: (versionId: string) => void;
 }
 
 export const CvVersionHistoryTable: React.FC<CvVersionHistoryTableProps> = ({
+  versions: passedVersions,
   onRollback,
   onDownloadVersion,
 }) => {
-  const versions: CvVersion[] = [
+  const versions: CvVersion[] = passedVersions && passedVersions.length > 0 ? passedVersions : [
     {
       id: 'v3',
       fileName: 'Shakil_Ahamed_Resume_2026.pdf',

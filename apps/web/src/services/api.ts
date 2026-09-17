@@ -143,7 +143,7 @@ export async function registerUser(name: string, email: string) {
         id: `local-usr-${Date.now()}`,
         name: name || email.split('@')[0],
         email,
-        targetRole: 'Full Stack Software Engineer',
+        targetRole: 'Select Target Role',
         isEmailVerified: false,
       },
     };

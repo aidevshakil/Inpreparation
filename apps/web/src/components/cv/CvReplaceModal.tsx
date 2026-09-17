@@ -12,7 +12,16 @@ export const CvReplaceModal: React.FC<CvReplaceModalProps> = ({
   onClose,
   onConfirmReplace,
 }) => {
+  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+  const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
+
   if (!isOpen) return null;
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
 
   return (
     <div
@@ -40,6 +49,14 @@ export const CvReplaceModal: React.FC<CvReplaceModalProps> = ({
           position: 'relative',
         }}
       >
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".pdf,.doc,.docx"
+          style={{ display: 'none' }}
+          onChange={handleFileChange}
+        />
+
         {/* Close button */}
         <button
           onClick={onClose}
@@ -60,11 +77,12 @@ export const CvReplaceModal: React.FC<CvReplaceModalProps> = ({
           Replace Master CV
         </h3>
         <p style={{ fontSize: '0.82rem', color: '#94a3b8', lineHeight: 1.5, marginBottom: '20px' }}>
-          Uploading a new resume will automatically archive your current active master (<strong style={{ color: '#ffffff' }}>Shakil_Ahamed_Resume_2026.pdf</strong>) and re-extract your high-dimensional skill vectors.
+          Uploading a new resume will replace your current active master and re-extract your high-dimensional skill vectors.
         </p>
 
         {/* Dropzone */}
         <div
+          onClick={() => fileInputRef.current?.click()}
           style={{
             border: '2px dashed rgba(99, 102, 241, 0.4)',
             borderRadius: '14px',
@@ -77,10 +95,10 @@ export const CvReplaceModal: React.FC<CvReplaceModalProps> = ({
         >
           <UploadCloud size={32} color="#818cf8" style={{ marginBottom: '10px' }} />
           <div style={{ fontSize: '0.86rem', fontWeight: 600, color: '#f8fafc', marginBottom: '4px' }}>
-            Choose updated resume file
+            {selectedFile ? selectedFile.name : 'Choose updated resume file'}
           </div>
           <div style={{ fontSize: '0.74rem', color: '#64748b' }}>
-            Supported formats: PDF, DOCX (Max 15MB)
+            {selectedFile ? `${Math.round(selectedFile.size / 1024)} KB` : 'Supported formats: PDF, DOCX (Max 15MB)'}
           </div>
         </div>
 
@@ -103,20 +121,22 @@ export const CvReplaceModal: React.FC<CvReplaceModalProps> = ({
           </button>
 
           <button
+            disabled={!selectedFile}
             onClick={() => {
-              const dummyFile = new File([''], 'Shakil_Ahamed_Resume_v3.0.pdf', { type: 'application/pdf' });
-              onConfirmReplace(dummyFile);
+              if (selectedFile) {
+                onConfirmReplace(selectedFile);
+              }
             }}
             style={{
               padding: '9px 20px',
               borderRadius: '9px',
-              background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
-              color: '#ffffff',
+              background: selectedFile ? 'linear-gradient(135deg, #7c3aed, #4f46e5)' : 'rgba(255,255,255,0.1)',
+              color: selectedFile ? '#ffffff' : '#64748b',
               border: 'none',
               fontSize: '0.82rem',
               fontWeight: 600,
-              cursor: 'pointer',
-              boxShadow: '0 4px 16px rgba(124, 58, 237, 0.4)',
+              cursor: selectedFile ? 'pointer' : 'not-allowed',
+              boxShadow: selectedFile ? '0 4px 16px rgba(124, 58, 237, 0.4)' : 'none',
             }}
           >
             Confirm &amp; Vectorize

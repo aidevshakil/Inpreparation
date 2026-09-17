@@ -33,18 +33,18 @@ interface AuthContextType {
 
 const DEFAULT_USER: UserProfile = {
   id: 'usr-active-candidate-01',
-  name: 'Shakil Ahmed',
-  email: 'shakil@inprep.ai',
+  name: 'Candidate User',
+  email: '',
   role: 'user',
-  avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200',
-  targetRole: 'Staff Backend & Distributed Systems Architect',
-  seniority: 'Senior (6+ Yrs Infra)',
-  yearsOfExperience: '6+',
-  creditsRemaining: 840,
-  totalCredits: 1000,
-  cvFileName: 'Shakil_Ahmed_Staff_Architect_CV.pdf',
-  cvSkills: ['Go', 'Apache Kafka', 'Distributed Consensus', 'PostgreSQL', 'Kubernetes', 'AWS', 'Raft'],
-  cvAtsScore: 94,
+  avatarUrl: undefined,
+  targetRole: '',
+  seniority: '',
+  yearsOfExperience: '',
+  creditsRemaining: 100,
+  totalCredits: 100,
+  cvFileName: undefined,
+  cvSkills: [],
+  cvAtsScore: undefined,
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -56,6 +56,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (stored) {
         const parsed = JSON.parse(stored);
         if (parsed && typeof parsed === 'object') {
+          // Purge legacy mock data if user never uploaded a CV
+          if (parsed.cvFileName === 'Shakil_Ahmed_Staff_Architect_CV.pdf') {
+            delete parsed.cvFileName;
+            parsed.cvSkills = [];
+            delete parsed.cvAtsScore;
+          }
           return { ...DEFAULT_USER, ...parsed };
         }
       }

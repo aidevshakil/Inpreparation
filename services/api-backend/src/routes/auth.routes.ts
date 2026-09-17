@@ -31,8 +31,8 @@ authRouter.post('/register', async (req: Request, res: Response) => {
         data: {
           email: cleanEmail,
           name: cleanName,
-          targetRole: targetRole || 'Full Stack Software Engineer',
-          seniority: seniority || 'Senior (L5)',
+          targetRole: targetRole || null,
+          seniority: seniority || null,
           isEmailVerified: false,
         },
       });
@@ -237,7 +237,7 @@ authRouter.post('/login', async (req: Request, res: Response) => {
         data: {
           email: cleanEmail,
           name: cleanEmail.split('@')[0],
-          targetRole: 'Full Stack Software Engineer',
+          targetRole: null,
         },
         include: {
           simulations: true,
