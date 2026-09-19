@@ -27,6 +27,7 @@ interface CandidateDashboardPageProps {
   onNavigateToCategories?: () => void;
   onNavigateToSearch?: () => void;
   onNavigateToPerformance?: () => void;
+  onNavigateToHistory?: () => void;
   onNavigateToAi?: () => void;
   onNavigateToPricing?: () => void;
 }
@@ -39,6 +40,7 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
   onNavigateToCategories,
   onNavigateToSearch,
   onNavigateToPerformance,
+  onNavigateToHistory,
   onNavigateToAi,
 }) => {
   const { user } = useAuth();
@@ -124,8 +126,9 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
       onNavigateToSearch();
     } else if (key === 'performance' && onNavigateToPerformance) {
       onNavigateToPerformance();
-    } else if (key === 'history' && onNavigateToSimulations) {
-      onNavigateToSimulations();
+    } else if (key === 'history') {
+      if (onNavigateToHistory) onNavigateToHistory();
+      else if (onNavigateToSimulations) onNavigateToSimulations();
     } else if (key === 'assessment') {
       handleStartInterview('System Concurrency & Architecture');
     }

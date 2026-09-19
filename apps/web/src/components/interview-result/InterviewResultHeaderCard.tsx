@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronRight, Download, Share2, FileCode, CheckCircle2, Shield, Calendar, Key } from 'lucide-react';
+import { ChevronRight, Download, Share2, FileCode, Shield, Calendar, Key } from 'lucide-react';
 
 interface InterviewResultHeaderCardProps {
   onNavigateToDashboard?: () => void;
@@ -47,9 +47,9 @@ export const InterviewResultHeaderCard: React.FC<InterviewResultHeaderCardProps>
           Practice History
         </span>
         <ChevronRight size={13} style={{ color: '#475569' }} />
-        <span style={{ color: '#94a3b8' }}>Simulation #SIM-PY-5321</span>
+        <span style={{ color: '#94a3b8' }}>Simulation #SIM-PY-8821</span>
         <ChevronRight size={13} style={{ color: '#475569' }} />
-        <span style={{ color: '#a5b4fc', fontWeight: 600 }}>Interview Result (Web #32)</span>
+        <span style={{ color: '#a5b4fc', fontWeight: 600 }}>Interview Result (Web #33)</span>
       </div>
 
       {/* 2. Track & Benchmark Badge Strip */}
@@ -63,7 +63,7 @@ export const InterviewResultHeaderCard: React.FC<InterviewResultHeaderCardProps>
           backgroundColor: 'rgba(30, 41, 59, 0.65)',
           border: '1px solid rgba(255, 255, 255, 0.08)',
           width: 'fit-content',
-          fontSize: '0.75rem',
+          fontSize: '0.74rem',
           color: '#e2e8f0',
         }}
       >
@@ -77,12 +77,9 @@ export const InterviewResultHeaderCard: React.FC<InterviewResultHeaderCardProps>
             display: 'inline-block',
           }}
         />
-        <span style={{ fontWeight: 600 }}>Track:</span>
-        <span style={{ color: '#f8fafc' }}>
-          Python Backend Concurrency & High-Throughput APIs (Staff / L6)
+        <span style={{ fontWeight: 600, color: '#f8fafc' }}>
+          Track: Python Backend Concurrency & High Throughput APIs (Track #SIM-PY-8821) • Staff IC-6+ Benchmark
         </span>
-        <span style={{ color: '#64748b' }}>•</span>
-        <span style={{ color: '#38bdf8', fontWeight: 600 }}>Score: 82/100 L6 Benchmark</span>
       </div>
 
       {/* 3. Hero Header Card */}
@@ -98,7 +95,7 @@ export const InterviewResultHeaderCard: React.FC<InterviewResultHeaderCardProps>
           boxShadow: '0 10px 30px rgba(0, 0, 0, 0.35)',
         }}
       >
-        {/* Subtle background glow */}
+        {/* Background glow */}
         <div
           style={{
             position: 'absolute',
@@ -139,8 +136,8 @@ export const InterviewResultHeaderCard: React.FC<InterviewResultHeaderCardProps>
                   fontWeight: 600,
                 }}
               >
-                <CheckCircle2 size={12} />
-                Calibrated Benchmark (L6/6 Qualified)
+                <Shield size={12} />
+                Completed Benchmark (5/5 Defended)
               </span>
 
               <span
@@ -157,7 +154,6 @@ export const InterviewResultHeaderCard: React.FC<InterviewResultHeaderCardProps>
                   fontWeight: 600,
                 }}
               >
-                <Shield size={12} />
                 Staff L6+ Python Architecture
               </span>
 
@@ -176,7 +172,7 @@ export const InterviewResultHeaderCard: React.FC<InterviewResultHeaderCardProps>
                 }}
               >
                 <Key size={11} />
-                CRYPTOGRAPHIC VERIFICATION: #SIM-PY-5321-FF
+                CRYPTOGRAPHIC HASH: #RIVAL17-P9A-46824
               </span>
 
               <span
@@ -197,7 +193,7 @@ export const InterviewResultHeaderCard: React.FC<InterviewResultHeaderCardProps>
             {/* Main Headline */}
             <h1
               style={{
-                fontSize: '2rem',
+                fontSize: '2.15rem',
                 fontWeight: 800,
                 color: '#f8fafc',
                 margin: 0,
@@ -239,13 +235,13 @@ export const InterviewResultHeaderCard: React.FC<InterviewResultHeaderCardProps>
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                padding: '10px 18px',
+                padding: '10px 20px',
                 borderRadius: '10px',
                 backgroundColor: '#6366f1',
                 color: '#ffffff',
                 border: 'none',
                 fontSize: '0.84rem',
-                fontWeight: 600,
+                fontWeight: 700,
                 cursor: 'pointer',
                 transition: 'all 0.15s ease',
                 boxShadow: '0 4px 14px rgba(99, 102, 241, 0.4)',
@@ -253,7 +249,7 @@ export const InterviewResultHeaderCard: React.FC<InterviewResultHeaderCardProps>
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#4f46e5')}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#6366f1')}
             >
-              <Download size={16} />
+              <Download size={15} />
               <span>Download Debrief PDF</span>
             </button>
 
@@ -264,9 +260,9 @@ export const InterviewResultHeaderCard: React.FC<InterviewResultHeaderCardProps>
                 alignItems: 'center',
                 gap: '8px',
                 padding: '8px 16px',
-                borderRadius: '10px',
+                borderRadius: '8px',
                 backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                color: '#e2e8f0',
+                color: '#cbd5e1',
                 border: '1px solid rgba(255, 255, 255, 0.12)',
                 fontSize: '0.8rem',
                 fontWeight: 600,
@@ -275,11 +271,11 @@ export const InterviewResultHeaderCard: React.FC<InterviewResultHeaderCardProps>
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                e.currentTarget.style.color = '#ffffff';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+                e.currentTarget.style.color = '#cbd5e1';
               }}
             >
               <Share2 size={14} />
@@ -292,17 +288,17 @@ export const InterviewResultHeaderCard: React.FC<InterviewResultHeaderCardProps>
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '6px',
-                background: 'transparent',
+                padding: '4px 8px',
+                background: 'none',
+                color: '#94a3b8',
                 border: 'none',
-                color: '#64748b',
                 fontSize: '0.74rem',
                 fontWeight: 500,
                 cursor: 'pointer',
-                padding: '4px 8px',
-                transition: 'color 0.15s',
+                transition: 'color 0.15s ease',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#94a3b8')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = '#64748b')}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#f8fafc')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = '#94a3b8')}
             >
               <FileCode size={13} />
               <span>Export JSON Rubric</span>

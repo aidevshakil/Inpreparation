@@ -16,23 +16,23 @@ const RUBRIC_ITEMS: RubricItem[] = [
     id: 'tech_depth',
     name: 'Technical Depth & Precision',
     weight: 25,
-    score: 86,
+    score: 85,
     ratingLabel: 'Strong',
     ratingColor: '#38bdf8',
     progressGradient: 'linear-gradient(90deg, #38bdf8, #818cf8)',
     description:
-      'Accurate internal usage of asyncio, bypass interpreters concurrency race conditions and executed solid calculations.',
+      'Accurate event-loop internals, subinterpreters concurrency, zero syntax or architectural hallucinations.',
   },
   {
     id: 'sys_arch',
     name: 'System Architecture & Trade-Offs',
     weight: 25,
-    score: 84,
+    score: 86,
     ratingLabel: 'Strong',
     ratingColor: '#38bdf8',
     progressGradient: 'linear-gradient(90deg, #38bdf8, #818cf8)',
     description:
-      'Addressed connection pool starvation mitigations, virtual thread scaling variations, and caveats in SLA boundaries.',
+      'Addressed connection pool saturation ceilings, circuit breaker degradation, and fallback failure boundaries.',
   },
   {
     id: 'prob_decomp',
@@ -43,7 +43,7 @@ const RUBRIC_ITEMS: RubricItem[] = [
     ratingColor: '#fbbf24',
     progressGradient: 'linear-gradient(90deg, #f59e0b, #fbbf24)',
     description:
-      'Race conditions isolated; edge handling during retry throttling and hashing required more explicit mathematical constraints.',
+      'Race conditions isolated; edge handling during retry throttling ceiling required more explicit mathematical constraints.',
   },
   {
     id: 'exec_art',
@@ -54,7 +54,7 @@ const RUBRIC_ITEMS: RubricItem[] = [
     ratingColor: '#818cf8',
     progressGradient: 'linear-gradient(90deg, #6366f1, #a855f7)',
     description:
-      'Pyramid principle applied effectively; lead with high-impact conclusions before elaborating on mechanics.',
+      'Pyramid principle applied effectively; lead with high-impact conclusions before elaborating on mechanisms.',
   },
   {
     id: 'pres_framing',
@@ -65,7 +65,7 @@ const RUBRIC_ITEMS: RubricItem[] = [
     ratingColor: '#34d399',
     progressGradient: 'linear-gradient(90deg, #10b981, #06b6d4)',
     description:
-      'Stable 1080p webcam framing, eye-line ratio 0.62. Non-verbal centering signals strong presence and structured expressive pacing.',
+      'Stable 1080p webcam framing, eye-line ratio 0.82. None: Zero psychometric profiling; raw presentation posture framing.',
   },
 ];
 
@@ -88,7 +88,7 @@ export const InterviewResultRubricBreakdown: React.FC = () => {
           Performance Rubric Breakdown
         </h3>
         <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: 0 }}>
-          Deterministic evaluation aligned to Staff L6 calibrated engineering interview rubric weights.{' '}
+          Deterministic evaluation against 5 Staff L6 calibrated engineering competence weights.{' '}
           <span style={{ color: '#c7d2fe', fontWeight: 600 }}>Overall: 82.2% Weighted</span>
         </p>
       </div>
@@ -98,19 +98,36 @@ export const InterviewResultRubricBreakdown: React.FC = () => {
         {RUBRIC_ITEMS.map((item) => (
           <div key={item.id} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {/* Row Header */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.84rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span style={{ fontWeight: 600, color: '#f8fafc' }}>{item.name}</span>
-                <span style={{ color: '#64748b', fontSize: '0.75rem' }}>({item.weight}% Weight)</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontSize: '0.88rem', fontWeight: 700, color: '#f8fafc' }}>
+                  {item.name}
+                </span>
+                <span
+                  style={{
+                    fontSize: '0.68rem',
+                    color: '#94a3b8',
+                    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                    padding: '2px 8px',
+                    borderRadius: '4px',
+                  }}
+                >
+                  {item.weight}% weight
+                </span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span style={{ fontWeight: 700, color: '#f8fafc' }}>{item.score} / 100</span>
-                <span style={{ color: '#64748b' }}>•</span>
-                <span style={{ color: item.ratingColor, fontWeight: 700 }}>{item.ratingLabel}</span>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontSize: '0.88rem', fontWeight: 800, color: '#f8fafc' }}>
+                  {item.score} / 100
+                </span>
+                <span style={{ color: '#64748b', fontSize: '0.8rem' }}>•</span>
+                <span style={{ fontSize: '0.78rem', fontWeight: 700, color: item.ratingColor }}>
+                  {item.ratingLabel}
+                </span>
               </div>
             </div>
 
-            {/* Custom Progress Bar */}
+            {/* Progress Track */}
             <div
               style={{
                 width: '100%',
@@ -118,7 +135,6 @@ export const InterviewResultRubricBreakdown: React.FC = () => {
                 backgroundColor: 'rgba(255, 255, 255, 0.05)',
                 borderRadius: '9999px',
                 overflow: 'hidden',
-                position: 'relative',
               }}
             >
               <div
@@ -127,14 +143,14 @@ export const InterviewResultRubricBreakdown: React.FC = () => {
                   height: '100%',
                   background: item.progressGradient,
                   borderRadius: '9999px',
+                  transition: 'width 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
                   boxShadow: `0 0 10px ${item.ratingColor}40`,
-                  transition: 'width 1s cubic-bezier(0.4, 0, 0.2, 1)',
                 }}
               />
             </div>
 
-            {/* Descriptive Rationale */}
-            <p style={{ fontSize: '0.78rem', color: '#94a3b8', margin: 0, lineHeight: 1.5 }}>
+            {/* Rubric Description */}
+            <p style={{ fontSize: '0.76rem', color: '#94a3b8', margin: '2px 0 0 0', lineHeight: 1.5 }}>
               {item.description}
             </p>
           </div>
