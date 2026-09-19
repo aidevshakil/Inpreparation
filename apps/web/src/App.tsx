@@ -31,6 +31,8 @@ import { SearchFilterPage } from './pages/SearchFilterPage';
 import { SimulationDetailsPage } from './pages/SimulationDetailsPage';
 import { InterviewHistoryPage } from './pages/InterviewHistoryPage';
 import { SkillAnalyticsPage } from './pages/SkillAnalyticsPage';
+import { CommunicationAnalyticsPage } from './pages/CommunicationAnalyticsPage';
+import { SpeechAnalyticsPage } from './pages/SpeechAnalyticsPage';
 
 export type AppPage =
   | 'home'
@@ -39,6 +41,8 @@ export type AppPage =
   | 'cv'
   | 'history'
   | 'skill-analytics'
+  | 'communication-analytics'
+  | 'speech-analytics'
   | 'upload-cv'
   | 'ai-cv-analysis'
   | 'cv-builder'
@@ -94,6 +98,8 @@ export function App() {
           'interview-result',
           'performance',
           'skill-analytics',
+          'communication-analytics',
+          'speech-analytics',
           'history',
           'profile-analysis',
           'recommended-interviews',
@@ -247,6 +253,42 @@ export function App() {
           onNavigateToCategories={() => navigateTo('categories')}
           onNavigateToSearch={() => navigateTo('search')}
           onNavigateToPerformance={() => navigateTo('performance')}
+          onNavigateToAi={() => navigateTo('chat')}
+          onNavigateToAssessment={() => navigateTo('diagnostic-intake')}
+          onNavigateToResult={() => navigateTo('interview-result')}
+          onNavigateToHistory={() => navigateTo('history')}
+        />
+      )}
+
+      {currentPage === 'communication-analytics' && (
+        <CommunicationAnalyticsPage
+          onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToCategories={() => navigateTo('categories')}
+          onNavigateToSearch={() => navigateTo('search')}
+          onNavigateToPerformance={() => navigateTo('performance')}
+          onNavigateToSkillAnalytics={() => navigateTo('skill-analytics')}
+          onNavigateToSpeechAnalytics={() => navigateTo('speech-analytics')}
+          onNavigateToAi={() => navigateTo('chat')}
+          onNavigateToAssessment={() => navigateTo('diagnostic-intake')}
+          onNavigateToResult={() => navigateTo('interview-result')}
+          onNavigateToHistory={() => navigateTo('history')}
+        />
+      )}
+
+      {currentPage === 'speech-analytics' && (
+        <SpeechAnalyticsPage
+          onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToCategories={() => navigateTo('categories')}
+          onNavigateToSearch={() => navigateTo('search')}
+          onNavigateToPerformance={() => navigateTo('performance')}
+          onNavigateToSkillAnalytics={() => navigateTo('skill-analytics')}
+          onNavigateToCommunicationAnalytics={() => navigateTo('communication-analytics')}
           onNavigateToAi={() => navigateTo('chat')}
           onNavigateToAssessment={() => navigateTo('diagnostic-intake')}
           onNavigateToResult={() => navigateTo('interview-result')}
