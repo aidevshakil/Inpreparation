@@ -79,6 +79,7 @@ export const UploadCvPage: React.FC<UploadCvPageProps> = ({
         parsedSummary: `Parsed CV for ${user.name || 'Candidate'}.`,
       });
 
+      localStorage.setItem('inprep_has_cv', 'true');
       updateUser({
         cvFileName: fileName,
         cvAtsScore: res?.analysis?.overallStrengthScore || 88,
@@ -90,6 +91,7 @@ export const UploadCvPage: React.FC<UploadCvPageProps> = ({
       }, 1400);
     } catch (err) {
       console.warn('Upload fallback in UploadCvPage:', err);
+      localStorage.setItem('inprep_has_cv', 'true');
       updateUser({
         cvFileName: fileName,
         cvAtsScore: 86,

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, Mic, MicOff, Video, VideoOff, Sparkles, CheckCircle2, ArrowRight, RefreshCw, AlertTriangle, UserCheck, FileText, Database } from 'lucide-react';
+import { X, Mic, MicOff, Video, VideoOff, Sparkles, CheckCircle2, ArrowRight, RefreshCw, AlertTriangle, UserCheck, FileText, Database, UploadCloud } from 'lucide-react';
 import { saveSimulationScorecard } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 
 interface LiveSimulationModalProps {
   isOpen: boolean;
@@ -128,7 +129,322 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
     };
   }, [stage, cameraEnabled]);
 
+  const { user } = useAuth();
+  const hasCv = Boolean(
+    (user?.cvFileName && user.cvFileName.trim().length > 0) ||
+    (user?.cvSkills && user.cvSkills.length > 0) ||
+    (typeof window !== 'undefined' && localStorage.getItem('inprep_has_cv') === 'true') ||
+    (typeof window !== 'undefined' && localStorage.getItem('inprep_cv_profile'))
+  );
+
   if (!isOpen) return null;
+
+  if (!hasCv) {
+    return (
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          backgroundColor: 'rgba(7, 9, 14, 0.88)',
+          backdropFilter: 'blur(16px)',
+          zIndex: 9999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px',
+        }}
+      >
+        <div
+          style={{
+            maxWidth: '660px',
+            width: '100%',
+            backgroundColor: '#0c121e',
+            border: '1px solid rgba(239, 68, 68, 0.35)',
+            borderRadius: '24px',
+            padding: '36px 32px',
+            boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.95), 0 0 40px rgba(239, 68, 68, 0.12)',
+            position: 'relative',
+            color: '#f8fafc',
+          }}
+        >
+          {/* Close Button */}
+          <button
+            onClick={onClose}
+            style={{
+              position: 'absolute',
+              top: '20px',
+              right: '20px',
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '50%',
+              width: '36px',
+              height: '36px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#94a3b8',
+              cursor: 'pointer',
+            }}
+          >
+            <X size={18} />
+          </button>
+
+          {/* Badge & Alert Icon */}
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '6px 14px',
+              borderRadius: '9999px',
+              backgroundColor: 'rgba(239, 68, 68, 0.12)',
+              border: '1px solid rgba(239, 68, 68, 0.35)',
+              marginBottom: '16px',
+            }}
+          >
+            <AlertTriangle size={15} color="#f87171" />
+            <span
+              style={{
+                fontSize: '0.72rem',
+                fontWeight: 800,
+                color: '#f87171',
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+              }}
+            >
+              CV Required • Prerequisite Step
+            </span>
+          </div>
+
+          <h2
+            style={{
+              fontSize: '1.65rem',
+              fontWeight: 800,
+              color: '#ffffff',
+              margin: '0 0 10px 0',
+              letterSpacing: '-0.02em',
+              lineHeight: 1.25,
+            }}
+          >
+            Please Upload or Build Your CV First
+          </h2>
+
+          <p
+            style={{
+              fontSize: '0.88rem',
+              color: '#94a3b8',
+              lineHeight: 1.6,
+              margin: '0 0 28px 0',
+            }}
+          >
+            Inpreparation’s AI interviewer dynamically crafts technical questions, follow-up pressure tests, and ATS evaluation rubrics based on your <strong style={{ color: '#f8fafc' }}>actual resume and skill history</strong>. To ensure an authentic simulation, you must provide your CV first.
+          </p>
+
+          {/* 2 Path Choice Cards */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))',
+              gap: '16px',
+              marginBottom: '24px',
+            }}
+          >
+            {/* Card 1: Upload CV */}
+            <div
+              onClick={() => {
+                onClose();
+                window.location.hash = 'upload-cv';
+                window.dispatchEvent(new HashChangeEvent('hashchange'));
+              }}
+              style={{
+                backgroundColor: 'rgba(99, 102, 241, 0.06)',
+                border: '1px solid rgba(99, 102, 241, 0.28)',
+                borderRadius: '16px',
+                padding: '20px',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(99, 102, 241, 0.12)';
+                e.currentTarget.style.borderColor = '#818cf8';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(99, 102, 241, 0.06)';
+                e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.28)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              <div>
+                <div
+                  style={{
+                    width: '42px',
+                    height: '42px',
+                    borderRadius: '12px',
+                    backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '14px',
+                  }}
+                >
+                  <UploadCloud size={22} color="#a5b4fc" />
+                </div>
+                <h4
+                  style={{
+                    margin: '0 0 6px 0',
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    color: '#ffffff',
+                  }}
+                >
+                  Upload Existing CV / Resume
+                </h4>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: '0.78rem',
+                    color: '#94a3b8',
+                    lineHeight: 1.5,
+                  }}
+                >
+                  Drop your PDF or DOCX file. Our parser extracts your stack, roles, and achievements in 10 seconds.
+                </p>
+              </div>
+
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  marginTop: '16px',
+                  fontSize: '0.8rem',
+                  fontWeight: 700,
+                  color: '#818cf8',
+                }}
+              >
+                <span>Upload PDF / DOCX</span>
+                <ArrowRight size={14} />
+              </div>
+            </div>
+
+            {/* Card 2: Manual Builder */}
+            <div
+              onClick={() => {
+                onClose();
+                window.location.hash = 'cv-builder';
+                window.dispatchEvent(new HashChangeEvent('hashchange'));
+              }}
+              style={{
+                backgroundColor: 'rgba(16, 185, 129, 0.06)',
+                border: '1px solid rgba(16, 185, 129, 0.28)',
+                borderRadius: '16px',
+                padding: '20px',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(16, 185, 129, 0.12)';
+                e.currentTarget.style.borderColor = '#34d399';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(16, 185, 129, 0.06)';
+                e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.28)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              <div>
+                <div
+                  style={{
+                    width: '42px',
+                    height: '42px',
+                    borderRadius: '12px',
+                    backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '14px',
+                  }}
+                >
+                  <Sparkles size={22} color="#6ee7b7" />
+                </div>
+                <h4
+                  style={{
+                    margin: '0 0 6px 0',
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    color: '#ffffff',
+                  }}
+                >
+                  Build CV Manually with AI
+                </h4>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: '0.78rem',
+                    color: '#94a3b8',
+                    lineHeight: 1.5,
+                  }}
+                >
+                  Don’t have a file ready? Build an ATS-optimized CV step-by-step with real-time AI phrasing coach.
+                </p>
+              </div>
+
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  marginTop: '16px',
+                  fontSize: '0.8rem',
+                  fontWeight: 700,
+                  color: '#34d399',
+                }}
+              >
+                <span>Launch CV Builder</span>
+                <ArrowRight size={14} />
+              </div>
+            </div>
+          </div>
+
+          {/* Footer Notice */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+              paddingTop: '16px',
+            }}
+          >
+            <span style={{ fontSize: '0.74rem', color: '#64748b' }}>
+              🔒 Completing your CV unlocks all live simulations and targeted practice.
+            </span>
+            <button
+              onClick={onClose}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: '#94a3b8',
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const startInterview = () => {
     setStage('active');

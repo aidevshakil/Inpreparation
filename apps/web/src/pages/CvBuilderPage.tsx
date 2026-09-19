@@ -45,7 +45,32 @@ export const CvBuilderPage: React.FC<CvBuilderPageProps> = ({
   const [editingExperienceId, setEditingExperienceId] = useState<string | null>(null);
   const [isFullscreenPreview, setIsFullscreenPreview] = useState(false);
   
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
+
+  const handleSaveCv = () => {
+    const candidateName = personalInfo.fullName ? personalInfo.fullName.trim().replace(/\s+/g, '_') : 'Candidate';
+    const generatedFileName = `${candidateName}_Manual_CV.pdf`;
+    const allSkills = skillGroups.flatMap((g) => g.skills);
+    localStorage.setItem('inprep_has_cv', 'true');
+    localStorage.setItem(
+      'inprep_cv_profile',
+      JSON.stringify({
+        personalInfo,
+        summary,
+        experiences,
+        educations,
+        skillGroups,
+        projects,
+        certs,
+        updatedAt: new Date().toISOString(),
+      })
+    );
+    updateUser({
+      cvFileName: generatedFileName,
+      cvSkills: allSkills.length > 0 ? allSkills : ['Full Stack Software Engineering', 'System Architecture'],
+      cvAtsScore: 88,
+    });
+  };
 
   // Form State
   const [personalInfo, setPersonalInfo] = useState<PersonalInfoData>({
@@ -206,9 +231,13 @@ export const CvBuilderPage: React.FC<CvBuilderPageProps> = ({
             <CvBuilderHeader
               onNavigateToCv={onNavigateToCv}
               onImportResume={onNavigateToUploadCv}
-              onSaveDraft={() => alert('Draft saved to Encrypted Vault!')}
+              onSaveDraft={() => {
+                handleSaveCv();
+                alert('CV Draft saved to Encrypted Vault! Your profile is now verified for mock interviews.');
+              }}
               onPreviewA4={() => setIsFullscreenPreview(true)}
               onContinueToAssessment={() => {
+                handleSaveCv();
                 if (onNavigateToCvAnalysis) onNavigateToCvAnalysis();
                 else if (onNavigateToSimulations) onNavigateToSimulations();
                 else alert('Continuing to AI Assessment...');
