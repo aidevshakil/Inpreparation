@@ -16,6 +16,8 @@ import {
   Zap,
   SlidersHorizontal,
   ChevronsLeft,
+  ChevronDown,
+  LucideIcon,
 } from 'lucide-react';
 
 export type NavItemKey =
@@ -27,6 +29,9 @@ export type NavItemKey =
   | 'recommended'
   | 'history'
   | 'performance'
+  | 'skill-analytics'
+  | 'communication-analytics'
+  | 'speech-analytics'
   | 'improvement'
   | 'notifications'
   | 'settings'
@@ -43,6 +48,25 @@ interface DashboardSidebarProps {
   onToggleCollapse?: () => void;
   creditsRemaining?: number;
   totalCredits?: number;
+}
+
+export interface NavSubItem {
+  key: NavItemKey;
+  label: string;
+}
+
+export interface NavItem {
+  key: NavItemKey;
+  label: string;
+  icon: LucideIcon;
+  badge?: string;
+  badgeColor?: string;
+  subItems?: NavSubItem[];
+}
+
+export interface NavGroup {
+  title: string;
+  items: NavItem[];
 }
 
 export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
@@ -65,7 +89,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
       .substring(0, 2)
       .toUpperCase();
   };
-  const navGroups = [
+  const navGroups: NavGroup[] = [
     {
       title: 'DIAGNOSTIC CORE',
       items: [
@@ -85,10 +109,23 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
       ],
     },
     {
-      title: 'INTELLIGENCE',
+      title: 'PERFORMANCE & GROWTH',
       items: [
         { key: 'history' as NavItemKey, label: 'Practice History', icon: History },
-        { key: 'performance' as NavItemKey, label: 'Performance Analytics', icon: TrendingUp },
+        {
+          key: 'performance' as NavItemKey,
+          label: 'Performance',
+          icon: TrendingUp,
+          subItems: [
+            { key: 'performance' as NavItemKey, label: 'Performance Overview' },
+            { key: 'performance' as NavItemKey, label: 'Score Analytics' },
+            { key: 'skill-analytics' as NavItemKey, label: 'Skill Analytics' },
+            { key: 'communication-analytics' as NavItemKey, label: 'Communication Analytics' },
+            { key: 'speech-analytics' as NavItemKey, label: 'Speech Analytics' },
+            { key: 'communication-analytics' as NavItemKey, label: 'Presentation Analytics' },
+            { key: 'performance' as NavItemKey, label: 'Longitudinal Performance' },
+          ],
+        },
         { key: 'improvement' as NavItemKey, label: 'AI Improvement Plan', icon: Zap },
       ],
     },
@@ -230,86 +267,158 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
               )}
               {group.items.map((item) => {
                 const Icon = item.icon;
-                const isActive = activeItem === item.key;
+                const isGroupActive = activeItem === item.key || 
+                  (item.subItems && (activeItem === 'performance' || activeItem === 'skill-analytics' || activeItem === 'communication-analytics' || activeItem === 'speech-analytics'));
+                const hasSub = !!item.subItems && !collapsed;
+                const isSubExpanded = hasSub && (activeItem === 'performance' || activeItem === 'skill-analytics' || activeItem === 'communication-analytics' || activeItem === 'speech-analytics');
+
                 return (
-                  <button
-                    key={item.key}
-                    onClick={() => onSelectItem(item.key)}
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '12px',
-                      padding: collapsed ? '9px 0' : '9px 12px',
-                      justifyContent: collapsed ? 'center' : 'flex-start',
-                      backgroundColor: isActive ? 'rgba(99, 102, 241, 0.16)' : 'transparent',
-                      color: isActive ? '#ffffff' : '#94a3b8',
-                      border: 'none',
-                      borderRadius: '9px',
-                      fontSize: '0.82rem',
-                      fontWeight: isActive ? 600 : 500,
-                      cursor: 'pointer',
-                      transition: 'all 0.15s ease',
-                      position: 'relative',
-                      textAlign: 'left',
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
-                        e.currentTarget.style.color = '#f1f5f9';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.backgroundColor = 'transparent';
-                        e.currentTarget.style.color = '#94a3b8';
-                      }
-                    }}
-                    title={collapsed ? item.label : undefined}
-                  >
-                    {isActive && (
-                      <span
+                  <div key={item.key} style={{ display: 'flex', flexDirection: 'column' }}>
+                    <button
+                      onClick={() => onSelectItem(item.key)}
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        padding: collapsed ? '9px 0' : '9px 12px',
+                        justifyContent: collapsed ? 'center' : 'flex-start',
+                        backgroundColor: (activeItem === item.key && !item.subItems) ? 'rgba(99, 102, 241, 0.16)' : 'transparent',
+                        color: isGroupActive ? '#ffffff' : '#94a3b8',
+                        border: 'none',
+                        borderRadius: '9px',
+                        fontSize: '0.82rem',
+                        fontWeight: isGroupActive ? 600 : 500,
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                        position: 'relative',
+                        textAlign: 'left',
+                      }}
+                      onMouseEnter={(e) => {
+                        if (activeItem !== item.key) {
+                          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+                          e.currentTarget.style.color = '#f1f5f9';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (activeItem !== item.key) {
+                          e.currentTarget.style.backgroundColor = 'transparent';
+                          e.currentTarget.style.color = isGroupActive ? '#ffffff' : '#94a3b8';
+                        }
+                      }}
+                      title={collapsed ? item.label : undefined}
+                    >
+                      {activeItem === item.key && !item.subItems && (
+                        <span
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: '18%',
+                            bottom: '18%',
+                            width: '3px',
+                            backgroundColor: '#6366f1',
+                            borderRadius: '0 4px 4px 0',
+                          }}
+                        />
+                      )}
+                      <Icon
+                        size={17}
                         style={{
-                          position: 'absolute',
-                          left: 0,
-                          top: '18%',
-                          bottom: '18%',
-                          width: '3px',
-                          backgroundColor: '#6366f1',
-                          borderRadius: '0 4px 4px 0',
+                          color: isGroupActive ? '#818cf8' : '#64748b',
+                          flexShrink: 0,
                         }}
                       />
-                    )}
-                    <Icon
-                      size={17}
-                      style={{
-                        color: isActive ? '#818cf8' : '#64748b',
-                        flexShrink: 0,
-                      }}
-                    />
-                    {!collapsed && (
-                      <>
-                        <span style={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                          {item.label}
-                        </span>
-                        {item.badge && (
-                          <span
-                            style={{
-                              fontSize: '0.62rem',
-                              fontWeight: 600,
-                              padding: '2px 6px',
-                              borderRadius: '9999px',
-                              backgroundColor: item.badgeColor ? `${item.badgeColor}25` : 'rgba(99, 102, 241, 0.22)',
-                              color: item.badgeColor || '#a5b4fc',
-                              border: `1px solid ${item.badgeColor ? `${item.badgeColor}40` : 'rgba(99, 102, 241, 0.3)'}`,
-                            }}
-                          >
-                            {item.badge}
+                      {!collapsed && (
+                        <>
+                          <span style={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            {item.label}
                           </span>
-                        )}
-                      </>
+                          {hasSub && (
+                            <ChevronDown
+                              size={13}
+                              style={{
+                                color: '#64748b',
+                                transform: isSubExpanded ? 'rotate(0deg)' : 'rotate(-90deg)',
+                                transition: 'transform 0.15s ease',
+                              }}
+                            />
+                          )}
+                          {item.badge && (
+                            <span
+                              style={{
+                                fontSize: '0.62rem',
+                                fontWeight: 600,
+                                padding: '2px 6px',
+                                borderRadius: '9999px',
+                                backgroundColor: item.badgeColor ? `${item.badgeColor}25` : 'rgba(99, 102, 241, 0.22)',
+                                color: item.badgeColor || '#a5b4fc',
+                                border: `1px solid ${item.badgeColor ? `${item.badgeColor}40` : 'rgba(99, 102, 241, 0.3)'}`,
+                              }}
+                            >
+                              {item.badge}
+                            </span>
+                          )}
+                        </>
+                      )}
+                    </button>
+
+                    {/* Submenu for Performance */}
+                    {isSubExpanded && item.subItems && (
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '2px',
+                          paddingLeft: '24px',
+                          marginTop: '2px',
+                          marginBottom: '4px',
+                        }}
+                      >
+                        {item.subItems.map((sub, sIdx) => {
+                          const isSubActive =
+                            (sub.label === 'Speech Analytics' && activeItem === 'speech-analytics') ||
+                            (sub.label === 'Communication Analytics' && activeItem === 'communication-analytics') ||
+                            (sub.label === 'Skill Analytics' && activeItem === 'skill-analytics') ||
+                            (sub.label === 'Performance Overview' && activeItem === 'performance');
+
+                          return (
+                            <button
+                              key={sIdx}
+                              onClick={() => onSelectItem(sub.key)}
+                              style={{
+                                width: '100%',
+                                textAlign: 'left',
+                                padding: '6px 12px',
+                                background: isSubActive ? 'linear-gradient(135deg, #4f46e5, #6366f1)' : 'transparent',
+                                color: isSubActive ? '#ffffff' : '#94a3b8',
+                                border: 'none',
+                                borderRadius: '7px',
+                                fontSize: '0.74rem',
+                                fontWeight: isSubActive ? 700 : 500,
+                                cursor: 'pointer',
+                                transition: 'all 0.15s ease',
+                                boxShadow: isSubActive ? '0 2px 8px rgba(79, 70, 229, 0.35)' : 'none',
+                              }}
+                              onMouseEnter={(e) => {
+                                if (!isSubActive) {
+                                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+                                  e.currentTarget.style.color = '#f1f5f9';
+                                }
+                              }}
+                              onMouseLeave={(e) => {
+                                if (!isSubActive) {
+                                  e.currentTarget.style.backgroundColor = 'transparent';
+                                  e.currentTarget.style.color = '#94a3b8';
+                                }
+                              }}
+                            >
+                              {sub.label}
+                            </button>
+                          );
+                        })}
+                      </div>
                     )}
-                  </button>
+                  </div>
                 );
               })}
             </div>
