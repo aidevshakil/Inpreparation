@@ -87,13 +87,16 @@ export const QuestionPerformancePage: React.FC<QuestionPerformancePageProps> = (
     if (idx < qList.length - 1) setSelectedQuestionId(qList[idx + 1]);
   };
 
-  const handleDrillSimilar = () => {
-    setDrillRole('Targeted Drill: Token-Bucket Clock Skew & Drift Resilience (#42S)');
+  const handleDrillSimilar = (drillTitle?: string) => {
+    setDrillRole(drillTitle || 'Targeted Drill: Token-Bucket Clock Skew & Drift Resilience (#42S)');
     setSimulationModalOpen(true);
   };
 
   const handleGeneratePlan = () => {
-    showToast('AI Improvement Plan successfully queued for Question 4 decomposition (#42)');
+    showToast('Redirecting to AI Improvement Plan (#42)...');
+    if (onNavigateToAi) {
+      onNavigateToAi();
+    }
   };
 
   const handlePurgeTelemetry = () => {
@@ -177,8 +180,9 @@ export const QuestionPerformancePage: React.FC<QuestionPerformancePageProps> = (
               onSelectQuestion={setSelectedQuestionId}
             />
 
-            {/* Detailed Question Dossier Inspect View (Selected Q4) */}
+            {/* Detailed Question Dossier Inspect View (Selected Question) */}
             <QuestionDossierInspectView
+              selectedQuestionId={selectedQuestionId}
               onPrevQuestion={handlePrevQuestion}
               onNextQuestion={handleNextQuestion}
               onDrillSimilar={handleDrillSimilar}

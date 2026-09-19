@@ -139,8 +139,6 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
     { key: 'help' as NavItemKey, label: 'Help & Support', icon: HelpCircle },
   ];
 
-  const creditsPercent = Math.min(100, Math.max(0, (creditsRemaining / totalCredits) * 100));
-
   return (
     <aside
       style={{

@@ -36,6 +36,7 @@ import { SpeechAnalyticsPage } from './pages/SpeechAnalyticsPage';
 import { PresentationAnalyticsPage } from './pages/PresentationAnalyticsPage';
 import { QuestionPerformancePage } from './pages/QuestionPerformancePage';
 import { AiImprovementPlanPage } from './pages/AiImprovementPlanPage';
+import { TargetedPlanPage } from './pages/TargetedPlanPage';
 
 export type AppPage =
   | 'home'
@@ -50,6 +51,9 @@ export type AppPage =
   | 'question-performance'
   | 'improvement'
   | 'ai-plan'
+  | 'targeted-plan'
+  | 'targeted-plan-43'
+  | 'plan-43'
   | 'upload-cv'
   | 'ai-cv-analysis'
   | 'cv-builder'
@@ -111,6 +115,9 @@ export function App() {
           'question-performance',
           'improvement',
           'ai-plan',
+          'targeted-plan',
+          'targeted-plan-43',
+          'plan-43',
           'history',
           'profile-analysis',
           'recommended-interviews',
@@ -360,6 +367,28 @@ export function App() {
           onNavigateToSpeechAnalytics={() => navigateTo('speech-analytics')}
           onNavigateToPresentationAnalytics={() => navigateTo('presentation-analytics')}
           onNavigateToQuestionPerformance={() => navigateTo('question-performance')}
+          onNavigateToTargetedPlan={() => navigateTo('targeted-plan')}
+          onNavigateToAssessment={() => navigateTo('diagnostic-intake')}
+          onNavigateToHistory={() => navigateTo('history')}
+        />
+      )}
+
+      {(currentPage === 'targeted-plan' || currentPage === 'targeted-plan-43' || currentPage === 'plan-43') && (
+        <TargetedPlanPage
+          onNavigateToHome={() => navigateTo('home')}
+          onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToCategories={() => navigateTo('categories')}
+          onNavigateToSearch={() => navigateTo('search')}
+          onNavigateToPerformance={() => navigateTo('performance')}
+          onNavigateToSkillAnalytics={() => navigateTo('skill-analytics')}
+          onNavigateToCommunicationAnalytics={() => navigateTo('communication-analytics')}
+          onNavigateToSpeechAnalytics={() => navigateTo('speech-analytics')}
+          onNavigateToPresentationAnalytics={() => navigateTo('presentation-analytics')}
+          onNavigateToQuestionPerformance={() => navigateTo('question-performance')}
+          onNavigateToAiPlan42={() => navigateTo('improvement')}
           onNavigateToAssessment={() => navigateTo('diagnostic-intake')}
           onNavigateToHistory={() => navigateTo('history')}
         />

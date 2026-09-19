@@ -7,33 +7,54 @@ import {
   Play,
   Bell,
   Moon,
+  CheckCircle2,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 interface AiImprovementPlanHeaderProps {
+  selectedRole?: string;
+  activeDays?: number;
   onRefreshPlan?: () => void;
   onExportDossier?: () => void;
   onMockInterview?: () => void;
   onRoleSelect?: (role: string) => void;
+  onSelectDaysFilter?: (days: number) => void;
 }
 
 export const AiImprovementPlanHeader: React.FC<AiImprovementPlanHeaderProps> = ({
+  selectedRole: controlledRole,
+  activeDays: controlledDays,
   onRefreshPlan,
   onExportDossier,
   onMockInterview,
   onRoleSelect,
+  onSelectDaysFilter,
 }) => {
   const { user } = useAuth();
-  const [selectedRole, setSelectedRole] = useState('Staff Backend & Distributed Systems Architecture');
-  const [selectedDuration, setSelectedDuration] = useState('7 Days (Active)');
+  const [internalRole, setInternalRole] = useState('Staff Backend & Distributed Systems Architecture');
+  const [internalDays, setInternalDays] = useState(7);
   const [roleDropdownOpen, setRoleDropdownOpen] = useState(false);
 
-  const durationOptions = ['7 Days (Active)', '14 Days', '30 Days'];
+  const currentRole = controlledRole || internalRole;
+  const currentDays = controlledDays || internalDays;
+
   const roleOptions = [
     'Staff Backend & Distributed Systems Architecture',
-    'Principal Distributed Systems Engineer',
-    'Senior L5 Backend Platform Engineer',
+    'Principal Distributed Systems Architect',
+    'Senior Site Reliability & Concurrency Engineer',
+    'Staff Infrastructure & Platform Lead',
   ];
+
+  const handleRoleClick = (role: string) => {
+    setInternalRole(role);
+    setRoleDropdownOpen(false);
+    if (onRoleSelect) onRoleSelect(role);
+  };
+
+  const handleDaysClick = (days: number) => {
+    setInternalDays(days);
+    if (onSelectDaysFilter) onSelectDaysFilter(days);
+  };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px' }}>
@@ -45,18 +66,22 @@ export const AiImprovementPlanHeader: React.FC<AiImprovementPlanHeaderProps> = (
           justifyContent: 'space-between',
           flexWrap: 'wrap',
           gap: '12px',
+          paddingBottom: '14px',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem' }}>
-          <span style={{ color: '#94a3b8' }}>Candidate Studio</span>
+        {/* Breadcrumbs */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', color: '#94a3b8' }}>
+          <span style={{ cursor: 'pointer' }}>Candidate Studio</span>
           <span style={{ color: '#475569' }}>/</span>
-          <span style={{ color: '#94a3b8' }}>Diagnostics &amp; Growth</span>
+          <span style={{ cursor: 'pointer' }}>Diagnostics &amp; Growth</span>
           <span style={{ color: '#475569' }}>/</span>
-          <span style={{ color: '#e2e8f0', fontWeight: 600 }}>AI Improvement Plan #42</span>
+          <span style={{ color: '#f8fafc', fontWeight: 600 }}>AI Improvement Plan #42</span>
         </div>
 
-        {/* Top Right Quick Bar */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        {/* Right utility items */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          {/* Mock Interview Launch Button */}
           <button
             onClick={onMockInterview}
             style={{
@@ -64,46 +89,69 @@ export const AiImprovementPlanHeader: React.FC<AiImprovementPlanHeaderProps> = (
               alignItems: 'center',
               gap: '6px',
               padding: '6px 14px',
-              background: 'linear-gradient(135deg, #4f46e5, #6366f1)',
-              border: 'none',
-              borderRadius: '8px',
+              borderRadius: '9999px',
+              backgroundColor: '#6366f1',
               color: '#ffffff',
-              fontSize: '0.74rem',
+              border: 'none',
+              fontSize: '0.75rem',
               fontWeight: 700,
               cursor: 'pointer',
-              boxShadow: '0 4px 12px rgba(99, 102, 241, 0.35)',
+              boxShadow: '0 2px 10px rgba(99, 102, 241, 0.4)',
+              transition: 'all 0.15s ease',
             }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#4f46e5')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#6366f1')}
           >
             <Play size={12} fill="#ffffff" />
             <span>Mock Interview</span>
           </button>
 
+          {/* Notifications */}
           <button
             style={{
-              background: 'none',
-              border: 'none',
-              color: '#94a3b8',
-              cursor: 'pointer',
-              padding: '4px',
+              position: 'relative',
               display: 'flex',
               alignItems: 'center',
+              justifyContent: 'center',
+              width: '32px',
+              height: '32px',
+              borderRadius: '50%',
+              backgroundColor: 'rgba(255, 255, 255, 0.03)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              color: '#94a3b8',
+              cursor: 'pointer',
             }}
           >
-            <Bell size={16} />
+            <Bell size={14} />
+            <span
+              style={{
+                position: 'absolute',
+                top: '7px',
+                right: '7px',
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                backgroundColor: '#ef4444',
+              }}
+            />
           </button>
 
+          {/* Dark Mode Icon */}
           <button
             style={{
-              background: 'none',
-              border: 'none',
-              color: '#94a3b8',
-              cursor: 'pointer',
-              padding: '4px',
               display: 'flex',
               alignItems: 'center',
+              justifyContent: 'center',
+              width: '32px',
+              height: '32px',
+              borderRadius: '50%',
+              backgroundColor: 'rgba(255, 255, 255, 0.03)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              color: '#94a3b8',
+              cursor: 'pointer',
             }}
           >
-            <Moon size={16} />
+            <Moon size={14} />
           </button>
 
           {/* User Profile Pill */}
@@ -112,10 +160,10 @@ export const AiImprovementPlanHeader: React.FC<AiImprovementPlanHeaderProps> = (
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
-              padding: '4px 10px',
+              padding: '4px 10px 4px 6px',
               borderRadius: '9999px',
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              backgroundColor: 'rgba(255, 255, 255, 0.04)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
             }}
           >
             <div
@@ -123,96 +171,71 @@ export const AiImprovementPlanHeader: React.FC<AiImprovementPlanHeaderProps> = (
                 width: '24px',
                 height: '24px',
                 borderRadius: '50%',
-                backgroundColor: '#4f46e5',
+                backgroundColor: '#6366f1',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '0.7rem',
-                fontWeight: 700,
                 color: '#ffffff',
+                fontSize: '0.68rem',
+                fontWeight: 700,
               }}
             >
-              {user?.name ? user.name.slice(0, 2).toUpperCase() : 'SA'}
+              SA
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#f1f5f9', lineHeight: 1 }}>
+              <span style={{ fontSize: '0.74rem', fontWeight: 600, color: '#f8fafc', lineHeight: 1.1 }}>
                 {user?.name || 'Shakil Ahamed'}
               </span>
-              <span style={{ fontSize: '0.62rem', color: '#818cf8', marginTop: '2px' }}>
-                Pro Tier
-              </span>
+              <span style={{ fontSize: '0.62rem', color: '#818cf8', lineHeight: 1 }}>Pro Tier</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Protocol Banner & Controls Bar */}
+      {/* Protocol Banner */}
       <div
         style={{
-          display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1.25fr) minmax(0, 2.15fr)',
-          gap: '16px',
-          alignItems: 'stretch',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '12px',
+          padding: '12px 18px',
+          borderRadius: '12px',
+          backgroundColor: '#0c1322',
+          border: '1px solid rgba(99, 102, 241, 0.25)',
         }}
       >
-        {/* Left Protocol Box */}
-        <div
-          style={{
-            backgroundColor: '#090d18',
-            borderRadius: '12px',
-            border: '1px solid rgba(99, 102, 241, 0.25)',
-            padding: '12px 16px',
-            display: 'flex',
-            alignItems: 'flex-start',
-            gap: '12px',
-            background: 'linear-gradient(180deg, rgba(99, 102, 241, 0.08) 0%, rgba(13, 20, 37, 0.7) 100%)',
-          }}
-        >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div
             style={{
-              width: '30px',
-              height: '30px',
-              borderRadius: '7px',
-              backgroundColor: 'rgba(99, 102, 241, 0.18)',
-              border: '1px solid rgba(99, 102, 241, 0.35)',
+              width: '32px',
+              height: '32px',
+              borderRadius: '8px',
+              backgroundColor: 'rgba(99, 102, 241, 0.15)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              color: '#818cf8',
               flexShrink: 0,
-              marginTop: '1px',
             }}
           >
-            <Shield size={15} style={{ color: '#818cf8' }} />
+            <Shield size={16} />
           </div>
 
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#f1f5f9' }}>
-                Deterministic Calibration Protocol
-              </span>
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#38bdf8' }} />
-            </div>
-
-            <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '3px', lineHeight: 1.4 }}>
-              <strong>AUDIT TRAIL #ISYN-4209:</strong> Synthesizes observable evidence across 6 validated sessions &amp; 30 defended questions • Zero psychometrics or affective profiling.
-            </div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontSize: '0.76rem', fontWeight: 700, color: '#f8fafc' }}>
+              Deterministic Calibration Protocol
+            </span>
+            <span style={{ fontSize: '0.7rem', color: '#94a3b8' }}>
+              <strong style={{ color: '#cbd5e1' }}>AUDIT TRAIL #ISYN-4209</strong> • Synthesizes observable evidence
+              across 6 validated sessions &amp; 30 defended questions • Zero psychometrics or affective profiling.
+            </span>
           </div>
         </div>
 
-        {/* Right Role Selector, Time Range & Action Buttons */}
-        <div
-          style={{
-            backgroundColor: '#090d18',
-            borderRadius: '12px',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            padding: '10px 16px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '12px',
-          }}
-        >
+        {/* Filter Controls Row */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
           {/* Target Role Dropdown */}
           <div style={{ position: 'relative' }}>
             <button
@@ -220,139 +243,126 @@ export const AiImprovementPlanHeader: React.FC<AiImprovementPlanHeaderProps> = (
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px',
+                gap: '6px',
                 padding: '6px 12px',
-                backgroundColor: '#0f172a',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
                 borderRadius: '8px',
-                color: '#e2e8f0',
+                backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                color: '#f8fafc',
                 fontSize: '0.74rem',
                 fontWeight: 600,
                 cursor: 'pointer',
               }}
             >
-              <span>{selectedRole}</span>
-              <ChevronDown size={13} style={{ color: '#64748b' }} />
+              <span>{currentRole}</span>
+              <ChevronDown size={13} color="#94a3b8" />
             </button>
 
             {roleDropdownOpen && (
               <div
                 style={{
                   position: 'absolute',
-                  top: '110%',
-                  left: 0,
-                  zIndex: 50,
-                  minWidth: '340px',
+                  top: '100%',
+                  right: 0,
+                  marginTop: '4px',
+                  width: '320px',
                   backgroundColor: '#0f172a',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  borderRadius: '8px',
-                  boxShadow: '0 12px 28px rgba(0,0,0,0.6)',
-                  padding: '4px',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  borderRadius: '10px',
+                  boxShadow: '0 12px 30px rgba(0, 0, 0, 0.6)',
+                  zIndex: 50,
+                  overflow: 'hidden',
                 }}
               >
-                {roleOptions.map((r) => (
-                  <div
-                    key={r}
-                    onClick={() => {
-                      setSelectedRole(r);
-                      setRoleDropdownOpen(false);
-                      onRoleSelect?.(r);
-                    }}
+                {roleOptions.map((role) => (
+                  <button
+                    key={role}
+                    onClick={() => handleRoleClick(role)}
                     style={{
-                      padding: '8px 12px',
+                      width: '100%',
+                      textAlign: 'left',
+                      padding: '9px 14px',
+                      background: role === currentRole ? 'rgba(99, 102, 241, 0.18)' : 'transparent',
+                      color: role === currentRole ? '#a5b4fc' : '#cbd5e1',
+                      border: 'none',
+                      borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
                       fontSize: '0.74rem',
-                      color: selectedRole === r ? '#818cf8' : '#cbd5e1',
-                      backgroundColor: selectedRole === r ? 'rgba(99, 102, 241, 0.12)' : 'transparent',
-                      borderRadius: '6px',
                       cursor: 'pointer',
-                      fontWeight: selectedRole === r ? 700 : 500,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
                     }}
                   >
-                    {r}
-                  </div>
+                    <span>{role}</span>
+                    {role === currentRole && <CheckCircle2 size={13} color="#818cf8" />}
+                  </button>
                 ))}
               </div>
             )}
           </div>
 
-          {/* Time Filter Pills: 7 Days | 14 Days | 30 Days */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              backgroundColor: '#0d1322',
-              borderRadius: '7px',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              padding: '2px',
-              gap: '2px',
-            }}
-          >
-            {durationOptions.map((d) => {
-              const isSelected = selectedDuration === d;
-              return (
-                <button
-                  key={d}
-                  onClick={() => setSelectedDuration(d)}
-                  style={{
-                    padding: '4px 10px',
-                    borderRadius: '5px',
-                    border: 'none',
-                    backgroundColor: isSelected ? '#4f46e5' : 'transparent',
-                    color: isSelected ? '#ffffff' : '#94a3b8',
-                    fontSize: '0.7rem',
-                    fontWeight: isSelected ? 700 : 500,
-                    cursor: 'pointer',
-                  }}
-                >
-                  {d}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Buttons: Refresh Plan & Export Dossier */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {/* Duration Pills */}
+          {[7, 14, 30].map((days) => (
             <button
-              onClick={onRefreshPlan}
+              key={days}
+              onClick={() => handleDaysClick(days)}
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '5px',
-                padding: '6px 12px',
-                backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
-                borderRadius: '7px',
-                color: '#cbd5e1',
+                padding: '6px 10px',
+                borderRadius: '8px',
+                border: currentDays === days ? '1px solid #818cf8' : '1px solid rgba(255, 255, 255, 0.08)',
+                backgroundColor: currentDays === days ? '#6366f1' : 'rgba(255, 255, 255, 0.03)',
+                color: currentDays === days ? '#ffffff' : '#94a3b8',
                 fontSize: '0.72rem',
                 fontWeight: 600,
                 cursor: 'pointer',
+                transition: 'all 0.15s ease',
               }}
             >
-              <Sparkles size={12} style={{ color: '#818cf8' }} />
-              <span>Refresh Plan</span>
+              {days} Days {currentDays === days && '(Active)'}
             </button>
+          ))}
 
-            <button
-              onClick={onExportDossier}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '5px',
-                padding: '6px 12px',
-                background: 'linear-gradient(135deg, #7c3aed, #a855f7)',
-                border: 'none',
-                borderRadius: '7px',
-                color: '#ffffff',
-                fontSize: '0.72rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-                boxShadow: '0 4px 12px rgba(124, 58, 237, 0.35)',
-              }}
-            >
-              <Download size={12} />
-              <span>Export Dossier</span>
-            </button>
-          </div>
+          {/* Refresh Plan Button */}
+          <button
+            onClick={onRefreshPlan}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '5px',
+              padding: '6px 12px',
+              borderRadius: '8px',
+              backgroundColor: 'rgba(255, 255, 255, 0.04)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              color: '#e2e8f0',
+              fontSize: '0.72rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
+            <Sparkles size={12} color="#818cf8" />
+            <span>Refresh Plan</span>
+          </button>
+
+          {/* Export Dossier Button */}
+          <button
+            onClick={onExportDossier}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '5px',
+              padding: '6px 12px',
+              borderRadius: '8px',
+              backgroundColor: 'rgba(99, 102, 241, 0.2)',
+              border: '1px solid rgba(99, 102, 241, 0.4)',
+              color: '#c7d2fe',
+              fontSize: '0.72rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
+            <Download size={12} />
+            <span>Export Dossier</span>
+          </button>
         </div>
       </div>
     </div>

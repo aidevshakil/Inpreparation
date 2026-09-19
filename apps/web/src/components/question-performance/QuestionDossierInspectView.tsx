@@ -15,11 +15,13 @@ import {
   MessageSquare,
   Layers,
 } from 'lucide-react';
+import { QUESTION_DATA_MAP, QuestionDossierItem } from '../../services/questionDataStore';
 
 interface QuestionDossierInspectViewProps {
+  selectedQuestionId?: string;
   onPrevQuestion?: () => void;
   onNextQuestion?: () => void;
-  onDrillSimilar?: () => void;
+  onDrillSimilar?: (drillTitle: string) => void;
   onGeneratePlan?: () => void;
   onNavigateSpeech?: () => void;
   onNavigatePresentation?: () => void;
@@ -27,6 +29,7 @@ interface QuestionDossierInspectViewProps {
 }
 
 export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProps> = ({
+  selectedQuestionId = 'Q4',
   onPrevQuestion,
   onNextQuestion,
   onDrillSimilar,
@@ -38,13 +41,17 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
   const [isPlaying, setIsPlaying] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  const qData: QuestionDossierItem =
+    QUESTION_DATA_MAP[selectedQuestionId] || QUESTION_DATA_MAP['Q4'];
+
   const handleCopy = () => {
-    navigator.clipboard?.writeText(
-      `"I would place a Redis cluster backed by a Lua script to atomically decrement token counts. In the event of Redis CPU saturation, clients should fall back to local in-memory leaky-bucket queues. However, during severe burst ingress, dropping excess requests with HTTP 429 and Retry-After headers is essential to shield the application pods. We would then just retry after a couple seconds once things settle down..."`
-    );
+    navigator.clipboard?.writeText(qData.candidateTranscript);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  const durationMin = Math.floor(qData.durationSeconds / 60);
+  const durationSec = qData.durationSeconds % 60;
 
   return (
     <div
@@ -76,18 +83,18 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
             style={{
               padding: '3px 10px',
               borderRadius: '6px',
-              backgroundColor: '#4f46e5',
+              backgroundColor: qData.flagged ? '#dc2626' : '#4f46e5',
               color: '#ffffff',
               fontSize: '0.72rem',
               fontWeight: 800,
               letterSpacing: '0.4px',
             }}
           >
-            QUESTION 04 OF 05
+            {qData.number.toUpperCase()} OF 05 {qData.flagged && '• REMEDIATION VECTOR'}
           </span>
 
           <h2 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
-            Token-Bucket Rate Limiter Backpressure
+            {qData.title}
           </h2>
 
           <span
@@ -101,7 +108,7 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
               fontWeight: 600,
             }}
           >
-            Topic: Distributed Systems &amp; Concurrency
+            Topic: {qData.category}
           </span>
         </div>
 
@@ -124,7 +131,7 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
             }}
           >
             <ChevronLeft size={13} />
-            <span>Prev (Q3)</span>
+            <span>Prev</span>
           </button>
 
           <button
@@ -143,7 +150,7 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
               cursor: 'pointer',
             }}
           >
-            <span>Next (Q5)</span>
+            <span>Next</span>
             <ChevronRight size={13} />
           </button>
         </div>
@@ -158,7 +165,7 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
           alignItems: 'start',
         }}
       >
-        {/* Left Column: Prompt, Audio, Highlights, Strengths, Remediation, Multimodal */}
+        {/* Left Column: Prompt, Audio, Highlights, Strengths, Multimodal */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           {/* Defended Prompt */}
           <div
@@ -173,10 +180,10 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
               DEFENDED PROMPT
             </div>
             <div style={{ fontSize: '0.88rem', fontWeight: 600, color: '#f1f5f9', lineHeight: 1.5 }}>
-              &ldquo;Under a sudden 10x burst of traffic across a distributed API cluster, how would you design a token-bucket rate limiter to prevent upstream Redis saturation while guaranteeing predictable client backpressure?&rdquo;
+              &ldquo;{qData.questionPrompt}&rdquo;
             </div>
             <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '8px' }}>
-              Spoken Duration: <strong style={{ color: '#cbd5e1' }}>1m 52s</strong> • Staff L6 Scope • Prompt Completed
+              Spoken Duration: <strong style={{ color: '#cbd5e1' }}>{durationMin}m {durationSec}s</strong> • Staff L6 Scope • Score: <strong style={{ color: qData.score >= 80 ? '#34d399' : '#f87171' }}>{qData.score.toFixed(1)}/100</strong>
             </div>
           </div>
 
@@ -249,166 +256,142 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
                 {isPlaying ? <Pause size={14} /> : <Play size={14} style={{ marginLeft: '2px' }} />}
               </button>
 
-              <span style={{ fontSize: '0.72rem', color: '#cbd5e1', fontWeight: 600, minWidth: '60px' }}>
-                0:38 / 1:52
-              </span>
+              <div style={{ fontSize: '0.68rem', color: '#94a3b8', width: '38px' }}>
+                {isPlaying ? '0:42' : '0:00'}
+              </div>
 
-              {/* Waveform visual bars */}
-              <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '3px', height: '24px' }}>
-                {[14, 22, 10, 26, 32, 18, 28, 36, 20, 14, 24, 30, 16, 22, 10, 18, 28, 34, 18, 12, 26, 32, 14, 20, 28, 16, 12, 22, 30, 24, 16, 28, 20, 14, 10].map((h, i) => (
+              {/* Simulated Waveform Bars */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '3px', flex: 1, height: '24px' }}>
+                {[
+                  30, 45, 70, 85, 60, 40, 65, 90, 100, 80, 55, 40, 60, 75, 95, 80, 60, 45, 30, 50,
+                  70, 85, 90, 65, 45, 35, 55, 75, 85, 70, 50, 65, 80, 95, 70, 55, 40, 30, 45, 60,
+                ].map((height, i) => (
                   <div
                     key={i}
                     style={{
                       flex: 1,
-                      height: `${h * 0.6}px`,
-                      backgroundColor: i < 12 ? '#38bdf8' : 'rgba(255, 255, 255, 0.15)',
+                      height: `${isPlaying ? Math.max(15, (height * (1 + (i % 3) * 0.2)) % 100) : height * 0.7}%`,
+                      backgroundColor: i < 16 ? '#818cf8' : 'rgba(255, 255, 255, 0.15)',
                       borderRadius: '2px',
+                      transition: 'height 0.15s ease',
                     }}
                   />
                 ))}
               </div>
 
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                  padding: '3px 8px',
-                  borderRadius: '5px',
-                  backgroundColor: 'rgba(56, 189, 248, 0.1)',
-                  color: '#38bdf8',
-                  fontSize: '0.64rem',
-                  fontWeight: 700,
-                  flexShrink: 0,
-                }}
-              >
-                <Volume2 size={11} />
-                <span>48kHz Whisper-v3 Master Track</span>
+              <div style={{ fontSize: '0.68rem', color: '#64748b', width: '38px', textAlign: 'right' }}>
+                {durationMin}:{durationSec < 10 ? `0${durationSec}` : durationSec}
               </div>
+
+              <Volume2 size={15} color="#94a3b8" />
             </div>
 
-            {/* Transcript with highlighting */}
+            {/* Transcript Body */}
             <div
               style={{
-                fontSize: '0.78rem',
-                color: '#e2e8f0',
-                lineHeight: 1.6,
-                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                fontSize: '0.8rem',
+                lineHeight: 1.65,
+                color: '#cbd5e1',
                 padding: '12px 14px',
+                backgroundColor: 'rgba(255, 255, 255, 0.02)',
                 borderRadius: '8px',
-                borderLeft: '3px solid #818cf8',
+                borderLeft: `3px solid ${qData.score >= 80 ? '#34d399' : '#f87171'}`,
               }}
             >
-              &ldquo;I would place a{' '}
-              <span style={{ color: '#38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.12)', padding: '1px 4px', borderRadius: '4px', fontWeight: 600 }}>
-                Redis cluster backed by a Lua script
-              </span>{' '}
-              to atomically decrement token counts. In the event of Redis CPU saturation, clients should fall back to{' '}
-              <span style={{ color: '#818cf8', backgroundColor: 'rgba(129, 140, 248, 0.12)', padding: '1px 4px', borderRadius: '4px', fontWeight: 600 }}>
-                local in-memory leaky-bucket queues
-              </span>
-              . However, during severe burst ingress, dropping excess requests with{' '}
-              <span style={{ color: '#38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.12)', padding: '1px 4px', borderRadius: '4px', fontWeight: 600 }}>
-                HTTP 429 and Retry-After headers
-              </span>{' '}
-              is essential to shield the application pods.{' '}
-              <span style={{ color: '#f59e0b', backgroundColor: 'rgba(245, 158, 11, 0.14)', padding: '1px 4px', borderRadius: '4px', fontWeight: 600 }}>
-                We would then just retry after a couple seconds once things settle down...
-              </span>
-              &rdquo;
+              {qData.candidateTranscript}
             </div>
 
-            {/* Legend */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '0.68rem', flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#38bdf8' }} />
-                <span style={{ color: '#cbd5e1' }}>Strong Architectural Choice</span>
+            {/* Inline Evaluator Annotations */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div style={{ fontSize: '0.66rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>
+                SYNTAX &amp; ARCHITECTURE EVIDENCE TOKENS
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#818cf8' }} />
-                <span style={{ color: '#cbd5e1' }}>Client Contract Strategy</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#f59e0b' }} />
-                <span style={{ color: '#fde68a' }}>Ambiguous / Missing Edge Specification</span>
-              </div>
+
+              {qData.highlightTokens.map((token, tIdx) => {
+                const isErr = token.type === 'error';
+                return (
+                  <div
+                    key={tIdx}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '8px',
+                      padding: '8px 12px',
+                      borderRadius: '7px',
+                      backgroundColor: isErr ? 'rgba(239, 68, 68, 0.08)' : 'rgba(16, 185, 129, 0.08)',
+                      border: `1px solid ${isErr ? 'rgba(239, 68, 68, 0.25)' : 'rgba(16, 185, 129, 0.25)'}`,
+                      fontSize: '0.72rem',
+                    }}
+                  >
+                    {isErr ? (
+                      <AlertTriangle size={13} color="#f87171" style={{ flexShrink: 0, marginTop: '2px' }} />
+                    ) : (
+                      <CheckCircle2 size={13} color="#34d399" style={{ flexShrink: 0, marginTop: '2px' }} />
+                    )}
+                    <div>
+                      <strong style={{ color: isErr ? '#fca5a5' : '#86efac' }}>&ldquo;{token.text}&rdquo;</strong>
+                      <div style={{ color: '#94a3b8', marginTop: '2px' }}>{token.note}</div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          {/* Strengths and Remediation 2-Column */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '14px' }}>
-            {/* Demonstrated Strengths */}
+          {/* Strengths and Critical Gaps */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '14px',
+            }}
+          >
+            {/* Strengths */}
             <div
               style={{
                 backgroundColor: '#090d18',
-                borderRadius: '12px',
+                borderRadius: '10px',
                 border: '1px solid rgba(16, 185, 129, 0.2)',
-                padding: '16px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
+                padding: '14px 16px',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <CheckCircle2 size={16} style={{ color: '#34d399' }} />
-                <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#34d399' }}>
-                  Demonstrated Strengths
-                </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.74rem', fontWeight: 700, color: '#34d399', marginBottom: '8px' }}>
+                <CheckCircle2 size={13} />
+                <span>Demonstrated Strengths</span>
               </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.72rem', color: '#cbd5e1', lineHeight: 1.4 }}>
-                  <span style={{ color: '#34d399', fontWeight: 700 }}>✓</span>
-                  <span>Correctly selected Redis Lua scripting for atomic decrements, avoiding concurrent race conditions.</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.72rem', color: '#cbd5e1', lineHeight: 1.4 }}>
-                  <span style={{ color: '#34d399', fontWeight: 700 }}>✓</span>
-                  <span>Implemented client-side backoff with explicit HTTP 429 and Retry-After headers.</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.72rem', color: '#cbd5e1', lineHeight: 1.4 }}>
-                  <span style={{ color: '#34d399', fontWeight: 700 }}>✓</span>
-                  <span>Appropriately flagged upstream cluster saturation risks and memory exhaustion.</span>
-                </div>
-              </div>
+              <ul style={{ margin: 0, paddingLeft: '16px', fontSize: '0.7rem', color: '#cbd5e1', lineHeight: 1.5 }}>
+                {qData.coachingCritique.strengths.map((str, sIdx) => (
+                  <li key={sIdx} style={{ marginBottom: '4px' }}>
+                    {str}
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            {/* Answer Quality Remediation */}
+            {/* Critical Gaps */}
             <div
               style={{
                 backgroundColor: '#090d18',
-                borderRadius: '12px',
-                border: '1px solid rgba(245, 158, 11, 0.25)',
-                padding: '16px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
+                borderRadius: '10px',
+                border: '1px solid rgba(239, 68, 68, 0.2)',
+                padding: '14px 16px',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <AlertTriangle size={16} style={{ color: '#f59e0b' }} />
-                <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#fbbf24' }}>
-                  Answer Quality Remediation
-                </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.74rem', fontWeight: 700, color: '#f87171', marginBottom: '8px' }}>
+                <AlertTriangle size={13} />
+                <span>Identified Deficiencies</span>
               </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.72rem', color: '#fde68a', lineHeight: 1.4 }}>
-                  <span style={{ color: '#f59e0b', fontWeight: 700 }}>!</span>
-                  <span>Omitted full-jitter exponential backoff formula, leaving system vulnerable to thundering herd storms.</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.72rem', color: '#fde68a', lineHeight: 1.4 }}>
-                  <span style={{ color: '#f59e0b', fontWeight: 700 }}>!</span>
-                  <span>Did not specify token refill interval reconciliation under distributed clock drift / skew across nodes.</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.72rem', color: '#fde68a', lineHeight: 1.4 }}>
-                  <span style={{ color: '#f59e0b', fontWeight: 700 }}>!</span>
-                  <span>Trade-off between Redis network bandwidth vs in-memory RAM cost on local worker pods was not quantified.</span>
-                </div>
-              </div>
+              <ul style={{ margin: 0, paddingLeft: '16px', fontSize: '0.7rem', color: '#cbd5e1', lineHeight: 1.5 }}>
+                {qData.coachingCritique.criticalGaps.map((gap, gIdx) => (
+                  <li key={gIdx} style={{ marginBottom: '4px' }}>
+                    {gap}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
-          {/* Multimodal Telemetry Triangulation (Q4 Window) */}
+          {/* Multimodal Telemetry Triangulation */}
           <div
             style={{
               backgroundColor: '#090d18',
@@ -424,11 +407,11 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Layers size={15} style={{ color: '#c084fc' }} />
                 <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#ffffff' }}>
-                  Multimodal Telemetry Triangulation (Q4 Window)
+                  Multimodal Telemetry Triangulation ({qData.id} Window)
                 </span>
               </div>
               <span style={{ fontSize: '0.66rem', color: '#94a3b8' }}>
-                Synchronous Window: 00:00 - 01:52
+                Synchronous Window: 00:00 - {durationMin}:00
               </span>
             </div>
 
@@ -455,14 +438,11 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
                   </div>
                   <span style={{ fontSize: '0.64rem', color: '#38bdf8', fontWeight: 700 }}>#39</span>
                 </div>
-                <div style={{ fontSize: '1rem', fontWeight: 800, color: '#ffffff' }}>136 WPM</div>
+                <div style={{ fontSize: '1rem', fontWeight: 800, color: '#ffffff' }}>{qData.wpm} WPM</div>
                 <div style={{ fontSize: '0.68rem', color: '#94a3b8', lineHeight: 1.4 }}>
-                  • 5 Pauses (avg 1.8s duration)<br />
-                  • 3 Filler tokens (&ldquo;um&rdquo;, &ldquo;like&rdquo;)<br />
-                  • Articulation clarity: 88%
-                </div>
-                <div style={{ fontSize: '0.64rem', color: '#34d399', fontWeight: 600, marginTop: '2px' }}>
-                  Normal conversational tempo
+                  • {qData.fillerTokens} Filler tokens detected<br />
+                  • Optimal band: 135–150 WPM<br />
+                  • Pacing stability: 92%
                 </div>
               </div>
 
@@ -487,14 +467,11 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
                   </div>
                   <span style={{ fontSize: '0.64rem', color: '#c084fc', fontWeight: 700 }}>#40</span>
                 </div>
-                <div style={{ fontSize: '1rem', fontWeight: 800, color: '#ffffff' }}>92% Face Line</div>
+                <div style={{ fontSize: '1rem', fontWeight: 800, color: '#ffffff' }}>{qData.gazeAlignment}% Gaze Lock</div>
                 <div style={{ fontSize: '0.68rem', color: '#94a3b8', lineHeight: 1.4 }}>
-                  • Camera alignment: 84%<br />
-                  • 2 Posture micro-shifts<br />
-                  • Whiteboard framing: stable
-                </div>
-                <div style={{ fontSize: '0.64rem', color: '#34d399', fontWeight: 600, marginTop: '2px' }}>
-                  Zero obstructive occlusions
+                  • Primary cone framing: {qData.gazeAlignment}%<br />
+                  • Posture drift: Minimal<br />
+                  • Whiteboard diagramming: Active
                 </div>
               </div>
 
@@ -519,21 +496,20 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
                   </div>
                   <span style={{ fontSize: '0.64rem', color: '#818cf8', fontWeight: 700 }}>#38</span>
                 </div>
-                <div style={{ fontSize: '1rem', fontWeight: 800, color: '#ffffff' }}>76% Completeness</div>
-                <div style={{ fontSize: '0.68rem', color: '#94a3b8', lineHeight: 1.4 }}>
-                  • Relevance: 84%<br />
-                  • Completeness: 72% (Lagging)<br />
-                  • Minto structure adherence: 68%
+                <div style={{ fontSize: '1rem', fontWeight: 800, color: '#ffffff' }}>
+                  {Math.round((qData.starRubric.actionExecution + qData.starRubric.systemsDepth) / 2)}% Completeness
                 </div>
-                <div style={{ fontSize: '0.64rem', color: '#f59e0b', fontWeight: 600, marginTop: '2px' }}>
-                  Incomplete edge-case proof
+                <div style={{ fontSize: '0.68rem', color: '#94a3b8', lineHeight: 1.4 }}>
+                  • Minto Hierarchy: High<br />
+                  • Quantitative Evidence: {qData.starRubric.resultMetrics}%<br />
+                  • Trade-off Depth: {qData.starRubric.architecturalTradeoffs}%
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Column: Weighted Rubric Breakdown, Exemplar Architecture, Recommended Action */}
+        {/* Right Column: Weighted Rubric Breakdown & Exemplar */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           {/* Weighted Rubric Breakdown */}
           <div
@@ -558,189 +534,103 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
                   </h3>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#f87171' }}>
-                    69.0
+                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: qData.score >= 80 ? '#34d399' : '#f87171' }}>
+                    {qData.score.toFixed(1)}
                   </div>
                   <div style={{ fontSize: '0.64rem', color: '#64748b' }}>/ 100 PTS</div>
                 </div>
               </div>
               <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '4px' }}>
-                Benchmarked: INPREP-L6-04 Staff L6 System Design Benchmark v2.4
+                Benchmarked: Staff L6 Engineering Standard
               </div>
             </div>
 
-            {/* 5 Rubric Bars */}
+            {/* Rubric Bars */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {/* Technical Accuracy */}
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}>
-                  <span style={{ color: '#cbd5e1' }}>Technical Accuracy (25% wt)</span>
-                  <span style={{ color: '#f1f5f9', fontWeight: 700 }}>76 / 100 (19.0 pts)</span>
+                  <span style={{ color: '#cbd5e1' }}>Systems &amp; Invariants (25% wt)</span>
+                  <span style={{ color: '#f1f5f9', fontWeight: 700 }}>{qData.starRubric.systemsDepth} / 100</span>
                 </div>
                 <div style={{ height: '4px', backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '9999px', overflow: 'hidden', marginTop: '4px' }}>
-                  <div style={{ width: '76%', height: '100%', backgroundColor: '#818cf8' }} />
+                  <div style={{ width: `${qData.starRubric.systemsDepth}%`, height: '100%', backgroundColor: '#818cf8' }} />
                 </div>
               </div>
 
-              {/* Problem Solving & Edge Cases */}
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}>
-                  <span style={{ color: '#cbd5e1' }}>Problem Solving &amp; Edge Cases (20% wt)</span>
-                  <span style={{ color: '#f87171', fontWeight: 700 }}>64 / 100 (12.8 pts)</span>
-                </div>
-                <div style={{ height: '4px', backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '9999px', overflow: 'hidden', marginTop: '4px' }}>
-                  <div style={{ width: '64%', height: '100%', backgroundColor: '#ef4444' }} />
-                </div>
-                <div style={{ fontSize: '0.64rem', color: '#f87171', marginTop: '2px' }}>
-                  Sub-threshold: failed to handle NTP clock drift edge
-                </div>
-              </div>
-
-              {/* Relevance & Completeness */}
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}>
-                  <span style={{ color: '#cbd5e1' }}>Relevance &amp; Completeness (20% wt)</span>
-                  <span style={{ color: '#f1f5f9', fontWeight: 700 }}>72 / 100 (14.4 pts)</span>
-                </div>
-                <div style={{ height: '4px', backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '9999px', overflow: 'hidden', marginTop: '4px' }}>
-                  <div style={{ width: '72%', height: '100%', backgroundColor: '#818cf8' }} />
-                </div>
-              </div>
-
-              {/* Communication Clarity */}
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}>
-                  <span style={{ color: '#cbd5e1' }}>Communication Clarity (15% wt)</span>
-                  <span style={{ color: '#f1f5f9', fontWeight: 700 }}>70 / 100 (10.5 pts)</span>
-                </div>
-                <div style={{ height: '4px', backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '9999px', overflow: 'hidden', marginTop: '4px' }}>
-                  <div style={{ width: '70%', height: '100%', backgroundColor: '#38bdf8' }} />
-                </div>
-              </div>
-
-              {/* Observable Presentation Signals */}
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}>
-                  <span style={{ color: '#cbd5e1' }}>Observable Presentation Signals (10% wt)</span>
-                  <span style={{ color: '#f1f5f9', fontWeight: 700 }}>82 / 100 (8.2 pts)</span>
-                </div>
-                <div style={{ height: '4px', backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '9999px', overflow: 'hidden', marginTop: '4px' }}>
-                  <div style={{ width: '82%', height: '100%', backgroundColor: '#34d399' }} />
-                </div>
-              </div>
-            </div>
-
-            {/* Evaluated Skill Vectors */}
-            <div>
-              <div style={{ fontSize: '0.64rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', marginBottom: '6px' }}>
-                EVALUATED SKILL VECTORS
-              </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                {['Distributed Systems', 'Rate Limiting', 'Redis Lua', 'Concurrency Control', 'Microservices'].map((tag) => (
-                  <span
-                    key={tag}
-                    style={{
-                      padding: '2px 8px',
-                      borderRadius: '5px',
-                      backgroundColor: 'rgba(99, 102, 241, 0.1)',
-                      border: '1px solid rgba(99, 102, 241, 0.25)',
-                      color: '#a5b4fc',
-                      fontSize: '0.66rem',
-                      fontWeight: 600,
-                    }}
-                  >
-                    {tag}
+                  <span style={{ color: '#cbd5e1' }}>Architectural Trade-offs (25% wt)</span>
+                  <span style={{ color: qData.starRubric.architecturalTradeoffs < 75 ? '#f87171' : '#f1f5f9', fontWeight: 700 }}>
+                    {qData.starRubric.architecturalTradeoffs} / 100
                   </span>
-                ))}
+                </div>
+                <div style={{ height: '4px', backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '9999px', overflow: 'hidden', marginTop: '4px' }}>
+                  <div
+                    style={{
+                      width: `${qData.starRubric.architecturalTradeoffs}%`,
+                      height: '100%',
+                      backgroundColor: qData.starRubric.architecturalTradeoffs < 75 ? '#ef4444' : '#818cf8',
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}>
+                  <span style={{ color: '#cbd5e1' }}>Execution &amp; Action (20% wt)</span>
+                  <span style={{ color: '#f1f5f9', fontWeight: 700 }}>{qData.starRubric.actionExecution} / 100</span>
+                </div>
+                <div style={{ height: '4px', backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '9999px', overflow: 'hidden', marginTop: '4px' }}>
+                  <div style={{ width: `${qData.starRubric.actionExecution}%`, height: '100%', backgroundColor: '#818cf8' }} />
+                </div>
+              </div>
+
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}>
+                  <span style={{ color: '#cbd5e1' }}>Quantitative Metrics (15% wt)</span>
+                  <span style={{ color: '#f1f5f9', fontWeight: 700 }}>{qData.starRubric.resultMetrics} / 100</span>
+                </div>
+                <div style={{ height: '4px', backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '9999px', overflow: 'hidden', marginTop: '4px' }}>
+                  <div style={{ width: `${qData.starRubric.resultMetrics}%`, height: '100%', backgroundColor: '#818cf8' }} />
+                </div>
+              </div>
+
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}>
+                  <span style={{ color: '#cbd5e1' }}>Context &amp; Situation (15% wt)</span>
+                  <span style={{ color: '#f1f5f9', fontWeight: 700 }}>{qData.starRubric.situationTask} / 100</span>
+                </div>
+                <div style={{ height: '4px', backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '9999px', overflow: 'hidden', marginTop: '4px' }}>
+                  <div style={{ width: `${qData.starRubric.situationTask}%`, height: '100%', backgroundColor: '#818cf8' }} />
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Exemplar Staff L6 Response Architecture */}
+          {/* Model Suggested Rewrite */}
           <div
             style={{
               backgroundColor: '#090d18',
               borderRadius: '12px',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
-              padding: '18px 20px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '12px',
+              border: '1px solid rgba(99, 102, 241, 0.25)',
+              padding: '16px 18px',
             }}
           >
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Sparkles size={14} style={{ color: '#38bdf8' }} />
-                <h4 style={{ fontSize: '0.86rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
-                  Exemplar Staff L6 Response Architecture
-                </h4>
-              </div>
-              <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '3px' }}>
-                Minto Pyramid structure recommended by vetted L6 interview panel:
-              </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.74rem', fontWeight: 700, color: '#a5b4fc', marginBottom: '8px' }}>
+              <Sparkles size={13} />
+              <span>Model Exemplar Rewrite</span>
             </div>
-
-            {/* 5 Steps */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {[
-                {
-                  step: '1',
-                  title: 'Bottom-Line Up Front (BLUF):',
-                  desc: 'Propose tiered hybrid limiter (Redis cluster primary + local fallback).',
-                },
-                {
-                  step: '2',
-                  title: 'Atomic State Invariants:',
-                  desc: 'Single-roundtrip Lua script ensuring atomic decrement & expiry renewal.',
-                },
-                {
-                  step: '3',
-                  title: 'Clock Skew & Drift Invariance:',
-                  desc: 'Use monotonic Redis server time ("TIME" command) rather than host client clocks.',
-                },
-                {
-                  step: '4',
-                  title: 'Quantitative Trade-Off Metric:',
-                  desc: 'Compare Redis network IOPS load vs 4MB in-process LRU cache consumption.',
-                },
-                {
-                  step: '5',
-                  title: 'Backpressure Contract:',
-                  desc: 'HTTP 429 with Decorrelated Jitter formula (sleep = min(cap, random_between(base, sleep * 3))).',
-                },
-              ].map((item) => (
-                <div key={item.step} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.72rem' }}>
-                  <span
-                    style={{
-                      width: '18px',
-                      height: '18px',
-                      borderRadius: '50%',
-                      backgroundColor: 'rgba(99, 102, 241, 0.2)',
-                      color: '#a5b4fc',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '0.66rem',
-                      fontWeight: 700,
-                      flexShrink: 0,
-                      marginTop: '1px',
-                    }}
-                  >
-                    {item.step}
-                  </span>
-                  <div style={{ lineHeight: 1.45 }}>
-                    <strong style={{ color: '#f1f5f9' }}>{item.title}</strong>{' '}
-                    <span style={{ color: '#94a3b8' }}>{item.desc}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <p style={{ margin: 0, fontSize: '0.74rem', color: '#cbd5e1', lineHeight: 1.5, fontStyle: 'italic' }}>
+              {qData.coachingCritique.modelSuggestedRewrite}
+            </p>
           </div>
 
-          {/* Recommended Action */}
+          {/* Recommended Action Buttons */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <button
-              onClick={onDrillSimilar}
+              onClick={() => {
+                if (onDrillSimilar) onDrillSimilar(qData.drillPrompt);
+              }}
               style={{
                 width: '100%',
                 display: 'flex',
@@ -759,7 +649,7 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
                 transition: 'all 0.15s ease',
               }}
             >
-              <span>Drill Similar Question: Token-Bucket Clock Skew (#42S)</span>
+              <span>Launch Targeted Drill: {qData.title.split('&')[0]}</span>
               <ArrowRight size={14} />
             </button>
 
@@ -783,7 +673,7 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
               }}
             >
               <Sparkles size={13} style={{ color: '#818cf8' }} />
-              <span>Generate AI Improvement Plan for Decomposition (#42)</span>
+              <span>Open AI Improvement Plan for Decomposition (#42)</span>
             </button>
           </div>
         </div>

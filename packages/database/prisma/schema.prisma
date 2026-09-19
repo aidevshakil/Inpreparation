@@ -27,6 +27,8 @@ model User {
   candidateProfile CandidateProfile?
   savedTracks   UserSavedTrack[]
   logs          AuditLog[]
+  improvementPlans AiImprovementPlan[]
+  questionDossiers QuestionPerformanceDossier[]
 
   @@map("users")
 }
@@ -253,4 +255,111 @@ model CandidateProfile {
 
   @@map("candidate_profiles")
 }
+
+// -------------------------------------------------------------
+// AI Improvement Plan & 7-Day Targeted Plan
+// -------------------------------------------------------------
+model AiImprovementPlan {
+  id                      String   @id @default(cuid())
+  userId                  String?
+  user                    User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  targetRole              String   @default("Senior Frontend Engineer")
+  readinessScore          Int      @default(78)
+  predictedTarget         Int      @default(91)
+  starMethodologyScore    Int      @default(72)
+  systemDesignScore       Int      @default(64)
+  behavioralScore         Int      @default(82)
+  velocityWpm             Int      @default(142)
+  fillerRate              Float    @default(1.8)
+  calibrationStatus       String   @default("Calibrated against 1,420 Senior Frontend candidates")
+  provenanceAssessment    String   @default("Session #SIM-8492 • Technical Deep-Dive")
+  provenanceDate          String   @default("March 15, 2025")
+  provenanceConfidence    Int      @default(94)
+  provenanceQuestionsCount Int     @default(5)
+  customTargetScore       Int?     @default(95)
+  customIntensity         String?  @default("intensive")
+  customFocusAreas        String[] @default([])
+  notes                   String?  @db.Text
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  vectors                 PlanPracticeVector[]
+  modules                 PlanPracticeModule[]
+  scheduleDays            PlanDaySchedule[]
+
+  @@map("ai_improvement_plans")
+}
+
+model PlanPracticeVector {
+  id             String            @id @default(cuid())
+  planId         String
+  plan           AiImprovementPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  name           String
+  baselineScore  Int
+  projectedScore Int
+  order          Int               @default(0)
+
+  @@map("plan_practice_vectors")
+}
+
+model PlanPracticeModule {
+  id             String            @id @default(cuid())
+  planId         String
+  plan           AiImprovementPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  title          String
+  category       String
+  recommendedMin Int
+  priority       String            // "CRITICAL FOCUS", "HIGH PRIORITY", "FOUNDATIONAL"
+  status         String            @default("pending") // "completed" | "in-progress" | "pending"
+  order          Int               @default(0)
+
+  @@map("plan_practice_modules")
+}
+
+model PlanDaySchedule {
+  id          String            @id @default(cuid())
+  planId      String
+  plan        AiImprovementPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  dayNumber   Int
+  title       String
+  focusArea   String
+  durationMin Int
+  drills      String[]          @default([])
+  status      String            @default("upcoming") // "completed" | "active" | "upcoming"
+  completed   Boolean           @default(false)
+  order       Int               @default(0)
+
+  @@map("plan_day_schedules")
+}
+
+// -------------------------------------------------------------
+// Question Performance Analytics Dossier
+// -------------------------------------------------------------
+model QuestionPerformanceDossier {
+  id               String   @id @default(cuid())
+  userId           String?
+  user             User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  questionNumber   Int      // 1, 2, 3, 4, 5
+  questionText     String
+  category         String   // "STAR Framework", "System Design", "Behavioral", etc.
+  score            Int
+  starScore        Int
+  clarityScore     Int
+  impactScore      Int
+  durationSec      Int
+  wpm              Int
+  fillerWords      Int
+  candidateAnswer  String   @db.Text
+  suggestedRewrite String   @db.Text
+  breakdown        Json?    @default("{}")
+  strengths        String[] @default([])
+  weaknesses       String[] @default([])
+  coachingNotes    String?  @db.Text
+  tags             String[] @default([])
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("question_performance_dossiers")
+}
+
 

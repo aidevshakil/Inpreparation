@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
-import { AiImprovementPlanHeader } from '../components/ai-improvement-plan/AiImprovementPlanHeader';
-import { AiPlanOverviewCard } from '../components/ai-improvement-plan/AiPlanOverviewCard';
-import { PriorityPracticeVectors } from '../components/ai-improvement-plan/PriorityPracticeVectors';
-import { DayScheduleAndProgression } from '../components/ai-improvement-plan/DayScheduleAndProgression';
-import { MultiDimensionalPracticeModules } from '../components/ai-improvement-plan/MultiDimensionalPracticeModules';
-import { AuditableDataSourcesFooter } from '../components/ai-improvement-plan/AuditableDataSourcesFooter';
+import { TargetedPlanHeader } from '../components/targeted-plan/TargetedPlanHeader';
+import { TargetedPlanMetricsBar } from '../components/targeted-plan/TargetedPlanMetricsBar';
+import { Day4DeliberatePracticeCard } from '../components/targeted-plan/Day4DeliberatePracticeCard';
+import { DiagnosticProvenanceCard } from '../components/targeted-plan/DiagnosticProvenanceCard';
+import { DeliberatePracticeTimeline } from '../components/targeted-plan/DeliberatePracticeTimeline';
+import { TargetLedgerAndTrajectoryGrid } from '../components/targeted-plan/TargetLedgerAndTrajectoryGrid';
+import { TargetedPlanFooter } from '../components/targeted-plan/TargetedPlanFooter';
+import { CustomizeTargetsModal } from '../components/targeted-plan/CustomizeTargetsModal';
+import { PrepNotesModal } from '../components/targeted-plan/PrepNotesModal';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import {
   ROLE_DATA_CATALOG,
   loadAiPlanState,
   saveAiPlanState,
   exportDossierDownload,
-  PracticeVector,
+  CustomTargetsConfig,
 } from '../services/aiPlanStore';
 import { useAuth } from '../context/AuthContext';
 
-interface AiImprovementPlanPageProps {
+interface TargetedPlanPageProps {
   onNavigateToHome?: () => void;
   onNavigateToDashboard?: () => void;
   onNavigateToProfile?: () => void;
@@ -31,12 +34,12 @@ interface AiImprovementPlanPageProps {
   onNavigateToSpeechAnalytics?: () => void;
   onNavigateToPresentationAnalytics?: () => void;
   onNavigateToQuestionPerformance?: () => void;
-  onNavigateToTargetedPlan?: () => void;
+  onNavigateToAiPlan42?: () => void;
   onNavigateToAssessment?: () => void;
   onNavigateToHistory?: () => void;
 }
 
-export const AiImprovementPlanPage: React.FC<AiImprovementPlanPageProps> = ({
+export const TargetedPlanPage: React.FC<TargetedPlanPageProps> = ({
   onNavigateToDashboard,
   onNavigateToProfile,
   onNavigateToCv,
@@ -49,7 +52,7 @@ export const AiImprovementPlanPage: React.FC<AiImprovementPlanPageProps> = ({
   onNavigateToSpeechAnalytics,
   onNavigateToPresentationAnalytics,
   onNavigateToQuestionPerformance,
-  onNavigateToTargetedPlan,
+  onNavigateToAiPlan42,
   onNavigateToAssessment,
   onNavigateToHistory,
 }) => {
@@ -60,7 +63,9 @@ export const AiImprovementPlanPage: React.FC<AiImprovementPlanPageProps> = ({
   // Dynamic Plan State
   const [planState, setPlanState] = useState(() => loadAiPlanState());
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
-  const [drillRole, setDrillRole] = useState('Staff L6 Remediation: Distributed Consensus & Clock Skew Under GC Pauses');
+  const [customizeModalOpen, setCustomizeModalOpen] = useState(false);
+  const [prepNotesModalOpen, setPrepNotesModalOpen] = useState(false);
+  const [drillRole, setDrillRole] = useState('');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -78,7 +83,7 @@ export const AiImprovementPlanPage: React.FC<AiImprovementPlanPageProps> = ({
 
   const activeDay =
     roleData.days.find((d) => d.dayNumber === planState.selectedDayNumber) ||
-    roleData.days[4] ||
+    roleData.days[3] ||
     roleData.days[0];
 
   const handleSelectNav = (key: NavItemKey) => {
@@ -95,45 +100,37 @@ export const AiImprovementPlanPage: React.FC<AiImprovementPlanPageProps> = ({
     else if (key === 'speech-analytics' && onNavigateToSpeechAnalytics) onNavigateToSpeechAnalytics();
     else if (key === 'presentation-analytics' && onNavigateToPresentationAnalytics) onNavigateToPresentationAnalytics();
     else if (key === 'question-performance' && onNavigateToQuestionPerformance) onNavigateToQuestionPerformance();
-    else if (key === 'improvement') setActiveNav('improvement');
+    else if (key === 'improvement' && onNavigateToAiPlan42) onNavigateToAiPlan42();
     else if (key === 'history' && onNavigateToHistory) onNavigateToHistory();
     else if (key === 'assessment' && onNavigateToAssessment) onNavigateToAssessment();
   };
 
-  const handleStartPractice = (practiceTitle?: string) => {
-    setDrillRole(
-      practiceTitle || `${activeDay.label}: ${activeDay.title} (${activeDay.simulationId})`
-    );
+  const handleStartSimulation = (roleTitle?: string) => {
+    const title =
+      roleTitle ||
+      `${activeDay.label}: ${activeDay.title} (${activeDay.simulationId})`;
+    setDrillRole(title);
     setSimulationModalOpen(true);
   };
 
-  const handleLaunchVector = (vec: PracticeVector) => {
-    setDrillRole(`${vec.tag}: ${vec.title} (${vec.recommendedDuration})`);
-    setSimulationModalOpen(true);
+  const handleSelectRole = (newRole: string) => {
+    setPlanState((prev) => ({ ...prev, selectedRole: newRole }));
+    showToast(`Calibrated syllabus dynamically for ${newRole}`);
   };
 
-  const handleLaunchDrill = (drillPromptOrTitle: string) => {
-    setDrillRole(drillPromptOrTitle);
-    setSimulationModalOpen(true);
-  };
-
-  const handleRoleSelect = (role: string) => {
-    setPlanState((prev) => ({ ...prev, selectedRole: role }));
-    showToast(`Calibrating improvement trajectory for ${role}...`);
-  };
-
-  const handleDaysSelect = (days: number) => {
+  const handleSelectDaysFilter = (days: number) => {
     setPlanState((prev) => ({ ...prev, daysHorizon: days as 7 | 14 | 30 }));
     showToast(`Switched plan horizon to ${days} Days`);
   };
 
-  const handleDaySelect = (dayNumber: number) => {
-    setPlanState((prev) => ({ ...prev, selectedDayNumber: dayNumber }));
-    showToast(`Day ${dayNumber} focus loaded: ${roleData.days.find((d) => d.dayNumber === dayNumber)?.title || ''}`);
+  const handleSelectDay = (dayNum: number) => {
+    setPlanState((prev) => ({ ...prev, selectedDayNumber: dayNum }));
+    showToast(`Viewing Day ${dayNum} curriculum: ${roleData.days.find((d) => d.dayNumber === dayNum)?.title || ''}`);
   };
 
-  const handleFacetChange = (facet: 'technical' | 'communication' | 'speech') => {
-    setPlanState((prev) => ({ ...prev, activeFacet: facet }));
+  const handleSaveCustomTargets = (newTargets: CustomTargetsConfig) => {
+    setPlanState((prev) => ({ ...prev, customTargets: newTargets }));
+    showToast(`Targets updated: Target Score ${newTargets.targetComposite.toFixed(1)} / Alert ${newTargets.dailyAlertTime}`);
   };
 
   const handleRefreshPlan = () => {
@@ -141,14 +138,13 @@ export const AiImprovementPlanPage: React.FC<AiImprovementPlanPageProps> = ({
       ...prev,
       lastUpdated: 'Updated just now',
       drillsCompleted: prev.drillsCompleted + 1,
-      totalPracticeMinutes: prev.totalPracticeMinutes + 15,
     }));
-    showToast('AI Remediation Plan refreshed dynamically against latest session telemetry.');
+    showToast('Remediation schedule recalculated dynamically against latest telemetry vectors.');
   };
 
-  const handleExportDossier = () => {
+  const handleExportPlan = () => {
     exportDossierDownload(planState, roleData);
-    showToast('Exporting AI Improvement Plan Dossier (JSON downloaded)...');
+    showToast('Exporting 7-Day Targeted Plan dossier (JSON downloaded)...');
   };
 
   return (
@@ -169,8 +165,8 @@ export const AiImprovementPlanPage: React.FC<AiImprovementPlanPageProps> = ({
             top: '20px',
             right: '24px',
             zIndex: 150,
-            backgroundColor: '#2e1065',
-            border: '1px solid #a855f7',
+            backgroundColor: '#1e1b4b',
+            border: '1px solid #6366f1',
             borderRadius: '12px',
             padding: '14px 20px',
             color: '#ffffff',
@@ -216,68 +212,78 @@ export const AiImprovementPlanPage: React.FC<AiImprovementPlanPageProps> = ({
               boxSizing: 'border-box',
             }}
           >
-            {/* Header with Breadcrumbs, Protocol Banner, Role Selector & Quick Actions */}
-            <AiImprovementPlanHeader
-              selectedRole={planState.selectedRole}
-              activeDays={planState.daysHorizon}
+            {/* Header with Breadcrumbs, Title, Filters, Role Selector and Primary CTA */}
+            <TargetedPlanHeader
+              onStartDay4Practice={() => handleStartSimulation()}
               onRefreshPlan={handleRefreshPlan}
-              onExportDossier={handleExportDossier}
-              onMockInterview={() => handleStartPractice('Full Staff L6 Simulation: Distributed Systems Capstone')}
-              onRoleSelect={handleRoleSelect}
-              onSelectDaysFilter={handleDaysSelect}
+              onExportPlan={handleExportPlan}
+              onNavigateToAiPlan42={onNavigateToAiPlan42}
+              onNavigateToDiagnostics={onNavigateToPerformance}
+              onNavigateToStudio={onNavigateToDashboard}
+              onSelectDaysFilter={handleSelectDaysFilter}
+              onSelectRole={handleSelectRole}
+              onMockInterview={() => handleStartSimulation('Full Staff L6 Simulation: Distributed Systems Capstone')}
             />
 
-            {/* Active Targeted Remediation Plan & Calibrated Profile Matrix */}
-            <AiPlanOverviewCard
-              roleData={roleData}
+            {/* 4 Metric Cards */}
+            <TargetedPlanMetricsBar
               daysHorizon={planState.daysHorizon}
+              roleData={roleData}
               drillsCompleted={planState.drillsCompleted}
               practiceMinutes={planState.totalPracticeMinutes}
-              lastUpdated={planState.lastUpdated}
-              onEditGoals={onNavigateToTargetedPlan || (() => showToast('Opening Target Goals (#43)...'))}
             />
 
-            {/* Priority Practice Vectors (Dynamic by Role) */}
-            <PriorityPracticeVectors
-              vectors={roleData.vectors}
-              onLaunchVector={handleLaunchVector}
-              onPracticeVector01={() => handleLaunchVector(roleData.vectors[0])}
-              onPracticeVector02={() => handleLaunchVector(roleData.vectors[1])}
-              onCalibrateFraming={() => handleLaunchVector(roleData.vectors[2])}
-            />
+            {/* 2 Column Row: Deliberate Practice & Diagnostic Provenance */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+                gap: '16px',
+                marginBottom: '24px',
+              }}
+            >
+              <Day4DeliberatePracticeCard
+                dayDetail={activeDay}
+                onLaunchSimulation={handleStartSimulation}
+                onInspectFlaggedQ4={onNavigateToQuestionPerformance}
+                onViewPrepNotes={() => setPrepNotesModalOpen(true)}
+              />
 
-            {/* Scheduled Active & Adaptive 7-Day Progression */}
-            <DayScheduleAndProgression
+              <DiagnosticProvenanceCard
+                onNavigateQuestionPerformance={onNavigateToQuestionPerformance}
+                onNavigateCommunication={onNavigateToCommunicationAnalytics}
+                onNavigateSpeech={onNavigateToSpeechAnalytics}
+              />
+            </div>
+
+            {/* Deliberate Practice Schedule (Days 1–7) */}
+            <DeliberatePracticeTimeline
               days={roleData.days}
-              activeDay={activeDay}
-              onSelectDay={handleDaySelect}
-              onStartPractice={handleStartPractice}
-              onViewBriefing={() => showToast(`Opening Session Briefing for ${activeDay.label} (#42P)...`)}
+              activeDayNumber={planState.selectedDayNumber}
+              onSelectDay={handleSelectDay}
+              onStartActiveDay={() => handleStartSimulation()}
             />
 
-            {/* Multi-Dimensional Practice Modules */}
-            <MultiDimensionalPracticeModules
-              modules={roleData.modules}
-              activeFacet={planState.activeFacet}
-              onFacetChange={handleFacetChange}
-              onLaunchDrill={handleLaunchDrill}
+            {/* Target Ledger and Trajectory Comparison */}
+            <TargetLedgerAndTrajectoryGrid
+              customTargets={planState.customTargets}
+              roleData={roleData}
+              onCustomizeTargets={() => setCustomizeModalOpen(true)}
             />
 
-            {/* Auditable Data Sources (Traceable Diagnostic Network) */}
-            <AuditableDataSourcesFooter
-              onNavigateQuestionPerformance={onNavigateToQuestionPerformance}
-              onNavigatePresentation={onNavigateToPresentationAnalytics}
-              onNavigateSpeech={onNavigateToSpeechAnalytics}
+            {/* Footer with AES-256 Vault & Cross Diagnostic Links */}
+            <TargetedPlanFooter
+              onNavigatePerformance={onNavigateToPerformance}
               onNavigateCommunication={onNavigateToCommunicationAnalytics}
-              onNavigateSkill={onNavigateToSkillAnalytics}
-              onNavigateScore={onNavigateToPerformance}
-              onNavigateHistory={onNavigateToHistory}
+              onNavigateSpeech={onNavigateToSpeechAnalytics}
+              onNavigatePresentation={onNavigateToPresentationAnalytics}
+              onNavigateQuestionReview={onNavigateToQuestionPerformance}
             />
           </div>
         </div>
       </div>
 
-      {/* Live Simulation Modal for Drill Execution */}
+      {/* Live Simulation Modal */}
       {simulationModalOpen && (
         <LiveSimulationModal
           isOpen={simulationModalOpen}
@@ -285,8 +291,27 @@ export const AiImprovementPlanPage: React.FC<AiImprovementPlanPageProps> = ({
           initialRole={drillRole}
         />
       )}
+
+      {/* Customize Targets Modal */}
+      {customizeModalOpen && (
+        <CustomizeTargetsModal
+          isOpen={customizeModalOpen}
+          onClose={() => setCustomizeModalOpen(false)}
+          initialTargets={planState.customTargets}
+          onSave={handleSaveCustomTargets}
+        />
+      )}
+
+      {/* Prep Notes Modal */}
+      {prepNotesModalOpen && (
+        <PrepNotesModal
+          isOpen={prepNotesModalOpen}
+          onClose={() => setPrepNotesModalOpen(false)}
+          dayDetail={activeDay}
+        />
+      )}
     </div>
   );
 };
 
-export default AiImprovementPlanPage;
+export default TargetedPlanPage;
