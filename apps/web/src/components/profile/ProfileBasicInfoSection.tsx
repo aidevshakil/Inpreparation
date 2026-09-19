@@ -8,6 +8,7 @@ interface ProfileBasicInfoProps {
   phone: string;
   location: string;
   language: string;
+  isEmailVerified?: boolean;
   onChangeFullName: (val: string) => void;
   onChangePhone: (val: string) => void;
   onChangeLocation: (val: string) => void;
@@ -22,6 +23,7 @@ export const ProfileBasicInfoSection: React.FC<ProfileBasicInfoProps> = ({
   phone,
   location,
   language,
+  isEmailVerified = false,
   onChangeFullName,
   onChangePhone,
   onChangeLocation,
@@ -70,9 +72,15 @@ export const ProfileBasicInfoSection: React.FC<ProfileBasicInfoProps> = ({
               <div className="flex items-center gap-2">
                 <Mail size={14} style={{ color: 'var(--text-muted)' }} />
                 <span style={{ color: 'var(--text-main)' }}>{email}</span>
-                <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: 'var(--color-success)', borderColor: 'rgba(16, 185, 129, 0.2)' }}>
-                  <CheckCircle2 size={10} /> Verified
-                </span>
+                {isEmailVerified ? (
+                  <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: 'var(--color-success)', borderColor: 'rgba(16, 185, 129, 0.2)' }}>
+                    <CheckCircle2 size={10} /> Verified
+                  </span>
+                ) : (
+                  <span className="badge" style={{ backgroundColor: 'rgba(251, 191, 36, 0.1)', color: '#fbbf24', borderColor: 'rgba(251, 191, 36, 0.25)' }}>
+                    Unverified
+                  </span>
+                )}
               </div>
             </div>
 
@@ -130,9 +138,15 @@ export const ProfileBasicInfoSection: React.FC<ProfileBasicInfoProps> = ({
               <div className="flex items-center justify-between" style={{ marginBottom: '6px' }}>
                 <label className="label" style={{ margin: 0 }}>Email Address <span style={{ color: 'var(--color-error)' }}>*</span></label>
                 <div className="flex items-center gap-2">
-                  <span className="badge" style={{ padding: '2px 6px', fontSize: '10px', backgroundColor: 'rgba(16, 185, 129, 0.1)', color: 'var(--color-success)', borderColor: 'rgba(16, 185, 129, 0.2)' }}>
-                    <CheckCircle2 size={10} /> Verified
-                  </span>
+                  {isEmailVerified ? (
+                    <span className="badge" style={{ padding: '2px 6px', fontSize: '10px', backgroundColor: 'rgba(16, 185, 129, 0.1)', color: 'var(--color-success)', borderColor: 'rgba(16, 185, 129, 0.2)' }}>
+                      <CheckCircle2 size={10} /> Verified
+                    </span>
+                  ) : (
+                    <span className="badge" style={{ padding: '2px 6px', fontSize: '10px', backgroundColor: 'rgba(251, 191, 36, 0.1)', color: '#fbbf24', borderColor: 'rgba(251, 191, 36, 0.25)' }}>
+                      Unverified
+                    </span>
+                  )}
                   <span style={{ fontSize: '10px', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '2px' }}>
                     <Lock size={10} /> Protected
                   </span>

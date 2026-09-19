@@ -298,6 +298,9 @@ exports.Prisma.CandidateProfileScalarFieldEnum = {
   interviewFocusAreas: 'interviewFocusAreas',
   difficulty: 'difficulty',
   careerGoal: 'careerGoal',
+  allowSessionRecording: 'allowSessionRecording',
+  allowAnonymizedTelemetry: 'allowAnonymizedTelemetry',
+  allowAiTrainingUsage: 'allowAiTrainingUsage',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

@@ -11,7 +11,7 @@ profileRouter.get('/:userId', async (req: Request, res: Response) => {
       where: { userId },
       include: {
         user: {
-          select: { name: true, email: true },
+          select: { name: true, email: true, avatarUrl: true, isEmailVerified: true },
         },
       },
     });
@@ -48,8 +48,16 @@ profileRouter.put('/:userId', async (req: Request, res: Response) => {
       interviewFocusAreas,
       difficulty,
       careerGoal,
-      name // optional user name update
+      allowSessionRecording,
+      allowAnonymizedTelemetry,
+      allowAiTrainingUsage,
+      name, // optional user name update
+      avatarUrl, // optional user avatar update (data URL or hosted URL)
     } = req.body;
+
+    const userUpdates: Record<string, any> = {};
+    if (typeof name === 'string') userUpdates.name = name;
+    if (typeof avatarUrl === 'string') userUpdates.avatarUrl = avatarUrl;
 
     const user = await prisma.user.upsert({
       where: { id: userId },
@@ -57,8 +65,9 @@ profileRouter.put('/:userId', async (req: Request, res: Response) => {
         id: userId,
         email: `candidate-${userId}@example.com`,
         name: name || 'Anonymous',
+        avatarUrl: avatarUrl || null,
       },
-      update: name ? { name } : {},
+      update: userUpdates,
     });
 
     const profile = await prisma.candidateProfile.upsert({
@@ -81,6 +90,9 @@ profileRouter.put('/:userId', async (req: Request, res: Response) => {
         interviewFocusAreas: interviewFocusAreas || [],
         difficulty: difficulty || 'advanced',
         careerGoal,
+        allowSessionRecording: allowSessionRecording ?? true,
+        allowAnonymizedTelemetry: allowAnonymizedTelemetry ?? true,
+        allowAiTrainingUsage: allowAiTrainingUsage ?? false,
       },
       update: {
         phone,
@@ -99,7 +111,11 @@ profileRouter.put('/:userId', async (req: Request, res: Response) => {
         interviewFocusAreas: interviewFocusAreas || [],
         difficulty,
         careerGoal,
+        ...(allowSessionRecording !== undefined && { allowSessionRecording }),
+        ...(allowAnonymizedTelemetry !== undefined && { allowAnonymizedTelemetry }),
+        ...(allowAiTrainingUsage !== undefined && { allowAiTrainingUsage }),
       },
+      include: { user: { select: { name: true, email: true, avatarUrl: true, isEmailVerified: true } } },
     });
 
     res.json(profile);

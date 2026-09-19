@@ -15,6 +15,10 @@ import { ProfileHowItHelpsCard } from '../components/profile/ProfileHowItHelpsCa
 import { DashboardFooter } from '../components/dashboard/DashboardFooter';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { Check, AlertTriangle, Loader2, Save } from 'lucide-react';
+import { getCandidateProfile, saveCandidateProfile, getLatestCvAnalysis } from '../services/api';
+import { ProfilePrivacyModal, PrivacySettings } from '../components/profile/ProfilePrivacyModal';
+
+const MAX_AVATAR_BYTES = 2 * 1024 * 1024; // 2 MB
 
 interface MyProfilePageProps {
   onNavigateToHome?: () => void;
@@ -41,7 +45,6 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
   
   // Form State
   const [fullName, setFullName] = useState('');
-  const [email] = useState('');
   const [phone, setPhone] = useState('');
   const [location, setLocation] = useState('');
   const [language, setLanguage] = useState('en-US');
@@ -64,41 +67,132 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
   const [careerGoal, setCareerGoal] = useState('');
 
   const userId = user?.id || '';
+
+  const [connectedCv, setConnectedCv] = useState<{ fileName: string; fileSize: string; parsedDate: string }>({
+    fileName: '',
+    fileSize: '',
+    parsedDate: '',
+  });
+
+  const [avatarUrl, setAvatarUrl] = useState<string>('');
+  const [isEmailVerified, setIsEmailVerified] = useState<boolean>(false);
+  const [avatarError, setAvatarError] = useState<string | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
+  const [privacySettings, setPrivacySettings] = useState<PrivacySettings>({
+    allowSessionRecording: true,
+    allowAnonymizedTelemetry: true,
+    allowAiTrainingUsage: false,
+  });
+
   const fetchProfile = useCallback(async () => {
-    try {
-      if (!userId) return;
-      const res = await fetch(`http://localhost:5000/api/profile/${userId}`);
-      if (!res.ok) throw new Error('Failed to fetch');
-      const data = await res.json();
-      
-      if (data.user) {
-        setFullName(data.user.name || 'Anonymous');
-      }
-      if (data.phone) setPhone(data.phone);
-      if (data.location) setLocation(data.location);
-      if (data.language) setLanguage(data.language);
-      if (data.currentRole) setCurrentRole(data.currentRole);
-      if (data.targetRole) setTargetRole(data.targetRole);
-      if (data.seniority) setSeniority(data.seniority);
-      if (data.yearsOfExperience) setYearsOfExperience(data.yearsOfExperience.toString());
-      if (data.currentIndustry) setCurrentIndustry(data.currentIndustry);
-      if (data.targetIndustry) setTargetIndustry(data.targetIndustry);
-      if (data.skills?.length > 0) setSkills(data.skills);
-      if (data.skillDepths?.length > 0) setSkillDepths(data.skillDepths);
-      if (data.jobTypes?.length > 0) setJobTypes(data.jobTypes);
-      if (data.workModalities?.length > 0) setWorkModalities(data.workModalities);
-      if (data.interviewFocusAreas?.length > 0) setInterviewFocusAreas(data.interviewFocusAreas);
-      if (data.difficulty) setDifficulty(data.difficulty as SimulationDifficulty);
-      if (data.careerGoal) setCareerGoal(data.careerGoal);
-      
-    } catch (err) {
-      console.error('Failed to fetch profile', err);
+    if (!userId) return;
+    const data = await getCandidateProfile(userId);
+    if (!data) {
+      // no profile yet — leave fields blank, prefill from auth user
+      if (user?.name) setFullName(user.name);
+      return;
     }
-  }, [userId]);
+
+    if (data.user?.name) setFullName(data.user.name);
+    else if (user?.name) setFullName(user.name);
+
+    if (data.user?.avatarUrl) setAvatarUrl(data.user.avatarUrl);
+    else if (user?.avatarUrl) setAvatarUrl(user.avatarUrl);
+
+    setIsEmailVerified(Boolean(data.user?.isEmailVerified ?? user?.isEmailVerified));
+
+    if (typeof data.allowSessionRecording === 'boolean' ||
+        typeof data.allowAnonymizedTelemetry === 'boolean' ||
+        typeof data.allowAiTrainingUsage === 'boolean') {
+      setPrivacySettings({
+        allowSessionRecording: data.allowSessionRecording ?? true,
+        allowAnonymizedTelemetry: data.allowAnonymizedTelemetry ?? true,
+        allowAiTrainingUsage: data.allowAiTrainingUsage ?? false,
+      });
+    }
+
+    if (data.phone) setPhone(data.phone);
+    if (data.location) setLocation(data.location);
+    if (data.language) setLanguage(data.language);
+    if (data.currentRole) setCurrentRole(data.currentRole);
+    if (data.targetRole) setTargetRole(data.targetRole);
+    if (data.seniority) setSeniority(data.seniority);
+    if (data.yearsOfExperience != null) setYearsOfExperience(String(data.yearsOfExperience));
+    if (data.currentIndustry) setCurrentIndustry(data.currentIndustry);
+    if (data.targetIndustry) setTargetIndustry(data.targetIndustry);
+    if (data.skills?.length > 0) setSkills(data.skills);
+    if (data.skillDepths?.length > 0) setSkillDepths(data.skillDepths);
+    if (data.jobTypes?.length > 0) setJobTypes(data.jobTypes);
+    if (data.workModalities?.length > 0) setWorkModalities(data.workModalities);
+    if (data.interviewFocusAreas?.length > 0) setInterviewFocusAreas(data.interviewFocusAreas);
+    if (data.difficulty) setDifficulty(data.difficulty as SimulationDifficulty);
+    if (data.careerGoal) setCareerGoal(data.careerGoal);
+  }, [userId, user?.name]);
 
   useEffect(() => {
     fetchProfile();
   }, [fetchProfile]);
+
+  useEffect(() => {
+    if (!userId) return;
+    let cancelled = false;
+    getLatestCvAnalysis(userId).then((res: any) => {
+      if (cancelled) return;
+      const analysis = res?.analysis;
+      if (!analysis) return;
+      const sizeKb = analysis.fileSize ? Math.round(analysis.fileSize / 1024) : 0;
+      setConnectedCv({
+        fileName: analysis.fileName || '',
+        fileSize: sizeKb ? `${sizeKb} KB` : '',
+        parsedDate: analysis.createdAt
+          ? new Date(analysis.createdAt).toLocaleDateString('en-US', {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+            })
+          : '',
+      });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [userId]);
+
+  // Real completion % based on populated fields (12 tracked fields)
+  const completionPercent = React.useMemo(() => {
+    const fields: Array<boolean> = [
+      Boolean(fullName),
+      Boolean(phone),
+      Boolean(location),
+      Boolean(currentRole),
+      Boolean(targetRole),
+      Boolean(seniority),
+      Boolean(yearsOfExperience && yearsOfExperience !== '0'),
+      Boolean(currentIndustry),
+      Boolean(targetIndustry),
+      skills.length > 0,
+      jobTypes.length > 0,
+      Boolean(careerGoal),
+    ];
+    const filled = fields.filter(Boolean).length;
+    return Math.round((filled / fields.length) * 100);
+  }, [fullName, phone, location, currentRole, targetRole, seniority, yearsOfExperience, currentIndustry, targetIndustry, skills, jobTypes, careerGoal]);
+
+  const nextMissingField = React.useMemo(() => {
+    if (!fullName) return 'Add Full Name';
+    if (!phone) return 'Add Phone Number';
+    if (!location) return 'Add Location';
+    if (!currentRole) return 'Add Current Role';
+    if (!targetRole) return 'Add Target Role';
+    if (!seniority) return 'Set Seniority';
+    if (!currentIndustry) return 'Add Current Industry';
+    if (skills.length === 0) return 'Add Technical Skills';
+    if (jobTypes.length === 0) return 'Pick Job Types';
+    if (!careerGoal) return 'Write Career Goal';
+    return 'Profile Complete';
+  }, [fullName, phone, location, currentRole, targetRole, seniority, currentIndustry, skills, jobTypes, careerGoal]);
 
   const handleAddSkill = (skill: string) => {
     if (!skills.includes(skill)) {
@@ -144,35 +238,37 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
     setSimulatorState('unsaved');
   };
 
+  const buildProfilePayload = (overrides: Record<string, any> = {}) => ({
+    name: fullName,
+    avatarUrl,
+    phone,
+    location,
+    language,
+    currentRole,
+    targetRole,
+    seniority,
+    yearsOfExperience,
+    currentIndustry,
+    targetIndustry,
+    skills,
+    skillDepths,
+    jobTypes,
+    workModalities,
+    interviewFocusAreas,
+    difficulty,
+    careerGoal,
+    ...privacySettings,
+    ...overrides,
+  });
+
   const handleSave = async () => {
+    if (!userId) {
+      setSimulatorState('api_error');
+      return;
+    }
     setSimulatorState('saving');
     try {
-      if (!userId) return;
-      const res = await fetch(`http://localhost:5000/api/profile/${userId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: fullName,
-          phone,
-          location,
-          language,
-          currentRole,
-          targetRole,
-          seniority,
-          yearsOfExperience,
-          currentIndustry,
-          targetIndustry,
-          skills,
-          skillDepths,
-          jobTypes,
-          workModalities,
-          interviewFocusAreas,
-          difficulty,
-          careerGoal,
-        }),
-      });
-      if (!res.ok) throw new Error('Failed to save');
-      
+      await saveCandidateProfile(userId, buildProfilePayload());
       setSimulatorState('saved');
       setIsEditing(false);
       setTimeout(() => setSimulatorState('default'), 3000);
@@ -180,6 +276,56 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
       console.error('Failed to save profile', err);
       setSimulatorState('api_error');
     }
+  };
+
+  const openFilePicker = () => {
+    setAvatarError(null);
+    fileInputRef.current?.click();
+  };
+
+  const handleAvatarFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = ''; // allow re-selecting the same file
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      setAvatarError('Please choose an image file (JPG, PNG, or WebP).');
+      return;
+    }
+    if (file.size > MAX_AVATAR_BYTES) {
+      setAvatarError('Image is larger than 2 MB. Please choose a smaller file.');
+      return;
+    }
+    const dataUrl = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = () => reject(new Error('Could not read file'));
+      reader.readAsDataURL(file);
+    });
+
+    setAvatarUrl(dataUrl);
+    if (!userId) return;
+    try {
+      await saveCandidateProfile(userId, buildProfilePayload({ avatarUrl: dataUrl }));
+    } catch (err: any) {
+      setAvatarError(err?.message || 'Failed to save photo');
+    }
+  };
+
+  const handleRemoveAvatar = async () => {
+    setAvatarError(null);
+    setAvatarUrl('');
+    if (!userId) return;
+    try {
+      await saveCandidateProfile(userId, buildProfilePayload({ avatarUrl: '' }));
+    } catch (err: any) {
+      setAvatarError(err?.message || 'Failed to remove photo');
+    }
+  };
+
+  const handleSavePrivacy = async (newSettings: PrivacySettings) => {
+    if (!userId) throw new Error('Not signed in');
+    setPrivacySettings(newSettings);
+    await saveCandidateProfile(userId, buildProfilePayload({ ...newSettings }));
   };
 
   const handleSelectNav = (key: NavItemKey) => {
@@ -211,8 +357,8 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
           onSelectItem={handleSelectNav}
           collapsed={sidebarCollapsed}
           onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
-          creditsRemaining={78}
-          totalCredits={100}
+          creditsRemaining={user?.creditsRemaining ?? 840}
+          totalCredits={user?.totalCredits ?? 1000}
         />
 
         {/* Right Content Column */}
@@ -377,18 +523,45 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
               </div>
             )}
 
+            {/* Hidden file input driving photo upload */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/png,image/jpeg,image/webp"
+              onChange={handleAvatarFileChange}
+              style={{ display: 'none' }}
+            />
+
+            {avatarError && (
+              <div
+                style={{
+                  padding: '10px 14px',
+                  background: 'rgba(244, 63, 94, 0.1)',
+                  border: '1px solid rgba(244, 63, 94, 0.25)',
+                  borderRadius: '10px',
+                  color: '#fb7185',
+                  fontSize: '0.78rem',
+                  marginBottom: '12px',
+                }}
+              >
+                {avatarError}
+              </div>
+            )}
+
             {/* Profile Hero Overview Card */}
             <ProfileHeroCard
-              name={fullName || 'New User'}
-              email={email || user?.email || ''}
+              name={fullName || user?.name || 'New User'}
+              email={user?.email || ''}
               currentRole={currentRole || 'No Role Set'}
               targetRole={targetRole || 'No Target Role'}
               experience={`${seniority ? seniority.charAt(0).toUpperCase() + seniority.slice(1) : 'Unknown'} (${yearsOfExperience || 0} yrs exp)`}
-              completionPercent={10}
-              remainingItem="Complete Basic Info"
-              onUploadPhoto={() => alert('Photo upload dialog...')}
-              onReplacePhoto={() => alert('Replace photo...')}
-              onRemovePhoto={() => alert('Photo removed.')}
+              completionPercent={completionPercent}
+              remainingItem={nextMissingField}
+              avatarUrl={avatarUrl || null}
+              isEmailVerified={isEmailVerified}
+              onUploadPhoto={openFilePicker}
+              onReplacePhoto={openFilePicker}
+              onRemovePhoto={handleRemoveAvatar}
             />
 
             {/* Main Form and Sticky Sidebar Two-Column Layout */}
@@ -406,7 +579,8 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
                 <ProfileBasicInfoSection
                   isEditing={isEditing}
                   fullName={fullName}
-                  email={email}
+                  email={user?.email || ''}
+                  isEmailVerified={isEmailVerified}
                   phone={phone}
                   location={location}
                   language={language}
@@ -497,16 +671,16 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
               {/* Right Column: Sticky Sidebar Cards */}
               <div style={{ position: 'sticky', top: '120px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 <ProfileCompletionSidebarCard
-                  percentage={10}
+                  percentage={completionPercent}
                   onCompleteMissing={() => setAssessmentModalOpen(true)}
                 />
 
                 <ProfileConnectedCvCard
-                  fileName=""
-                  fileSize=""
-                  parsedDate=""
-                  onViewCv={() => alert('Opening CV preview viewer...')}
-                  onUpdateCv={() => alert('Opening CV upload modal...')}
+                  fileName={connectedCv.fileName}
+                  fileSize={connectedCv.fileSize}
+                  parsedDate={connectedCv.parsedDate}
+                  onViewCv={onNavigateToCv ?? (() => {})}
+                  onUpdateCv={onNavigateToCv ?? (() => {})}
                 />
 
                 <ProfileCareerAssessmentCard
@@ -514,7 +688,7 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
                 />
 
                 <ProfileHowItHelpsCard
-                  onManagePrivacy={() => alert('Privacy & telemetry settings modal...')}
+                  onManagePrivacy={() => setPrivacyModalOpen(true)}
                 />
               </div>
             </div>
@@ -533,6 +707,13 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
           initialRole="System Concurrency & Architecture"
         />
       )}
+
+      <ProfilePrivacyModal
+        isOpen={privacyModalOpen}
+        initialSettings={privacySettings}
+        onClose={() => setPrivacyModalOpen(false)}
+        onSave={handleSavePrivacy}
+      />
     </div>
   );
 };

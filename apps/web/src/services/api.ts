@@ -563,7 +563,35 @@ export async function updatePlanNotesInDb(planId: string, notes: string) {
 }
 
 // -------------------------------------------------------------
-// 11. Question Performance Dossier (PostgreSQL)
+// 12. Candidate Profile (PostgreSQL)
+// -------------------------------------------------------------
+export async function getCandidateProfile(userId: string) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/profile/${userId}`);
+    if (response.status === 404) return null;
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Failed to fetch candidate profile:', error);
+    return null;
+  }
+}
+
+export async function saveCandidateProfile(userId: string, payload: Record<string, any>) {
+  const response = await fetch(`${NODE_BACKEND_URL}/profile/${userId}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.error || `Failed to save profile: ${response.statusText}`);
+  }
+  return await response.json();
+}
+
+// -------------------------------------------------------------
+// 13. Question Performance Dossier (PostgreSQL)
 // -------------------------------------------------------------
 export async function getQuestionPerformanceDossiers(userId?: string) {
   try {

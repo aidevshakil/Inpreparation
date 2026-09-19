@@ -251,6 +251,11 @@ model CandidateProfile {
   difficulty          String   @default("advanced")
   careerGoal          String?
 
+  // Privacy & telemetry preferences
+  allowSessionRecording    Boolean @default(true)
+  allowAnonymizedTelemetry Boolean @default(true)
+  allowAiTrainingUsage     Boolean @default(false)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

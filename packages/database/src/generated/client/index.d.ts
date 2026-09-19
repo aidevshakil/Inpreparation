@@ -15203,6 +15203,9 @@ export namespace Prisma {
     targetIndustry: string | null
     difficulty: string | null
     careerGoal: string | null
+    allowSessionRecording: boolean | null
+    allowAnonymizedTelemetry: boolean | null
+    allowAiTrainingUsage: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -15221,6 +15224,9 @@ export namespace Prisma {
     targetIndustry: string | null
     difficulty: string | null
     careerGoal: string | null
+    allowSessionRecording: boolean | null
+    allowAnonymizedTelemetry: boolean | null
+    allowAiTrainingUsage: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -15244,6 +15250,9 @@ export namespace Prisma {
     interviewFocusAreas: number
     difficulty: number
     careerGoal: number
+    allowSessionRecording: number
+    allowAnonymizedTelemetry: number
+    allowAiTrainingUsage: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -15272,6 +15281,9 @@ export namespace Prisma {
     targetIndustry?: true
     difficulty?: true
     careerGoal?: true
+    allowSessionRecording?: true
+    allowAnonymizedTelemetry?: true
+    allowAiTrainingUsage?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -15290,6 +15302,9 @@ export namespace Prisma {
     targetIndustry?: true
     difficulty?: true
     careerGoal?: true
+    allowSessionRecording?: true
+    allowAnonymizedTelemetry?: true
+    allowAiTrainingUsage?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -15313,6 +15328,9 @@ export namespace Prisma {
     interviewFocusAreas?: true
     difficulty?: true
     careerGoal?: true
+    allowSessionRecording?: true
+    allowAnonymizedTelemetry?: true
+    allowAiTrainingUsage?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -15423,6 +15441,9 @@ export namespace Prisma {
     interviewFocusAreas: string[]
     difficulty: string
     careerGoal: string | null
+    allowSessionRecording: boolean
+    allowAnonymizedTelemetry: boolean
+    allowAiTrainingUsage: boolean
     createdAt: Date
     updatedAt: Date
     _count: CandidateProfileCountAggregateOutputType | null
@@ -15465,6 +15486,9 @@ export namespace Prisma {
     interviewFocusAreas?: boolean
     difficulty?: boolean
     careerGoal?: boolean
+    allowSessionRecording?: boolean
+    allowAnonymizedTelemetry?: boolean
+    allowAiTrainingUsage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -15489,6 +15513,9 @@ export namespace Prisma {
     interviewFocusAreas?: boolean
     difficulty?: boolean
     careerGoal?: boolean
+    allowSessionRecording?: boolean
+    allowAnonymizedTelemetry?: boolean
+    allowAiTrainingUsage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -15513,6 +15540,9 @@ export namespace Prisma {
     interviewFocusAreas?: boolean
     difficulty?: boolean
     careerGoal?: boolean
+    allowSessionRecording?: boolean
+    allowAnonymizedTelemetry?: boolean
+    allowAiTrainingUsage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -15548,6 +15578,9 @@ export namespace Prisma {
       interviewFocusAreas: string[]
       difficulty: string
       careerGoal: string | null
+      allowSessionRecording: boolean
+      allowAnonymizedTelemetry: boolean
+      allowAiTrainingUsage: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["candidateProfile"]>
@@ -15962,6 +15995,9 @@ export namespace Prisma {
     readonly interviewFocusAreas: FieldRef<"CandidateProfile", 'String[]'>
     readonly difficulty: FieldRef<"CandidateProfile", 'String'>
     readonly careerGoal: FieldRef<"CandidateProfile", 'String'>
+    readonly allowSessionRecording: FieldRef<"CandidateProfile", 'Boolean'>
+    readonly allowAnonymizedTelemetry: FieldRef<"CandidateProfile", 'Boolean'>
+    readonly allowAiTrainingUsage: FieldRef<"CandidateProfile", 'Boolean'>
     readonly createdAt: FieldRef<"CandidateProfile", 'DateTime'>
     readonly updatedAt: FieldRef<"CandidateProfile", 'DateTime'>
   }
@@ -22013,6 +22049,9 @@ export namespace Prisma {
     interviewFocusAreas: 'interviewFocusAreas',
     difficulty: 'difficulty',
     careerGoal: 'careerGoal',
+    allowSessionRecording: 'allowSessionRecording',
+    allowAnonymizedTelemetry: 'allowAnonymizedTelemetry',
+    allowAiTrainingUsage: 'allowAiTrainingUsage',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -23279,6 +23318,9 @@ export namespace Prisma {
     interviewFocusAreas?: StringNullableListFilter<"CandidateProfile">
     difficulty?: StringFilter<"CandidateProfile"> | string
     careerGoal?: StringNullableFilter<"CandidateProfile"> | string | null
+    allowSessionRecording?: BoolFilter<"CandidateProfile"> | boolean
+    allowAnonymizedTelemetry?: BoolFilter<"CandidateProfile"> | boolean
+    allowAiTrainingUsage?: BoolFilter<"CandidateProfile"> | boolean
     createdAt?: DateTimeFilter<"CandidateProfile"> | Date | string
     updatedAt?: DateTimeFilter<"CandidateProfile"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
@@ -23303,6 +23345,9 @@ export namespace Prisma {
     interviewFocusAreas?: SortOrder
     difficulty?: SortOrder
     careerGoal?: SortOrderInput | SortOrder
+    allowSessionRecording?: SortOrder
+    allowAnonymizedTelemetry?: SortOrder
+    allowAiTrainingUsage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -23330,6 +23375,9 @@ export namespace Prisma {
     interviewFocusAreas?: StringNullableListFilter<"CandidateProfile">
     difficulty?: StringFilter<"CandidateProfile"> | string
     careerGoal?: StringNullableFilter<"CandidateProfile"> | string | null
+    allowSessionRecording?: BoolFilter<"CandidateProfile"> | boolean
+    allowAnonymizedTelemetry?: BoolFilter<"CandidateProfile"> | boolean
+    allowAiTrainingUsage?: BoolFilter<"CandidateProfile"> | boolean
     createdAt?: DateTimeFilter<"CandidateProfile"> | Date | string
     updatedAt?: DateTimeFilter<"CandidateProfile"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
@@ -23354,6 +23402,9 @@ export namespace Prisma {
     interviewFocusAreas?: SortOrder
     difficulty?: SortOrder
     careerGoal?: SortOrderInput | SortOrder
+    allowSessionRecording?: SortOrder
+    allowAnonymizedTelemetry?: SortOrder
+    allowAiTrainingUsage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CandidateProfileCountOrderByAggregateInput
@@ -23385,6 +23436,9 @@ export namespace Prisma {
     interviewFocusAreas?: StringNullableListFilter<"CandidateProfile">
     difficulty?: StringWithAggregatesFilter<"CandidateProfile"> | string
     careerGoal?: StringNullableWithAggregatesFilter<"CandidateProfile"> | string | null
+    allowSessionRecording?: BoolWithAggregatesFilter<"CandidateProfile"> | boolean
+    allowAnonymizedTelemetry?: BoolWithAggregatesFilter<"CandidateProfile"> | boolean
+    allowAiTrainingUsage?: BoolWithAggregatesFilter<"CandidateProfile"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"CandidateProfile"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"CandidateProfile"> | Date | string
   }
@@ -25047,6 +25101,9 @@ export namespace Prisma {
     interviewFocusAreas?: CandidateProfileCreateinterviewFocusAreasInput | string[]
     difficulty?: string
     careerGoal?: string | null
+    allowSessionRecording?: boolean
+    allowAnonymizedTelemetry?: boolean
+    allowAiTrainingUsage?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutCandidateProfileInput
@@ -25071,6 +25128,9 @@ export namespace Prisma {
     interviewFocusAreas?: CandidateProfileCreateinterviewFocusAreasInput | string[]
     difficulty?: string
     careerGoal?: string | null
+    allowSessionRecording?: boolean
+    allowAnonymizedTelemetry?: boolean
+    allowAiTrainingUsage?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -25093,6 +25153,9 @@ export namespace Prisma {
     interviewFocusAreas?: CandidateProfileUpdateinterviewFocusAreasInput | string[]
     difficulty?: StringFieldUpdateOperationsInput | string
     careerGoal?: NullableStringFieldUpdateOperationsInput | string | null
+    allowSessionRecording?: BoolFieldUpdateOperationsInput | boolean
+    allowAnonymizedTelemetry?: BoolFieldUpdateOperationsInput | boolean
+    allowAiTrainingUsage?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutCandidateProfileNestedInput
@@ -25117,6 +25180,9 @@ export namespace Prisma {
     interviewFocusAreas?: CandidateProfileUpdateinterviewFocusAreasInput | string[]
     difficulty?: StringFieldUpdateOperationsInput | string
     careerGoal?: NullableStringFieldUpdateOperationsInput | string | null
+    allowSessionRecording?: BoolFieldUpdateOperationsInput | boolean
+    allowAnonymizedTelemetry?: BoolFieldUpdateOperationsInput | boolean
+    allowAiTrainingUsage?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25140,6 +25206,9 @@ export namespace Prisma {
     interviewFocusAreas?: CandidateProfileCreateinterviewFocusAreasInput | string[]
     difficulty?: string
     careerGoal?: string | null
+    allowSessionRecording?: boolean
+    allowAnonymizedTelemetry?: boolean
+    allowAiTrainingUsage?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -25162,6 +25231,9 @@ export namespace Prisma {
     interviewFocusAreas?: CandidateProfileUpdateinterviewFocusAreasInput | string[]
     difficulty?: StringFieldUpdateOperationsInput | string
     careerGoal?: NullableStringFieldUpdateOperationsInput | string | null
+    allowSessionRecording?: BoolFieldUpdateOperationsInput | boolean
+    allowAnonymizedTelemetry?: BoolFieldUpdateOperationsInput | boolean
+    allowAiTrainingUsage?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25185,6 +25257,9 @@ export namespace Prisma {
     interviewFocusAreas?: CandidateProfileUpdateinterviewFocusAreasInput | string[]
     difficulty?: StringFieldUpdateOperationsInput | string
     careerGoal?: NullableStringFieldUpdateOperationsInput | string | null
+    allowSessionRecording?: BoolFieldUpdateOperationsInput | boolean
+    allowAnonymizedTelemetry?: BoolFieldUpdateOperationsInput | boolean
+    allowAiTrainingUsage?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -26724,6 +26799,9 @@ export namespace Prisma {
     interviewFocusAreas?: SortOrder
     difficulty?: SortOrder
     careerGoal?: SortOrder
+    allowSessionRecording?: SortOrder
+    allowAnonymizedTelemetry?: SortOrder
+    allowAiTrainingUsage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -26746,6 +26824,9 @@ export namespace Prisma {
     targetIndustry?: SortOrder
     difficulty?: SortOrder
     careerGoal?: SortOrder
+    allowSessionRecording?: SortOrder
+    allowAnonymizedTelemetry?: SortOrder
+    allowAiTrainingUsage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -26764,6 +26845,9 @@ export namespace Prisma {
     targetIndustry?: SortOrder
     difficulty?: SortOrder
     careerGoal?: SortOrder
+    allowSessionRecording?: SortOrder
+    allowAnonymizedTelemetry?: SortOrder
+    allowAiTrainingUsage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -28776,6 +28860,9 @@ export namespace Prisma {
     interviewFocusAreas?: CandidateProfileCreateinterviewFocusAreasInput | string[]
     difficulty?: string
     careerGoal?: string | null
+    allowSessionRecording?: boolean
+    allowAnonymizedTelemetry?: boolean
+    allowAiTrainingUsage?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -28798,6 +28885,9 @@ export namespace Prisma {
     interviewFocusAreas?: CandidateProfileCreateinterviewFocusAreasInput | string[]
     difficulty?: string
     careerGoal?: string | null
+    allowSessionRecording?: boolean
+    allowAnonymizedTelemetry?: boolean
+    allowAiTrainingUsage?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -29181,6 +29271,9 @@ export namespace Prisma {
     interviewFocusAreas?: CandidateProfileUpdateinterviewFocusAreasInput | string[]
     difficulty?: StringFieldUpdateOperationsInput | string
     careerGoal?: NullableStringFieldUpdateOperationsInput | string | null
+    allowSessionRecording?: BoolFieldUpdateOperationsInput | boolean
+    allowAnonymizedTelemetry?: BoolFieldUpdateOperationsInput | boolean
+    allowAiTrainingUsage?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -29203,6 +29296,9 @@ export namespace Prisma {
     interviewFocusAreas?: CandidateProfileUpdateinterviewFocusAreasInput | string[]
     difficulty?: StringFieldUpdateOperationsInput | string
     careerGoal?: NullableStringFieldUpdateOperationsInput | string | null
+    allowSessionRecording?: BoolFieldUpdateOperationsInput | boolean
+    allowAnonymizedTelemetry?: BoolFieldUpdateOperationsInput | boolean
+    allowAiTrainingUsage?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
