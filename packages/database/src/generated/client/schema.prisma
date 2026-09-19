@@ -9,25 +9,25 @@ datasource db {
 }
 
 model User {
-  id            String              @id @default(cuid())
-  email         String              @unique
-  name          String?
-  passwordHash  String?
-  role          String              @default("user") // "user" | "admin" | "moderator"
-  avatarUrl     String?
-  targetRole    String?
-  seniority     String?
-  isEmailVerified Boolean           @default(false)
-  createdAt     DateTime            @default(now())
-  updatedAt     DateTime            @updatedAt
-  conversations Conversation[]
-  simulations   SimulationSession[]
-  resumes       ResumeProfile[]
-  diagnostics   DiagnosticIntake[]
-  profileAnalyses ProfileAnalysis[]
+  id               String                       @id @default(cuid())
+  email            String                       @unique
+  name             String?
+  passwordHash     String?
+  role             String                       @default("user") // "user" | "admin" | "moderator"
+  avatarUrl        String?
+  targetRole       String?
+  seniority        String?
+  isEmailVerified  Boolean                      @default(false)
+  createdAt        DateTime                     @default(now())
+  updatedAt        DateTime                     @updatedAt
+  conversations    Conversation[]
+  simulations      SimulationSession[]
+  resumes          ResumeProfile[]
+  diagnostics      DiagnosticIntake[]
+  profileAnalyses  ProfileAnalysis[]
   candidateProfile CandidateProfile?
-  savedTracks   UserSavedTrack[]
-  logs          AuditLog[]
+  savedTracks      UserSavedTrack[]
+  logs             AuditLog[]
   improvementPlans AiImprovementPlan[]
   questionDossiers QuestionPerformanceDossier[]
 
@@ -35,13 +35,13 @@ model User {
 }
 
 model Conversation {
-  id          String       @id @default(cuid())
-  title       String       @default("New Chat")
-  userId      String
-  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  messages    Message[]
+  id        String    @id @default(cuid())
+  title     String    @default("New Chat")
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
 
   @@map("conversations")
 }
@@ -50,7 +50,7 @@ model Message {
   id             String       @id @default(cuid())
   conversationId String
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  role           String       // "user" | "assistant" | "system"
+  role           String // "user" | "assistant" | "system"
   content        String
   tokensUsed     Int          @default(0)
   createdAt      DateTime     @default(now())
@@ -62,7 +62,7 @@ model SimulationSession {
   id              String             @id @default(cuid())
   userId          String?
   user            User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
-  roleTrack       String             // e.g. "Senior Frontend Engineer"
+  roleTrack       String // e.g. "Senior Frontend Engineer"
   seniorityLevel  String             @default("Senior (L5)")
   overallScore    Int                @default(85)
   technicalScore  Int                @default(85)
@@ -117,24 +117,24 @@ model ResumeProfile {
 // Career Diagnostic Assessment Models (#19 - #23)
 // -------------------------------------------------------------
 model DiagnosticIntake {
-  id                      String                  @id @default(cuid())
+  id                      String                     @id @default(cuid())
   userId                  String?
-  user                    User?                   @relation(fields: [userId], references: [id], onDelete: SetNull)
-  targetRole              String                  @default("Staff Backend & Distributed Systems Architect")
-  seniorityTier           String                  @default("Senior 6+ Yrs Infra")
-  targetCompanyTypes      String[]                @default(["FAANG / Big Tech", "High-Growth Unicorn"])
-  focusAreas              String[]                @default(["Distributed Consensus", "High Concurrency", "STAR Leadership"])
-  completedQuestionsCount Int                     @default(8)
-  totalDurationSeconds    Int                     @default(840)
-  overallScore            Int                     @default(88)
-  technicalRigorScore     Int                     @default(92)
-  systemsBreadthScore     Int                     @default(89)
-  leadershipStarScore     Int                     @default(84)
-  communicationScore      Int                     @default(87)
-  status                  String                  @default("completed") // "in_progress" | "completed" | "analyzed"
+  user                    User?                      @relation(fields: [userId], references: [id], onDelete: SetNull)
+  targetRole              String                     @default("Staff Backend & Distributed Systems Architect")
+  seniorityTier           String                     @default("Senior 6+ Yrs Infra")
+  targetCompanyTypes      String[]                   @default(["FAANG / Big Tech", "High-Growth Unicorn"])
+  focusAreas              String[]                   @default(["Distributed Consensus", "High Concurrency", "STAR Leadership"])
+  completedQuestionsCount Int                        @default(8)
+  totalDurationSeconds    Int                        @default(840)
+  overallScore            Int                        @default(88)
+  technicalRigorScore     Int                        @default(92)
+  systemsBreadthScore     Int                        @default(89)
+  leadershipStarScore     Int                        @default(84)
+  communicationScore      Int                        @default(87)
+  status                  String                     @default("completed") // "in_progress" | "completed" | "analyzed"
   responses               DiagnosticPromptResponse[]
-  createdAt               DateTime                @default(now())
-  updatedAt               DateTime                @updatedAt
+  createdAt               DateTime                   @default(now())
+  updatedAt               DateTime                   @updatedAt
 
   @@map("diagnostic_intakes")
 }
@@ -161,24 +161,24 @@ model DiagnosticPromptResponse {
 // AI Profile Analysis Dossier Models (#24)
 // -------------------------------------------------------------
 model ProfileAnalysis {
-  id                    String   @id @default(cuid())
-  userId                String?
-  user                  User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-  targetTitle           String   @default("Staff Backend & Systems Architect")
-  seniorityTier         String   @default("Staff (L6 / IC6)")
-  primaryStack          String[] @default(["Go", "Kafka", "Raft", "PostgreSQL", "Kubernetes"])
-  confidenceScore       Float    @default(94.6)
-  readinessPercentage   Int      @default(87)
-  verifiedDossierStatus Boolean  @default(true)
-  distributedSystems    Int      @default(94)
-  architecturalTradeoffs Int     @default(88)
-  engineeringLeadership Int      @default(82)
-  communicationClarity  Int      @default(86)
-  executionVelocity     Int      @default(91)
-  cloudReliability      Int      @default(89)
-  calibratedTrajectory  String   @default("Staff Systems Trajectory (L6 Target)")
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+  id                     String   @id @default(cuid())
+  userId                 String?
+  user                   User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  targetTitle            String   @default("Staff Backend & Systems Architect")
+  seniorityTier          String   @default("Staff (L6 / IC6)")
+  primaryStack           String[] @default(["Go", "Kafka", "Raft", "PostgreSQL", "Kubernetes"])
+  confidenceScore        Float    @default(94.6)
+  readinessPercentage    Int      @default(87)
+  verifiedDossierStatus  Boolean  @default(true)
+  distributedSystems     Int      @default(94)
+  architecturalTradeoffs Int      @default(88)
+  engineeringLeadership  Int      @default(82)
+  communicationClarity   Int      @default(86)
+  executionVelocity      Int      @default(91)
+  cloudReliability       Int      @default(89)
+  calibratedTrajectory   String   @default("Staff Systems Trajectory (L6 Target)")
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
 
   @@map("profile_analyses")
 }
@@ -214,7 +214,7 @@ model AuditLog {
 model VerificationToken {
   id        String   @id @default(cuid())
   email     String
-  code      String   // 6-digit OTP code or verification token
+  code      String // 6-digit OTP code or verification token
   type      String   @default("email_verification") // "email_verification" | "password_reset"
   expiresAt DateTime
   createdAt DateTime @default(now())
@@ -227,32 +227,32 @@ model VerificationToken {
 // Candidate Full Profile Settings
 // -------------------------------------------------------------
 model CandidateProfile {
-  id                  String   @id @default(cuid())
-  userId              String   @unique
-  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  phone               String?
-  location            String?
-  language            String   @default("en-US")
-  
-  currentRole         String?
-  targetRole          String?
-  seniority           String?
-  yearsOfExperience   Float?
-  currentIndustry     String?
-  targetIndustry      String?
-  
-  skills              String[] @default([])
-  skillDepths         Json     @default("[]") // Array of {id, name, level, dotColor}
-  
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  phone    String?
+  location String?
+  language String  @default("en-US")
+
+  currentRole       String?
+  targetRole        String?
+  seniority         String?
+  yearsOfExperience Float?
+  currentIndustry   String?
+  targetIndustry    String?
+
+  skills      String[] @default([])
+  skillDepths Json     @default("[]") // Array of {id, name, level, dotColor}
+
   jobTypes            String[] @default([])
   workModalities      String[] @default([])
   interviewFocusAreas String[] @default([])
   difficulty          String   @default("advanced")
   careerGoal          String?
-  
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("candidate_profiles")
 }
@@ -261,32 +261,32 @@ model CandidateProfile {
 // AI Improvement Plan & 7-Day Targeted Plan
 // -------------------------------------------------------------
 model AiImprovementPlan {
-  id                      String   @id @default(cuid())
-  userId                  String?
-  user                    User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  targetRole              String   @default("Senior Frontend Engineer")
-  readinessScore          Int      @default(78)
-  predictedTarget         Int      @default(91)
-  starMethodologyScore    Int      @default(72)
-  systemDesignScore       Int      @default(64)
-  behavioralScore         Int      @default(82)
-  velocityWpm             Int      @default(142)
-  fillerRate              Float    @default(1.8)
-  calibrationStatus       String   @default("Calibrated against 1,420 Senior Frontend candidates")
-  provenanceAssessment    String   @default("Session #SIM-8492 • Technical Deep-Dive")
-  provenanceDate          String   @default("March 15, 2025")
-  provenanceConfidence    Int      @default(94)
-  provenanceQuestionsCount Int     @default(5)
-  customTargetScore       Int?     @default(95)
-  customIntensity         String?  @default("intensive")
-  customFocusAreas        String[] @default([])
-  notes                   String?  @db.Text
-  createdAt               DateTime @default(now())
-  updatedAt               DateTime @updatedAt
+  id                       String   @id @default(cuid())
+  userId                   String?
+  user                     User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  targetRole               String   @default("Senior Frontend Engineer")
+  readinessScore           Int      @default(78)
+  predictedTarget          Int      @default(91)
+  starMethodologyScore     Int      @default(72)
+  systemDesignScore        Int      @default(64)
+  behavioralScore          Int      @default(82)
+  velocityWpm              Int      @default(142)
+  fillerRate               Float    @default(1.8)
+  calibrationStatus        String   @default("Calibrated against 1,420 Senior Frontend candidates")
+  provenanceAssessment     String   @default("Session #SIM-8492 • Technical Deep-Dive")
+  provenanceDate           String   @default("March 15, 2025")
+  provenanceConfidence     Int      @default(94)
+  provenanceQuestionsCount Int      @default(5)
+  customTargetScore        Int?     @default(95)
+  customIntensity          String?  @default("intensive")
+  customFocusAreas         String[] @default([])
+  notes                    String?  @db.Text
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
 
-  vectors                 PlanPracticeVector[]
-  modules                 PlanPracticeModule[]
-  scheduleDays            PlanDaySchedule[]
+  vectors      PlanPracticeVector[]
+  modules      PlanPracticeModule[]
+  scheduleDays PlanDaySchedule[]
 
   @@map("ai_improvement_plans")
 }
@@ -310,7 +310,7 @@ model PlanPracticeModule {
   title          String
   category       String
   recommendedMin Int
-  priority       String            // "CRITICAL FOCUS", "HIGH PRIORITY", "FOUNDATIONAL"
+  priority       String // "CRITICAL FOCUS", "HIGH PRIORITY", "FOUNDATIONAL"
   status         String            @default("pending") // "completed" | "in-progress" | "pending"
   order          Int               @default(0)
 
@@ -340,9 +340,9 @@ model QuestionPerformanceDossier {
   id               String   @id @default(cuid())
   userId           String?
   user             User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-  questionNumber   Int      // 1, 2, 3, 4, 5
+  questionNumber   Int // 1, 2, 3, 4, 5
   questionText     String
-  category         String   // "STAR Framework", "System Design", "Behavioral", etc.
+  category         String // "STAR Framework", "System Design", "Behavioral", etc.
   score            Int
   starScore        Int
   clarityScore     Int
@@ -362,5 +362,3 @@ model QuestionPerformanceDossier {
 
   @@map("question_performance_dossiers")
 }
-
-

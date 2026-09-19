@@ -480,3 +480,131 @@ export async function triggerCvAnalysis(payload: {
     };
   }
 }
+
+// -------------------------------------------------------------
+// 10. AI Improvement Plan & 7-Day Targeted Plan (PostgreSQL)
+// -------------------------------------------------------------
+export async function getActiveImprovementPlan(userId?: string) {
+  try {
+    const url = userId ? `${NODE_BACKEND_URL}/improvement-plan/active?userId=${userId}` : `${NODE_BACKEND_URL}/improvement-plan/active`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Failed to fetch improvement plan from database, using fallback:', error);
+    return null;
+  }
+}
+
+export async function updatePlanTargetsInDb(planId: string, targets: {
+  customTargetScore?: number;
+  customIntensity?: string;
+  customFocusAreas?: string[];
+  readinessScore?: number;
+  predictedTarget?: number;
+}) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/improvement-plan/${planId}/targets`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(targets),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Failed to update plan targets in database:', error);
+    return null;
+  }
+}
+
+export async function updatePlanRoleInDb(planId: string, targetRole: string) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/improvement-plan/${planId}/role`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ targetRole }),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Failed to update plan role in database:', error);
+    return null;
+  }
+}
+
+export async function updatePlanDayStatusInDb(dayId: string, status: string, completed: boolean) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/improvement-plan/day/${dayId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status, completed }),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Failed to update plan day status in database:', error);
+    return null;
+  }
+}
+
+export async function updatePlanNotesInDb(planId: string, notes: string) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/improvement-plan/${planId}/notes`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ notes }),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Failed to update plan notes in database:', error);
+    return null;
+  }
+}
+
+// -------------------------------------------------------------
+// 11. Question Performance Dossier (PostgreSQL)
+// -------------------------------------------------------------
+export async function getQuestionPerformanceDossiers(userId?: string) {
+  try {
+    const url = userId ? `${NODE_BACKEND_URL}/question-performance?userId=${userId}` : `${NODE_BACKEND_URL}/question-performance`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Failed to fetch question performance dossiers from DB:', error);
+    return null;
+  }
+}
+
+export async function getQuestionDossierItem(numberOrId: string) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/question-performance/${numberOrId}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn(`Failed to fetch question ${numberOrId} from DB:`, error);
+    return null;
+  }
+}
+
+export async function updateQuestionDossierInDb(id: string, updates: {
+  coachingNotes?: string;
+  suggestedRewrite?: string;
+  score?: number;
+  starScore?: number;
+}) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/question-performance/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updates),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn(`Failed to update question dossier ${id} in DB:`, error);
+    return null;
+  }
+}
+

@@ -7,6 +7,8 @@ dotenv.config();
 
 import express from 'express';
 import cors from 'cors';
+import pino from 'pino';
+import pinoHttp from 'pino-http';
 import { userRouter } from './routes/user.routes';
 import { aiRouter } from './routes/ai.routes';
 import { simulationRouter } from './routes/simulation.routes';
@@ -16,31 +18,20 @@ import { diagnosticRouter } from './routes/diagnostic.routes';
 import { profileAnalysisRouter } from './routes/profile-analysis.routes';
 import { profileRouter } from './routes/profile.routes';
 import { recommendationsRouter } from './routes/recommendations.routes';
+import { improvementPlanRouter } from './routes/improvement-plan.routes';
+import { questionPerformanceRouter } from './routes/question-performance.routes';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const logger = pino();
+const httpLogger = pinoHttp({
+  logger,
+});
+
 app.use(cors());
 app.use(express.json());
-
-// Request & Response Logger Middleware
-app.use((req, res, next) => {
-  const timestamp = new Date().toISOString();
-  console.log(`[${timestamp}] Request: ${req.method} ${req.url}`);
-  
-  if (req.method !== 'GET' && Object.keys(req.body || {}).length > 0) {
-    console.log(`[${timestamp}] Request Body:`, JSON.stringify(req.body, null, 2));
-  }
-
-  // Intercept res.json to log the response
-  const originalJson = res.json;
-  res.json = function (body) {
-    console.log(`[${timestamp}] Response for ${req.method} ${req.url}:`, JSON.stringify(body, null, 2));
-    return originalJson.call(this, body);
-  };
-
-  next();
-});
+app.use(httpLogger);
 
 // Mount API Routes
 app.use('/api/users', userRouter);
@@ -52,6 +43,8 @@ app.use('/api/diagnostic', diagnosticRouter);
 app.use('/api/profile-analysis', profileAnalysisRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api/recommendations', recommendationsRouter);
+app.use('/api/improvement-plan', improvementPlanRouter);
+app.use('/api/question-performance', questionPerformanceRouter);
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -59,5 +52,12 @@ app.get('/api/health', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Node.js Prisma API Backend running on http://localhost:${PORT}`);
+  logger.info(
+    {
+      port: PORT,
+      baseUrl: `http://localhost:${PORT}/api`,
+      allowedOrigins: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002'],
+    },
+    'Central API listening'
+  );
 });
