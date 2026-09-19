@@ -4,11 +4,11 @@ import {
   ArrowRight,
   Shield,
   Lock,
-  CheckCircle2,
   Video,
   Eye,
   Activity,
   List,
+  ChevronRight,
 } from 'lucide-react';
 
 interface InterviewResultSidebarTelemetryProps {
@@ -28,7 +28,7 @@ export const InterviewResultSidebarTelemetry: React.FC<InterviewResultSidebarTel
 }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      {/* 1. Next Actions: L6 Drill Card */}
+      {/* 1. Next Actions: Drill & AI Improvement Pathways */}
       <div
         style={{
           backgroundColor: '#0c0f17',
@@ -58,17 +58,17 @@ export const InterviewResultSidebarTelemetry: React.FC<InterviewResultSidebarTel
           </div>
           <div>
             <h4 style={{ fontSize: '0.98rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
-              Next Actions: L6 Drill
+              Next Actions: Drill & AI Improvement Pathways
             </h4>
             <span style={{ fontSize: '0.7rem', color: '#a5b4fc', fontWeight: 500 }}>
-              Targeted improvement pathway
+              Targeted improvement pathways
             </span>
           </div>
         </div>
 
         <p style={{ fontSize: '0.8rem', color: '#cbd5e1', lineHeight: 1.55, margin: '0 0 16px 0' }}>
-          Synthesize your 82/100 assessment into a customized learning trajectory focusing on backpressure
-          mathematics and distributed race condition hardening.
+          Synthesize your 82/100 score into a customized learning trajectory focusing on backpressure
+          mathematics and distributed race condition debugging.
         </p>
 
         {/* Buttons stack */}
@@ -95,7 +95,7 @@ export const InterviewResultSidebarTelemetry: React.FC<InterviewResultSidebarTel
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#4f46e5')}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#6366f1')}
           >
-            <span>Generate AI Improvement Plan (L6 Drill)</span>
+            <span>Generate AI Improvement Plan (Lesson #12)</span>
             <ArrowRight size={14} />
           </button>
 
@@ -120,7 +120,7 @@ export const InterviewResultSidebarTelemetry: React.FC<InterviewResultSidebarTel
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)')}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.04)')}
           >
-            <span>Start Next Practice Session (Exercise #29)</span>
+            <span>Start Next Practice Session (Scenario #29)</span>
             <ArrowRight size={13} />
           </button>
 
@@ -144,7 +144,7 @@ export const InterviewResultSidebarTelemetry: React.FC<InterviewResultSidebarTel
             onMouseEnter={(e) => (e.currentTarget.style.color = '#f8fafc')}
             onMouseLeave={(e) => (e.currentTarget.style.color = '#94a3b8')}
           >
-            <span>Back to Performance Dashboard (Home L6)</span>
+            <span>Back to Performance Dashboard (Screen #14)</span>
             <ArrowRight size={12} />
           </button>
         </div>
@@ -203,7 +203,7 @@ export const InterviewResultSidebarTelemetry: React.FC<InterviewResultSidebarTel
               138 WPM
             </div>
             <div style={{ fontSize: '0.68rem', color: '#38bdf8', fontWeight: 600 }}>
-              Optimal: Tier 1 Benchmark (130-150)
+              Optimal Staff Benchmark: 130-150
             </div>
           </div>
 
@@ -223,7 +223,7 @@ export const InterviewResultSidebarTelemetry: React.FC<InterviewResultSidebarTel
               1.4s avg
             </div>
             <div style={{ fontSize: '0.68rem', color: '#94a3b8' }}>
-              Deliberate silence spacing
+              Reflective deliberation pacing
             </div>
           </div>
 
@@ -243,7 +243,7 @@ export const InterviewResultSidebarTelemetry: React.FC<InterviewResultSidebarTel
               1.1%
             </div>
             <div style={{ fontSize: '0.68rem', color: '#94a3b8' }}>
-              Exceptionally clean (&lt;2% "like", "um")
+              Exceptionally clean: &lt;3% "like", "um"
             </div>
           </div>
 
@@ -263,7 +263,7 @@ export const InterviewResultSidebarTelemetry: React.FC<InterviewResultSidebarTel
               98.2%
             </div>
             <div style={{ fontSize: '0.68rem', color: '#94a3b8' }}>
-              Full-band USB SNR (48kHz)
+              SNR Score 28dB (Optimal)
             </div>
           </div>
         </div>
@@ -335,8 +335,8 @@ export const InterviewResultSidebarTelemetry: React.FC<InterviewResultSidebarTel
               fontSize: '0.78rem',
             }}
           >
-            <span style={{ color: '#94a3b8' }}>Eye-line/Head-cam Ratio</span>
-            <span style={{ color: '#34d399', fontWeight: 700 }}>0.62 (Balanced)</span>
+            <span style={{ color: '#94a3b8' }}>Eye-line Headroom Ratio</span>
+            <span style={{ color: '#34d399', fontWeight: 700 }}>0.82 (Balanced)</span>
           </div>
 
           {/* Row 2 */}
@@ -388,8 +388,7 @@ export const InterviewResultSidebarTelemetry: React.FC<InterviewResultSidebarTel
         >
           <Eye size={13} style={{ flexShrink: 0, marginTop: '2px' }} />
           <span>
-            Camera analysis measures eye-up posture, framing aspect ratio, and face illumination, entirely local
-            and non-persisted.
+            Camera analysis measures purely posture, framing, signals; zero emotion, personality, or psychometric estimation.
           </span>
         </div>
       </div>
@@ -429,7 +428,7 @@ export const InterviewResultSidebarTelemetry: React.FC<InterviewResultSidebarTel
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           {/* Step 1 */}
           <div
-            onClick={() => onSelectDrill && onSelectDrill('Token-Bucket Rate Limiting')}
+            onClick={() => onSelectDrill && onSelectDrill('Tail-Call Token-Bucket Rate Limiting')}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -451,19 +450,19 @@ export const InterviewResultSidebarTelemetry: React.FC<InterviewResultSidebarTel
             }}
           >
             <div>
-              <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#f8fafc' }}>
-                Drill Q4: Token-Bucket Rate Limiting
+              <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#f8fafc', marginBottom: '2px' }}>
+                Tail-Call Token-Bucket Rate Limiting
               </div>
-              <div style={{ fontSize: '0.72rem', color: '#94a3b8', marginTop: '2px' }}>
-                15 min targeted micro-drill
+              <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>
+                10 min targeted micro-drill
               </div>
             </div>
-            <ArrowRight size={14} style={{ color: '#818cf8' }} />
+            <ChevronRight size={15} style={{ color: '#64748b' }} />
           </div>
 
           {/* Step 2 */}
           <div
-            onClick={() => onSelectDrill && onSelectDrill('Distributed Idempotency')}
+            onClick={() => onSelectDrill && onSelectDrill('Study Exemplar: Distributed MVCC Idempotency')}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -485,19 +484,19 @@ export const InterviewResultSidebarTelemetry: React.FC<InterviewResultSidebarTel
             }}
           >
             <div>
-              <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#f8fafc' }}>
-                Study Exemplar: Distributed Idempotency
+              <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#f8fafc', marginBottom: '2px' }}>
+                Study Exemplar: Distributed MVCC Idempotency
               </div>
-              <div style={{ fontSize: '0.72rem', color: '#94a3b8', marginTop: '2px' }}>
-                Staff L6 reference architecture
+              <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>
+                Staff L6 architecture walkthrough
               </div>
             </div>
-            <ArrowRight size={14} style={{ color: '#818cf8' }} />
+            <ChevronRight size={15} style={{ color: '#64748b' }} />
           </div>
 
           {/* Step 3 */}
           <div
-            onClick={() => onSelectDrill && onSelectDrill('Concurrency in FastAPI/Go')}
+            onClick={() => onSelectDrill && onSelectDrill('Schedule a follow-up: Concurrency in FastAPI/Go')}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -519,14 +518,14 @@ export const InterviewResultSidebarTelemetry: React.FC<InterviewResultSidebarTel
             }}
           >
             <div>
-              <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#f8fafc' }}>
-                Schedule a Follow-up: Concurrency in FastAPI/Go
+              <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#f8fafc', marginBottom: '2px' }}>
+                Schedule a follow-up: Concurrency in FastAPI/Go
               </div>
-              <div style={{ fontSize: '0.72rem', color: '#94a3b8', marginTop: '2px' }}>
-                Adaptive scenario interview
+              <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>
+                Target higher scale thresholds
               </div>
             </div>
-            <ArrowRight size={14} style={{ color: '#818cf8' }} />
+            <ChevronRight size={15} style={{ color: '#64748b' }} />
           </div>
         </div>
       </div>
@@ -542,26 +541,30 @@ export const InterviewResultSidebarTelemetry: React.FC<InterviewResultSidebarTel
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-          <Shield size={16} style={{ color: '#34d399' }} />
-          <h4 style={{ fontSize: '0.92rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <Shield size={16} style={{ color: '#38bdf8' }} />
+          <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
             Transparent Scoring Governance
           </h4>
         </div>
 
-        <p style={{ fontSize: '0.74rem', color: '#94a3b8', lineHeight: 1.5, margin: '0 0 14px 0' }}>
-          How was my score calculated? All speech scores are calibrated against deterministic technical weights
-          applied to engineering roles worldwide. Audio/video artifacts remain encrypted under AES-256 and are
-          subject to your self-delete protocol.
+        <p style={{ fontSize: '0.75rem', color: '#cbd5e1', lineHeight: 1.55, margin: '0 0 14px 0' }}>
+          How was my score calculated? Inprep AI scores are strictly determined from deterministic mathematical
+          weights applied to engineering rubric assertions. Audio/video artifacts remain encrypted under AES-256 and
+          are subject to your self-delete protocol.
         </p>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.72rem', color: '#cbd5e1' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Lock size={13} style={{ color: '#64748b', flexShrink: 0 }} />
-            <span>Self-delete retention window (30-day retention window)</span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+            <Lock size={13} style={{ color: '#38bdf8', flexShrink: 0, marginTop: '2px' }} />
+            <span style={{ fontSize: '0.72rem', color: '#94a3b8', lineHeight: 1.4 }}>
+              Self-delete protocol active (30-day retention window)
+            </span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <CheckCircle2 size={13} style={{ color: '#10b981', flexShrink: 0 }} />
-            <span>Independent audit trail maintained in distributed evidence logs</span>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+            <Shield size={13} style={{ color: '#38bdf8', flexShrink: 0, marginTop: '2px' }} />
+            <span style={{ fontSize: '0.72rem', color: '#94a3b8', lineHeight: 1.4 }}>
+              Verifiable cryptographic telemetry signature attached to your dossier
+            </span>
           </div>
         </div>
       </div>

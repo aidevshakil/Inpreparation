@@ -120,7 +120,7 @@ export const InterviewResultEvaluatorSynthesis: React.FC<InterviewResultEvaluato
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '5px',
+              gap: '6px',
               backgroundColor: 'rgba(99, 102, 241, 0.16)',
               color: '#c7d2fe',
               border: '1px solid rgba(99, 102, 241, 0.35)',
@@ -131,8 +131,8 @@ export const InterviewResultEvaluatorSynthesis: React.FC<InterviewResultEvaluato
               letterSpacing: '0.2px',
             }}
           >
-            <Sparkles size={11} style={{ color: '#a5b4fc' }} />
-            28-Day Practice Performance
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#818cf8' }} />
+            Strong Practice Performance
           </span>
 
           <span style={{ fontSize: '0.74rem', color: '#94a3b8', fontWeight: 500 }}>
@@ -187,9 +187,9 @@ export const InterviewResultEvaluatorSynthesis: React.FC<InterviewResultEvaluato
               margin: '0 0 14px 0',
             }}
           >
-            Demonstrated exemplary mastery of Python asyncio internals, GIL avoidance mechanisms, and asyncpg
-            connection pooling. Key growth vector: articulate tightened exponential backpressure algorithms
-            with concrete mathematical boundaries before verbal synthesis.
+            Demonstrated exemplary mastery of Python Asyncio internals, GIL avoidance mechanisms, and asyncpg
+            connection pooling. Key growth vector: articulate jittered exponential backpressure algorithms with concrete
+            mathematical boundaries before verbal synthesis.
           </p>
 
           {/* Calibrated disclaimer note */}
@@ -198,135 +198,134 @@ export const InterviewResultEvaluatorSynthesis: React.FC<InterviewResultEvaluato
               display: 'flex',
               alignItems: 'flex-start',
               gap: '8px',
+              fontSize: '0.72rem',
+              color: '#64748b',
+              lineHeight: 1.5,
               padding: '10px 14px',
-              borderRadius: '10px',
+              borderRadius: '8px',
               backgroundColor: 'rgba(255, 255, 255, 0.02)',
-              border: '1px solid rgba(255, 255, 255, 0.05)',
-              marginBottom: '20px',
+              border: '1px solid rgba(255, 255, 255, 0.04)',
             }}
           >
-            <Info size={14} style={{ color: '#64748b', flexShrink: 0, marginTop: '2px' }} />
-            <p style={{ fontSize: '0.74rem', color: '#64748b', lineHeight: 1.5, margin: 0 }}>
-              Scores reflect deterministic performance against FAANG/tier-1 calibrated rubrics. Use this practice
-              assessment for learning and improvement, not a hiring decision or employment guarantee.
-            </p>
+            <Info size={14} style={{ flexShrink: 0, marginTop: '2px', color: '#94a3b8' }} />
+            <span>
+              Inprep network deterministic performance against Staff L6 benchmark across top 100 enterprise stacks.
+              This practice assessment is for learning and improvement, not a hiring decision or employment guarantee.
+            </span>
           </div>
         </div>
 
-        {/* 3 Metric Stat Cards */}
+        {/* Bottom 3 Quick Metrics */}
         <div
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '12px',
+            marginTop: '20px',
+            paddingTop: '16px',
+            borderTop: '1px solid rgba(255, 255, 255, 0.06)',
           }}
         >
-          {/* Stat 1 */}
           <div
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.07)',
-              borderRadius: '12px',
-              padding: '12px 14px',
               display: 'flex',
               alignItems: 'center',
-              gap: '12px',
+              gap: '10px',
+              padding: '10px 14px',
+              borderRadius: '10px',
+              backgroundColor: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
             }}
           >
             <div
               style={{
-                width: '34px',
-                height: '34px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '8px',
-                backgroundColor: 'rgba(16, 185, 129, 0.15)',
-                color: '#34d399',
+                backgroundColor: 'rgba(56, 189, 248, 0.12)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                flexShrink: 0,
+                color: '#38bdf8',
               }}
             >
-              <CheckCircle2 size={18} />
+              <CheckCircle2 size={16} />
             </div>
             <div>
-              <div style={{ fontSize: '1.15rem', fontWeight: 700, color: '#f8fafc', lineHeight: 1 }}>
-                {defendedQuestions}/{totalQuestions}
+              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#f8fafc', lineHeight: 1.1 }}>
+                {defendedQuestions} / {totalQuestions}
               </div>
-              <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '3px' }}>
+              <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '2px' }}>
                 Questions Defended
               </div>
             </div>
           </div>
 
-          {/* Stat 2 */}
           <div
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.07)',
-              borderRadius: '12px',
-              padding: '12px 14px',
               display: 'flex',
               alignItems: 'center',
-              gap: '12px',
+              gap: '10px',
+              padding: '10px 14px',
+              borderRadius: '10px',
+              backgroundColor: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
             }}
           >
             <div
               style={{
-                width: '34px',
-                height: '34px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '8px',
-                backgroundColor: 'rgba(56, 189, 248, 0.15)',
-                color: '#38bdf8',
+                backgroundColor: 'rgba(168, 85, 247, 0.12)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                flexShrink: 0,
+                color: '#c084fc',
               }}
             >
-              <Clock size={18} />
+              <Clock size={16} />
             </div>
             <div>
-              <div style={{ fontSize: '1.15rem', fontWeight: 700, color: '#f8fafc', lineHeight: 1 }}>
+              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#f8fafc', lineHeight: 1.1 }}>
                 {totalDuration}
               </div>
-              <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '3px' }}>
+              <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '2px' }}>
                 Total Response Time
               </div>
             </div>
           </div>
 
-          {/* Stat 3 */}
           <div
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.07)',
-              borderRadius: '12px',
-              padding: '12px 14px',
               display: 'flex',
               alignItems: 'center',
-              gap: '12px',
+              gap: '10px',
+              padding: '10px 14px',
+              borderRadius: '10px',
+              backgroundColor: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
             }}
           >
             <div
               style={{
-                width: '34px',
-                height: '34px',
+                width: '32px',
+                height: '32px',
                 borderRadius: '8px',
-                backgroundColor: 'rgba(99, 102, 241, 0.15)',
-                color: '#818cf8',
+                backgroundColor: 'rgba(16, 185, 129, 0.12)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                flexShrink: 0,
+                color: '#34d399',
               }}
             >
-              <TrendingUp size={18} />
+              <TrendingUp size={16} />
             </div>
             <div>
-              <div style={{ fontSize: '1.15rem', fontWeight: 700, color: '#a5b4fc', lineHeight: 1 }}>
+              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#34d399', lineHeight: 1.1 }}>
                 {trajectoryDelta}
               </div>
-              <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '3px' }}>
+              <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '2px' }}>
                 Trajectory Delta
               </div>
             </div>

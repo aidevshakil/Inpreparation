@@ -14,6 +14,7 @@ import { InterviewResultAnswersAccordion } from '../components/interview-result/
 import { InterviewResultSidebarTelemetry } from '../components/interview-result/InterviewResultSidebarTelemetry';
 import { InterviewResultDrawersAndModals } from '../components/interview-result/InterviewResultDrawersAndModals';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
+import { AlertTriangle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 interface InterviewResultPageProps {
@@ -68,8 +69,6 @@ export const InterviewResultPage: React.FC<InterviewResultPageProps> = ({
     setSimulatorState(state);
     if (state === 'telemetry_drawer') {
       setShowTelemetryDrawer(true);
-    } else if (state === 'calibration_modal') {
-      setShowCalibrationModal(true);
     } else if (state === 'share_certificate') {
       setShowShareCertificateModal(true);
     }
@@ -200,6 +199,27 @@ export const InterviewResultPage: React.FC<InterviewResultPageProps> = ({
               trajectoryDelta="+18 Pts"
             />
 
+            {/* Fallback Banner for Scenario 4 */}
+            {simulatorState === 'audio_fallback' && (
+              <div
+                style={{
+                  backgroundColor: 'rgba(245, 158, 11, 0.08)',
+                  border: '1px solid rgba(245, 158, 11, 0.35)',
+                  borderRadius: '12px',
+                  padding: '14px 20px',
+                  marginBottom: '24px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                }}
+              >
+                <AlertTriangle size={18} color="#fbbf24" style={{ flexShrink: 0 }} />
+                <div style={{ fontSize: '0.8rem', color: '#fef3c7', lineHeight: 1.5 }}>
+                  <strong>Partial Audio Evaluation Fallback Active:</strong> Question 4 microphone stream experienced transient gain reduction. Secondary deterministic acoustic recovery and phoneme alignment were utilized with <strong>zero score distortion</strong>.
+                </div>
+              </div>
+            )}
+
             {/* 2-Column Responsive Layout */}
             <div
               style={{
@@ -220,7 +240,11 @@ export const InterviewResultPage: React.FC<InterviewResultPageProps> = ({
                 {/* 3. Review Your 5 Answers Accordion */}
                 <InterviewResultAnswersAccordion
                   forceExpandedIds={
-                    simulatorState === 'questions_expanded' ? ['q1', 'q4'] : undefined
+                    simulatorState === 'questions_expanded'
+                      ? ['q1']
+                      : simulatorState === 'audio_fallback'
+                      ? ['q4']
+                      : ['q1']
                   }
                 />
               </div>

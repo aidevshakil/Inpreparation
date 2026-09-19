@@ -1,93 +1,98 @@
 import React from 'react';
+import { Server } from 'lucide-react';
 
-export type PipelineDiagnosticState =
-  | 'step_3_active'
-  | 'initializing'
-  | 'step_5_finishing'
-  | 'completed'
-  | 'partial_fallback'
-  | 'failure_dialog'
-  | 'leave_modal';
+export type PipelineScenario =
+  | 'active_processing'
+  | 'result_ready'
+  | 'background_mode'
+  | 'audio_warning'
+  | 'offline_retry';
+
+export type PipelineDiagnosticState = PipelineScenario | string;
 
 interface PipelineDiagnosticSimulatorBarProps {
-  currentState: PipelineDiagnosticState;
-  onStateChange: (state: PipelineDiagnosticState) => void;
+  currentScenario: PipelineScenario;
+  onSelectScenario: (scenario: PipelineScenario) => void;
 }
 
 export const PipelineDiagnosticSimulatorBar: React.FC<PipelineDiagnosticSimulatorBarProps> = ({
-  currentState,
-  onStateChange,
+  currentScenario,
+  onSelectScenario,
 }) => {
-  const states: { id: PipelineDiagnosticState; label: string; color?: string }[] = [
-    { id: 'step_3_active', label: '1. Step 3/5 Active' },
-    { id: 'initializing', label: '2. Initializing', color: '#818cf8' },
-    { id: 'step_5_finishing', label: '3. Step 5/5 Finishing', color: '#c084fc' },
-    { id: 'completed', label: '4. Completed State', color: '#34d399' },
-    { id: 'partial_fallback', label: '5. Partial Fallback', color: '#fbbf24' },
-    { id: 'failure_dialog', label: '6. Failure Dialog', color: '#f87171' },
-    { id: 'leave_modal', label: '7. Leave Modal', color: '#94a3b8' },
+  const scenarios: { id: PipelineScenario; label: string }[] = [
+    { id: 'active_processing', label: '1. Active Processing (Stage 5/7)' },
+    { id: 'result_ready', label: '2. Ingestion Complete | Result Ready' },
+    { id: 'background_mode', label: '3. Background Safe Mode' },
+    { id: 'audio_warning', label: '4. Partial Audio Warning' },
+    { id: 'offline_retry', label: '5. Offline / Retry Modal' },
   ];
 
   return (
     <div
       style={{
-        width: '100%',
-        backgroundColor: '#090d16',
-        borderBottom: '1px solid rgba(99, 102, 241, 0.25)',
-        padding: '8px 20px',
+        padding: '10px 24px',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
         gap: '12px',
-        fontSize: '0.78rem',
-        color: '#94a3b8',
-        zIndex: 50,
+        alignItems: 'center',
+        overflowX: 'auto',
+        background: '#0a0d14',
         position: 'sticky',
         top: 0,
-        backdropFilter: 'blur(12px)',
+        zIndex: 40,
+        backdropFilter: 'blur(8px)',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <span
-          style={{
-            display: 'inline-block',
-            width: '8px',
-            height: '8px',
-            borderRadius: '50%',
-            backgroundColor: '#10b981',
-            boxShadow: '0 0 10px #10b981',
-          }}
-        />
-        <strong style={{ color: '#e2e8f0', fontWeight: 600 }}>
-          PROTOTYPE SIMULATOR:
-        </strong>
-        <span style={{ color: '#94a3b8' }}>Web #22: Pipeline Diagnostic</span>
-      </div>
-
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
-        {states.map((state) => {
-          const isActive = currentState === state.id;
+      <span
+        style={{
+          fontSize: '0.68rem',
+          color: '#64748b',
+          fontWeight: 700,
+          letterSpacing: '0.5px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '6px',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        <Server size={12} color="#818cf8" /> STAKEHOLDER TEST BED:
+      </span>
+      <span style={{ fontSize: '0.7rem', color: '#94a3b8', whiteSpace: 'nowrap' }}>
+        Scenario State Simulator
+      </span>
+      <div
+        style={{
+          width: 1,
+          height: 16,
+          background: 'rgba(255, 255, 255, 0.12)',
+          margin: '0 6px',
+          flexShrink: 0,
+        }}
+      />
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'nowrap' }}>
+        {scenarios.map((s) => {
+          const isActive = currentScenario === s.id;
           return (
             <button
-              key={state.id}
-              onClick={() => onStateChange(state.id)}
+              key={s.id}
+              onClick={() => onSelectScenario(s.id)}
               style={{
-                padding: '4px 10px',
-                borderRadius: '6px',
-                fontSize: '0.74rem',
-                fontWeight: isActive ? 600 : 400,
-                backgroundColor: isActive ? '#4f46e5' : 'rgba(255, 255, 255, 0.05)',
-                color: isActive ? '#ffffff' : state.color || '#94a3b8',
+                background: isActive ? 'rgba(99, 102, 241, 0.25)' : 'transparent',
+                color: isActive ? '#c7d2fe' : '#94a3b8',
                 border: isActive
-                  ? '1px solid rgba(129, 140, 248, 0.6)'
-                  : '1px solid rgba(255, 255, 255, 0.08)',
+                  ? '1px solid rgba(129, 140, 248, 0.55)'
+                  : '1px solid rgba(255, 255, 255, 0.06)',
+                padding: '4px 12px',
+                borderRadius: '100px',
+                fontSize: '0.72rem',
+                fontWeight: isActive ? 600 : 500,
+                whiteSpace: 'nowrap',
                 cursor: 'pointer',
-                transition: 'all 0.18s ease',
-                boxShadow: isActive ? '0 0 12px rgba(79, 70, 229, 0.4)' : 'none',
+                transition: 'all 0.2s ease',
+                boxShadow: isActive ? '0 0 10px rgba(99, 102, 241, 0.3)' : 'none',
               }}
             >
-              {state.label}
+              {s.label}
             </button>
           );
         })}

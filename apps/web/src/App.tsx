@@ -23,17 +23,22 @@ import { DeviceReadinessPage } from './pages/DeviceReadinessPage';
 import { IntroRoomPage } from './pages/IntroRoomPage';
 import { PipelineDiagnosticPage } from './pages/PipelineDiagnosticPage';
 import { InterviewResultPage } from './pages/InterviewResultPage';
+import { PerformanceDashboardPage } from './pages/PerformanceDashboardPage';
 import { ProfileAnalysisPage } from './pages/ProfileAnalysisPage';
 import { RecommendedInterviewsPage } from './pages/RecommendedInterviewsPage';
 import { InterviewCategoriesPage } from './pages/InterviewCategoriesPage';
 import { SearchFilterPage } from './pages/SearchFilterPage';
 import { SimulationDetailsPage } from './pages/SimulationDetailsPage';
+import { InterviewHistoryPage } from './pages/InterviewHistoryPage';
+import { SkillAnalyticsPage } from './pages/SkillAnalyticsPage';
 
 export type AppPage =
   | 'home'
   | 'dashboard'
   | 'profile'
   | 'cv'
+  | 'history'
+  | 'skill-analytics'
   | 'upload-cv'
   | 'ai-cv-analysis'
   | 'cv-builder'
@@ -88,6 +93,8 @@ export function App() {
           'intro-result',
           'interview-result',
           'performance',
+          'skill-analytics',
+          'history',
           'profile-analysis',
           'recommended-interviews',
           'categories',
@@ -199,10 +206,58 @@ export function App() {
         />
       )}
 
-      {(currentPage === 'interview-result' || currentPage === 'performance' || currentPage === 'intro-result') && (
-        <InterviewResultPage
+      {currentPage === 'history' && (
+        <InterviewHistoryPage
+          onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToCategories={() => navigateTo('categories')}
+          onNavigateToSearch={() => navigateTo('search')}
+          onNavigateToAi={() => navigateTo('chat')}
+          onNavigateToAssessment={() => navigateTo('diagnostic-intake')}
+          onNavigateToPerformance={() => navigateTo('performance')}
+          onNavigateToResult={() => navigateTo('interview-result')}
+        />
+      )}
+
+      {currentPage === 'performance' && (
+        <PerformanceDashboardPage
           onNavigateToHome={() => navigateTo('home')}
           onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToCategories={() => navigateTo('categories')}
+          onNavigateToSearch={() => navigateTo('search')}
+          onNavigateToAi={() => navigateTo('chat')}
+          onNavigateToAssessment={() => navigateTo('diagnostic-intake')}
+          onNavigateToResult={() => navigateTo('interview-result')}
+          onNavigateToHistory={() => navigateTo('history')}
+          onNavigateToSkillAnalytics={() => navigateTo('skill-analytics')}
+        />
+      )}
+
+      {currentPage === 'skill-analytics' && (
+        <SkillAnalyticsPage
+          onNavigateToDashboard={() => navigateTo('dashboard')}
+          onNavigateToProfile={() => navigateTo('profile')}
+          onNavigateToCv={() => navigateTo('cv')}
+          onNavigateToSimulations={() => navigateTo('simulations')}
+          onNavigateToCategories={() => navigateTo('categories')}
+          onNavigateToSearch={() => navigateTo('search')}
+          onNavigateToPerformance={() => navigateTo('performance')}
+          onNavigateToAi={() => navigateTo('chat')}
+          onNavigateToAssessment={() => navigateTo('diagnostic-intake')}
+          onNavigateToResult={() => navigateTo('interview-result')}
+          onNavigateToHistory={() => navigateTo('history')}
+        />
+      )}
+
+      {(currentPage === 'interview-result' || currentPage === 'intro-result') && (
+        <InterviewResultPage
+          onNavigateToHome={() => navigateTo('home')}
+          onNavigateToDashboard={() => navigateTo('performance')}
           onNavigateToProfile={() => navigateTo('profile')}
           onNavigateToCv={() => navigateTo('cv')}
           onNavigateToSimulations={() => navigateTo('simulations')}
@@ -341,6 +396,7 @@ export function App() {
           onNavigateToCategories={() => navigateTo('categories')}
           onNavigateToSearch={() => navigateTo('search')}
           onNavigateToPerformance={() => navigateTo('performance')}
+          onNavigateToHistory={() => navigateTo('history')}
           onNavigateToAi={() => navigateTo('chat')}
           onNavigateToPricing={() => navigateTo('pricing')}
         />

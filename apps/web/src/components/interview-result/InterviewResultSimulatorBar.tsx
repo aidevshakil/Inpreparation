@@ -1,11 +1,11 @@
 import React from 'react';
-import { Sparkles, Sliders, FileText, Share2, Activity, LucideIcon } from 'lucide-react';
+import { Sliders, FileText, Share2, Activity, LucideIcon, AlertTriangle } from 'lucide-react';
 
 export type SimulationDebriefState =
   | 'full_dossier'
   | 'questions_expanded'
   | 'telemetry_drawer'
-  | 'calibration_modal'
+  | 'audio_fallback'
   | 'share_certificate';
 
 interface InterviewResultSimulatorBarProps {
@@ -18,11 +18,11 @@ export const InterviewResultSimulatorBar: React.FC<InterviewResultSimulatorBarPr
   onSelectState,
 }) => {
   const states: { id: SimulationDebriefState; label: string; icon: LucideIcon }[] = [
-    { id: 'full_dossier', label: '1. Full Debrief Dossier (Completed - 82/100)', icon: FileText },
-    { id: 'questions_expanded', label: '2. Question Detail Expanded (Q1 & Q4 Deep Dive)', icon: Sliders },
+    { id: 'full_dossier', label: '1. Full Debrief Dossier (Complete) • 82/100', icon: FileText },
+    { id: 'questions_expanded', label: '2. Question Detail Expanded (Q1 Staff-L6 Deep Dive)', icon: Sliders },
     { id: 'telemetry_drawer', label: '3. Speech & Presentation Telemetry Drawer', icon: Activity },
-    { id: 'calibration_modal', label: '4. Factor Calibration Feedback (Consent/Grades Modal)', icon: Sparkles },
-    { id: 'share_certificate', label: '5. Export SLA Share Certificate (Modal)', icon: Share2 },
+    { id: 'audio_fallback', label: '4. Partial Audio Evaluation Fallback (Question 4 Degraded)', icon: AlertTriangle },
+    { id: 'share_certificate', label: '5. Export & Share Certificate Modal', icon: Share2 },
   ];
 
   return (
@@ -31,7 +31,7 @@ export const InterviewResultSimulatorBar: React.FC<InterviewResultSimulatorBarPr
         backgroundColor: '#0c0f17',
         border: '1px solid rgba(99, 102, 241, 0.25)',
         borderRadius: '12px',
-        padding: '10px 14px',
+        padding: '10px 16px',
         marginBottom: '20px',
         display: 'flex',
         alignItems: 'center',
@@ -57,10 +57,10 @@ export const InterviewResultSimulatorBar: React.FC<InterviewResultSimulatorBarPr
             letterSpacing: '0.5px',
           }}
         >
-          STAKEHOLDER TEST RIG
+          STAKEHOLDER TEST BED
         </span>
-        <span style={{ color: '#64748b', fontSize: '0.72rem', fontWeight: 600 }}>
-          ● Scenario State Simulator
+        <span style={{ color: '#94a3b8', fontSize: '0.72rem', fontWeight: 600 }}>
+          — Scenario State Simulator
         </span>
       </div>
 

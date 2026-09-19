@@ -69,7 +69,7 @@ export const InterviewResultFeedbackColumns: React.FC = () => {
               </span>
             </div>
             <p style={{ fontSize: '0.78rem', color: '#94a3b8', lineHeight: 1.5, margin: 0 }}>
-              Identified CPU-bound Argon2 hashing to eliminate GIL blocking on event loops.
+              Identified CPU-bound Argon2 hashing to eliminate GIL blocking on the main asynchronous loop.
             </p>
           </div>
 
@@ -94,8 +94,7 @@ export const InterviewResultFeedbackColumns: React.FC = () => {
               </span>
             </div>
             <p style={{ fontSize: '0.78rem', color: '#94a3b8', lineHeight: 1.5, margin: 0 }}>
-              Outlined connection starvation thresholds with explicit min/max pool sizing over master/replica
-              PostgreSQL clusters.
+              Outlined connection starvation thresholds with explicit min/max pool sizing over a naive queue concurrency buffer.
             </p>
           </div>
 
@@ -120,8 +119,7 @@ export const InterviewResultFeedbackColumns: React.FC = () => {
               </span>
             </div>
             <p style={{ fontSize: '0.78rem', color: '#94a3b8', lineHeight: 1.5, margin: 0 }}>
-              Structured state transition logic for circuit breakers with fallback Redis caching tiers to avoid
-              cascading downtimes.
+              Structured state transition logic for circuit-breakers with fallback Redis caching tiers to avoid cascading downtimes.
             </p>
           </div>
         </div>
@@ -131,10 +129,10 @@ export const InterviewResultFeedbackColumns: React.FC = () => {
       <div
         style={{
           backgroundColor: '#0c0f17',
-          border: '1px solid rgba(168, 85, 247, 0.25)',
+          border: '1px solid rgba(245, 158, 11, 0.25)',
           borderRadius: '16px',
           padding: '22px 24px',
-          background: 'linear-gradient(180deg, rgba(88, 28, 135, 0.12) 0%, rgba(12, 15, 23, 0.95) 100%)',
+          background: 'linear-gradient(180deg, rgba(120, 53, 15, 0.12) 0%, rgba(12, 15, 23, 0.95) 100%)',
           display: 'flex',
           flexDirection: 'column',
           gap: '18px',
@@ -148,11 +146,11 @@ export const InterviewResultFeedbackColumns: React.FC = () => {
               width: '26px',
               height: '26px',
               borderRadius: '6px',
-              backgroundColor: 'rgba(168, 85, 247, 0.18)',
+              backgroundColor: 'rgba(245, 158, 11, 0.18)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#c084fc',
+              color: '#fbbf24',
             }}
           >
             <Target size={16} />
@@ -168,15 +166,15 @@ export const InterviewResultFeedbackColumns: React.FC = () => {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#f8fafc' }}>
-                Mathematical Backpressure Formulas
+                Mathematics Backpressure Formulas
               </span>
               <span
                 style={{
                   fontSize: '0.65rem',
                   fontWeight: 700,
                   color: '#fbbf24',
-                  backgroundColor: 'rgba(251, 191, 36, 0.12)',
-                  border: '1px solid rgba(251, 191, 36, 0.3)',
+                  backgroundColor: 'rgba(245, 158, 11, 0.12)',
+                  border: '1px solid rgba(245, 158, 11, 0.3)',
                   padding: '2px 6px',
                   borderRadius: '4px',
                 }}
@@ -185,8 +183,7 @@ export const InterviewResultFeedbackColumns: React.FC = () => {
               </span>
             </div>
             <p style={{ fontSize: '0.78rem', color: '#94a3b8', lineHeight: 1.5, margin: 0 }}>
-              Deepen mathematical bounds. State concrete token bucket drop rates and jittered exponential
-              backoff rather than generic assumptions.
+              Deepen mathematical bounds. State concrete token bucket drop rates and jittered percentiles rather than generic concurrent retry.
             </p>
           </div>
 
@@ -194,15 +191,15 @@ export const InterviewResultFeedbackColumns: React.FC = () => {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#f8fafc' }}>
-                p99/SLA Degradation Caveat
+                p99 SLA Degradation Curves
               </span>
               <span
                 style={{
                   fontSize: '0.65rem',
                   fontWeight: 700,
                   color: '#fbbf24',
-                  backgroundColor: 'rgba(251, 191, 36, 0.12)',
-                  border: '1px solid rgba(251, 191, 36, 0.3)',
+                  backgroundColor: 'rgba(245, 158, 11, 0.12)',
+                  border: '1px solid rgba(245, 158, 11, 0.3)',
                   padding: '2px 6px',
                   borderRadius: '4px',
                 }}
@@ -211,8 +208,7 @@ export const InterviewResultFeedbackColumns: React.FC = () => {
               </span>
             </div>
             <p style={{ fontSize: '0.78rem', color: '#94a3b8', lineHeight: 1.5, margin: 0 }}>
-              Quantify latency/degradation tolerances when mentioning NVMe read-overheads vs serializable
-              database isolation locks.
+              Quantify latency vs cost trade-offs when optimizing a MVCC read-replica cluster vs distributed memory write caching.
             </p>
           </div>
 
@@ -227,8 +223,8 @@ export const InterviewResultFeedbackColumns: React.FC = () => {
                   fontSize: '0.65rem',
                   fontWeight: 700,
                   color: '#c084fc',
-                  backgroundColor: 'rgba(192, 132, 252, 0.12)',
-                  border: '1px solid rgba(192, 132, 252, 0.3)',
+                  backgroundColor: 'rgba(168, 85, 247, 0.12)',
+                  border: '1px solid rgba(168, 85, 247, 0.3)',
                   padding: '2px 6px',
                   borderRadius: '4px',
                 }}
@@ -237,8 +233,7 @@ export const InterviewResultFeedbackColumns: React.FC = () => {
               </span>
             </div>
             <p style={{ fontSize: '0.78rem', color: '#94a3b8', lineHeight: 1.5, margin: 0 }}>
-              Briefly accelerated speaking rate past 160 WPM during Q4 analysis; practice pausing 1.5s prior to
-              introducing trade-off frameworks.
+              Micro-accelerated speech rate past 160 WPM during Q4 analysis; practice pausing 1.5s prior to introducing trade-off frameworks.
             </p>
           </div>
         </div>
