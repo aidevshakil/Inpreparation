@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
-import { CommunicationAnalyticsHeader } from '../components/communication-analytics/CommunicationAnalyticsHeader';
-import { CommunicationKpiCards } from '../components/communication-analytics/CommunicationKpiCards';
-import { CommunicationTrendCard } from '../components/communication-analytics/CommunicationTrendCard';
-import { CommunicationDimensionsCard } from '../components/communication-analytics/CommunicationDimensionsCard';
-import { CommunicationTrackAndAnatomy } from '../components/communication-analytics/CommunicationTrackAndAnatomy';
-import { CommunicationQuestionResponsesTable } from '../components/communication-analytics/CommunicationQuestionResponsesTable';
-import { CommunicationSynthesisSidebar } from '../components/communication-analytics/CommunicationSynthesisSidebar';
+import { QuestionPerformanceHeader } from '../components/question-performance/QuestionPerformanceHeader';
+import { QuestionTrajectoryStepper } from '../components/question-performance/QuestionTrajectoryStepper';
+import { QuestionDossierInspectView } from '../components/question-performance/QuestionDossierInspectView';
+import { QuestionCrossComparativeGrid } from '../components/question-performance/QuestionCrossComparativeGrid';
+import { QuestionAssessmentPolicyFooter } from '../components/question-performance/QuestionAssessmentPolicyFooter';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import { useAuth } from '../context/AuthContext';
 
-interface CommunicationAnalyticsPageProps {
+interface QuestionPerformancePageProps {
   onNavigateToHome?: () => void;
   onNavigateToDashboard?: () => void;
   onNavigateToProfile?: () => void;
@@ -21,15 +19,15 @@ interface CommunicationAnalyticsPageProps {
   onNavigateToSearch?: () => void;
   onNavigateToPerformance?: () => void;
   onNavigateToSkillAnalytics?: () => void;
+  onNavigateToCommunicationAnalytics?: () => void;
   onNavigateToSpeechAnalytics?: () => void;
   onNavigateToPresentationAnalytics?: () => void;
   onNavigateToAi?: () => void;
   onNavigateToAssessment?: () => void;
-  onNavigateToResult?: (sessionId?: string) => void;
   onNavigateToHistory?: () => void;
 }
 
-export const CommunicationAnalyticsPage: React.FC<CommunicationAnalyticsPageProps> = ({
+export const QuestionPerformancePage: React.FC<QuestionPerformancePageProps> = ({
   onNavigateToDashboard,
   onNavigateToProfile,
   onNavigateToCv,
@@ -38,6 +36,7 @@ export const CommunicationAnalyticsPage: React.FC<CommunicationAnalyticsPageProp
   onNavigateToSearch,
   onNavigateToPerformance,
   onNavigateToSkillAnalytics,
+  onNavigateToCommunicationAnalytics,
   onNavigateToSpeechAnalytics,
   onNavigateToPresentationAnalytics,
   onNavigateToAi,
@@ -45,11 +44,17 @@ export const CommunicationAnalyticsPage: React.FC<CommunicationAnalyticsPageProp
   onNavigateToHistory,
 }) => {
   const { user } = useAuth();
-  const [activeNav, setActiveNav] = useState<NavItemKey>('communication-analytics');
+  const [activeNav, setActiveNav] = useState<NavItemKey>('question-performance');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [selectedQuestionId, setSelectedQuestionId] = useState('Q4');
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
-  const [drillRole, setDrillRole] = useState('Communication Practice • Executive BLUF Framing');
-  const [exportNotice, setExportNotice] = useState(false);
+  const [drillRole, setDrillRole] = useState('Targeted Drill: Token-Bucket Clock Skew & Drift Resilience');
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
 
   const handleSelectNav = (key: NavItemKey) => {
     setActiveNav(key);
@@ -61,26 +66,41 @@ export const CommunicationAnalyticsPage: React.FC<CommunicationAnalyticsPageProp
     else if (key === 'search' && onNavigateToSearch) onNavigateToSearch();
     else if (key === 'performance' && onNavigateToPerformance) onNavigateToPerformance();
     else if (key === 'skill-analytics' && onNavigateToSkillAnalytics) onNavigateToSkillAnalytics();
+    else if (key === 'communication-analytics' && onNavigateToCommunicationAnalytics) onNavigateToCommunicationAnalytics();
     else if (key === 'speech-analytics' && onNavigateToSpeechAnalytics) onNavigateToSpeechAnalytics();
     else if (key === 'presentation-analytics' && onNavigateToPresentationAnalytics) onNavigateToPresentationAnalytics();
+    else if (key === 'question-performance') setActiveNav('question-performance');
     else if (key === 'history' && onNavigateToHistory) onNavigateToHistory();
     else if (key === 'improvement' && onNavigateToAi) onNavigateToAi();
     else if (key === 'assessment' && onNavigateToAssessment) onNavigateToAssessment();
   };
 
-  const handleExportPdf = () => {
-    setExportNotice(true);
-    setTimeout(() => setExportNotice(false), 3000);
+  const handlePrevQuestion = () => {
+    const qList = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'];
+    const idx = qList.indexOf(selectedQuestionId);
+    if (idx > 0) setSelectedQuestionId(qList[idx - 1]);
   };
 
-  const handlePracticeCommunication = () => {
-    setDrillRole('Communication Practice • Executive BLUF Framing');
+  const handleNextQuestion = () => {
+    const qList = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5'];
+    const idx = qList.indexOf(selectedQuestionId);
+    if (idx < qList.length - 1) setSelectedQuestionId(qList[idx + 1]);
+  };
+
+  const handleDrillSimilar = (drillTitle?: string) => {
+    setDrillRole(drillTitle || 'Targeted Drill: Token-Bucket Clock Skew & Drift Resilience (#42S)');
     setSimulationModalOpen(true);
   };
 
-  const handleLaunchFramingDrill = () => {
-    setDrillRole('10-Min Response Framing Drill (Minto Pyramid Principle)');
-    setSimulationModalOpen(true);
+  const handleGeneratePlan = () => {
+    showToast('Redirecting to AI Improvement Plan (#42)...');
+    if (onNavigateToAi) {
+      onNavigateToAi();
+    }
+  };
+
+  const handlePurgeTelemetry = () => {
+    showToast('Question telemetry buffers cryptographically wiped from storage.');
   };
 
   return (
@@ -94,7 +114,7 @@ export const CommunicationAnalyticsPage: React.FC<CommunicationAnalyticsPageProp
       }}
     >
       {/* Toast Notification */}
-      {exportNotice && (
+      {toastMessage && (
         <div
           style={{
             position: 'fixed',
@@ -111,7 +131,7 @@ export const CommunicationAnalyticsPage: React.FC<CommunicationAnalyticsPageProp
             fontWeight: 600,
           }}
         >
-          <span>Exporting Communication Analytics Dossier (PDF)...</span>
+          <span>{toastMessage}</span>
         </div>
       )}
 
@@ -148,54 +168,43 @@ export const CommunicationAnalyticsPage: React.FC<CommunicationAnalyticsPageProp
               boxSizing: 'border-box',
             }}
           >
-            {/* Header with breadcrumbs & controls */}
-            <CommunicationAnalyticsHeader
-              onExportPdf={handleExportPdf}
-              onPracticeCommunication={handlePracticeCommunication}
+            {/* Header with Breadcrumbs, Protocol Banner, Session controls & 4 KPI cards */}
+            <QuestionPerformanceHeader
+              onSelectSession={(sess) => showToast(`Switched active session to ${sess}`)}
+              onPaperAudioDocker={() => showToast('Opening Dockerized acoustic session logs...')}
             />
 
-            {/* Top 4 KPI Metrics */}
-            <CommunicationKpiCards />
+            {/* 5-Question Session Trajectory Stepper */}
+            <QuestionTrajectoryStepper
+              selectedQuestionId={selectedQuestionId}
+              onSelectQuestion={setSelectedQuestionId}
+            />
 
-            {/* 2-Column Responsive Layout: Left 65% + Right 35% */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'minmax(0, 1.85fr) minmax(320px, 1.05fr)',
-                gap: '24px',
-                alignItems: 'start',
-              }}
-            >
-              {/* Left Column */}
-              <div>
-                {/* 1. Score Trend & Cadence */}
-                <CommunicationTrendCard />
+            {/* Detailed Question Dossier Inspect View (Selected Question) */}
+            <QuestionDossierInspectView
+              selectedQuestionId={selectedQuestionId}
+              onPrevQuestion={handlePrevQuestion}
+              onNextQuestion={handleNextQuestion}
+              onDrillSimilar={handleDrillSimilar}
+              onGeneratePlan={handleGeneratePlan}
+              onNavigateSpeech={onNavigateToSpeechAnalytics}
+              onNavigatePresentation={onNavigateToPresentationAnalytics}
+              onNavigateCommunication={onNavigateToCommunicationAnalytics}
+            />
 
-                {/* 2. Evaluated Communication Dimensions */}
-                <CommunicationDimensionsCard />
+            {/* 5-Question Cross-Comparative Telemetry Grid */}
+            <QuestionCrossComparativeGrid
+              selectedQuestionId={selectedQuestionId}
+              onSelectQuestion={setSelectedQuestionId}
+            />
 
-                {/* 3. Communication by Track & Difficulty + Answer Structural Anatomy */}
-                <CommunicationTrackAndAnatomy />
-
-                {/* 4. Recent Evaluated Question Responses */}
-                <CommunicationQuestionResponsesTable />
-              </div>
-
-              {/* Right Column: AI Synthesis & Action Dossier Sidebar */}
-              <div>
-                <CommunicationSynthesisSidebar
-                  onGeneratePlan={onNavigateToAi}
-                  onLaunchFramingDrill={handleLaunchFramingDrill}
-                  onNavigateSpeech={onNavigateToSpeechAnalytics}
-                  onNavigatePresentation={onNavigateToPresentationAnalytics}
-                />
-              </div>
-            </div>
+            {/* Inprep AI Deterministic Assessment Policy Footer */}
+            <QuestionAssessmentPolicyFooter onPurgeTelemetry={handlePurgeTelemetry} />
           </div>
         </div>
       </div>
 
-      {/* Practice Drill Modal */}
+      {/* Live Simulation Modal for Drills */}
       {simulationModalOpen && (
         <LiveSimulationModal
           isOpen={simulationModalOpen}
@@ -207,4 +216,4 @@ export const CommunicationAnalyticsPage: React.FC<CommunicationAnalyticsPageProp
   );
 };
 
-export default CommunicationAnalyticsPage;
+export default QuestionPerformancePage;

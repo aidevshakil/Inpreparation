@@ -32,6 +32,8 @@ export type NavItemKey =
   | 'skill-analytics'
   | 'communication-analytics'
   | 'speech-analytics'
+  | 'presentation-analytics'
+  | 'question-performance'
   | 'improvement'
   | 'notifications'
   | 'settings'
@@ -117,16 +119,16 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
           label: 'Performance',
           icon: TrendingUp,
           subItems: [
-            { key: 'performance' as NavItemKey, label: 'Performance Overview' },
-            { key: 'performance' as NavItemKey, label: 'Score Analytics' },
-            { key: 'skill-analytics' as NavItemKey, label: 'Skill Analytics' },
-            { key: 'communication-analytics' as NavItemKey, label: 'Communication Analytics' },
-            { key: 'speech-analytics' as NavItemKey, label: 'Speech Analytics' },
-            { key: 'communication-analytics' as NavItemKey, label: 'Presentation Analytics' },
-            { key: 'performance' as NavItemKey, label: 'Longitudinal Performance' },
+            { key: 'performance' as NavItemKey, label: 'Performance #34' },
+            { key: 'performance' as NavItemKey, label: 'Score Analytics #36' },
+            { key: 'skill-analytics' as NavItemKey, label: 'Skill Analytics #37' },
+            { key: 'communication-analytics' as NavItemKey, label: 'Communication #38' },
+            { key: 'speech-analytics' as NavItemKey, label: 'Speech Analytics #39' },
+            { key: 'presentation-analytics' as NavItemKey, label: 'Presentation #40' },
+            { key: 'question-performance' as NavItemKey, label: 'Question Review #41' },
+            { key: 'improvement' as NavItemKey, label: 'AI Plan #42' },
           ],
         },
-        { key: 'improvement' as NavItemKey, label: 'AI Improvement Plan', icon: Zap },
       ],
     },
   ];
@@ -136,8 +138,6 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
     { key: 'settings' as NavItemKey, label: 'Settings', icon: Settings },
     { key: 'help' as NavItemKey, label: 'Help & Support', icon: HelpCircle },
   ];
-
-  const creditsPercent = Math.min(100, Math.max(0, (creditsRemaining / totalCredits) * 100));
 
   return (
     <aside
@@ -268,9 +268,9 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
               {group.items.map((item) => {
                 const Icon = item.icon;
                 const isGroupActive = activeItem === item.key || 
-                  (item.subItems && (activeItem === 'performance' || activeItem === 'skill-analytics' || activeItem === 'communication-analytics' || activeItem === 'speech-analytics'));
+                  (item.subItems && (activeItem === 'performance' || activeItem === 'skill-analytics' || activeItem === 'communication-analytics' || activeItem === 'speech-analytics' || activeItem === 'presentation-analytics' || activeItem === 'question-performance' || activeItem === 'improvement'));
                 const hasSub = !!item.subItems && !collapsed;
-                const isSubExpanded = hasSub && (activeItem === 'performance' || activeItem === 'skill-analytics' || activeItem === 'communication-analytics' || activeItem === 'speech-analytics');
+                const isSubExpanded = hasSub && (activeItem === 'performance' || activeItem === 'skill-analytics' || activeItem === 'communication-analytics' || activeItem === 'speech-analytics' || activeItem === 'presentation-analytics' || activeItem === 'question-performance' || activeItem === 'improvement');
 
                 return (
                   <div key={item.key} style={{ display: 'flex', flexDirection: 'column' }}>
@@ -376,10 +376,13 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                       >
                         {item.subItems.map((sub, sIdx) => {
                           const isSubActive =
-                            (sub.label === 'Speech Analytics' && activeItem === 'speech-analytics') ||
-                            (sub.label === 'Communication Analytics' && activeItem === 'communication-analytics') ||
-                            (sub.label === 'Skill Analytics' && activeItem === 'skill-analytics') ||
-                            (sub.label === 'Performance Overview' && activeItem === 'performance');
+                            (sub.key === 'improvement' && (activeItem === 'improvement' || activeItem === ('ai-plan' as any))) ||
+                            (sub.key === 'question-performance' && activeItem === 'question-performance') ||
+                            (sub.key === 'presentation-analytics' && activeItem === 'presentation-analytics') ||
+                            (sub.key === 'speech-analytics' && activeItem === 'speech-analytics') ||
+                            (sub.key === 'communication-analytics' && activeItem === 'communication-analytics') ||
+                            (sub.key === 'skill-analytics' && activeItem === 'skill-analytics') ||
+                            (sub.key === 'performance' && activeItem === 'performance' && sub.label.includes('34'));
 
                           return (
                             <button
@@ -521,47 +524,37 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-              <span style={{ fontSize: '0.74rem', color: '#94a3b8', fontWeight: 500 }}>AI Credits</span>
-              <span style={{ fontSize: '0.78rem', color: '#f8fafc', fontWeight: 700 }}>
-                {creditsRemaining} <span style={{ color: '#64748b', fontWeight: 400 }}>/ {totalCredits}</span>
-              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <Zap size={13} color="#06b6d4" />
+                <span style={{ fontSize: '0.72rem', color: '#94a3b8', fontWeight: 500 }}>AI Telemetry Quota</span>
+              </div>
+              <span style={{ fontSize: '0.74rem', color: '#38bdf8', fontWeight: 700 }}>84%</span>
             </div>
 
             {/* Progress Bar */}
             <div
               style={{
                 width: '100%',
-                height: '6px',
+                height: '5px',
                 backgroundColor: 'rgba(255, 255, 255, 0.08)',
                 borderRadius: '9999px',
                 overflow: 'hidden',
-                marginBottom: '8px',
+                marginBottom: '6px',
               }}
             >
               <div
                 style={{
-                  width: `${creditsPercent}%`,
+                  width: '84%',
                   height: '100%',
-                  background: 'linear-gradient(90deg, #6366f1, #a855f7)',
+                  background: 'linear-gradient(90deg, #06b6d4, #3b82f6)',
                   borderRadius: '9999px',
                 }}
               />
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.68rem' }}>
-              <span style={{ color: '#64748b' }}>Refills in 12 days</span>
-              <button
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: '#a855f7',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  padding: 0,
-                }}
-              >
-                Get More
-              </button>
+              <span style={{ color: '#64748b' }}>Active usage</span>
+              <span style={{ color: '#94a3b8', fontWeight: 600 }}>25.2 / 30 hrs</span>
             </div>
           </div>
         ) : (
