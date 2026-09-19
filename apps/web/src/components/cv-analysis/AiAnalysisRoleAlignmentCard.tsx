@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface CareerPath {
+export interface CareerPath {
   title: string;
   matchScore: string;
   badgeBg: string;
@@ -11,13 +11,15 @@ interface CareerPath {
 }
 
 interface AiAnalysisRoleAlignmentCardProps {
+  initialPaths?: CareerPath[];
   onSelectRole?: (roleTitle: string) => void;
 }
 
 export const AiAnalysisRoleAlignmentCard: React.FC<AiAnalysisRoleAlignmentCardProps> = ({
+  initialPaths,
   onSelectRole,
 }) => {
-  const paths: CareerPath[] = [
+  const paths: CareerPath[] = (initialPaths && initialPaths.length > 0) ? initialPaths : [
     {
       title: 'Senior Python Backend Engineer',
       matchScore: '98% High Alignment',

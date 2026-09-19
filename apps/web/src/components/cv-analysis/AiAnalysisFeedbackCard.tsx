@@ -2,12 +2,18 @@ import React from 'react';
 import { CheckCircle2, Plus } from 'lucide-react';
 
 interface AiAnalysisFeedbackCardProps {
+  improvements?: string[];
   onEnhanceInEditor?: () => void;
 }
 
 export const AiAnalysisFeedbackCard: React.FC<AiAnalysisFeedbackCardProps> = ({
+  improvements,
   onEnhanceInEditor,
 }) => {
+  const dynamicImprovements = improvements && improvements.length > 0 ? improvements : [
+    'Add Resilience Patterns: Explicit mention circuit breakers, bulkheads, or retry budgets.',
+    'Highlight Business Impact: Quantify cost savings or developer velocity improvements.',
+  ];
   return (
     <div
       style={{
@@ -62,12 +68,11 @@ export const AiAnalysisFeedbackCard: React.FC<AiAnalysisFeedbackCardProps> = ({
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '18px' }}>
-        <div style={{ fontSize: '0.75rem', color: '#cbd5e1', lineHeight: 1.45 }}>
-          <strong style={{ color: '#f8fafc' }}>1. Add Resilience Patterns:</strong> Explicit mention circuit breakers, bulkheads, or retry budgets.
-        </div>
-        <div style={{ fontSize: '0.75rem', color: '#cbd5e1', lineHeight: 1.45 }}>
-          <strong style={{ color: '#f8fafc' }}>2. Highlight Business Impact:</strong> Quantify cost savings or developer velocity improvements.
-        </div>
+        {dynamicImprovements.map((imp, idx) => (
+          <div key={idx} style={{ fontSize: '0.75rem', color: '#cbd5e1', lineHeight: 1.45 }}>
+            <strong style={{ color: '#f8fafc' }}>{idx + 1}. </strong>{imp}
+          </div>
+        ))}
       </div>
 
       {/* Action Button */}

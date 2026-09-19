@@ -1,18 +1,26 @@
 import React from 'react';
 import { CheckCircle2 } from 'lucide-react';
 
-interface MetricItem {
+export interface MetricItem {
   label: string;
   value: number;
 }
 
-export const AiAnalysisCvStrengthScoreCard: React.FC = () => {
-  const score = 84;
-  const metrics: MetricItem[] = [
-    { label: 'Skills Coverage', value: 88 },
-    { label: 'Experience Relevance', value: 87 },
-    { label: 'Project Architecture Depth', value: 84 },
-    { label: 'Structure & Quantifiable STAR Metrics', value: 81 },
+interface AiAnalysisCvStrengthScoreCardProps {
+  overallScore?: number;
+  metrics?: MetricItem[];
+}
+
+export const AiAnalysisCvStrengthScoreCard: React.FC<AiAnalysisCvStrengthScoreCardProps> = ({
+  overallScore,
+  metrics: customMetrics,
+}) => {
+  const score = overallScore || 84;
+  const metrics: MetricItem[] = (customMetrics && customMetrics.length > 0) ? customMetrics : [
+    { label: 'Skills Coverage', value: Math.min(100, Math.round(score * 1.04)) },
+    { label: 'Experience Relevance', value: Math.min(100, Math.round(score * 1.02)) },
+    { label: 'Project Architecture Depth', value: score },
+    { label: 'Structure & Quantifiable STAR Metrics', value: Math.max(70, Math.round(score * 0.96)) },
   ];
 
   const circleRadius = 38;

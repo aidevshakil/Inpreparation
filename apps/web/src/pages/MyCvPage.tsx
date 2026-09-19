@@ -68,8 +68,8 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
         setUploadPercent((prev) => (prev < 85 ? prev + 15 : prev));
       }, 200);
 
-      // Save to backend database
-      await uploadResumeProfile({
+      // Save to backend database and trigger AI CV Analysis
+      const res = await uploadResumeProfile({
         userId: user.id,
         fileName: file.name,
         fileSize: file.size,
@@ -85,11 +85,18 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
       // Update user in AuthContext / localStorage
       updateUser({
         cvFileName: file.name,
-        cvAtsScore: 88,
-        cvSkills: user.cvSkills && user.cvSkills.length > 0 ? user.cvSkills : ['TypeScript', 'React', 'Node.js', 'System Architecture'],
+        cvAtsScore: res?.analysis?.overallStrengthScore || 88,
+        cvSkills: res?.analysis?.skillsTaxonomy?.flatMap((c: any) => c.skills) || (user.cvSkills && user.cvSkills.length > 0 ? user.cvSkills : ['TypeScript', 'React', 'Node.js', 'System Architecture']),
       });
 
       setSimulatorState('default');
+
+      // Seamlessly navigate to AI CV Analysis screen so user sees instant analysis
+      setTimeout(() => {
+        if (onNavigateToCvAnalysis) {
+          onNavigateToCvAnalysis();
+        }
+      }, 600);
     } catch (err) {
       console.warn('Resume upload encountered error, falling back locally:', err);
       updateUser({
@@ -97,6 +104,9 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
         cvAtsScore: 85,
       });
       setSimulatorState('default');
+      if (onNavigateToCvAnalysis) {
+        onNavigateToCvAnalysis();
+      }
     }
   };
 

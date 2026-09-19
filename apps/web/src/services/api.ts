@@ -439,3 +439,44 @@ export async function toggleRecommendationBookmark(payload: {
   }
 }
 
+// -------------------------------------------------------------
+// 9. AI CV Analysis API (#26)
+// -------------------------------------------------------------
+export async function getLatestCvAnalysis(userId: string = 'demo-user-1') {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/resumes/user/${userId}/analysis`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Fetching latest CV analysis failed, checking local cache:', error);
+    return {
+      success: false,
+      analysis: null,
+    };
+  }
+}
+
+export async function triggerCvAnalysis(payload: {
+  userId?: string;
+  fileName: string;
+  targetRole?: string;
+  skills?: string[];
+  experienceYears?: number;
+  textContent?: string;
+}) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/resumes/analyze`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Triggering CV analysis failed:', error);
+    return {
+      success: false,
+      analysis: null,
+    };
+  }
+}

@@ -159,3 +159,58 @@ export interface RecommendedTrackItem {
   rubricSummary: Array<{ title: string; weight: string; description: string }>;
 }
 
+// -------------------------------------------------------------
+// AI CV Analysis & Dossier Extraction Types (#26)
+// -------------------------------------------------------------
+export interface CvSkillTaxonomyCategory {
+  title: string;
+  skills: string[];
+}
+
+export interface CvWorkExperienceItem {
+  title: string;
+  badge?: string;
+  company: string;
+  location: string;
+  duration: string;
+  tenureScore: string;
+  bullets: string[];
+  stack: string[];
+  metricsCount?: number;
+}
+
+export interface CvProjectItem {
+  title: string;
+  badge?: string;
+  badgeColor?: string;
+  role?: string;
+  subtitle?: string;
+  timeframe?: string;
+  description: string;
+  metrics?: string;
+  stack?: string[];
+  skills?: string[];
+}
+
+export interface CvRoleAlignmentItem {
+  title: string;
+  matchScore: string;
+  badgeBg: string;
+  badgeColor: string;
+  badgeBorder: string;
+  description: string;
+  actionLink?: string;
+}
+
+export interface CvAnalysisResult {
+  professionalSummary: string;
+  overallStrengthScore: number;
+  readinessPercentage: number;
+  skillsTaxonomy: CvSkillTaxonomyCategory[];
+  workExperience: CvWorkExperienceItem[];
+  projects: CvProjectItem[];
+  roleAlignments: CvRoleAlignmentItem[];
+  technicalCoverage: Record<string, number>;
+  improvements: string[];
+  createdAt?: string;
+}
