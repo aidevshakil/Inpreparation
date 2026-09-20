@@ -13,12 +13,12 @@ export const AiAnalysisNextStepBar: React.FC<AiAnalysisNextStepBarProps> = ({
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.95)',
+        backgroundColor: 'var(--bg-card)',
         border: '1px solid rgba(99, 102, 241, 0.3)',
         borderRadius: '18px',
         padding: '20px 24px',
         marginBottom: '24px',
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.35)',
+        boxShadow: 'var(--shadow-md)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -48,10 +48,10 @@ export const AiAnalysisNextStepBar: React.FC<AiAnalysisNextStepBarProps> = ({
         </div>
 
         <div>
-          <h4 style={{ fontSize: '0.96rem', fontWeight: 700, color: '#ffffff', margin: '0 0 4px 0' }}>
+          <h4 style={{ fontSize: '0.96rem', fontWeight: 700, color: 'var(--text-main)', margin: '0 0 4px 0' }}>
             Next Step: 5-Minute AI Career Assessment
           </h4>
-          <p style={{ fontSize: '0.78rem', color: '#94a3b8', margin: 0, lineHeight: 1.45 }}>
+          <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.45 }}>
             Confirm your speaking baseline, camera presence, and technical depth with your introductory conversational AI interviewer.
           </p>
         </div>
@@ -66,10 +66,10 @@ export const AiAnalysisNextStepBar: React.FC<AiAnalysisNextStepBarProps> = ({
             alignItems: 'center',
             gap: '6px',
             padding: '10px 18px',
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            backgroundColor: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '10px',
-            color: '#cbd5e1',
+            color: 'var(--text-main)',
             fontSize: '0.82rem',
             fontWeight: 500,
             cursor: 'pointer',

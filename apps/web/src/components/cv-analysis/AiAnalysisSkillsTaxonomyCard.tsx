@@ -41,19 +41,19 @@ export const AiAnalysisSkillsTaxonomyCard: React.FC<AiAnalysisSkillsTaxonomyCard
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '22px',
         marginBottom: '20px',
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+        boxShadow: 'var(--shadow-sm)',
       }}
     >
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#38bdf8' }} />
-          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
             Skills Detected (Taxonomy Matrix)
           </h3>
         </div>
@@ -66,12 +66,13 @@ export const AiAnalysisSkillsTaxonomyCard: React.FC<AiAnalysisSkillsTaxonomyCard
             gap: '4px',
             padding: '5px 12px',
             borderRadius: '8px',
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.09)',
-            color: '#cbd5e1',
+            backgroundColor: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
+            color: 'var(--text-main)',
             fontSize: '0.74rem',
-            fontWeight: 500,
+            fontWeight: 600,
             cursor: 'pointer',
+            boxShadow: 'var(--shadow-sm)'
           }}
         >
           <Plus size={12} />
@@ -79,7 +80,7 @@ export const AiAnalysisSkillsTaxonomyCard: React.FC<AiAnalysisSkillsTaxonomyCard
         </button>
       </div>
 
-      <p style={{ fontSize: '0.76rem', color: '#94a3b8', margin: '0 0 18px 0' }}>
+      <p style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', margin: '0 0 18px 0' }}>
         Organized into technical pillars. All detected from resume text, not self-reported claims.
       </p>
 
@@ -87,7 +88,7 @@ export const AiAnalysisSkillsTaxonomyCard: React.FC<AiAnalysisSkillsTaxonomyCard
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '18px' }}>
         {categories.map((cat, idx) => (
           <div key={idx}>
-            <div style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.8px', color: '#64748b', textTransform: 'uppercase', marginBottom: '8px' }}>
+            <div style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.8px', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '8px' }}>
               {cat.title}
             </div>
 
@@ -99,13 +100,14 @@ export const AiAnalysisSkillsTaxonomyCard: React.FC<AiAnalysisSkillsTaxonomyCard
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '6px',
-                    padding: '5px 11px',
+                    padding: '6px 12px',
                     borderRadius: '8px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(255, 255, 255, 0.07)',
+                    backgroundColor: 'var(--bg-surface)',
+                    border: '1px solid var(--border-subtle)',
                     fontSize: '0.76rem',
-                    color: '#e2e8f0',
-                    fontWeight: 500,
+                    color: 'var(--text-main)',
+                    fontWeight: 600,
+                    boxShadow: 'var(--shadow-sm)'
                   }}
                 >
                   <span>{skill}</span>
@@ -132,9 +134,9 @@ export const AiAnalysisSkillsTaxonomyCard: React.FC<AiAnalysisSkillsTaxonomyCard
           alignItems: 'center',
           justifyContent: 'space-between',
           fontSize: '0.71rem',
-          color: '#64748b',
+          color: 'var(--text-muted)',
           paddingTop: '10px',
-          borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+          borderTop: '1px solid var(--border-subtle)',
           flexWrap: 'wrap',
           gap: '8px',
         }}

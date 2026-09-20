@@ -22,11 +22,11 @@ export const AiAnalysisEducationCertCard: React.FC<AiAnalysisEducationCertCardPr
       {/* Education Box */}
       <div
         style={{
-          backgroundColor: 'rgba(14, 18, 28, 0.85)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          backgroundColor: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '18px',
           padding: '20px',
-          boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+          boxShadow: 'var(--shadow-sm)',
         }}
       >
         <div
@@ -43,7 +43,7 @@ export const AiAnalysisEducationCertCard: React.FC<AiAnalysisEducationCertCardPr
               style={{
                 fontSize: '0.72rem',
                 fontWeight: 700,
-                color: '#64748b',
+                color: 'var(--text-muted)',
                 letterSpacing: '0.8px',
                 textTransform: 'uppercase',
               }}
@@ -57,7 +57,7 @@ export const AiAnalysisEducationCertCard: React.FC<AiAnalysisEducationCertCardPr
             style={{
               background: 'transparent',
               border: 'none',
-              color: '#818cf8',
+              color: 'var(--primary-color)',
               fontSize: '0.72rem',
               fontWeight: 600,
               cursor: 'pointer',
@@ -67,13 +67,13 @@ export const AiAnalysisEducationCertCard: React.FC<AiAnalysisEducationCertCardPr
           </button>
         </div>
 
-        <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#f8fafc', marginBottom: '4px' }}>
+        <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
           B.Sc. in Computer Science &amp; Engineering
         </div>
-        <div style={{ fontSize: '0.76rem', color: '#94a3b8', marginBottom: '4px' }}>
+        <div style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', marginBottom: '4px' }}>
           North South University (NSU)
         </div>
-        <div style={{ fontSize: '0.72rem', color: '#64748b' }}>
+        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
           2017 — 2021 • Graduated with Honors
         </div>
       </div>
@@ -81,11 +81,11 @@ export const AiAnalysisEducationCertCard: React.FC<AiAnalysisEducationCertCardPr
       {/* Certifications Box */}
       <div
         style={{
-          backgroundColor: 'rgba(14, 18, 28, 0.85)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          backgroundColor: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '18px',
           padding: '20px',
-          boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+          boxShadow: 'var(--shadow-sm)',
         }}
       >
         <div
@@ -102,7 +102,7 @@ export const AiAnalysisEducationCertCard: React.FC<AiAnalysisEducationCertCardPr
               style={{
                 fontSize: '0.72rem',
                 fontWeight: 700,
-                color: '#64748b',
+                color: 'var(--text-muted)',
                 letterSpacing: '0.8px',
                 textTransform: 'uppercase',
               }}
@@ -116,7 +116,7 @@ export const AiAnalysisEducationCertCard: React.FC<AiAnalysisEducationCertCardPr
             style={{
               background: 'transparent',
               border: 'none',
-              color: '#818cf8',
+              color: 'var(--primary-color)',
               fontSize: '0.72rem',
               fontWeight: 600,
               cursor: 'pointer',
@@ -130,10 +130,10 @@ export const AiAnalysisEducationCertCard: React.FC<AiAnalysisEducationCertCardPr
           </button>
         </div>
 
-        <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#f8fafc', marginBottom: '4px' }}>
+        <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
           AWS Certified Developer — Associate
         </div>
-        <div style={{ fontSize: '0.76rem', color: '#94a3b8', marginBottom: '6px' }}>
+        <div style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
           Amazon Web Services • Issued Dec 2023
         </div>
         <div
@@ -142,7 +142,7 @@ export const AiAnalysisEducationCertCard: React.FC<AiAnalysisEducationCertCardPr
             alignItems: 'center',
             gap: '4px',
             fontSize: '0.72rem',
-            color: '#34d399',
+            color: '#059669',
             fontWeight: 600,
           }}
         >

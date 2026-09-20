@@ -79,11 +79,11 @@ export const AiAnalysisFileHeader: React.FC<AiAnalysisFileHeaderProps> = ({
             </span>
           </div>
 
-          <h1 style={{ fontSize: '2.1rem', fontWeight: 800, color: '#ffffff', margin: '0 0 6px 0', letterSpacing: '-0.02em' }}>
+          <h1 style={{ fontSize: '2.1rem', fontWeight: 800, color: 'var(--text-main)', margin: '0 0 6px 0', letterSpacing: '-0.02em' }}>
             AI CV Analysis
           </h1>
 
-          <p style={{ fontSize: '0.86rem', color: '#94a3b8', margin: 0, maxWidth: '680px', lineHeight: 1.5 }}>
+          <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', margin: 0, maxWidth: '680px', lineHeight: 1.5 }}>
             Here&apos;s what Inprep AI extracted and learned from your CV. Review the extracted competencies, adjust discrepancies, and verify your baseline profile.
           </p>
         </div>
@@ -97,14 +97,15 @@ export const AiAnalysisFileHeader: React.FC<AiAnalysisFileHeaderProps> = ({
               alignItems: 'center',
               gap: '6px',
               padding: '9px 15px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '10px',
-              color: '#cbd5e1',
+              color: 'var(--text-main)',
               fontSize: '0.82rem',
               fontWeight: 500,
               cursor: 'pointer',
               transition: 'all 0.15s ease',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
             <Download size={14} />
@@ -118,14 +119,15 @@ export const AiAnalysisFileHeader: React.FC<AiAnalysisFileHeaderProps> = ({
               alignItems: 'center',
               gap: '6px',
               padding: '9px 15px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '10px',
-              color: '#cbd5e1',
+              color: 'var(--text-main)',
               fontSize: '0.82rem',
               fontWeight: 500,
               cursor: 'pointer',
               transition: 'all 0.15s ease',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
             <RefreshCw size={14} />
@@ -159,8 +161,8 @@ export const AiAnalysisFileHeader: React.FC<AiAnalysisFileHeaderProps> = ({
       {/* Active File Summary Bar Card */}
       <div
         style={{
-          backgroundColor: 'rgba(14, 18, 28, 0.85)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          backgroundColor: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '16px',
           padding: '14px 20px',
           display: 'flex',
@@ -168,7 +170,7 @@ export const AiAnalysisFileHeader: React.FC<AiAnalysisFileHeaderProps> = ({
           justifyContent: 'space-between',
           flexWrap: 'wrap',
           gap: '14px',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
+          boxShadow: 'var(--shadow-sm)',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: 1, minWidth: '320px' }}>
@@ -193,7 +195,7 @@ export const AiAnalysisFileHeader: React.FC<AiAnalysisFileHeaderProps> = ({
 
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '2px' }}>
-              <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#f8fafc' }}>
+              <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-main)' }}>
                 {fileName}
               </span>
               <span
@@ -203,19 +205,19 @@ export const AiAnalysisFileHeader: React.FC<AiAnalysisFileHeaderProps> = ({
                   padding: '2px 8px',
                   borderRadius: '9999px',
                   backgroundColor: 'rgba(16, 185, 129, 0.15)',
-                  color: '#34d399',
+                  color: '#059669',
                   border: '1px solid rgba(16, 185, 129, 0.3)',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '4px',
                 }}
               >
-                <CheckCircle2 size={11} color="#10b981" />
+                <CheckCircle2 size={11} color="#059669" />
                 <span>Analysis Complete</span>
               </span>
             </div>
 
-            <p style={{ fontSize: '0.72rem', color: '#94a3b8', margin: 0 }}>
+            <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0 }}>
               Uploaded: {uploadDate} • Format: PDF (Selectable OCR Text) • Size: {fileSize} • Parsed {parsedTime}
             </p>
           </div>
@@ -231,12 +233,13 @@ export const AiAnalysisFileHeader: React.FC<AiAnalysisFileHeaderProps> = ({
               gap: '5px',
               padding: '6px 12px',
               borderRadius: '8px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              color: '#cbd5e1',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
+              color: 'var(--text-main)',
               fontSize: '0.74rem',
-              fontWeight: 500,
+              fontWeight: 600,
               cursor: 'pointer',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
             <Eye size={13} />
@@ -251,12 +254,13 @@ export const AiAnalysisFileHeader: React.FC<AiAnalysisFileHeaderProps> = ({
               gap: '5px',
               padding: '6px 12px',
               borderRadius: '8px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              color: '#cbd5e1',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
+              color: 'var(--text-main)',
               fontSize: '0.74rem',
-              fontWeight: 500,
+              fontWeight: 600,
               cursor: 'pointer',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
             <RefreshCw size={13} />

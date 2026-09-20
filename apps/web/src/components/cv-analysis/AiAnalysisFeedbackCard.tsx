@@ -17,38 +17,38 @@ export const AiAnalysisFeedbackCard: React.FC<AiAnalysisFeedbackCardProps> = ({
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '22px',
         marginBottom: '20px',
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+        boxShadow: 'var(--shadow-sm)',
       }}
     >
       {/* What Your CV Does Well */}
-      <h3 style={{ fontSize: '0.98rem', fontWeight: 700, color: '#f8fafc', margin: '0 0 14px 0' }}>
+      <h3 style={{ fontSize: '0.98rem', fontWeight: 700, color: 'var(--text-main)', margin: '0 0 14px 0' }}>
         What Your CV Does Well
       </h3>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '20px' }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-          <CheckCircle2 size={15} style={{ color: '#10b981', flexShrink: 0, marginTop: '2px' }} />
-          <p style={{ fontSize: '0.75rem', color: '#cbd5e1', lineHeight: 1.45, margin: 0 }}>
-            <strong style={{ color: '#f8fafc' }}>Quantitative Performance Indicators:</strong> Clear stories (tail latency reduction (-34%) and transactions peaks (12,000+ QPS)).
+          <CheckCircle2 size={15} style={{ color: '#059669', flexShrink: 0, marginTop: '2px' }} />
+          <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', lineHeight: 1.45, margin: 0 }}>
+            <strong style={{ color: 'var(--text-main)' }}>Quantitative Performance Indicators:</strong> Clear stories (tail latency reduction (-34%) and transactions peaks (12,000+ QPS)).
           </p>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-          <CheckCircle2 size={15} style={{ color: '#10b981', flexShrink: 0, marginTop: '2px' }} />
-          <p style={{ fontSize: '0.75rem', color: '#cbd5e1', lineHeight: 1.45, margin: 0 }}>
-            <strong style={{ color: '#f8fafc' }}>Consistent Stack Taxonomy:</strong> Modern standard frameworks matching industry parity.
+          <CheckCircle2 size={15} style={{ color: '#059669', flexShrink: 0, marginTop: '2px' }} />
+          <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', lineHeight: 1.45, margin: 0 }}>
+            <strong style={{ color: 'var(--text-main)' }}>Consistent Stack Taxonomy:</strong> Modern standard frameworks matching industry parity.
           </p>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-          <CheckCircle2 size={15} style={{ color: '#10b981', flexShrink: 0, marginTop: '2px' }} />
-          <p style={{ fontSize: '0.75rem', color: '#cbd5e1', lineHeight: 1.45, margin: 0 }}>
-            <strong style={{ color: '#f8fafc' }}>Architectural Trade-Off Evidence:</strong> Explains architecture decisions (Postgres partitioning and Redis caching).
+          <CheckCircle2 size={15} style={{ color: '#059669', flexShrink: 0, marginTop: '2px' }} />
+          <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', lineHeight: 1.45, margin: 0 }}>
+            <strong style={{ color: 'var(--text-main)' }}>Architectural Trade-Off Evidence:</strong> Explains architecture decisions (Postgres partitioning and Redis caching).
           </p>
         </div>
       </div>
@@ -58,7 +58,7 @@ export const AiAnalysisFeedbackCard: React.FC<AiAnalysisFeedbackCardProps> = ({
         style={{
           fontSize: '0.7rem',
           fontWeight: 800,
-          color: '#fbbf24',
+          color: '#d97706',
           letterSpacing: '0.8px',
           textTransform: 'uppercase',
           marginBottom: '12px',
@@ -69,8 +69,8 @@ export const AiAnalysisFeedbackCard: React.FC<AiAnalysisFeedbackCardProps> = ({
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '18px' }}>
         {dynamicImprovements.map((imp, idx) => (
-          <div key={idx} style={{ fontSize: '0.75rem', color: '#cbd5e1', lineHeight: 1.45 }}>
-            <strong style={{ color: '#f8fafc' }}>{idx + 1}. </strong>{imp}
+          <div key={idx} style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', lineHeight: 1.45 }}>
+            <strong style={{ color: 'var(--text-main)' }}>{idx + 1}. </strong>{imp}
           </div>
         ))}
       </div>
@@ -85,14 +85,15 @@ export const AiAnalysisFeedbackCard: React.FC<AiAnalysisFeedbackCardProps> = ({
           justifyContent: 'center',
           gap: '6px',
           padding: '10px',
-          backgroundColor: 'rgba(255, 255, 255, 0.04)',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
+          backgroundColor: 'var(--bg-surface)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '10px',
-          color: '#ffffff',
+          color: 'var(--text-main)',
           fontSize: '0.8rem',
           fontWeight: 600,
           cursor: 'pointer',
           transition: 'all 0.18s ease',
+          boxShadow: 'var(--shadow-sm)'
         }}
       >
         <span>Enhance CV in Manual Editor</span>

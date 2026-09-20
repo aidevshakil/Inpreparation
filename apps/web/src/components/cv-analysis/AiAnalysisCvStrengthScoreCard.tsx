@@ -30,12 +30,12 @@ export const AiAnalysisCvStrengthScoreCard: React.FC<AiAnalysisCvStrengthScoreCa
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '22px',
         marginBottom: '20px',
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+        boxShadow: 'var(--shadow-sm)',
       }}
     >
       {/* Header */}
@@ -49,10 +49,10 @@ export const AiAnalysisCvStrengthScoreCard: React.FC<AiAnalysisCvStrengthScoreCa
         }}
       >
         <div>
-          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#f8fafc', margin: '0 0 4px 0' }}>
+          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', margin: '0 0 4px 0' }}>
             CV Strength Score
           </h3>
-          <p style={{ fontSize: '0.74rem', color: '#94a3b8', margin: 0 }}>
+          <p style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', margin: 0 }}>
             Synthesized calibration for Senior/Staff roles.
           </p>
         </div>
@@ -63,9 +63,9 @@ export const AiAnalysisCvStrengthScoreCard: React.FC<AiAnalysisCvStrengthScoreCa
             fontWeight: 600,
             padding: '3px 8px',
             borderRadius: '6px',
-            backgroundColor: 'rgba(99, 102, 241, 0.15)',
-            color: '#a5b4fc',
-            border: '1px solid rgba(99, 102, 241, 0.3)',
+            backgroundColor: 'rgba(99, 102, 241, 0.12)',
+            color: 'var(--primary-color)',
+            border: '1px solid rgba(99, 102, 241, 0.25)',
             whiteSpace: 'nowrap',
           }}
         >
@@ -81,9 +81,10 @@ export const AiAnalysisCvStrengthScoreCard: React.FC<AiAnalysisCvStrengthScoreCa
           gap: '18px',
           marginBottom: '20px',
           padding: '12px 14px',
-          backgroundColor: 'rgba(255, 255, 255, 0.02)',
+          backgroundColor: 'var(--bg-surface)',
           borderRadius: '14px',
-          border: '1px solid rgba(255, 255, 255, 0.05)',
+          border: '1px solid var(--border-subtle)',
+          boxShadow: 'var(--shadow-sm)',
         }}
       >
         {/* Radial SVG */}
@@ -93,7 +94,7 @@ export const AiAnalysisCvStrengthScoreCard: React.FC<AiAnalysisCvStrengthScoreCa
               cx="46"
               cy="46"
               r={circleRadius}
-              stroke="rgba(255, 255, 255, 0.08)"
+              stroke="var(--border-subtle)"
               strokeWidth="7"
               fill="transparent"
             />
@@ -131,10 +132,10 @@ export const AiAnalysisCvStrengthScoreCard: React.FC<AiAnalysisCvStrengthScoreCa
               justifyContent: 'center',
             }}
           >
-            <span style={{ fontSize: '1.4rem', fontWeight: 800, color: '#ffffff', lineHeight: 1 }}>
+            <span style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-main)', lineHeight: 1 }}>
               {score}
             </span>
-            <span style={{ fontSize: '0.62rem', color: '#64748b', fontWeight: 600 }}>/ 100</span>
+            <span style={{ fontSize: '0.62rem', color: 'var(--text-muted)', fontWeight: 600 }}>/ 100</span>
           </div>
         </div>
 
@@ -147,14 +148,14 @@ export const AiAnalysisCvStrengthScoreCard: React.FC<AiAnalysisCvStrengthScoreCa
               gap: '4px',
               fontSize: '0.74rem',
               fontWeight: 700,
-              color: '#34d399',
+              color: '#059669',
               marginBottom: '4px',
             }}
           >
             <CheckCircle2 size={13} />
             <span>Strong Senior Foundation</span>
           </div>
-          <p style={{ fontSize: '0.72rem', color: '#94a3b8', lineHeight: 1.45, margin: 0 }}>
+          <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', lineHeight: 1.45, margin: 0 }}>
             Your CV provides an exceptional foundation for role-tailored 1-question mock simulations with high technical factual specificity. Not employment-guarantee ranking predictor.
           </p>
         </div>
@@ -172,15 +173,15 @@ export const AiAnalysisCvStrengthScoreCard: React.FC<AiAnalysisCvStrengthScoreCa
                 marginBottom: '4px',
               }}
             >
-              <span style={{ color: '#cbd5e1', fontWeight: 500 }}>{metric.label}</span>
-              <span style={{ color: '#818cf8', fontWeight: 700 }}>{metric.value}%</span>
+              <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>{metric.label}</span>
+              <span style={{ color: 'var(--primary-color)', fontWeight: 700 }}>{metric.value}%</span>
             </div>
             <div
               style={{
                 width: '100%',
                 height: '6px',
                 borderRadius: '9999px',
-                backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                backgroundColor: 'var(--border-subtle)',
                 overflow: 'hidden',
               }}
             >

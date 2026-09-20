@@ -414,7 +414,7 @@ export const TargetRoleCatalog: React.FC<TargetRoleCatalogProps> = ({
                     <span>{role.badge}</span>
                   </div>
 
-                  <span style={{ fontSize: '11.5px', fontWeight: 600, color: role.subColor }}>
+                  <span style={{ fontSize: '11.5px', fontWeight: 600, color: role.subColor === '#94a3b8' ? 'var(--text-secondary)' : role.subColor }}>
                     {role.subCategory}
                   </span>
                 </div>

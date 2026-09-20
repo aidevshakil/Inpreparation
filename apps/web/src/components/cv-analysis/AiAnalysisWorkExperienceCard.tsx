@@ -61,19 +61,19 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '22px',
         marginBottom: '20px',
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+        boxShadow: 'var(--shadow-sm)',
       }}
     >
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px', flexWrap: 'wrap', gap: '8px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#818cf8' }} />
-          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
             Extracted Work Experience
           </h3>
         </div>
@@ -86,12 +86,13 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
             gap: '4px',
             padding: '5px 12px',
             borderRadius: '8px',
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.09)',
-            color: '#cbd5e1',
+            backgroundColor: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
+            color: 'var(--text-main)',
             fontSize: '0.74rem',
-            fontWeight: 500,
+            fontWeight: 600,
             cursor: 'pointer',
+            boxShadow: 'var(--shadow-sm)'
           }}
         >
           <Plus size={12} />
@@ -99,7 +100,7 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
         </button>
       </div>
 
-      <p style={{ fontSize: '0.76rem', color: '#94a3b8', margin: '0 0 18px 0' }}>
+      <p style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', margin: '0 0 18px 0' }}>
         Chronological career data extracted from bullet points and tech stacks.
       </p>
 
@@ -109,17 +110,18 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
           <div
             key={idx}
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.02)',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '12px',
               padding: '16px 18px',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
             {/* Top row */}
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginBottom: '8px' }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '4px' }}>
-                  <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#f8fafc' }}>{exp.title}</span>
+                  <span style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--text-main)' }}>{exp.title}</span>
                   {exp.badge && (
                     <span
                       style={{
@@ -128,7 +130,7 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
                         padding: '1px 7px',
                         borderRadius: '9999px',
                         backgroundColor: 'rgba(16, 185, 129, 0.15)',
-                        color: '#34d399',
+                        color: '#059669',
                         border: '1px solid rgba(16, 185, 129, 0.3)',
                       }}
                     >
@@ -136,22 +138,22 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
                     </span>
                   )}
                 </div>
-                <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
-                  <span>{exp.company}</span>
-                  <span style={{ margin: '0 6px', color: '#475569' }}>•</span>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                  <span style={{ fontWeight: 600 }}>{exp.company}</span>
+                  <span style={{ margin: '0 6px', color: 'var(--text-muted)' }}>•</span>
                   <span>{exp.location}</span>
                 </div>
               </div>
 
               <div style={{ textAlign: 'right', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontSize: '0.74rem', color: '#cbd5e1', fontWeight: 500 }}>{exp.duration}</span>
-                <span style={{ fontSize: '0.7rem', color: '#64748b' }}>({exp.tenureScore})</span>
+                <span style={{ fontSize: '0.74rem', color: 'var(--text-main)', fontWeight: 600 }}>{exp.duration}</span>
+                <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>({exp.tenureScore})</span>
                 <button
                   onClick={() => onEditExperience && onEditExperience(idx)}
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    color: '#64748b',
+                    color: 'var(--text-muted)',
                     cursor: 'pointer',
                     padding: '2px',
                   }}
@@ -165,26 +167,27 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
             {/* Bullets */}
             <ul style={{ margin: '10px 0', paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
               {exp.bullets.map((bullet, bIdx) => (
-                <li key={bIdx} style={{ fontSize: '0.77rem', color: '#cbd5e1', lineHeight: 1.5 }}>
+                <li key={bIdx} style={{ fontSize: '0.8rem', color: 'var(--text-main)', lineHeight: 1.55 }}>
                   {bullet}
                 </li>
               ))}
             </ul>
 
             {/* Stack chips & metrics link */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginTop: '12px', paddingTop: '10px', borderTop: '1px solid rgba(255, 255, 255, 0.04)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginTop: '12px', paddingTop: '10px', borderTop: '1px solid var(--border-subtle)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
-                <span style={{ fontSize: '0.68rem', color: '#64748b', fontWeight: 600 }}>Detected Stack:</span>
+                <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontWeight: 600 }}>Detected Stack:</span>
                 {exp.stack.map((tech) => (
                   <span
                     key={tech}
                     style={{
                       fontSize: '0.68rem',
-                      padding: '2px 7px',
+                      padding: '2px 8px',
                       borderRadius: '5px',
-                      backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
-                      color: '#94a3b8',
+                      backgroundColor: 'var(--bg-card)',
+                      border: '1px solid var(--border-subtle)',
+                      color: 'var(--text-main)',
+                      fontWeight: 500,
                     }}
                   >
                     {tech}
@@ -192,7 +195,7 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
                 ))}
               </div>
 
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.7rem', color: '#34d399' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.7rem', color: '#059669', fontWeight: 600 }}>
                 <TrendingUp size={12} />
                 <span>{exp.metricsCount} Scale Metrics Extracted</span>
               </div>
@@ -204,18 +207,19 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
       {/* AI Synthesis & Observations Box */}
       <div
         style={{
-          backgroundColor: 'rgba(99, 102, 241, 0.04)',
-          border: '1px solid rgba(99, 102, 241, 0.15)',
+          backgroundColor: 'var(--bg-surface)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '12px',
           padding: '14px 16px',
+          boxShadow: 'var(--shadow-sm)'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px' }}>
-          <Layers size={13} style={{ color: '#818cf8' }} />
-          <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#a5b4fc', letterSpacing: '0.6px' }}>
+          <Layers size={13} style={{ color: 'var(--primary-color)' }} />
+          <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--primary-color)', letterSpacing: '0.6px' }}>
             AI SYNTHESIS &amp; OBSERVATIONS
           </span>
-          <span style={{ fontSize: '0.68rem', color: '#64748b', marginLeft: 'auto' }}>
+          <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginLeft: 'auto' }}>
             Discovered directly from factual resume text
           </span>
         </div>
@@ -224,17 +228,17 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
           {/* Verified Strengths */}
           <div
             style={{
-              backgroundColor: 'rgba(16, 185, 129, 0.06)',
-              border: '1px solid rgba(16, 185, 129, 0.22)',
+              backgroundColor: 'rgba(16, 185, 129, 0.08)',
+              border: '1px solid rgba(16, 185, 129, 0.25)',
               borderRadius: '10px',
               padding: '12px',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px' }}>
-              <CheckCircle2 size={13} style={{ color: '#10b981' }} />
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#34d399' }}>Verified Strengths</span>
+              <CheckCircle2 size={13} style={{ color: '#059669' }} />
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#059669' }}>Verified Strengths</span>
             </div>
-            <p style={{ fontSize: '0.74rem', color: '#cbd5e1', lineHeight: 1.45, margin: 0 }}>
+            <p style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', lineHeight: 1.45, margin: 0 }}>
               Solid progression from mobile UI engineer into distributed backend architecture. Explicit throughput numbers (12k QPS) present.
             </p>
           </div>
@@ -242,17 +246,17 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
           {/* Polish Opportunity */}
           <div
             style={{
-              backgroundColor: 'rgba(245, 158, 11, 0.06)',
-              border: '1px solid rgba(245, 158, 11, 0.22)',
+              backgroundColor: 'rgba(245, 158, 11, 0.08)',
+              border: '1px solid rgba(245, 158, 11, 0.25)',
               borderRadius: '10px',
               padding: '12px',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px' }}>
-              <AlertCircle size={13} style={{ color: '#f59e0b' }} />
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#fbbf24' }}>Polish Opportunity</span>
+              <AlertCircle size={13} style={{ color: '#d97706' }} />
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#d97706' }}>Polish Opportunity</span>
             </div>
-            <p style={{ fontSize: '0.74rem', color: '#cbd5e1', lineHeight: 1.45, margin: 0 }}>
+            <p style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', lineHeight: 1.45, margin: 0 }}>
               Measure more cost/impact: give actual dollar savings or head reduction percentages to match Staff-role expectations.
             </p>
           </div>

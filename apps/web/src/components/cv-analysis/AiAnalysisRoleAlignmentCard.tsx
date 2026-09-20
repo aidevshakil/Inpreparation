@@ -53,12 +53,12 @@ export const AiAnalysisRoleAlignmentCard: React.FC<AiAnalysisRoleAlignmentCardPr
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '22px',
         marginBottom: '20px',
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+        boxShadow: 'var(--shadow-sm)',
       }}
     >
       {/* Header */}
@@ -71,12 +71,12 @@ export const AiAnalysisRoleAlignmentCard: React.FC<AiAnalysisRoleAlignmentCardPr
             backgroundColor: '#10b981',
           }}
         />
-        <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+        <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
           Role Alignment &amp; Suggested Paths
         </h3>
       </div>
 
-      <p style={{ fontSize: '0.74rem', color: '#94a3b8', margin: '0 0 16px 0' }}>
+      <p style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', margin: '0 0 16px 0' }}>
         Potential career trajectories suggested by detected CV experience vectors.
       </p>
 
@@ -86,10 +86,11 @@ export const AiAnalysisRoleAlignmentCard: React.FC<AiAnalysisRoleAlignmentCardPr
           <div
             key={idx}
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.02)',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '12px',
               padding: '14px',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
             <div
@@ -102,7 +103,7 @@ export const AiAnalysisRoleAlignmentCard: React.FC<AiAnalysisRoleAlignmentCardPr
                 marginBottom: '6px',
               }}
             >
-              <span style={{ fontSize: '0.84rem', fontWeight: 700, color: '#f8fafc' }}>
+              <span style={{ fontSize: '0.84rem', fontWeight: 700, color: 'var(--text-main)' }}>
                 {path.title}
               </span>
 
@@ -121,7 +122,7 @@ export const AiAnalysisRoleAlignmentCard: React.FC<AiAnalysisRoleAlignmentCardPr
               </span>
             </div>
 
-            <p style={{ fontSize: '0.74rem', color: '#cbd5e1', lineHeight: 1.45, margin: '0 0 8px 0' }}>
+            <p style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', lineHeight: 1.45, margin: '0 0 8px 0' }}>
               {path.description}
             </p>
 
@@ -131,7 +132,7 @@ export const AiAnalysisRoleAlignmentCard: React.FC<AiAnalysisRoleAlignmentCardPr
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: '#818cf8',
+                  color: 'var(--primary-color)',
                   fontSize: '0.72rem',
                   fontWeight: 600,
                   cursor: 'pointer',
