@@ -19,7 +19,7 @@ export const AiAnalysisProjectsCard: React.FC<AiAnalysisProjectsCardProps> = ({
   initialProjects,
   onAddProject,
 }) => {
-  const projects: ProjectEntry[] = (initialProjects && initialProjects.length > 0)
+  const projects: ProjectEntry[] = (Array.isArray(initialProjects) && initialProjects.length > 0)
     ? initialProjects
     : [
     {
@@ -45,12 +45,12 @@ export const AiAnalysisProjectsCard: React.FC<AiAnalysisProjectsCardProps> = ({
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '22px',
         marginBottom: '20px',
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+        boxShadow: 'var(--shadow-sm)',
       }}
     >
       {/* Header */}
@@ -73,7 +73,7 @@ export const AiAnalysisProjectsCard: React.FC<AiAnalysisProjectsCardProps> = ({
               backgroundColor: '#a855f7',
             }}
           />
-          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
             Key Projects Extracted
           </h3>
         </div>
@@ -86,12 +86,13 @@ export const AiAnalysisProjectsCard: React.FC<AiAnalysisProjectsCardProps> = ({
             gap: '4px',
             padding: '5px 12px',
             borderRadius: '8px',
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.09)',
-            color: '#cbd5e1',
+            backgroundColor: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
+            color: 'var(--text-main)',
             fontSize: '0.74rem',
-            fontWeight: 500,
+            fontWeight: 600,
             cursor: 'pointer',
+            boxShadow: 'var(--shadow-sm)'
           }}
         >
           <Plus size={12} />
@@ -105,10 +106,11 @@ export const AiAnalysisProjectsCard: React.FC<AiAnalysisProjectsCardProps> = ({
           <div
             key={idx}
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.02)',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '12px',
               padding: '16px',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
             {/* Top row */}
@@ -123,7 +125,7 @@ export const AiAnalysisProjectsCard: React.FC<AiAnalysisProjectsCardProps> = ({
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                <span style={{ fontSize: '0.88rem', fontWeight: 700, color: '#f8fafc' }}>
+                <span style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)' }}>
                   {project.title}
                 </span>
                 {project.badge && (
@@ -143,35 +145,38 @@ export const AiAnalysisProjectsCard: React.FC<AiAnalysisProjectsCardProps> = ({
                 )}
               </div>
 
-              <span style={{ fontSize: '0.7rem', color: '#64748b' }}>{project.subtitle}</span>
+              <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{project.subtitle}</span>
             </div>
 
             {/* Description */}
-            <p style={{ fontSize: '0.76rem', color: '#cbd5e1', lineHeight: 1.5, margin: '0 0 12px 0' }}>
+            <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.55, margin: '0 0 12px 0' }}>
               {project.description}
             </p>
 
             {/* Extracted Skills */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '0.68rem', color: '#64748b', fontWeight: 600 }}>
-                Extracted Skills:
-              </span>
-              {project.skills.map((skill) => (
-                <span
-                  key={skill}
-                  style={{
-                    fontSize: '0.68rem',
-                    padding: '2px 8px',
-                    borderRadius: '5px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    color: '#cbd5e1',
-                  }}
-                >
-                  {skill}
+            {Array.isArray(project.skills || (project as any).stack) && (project.skills || (project as any).stack).length > 0 && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontWeight: 600 }}>
+                  Extracted Skills:
                 </span>
-              ))}
-            </div>
+                {(Array.isArray(project.skills) ? project.skills : (project as any).stack || []).map((skill: string) => (
+                  <span
+                    key={skill}
+                    style={{
+                      fontSize: '0.68rem',
+                      padding: '2px 8px',
+                      borderRadius: '5px',
+                      backgroundColor: 'var(--bg-card)',
+                      border: '1px solid var(--border-subtle)',
+                      color: 'var(--text-main)',
+                      fontWeight: 500,
+                    }}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         ))}
       </div>

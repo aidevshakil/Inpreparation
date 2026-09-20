@@ -11,6 +11,7 @@ interface ProfileHeroCardProps {
   remainingItem: string;
   avatarUrl?: string | null;
   isEmailVerified?: boolean;
+  plan?: string;
   onUploadPhoto?: () => void;
   onReplacePhoto?: () => void;
   onRemovePhoto?: () => void;
@@ -33,6 +34,7 @@ export const ProfileHeroCard: React.FC<ProfileHeroCardProps> = ({
   remainingItem,
   avatarUrl,
   isEmailVerified = false,
+  plan = 'free',
   onUploadPhoto,
   onReplacePhoto,
   onRemovePhoto,
@@ -109,9 +111,43 @@ export const ProfileHeroCard: React.FC<ProfileHeroCardProps> = ({
               {name}
             </h2>
 
-            <span className="badge" style={{ backgroundColor: 'var(--bg-main)' }}>
-              Pro Candidate
-            </span>
+            {(!plan || plan.toLowerCase() === 'free') ? (
+              <span
+                className="badge"
+                style={{
+                  backgroundColor: 'var(--bg-surface)',
+                  color: 'var(--text-secondary)',
+                  border: '1px solid var(--border-subtle)',
+                  fontWeight: 500,
+                }}
+              >
+                Free Candidate
+              </span>
+            ) : plan.toLowerCase() === 'pro' ? (
+              <span
+                className="badge"
+                style={{
+                  backgroundColor: 'rgba(99, 102, 241, 0.12)',
+                  color: 'var(--primary-color, #6366f1)',
+                  borderColor: 'rgba(99, 102, 241, 0.3)',
+                  fontWeight: 600,
+                }}
+              >
+                Pro Candidate
+              </span>
+            ) : (
+              <span
+                className="badge"
+                style={{
+                  backgroundColor: 'rgba(245, 158, 11, 0.12)',
+                  color: '#f59e0b',
+                  borderColor: 'rgba(245, 158, 11, 0.3)',
+                  fontWeight: 600,
+                }}
+              >
+                {plan.charAt(0).toUpperCase() + plan.slice(1)} Candidate
+              </span>
+            )}
 
             {isEmailVerified && (
               <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: 'var(--color-success)', borderColor: 'rgba(16, 185, 129, 0.2)' }}>

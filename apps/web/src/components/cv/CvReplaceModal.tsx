@@ -41,11 +41,11 @@ export const CvReplaceModal: React.FC<CvReplaceModalProps> = ({
         style={{
           width: '100%',
           maxWidth: '520px',
-          backgroundColor: '#0e121c',
-          border: '1px solid rgba(99, 102, 241, 0.35)',
+          backgroundColor: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '20px',
           padding: '26px',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6)',
+          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.25)',
           position: 'relative',
         }}
       >
@@ -66,17 +66,17 @@ export const CvReplaceModal: React.FC<CvReplaceModalProps> = ({
             right: '18px',
             background: 'transparent',
             border: 'none',
-            color: '#64748b',
+            color: 'var(--text-muted)',
             cursor: 'pointer',
           }}
         >
           <X size={18} />
         </button>
 
-        <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#f8fafc', marginBottom: '8px' }}>
+        <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '8px' }}>
           Replace Master CV
         </h3>
-        <p style={{ fontSize: '0.82rem', color: '#94a3b8', lineHeight: 1.5, marginBottom: '20px' }}>
+        <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: '20px' }}>
           Uploading a new resume will replace your current active master and re-extract your high-dimensional skill vectors.
         </p>
 
@@ -88,16 +88,16 @@ export const CvReplaceModal: React.FC<CvReplaceModalProps> = ({
             borderRadius: '14px',
             padding: '24px',
             textAlign: 'center',
-            backgroundColor: 'rgba(255, 255, 255, 0.02)',
+            backgroundColor: 'var(--bg-surface)',
             cursor: 'pointer',
             marginBottom: '20px',
           }}
         >
-          <UploadCloud size={32} color="#818cf8" style={{ marginBottom: '10px' }} />
-          <div style={{ fontSize: '0.86rem', fontWeight: 600, color: '#f8fafc', marginBottom: '4px' }}>
+          <UploadCloud size={32} color="var(--primary-color)" style={{ marginBottom: '10px' }} />
+          <div style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '4px' }}>
             {selectedFile ? selectedFile.name : 'Choose updated resume file'}
           </div>
-          <div style={{ fontSize: '0.74rem', color: '#64748b' }}>
+          <div style={{ fontSize: '0.74rem', color: 'var(--text-secondary)' }}>
             {selectedFile ? `${Math.round(selectedFile.size / 1024)} KB` : 'Supported formats: PDF, DOCX (Max 15MB)'}
           </div>
         </div>
@@ -109,9 +109,9 @@ export const CvReplaceModal: React.FC<CvReplaceModalProps> = ({
             style={{
               padding: '9px 16px',
               borderRadius: '9px',
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              color: '#cbd5e1',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
+              color: 'var(--text-main)',
               fontSize: '0.82rem',
               fontWeight: 500,
               cursor: 'pointer',
@@ -130,8 +130,8 @@ export const CvReplaceModal: React.FC<CvReplaceModalProps> = ({
             style={{
               padding: '9px 20px',
               borderRadius: '9px',
-              background: selectedFile ? 'linear-gradient(135deg, #7c3aed, #4f46e5)' : 'rgba(255,255,255,0.1)',
-              color: selectedFile ? '#ffffff' : '#64748b',
+              background: selectedFile ? 'linear-gradient(135deg, #7c3aed, #4f46e5)' : 'var(--bg-surface)',
+              color: selectedFile ? '#ffffff' : 'var(--text-muted)',
               border: 'none',
               fontSize: '0.82rem',
               fontWeight: 600,

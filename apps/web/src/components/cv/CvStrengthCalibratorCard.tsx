@@ -12,56 +12,85 @@ interface MetricItem {
 
 interface CvStrengthCalibratorCardProps {
   score?: number;
+  technicalCoverage?: Record<string, number>;
+  targetRole?: string;
   onViewDeepBreakdown?: () => void;
 }
 
 export const CvStrengthCalibratorCard: React.FC<CvStrengthCalibratorCardProps> = ({
-  score = 84,
+  score = 91,
+  technicalCoverage,
+  targetRole = 'Fullstack Flutter Developer',
   onViewDeepBreakdown,
 }) => {
-  const metrics: MetricItem[] = [
-    {
-      id: 'skills',
-      name: 'Skills Coverage',
-      percent: 93,
-      levelLabel: 'Exceptional',
-      feedback: 'Strong backend, concurrency, and async pipeline tags detected.',
-      barColor: '#10b981',
-    },
-    {
-      id: 'exp',
-      name: 'Experience Relevance',
-      percent: 92,
-      levelLabel: 'High Fit',
-      feedback: 'High correlation with target Senior Backend and Distributed tracks.',
-      barColor: '#38bdf8',
-    },
-    {
-      id: 'arch',
-      name: 'Project Architecture Depth',
-      percent: 86,
-      levelLabel: 'Advanced',
-      feedback: 'Clear demonstration of data partitioning, caching, and throughput trade-offs.',
-      barColor: '#a855f7',
-    },
-    {
-      id: 'metrics',
-      name: 'Structure & Quantifiable Metrics',
-      percent: 81,
-      levelLabel: 'Adequate',
-      feedback: 'Good STAR format usage; opportunity to append business ROI numbers.',
-      barColor: '#06b6d4',
-    },
-  ];
+  const colors = ['#10b981', '#38bdf8', '#a855f7', '#06b6d4', '#f59e0b'];
+  
+  const isObj = technicalCoverage && typeof technicalCoverage === 'object' && !Array.isArray(technicalCoverage);
+  const isArr = Array.isArray(technicalCoverage);
+
+  const metrics: MetricItem[] = isObj && Object.keys(technicalCoverage).length > 0
+    ? Object.entries(technicalCoverage).slice(0, 4).map(([name, pct], i) => ({
+        id: `cov-${i}`,
+        name,
+        percent: typeof pct === 'number' ? pct : 85,
+        levelLabel: (typeof pct === 'number' && pct >= 90) ? 'Exceptional' : (typeof pct === 'number' && pct >= 85) ? 'High Fit' : 'Advanced',
+        feedback: (typeof pct === 'number' && pct >= 90)
+          ? `Exceptional mastery in ${name} directly fulfilling ${targetRole} rubrics.`
+          : `Strong verified competencies in ${name} aligned with target trajectory.`,
+        barColor: colors[i % colors.length],
+      }))
+    : isArr && technicalCoverage.length > 0
+    ? technicalCoverage.slice(0, 4).map((item: any, i: number) => ({
+        id: `cov-${i}`,
+        name: item?.category || item?.name || `Competency Area ${i + 1}`,
+        percent: typeof item?.score === 'number' ? item.score : typeof item?.percent === 'number' ? item.percent : 85,
+        levelLabel: 'High Fit',
+        feedback: `Competency aligned with ${targetRole}.`,
+        barColor: colors[i % colors.length],
+      }))
+    : [
+        {
+          id: 'skills',
+          name: 'Skills & Competency Coverage',
+          percent: score >= 90 ? 94 : score,
+          levelLabel: 'Exceptional',
+          feedback: `Strong competencies aligned with ${targetRole} detected.`,
+          barColor: '#10b981',
+        },
+        {
+          id: 'exp',
+          name: 'Role & Experience Relevance',
+          percent: score >= 90 ? 92 : score - 2,
+          levelLabel: 'High Fit',
+          feedback: `Verified career progression matching target ${targetRole} requirements.`,
+          barColor: '#38bdf8',
+        },
+        {
+          id: 'arch',
+          name: 'Architecture & State Management',
+          percent: score >= 90 ? 88 : score - 5,
+          levelLabel: 'Advanced',
+          feedback: 'Clear demonstration of maintainable patterns, clean architecture, and modularity.',
+          barColor: '#a855f7',
+        },
+        {
+          id: 'metrics',
+          name: 'Structure & Production Impact',
+          percent: score >= 90 ? 85 : score - 8,
+          levelLabel: 'Strong',
+          feedback: 'Effective technical achievements and quantifiable delivery milestones.',
+          barColor: '#06b6d4',
+        },
+      ];
 
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '16px',
         padding: '18px',
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
         marginBottom: '16px',
       }}
     >
@@ -73,7 +102,7 @@ export const CvStrengthCalibratorCard: React.FC<CvStrengthCalibratorCardProps> =
               fontSize: '0.66rem',
               fontWeight: 700,
               letterSpacing: '0.8px',
-              color: '#818cf8',
+              color: 'var(--primary-color)',
               textTransform: 'uppercase',
               display: 'block',
               marginBottom: '2px',
@@ -81,7 +110,7 @@ export const CvStrengthCalibratorCard: React.FC<CvStrengthCalibratorCardProps> =
           >
             Telemetry Scorecard
           </span>
-          <h3 style={{ fontSize: '0.98rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <h3 style={{ fontSize: '0.98rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
             CV Strength Calibrator
           </h3>
         </div>
@@ -92,19 +121,19 @@ export const CvStrengthCalibratorCard: React.FC<CvStrengthCalibratorCardProps> =
             width: '46px',
             height: '46px',
             borderRadius: '50%',
-            backgroundColor: 'rgba(99, 102, 241, 0.15)',
-            border: '2px solid #6366f1',
+            background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
+            border: '2px solid rgba(255, 255, 255, 0.2)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 0 14px rgba(99, 102, 241, 0.4)',
+            boxShadow: '0 4px 14px rgba(99, 102, 241, 0.35)',
           }}
         >
           <span style={{ fontSize: '1rem', fontWeight: 800, color: '#ffffff', lineHeight: 1 }}>
             {score}
           </span>
-          <span style={{ fontSize: '0.58rem', color: '#94a3b8' }}>/100</span>
+          <span style={{ fontSize: '0.58rem', color: '#e0e7ff', fontWeight: 500 }}>/100</span>
         </div>
       </div>
 
@@ -113,7 +142,7 @@ export const CvStrengthCalibratorCard: React.FC<CvStrengthCalibratorCardProps> =
         {metrics.map((m) => (
           <div key={m.id}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-              <span style={{ fontSize: '0.74rem', fontWeight: 600, color: '#e2e8f0' }}>
+              <span style={{ fontSize: '0.74rem', fontWeight: 600, color: 'var(--text-main)' }}>
                 {m.name}
               </span>
               <span style={{ fontSize: '0.7rem', fontWeight: 700, color: m.barColor }}>
@@ -126,7 +155,7 @@ export const CvStrengthCalibratorCard: React.FC<CvStrengthCalibratorCardProps> =
               style={{
                 width: '100%',
                 height: '5px',
-                backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                backgroundColor: 'var(--border-subtle)',
                 borderRadius: '9999px',
                 overflow: 'hidden',
                 marginBottom: '4px',
@@ -142,7 +171,7 @@ export const CvStrengthCalibratorCard: React.FC<CvStrengthCalibratorCardProps> =
               />
             </div>
 
-            <p style={{ fontSize: '0.68rem', color: '#94a3b8', margin: 0, lineHeight: 1.35 }}>
+            <p style={{ fontSize: '0.68rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.35 }}>
               {m.feedback}
             </p>
           </div>
@@ -155,10 +184,10 @@ export const CvStrengthCalibratorCard: React.FC<CvStrengthCalibratorCardProps> =
         style={{
           width: '100%',
           padding: '8px 12px',
-          backgroundColor: 'rgba(255, 255, 255, 0.04)',
-          border: '1px solid rgba(255, 255, 255, 0.09)',
+          backgroundColor: 'var(--bg-surface)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '9px',
-          color: '#cbd5e1',
+          color: 'var(--text-main)',
           fontSize: '0.75rem',
           fontWeight: 600,
           cursor: 'pointer',
@@ -169,12 +198,12 @@ export const CvStrengthCalibratorCard: React.FC<CvStrengthCalibratorCardProps> =
           transition: 'all 0.15s ease',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
-          e.currentTarget.style.color = '#ffffff';
+          e.currentTarget.style.backgroundColor = 'var(--bg-card-hover)';
+          e.currentTarget.style.color = 'var(--primary-color)';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
-          e.currentTarget.style.color = '#cbd5e1';
+          e.currentTarget.style.backgroundColor = 'var(--bg-surface)';
+          e.currentTarget.style.color = 'var(--text-main)';
         }}
       >
         <span>View Deep Diagnostic Breakdown</span>

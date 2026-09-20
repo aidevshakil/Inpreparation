@@ -18,6 +18,7 @@ import { DashboardFooter } from '../components/dashboard/DashboardFooter';
 import { AlertTriangle, RefreshCw, Loader2, FileWarning, FileText } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { getLatestCvAnalysis, triggerCvAnalysis } from '../services/api';
+import { DocumentViewerModal } from '../components/cv/DocumentViewerModal';
 
 interface AiCvAnalysisPageProps {
   onNavigateToHome?: () => void;
@@ -45,7 +46,70 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [analysisData, setAnalysisData] = useState<any>(null);
   const [isLoadingAnalysis, setIsLoadingAnalysis] = useState(false);
+  const [isDocModalOpen, setIsDocModalOpen] = useState(false);
   const { user } = useAuth();
+
+  // Derived display attributes
+  const displayFileName = analysisData?.fileName || user.cvFileName || "Shakil_Ahamed_Resume_2026.pdf";
+  const displayFileSize = analysisData?.fileSize ? `${Math.round(analysisData.fileSize / 1024)} KB` : "142 KB";
+  const displayName = analysisData?.candidateName || analysisData?.name || user.name || 'Candidate';
+  const displayRole = analysisData?.candidateRole || analysisData?.targetRole || user.targetRole || 'Full Stack Software Engineer';
+  const displayEmail = analysisData?.candidateEmail || analysisData?.email || user.email;
+  const displayPhone = analysisData?.candidatePhone || analysisData?.phone;
+  const displayLocation = analysisData?.candidateLocation || analysisData?.location;
+  const rawSkills: string[] = Array.isArray(analysisData?.skillsTaxonomy) && analysisData.skillsTaxonomy.length > 0
+    ? analysisData.skillsTaxonomy.flatMap((c: any) => (Array.isArray(c?.skills) ? c.skills : []))
+    : Array.isArray(analysisData?.extractedSkills) && analysisData.extractedSkills.length > 0
+    ? analysisData.extractedSkills
+    : Array.isArray(analysisData?.skills) && analysisData.skills.length > 0
+    ? analysisData.skills
+    : Array.isArray(user.cvSkills) && user.cvSkills.length > 0
+    ? user.cvSkills
+    : ['Flutter', 'Dart', 'Firebase', 'REST APIs', 'Clean Architecture'];
+
+  const displaySkills = (rawSkills && rawSkills.length > 0)
+    ? rawSkills.filter((s): s is string => typeof s === 'string' && s.trim().length > 0)
+    : ['Flutter', 'Dart', 'Firebase', 'REST APIs', 'Clean Architecture'];
+  const displayRawText = analysisData?.extractedTextPreview || analysisData?.rawTextPreview;
+
+  const handleDownloadDossier = () => {
+    if (analysisData?.fileUrl && analysisData.fileUrl.startsWith('data:')) {
+      const a = document.createElement('a');
+      a.href = analysisData.fileUrl;
+      a.download = displayFileName;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      return;
+    }
+
+    const content = [
+      `=============================================================`,
+      `INPREPARATION CANDIDATE DOSSIER: ${displayFileName}`,
+      `Candidate: ${displayName}`,
+      `Role Alignment: ${displayRole}`,
+      `Email: ${displayEmail || ''} | Phone: ${displayPhone || ''} | Location: ${displayLocation || ''}`,
+      `=============================================================\n`,
+      analysisData?.professionalSummary ? `[PROFESSIONAL SUMMARY]\n${analysisData.professionalSummary}\n` : '',
+      `[CORE COMPETENCIES]\n${displaySkills.join(', ')}\n`,
+      analysisData?.workExperience?.length
+        ? `[WORK EXPERIENCE]\n` +
+          analysisData.workExperience
+            .map((w: any) => `${w.title} - ${w.company} (${w.duration})\n${(w.bullets || []).map((b: string) => `  * ${b}`).join('\n')}`)
+            .join('\n\n')
+        : '',
+    ].join('\n');
+
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = displayFileName.endsWith('.pdf') ? displayFileName.replace(/\.pdf$/i, '_dossier.txt') : `${displayFileName}_dossier.txt`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
 
   // Load latest AI Analysis for current user or file
   useEffect(() => {
@@ -99,7 +163,7 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-main)', color: 'var(--text-main)', display: 'flex', flexDirection: 'column' }}>
       {/* Main Workspace Frame */}
       <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
@@ -189,12 +253,12 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
               <>
                 {/* Header & Breadcrumb & Action Pill */}
                 <AiAnalysisFileHeader
-                  fileName={user.cvFileName || "Shakil_Ahamed_Resume_2026.pdf"}
-                  fileSize="142 KB"
+                  fileName={displayFileName}
+                  fileSize={displayFileSize}
                   uploadDate="Just now"
                   parsedTime="Seconds ago"
                   onNavigateToCv={onNavigateToCv}
-                  onDownloadDossier={() => alert('Downloading Dossier PDF...')}
+                  onDownloadDossier={handleDownloadDossier}
                   onReanalyzeCv={async () => {
                     setSimulatorState('processing');
                     try {
@@ -218,7 +282,7 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
                     if (onNavigateToSimulations) onNavigateToSimulations();
                     else alert('Launching 5-Minute AI Career Assessment simulation...');
                   }}
-                  onViewDocument={() => alert('Opening PDF original preview modal...')}
+                  onViewDocument={() => setIsDocModalOpen(true)}
                   onReplaceCv={onNavigateToUploadCv}
                 />
 
@@ -378,6 +442,8 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
                         onAddProject={() => alert('Open Add Project Modal')}
                       />
                       <AiAnalysisEducationCertCard
+                        education={analysisData?.education}
+                        certifications={analysisData?.certifications}
                         onEditEducation={() => alert('Editing Education')}
                         onAddCertification={() => alert('Adding Certification')}
                       />
@@ -411,6 +477,27 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
                     if (onNavigateToSimulations) onNavigateToSimulations();
                     else alert('Launching 5-Minute AI Career Assessment...');
                   }}
+                />
+
+                {/* Interactive Document Viewer Modal */}
+                <DocumentViewerModal
+                  isOpen={isDocModalOpen}
+                  onClose={() => setIsDocModalOpen(false)}
+                  fileName={displayFileName}
+                  fileSize={displayFileSize}
+                  fileUrl={analysisData?.fileUrl}
+                  candidateName={displayName}
+                  candidateRole={displayRole}
+                  candidateEmail={displayEmail}
+                  candidatePhone={displayPhone}
+                  candidateLocation={displayLocation}
+                  candidateSkills={displaySkills}
+                  summary={analysisData?.professionalSummary}
+                  workExperience={analysisData?.workExperience}
+                  projects={analysisData?.projects}
+                  education={analysisData?.education}
+                  rawTextPreview={displayRawText}
+                  onDownload={handleDownloadDossier}
                 />
               </>
             )}

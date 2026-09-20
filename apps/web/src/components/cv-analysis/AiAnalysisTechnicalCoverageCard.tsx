@@ -58,12 +58,12 @@ export const AiAnalysisTechnicalCoverageCard: React.FC<AiAnalysisTechnicalCovera
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '22px',
         marginBottom: '20px',
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+        boxShadow: 'var(--shadow-sm)',
       }}
     >
       {/* Header */}
@@ -85,7 +85,7 @@ export const AiAnalysisTechnicalCoverageCard: React.FC<AiAnalysisTechnicalCovera
               backgroundColor: '#38bdf8',
             }}
           />
-          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
             Technical Coverage Distribution
           </h3>
         </div>
@@ -93,7 +93,7 @@ export const AiAnalysisTechnicalCoverageCard: React.FC<AiAnalysisTechnicalCovera
         <span
           style={{
             fontSize: '0.68rem',
-            color: '#64748b',
+            color: 'var(--text-muted)',
             padding: '2px 6px',
           }}
         >
@@ -101,7 +101,7 @@ export const AiAnalysisTechnicalCoverageCard: React.FC<AiAnalysisTechnicalCovera
         </span>
       </div>
 
-      <p style={{ fontSize: '0.74rem', color: '#94a3b8', margin: '0 0 16px 0' }}>
+      <p style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', margin: '0 0 16px 0' }}>
         Reflects detected keywords in your CV and tested personal proficiency.
       </p>
 
@@ -117,15 +117,15 @@ export const AiAnalysisTechnicalCoverageCard: React.FC<AiAnalysisTechnicalCovera
                 marginBottom: '5px',
               }}
             >
-              <span style={{ color: '#cbd5e1', fontWeight: 500 }}>{d.domain}</span>
-              <span style={{ color: '#e2e8f0', fontWeight: 700 }}>{d.percentage}%</span>
+              <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>{d.domain}</span>
+              <span style={{ color: 'var(--text-main)', fontWeight: 700 }}>{d.percentage}%</span>
             </div>
             <div
               style={{
                 width: '100%',
                 height: '7px',
                 borderRadius: '9999px',
-                backgroundColor: 'rgba(255, 255, 255, 0.07)',
+                backgroundColor: 'var(--border-subtle)',
                 overflow: 'hidden',
               }}
             >

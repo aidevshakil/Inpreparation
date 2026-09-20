@@ -559,6 +559,7 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
               remainingItem={nextMissingField}
               avatarUrl={avatarUrl || null}
               isEmailVerified={isEmailVerified}
+              plan={user?.plan || 'free'}
               onUploadPhoto={openFilePicker}
               onReplacePhoto={openFilePicker}
               onRemovePhoto={handleRemoveAvatar}

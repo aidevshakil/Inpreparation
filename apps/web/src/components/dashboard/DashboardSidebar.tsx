@@ -341,7 +341,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
           {navGroups.map((group, groupIdx) => (
             <div key={groupIdx} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
               {!collapsed && (
-                <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#64748b', letterSpacing: '0.5px', paddingLeft: '12px', marginBottom: '2px', textTransform: 'uppercase' }}>
+                <div style={{ fontSize: '0.65rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.5px', paddingLeft: '12px', marginBottom: '2px', textTransform: 'uppercase' }}>
                   {group.title}
                 </div>
               )}
@@ -363,8 +363,8 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                         gap: '12px',
                         padding: collapsed ? '9px 0' : '9px 12px',
                         justifyContent: collapsed ? 'center' : 'flex-start',
-                        backgroundColor: (activeItem === item.key && !item.subItems) ? 'rgba(99, 102, 241, 0.16)' : 'transparent',
-                        color: isGroupActive ? '#ffffff' : '#94a3b8',
+                        backgroundColor: (activeItem === item.key && !item.subItems) ? 'rgba(99, 102, 241, 0.14)' : 'transparent',
+                        color: isGroupActive ? 'var(--primary-color)' : 'var(--text-secondary)',
                         border: 'none',
                         borderRadius: '9px',
                         fontSize: '0.82rem',
@@ -376,14 +376,18 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                       }}
                       onMouseEnter={(e) => {
                         if (activeItem !== item.key) {
-                          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
-                          e.currentTarget.style.color = '#f1f5f9';
+                          e.currentTarget.style.backgroundColor = 'var(--bg-card-hover)';
+                          e.currentTarget.style.color = 'var(--text-main)';
+                          const icon = e.currentTarget.querySelector('svg');
+                          if (icon) (icon as unknown as HTMLElement).style.color = 'var(--primary-color)';
                         }
                       }}
                       onMouseLeave={(e) => {
                         if (activeItem !== item.key) {
                           e.currentTarget.style.backgroundColor = 'transparent';
-                          e.currentTarget.style.color = isGroupActive ? '#ffffff' : '#94a3b8';
+                          e.currentTarget.style.color = isGroupActive ? 'var(--primary-color)' : 'var(--text-secondary)';
+                          const icon = e.currentTarget.querySelector('svg');
+                          if (icon) (icon as unknown as HTMLElement).style.color = isGroupActive ? 'var(--primary-color)' : 'var(--text-muted)';
                         }
                       }}
                       title={collapsed ? item.label : undefined}
@@ -396,7 +400,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                             top: '18%',
                             bottom: '18%',
                             width: '3px',
-                            backgroundColor: '#6366f1',
+                            backgroundColor: 'var(--primary-color)',
                             borderRadius: '0 4px 4px 0',
                           }}
                         />
@@ -404,8 +408,9 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                       <Icon
                         size={17}
                         style={{
-                          color: isGroupActive ? '#818cf8' : '#64748b',
+                          color: isGroupActive ? 'var(--primary-color)' : 'var(--text-muted)',
                           flexShrink: 0,
+                          transition: 'color 0.15s ease',
                         }}
                       />
                       {!collapsed && (
@@ -417,7 +422,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                             <ChevronDown
                               size={13}
                               style={{
-                                color: '#64748b',
+                                color: 'var(--text-muted)',
                                 transform: isSubExpanded ? 'rotate(0deg)' : 'rotate(-90deg)',
                                 transition: 'transform 0.15s ease',
                               }}
@@ -427,12 +432,30 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                             <span
                               style={{
                                 fontSize: '0.62rem',
-                                fontWeight: 600,
-                                padding: '2px 6px',
+                                fontWeight: 700,
+                                padding: '2px 7px',
                                 borderRadius: '9999px',
-                                backgroundColor: item.badgeColor ? `${item.badgeColor}25` : 'rgba(99, 102, 241, 0.22)',
-                                color: item.badgeColor || '#a5b4fc',
-                                border: `1px solid ${item.badgeColor ? `${item.badgeColor}40` : 'rgba(99, 102, 241, 0.3)'}`,
+                                backgroundColor: item.badgeColor === '#38bdf8' 
+                                  ? 'rgba(2, 132, 199, 0.12)' 
+                                  : item.badgeColor === '#10b981' 
+                                  ? 'rgba(5, 150, 105, 0.12)' 
+                                  : item.badgeColor 
+                                  ? `${item.badgeColor}1a` 
+                                  : 'rgba(99, 102, 241, 0.14)',
+                                color: item.badgeColor === '#38bdf8' 
+                                  ? '#0284c7' 
+                                  : item.badgeColor === '#10b981' 
+                                  ? '#059669' 
+                                  : item.badgeColor || 'var(--primary-color)',
+                                border: `1px solid ${
+                                  item.badgeColor === '#38bdf8'
+                                    ? 'rgba(2, 132, 199, 0.3)'
+                                    : item.badgeColor === '#10b981'
+                                    ? 'rgba(5, 150, 105, 0.3)'
+                                    : item.badgeColor
+                                    ? `${item.badgeColor}35`
+                                    : 'rgba(99, 102, 241, 0.28)'
+                                }`,
                               }}
                             >
                               {item.badge}
@@ -473,7 +496,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                                 textAlign: 'left',
                                 padding: '6px 12px',
                                 background: isSubActive ? 'linear-gradient(135deg, #4f46e5, #6366f1)' : 'transparent',
-                                color: isSubActive ? '#ffffff' : '#94a3b8',
+                                color: isSubActive ? '#ffffff' : 'var(--text-secondary)',
                                 border: 'none',
                                 borderRadius: '7px',
                                 fontSize: '0.74rem',
@@ -484,14 +507,14 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                               }}
                               onMouseEnter={(e) => {
                                 if (!isSubActive) {
-                                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
-                                  e.currentTarget.style.color = '#f1f5f9';
+                                  e.currentTarget.style.backgroundColor = 'var(--bg-card-hover)';
+                                  e.currentTarget.style.color = 'var(--text-main)';
                                 }
                               }}
                               onMouseLeave={(e) => {
                                 if (!isSubActive) {
                                   e.currentTarget.style.backgroundColor = 'transparent';
-                                  e.currentTarget.style.color = '#94a3b8';
+                                  e.currentTarget.style.color = 'var(--text-secondary)';
                                 }
                               }}
                             >
@@ -513,14 +536,14 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
           style={{
             margin: '8px 14px',
             height: '1px',
-            backgroundColor: 'rgba(255, 255, 255, 0.06)',
+            backgroundColor: 'var(--border-subtle)',
           }}
         />
 
         {/* SYSTEM Navigation Links */}
         <div style={{ padding: '0 10px 10px 10px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
           {!collapsed && (
-            <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#64748b', letterSpacing: '0.5px', paddingLeft: '12px', marginBottom: '2px', marginTop: '4px', textTransform: 'uppercase' }}>
+            <div style={{ fontSize: '0.65rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.5px', paddingLeft: '12px', marginBottom: '2px', marginTop: '4px', textTransform: 'uppercase' }}>
               SYSTEM
             </div>
           )}
@@ -538,8 +561,8 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                   gap: '12px',
                   padding: collapsed ? '9px 0' : '9px 12px',
                   justifyContent: collapsed ? 'center' : 'flex-start',
-                  backgroundColor: isActive ? 'rgba(99, 102, 241, 0.16)' : 'transparent',
-                  color: isActive ? '#ffffff' : '#94a3b8',
+                  backgroundColor: isActive ? 'rgba(99, 102, 241, 0.14)' : 'transparent',
+                  color: isActive ? 'var(--primary-color)' : 'var(--text-secondary)',
                   border: 'none',
                   borderRadius: '9px',
                   fontSize: '0.82rem',
@@ -551,23 +574,41 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive) {
-                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.04)';
-                    e.currentTarget.style.color = '#f1f5f9';
+                    e.currentTarget.style.backgroundColor = 'var(--bg-card-hover)';
+                    e.currentTarget.style.color = 'var(--text-main)';
+                    const icon = e.currentTarget.querySelector('svg');
+                    if (icon) (icon as unknown as HTMLElement).style.color = 'var(--primary-color)';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isActive) {
                     e.currentTarget.style.backgroundColor = 'transparent';
-                    e.currentTarget.style.color = '#94a3b8';
+                    e.currentTarget.style.color = isActive ? 'var(--primary-color)' : 'var(--text-secondary)';
+                    const icon = e.currentTarget.querySelector('svg');
+                    if (icon) (icon as unknown as HTMLElement).style.color = isActive ? 'var(--primary-color)' : 'var(--text-muted)';
                   }
                 }}
                 title={collapsed ? item.label : undefined}
               >
+                {isActive && (
+                  <span
+                    style={{
+                      position: 'absolute',
+                      left: 0,
+                      top: '18%',
+                      bottom: '18%',
+                      width: '3px',
+                      backgroundColor: 'var(--primary-color)',
+                      borderRadius: '0 4px 4px 0',
+                    }}
+                  />
+                )}
                 <Icon
                   size={17}
                   style={{
-                    color: isActive ? '#818cf8' : '#64748b',
+                    color: isActive ? 'var(--primary-color)' : 'var(--text-muted)',
                     flexShrink: 0,
+                    transition: 'color 0.15s ease',
                   }}
                 />
                 {!collapsed && (

@@ -20,9 +20,12 @@ import { profileRouter } from './routes/profile.routes';
 import { recommendationsRouter } from './routes/recommendations.routes';
 import { improvementPlanRouter } from './routes/improvement-plan.routes';
 import { questionPerformanceRouter } from './routes/question-performance.routes';
+import { adminRouter } from './routes/admin.routes';
+import { roleCatalogRouter } from './routes/role-catalog.routes';
+import { questionDossierCatalogRouter } from './routes/question-dossier-catalog.routes';
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.BACKEND_PORT || 5000;
 
 const logger = pino();
 const httpLogger = pinoHttp({
@@ -30,7 +33,8 @@ const httpLogger = pinoHttp({
 });
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '25mb' }));
+app.use(express.urlencoded({ extended: true, limit: '25mb' }));
 app.use(httpLogger);
 
 // Mount API Routes
@@ -45,6 +49,9 @@ app.use('/api/profile', profileRouter);
 app.use('/api/recommendations', recommendationsRouter);
 app.use('/api/improvement-plan', improvementPlanRouter);
 app.use('/api/question-performance', questionPerformanceRouter);
+app.use('/api/admin', adminRouter);
+app.use('/api/role-catalog', roleCatalogRouter);
+app.use('/api/question-dossiers', questionDossierCatalogRouter);
 
 // Health check
 app.get('/api/health', (req, res) => {

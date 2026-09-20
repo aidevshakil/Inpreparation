@@ -13,6 +13,7 @@ import { PrepNotesModal } from '../components/targeted-plan/PrepNotesModal';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
 import {
   ROLE_DATA_CATALOG,
+  fetchRoleCatalog,
   loadAiPlanState,
   saveAiPlanState,
   exportDossierDownload,
@@ -78,9 +79,16 @@ export const TargetedPlanPage: React.FC<TargetedPlanPageProps> = ({
     saveAiPlanState(planState);
   }, [planState]);
 
+  const [catalogReady, setCatalogReady] = useState(false);
+
+  useEffect(() => {
+    fetchRoleCatalog().then(() => setCatalogReady(true));
+  }, []);
+
   // Load Real Data from PostgreSQL Database
   useEffect(() => {
     let isMounted = true;
+    if (!catalogReady) return;
     getActiveImprovementPlan(user?.id).then((dbPlan) => {
       if (dbPlan && isMounted) {
         setDbPlanId(dbPlan.id);
@@ -101,7 +109,7 @@ export const TargetedPlanPage: React.FC<TargetedPlanPageProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [user?.id]);
+  }, [user?.id, catalogReady]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -111,6 +119,12 @@ export const TargetedPlanPage: React.FC<TargetedPlanPageProps> = ({
   const roleData =
     ROLE_DATA_CATALOG[planState.selectedRole] ||
     ROLE_DATA_CATALOG['Staff Backend & Distributed Systems Architecture'];
+
+  if (!roleData) {
+    return (
+      <div style={{ padding: 32, color: '#94a3b8' }}>Loading targeted plan catalog...</div>
+    );
+  }
 
   const activeDay =
     roleData.days.find((d) => d.dayNumber === planState.selectedDayNumber) ||

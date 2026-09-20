@@ -1,7 +1,27 @@
 import React from 'react';
 import { TrendingUp, ShieldCheck, Flag, Layers, FileText } from 'lucide-react';
 
-export const PerformanceKpiCards: React.FC = () => {
+interface PerformanceKpiCardsProps {
+  sessions?: any[];
+}
+
+export const PerformanceKpiCards: React.FC<PerformanceKpiCardsProps> = ({ sessions }) => {
+  const hasSessions = sessions && sessions.length > 0;
+
+  const scores = hasSessions ? sessions.map((s) => s.overallScore || 80) : [88, 82, 80, 78, 76, 72];
+  const weightedMean = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
+  const highestScore = Math.max(...scores).toFixed(1);
+  const lowestScore = Math.min(...scores).toFixed(1);
+  const sessionCount = hasSessions ? sessions.length : 6;
+  const totalQuestions = hasSessions
+    ? sessions.reduce((acc, s) => acc + (s.answers?.length || 5), 0)
+    : 30;
+
+  const peakSession = hasSessions
+    ? sessions.find((s) => (s.overallScore || 80) === Math.max(...scores))
+    : null;
+  const peakId = peakSession ? `#SIM-${(peakSession.id || '').slice(0, 8).toUpperCase()}` : '#SIM-ARC-9014';
+
   return (
     <div
       style={{
@@ -35,7 +55,7 @@ export const PerformanceKpiCards: React.FC = () => {
 
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '8px' }}>
           <span style={{ fontSize: '2.2rem', fontWeight: 800, color: '#f8fafc', lineHeight: 1 }}>
-            81.4
+            {weightedMean}
           </span>
           <span style={{ fontSize: '0.85rem', color: '#64748b', fontWeight: 600 }}>
             / 100
@@ -45,7 +65,7 @@ export const PerformanceKpiCards: React.FC = () => {
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.72rem', color: '#34d399' }}>
           <TrendingUp size={13} />
           <span style={{ fontWeight: 700 }}>+8.3 pts</span>
-          <span style={{ color: '#64748b' }}>vs 6 earlier simulations</span>
+          <span style={{ color: '#64748b' }}>vs {sessionCount} evaluated simulations</span>
         </div>
       </div>
 
@@ -73,7 +93,7 @@ export const PerformanceKpiCards: React.FC = () => {
 
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '8px' }}>
           <span style={{ fontSize: '2.2rem', fontWeight: 800, color: '#38bdf8', lineHeight: 1 }}>
-            88.0
+            {highestScore}
           </span>
           <span style={{ fontSize: '0.85rem', color: '#64748b', fontWeight: 600 }}>
             / 100
@@ -92,7 +112,7 @@ export const PerformanceKpiCards: React.FC = () => {
               borderRadius: '4px',
             }}
           >
-            #SIM-ARC-9014
+            {peakId}
           </span>
           <span style={{ color: '#94a3b8' }}>Staff Exemplar</span>
         </div>
@@ -122,7 +142,7 @@ export const PerformanceKpiCards: React.FC = () => {
 
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '8px' }}>
           <span style={{ fontSize: '2.2rem', fontWeight: 800, color: '#f8fafc', lineHeight: 1 }}>
-            72.0
+            {lowestScore}
           </span>
           <span style={{ fontSize: '0.85rem', color: '#64748b', fontWeight: 600 }}>
             / 100
@@ -141,9 +161,9 @@ export const PerformanceKpiCards: React.FC = () => {
               borderRadius: '4px',
             }}
           >
-            #SIM-ALU-4102
+            Baseline
           </span>
-          <span style={{ color: '#64748b' }}>Baseline (First Try)</span>
+          <span style={{ color: '#64748b' }}>Remediated via Drills</span>
         </div>
       </div>
 
@@ -171,17 +191,17 @@ export const PerformanceKpiCards: React.FC = () => {
 
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '8px' }}>
           <span style={{ fontSize: '2.2rem', fontWeight: 800, color: '#f8fafc', lineHeight: 1 }}>
-            30 / 30
+            {totalQuestions}
           </span>
           <span style={{ fontSize: '0.85rem', color: '#64748b', fontWeight: 600 }}>
-            Q
+            Questions
           </span>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.72rem', color: '#94a3b8' }}>
-          <span style={{ color: '#38bdf8' }}>6 Sessions Validated</span>
+          <span style={{ color: '#38bdf8' }}>{sessionCount} Sessions Validated</span>
           <span>•</span>
-          <span>3 Domains</span>
+          <span>PostgreSQL Persistent</span>
         </div>
       </div>
     </div>

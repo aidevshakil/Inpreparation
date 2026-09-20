@@ -32,8 +32,8 @@ export const CvPrototypeSimulatorBar: React.FC<CvPrototypeSimulatorBarProps> = (
     <div
       style={{
         width: '100%',
-        backgroundColor: '#090d16',
-        borderBottom: '1px solid rgba(99, 102, 241, 0.25)',
+        backgroundColor: 'var(--bg-card)',
+        borderBottom: '1px solid var(--border-subtle)',
         padding: '8px 20px',
         display: 'flex',
         alignItems: 'center',
@@ -41,7 +41,7 @@ export const CvPrototypeSimulatorBar: React.FC<CvPrototypeSimulatorBarProps> = (
         flexWrap: 'wrap',
         gap: '12px',
         fontSize: '0.78rem',
-        color: '#94a3b8',
+        color: 'var(--text-secondary)',
         zIndex: 50,
         position: 'sticky',
         top: 0,
@@ -55,11 +55,11 @@ export const CvPrototypeSimulatorBar: React.FC<CvPrototypeSimulatorBarProps> = (
             width: '8px',
             height: '8px',
             borderRadius: '50%',
-            backgroundColor: '#6366f1',
-            boxShadow: '0 0 10px #6366f1',
+            backgroundColor: 'var(--primary-color)',
+            boxShadow: '0 0 10px var(--primary-color)',
           }}
         />
-        <strong style={{ color: '#e2e8f0', fontWeight: 600 }}>
+        <strong style={{ color: 'var(--text-main)', fontWeight: 600 }}>
           PROTOTYPE STATE SWITCHER:
         </strong>
       </div>
@@ -76,14 +76,14 @@ export const CvPrototypeSimulatorBar: React.FC<CvPrototypeSimulatorBarProps> = (
                 borderRadius: '6px',
                 fontSize: '0.74rem',
                 fontWeight: isActive ? 600 : 400,
-                backgroundColor: isActive ? '#4f46e5' : 'rgba(255, 255, 255, 0.05)',
-                color: isActive ? '#ffffff' : '#94a3b8',
+                backgroundColor: isActive ? 'var(--primary-color)' : 'var(--bg-surface)',
+                color: isActive ? '#ffffff' : 'var(--text-secondary)',
                 border: isActive
-                  ? '1px solid rgba(129, 140, 248, 0.6)'
-                  : '1px solid rgba(255, 255, 255, 0.08)',
+                  ? '1px solid var(--primary-color)'
+                  : '1px solid var(--border-subtle)',
                 cursor: 'pointer',
                 transition: 'all 0.18s ease',
-                boxShadow: isActive ? '0 0 12px rgba(79, 70, 229, 0.4)' : 'none',
+                boxShadow: isActive ? '0 0 12px rgba(99, 102, 241, 0.35)' : 'none',
               }}
             >
               {state.label}
