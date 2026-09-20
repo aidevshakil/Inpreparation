@@ -62,6 +62,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             parsed.cvSkills = [];
             delete parsed.cvAtsScore;
           }
+          if (parsed.targetRole === 'Full Stack Software Engineer' && !parsed.cvFileName) {
+            parsed.targetRole = '';
+          }
+          if (parsed.targetRole === 'Select Target Role') {
+            parsed.targetRole = '';
+          }
           return { ...DEFAULT_USER, ...parsed };
         }
       }
@@ -135,7 +141,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           id: result.user.id || user.id,
           email: result.user.email || user.email,
           name: result.user.name || user.name,
-          targetRole: result.user.targetRole || 'Select Target Role',
+          targetRole: result.user.targetRole || '',
           avatarUrl: result.user.picture || user.avatarUrl,
           seniority: result.user.seniority || 'Entry / Mid',
           creditsRemaining: result.user.creditsRemaining ?? 100,

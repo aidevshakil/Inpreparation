@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../src/generated/client"
 }
 
 datasource db {
@@ -249,7 +250,12 @@ model CandidateProfile {
   interviewFocusAreas String[] @default([])
   difficulty          String   @default("advanced")
   careerGoal          String?
-  
+
+  // Privacy & telemetry preferences
+  allowSessionRecording  Boolean @default(true)
+  allowAnonymizedTelemetry Boolean @default(true)
+  allowAiTrainingUsage   Boolean @default(false)
+
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 

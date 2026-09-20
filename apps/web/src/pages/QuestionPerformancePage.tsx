@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DashboardSidebar, NavItemKey } from '../components/dashboard/DashboardSidebar';
 import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { QuestionPerformanceHeader } from '../components/question-performance/QuestionPerformanceHeader';
@@ -7,6 +7,8 @@ import { QuestionDossierInspectView } from '../components/question-performance/Q
 import { QuestionCrossComparativeGrid } from '../components/question-performance/QuestionCrossComparativeGrid';
 import { QuestionAssessmentPolicyFooter } from '../components/question-performance/QuestionAssessmentPolicyFooter';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
+import { getQuestionPerformanceDossiers } from '../services/api';
+import { syncQuestionDataFromDb } from '../services/questionDataStore';
 import { useAuth } from '../context/AuthContext';
 
 interface QuestionPerformancePageProps {
@@ -50,6 +52,21 @@ export const QuestionPerformancePage: React.FC<QuestionPerformancePageProps> = (
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
   const [drillRole, setDrillRole] = useState('Targeted Drill: Token-Bucket Clock Skew & Drift Resilience');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [, setDbSynced] = useState(false);
+
+  // Load Real Question Dossiers from PostgreSQL Database
+  useEffect(() => {
+    let isMounted = true;
+    getQuestionPerformanceDossiers(user?.id).then((dossiers) => {
+      if (dossiers && isMounted) {
+        syncQuestionDataFromDb(dossiers);
+        setDbSynced(true);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, [user?.id]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);

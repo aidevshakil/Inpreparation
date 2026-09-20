@@ -289,7 +289,7 @@ authRouter.post('/google', async (req: Request, res: Response) => {
         data: {
           email: cleanEmail,
           name: payload.name || cleanEmail.split('@')[0],
-          targetRole: 'Full Stack Software Engineer',
+          targetRole: null,
           isEmailVerified: true, // Google verified
         },
         include: {

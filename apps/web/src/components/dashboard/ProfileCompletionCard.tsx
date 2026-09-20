@@ -46,8 +46,8 @@ export const ProfileCompletionCard: React.FC<ProfileCompletionCardProps> = ({
   return (
     <div
       style={{
-        backgroundColor: 'rgba(15, 20, 32, 0.75)',
-        border: '1px solid rgba(99, 102, 241, 0.22)',
+        backgroundColor: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '16px',
         padding: '16px 20px',
         display: 'flex',
@@ -56,9 +56,9 @@ export const ProfileCompletionCard: React.FC<ProfileCompletionCardProps> = ({
         flexWrap: 'wrap',
         gap: '16px',
         position: 'relative',
-        backdropFilter: 'blur(16px)',
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
+        boxShadow: 'var(--shadow-sm)',
         marginBottom: '24px',
+        transition: 'background-color 0.25s ease, border-color 0.25s ease',
       }}
     >
       {/* Left icon and text content */}
@@ -86,7 +86,7 @@ export const ProfileCompletionCard: React.FC<ProfileCompletionCardProps> = ({
                 <path
                   d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                   fill="none"
-                  stroke="rgba(255, 255, 255, 0.1)"
+                  stroke="var(--border-subtle)"
                   strokeWidth="3.5"
                 />
                 <path
@@ -104,7 +104,7 @@ export const ProfileCompletionCard: React.FC<ProfileCompletionCardProps> = ({
         {/* Text and steps */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <h3 style={{ fontSize: '0.94rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+            <h3 style={{ fontSize: '0.94rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
               {is100Percent ? 'Profile Fully Calibrated' : 'Complete Your Profile'}
             </h3>
             <span
@@ -114,7 +114,7 @@ export const ProfileCompletionCard: React.FC<ProfileCompletionCardProps> = ({
                 padding: '2px 8px',
                 borderRadius: '9999px',
                 backgroundColor: is100Percent ? 'rgba(16, 185, 129, 0.18)' : 'rgba(99, 102, 241, 0.2)',
-                color: is100Percent ? '#34d399' : '#a5b4fc',
+                color: is100Percent ? '#34d399' : '#818cf8',
                 border: is100Percent ? '1px solid rgba(16, 185, 129, 0.35)' : '1px solid rgba(99, 102, 241, 0.35)',
               }}
             >
@@ -122,7 +122,7 @@ export const ProfileCompletionCard: React.FC<ProfileCompletionCardProps> = ({
             </span>
           </div>
 
-          <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: 0 }}>
+          <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: 0 }}>
             {is100Percent
               ? 'Role-calibrated benchmarks and personalized company simulations are actively live.'
               : 'Unlock role-calibrated benchmarks and personalized company simulations.'}

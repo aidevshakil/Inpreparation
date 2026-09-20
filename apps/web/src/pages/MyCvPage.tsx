@@ -130,7 +130,7 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
   const isModalOpen = replaceModalOpen || simulatorState === 'replace_dialog';
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-main)', color: 'var(--text-main)', display: 'flex', flexDirection: 'column' }}>
       {/* Main Workspace Frame */}
       <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
@@ -144,7 +144,7 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
         />
 
         {/* Right Content Column */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, backgroundColor: '#090c15' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, backgroundColor: 'var(--bg-main)' }}>
           {/* 3. Studio Navbar */}
           <DashboardNavbar
             onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
@@ -177,29 +177,29 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
               }}
             >
               <div>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '0.75rem', color: '#94a3b8', marginBottom: '8px' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '8px' }}>
                   <span
                     style={{
                       padding: '3px 10px',
                       backgroundColor: 'rgba(99, 102, 241, 0.12)',
                       border: '1px solid rgba(99, 102, 241, 0.25)',
                       borderRadius: '9999px',
-                      color: '#a5b4fc',
+                      color: 'var(--primary-color)',
                       fontWeight: 600,
                     }}
                   >
                     CANDIDATE DOSSIER
                   </span>
-                  <span style={{ color: '#475569' }}>•</span>
-                  <span style={{ color: '#cbd5e1' }}>CV MANAGEMENT &amp; VECTORIZATION</span>
+                  <span style={{ color: 'var(--border-accent)' }}>•</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>CV MANAGEMENT &amp; VECTORIZATION</span>
                 </div>
 
-                <h1 style={{ fontSize: '2.1rem', fontWeight: 800, color: '#ffffff', margin: '0 0 6px 0', letterSpacing: '-0.02em' }}>
+                <h1 style={{ fontSize: '2.1rem', fontWeight: 800, color: 'var(--text-main)', margin: '0 0 6px 0', letterSpacing: '-0.02em' }}>
                   My CV
                 </h1>
 
-                <p style={{ fontSize: '0.86rem', color: '#94a3b8', margin: 0, maxWidth: '680px', lineHeight: 1.5 }}>
-                  Upload and manage your CV to help Inprep AI extract competencies, map high-dimensional experience vectors, and auto-calibrate your 5-question mock simulations.
+                <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', margin: 0, maxWidth: '640px', lineHeight: 1.5 }}>
+                  Manage your uploaded resume, view skill graph extractions, and configure telemetry synchronization for live mock simulations.
                 </p>
               </div>
 

@@ -18,6 +18,10 @@ import {
   exportDossierDownload,
   CustomTargetsConfig,
 } from '../services/aiPlanStore';
+import {
+  getActiveImprovementPlan,
+  updatePlanTargetsInDb,
+} from '../services/api';
 import { useAuth } from '../context/AuthContext';
 
 interface TargetedPlanPageProps {
@@ -62,15 +66,42 @@ export const TargetedPlanPage: React.FC<TargetedPlanPageProps> = ({
 
   // Dynamic Plan State
   const [planState, setPlanState] = useState(() => loadAiPlanState());
+  const [dbPlanId, setDbPlanId] = useState<string | null>(null);
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
   const [customizeModalOpen, setCustomizeModalOpen] = useState(false);
   const [prepNotesModalOpen, setPrepNotesModalOpen] = useState(false);
   const [drillRole, setDrillRole] = useState('');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // Sync to local storage
   useEffect(() => {
     saveAiPlanState(planState);
   }, [planState]);
+
+  // Load Real Data from PostgreSQL Database
+  useEffect(() => {
+    let isMounted = true;
+    getActiveImprovementPlan(user?.id).then((dbPlan) => {
+      if (dbPlan && isMounted) {
+        setDbPlanId(dbPlan.id);
+        if (dbPlan.targetRole && ROLE_DATA_CATALOG[dbPlan.targetRole]) {
+          setPlanState((prev) => ({ ...prev, selectedRole: dbPlan.targetRole }));
+        }
+        if (dbPlan.customTargetScore) {
+          setPlanState((prev) => ({
+            ...prev,
+            customTargets: {
+              ...prev.customTargets,
+              targetComposite: dbPlan.customTargetScore,
+            },
+          }));
+        }
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, [user?.id]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -100,16 +131,13 @@ export const TargetedPlanPage: React.FC<TargetedPlanPageProps> = ({
     else if (key === 'speech-analytics' && onNavigateToSpeechAnalytics) onNavigateToSpeechAnalytics();
     else if (key === 'presentation-analytics' && onNavigateToPresentationAnalytics) onNavigateToPresentationAnalytics();
     else if (key === 'question-performance' && onNavigateToQuestionPerformance) onNavigateToQuestionPerformance();
-    else if (key === 'improvement' && onNavigateToAiPlan42) onNavigateToAiPlan42();
+    else if (key === 'improvement') setActiveNav('improvement');
     else if (key === 'history' && onNavigateToHistory) onNavigateToHistory();
     else if (key === 'assessment' && onNavigateToAssessment) onNavigateToAssessment();
   };
 
-  const handleStartSimulation = (roleTitle?: string) => {
-    const title =
-      roleTitle ||
-      `${activeDay.label}: ${activeDay.title} (${activeDay.simulationId})`;
-    setDrillRole(title);
+  const handleStartSimulation = (simTitle?: string) => {
+    setDrillRole(simTitle || `${activeDay.label}: ${activeDay.title} (${activeDay.simulationId})`);
     setSimulationModalOpen(true);
   };
 
@@ -128,9 +156,14 @@ export const TargetedPlanPage: React.FC<TargetedPlanPageProps> = ({
     showToast(`Viewing Day ${dayNum} curriculum: ${roleData.days.find((d) => d.dayNumber === dayNum)?.title || ''}`);
   };
 
-  const handleSaveCustomTargets = (newTargets: CustomTargetsConfig) => {
+  const handleSaveCustomTargets = async (newTargets: CustomTargetsConfig) => {
     setPlanState((prev) => ({ ...prev, customTargets: newTargets }));
-    showToast(`Targets updated: Target Score ${newTargets.targetComposite.toFixed(1)} / Alert ${newTargets.dailyAlertTime}`);
+    if (dbPlanId) {
+      await updatePlanTargetsInDb(dbPlanId, {
+        customTargetScore: newTargets.targetComposite,
+      });
+    }
+    showToast(`Targets saved to database: Target Score ${newTargets.targetComposite.toFixed(1)} / Alert ${newTargets.dailyAlertTime}`);
   };
 
   const handleRefreshPlan = () => {

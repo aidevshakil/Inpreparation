@@ -96,14 +96,15 @@ export const QuickNavAndAlgorithmSection: React.FC<QuickNavAndAlgorithmSectionPr
       {/* Left Card: Quick Navigation & Actions */}
       <div
         style={{
-          backgroundColor: 'rgba(14, 18, 28, 0.85)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          backgroundColor: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '18px',
           padding: '20px',
-          boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+          boxShadow: 'var(--shadow-sm)',
+          transition: 'background-color 0.25s ease, border-color 0.25s ease',
         }}
       >
-        <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#f8fafc', marginBottom: '16px' }}>
+        <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '16px' }}>
           Quick Navigation &amp; Actions
         </h3>
 
@@ -122,8 +123,8 @@ export const QuickNavAndAlgorithmSection: React.FC<QuickNavAndAlgorithmSectionPr
                 key={tile.id}
                 onClick={tile.onClick}
                 style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  backgroundColor: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '12px',
                   padding: '14px 12px',
                   display: 'flex',
@@ -135,13 +136,13 @@ export const QuickNavAndAlgorithmSection: React.FC<QuickNavAndAlgorithmSectionPr
                   transition: 'all 0.18s ease',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
-                  e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.3)';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-card-hover)';
+                  e.currentTarget.style.borderColor = 'var(--primary-color)';
                   e.currentTarget.style.transform = 'translateY(-2px)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-surface)';
+                  e.currentTarget.style.borderColor = 'var(--border-subtle)';
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
@@ -160,10 +161,10 @@ export const QuickNavAndAlgorithmSection: React.FC<QuickNavAndAlgorithmSectionPr
                   <Icon size={16} />
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.8rem', fontWeight: 600, color: '#f8fafc', lineHeight: 1.2 }}>
+                  <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-main)', lineHeight: 1.2 }}>
                     {tile.title}
                   </div>
-                  <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '3px' }}>
+                  <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary)', marginTop: '3px' }}>
                     {tile.subtitle}
                   </div>
                 </div>
@@ -176,20 +177,21 @@ export const QuickNavAndAlgorithmSection: React.FC<QuickNavAndAlgorithmSectionPr
       {/* Right Card: How Your Recommendations Form */}
       <div
         style={{
-          backgroundColor: 'rgba(14, 18, 28, 0.85)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          backgroundColor: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '18px',
           padding: '20px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+          boxShadow: 'var(--shadow-sm)',
+          transition: 'background-color 0.25s ease, border-color 0.25s ease',
         }}
       >
         <div>
           {/* Header */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
-            <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+            <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
               How Your Recommendations Form
             </h3>
 
@@ -199,15 +201,15 @@ export const QuickNavAndAlgorithmSection: React.FC<QuickNavAndAlgorithmSectionPr
                 fontWeight: 600,
                 padding: '2px 8px',
                 borderRadius: '6px',
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                color: '#cbd5e1',
+                backgroundColor: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
+                color: 'var(--text-secondary)',
               }}
             >
               Algorithm v3.4 Live
             </span>
           </div>
-          <p style={{ fontSize: '0.76rem', color: '#94a3b8', margin: '0 0 16px 0' }}>
+          <p style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', margin: '0 0 16px 0' }}>
             Inprep AI continuously fuses multiple signals to generate your next mock challenge:
           </p>
 
@@ -218,8 +220,8 @@ export const QuickNavAndAlgorithmSection: React.FC<QuickNavAndAlgorithmSectionPr
               alignItems: 'center',
               justifyContent: 'space-between',
               gap: '6px',
-              backgroundColor: 'rgba(255, 255, 255, 0.02)',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '12px',
               padding: '14px 10px',
               marginBottom: '16px',
@@ -227,24 +229,24 @@ export const QuickNavAndAlgorithmSection: React.FC<QuickNavAndAlgorithmSectionPr
           >
             {/* Step 1 */}
             <div style={{ textAlign: 'center', flex: 1 }}>
-              <div style={{ fontSize: '0.76rem', fontWeight: 700, color: '#f8fafc' }}>Profile</div>
-              <div style={{ fontSize: '0.65rem', color: '#64748b' }}>Title &amp; Goals</div>
+              <div style={{ fontSize: '0.76rem', fontWeight: 700, color: 'var(--text-main)' }}>Profile</div>
+              <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>Title &amp; Goals</div>
             </div>
 
-            <ArrowRight size={14} style={{ color: '#475569', flexShrink: 0 }} />
+            <ArrowRight size={14} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
 
             {/* Step 2 */}
             <div style={{ textAlign: 'center', flex: 1 }}>
-              <div style={{ fontSize: '0.76rem', fontWeight: 700, color: '#f8fafc' }}>CV Analysis</div>
-              <div style={{ fontSize: '0.65rem', color: '#64748b' }}>Skill Graph</div>
+              <div style={{ fontSize: '0.76rem', fontWeight: 700, color: 'var(--text-main)' }}>CV Analysis</div>
+              <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>Skill Graph</div>
             </div>
 
-            <ArrowRight size={14} style={{ color: '#475569', flexShrink: 0 }} />
+            <ArrowRight size={14} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
 
             {/* Step 3 */}
             <div style={{ textAlign: 'center', flex: 1 }}>
-              <div style={{ fontSize: '0.76rem', fontWeight: 700, color: '#f8fafc' }}>5-Q Practice</div>
-              <div style={{ fontSize: '0.65rem', color: '#64748b' }}>Telemetry</div>
+              <div style={{ fontSize: '0.76rem', fontWeight: 700, color: 'var(--text-main)' }}>5-Q Practice</div>
+              <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>Telemetry</div>
             </div>
 
             <ArrowRight size={14} style={{ color: '#475569', flexShrink: 0 }} />
@@ -277,7 +279,7 @@ export const QuickNavAndAlgorithmSection: React.FC<QuickNavAndAlgorithmSectionPr
             border: '1px solid rgba(99, 102, 241, 0.15)',
             borderRadius: '10px',
             fontSize: '0.71rem',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.45,
           }}
         >

@@ -18,100 +18,47 @@ export interface HistorySessionItem {
 }
 
 interface InterviewHistorySessionListProps {
-  selectedSessionId: string;
+  sessions: HistorySessionItem[];
+  selectedSessionId: string | null;
   onSelectSession: (id: string) => void;
+  loading?: boolean;
 }
 
 export const InterviewHistorySessionList: React.FC<InterviewHistorySessionListProps> = ({
+  sessions,
   selectedSessionId,
   onSelectSession,
+  loading = false,
 }) => {
-  const sessions: HistorySessionItem[] = [
-    {
-      id: 'SIM-PY-8821',
-      codeBadge: '#SIM-PY-8821',
-      title: 'Python Backend Concurrency',
-      subtext: 'Staff L6+ Standard • Rubric v4.2 Deterministic',
-      date: 'Oct 24, 2024',
-      duration: '10m 37s total',
-      progressText: '5/5 Defended',
-      progressPercent: 100,
-      statusType: 'defended',
-      score: 82,
-      scoreStatusText: 'STRONG',
-      scoreStatusColor: '#38bdf8',
-    },
-    {
-      id: 'SIM-SYS-7940',
-      codeBadge: '#SIM-SYS-7940',
-      title: 'Distributed Microservices & Circuit Breakers',
-      subtext: 'Staff L6+ Standard • Fault Domain Recovery',
-      date: 'Oct 21, 2024',
-      duration: '12m 44s total',
-      progressText: '5/5 Defended',
-      progressPercent: 100,
-      statusType: 'defended',
-      score: 80,
-      scoreStatusText: 'SOLID',
-      scoreStatusColor: '#818cf8',
-    },
-    {
-      id: 'SIM-API-4412',
-      codeBadge: '#SIM-API-4412',
-      title: 'High-Throughput FastAPI & Async Architecture',
-      subtext: 'Senior L5+ Standard • Event-Loop Latency',
-      date: 'Oct 18, 2024',
-      duration: '9m 15s total',
-      progressText: '5/5 Defended',
-      progressPercent: 100,
-      statusType: 'defended',
-      score: 78,
-      scoreStatusText: 'DEVELOPING',
-      scoreStatusColor: '#fbbf24',
-    },
-    {
-      id: 'SIM-DB-9310',
-      codeBadge: '#SIM-DB-9310',
-      title: 'Postgres Connection Starvation & Pool Contention',
-      subtext: 'Senior L5+ Standard • Lock Inversion Analysis',
-      date: 'Oct 15, 2024',
-      duration: '11m 02s total',
-      progressText: '5/5 Defended',
-      progressPercent: 100,
-      statusType: 'defended',
-      score: 75,
-      scoreStatusText: 'DEVELOPING',
-      scoreStatusColor: '#fbbf24',
-    },
-    {
-      id: 'SIM-ARC-9012',
-      codeBadge: '#SIM-ARC-9012',
-      title: 'Cloud Infrastructure & Cost-to-SLA Trade-offs',
-      subtext: 'Principal L7 Candidate • Session Paused at Q4',
-      date: 'Today • 11:14 UTC',
-      duration: '6m 20s elapsed',
-      progressText: '3/5 In Progress',
-      progressPercent: 60,
-      statusType: 'in_progress',
-      isPending: true,
-      scoreStatusText: 'Score Pending (Incomplete)',
-      scoreStatusColor: '#64748b',
-    },
-    {
-      id: 'SIM-K8S-4321',
-      codeBadge: '#SIM-K8S-4321',
-      title: 'Kubernetes Ingress & Backpressure Flow Control',
-      subtext: 'Staff L6+ Standard • Cryptographic Verification in flight',
-      date: 'Just now • 14:02 UTC',
-      duration: '11m 45s recorded',
-      progressText: '5/5 Synthesizing',
-      progressPercent: 82,
-      statusType: 'synthesizing',
-      isPending: true,
-      scoreStatusText: 'Evaluating Rubric (82%)...',
-      scoreStatusColor: '#c084fc',
-    },
-  ];
+  if (loading) {
+    return (
+      <div style={{ padding: '40px', textAlign: 'center', color: '#64748b', fontSize: '0.82rem' }}>
+        Loading simulation history...
+      </div>
+    );
+  }
+
+  if (sessions.length === 0) {
+    return (
+      <div
+        style={{
+          padding: '48px 32px',
+          textAlign: 'center',
+          background: 'rgba(255, 255, 255, 0.02)',
+          border: '1px dashed rgba(255, 255, 255, 0.08)',
+          borderRadius: '16px',
+          color: '#94a3b8',
+        }}
+      >
+        <div style={{ fontSize: '0.94rem', fontWeight: 700, color: '#f8fafc', marginBottom: '8px' }}>
+          No simulation sessions yet
+        </div>
+        <div style={{ fontSize: '0.78rem', lineHeight: 1.5 }}>
+          Complete a mock interview to see your defended sessions here.
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -249,11 +196,11 @@ export const InterviewHistorySessionList: React.FC<InterviewHistorySessionListPr
         );
       })}
 
-      {/* Bottom Pagination */}
+      {/* Bottom footer */}
       <div
         style={{
           display: 'flex',
-          justifyContent: 'space-between',
+          justifyContent: 'flex-start',
           alignItems: 'center',
           marginTop: '12px',
           padding: '12px 6px',
@@ -261,21 +208,9 @@ export const InterviewHistorySessionList: React.FC<InterviewHistorySessionListPr
           color: '#64748b',
         }}
       >
-        <span>Showing 1-6 of 8 archived interview sessions</span>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <button style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', padding: '4px 8px' }}>
-            « Previous
-          </button>
-          <button style={{ background: '#4f46e5', border: 'none', color: '#ffffff', fontWeight: 700, padding: '4px 10px', borderRadius: '4px', cursor: 'pointer' }}>
-            1
-          </button>
-          <button style={{ background: 'none', border: 'none', color: '#94a3b8', padding: '4px 10px', borderRadius: '4px', cursor: 'pointer' }}>
-            2
-          </button>
-          <button style={{ background: 'none', border: 'none', color: '#cbd5e1', cursor: 'pointer', padding: '4px 8px' }}>
-            Next »
-          </button>
-        </div>
+        <span>
+          Showing {sessions.length} archived interview session{sessions.length === 1 ? '' : 's'}
+        </span>
       </div>
     </div>
   );

@@ -86,7 +86,14 @@ import { useAuth } from './context/AuthContext';
 
 export function App() {
   const [currentPage, setCurrentPage] = useState<AppPage>('home');
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+
+  const hasUserCv = Boolean(
+    (user?.cvFileName && user.cvFileName.trim().length > 0) ||
+    (user?.cvSkills && user.cvSkills.length > 0) ||
+    (typeof window !== 'undefined' && localStorage.getItem('inprep_has_cv') === 'true') ||
+    (typeof window !== 'undefined' && localStorage.getItem('inprep_cv_profile'))
+  );
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -138,6 +145,11 @@ export function App() {
           'reset-password',
         ].includes(hash)
       ) {
+        if (['intro-room', 'device-readiness', 'pipeline-diagnostic'].includes(hash) && !hasUserCv) {
+          setCurrentPage('upload-cv');
+          window.location.hash = 'upload-cv';
+          return;
+        }
         setCurrentPage(hash);
       } else if (!window.location.hash) {
         setCurrentPage('home');
@@ -149,7 +161,7 @@ export function App() {
     }
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
+  }, [hasUserCv]);
 
   useEffect(() => {
     // Auto login & redirect logic: 
@@ -165,6 +177,12 @@ export function App() {
   }, [currentPage, isAuthenticated]);
 
   const navigateTo = (page: AppPage) => {
+    if (['intro-room', 'device-readiness', 'pipeline-diagnostic'].includes(page) && !hasUserCv) {
+      setCurrentPage('upload-cv');
+      window.location.hash = 'upload-cv';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     setCurrentPage(page);
     window.location.hash = page;
     window.scrollTo({ top: 0, behavior: 'smooth' });

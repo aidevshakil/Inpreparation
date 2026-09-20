@@ -2,30 +2,43 @@ import React from 'react';
 import { Mail, Briefcase, Clock, Check, Upload, ChevronRight } from 'lucide-react';
 
 interface ProfileHeroCardProps {
-  name?: string;
-  email?: string;
-  currentRole?: string;
-  targetRole?: string;
-  experience?: string;
-  completionPercent?: number;
-  remainingItem?: string;
+  name: string;
+  email: string;
+  currentRole: string;
+  targetRole: string;
+  experience: string;
+  completionPercent: number;
+  remainingItem: string;
+  avatarUrl?: string | null;
+  isEmailVerified?: boolean;
   onUploadPhoto?: () => void;
   onReplacePhoto?: () => void;
   onRemovePhoto?: () => void;
 }
 
+const computeInitials = (name: string): string => {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return '?';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+};
+
 export const ProfileHeroCard: React.FC<ProfileHeroCardProps> = ({
-  name = 'Shakil Ahamed',
-  email = 'shakil.ahamed@example.com',
-  currentRole = 'Flutter Developer',
-  targetRole = 'Senior Backend',
-  experience = 'Intermediate (3.5 yrs exp)',
-  completionPercent = 85,
-  remainingItem = 'Career Assessment',
+  name,
+  email,
+  currentRole,
+  targetRole,
+  experience,
+  completionPercent,
+  remainingItem,
+  avatarUrl,
+  isEmailVerified = false,
   onUploadPhoto,
   onReplacePhoto,
   onRemovePhoto,
 }) => {
+  const initials = computeInitials(name);
+  const hasAvatar = Boolean(avatarUrl);
   return (
     <div
       className="card flex flex-wrap"
@@ -35,41 +48,57 @@ export const ProfileHeroCard: React.FC<ProfileHeroCardProps> = ({
       <div className="flex items-start" style={{ gap: '22px', flex: 1, minWidth: '320px' }}>
         {/* Avatar with Verified Badge */}
         <div style={{ position: 'relative' }}>
-          <div
-            style={{
-              width: '84px',
-              height: '84px',
-              borderRadius: '20px',
-              backgroundColor: 'var(--bg-main)',
-              border: '1px solid var(--border-subtle)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'var(--text-main)',
-              fontSize: '28px',
-              fontWeight: 800,
-            }}
-          >
-            SA
-          </div>
-          {/* Verified Check Badge */}
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '-4px',
-              right: '-4px',
-              width: '24px',
-              height: '24px',
-              borderRadius: '50%',
-              backgroundColor: 'var(--color-success)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              border: '2px solid var(--bg-surface)',
-            }}
-          >
-            <Check size={14} strokeWidth={3} color="#ffffff" />
-          </div>
+          {hasAvatar ? (
+            <img
+              src={avatarUrl!}
+              alt={name}
+              style={{
+                width: '84px',
+                height: '84px',
+                borderRadius: '20px',
+                objectFit: 'cover',
+                border: '1px solid var(--border-subtle)',
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                width: '84px',
+                height: '84px',
+                borderRadius: '20px',
+                backgroundColor: 'var(--bg-main)',
+                border: '1px solid var(--border-subtle)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'var(--text-main)',
+                fontSize: '28px',
+                fontWeight: 800,
+              }}
+            >
+              {initials}
+            </div>
+          )}
+          {/* Verified Check Badge - only shown when email is verified */}
+          {isEmailVerified && (
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '-4px',
+                right: '-4px',
+                width: '24px',
+                height: '24px',
+                borderRadius: '50%',
+                backgroundColor: 'var(--color-success)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '2px solid var(--bg-surface)',
+              }}
+            >
+              <Check size={14} strokeWidth={3} color="#ffffff" />
+            </div>
+          )}
         </div>
 
         {/* Details and Tagline */}
@@ -84,10 +113,12 @@ export const ProfileHeroCard: React.FC<ProfileHeroCardProps> = ({
               Pro Candidate
             </span>
 
-            <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: 'var(--color-success)', borderColor: 'rgba(16, 185, 129, 0.2)' }}>
-              <span>Verified</span>
-              <Check size={12} strokeWidth={2.5} />
-            </span>
+            {isEmailVerified && (
+              <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: 'var(--color-success)', borderColor: 'rgba(16, 185, 129, 0.2)' }}>
+                <span>Verified</span>
+                <Check size={12} strokeWidth={2.5} />
+              </span>
+            )}
           </div>
 
           {/* Metadata Row */}
@@ -118,44 +149,41 @@ export const ProfileHeroCard: React.FC<ProfileHeroCardProps> = ({
 
           {/* Action Links */}
           <div className="flex items-center" style={{ gap: '14px', marginTop: '4px' }}>
-            <button
-              onClick={onUploadPhoto}
-              className="btn btn-outline btn-sm"
-              style={{ padding: '6px 12px' }}
-            >
-              <Upload size={12} />
-              <span>Upload Photo</span>
-            </button>
-
-            <button
-              onClick={onReplacePhoto}
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: 'var(--text-muted)',
-                fontSize: '12px',
-                cursor: 'pointer',
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
-              onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
-            >
-              Replace
-            </button>
-
-            <button
-              onClick={onRemovePhoto}
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: 'var(--color-error)',
-                fontSize: '12px',
-                cursor: 'pointer',
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
-              onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
-            >
-              Remove
-            </button>
+            {!hasAvatar ? (
+              <button
+                onClick={onUploadPhoto}
+                className="btn btn-outline btn-sm"
+                style={{ padding: '6px 12px' }}
+              >
+                <Upload size={12} />
+                <span>Upload Photo</span>
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={onReplacePhoto}
+                  className="btn btn-outline btn-sm"
+                  style={{ padding: '6px 12px' }}
+                >
+                  <Upload size={12} />
+                  <span>Replace Photo</span>
+                </button>
+                <button
+                  onClick={onRemovePhoto}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'var(--color-error)',
+                    fontSize: '12px',
+                    cursor: 'pointer',
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.textDecoration = 'underline')}
+                  onMouseLeave={(e) => (e.currentTarget.style.textDecoration = 'none')}
+                >
+                  Remove
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

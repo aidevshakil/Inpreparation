@@ -243,3 +243,33 @@ export const QUESTION_DATA_MAP: Record<string, QuestionDossierItem> = {
     drillPrompt: 'Drill Q5: Raft Leader Leases & Read-Index Linearizability',
   },
 };
+
+export function syncQuestionDataFromDb(dbDossiers: any[]) {
+  if (!Array.isArray(dbDossiers)) return;
+  dbDossiers.forEach((d) => {
+    const qKey = `Q${d.questionNumber}`;
+    if (QUESTION_DATA_MAP[qKey]) {
+      QUESTION_DATA_MAP[qKey].score = d.score || QUESTION_DATA_MAP[qKey].score;
+      if (d.questionText) QUESTION_DATA_MAP[qKey].questionPrompt = d.questionText;
+      if (d.candidateAnswer) QUESTION_DATA_MAP[qKey].candidateTranscript = d.candidateAnswer;
+      if (d.suggestedRewrite) QUESTION_DATA_MAP[qKey].coachingCritique.modelSuggestedRewrite = d.suggestedRewrite;
+      if (d.durationSec) QUESTION_DATA_MAP[qKey].durationSeconds = d.durationSec;
+      if (d.wpm) QUESTION_DATA_MAP[qKey].wpm = d.wpm;
+      if (d.fillerWords !== undefined) QUESTION_DATA_MAP[qKey].fillerTokens = d.fillerWords;
+      if (d.category) QUESTION_DATA_MAP[qKey].category = d.category;
+      if (d.strengths && Array.isArray(d.strengths) && d.strengths.length > 0) {
+        QUESTION_DATA_MAP[qKey].coachingCritique.strengths = d.strengths;
+      }
+      if (d.weaknesses && Array.isArray(d.weaknesses) && d.weaknesses.length > 0) {
+        QUESTION_DATA_MAP[qKey].coachingCritique.criticalGaps = d.weaknesses;
+      }
+      if (d.breakdown && typeof d.breakdown === 'object') {
+        QUESTION_DATA_MAP[qKey].starRubric = {
+          ...QUESTION_DATA_MAP[qKey].starRubric,
+          ...d.breakdown,
+        };
+      }
+    }
+  });
+}
+

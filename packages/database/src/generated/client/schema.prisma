@@ -1,0 +1,369 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String                       @id @default(cuid())
+  email            String                       @unique
+  name             String?
+  passwordHash     String?
+  role             String                       @default("user") // "user" | "admin" | "moderator"
+  avatarUrl        String?
+  targetRole       String?
+  seniority        String?
+  isEmailVerified  Boolean                      @default(false)
+  createdAt        DateTime                     @default(now())
+  updatedAt        DateTime                     @updatedAt
+  conversations    Conversation[]
+  simulations      SimulationSession[]
+  resumes          ResumeProfile[]
+  diagnostics      DiagnosticIntake[]
+  profileAnalyses  ProfileAnalysis[]
+  candidateProfile CandidateProfile?
+  savedTracks      UserSavedTrack[]
+  logs             AuditLog[]
+  improvementPlans AiImprovementPlan[]
+  questionDossiers QuestionPerformanceDossier[]
+
+  @@map("users")
+}
+
+model Conversation {
+  id        String    @id @default(cuid())
+  title     String    @default("New Chat")
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
+
+  @@map("conversations")
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role           String // "user" | "assistant" | "system"
+  content        String
+  tokensUsed     Int          @default(0)
+  createdAt      DateTime     @default(now())
+
+  @@map("messages")
+}
+
+model SimulationSession {
+  id              String             @id @default(cuid())
+  userId          String?
+  user            User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+  roleTrack       String // e.g. "Senior Frontend Engineer"
+  seniorityLevel  String             @default("Senior (L5)")
+  overallScore    Int                @default(85)
+  technicalScore  Int                @default(85)
+  structureScore  Int                @default(85)
+  pacingScore     Int                @default(85)
+  gazeScore       Int                @default(90)
+  wpmAverage      Int                @default(140)
+  fillerCount     Int                @default(3)
+  durationSeconds Int                @default(600)
+  status          String             @default("completed") // "completed" | "in_progress" | "abandoned"
+  feedbackSummary String?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  answers         SimulationAnswer[]
+
+  @@map("simulation_sessions")
+}
+
+model SimulationAnswer {
+  id                  String            @id @default(cuid())
+  sessionId           String
+  session             SimulationSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  questionNumber      Int
+  questionText        String
+  candidateTranscript String
+  starScore           Int               @default(85)
+  suggestedRewrite    String?
+  coachingNotes       String?
+  createdAt           DateTime          @default(now())
+
+  @@map("simulation_answers")
+}
+
+model ResumeProfile {
+  id              String   @id @default(cuid())
+  userId          String?
+  user            User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  fileName        String
+  fileSize        Int      @default(0)
+  fileUrl         String?
+  targetRole      String?
+  skills          String[] @default([])
+  experienceYears Int      @default(3)
+  parsedSummary   String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("resume_profiles")
+}
+
+// -------------------------------------------------------------
+// Career Diagnostic Assessment Models (#19 - #23)
+// -------------------------------------------------------------
+model DiagnosticIntake {
+  id                      String                     @id @default(cuid())
+  userId                  String?
+  user                    User?                      @relation(fields: [userId], references: [id], onDelete: SetNull)
+  targetRole              String                     @default("Staff Backend & Distributed Systems Architect")
+  seniorityTier           String                     @default("Senior 6+ Yrs Infra")
+  targetCompanyTypes      String[]                   @default(["FAANG / Big Tech", "High-Growth Unicorn"])
+  focusAreas              String[]                   @default(["Distributed Consensus", "High Concurrency", "STAR Leadership"])
+  completedQuestionsCount Int                        @default(8)
+  totalDurationSeconds    Int                        @default(840)
+  overallScore            Int                        @default(88)
+  technicalRigorScore     Int                        @default(92)
+  systemsBreadthScore     Int                        @default(89)
+  leadershipStarScore     Int                        @default(84)
+  communicationScore      Int                        @default(87)
+  status                  String                     @default("completed") // "in_progress" | "completed" | "analyzed"
+  responses               DiagnosticPromptResponse[]
+  createdAt               DateTime                   @default(now())
+  updatedAt               DateTime                   @updatedAt
+
+  @@map("diagnostic_intakes")
+}
+
+model DiagnosticPromptResponse {
+  id                   String           @id @default(cuid())
+  intakeId             String
+  intake               DiagnosticIntake @relation(fields: [intakeId], references: [id], onDelete: Cascade)
+  questionNumber       Int
+  questionText         String
+  transcript           String
+  audioDurationSeconds Int              @default(90)
+  wpm                  Int              @default(142)
+  clarityScore         Int              @default(88)
+  structureScore       Int              @default(86)
+  starCompliance       Int              @default(90)
+  confidenceRating     Int              @default(88)
+  createdAt            DateTime         @default(now())
+
+  @@map("diagnostic_prompt_responses")
+}
+
+// -------------------------------------------------------------
+// AI Profile Analysis Dossier Models (#24)
+// -------------------------------------------------------------
+model ProfileAnalysis {
+  id                     String   @id @default(cuid())
+  userId                 String?
+  user                   User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  targetTitle            String   @default("Staff Backend & Systems Architect")
+  seniorityTier          String   @default("Staff (L6 / IC6)")
+  primaryStack           String[] @default(["Go", "Kafka", "Raft", "PostgreSQL", "Kubernetes"])
+  confidenceScore        Float    @default(94.6)
+  readinessPercentage    Int      @default(87)
+  verifiedDossierStatus  Boolean  @default(true)
+  distributedSystems     Int      @default(94)
+  architecturalTradeoffs Int      @default(88)
+  engineeringLeadership  Int      @default(82)
+  communicationClarity   Int      @default(86)
+  executionVelocity      Int      @default(91)
+  cloudReliability       Int      @default(89)
+  calibratedTrajectory   String   @default("Staff Systems Trajectory (L6 Target)")
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  @@map("profile_analyses")
+}
+
+// -------------------------------------------------------------
+// User Saved & Bookmarked Recommendations (#25)
+// -------------------------------------------------------------
+model UserSavedTrack {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trackId    String
+  trackTitle String
+  domain     String
+  matchScore Int      @default(92)
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, trackId])
+  @@map("user_saved_tracks")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  details   String?
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+
+  @@map("audit_logs")
+}
+
+model VerificationToken {
+  id        String   @id @default(cuid())
+  email     String
+  code      String // 6-digit OTP code or verification token
+  type      String   @default("email_verification") // "email_verification" | "password_reset"
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email, code])
+  @@map("verification_tokens")
+}
+
+// -------------------------------------------------------------
+// Candidate Full Profile Settings
+// -------------------------------------------------------------
+model CandidateProfile {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  phone    String?
+  location String?
+  language String  @default("en-US")
+
+  currentRole       String?
+  targetRole        String?
+  seniority         String?
+  yearsOfExperience Float?
+  currentIndustry   String?
+  targetIndustry    String?
+
+  skills      String[] @default([])
+  skillDepths Json     @default("[]") // Array of {id, name, level, dotColor}
+
+  jobTypes            String[] @default([])
+  workModalities      String[] @default([])
+  interviewFocusAreas String[] @default([])
+  difficulty          String   @default("advanced")
+  careerGoal          String?
+
+  // Privacy & telemetry preferences
+  allowSessionRecording    Boolean @default(true)
+  allowAnonymizedTelemetry Boolean @default(true)
+  allowAiTrainingUsage     Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("candidate_profiles")
+}
+
+// -------------------------------------------------------------
+// AI Improvement Plan & 7-Day Targeted Plan
+// -------------------------------------------------------------
+model AiImprovementPlan {
+  id                       String   @id @default(cuid())
+  userId                   String?
+  user                     User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  targetRole               String   @default("Senior Frontend Engineer")
+  readinessScore           Int      @default(78)
+  predictedTarget          Int      @default(91)
+  starMethodologyScore     Int      @default(72)
+  systemDesignScore        Int      @default(64)
+  behavioralScore          Int      @default(82)
+  velocityWpm              Int      @default(142)
+  fillerRate               Float    @default(1.8)
+  calibrationStatus        String   @default("Calibrated against 1,420 Senior Frontend candidates")
+  provenanceAssessment     String   @default("Session #SIM-8492 • Technical Deep-Dive")
+  provenanceDate           String   @default("March 15, 2025")
+  provenanceConfidence     Int      @default(94)
+  provenanceQuestionsCount Int      @default(5)
+  customTargetScore        Int?     @default(95)
+  customIntensity          String?  @default("intensive")
+  customFocusAreas         String[] @default([])
+  notes                    String?  @db.Text
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+
+  vectors      PlanPracticeVector[]
+  modules      PlanPracticeModule[]
+  scheduleDays PlanDaySchedule[]
+
+  @@map("ai_improvement_plans")
+}
+
+model PlanPracticeVector {
+  id             String            @id @default(cuid())
+  planId         String
+  plan           AiImprovementPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  name           String
+  baselineScore  Int
+  projectedScore Int
+  order          Int               @default(0)
+
+  @@map("plan_practice_vectors")
+}
+
+model PlanPracticeModule {
+  id             String            @id @default(cuid())
+  planId         String
+  plan           AiImprovementPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  title          String
+  category       String
+  recommendedMin Int
+  priority       String // "CRITICAL FOCUS", "HIGH PRIORITY", "FOUNDATIONAL"
+  status         String            @default("pending") // "completed" | "in-progress" | "pending"
+  order          Int               @default(0)
+
+  @@map("plan_practice_modules")
+}
+
+model PlanDaySchedule {
+  id          String            @id @default(cuid())
+  planId      String
+  plan        AiImprovementPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  dayNumber   Int
+  title       String
+  focusArea   String
+  durationMin Int
+  drills      String[]          @default([])
+  status      String            @default("upcoming") // "completed" | "active" | "upcoming"
+  completed   Boolean           @default(false)
+  order       Int               @default(0)
+
+  @@map("plan_day_schedules")
+}
+
+// -------------------------------------------------------------
+// Question Performance Analytics Dossier
+// -------------------------------------------------------------
+model QuestionPerformanceDossier {
+  id               String   @id @default(cuid())
+  userId           String?
+  user             User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  questionNumber   Int // 1, 2, 3, 4, 5
+  questionText     String
+  category         String // "STAR Framework", "System Design", "Behavioral", etc.
+  score            Int
+  starScore        Int
+  clarityScore     Int
+  impactScore      Int
+  durationSec      Int
+  wpm              Int
+  fillerWords      Int
+  candidateAnswer  String   @db.Text
+  suggestedRewrite String   @db.Text
+  breakdown        Json?    @default("{}")
+  strengths        String[] @default([])
+  weaknesses       String[] @default([])
+  coachingNotes    String?  @db.Text
+  tags             String[] @default([])
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("question_performance_dossiers")
+}

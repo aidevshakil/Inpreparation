@@ -81,7 +81,7 @@ export const SearchFilterPage: React.FC<SearchFilterPageProps> = ({
   ];
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-main)', color: 'var(--text-main)', display: 'flex', flexDirection: 'column' }}>
       <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         <DashboardSidebar
           activeItem={activeNav}
@@ -89,7 +89,7 @@ export const SearchFilterPage: React.FC<SearchFilterPageProps> = ({
           collapsed={sidebarCollapsed}
           onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
         />
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, overflowX: 'hidden' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, overflowX: 'hidden', backgroundColor: 'var(--bg-main)' }}>
           
           {/* Main Layout Area */}
           <div style={{ padding: '0', maxWidth: '1600px', width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column' }}>

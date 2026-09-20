@@ -61,10 +61,10 @@ export const RecommendedInterviewsExploreDomains: React.FC<RecommendedInterviews
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <h3 style={{ fontSize: '1.02rem', fontWeight: 800, color: '#f8fafc', margin: 0 }}>
+          <h3 style={{ fontSize: '1.02rem', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
             Explore by Career Direction
           </h3>
-          <span style={{ fontSize: '0.74rem', color: '#64748b' }}>
+          <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>
             — Curated tracks aligned with your trajectory
           </span>
         </div>
@@ -74,7 +74,7 @@ export const RecommendedInterviewsExploreDomains: React.FC<RecommendedInterviews
           style={{
             background: 'transparent',
             border: 'none',
-            color: '#818cf8',
+            color: 'var(--primary-color)',
             fontSize: '0.74rem',
             fontWeight: 600,
             cursor: 'pointer',
@@ -103,12 +103,13 @@ export const RecommendedInterviewsExploreDomains: React.FC<RecommendedInterviews
             key={d.id}
             onClick={() => onSelectDomain && onSelectDomain(d.title)}
             style={{
-              backgroundColor: 'rgba(14, 18, 28, 0.85)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '14px',
               padding: '16px',
               cursor: 'pointer',
               transition: 'all 0.18s ease',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
@@ -117,7 +118,7 @@ export const RecommendedInterviewsExploreDomains: React.FC<RecommendedInterviews
                   width: '32px',
                   height: '32px',
                   borderRadius: '10px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                  backgroundColor: 'var(--bg-surface)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -129,21 +130,22 @@ export const RecommendedInterviewsExploreDomains: React.FC<RecommendedInterviews
               <span
                 style={{
                   fontSize: '0.62rem',
-                  color: '#94a3b8',
+                  color: 'var(--text-secondary)',
                   padding: '2px 6px',
                   borderRadius: '4px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                  backgroundColor: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)'
                 }}
               >
                 {d.count}
               </span>
             </div>
 
-            <h4 style={{ fontSize: '0.84rem', fontWeight: 700, color: '#f8fafc', margin: '0 0 4px 0' }}>
+            <h4 style={{ fontSize: '0.84rem', fontWeight: 700, color: 'var(--text-main)', margin: '0 0 4px 0' }}>
               {d.title}
             </h4>
 
-            <p style={{ fontSize: '0.72rem', color: '#94a3b8', lineHeight: 1.4, margin: 0 }}>
+            <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', lineHeight: 1.4, margin: 0 }}>
               {d.description}
             </p>
           </div>
@@ -161,8 +163,8 @@ export const RecommendedInterviewsExploreDomains: React.FC<RecommendedInterviews
         {/* Explore Beyond */}
         <div
           style={{
-            backgroundColor: 'rgba(99, 102, 241, 0.08)',
-            border: '1px solid rgba(129, 140, 248, 0.25)',
+            backgroundColor: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '14px',
             padding: '16px 20px',
             display: 'flex',
@@ -170,6 +172,7 @@ export const RecommendedInterviewsExploreDomains: React.FC<RecommendedInterviews
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '12px',
+            boxShadow: 'var(--shadow-sm)'
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -178,8 +181,8 @@ export const RecommendedInterviewsExploreDomains: React.FC<RecommendedInterviews
                 width: '36px',
                 height: '36px',
                 borderRadius: '10px',
-                backgroundColor: 'rgba(99, 102, 241, 0.2)',
-                color: '#a5b4fc',
+                backgroundColor: 'rgba(99, 102, 241, 0.15)',
+                color: 'var(--primary-color)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -190,10 +193,10 @@ export const RecommendedInterviewsExploreDomains: React.FC<RecommendedInterviews
             </div>
 
             <div>
-              <h4 style={{ fontSize: '0.86rem', fontWeight: 700, color: '#f8fafc', margin: '0 0 2px 0' }}>
+              <h4 style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--text-main)', margin: '0 0 2px 0' }}>
                 Want to explore beyond customized recommendations?
               </h4>
-              <p style={{ fontSize: '0.72rem', color: '#94a3b8', margin: 0 }}>
+              <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: 0 }}>
                 Access all 48+ simulation tracks spanning 12 specialized disciplines.
               </p>
             </div>
@@ -203,7 +206,7 @@ export const RecommendedInterviewsExploreDomains: React.FC<RecommendedInterviews
             onClick={onBrowseLibrary}
             style={{
               padding: '8px 16px',
-              backgroundColor: '#4f46e5',
+              backgroundColor: 'var(--primary-color)',
               color: '#ffffff',
               border: 'none',
               borderRadius: '8px',
@@ -211,6 +214,7 @@ export const RecommendedInterviewsExploreDomains: React.FC<RecommendedInterviews
               fontWeight: 600,
               cursor: 'pointer',
               flexShrink: 0,
+              boxShadow: '0 2px 8px rgba(99, 102, 241, 0.3)'
             }}
           >
             Browse Library (48+)
@@ -220,8 +224,8 @@ export const RecommendedInterviewsExploreDomains: React.FC<RecommendedInterviews
         {/* Saved Simulation */}
         <div
           style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.02)',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
+            backgroundColor: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '14px',
             padding: '16px 20px',
             display: 'flex',
@@ -229,15 +233,16 @@ export const RecommendedInterviewsExploreDomains: React.FC<RecommendedInterviews
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '12px',
+            boxShadow: 'var(--shadow-sm)'
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Bookmark size={16} style={{ color: '#c084fc' }} fill="#c084fc" />
             <div>
-              <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#f8fafc' }}>
+              <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-main)' }}>
                 {savedCount} Saved Simulation{savedCount !== 1 ? 's' : ''}
               </div>
-              <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>
+              <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
                 {targetRole}
               </div>
             </div>
@@ -247,10 +252,10 @@ export const RecommendedInterviewsExploreDomains: React.FC<RecommendedInterviews
             onClick={onViewSaved}
             style={{
               padding: '6px 14px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '8px',
-              color: '#cbd5e1',
+              color: 'var(--text-main)',
               fontSize: '0.74rem',
               cursor: 'pointer',
             }}

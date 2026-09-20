@@ -15,6 +15,7 @@ import {
   exportDossierDownload,
   PracticeVector,
 } from '../services/aiPlanStore';
+import { getActiveImprovementPlan, updatePlanRoleInDb } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 
 interface AiImprovementPlanPageProps {
@@ -59,13 +60,31 @@ export const AiImprovementPlanPage: React.FC<AiImprovementPlanPageProps> = ({
 
   // Dynamic Plan State
   const [planState, setPlanState] = useState(() => loadAiPlanState());
+  const [dbPlanId, setDbPlanId] = useState<string | null>(null);
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
   const [drillRole, setDrillRole] = useState('Staff L6 Remediation: Distributed Consensus & Clock Skew Under GC Pauses');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // Sync to local storage
   useEffect(() => {
     saveAiPlanState(planState);
   }, [planState]);
+
+  // Load Real Data from PostgreSQL Database
+  useEffect(() => {
+    let isMounted = true;
+    getActiveImprovementPlan(user?.id).then((dbPlan) => {
+      if (dbPlan && isMounted) {
+        setDbPlanId(dbPlan.id);
+        if (dbPlan.targetRole && ROLE_DATA_CATALOG[dbPlan.targetRole]) {
+          setPlanState((prev) => ({ ...prev, selectedRole: dbPlan.targetRole }));
+        }
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, [user?.id]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -119,6 +138,9 @@ export const AiImprovementPlanPage: React.FC<AiImprovementPlanPageProps> = ({
 
   const handleRoleSelect = (role: string) => {
     setPlanState((prev) => ({ ...prev, selectedRole: role }));
+    if (dbPlanId) {
+      updatePlanRoleInDb(dbPlanId, role);
+    }
     showToast(`Calibrating improvement trajectory for ${role}...`);
   };
 
