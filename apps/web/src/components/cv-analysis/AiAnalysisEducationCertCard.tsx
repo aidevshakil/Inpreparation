@@ -1,15 +1,55 @@
 import React from 'react';
 import { Plus, CheckCircle2, GraduationCap, Award } from 'lucide-react';
 
+export interface EducationItem {
+  degree: string;
+  institution: string;
+  year?: string;
+  honors?: string;
+}
+
+export interface CertificationItem {
+  name: string;
+  issuer: string;
+  year?: string;
+  verified?: boolean;
+}
+
 interface AiAnalysisEducationCertCardProps {
+  education?: EducationItem[];
+  certifications?: CertificationItem[];
   onEditEducation?: () => void;
   onAddCertification?: () => void;
 }
 
 export const AiAnalysisEducationCertCard: React.FC<AiAnalysisEducationCertCardProps> = ({
+  education,
+  certifications,
   onEditEducation,
   onAddCertification,
 }) => {
+  const eduList: EducationItem[] = (education && education.length > 0)
+    ? education
+    : [
+        {
+          degree: 'B.Sc. in Computer Science & Engineering',
+          institution: 'North South University (NSU)',
+          year: '2017 — 2021',
+          honors: 'Graduated with Honors',
+        },
+      ];
+
+  const certList: CertificationItem[] = (certifications && certifications.length > 0)
+    ? certifications
+    : [
+        {
+          name: 'AWS Certified Developer — Associate',
+          issuer: 'Amazon Web Services',
+          year: 'Issued Dec 2023',
+          verified: true,
+        },
+      ];
+
   return (
     <div
       style={{
@@ -67,14 +107,20 @@ export const AiAnalysisEducationCertCard: React.FC<AiAnalysisEducationCertCardPr
           </button>
         </div>
 
-        <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
-          B.Sc. in Computer Science &amp; Engineering
-        </div>
-        <div style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', marginBottom: '4px' }}>
-          North South University (NSU)
-        </div>
-        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-          2017 — 2021 • Graduated with Honors
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {eduList.map((item, idx) => (
+            <div key={idx} style={{ borderBottom: idx < eduList.length - 1 ? '1px solid var(--border-subtle)' : 'none', paddingBottom: idx < eduList.length - 1 ? '10px' : '0' }}>
+              <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
+                {item.degree}
+              </div>
+              <div style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', marginBottom: '4px' }}>
+                {item.institution}
+              </div>
+              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                {item.year} {item.honors ? `• ${item.honors}` : ''}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -130,24 +176,32 @@ export const AiAnalysisEducationCertCard: React.FC<AiAnalysisEducationCertCardPr
           </button>
         </div>
 
-        <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
-          AWS Certified Developer — Associate
-        </div>
-        <div style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-          Amazon Web Services • Issued Dec 2023
-        </div>
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '4px',
-            fontSize: '0.72rem',
-            color: '#059669',
-            fontWeight: 600,
-          }}
-        >
-          <CheckCircle2 size={12} />
-          <span>Credential ID: Verified ✓</span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {certList.map((cert, idx) => (
+            <div key={idx} style={{ borderBottom: idx < certList.length - 1 ? '1px solid var(--border-subtle)' : 'none', paddingBottom: idx < certList.length - 1 ? '10px' : '0' }}>
+              <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
+                {cert.name}
+              </div>
+              <div style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                {cert.issuer} {cert.year ? `• ${cert.year}` : ''}
+              </div>
+              {cert.verified !== false && (
+                <div
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    fontSize: '0.72rem',
+                    color: '#059669',
+                    fontWeight: 600,
+                  }}
+                >
+                  <CheckCircle2 size={12} />
+                  <span>Credential ID: Verified ✓</span>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </div>

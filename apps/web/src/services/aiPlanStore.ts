@@ -1124,8 +1124,89 @@ export const loadAiPlanState = (): AiPlanState => {
 export const saveAiPlanState = (state: AiPlanState) => {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    // Asynchronously synchronize custom targets with backend database
+    if (state.customTargets) {
+      import('./api').then(({ saveCustomTargets }) => {
+        saveCustomTargets(state.customTargets).catch(() => {});
+      });
+    }
   } catch (e) {
     console.warn('Failed to save AI plan state to localStorage', e);
+  }
+};
+
+export const fetchAndHydrateAiPlan = async (userId?: string): Promise<TargetRoleData | null> => {
+  try {
+    const { getActiveImprovementPlan } = await import('./api');
+    const dbPlan = await getActiveImprovementPlan(userId);
+    if (!dbPlan) return null;
+
+    const roleName = dbPlan.targetRole || 'Staff Backend & Distributed Systems Architecture';
+    const vectors: PracticeVector[] = (dbPlan.vectors || []).map((v: any, idx: number) => ({
+      id: v.id || `v${idx + 1}`,
+      tag: `VECTOR 0${idx + 1} • ${idx === 0 ? 'URGENT' : idx === 1 ? 'STRUCTURAL' : 'ACOUSTIC'}`,
+      badgeType: (idx === 0 ? 'urgent' : idx === 1 ? 'structural' : 'acoustic') as any,
+      score: `${v.baselineScore || 70} / 100`,
+      scoreNumber: v.baselineScore || 70,
+      title: v.name,
+      observedIn: dbPlan.provenanceAssessment || 'Observed in diagnostic assessment',
+      observation: `Baseline proficiency is ${v.baselineScore}%. Target score is ${v.projectedScore}%.`,
+      recommendedDuration: '20 Mins',
+      drillCode: `#${idx + 1}S`,
+      buttonLabel: `Practice Vector 0${idx + 1}`,
+    }));
+
+    const days: DayPlanDetail[] = (dbPlan.scheduleDays || []).map((d: any) => ({
+      dayNumber: d.dayNumber,
+      label: `DAY 0${d.dayNumber}`,
+      date: `Day ${d.dayNumber}`,
+      title: d.title,
+      subtitle: d.focusArea,
+      status: d.status as any,
+      score: d.completed ? '92%' : undefined,
+      simulationId: `#SIM-0${d.dayNumber}`,
+      simulationFocus: d.focusArea,
+      estimatedMinutes: `${d.durationMin || 45} Mins`,
+      directives: [
+        `Complete scheduled drill: ${d.title}`,
+        'Verify zero filler words and concise STAR results statement',
+      ],
+      objectives: [
+        {
+          number: '01',
+          title: d.focusArea,
+          metric: `${d.durationMin || 45} min`,
+          metricColor: '#4ade80',
+          description: `Focus on ${d.focusArea} with concrete metrics`,
+        },
+      ],
+      prepNotes: [
+        'Review recent interview transcript notes',
+        'Frame problem statement with measurable business impact',
+      ],
+    }));
+
+    const fallback = ROLE_DATA_CATALOG[roleName] || ROLE_DATA_CATALOG['Staff Backend & Distributed Systems Architecture'];
+
+    const mappedData: TargetRoleData = {
+      roleName,
+      compositeScore: dbPlan.readinessScore || 80,
+      targetScore: dbPlan.predictedTarget || 85,
+      baselineScore: dbPlan.starMethodologyScore || 75,
+      scoreDelta: Math.max(0, (dbPlan.predictedTarget || 85) - (dbPlan.readinessScore || 80)),
+      primaryFocus: dbPlan.customFocusAreas?.[0] || fallback.primaryFocus,
+      experienceLevel: fallback.experienceLevel,
+      keyStack: fallback.keyStack,
+      vectors: vectors.length > 0 ? vectors : fallback.vectors,
+      modules: fallback.modules,
+      days: days.length > 0 ? days : fallback.days,
+    };
+
+    ROLE_DATA_CATALOG[roleName] = mappedData;
+    return mappedData;
+  } catch (err) {
+    console.warn('Error hydrating AI plan from DB:', err);
+    return null;
   }
 };
 

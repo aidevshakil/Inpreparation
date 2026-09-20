@@ -215,13 +215,14 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
                     alignItems: 'center',
                     gap: '8px',
                     padding: '10px 18px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    backgroundColor: 'var(--bg-surface)',
+                    border: '1px solid var(--border-subtle)',
                     borderRadius: '10px',
-                    color: '#cbd5e1',
+                    color: 'var(--text-main)',
                     fontSize: '0.84rem',
                     fontWeight: 500,
                     cursor: 'pointer',
+                    transition: 'all 0.15s ease',
                   }}
                 >
                   <FileEdit size={15} />
@@ -326,8 +327,8 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
             ) : (
               <div
                 style={{
-                  backgroundColor: 'rgba(14, 18, 28, 0.85)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '20px',
                   padding: '40px 32px',
                   marginBottom: '28px',
@@ -335,10 +336,10 @@ export const MyCvPage: React.FC<MyCvPageProps> = ({
                 }}
               >
                 <div style={{ maxWidth: '640px', margin: '0 auto' }}>
-                  <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#ffffff', marginBottom: '8px' }}>
+                  <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px' }}>
                     No CV Uploaded Yet
                   </h2>
-                  <p style={{ fontSize: '0.86rem', color: '#94a3b8', marginBottom: '24px', lineHeight: 1.6 }}>
+                  <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: 1.6 }}>
                     Upload your resume (PDF or DOCX) to extract competencies, generate calibrated 5-question mock simulations, and unlock your ATS strength diagnostic.
                   </p>
 

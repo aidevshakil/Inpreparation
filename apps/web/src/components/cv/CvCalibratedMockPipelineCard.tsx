@@ -11,23 +11,23 @@ export const CvCalibratedMockPipelineCard: React.FC<CvCalibratedMockPipelineCard
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '16px',
         padding: '18px',
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
         marginBottom: '16px',
       }}
     >
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-        <GitBranch size={16} style={{ color: '#818cf8' }} />
-        <h3 style={{ fontSize: '0.98rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+        <GitBranch size={16} style={{ color: 'var(--primary-color)' }} />
+        <h3 style={{ fontSize: '0.98rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
           Calibrated Mock Pipeline
         </h3>
       </div>
 
-      <p style={{ fontSize: '0.72rem', color: '#94a3b8', margin: '0 0 14px 0', lineHeight: 1.4 }}>
+      <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: '0 0 14px 0', lineHeight: 1.4 }}>
         How your resume vector directly shapes real-time mock interviews right now:
       </p>
 
@@ -38,8 +38,8 @@ export const CvCalibratedMockPipelineCard: React.FC<CvCalibratedMockPipelineCard
           alignItems: 'center',
           gap: '10px',
           padding: '10px 12px',
-          backgroundColor: 'rgba(255, 255, 255, 0.03)',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
+          backgroundColor: 'var(--bg-surface)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '10px',
         }}
       >
@@ -49,7 +49,7 @@ export const CvCalibratedMockPipelineCard: React.FC<CvCalibratedMockPipelineCard
             height: '20px',
             borderRadius: '50%',
             backgroundColor: 'rgba(99, 102, 241, 0.2)',
-            color: '#818cf8',
+            color: 'var(--primary-color)',
             fontSize: '0.7rem',
             fontWeight: 700,
             display: 'flex',
@@ -61,14 +61,14 @@ export const CvCalibratedMockPipelineCard: React.FC<CvCalibratedMockPipelineCard
           1
         </span>
         <div style={{ fontSize: '0.74rem' }}>
-          <div style={{ color: '#64748b', fontSize: '0.66rem' }}>Detected Tech Anchor:</div>
-          <div style={{ color: '#f1f5f9', fontWeight: 600 }}>FastAPI, Kafka, PostgreSQL, 12k QPS</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.66rem' }}>Detected Tech Anchor:</div>
+          <div style={{ color: 'var(--text-main)', fontWeight: 600 }}>FastAPI, Kafka, PostgreSQL, 12k QPS</div>
         </div>
       </div>
 
       {/* Arrow Down */}
       <div style={{ display: 'flex', justifyContent: 'center', margin: '4px 0' }}>
-        <ArrowDown size={14} style={{ color: '#475569' }} />
+        <ArrowDown size={14} style={{ color: 'var(--text-muted)' }} />
       </div>
 
       {/* Step 2 */}
@@ -78,8 +78,8 @@ export const CvCalibratedMockPipelineCard: React.FC<CvCalibratedMockPipelineCard
           alignItems: 'center',
           gap: '10px',
           padding: '10px 12px',
-          backgroundColor: 'rgba(255, 255, 255, 0.03)',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
+          backgroundColor: 'var(--bg-surface)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '10px',
         }}
       >
@@ -89,7 +89,7 @@ export const CvCalibratedMockPipelineCard: React.FC<CvCalibratedMockPipelineCard
             height: '20px',
             borderRadius: '50%',
             backgroundColor: 'rgba(168, 85, 247, 0.2)',
-            color: '#c084fc',
+            color: '#a855f7',
             fontSize: '0.7rem',
             fontWeight: 700,
             display: 'flex',
@@ -101,14 +101,14 @@ export const CvCalibratedMockPipelineCard: React.FC<CvCalibratedMockPipelineCard
           2
         </span>
         <div style={{ fontSize: '0.74rem' }}>
-          <div style={{ color: '#64748b', fontSize: '0.66rem' }}>Vector Weight Profile:</div>
-          <div style={{ color: '#f1f5f9', fontWeight: 600 }}>High Concurrency • Staff Backend Track</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.66rem' }}>Vector Weight Profile:</div>
+          <div style={{ color: 'var(--text-main)', fontWeight: 600 }}>High Concurrency • Staff Backend Track</div>
         </div>
       </div>
 
       {/* Arrow Down */}
       <div style={{ display: 'flex', justifyContent: 'center', margin: '4px 0' }}>
-        <ArrowDown size={14} style={{ color: '#475569' }} />
+        <ArrowDown size={14} style={{ color: 'var(--text-muted)' }} />
       </div>
 
       {/* Step 3: Action Tile */}
@@ -119,14 +119,14 @@ export const CvCalibratedMockPipelineCard: React.FC<CvCalibratedMockPipelineCard
           justifyContent: 'space-between',
           gap: '10px',
           padding: '10px 12px',
-          backgroundColor: 'rgba(16, 185, 129, 0.1)',
+          backgroundColor: 'rgba(16, 185, 129, 0.08)',
           border: '1px solid rgba(16, 185, 129, 0.25)',
           borderRadius: '10px',
         }}
       >
         <div style={{ fontSize: '0.74rem' }}>
-          <div style={{ color: '#34d399', fontWeight: 700 }}>Python Backend Developer (Senior)</div>
-          <div style={{ color: '#94a3b8', fontSize: '0.68rem' }}>5 Questions • Tailored to FinScale stack</div>
+          <div style={{ color: '#059669', fontWeight: 700 }}>Python Backend Developer (Senior)</div>
+          <div style={{ color: 'var(--text-secondary)', fontSize: '0.68rem' }}>5 Questions • Tailored to FinScale stack</div>
         </div>
 
         <button

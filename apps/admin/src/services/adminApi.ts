@@ -19,3 +19,27 @@ export async function createUser(data: { name: string; email: string; role?: str
   }
   return res.json();
 }
+
+export async function fetchSystemStats() {
+  const res = await fetch(`${BACKEND_API_BASE}/admin/stats`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch system stats: ${res.statusText}`);
+  }
+  return res.json();
+}
+
+export async function fetchNodeHealth() {
+  const res = await fetch(`${BACKEND_API_BASE}/admin/health-nodes`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch node health: ${res.statusText}`);
+  }
+  return res.json();
+}
+
+export async function fetchAiAnalytics() {
+  const res = await fetch(`${BACKEND_API_BASE}/admin/ai-analytics`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch AI analytics: ${res.statusText}`);
+  }
+  return res.json();
+}

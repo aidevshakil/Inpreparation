@@ -273,3 +273,16 @@ export function syncQuestionDataFromDb(dbDossiers: any[]) {
   });
 }
 
+export async function fetchAndHydrateQuestionDossiers(userId?: string): Promise<Record<string, QuestionDossierItem>> {
+  try {
+    const { getQuestionPerformanceDossiers } = await import('./api');
+    const rawList = await getQuestionPerformanceDossiers(userId);
+    if (Array.isArray(rawList) && rawList.length > 0) {
+      syncQuestionDataFromDb(rawList);
+    }
+  } catch (err) {
+    console.warn('Could not hydrate question dossiers from DB:', err);
+  }
+  return QUESTION_DATA_MAP;
+}
+

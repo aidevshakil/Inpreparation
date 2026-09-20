@@ -12,13 +12,15 @@ interface LedgerItem {
 }
 
 interface PerformanceScoreLedgerTableProps {
+  sessions?: any[];
   onViewDossier?: (id: string) => void;
 }
 
 export const PerformanceScoreLedgerTable: React.FC<PerformanceScoreLedgerTableProps> = ({
+  sessions,
   onViewDossier,
 }) => {
-  const ledger: LedgerItem[] = [
+  const defaultLedger: LedgerItem[] = [
     { id: '#SIM-ARC-9014', domain: 'Distributed Concurrency', date: 'Oct 27, 2024', progress: '5/5 Defended', tier: 'Staff L6+', score: '88.0 / 100', isPeak: true },
     { id: '#SIM-PY-8821', domain: 'Python Backend Architecture', date: 'Oct 24, 2024', progress: '5/5 Defended', tier: 'Staff L6+', score: '82.0 / 100' },
     { id: '#SIM-SYS-7940', domain: 'Distributed Consensus (Raft)', date: 'Oct 21, 2024', progress: '5/5 Defended', tier: 'Staff L6+', score: '80.0 / 100' },
@@ -26,6 +28,18 @@ export const PerformanceScoreLedgerTable: React.FC<PerformanceScoreLedgerTablePr
     { id: '#SIM-DB-9310', domain: 'Database Indexing & WAL', date: 'Oct 15, 2024', progress: '5/5 Defended', tier: 'Senior L5', score: '76.0 / 100' },
     { id: '#SIM-ALU-4102', domain: 'Cache Invalidation & LRU', date: 'Oct 12, 2024', progress: '5/5 Defended', tier: 'Staff L6+', score: '72.0 / 100' },
   ];
+
+  const ledger: LedgerItem[] = (sessions && sessions.length > 0)
+    ? sessions.map((s, idx) => ({
+        id: s.id ? `#SIM-${s.id.slice(0, 8).toUpperCase()}` : `#SIM-0${idx + 1}`,
+        domain: s.roleTrack || 'Technical Architecture',
+        date: s.createdAt ? new Date(s.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent',
+        progress: `${s.answers?.length || 5}/5 Defended`,
+        tier: s.seniorityLevel || 'Senior L5',
+        score: `${s.overallScore || 85}.0 / 100`,
+        isPeak: idx === 0,
+      }))
+    : defaultLedger;
 
   return (
     <div

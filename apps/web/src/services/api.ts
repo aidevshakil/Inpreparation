@@ -652,3 +652,52 @@ export async function updateQuestionDossierInDb(id: string, updates: {
   }
 }
 
+// -------------------------------------------------------------
+// 14. AI Improvement Plan (PostgreSQL / Prisma)
+// -------------------------------------------------------------
+export async function updateImprovementPlanDrill(drillId: string, status: string, scoreAchieved?: number) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/improvement-plan/drills/${drillId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status, scoreAchieved }),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn(`Failed to update drill ${drillId} in DB:`, error);
+    return null;
+  }
+}
+
+export async function updateImprovementScheduleDay(dayNumber: number, completed: boolean) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/improvement-plan/schedule/${dayNumber}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ completed }),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn(`Failed to update schedule day ${dayNumber} in DB:`, error);
+    return null;
+  }
+}
+
+export async function saveCustomTargets(payload: any) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/improvement-plan/custom-targets`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Failed to save custom targets in DB:', error);
+    return null;
+  }
+}
+
+

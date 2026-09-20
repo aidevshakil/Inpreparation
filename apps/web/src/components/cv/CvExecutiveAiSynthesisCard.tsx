@@ -11,30 +11,30 @@ export const CvExecutiveAiSynthesisCard: React.FC<CvExecutiveAiSynthesisCardProp
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '16px',
         padding: '18px',
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
         marginBottom: '16px',
       }}
     >
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
-        <Sparkles size={16} style={{ color: '#c084fc' }} />
-        <h3 style={{ fontSize: '0.98rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+        <Sparkles size={16} style={{ color: 'var(--primary-color)' }} />
+        <h3 style={{ fontSize: '0.98rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
           Executive AI Synthesis
         </h3>
       </div>
 
       {/* Section 1: Key Competitive Strengths */}
       <div style={{ marginBottom: '14px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.7rem', fontWeight: 700, color: '#34d399', letterSpacing: '0.6px', textTransform: 'uppercase', marginBottom: '6px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.7rem', fontWeight: 700, color: '#059669', letterSpacing: '0.6px', textTransform: 'uppercase', marginBottom: '6px' }}>
           <CheckCircle2 size={12} />
           <span>Key Competitive Strengths</span>
         </div>
 
-        <ul style={{ margin: 0, paddingLeft: '14px', fontSize: '0.72rem', color: '#cbd5e1', lineHeight: 1.45, display: 'flex', flexDirection: 'column', gap: '5px' }}>
+        <ul style={{ margin: 0, paddingLeft: '14px', fontSize: '0.72rem', color: 'var(--text-secondary)', lineHeight: 1.45, display: 'flex', flexDirection: 'column', gap: '5px' }}>
           <li>
             Comprehensive real-time queue expertise (Kafka, Celery) and PostgreSQL optimization are immediately noticeable by tier-1 evaluators.
           </li>
@@ -46,17 +46,17 @@ export const CvExecutiveAiSynthesisCard: React.FC<CvExecutiveAiSynthesisCardProp
 
       {/* Section 2: Targeted Polish Opportunities */}
       <div style={{ marginBottom: '16px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.7rem', fontWeight: 700, color: '#fbbf24', letterSpacing: '0.6px', textTransform: 'uppercase', marginBottom: '6px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.7rem', fontWeight: 700, color: '#d97706', letterSpacing: '0.6px', textTransform: 'uppercase', marginBottom: '6px' }}>
           <TrendingUp size={12} />
           <span>Targeted Polish Opportunities</span>
         </div>
 
-        <ul style={{ margin: 0, paddingLeft: '14px', fontSize: '0.72rem', color: '#cbd5e1', lineHeight: 1.45, display: 'flex', flexDirection: 'column', gap: '5px' }}>
+        <ul style={{ margin: 0, paddingLeft: '14px', fontSize: '0.72rem', color: 'var(--text-secondary)', lineHeight: 1.45, display: 'flex', flexDirection: 'column', gap: '5px' }}>
           <li>
-            <strong style={{ color: '#f1f5f9' }}>Quantify business impact:</strong> Add dollar-value savings or latency figures to your Mobile/Fintech tenure to amplify executive presence.
+            <strong style={{ color: 'var(--text-main)' }}>Quantify business impact:</strong> Add dollar-value savings or latency figures to your Mobile/Fintech tenure to amplify executive presence.
           </li>
           <li>
-            <strong style={{ color: '#f1f5f9' }}>Resilience patterns:</strong> Explicitly mention Circuit Breakers, Bulkheads, or Dead-Letter Queues in your FinScale experience.
+            <strong style={{ color: 'var(--text-main)' }}>Resilience patterns:</strong> Explicitly mention Circuit Breakers, Bulkheads, or Dead-Letter Queues in your FinScale experience.
           </li>
         </ul>
       </div>
@@ -67,10 +67,10 @@ export const CvExecutiveAiSynthesisCard: React.FC<CvExecutiveAiSynthesisCardProp
         style={{
           width: '100%',
           padding: '8px 14px',
-          backgroundColor: 'rgba(168, 85, 247, 0.15)',
-          border: '1px solid rgba(168, 85, 247, 0.35)',
+          backgroundColor: 'rgba(168, 85, 247, 0.12)',
+          border: '1px solid rgba(168, 85, 247, 0.3)',
           borderRadius: '9px',
-          color: '#d8b4fe',
+          color: '#7c3aed',
           fontSize: '0.76rem',
           fontWeight: 600,
           cursor: 'pointer',
@@ -81,12 +81,12 @@ export const CvExecutiveAiSynthesisCard: React.FC<CvExecutiveAiSynthesisCardProp
           transition: 'all 0.18s ease',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.backgroundColor = 'rgba(168, 85, 247, 0.28)';
-          e.currentTarget.style.color = '#ffffff';
+          e.currentTarget.style.backgroundColor = 'rgba(168, 85, 247, 0.22)';
+          e.currentTarget.style.color = '#6d28d9';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.backgroundColor = 'rgba(168, 85, 247, 0.15)';
-          e.currentTarget.style.color = '#d8b4fe';
+          e.currentTarget.style.backgroundColor = 'rgba(168, 85, 247, 0.12)';
+          e.currentTarget.style.color = '#7c3aed';
         }}
       >
         <Sparkles size={13} />

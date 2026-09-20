@@ -20,6 +20,7 @@ import { profileRouter } from './routes/profile.routes';
 import { recommendationsRouter } from './routes/recommendations.routes';
 import { improvementPlanRouter } from './routes/improvement-plan.routes';
 import { questionPerformanceRouter } from './routes/question-performance.routes';
+import { adminRouter } from './routes/admin.routes';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -45,6 +46,7 @@ app.use('/api/profile', profileRouter);
 app.use('/api/recommendations', recommendationsRouter);
 app.use('/api/improvement-plan', improvementPlanRouter);
 app.use('/api/question-performance', questionPerformanceRouter);
+app.use('/api/admin', adminRouter);
 
 // Health check
 app.get('/api/health', (req, res) => {

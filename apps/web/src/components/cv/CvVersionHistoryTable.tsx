@@ -58,15 +58,15 @@ export const CvVersionHistoryTable: React.FC<CvVersionHistoryTableProps> = ({
               fontWeight: 600,
               padding: '2px 8px',
               borderRadius: '9999px',
-              backgroundColor: 'rgba(16, 185, 129, 0.15)',
-              color: '#34d399',
-              border: '1px solid rgba(16, 185, 129, 0.3)',
+              backgroundColor: 'rgba(5, 150, 105, 0.12)',
+              color: '#059669',
+              border: '1px solid rgba(5, 150, 105, 0.3)',
               display: 'inline-flex',
               alignItems: 'center',
               gap: '4px',
             }}
           >
-            <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#10b981' }} />
+            <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#059669' }} />
             <span>{label}</span>
           </span>
         );
@@ -78,9 +78,9 @@ export const CvVersionHistoryTable: React.FC<CvVersionHistoryTableProps> = ({
               fontWeight: 600,
               padding: '2px 8px',
               borderRadius: '9999px',
-              backgroundColor: 'rgba(56, 189, 248, 0.15)',
-              color: '#38bdf8',
-              border: '1px solid rgba(56, 189, 248, 0.3)',
+              backgroundColor: 'rgba(2, 132, 199, 0.12)',
+              color: '#0284c7',
+              border: '1px solid rgba(2, 132, 199, 0.3)',
             }}
           >
             {label}
@@ -94,9 +94,9 @@ export const CvVersionHistoryTable: React.FC<CvVersionHistoryTableProps> = ({
               fontWeight: 500,
               padding: '2px 8px',
               borderRadius: '9999px',
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              color: '#94a3b8',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              backgroundColor: 'var(--bg-surface)',
+              color: 'var(--text-secondary)',
+              border: '1px solid var(--border-subtle)',
             }}
           >
             {label}
@@ -108,34 +108,34 @@ export const CvVersionHistoryTable: React.FC<CvVersionHistoryTableProps> = ({
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '20px',
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.08)',
       }}
     >
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
-        <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+        <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
           CV Version History
         </h3>
 
         <span
           style={{
             fontSize: '0.72rem',
-            color: '#94a3b8',
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
+            color: 'var(--text-secondary)',
+            backgroundColor: 'var(--bg-surface)',
             padding: '2px 8px',
             borderRadius: '6px',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            border: '1px solid var(--border-subtle)',
           }}
         >
           2 Versions Stored
         </span>
       </div>
 
-      <p style={{ fontSize: '0.76rem', color: '#94a3b8', margin: '0 0 16px 0' }}>
+      <p style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', margin: '0 0 16px 0' }}>
         All previously uploaded copies remain archived for comparison and rolling rollbacks.
       </p>
 
@@ -143,20 +143,20 @@ export const CvVersionHistoryTable: React.FC<CvVersionHistoryTableProps> = ({
       <div style={{ width: '100%', overflowX: 'auto' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.78rem' }}>
           <thead>
-            <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
-              <th style={{ textAlign: 'left', padding: '8px 10px', color: '#64748b', fontWeight: 600, fontSize: '0.68rem', letterSpacing: '0.5px' }}>
+            <tr style={{ borderBottom: '1px solid var(--border-subtle)' }}>
+              <th style={{ textAlign: 'left', padding: '8px 10px', color: 'var(--text-muted)', fontWeight: 600, fontSize: '0.68rem', letterSpacing: '0.5px' }}>
                 FILE NAME
               </th>
-              <th style={{ textAlign: 'left', padding: '8px 10px', color: '#64748b', fontWeight: 600, fontSize: '0.68rem', letterSpacing: '0.5px' }}>
+              <th style={{ textAlign: 'left', padding: '8px 10px', color: 'var(--text-muted)', fontWeight: 600, fontSize: '0.68rem', letterSpacing: '0.5px' }}>
                 UPLOAD DATE
               </th>
-              <th style={{ textAlign: 'left', padding: '8px 10px', color: '#64748b', fontWeight: 600, fontSize: '0.68rem', letterSpacing: '0.5px' }}>
+              <th style={{ textAlign: 'left', padding: '8px 10px', color: 'var(--text-muted)', fontWeight: 600, fontSize: '0.68rem', letterSpacing: '0.5px' }}>
                 SIZE
               </th>
-              <th style={{ textAlign: 'left', padding: '8px 10px', color: '#64748b', fontWeight: 600, fontSize: '0.68rem', letterSpacing: '0.5px' }}>
+              <th style={{ textAlign: 'left', padding: '8px 10px', color: 'var(--text-muted)', fontWeight: 600, fontSize: '0.68rem', letterSpacing: '0.5px' }}>
                 STATUS
               </th>
-              <th style={{ textAlign: 'right', padding: '8px 10px', color: '#64748b', fontWeight: 600, fontSize: '0.68rem', letterSpacing: '0.5px' }}>
+              <th style={{ textAlign: 'right', padding: '8px 10px', color: 'var(--text-muted)', fontWeight: 600, fontSize: '0.68rem', letterSpacing: '0.5px' }}>
                 ACTIONS
               </th>
             </tr>
@@ -166,14 +166,14 @@ export const CvVersionHistoryTable: React.FC<CvVersionHistoryTableProps> = ({
               <tr
                 key={v.id}
                 style={{
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
+                  borderBottom: '1px solid var(--border-subtle)',
                   transition: 'background-color 0.15s ease',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)')}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-card-hover)')}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
               >
                 {/* File Name */}
-                <td style={{ padding: '12px 10px', color: '#f1f5f9', fontWeight: 600 }}>
+                <td style={{ padding: '12px 10px', color: 'var(--text-main)', fontWeight: 600 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <FileText size={15} color="#fb7185" />
                     <span style={{ whiteSpace: 'nowrap' }}>{v.fileName}</span>
@@ -181,12 +181,12 @@ export const CvVersionHistoryTable: React.FC<CvVersionHistoryTableProps> = ({
                 </td>
 
                 {/* Upload Date */}
-                <td style={{ padding: '12px 10px', color: '#94a3b8', whiteSpace: 'nowrap' }}>
+                <td style={{ padding: '12px 10px', color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>
                   {v.uploadDate}
                 </td>
 
                 {/* Size */}
-                <td style={{ padding: '12px 10px', color: '#94a3b8', whiteSpace: 'nowrap' }}>
+                <td style={{ padding: '12px 10px', color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>
                   {v.size}
                 </td>
 
@@ -203,7 +203,7 @@ export const CvVersionHistoryTable: React.FC<CvVersionHistoryTableProps> = ({
                       style={{
                         background: 'transparent',
                         border: 'none',
-                        color: '#94a3b8',
+                        color: 'var(--text-secondary)',
                         cursor: 'pointer',
                         padding: '4px',
                         borderRadius: '4px',
@@ -219,7 +219,7 @@ export const CvVersionHistoryTable: React.FC<CvVersionHistoryTableProps> = ({
                         style={{
                           background: 'transparent',
                           border: 'none',
-                          color: '#818cf8',
+                          color: 'var(--primary-color)',
                           cursor: 'pointer',
                           padding: '4px',
                           borderRadius: '4px',
@@ -234,7 +234,7 @@ export const CvVersionHistoryTable: React.FC<CvVersionHistoryTableProps> = ({
                       style={{
                         background: 'transparent',
                         border: 'none',
-                        color: '#64748b',
+                        color: 'var(--text-muted)',
                         cursor: 'pointer',
                         padding: '4px',
                       }}

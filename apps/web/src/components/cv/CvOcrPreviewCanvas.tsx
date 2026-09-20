@@ -24,11 +24,11 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         overflow: 'hidden',
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.08)',
         marginBottom: '20px',
       }}
     >
@@ -36,8 +36,8 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
       <div
         style={{
           padding: '10px 16px',
-          backgroundColor: 'rgba(255, 255, 255, 0.03)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+          backgroundColor: 'var(--bg-surface)',
+          borderBottom: '1px solid var(--border-subtle)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -48,14 +48,14 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
           <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#f43f5e' }} />
           <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#f59e0b' }} />
           <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#10b981' }} />
-          <span style={{ fontSize: '0.74rem', color: '#94a3b8', fontWeight: 600, marginLeft: '8px' }}>
+          <span style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', fontWeight: 600, marginLeft: '8px' }}>
             OCR Vector Preview Canvas (A4 Structured View)
           </span>
         </div>
 
         {/* Right Controls */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span style={{ fontSize: '0.72rem', color: '#64748b' }}>
+          <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
             Page {currentPage} of 2
           </span>
 
@@ -64,7 +64,7 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
             style={{
               background: 'transparent',
               border: 'none',
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -80,7 +80,7 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
             style={{
               background: 'transparent',
               border: 'none',
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -191,8 +191,8 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
       <div
         style={{
           padding: '10px 18px',
-          backgroundColor: 'rgba(255, 255, 255, 0.02)',
-          borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+          backgroundColor: 'var(--bg-surface)',
+          borderTop: '1px solid var(--border-subtle)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -201,8 +201,8 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
           gap: '8px',
         }}
       >
-        <span style={{ color: '#64748b' }}>
-          Extracted <strong style={{ color: '#34d399' }}>28 distinct technical attributes</strong> • Last synchronized with Mock Calibrator
+        <span style={{ color: 'var(--text-secondary)' }}>
+          Extracted <strong style={{ color: '#059669' }}>28 distinct technical attributes</strong> • Last synchronized with Mock Calibrator
         </span>
 
         <button
@@ -210,7 +210,7 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
           style={{
             background: 'transparent',
             border: 'none',
-            color: '#818cf8',
+            color: 'var(--primary-color)',
             fontWeight: 600,
             cursor: 'pointer',
             display: 'inline-flex',

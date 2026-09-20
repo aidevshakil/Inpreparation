@@ -28,12 +28,12 @@ export const CvUploadDropzoneCard: React.FC<CvUploadDropzoneCardProps> = ({
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
+        backgroundColor: 'var(--bg-card)',
         border: hasError
-          ? '1px solid rgba(244, 63, 94, 0.45)'
+          ? '1px solid rgba(244, 63, 94, 0.55)'
           : isDragging
-          ? '2px dashed #818cf8'
-          : '1px dashed rgba(99, 102, 241, 0.35)',
+          ? '2px dashed var(--primary-color)'
+          : '1px dashed rgba(99, 102, 241, 0.4)',
         borderRadius: '18px',
         padding: '22px',
         display: 'flex',
@@ -41,7 +41,7 @@ export const CvUploadDropzoneCard: React.FC<CvUploadDropzoneCardProps> = ({
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.08)',
         transition: 'all 0.2s ease',
         cursor: 'pointer',
         position: 'relative',
@@ -68,14 +68,14 @@ export const CvUploadDropzoneCard: React.FC<CvUploadDropzoneCardProps> = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#818cf8',
+              color: 'var(--primary-color)',
               marginBottom: '12px',
             }}
           >
             <Loader2 size={20} className="spin-animate" />
           </div>
 
-          <span style={{ fontSize: '0.86rem', fontWeight: 700, color: '#f8fafc', marginBottom: '8px' }}>
+          <span style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px' }}>
             Uploading &amp; Vectorizing ({uploadPercent}%)
           </span>
 
@@ -83,7 +83,7 @@ export const CvUploadDropzoneCard: React.FC<CvUploadDropzoneCardProps> = ({
             style={{
               width: '100%',
               height: '6px',
-              backgroundColor: 'rgba(255, 255, 255, 0.08)',
+              backgroundColor: 'var(--border-subtle)',
               borderRadius: '9999px',
               overflow: 'hidden',
               marginBottom: '8px',
@@ -100,7 +100,7 @@ export const CvUploadDropzoneCard: React.FC<CvUploadDropzoneCardProps> = ({
             />
           </div>
 
-          <span style={{ fontSize: '0.7rem', color: '#94a3b8' }}>
+          <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
             Extracting skills, computing embedding vectors &amp; calibrating rubrics...
           </span>
         </div>
@@ -122,10 +122,10 @@ export const CvUploadDropzoneCard: React.FC<CvUploadDropzoneCardProps> = ({
             <AlertCircle size={22} />
           </div>
 
-          <span style={{ fontSize: '0.86rem', fontWeight: 700, color: '#fb7185', marginBottom: '4px' }}>
+          <span style={{ fontSize: '0.86rem', fontWeight: 700, color: '#e11d48', marginBottom: '4px' }}>
             Upload Failed or File Corrupted
           </span>
-          <span style={{ fontSize: '0.72rem', color: '#94a3b8' }}>
+          <span style={{ fontSize: '0.72rem', color: 'var(--text-secondary)' }}>
             Please select a valid PDF, DOC, or DOCX document under 15 MB. Click to retry.
           </span>
         </div>
@@ -137,11 +137,12 @@ export const CvUploadDropzoneCard: React.FC<CvUploadDropzoneCardProps> = ({
               width: '44px',
               height: '44px',
               borderRadius: '50%',
-              backgroundColor: isDragging ? 'rgba(99, 102, 241, 0.25)' : 'rgba(255, 255, 255, 0.05)',
+              backgroundColor: isDragging ? 'rgba(99, 102, 241, 0.25)' : 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: isDragging ? '#818cf8' : '#cbd5e1',
+              color: 'var(--primary-color)',
               marginBottom: '10px',
               transition: 'all 0.2s',
             }}
@@ -149,12 +150,12 @@ export const CvUploadDropzoneCard: React.FC<CvUploadDropzoneCardProps> = ({
             <UploadCloud size={22} />
           </div>
 
-          <div style={{ fontSize: '0.88rem', fontWeight: 600, color: '#f8fafc', marginBottom: '4px' }}>
+          <div style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '4px' }}>
             Drag &amp; drop updated resume
           </div>
 
-          <div style={{ fontSize: '0.76rem', color: '#94a3b8', marginBottom: '8px' }}>
-            or <span style={{ color: '#818cf8', textDecoration: 'underline', fontWeight: 500 }}>Browse Files</span> from device
+          <div style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', marginBottom: '8px' }}>
+            or <span style={{ color: 'var(--primary-color)', textDecoration: 'underline', fontWeight: 600 }}>Browse Files</span> from device
           </div>
 
           <div
@@ -163,17 +164,17 @@ export const CvUploadDropzoneCard: React.FC<CvUploadDropzoneCardProps> = ({
               alignItems: 'center',
               gap: '6px',
               fontSize: '0.68rem',
-              color: '#64748b',
+              color: 'var(--text-secondary)',
               marginBottom: '8px',
             }}
           >
-            <span style={{ padding: '1px 5px', backgroundColor: 'rgba(255, 255, 255, 0.05)', borderRadius: '4px' }}>PDF</span>
-            <span style={{ padding: '1px 5px', backgroundColor: 'rgba(255, 255, 255, 0.05)', borderRadius: '4px' }}>DOC</span>
-            <span style={{ padding: '1px 5px', backgroundColor: 'rgba(255, 255, 255, 0.05)', borderRadius: '4px' }}>DOCX</span>
-            <span>• Max 15 MB</span>
+            <span style={{ padding: '2px 6px', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', borderRadius: '4px', fontWeight: 500 }}>PDF</span>
+            <span style={{ padding: '2px 6px', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', borderRadius: '4px', fontWeight: 500 }}>DOC</span>
+            <span style={{ padding: '2px 6px', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', borderRadius: '4px', fontWeight: 500 }}>DOCX</span>
+            <span style={{ color: 'var(--text-muted)' }}>• Max 15 MB</span>
           </div>
 
-          <p style={{ fontSize: '0.68rem', color: '#64748b', margin: 0, maxWidth: '340px', lineHeight: 1.35 }}>
+          <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', margin: 0, maxWidth: '340px', lineHeight: 1.35 }}>
             Takes &lt;15 seconds to parse skills, calibrate rubrics, and dynamically update recommended mocks.
           </p>
         </>

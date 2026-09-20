@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
-interface SkillItem {
+export interface SkillItem {
   id: string;
   title: string;
   subtext: string;
@@ -11,8 +11,16 @@ interface SkillItem {
   badgeBg: string;
 }
 
-export const PerformanceSkillMatrix: React.FC = () => {
-  const skills: SkillItem[] = [
+interface PerformanceSkillMatrixProps {
+  sessions?: any[];
+  skills?: SkillItem[];
+}
+
+export const PerformanceSkillMatrix: React.FC<PerformanceSkillMatrixProps> = ({
+  sessions,
+  skills: propSkills,
+}) => {
+  const defaultSkills: SkillItem[] = [
     {
       id: 's1',
       title: 'Python Concurrency & Asyncio',
@@ -59,6 +67,25 @@ export const PerformanceSkillMatrix: React.FC = () => {
       badgeBg: 'rgba(56, 189, 248, 0.12)',
     },
   ];
+
+  const skills: SkillItem[] = (propSkills && propSkills.length > 0)
+    ? propSkills
+    : (sessions && sessions.length > 0)
+    ? sessions.slice(0, 5).map((s, idx) => {
+        const score = s.technicalScore || s.overallScore || 85;
+        const isExemplar = score >= 88;
+        const isStrong = score >= 80;
+        return {
+          id: `skill-${idx}`,
+          title: s.roleTrack || 'Engineering Core',
+          subtext: `${s.answers?.length || 5} Questions Defended • ${s.seniorityLevel || 'Senior L5'}`,
+          percentage: score,
+          badgeLabel: isExemplar ? 'Exemplar' : isStrong ? 'Strong' : 'Developing',
+          badgeColor: isExemplar ? '#c084fc' : isStrong ? '#818cf8' : '#38bdf8',
+          badgeBg: isExemplar ? 'rgba(168, 85, 247, 0.15)' : 'rgba(99, 102, 241, 0.15)',
+        };
+      })
+    : defaultSkills;
 
   return (
     <div

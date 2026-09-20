@@ -11,11 +11,11 @@ export const CvEncryptedVaultCard: React.FC<CvEncryptedVaultCardProps> = ({
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(99, 102, 241, 0.18)',
+        backgroundColor: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '16px',
         padding: '16px',
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
@@ -28,17 +28,17 @@ export const CvEncryptedVaultCard: React.FC<CvEncryptedVaultCardProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#818cf8',
+            color: 'var(--primary-color)',
           }}
         >
           <Lock size={14} />
         </div>
-        <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#f8fafc' }}>
+        <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-main)' }}>
           256-Bit Encrypted Vault
         </span>
       </div>
 
-      <p style={{ fontSize: '0.71rem', color: '#94a3b8', lineHeight: 1.45, margin: '0 0 10px 0' }}>
+      <p style={{ fontSize: '0.71rem', color: 'var(--text-secondary)', lineHeight: 1.45, margin: '0 0 10px 0' }}>
         Your career documents are encrypted at rest with AES-256 and used purely to parameterize simulation prompts. Never indexed publicly or transmitted without consent.
       </p>
 
@@ -47,7 +47,7 @@ export const CvEncryptedVaultCard: React.FC<CvEncryptedVaultCardProps> = ({
         style={{
           background: 'transparent',
           border: 'none',
-          color: '#818cf8',
+          color: 'var(--primary-color)',
           fontSize: '0.72rem',
           fontWeight: 600,
           cursor: 'pointer',

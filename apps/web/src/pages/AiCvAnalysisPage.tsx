@@ -378,6 +378,8 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
                         onAddProject={() => alert('Open Add Project Modal')}
                       />
                       <AiAnalysisEducationCertCard
+                        education={analysisData?.education}
+                        certifications={analysisData?.certifications}
                         onEditEducation={() => alert('Editing Education')}
                         onAddCertification={() => alert('Adding Certification')}
                       />

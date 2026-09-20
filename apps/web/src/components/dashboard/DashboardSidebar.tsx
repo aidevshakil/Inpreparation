@@ -432,12 +432,30 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                             <span
                               style={{
                                 fontSize: '0.62rem',
-                                fontWeight: 600,
-                                padding: '2px 6px',
+                                fontWeight: 700,
+                                padding: '2px 7px',
                                 borderRadius: '9999px',
-                                backgroundColor: item.badgeColor ? `${item.badgeColor}25` : 'rgba(99, 102, 241, 0.22)',
-                                color: item.badgeColor || '#a5b4fc',
-                                border: `1px solid ${item.badgeColor ? `${item.badgeColor}40` : 'rgba(99, 102, 241, 0.3)'}`,
+                                backgroundColor: item.badgeColor === '#38bdf8' 
+                                  ? 'rgba(2, 132, 199, 0.12)' 
+                                  : item.badgeColor === '#10b981' 
+                                  ? 'rgba(5, 150, 105, 0.12)' 
+                                  : item.badgeColor 
+                                  ? `${item.badgeColor}1a` 
+                                  : 'rgba(99, 102, 241, 0.14)',
+                                color: item.badgeColor === '#38bdf8' 
+                                  ? '#0284c7' 
+                                  : item.badgeColor === '#10b981' 
+                                  ? '#059669' 
+                                  : item.badgeColor || 'var(--primary-color)',
+                                border: `1px solid ${
+                                  item.badgeColor === '#38bdf8'
+                                    ? 'rgba(2, 132, 199, 0.3)'
+                                    : item.badgeColor === '#10b981'
+                                    ? 'rgba(5, 150, 105, 0.3)'
+                                    : item.badgeColor
+                                    ? `${item.badgeColor}35`
+                                    : 'rgba(99, 102, 241, 0.28)'
+                                }`,
                               }}
                             >
                               {item.badge}

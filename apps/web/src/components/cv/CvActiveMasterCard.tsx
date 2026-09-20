@@ -27,15 +27,15 @@ export const CvActiveMasterCard: React.FC<CvActiveMasterCardProps> = ({
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '22px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         gap: '20px',
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.08)',
       }}
     >
       {/* Top File Information */}
@@ -69,7 +69,7 @@ export const CvActiveMasterCard: React.FC<CvActiveMasterCardProps> = ({
               style={{
                 fontSize: '1.02rem',
                 fontWeight: 700,
-                color: '#f8fafc',
+                color: 'var(--text-main)',
                 margin: 0,
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
@@ -86,15 +86,15 @@ export const CvActiveMasterCard: React.FC<CvActiveMasterCardProps> = ({
                   fontWeight: 600,
                   padding: '2px 8px',
                   borderRadius: '9999px',
-                  backgroundColor: 'rgba(56, 189, 248, 0.15)',
-                  color: '#38bdf8',
-                  border: '1px solid rgba(56, 189, 248, 0.3)',
+                  backgroundColor: 'rgba(2, 132, 199, 0.12)',
+                  color: '#0284c7',
+                  border: '1px solid rgba(2, 132, 199, 0.3)',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '4px',
                 }}
               >
-                <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#38bdf8' }} />
+                <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#0284c7' }} />
                 <span>Active Master</span>
               </span>
 
@@ -104,22 +104,22 @@ export const CvActiveMasterCard: React.FC<CvActiveMasterCardProps> = ({
                   fontWeight: 600,
                   padding: '2px 8px',
                   borderRadius: '9999px',
-                  backgroundColor: 'rgba(16, 185, 129, 0.15)',
-                  color: '#34d399',
-                  border: '1px solid rgba(16, 185, 129, 0.3)',
+                  backgroundColor: 'rgba(5, 150, 105, 0.12)',
+                  color: '#059669',
+                  border: '1px solid rgba(5, 150, 105, 0.3)',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '4px',
                 }}
               >
-                <CheckCircle2 size={11} color="#10b981" />
+                <CheckCircle2 size={11} color="#059669" />
                 <span>AI Analysis Complete</span>
               </span>
             </div>
           </div>
 
-          <p style={{ fontSize: '0.76rem', color: '#94a3b8', margin: 0 }}>
-            PDF Document • {fileSize} • {uploadDate} • <span style={{ color: '#c7d2fe' }}>{vectorizedTime}</span>
+          <p style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', margin: 0 }}>
+            PDF Document • {fileSize} • {uploadDate} • <span style={{ color: 'var(--primary-color)', fontWeight: 600 }}>{vectorizedTime}</span>
           </p>
         </div>
       </div>
@@ -135,16 +135,16 @@ export const CvActiveMasterCard: React.FC<CvActiveMasterCardProps> = ({
               gap: '6px',
               padding: '7px 14px',
               borderRadius: '8px',
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              color: '#e2e8f0',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
+              color: 'var(--text-main)',
               fontSize: '0.76rem',
               fontWeight: 500,
               cursor: 'pointer',
               transition: 'all 0.15s ease',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.09)')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)')}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-card-hover)')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-surface)')}
           >
             <Eye size={13} />
             <span>Full Preview</span>
@@ -158,16 +158,16 @@ export const CvActiveMasterCard: React.FC<CvActiveMasterCardProps> = ({
               gap: '6px',
               padding: '7px 14px',
               borderRadius: '8px',
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              color: '#e2e8f0',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
+              color: 'var(--text-main)',
               fontSize: '0.76rem',
               fontWeight: 500,
               cursor: 'pointer',
               transition: 'all 0.15s ease',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.09)')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)')}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-card-hover)')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-surface)')}
           >
             <Sliders size={13} />
             <span>Skill Matrix</span>
@@ -181,16 +181,16 @@ export const CvActiveMasterCard: React.FC<CvActiveMasterCardProps> = ({
               gap: '6px',
               padding: '7px 14px',
               borderRadius: '8px',
-              backgroundColor: 'rgba(99, 102, 241, 0.15)',
+              backgroundColor: 'rgba(99, 102, 241, 0.12)',
               border: '1px solid rgba(99, 102, 241, 0.3)',
-              color: '#c7d2fe',
+              color: 'var(--primary-color)',
               fontSize: '0.76rem',
               fontWeight: 600,
               cursor: 'pointer',
               transition: 'all 0.15s ease',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(99, 102, 241, 0.25)')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(99, 102, 241, 0.15)')}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(99, 102, 241, 0.22)')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(99, 102, 241, 0.12)')}
           >
             <RefreshCw size={13} />
             <span>Replace CV</span>
@@ -205,9 +205,9 @@ export const CvActiveMasterCard: React.FC<CvActiveMasterCardProps> = ({
               width: '32px',
               height: '32px',
               borderRadius: '8px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              color: '#94a3b8',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
+              color: 'var(--text-secondary)',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -224,9 +224,9 @@ export const CvActiveMasterCard: React.FC<CvActiveMasterCardProps> = ({
               width: '32px',
               height: '32px',
               borderRadius: '8px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              color: '#94a3b8',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
+              color: 'var(--text-secondary)',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',

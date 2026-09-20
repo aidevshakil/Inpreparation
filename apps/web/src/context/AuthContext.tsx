@@ -17,6 +17,7 @@ export interface UserProfile {
   cvSkills?: string[];
   cvAtsScore?: number;
   isEmailVerified?: boolean;
+  plan?: 'free' | 'pro' | 'premium';
 }
 
 interface AuthContextType {
@@ -45,6 +46,7 @@ const DEFAULT_USER: UserProfile = {
   cvFileName: undefined,
   cvSkills: [],
   cvAtsScore: undefined,
+  plan: 'free',
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
