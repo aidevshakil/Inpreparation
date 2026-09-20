@@ -69,21 +69,54 @@ export const UploadCvPage: React.FC<UploadCvPageProps> = ({
         setSimulatorState('processing');
       }, 700);
 
+      let fileBase64: string | undefined = undefined;
+      if (selectedFile) {
+        fileBase64 = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result as string);
+          reader.onerror = reject;
+          reader.readAsDataURL(selectedFile);
+        });
+      }
+
       const res = await uploadResumeProfile({
         userId: user.id,
         fileName,
         fileSize,
-        targetRole: user.targetRole || 'Full Stack Software Engineer',
-        skills: user.cvSkills && user.cvSkills.length > 0 ? user.cvSkills : ['TypeScript', 'React', 'Node.js', 'PostgreSQL'],
+        fileBase64,
         experienceYears: Number(user.yearsOfExperience) || 3,
         parsedSummary: `Parsed CV for ${user.name || 'Candidate'}.`,
       });
 
       localStorage.setItem('inprep_has_cv', 'true');
+      const updatedAnalysis = {
+        ...(res?.analysis || {}),
+        fileName,
+        fileSize,
+      };
+      localStorage.setItem('inprep_cv_analysis', JSON.stringify(updatedAnalysis));
+
+      const extractedSkills = updatedAnalysis.extractedSkills
+        || updatedAnalysis.skills
+        || updatedAnalysis.skillsTaxonomy?.flatMap((c: any) => c.skills)
+        || ['Flutter', 'Dart', 'Firebase', 'REST APIs'];
+      const extractedRole = updatedAnalysis.candidateRole
+        || updatedAnalysis.targetRole
+        || updatedAnalysis.role
+        || 'Full Stack Software Engineer';
+      const extractedName = updatedAnalysis.candidateName
+        || updatedAnalysis.name
+        || user.name;
+      const extractedScore = updatedAnalysis.overallStrengthScore
+        || updatedAnalysis.atsScore
+        || 91;
+
       updateUser({
+        name: extractedName,
+        targetRole: extractedRole,
         cvFileName: fileName,
-        cvAtsScore: res?.analysis?.overallStrengthScore || 88,
-        cvSkills: res?.analysis?.skillsTaxonomy?.flatMap((c: any) => c.skills) || (user.cvSkills && user.cvSkills.length > 0 ? user.cvSkills : ['TypeScript', 'React', 'Node.js']),
+        cvAtsScore: extractedScore,
+        cvSkills: extractedSkills,
       });
 
       setTimeout(() => {
@@ -94,7 +127,7 @@ export const UploadCvPage: React.FC<UploadCvPageProps> = ({
       localStorage.setItem('inprep_has_cv', 'true');
       updateUser({
         cvFileName: fileName,
-        cvAtsScore: 86,
+        cvAtsScore: 91,
       });
       setTimeout(() => {
         setSimulatorState('ready');

@@ -32,6 +32,54 @@ adminRouter.get('/stats', async (req: Request, res: Response) => {
   }
 });
 
+// 1b. GET METRICS (aggregate counters)
+adminRouter.get('/metrics', async (_req: Request, res: Response) => {
+  try {
+    const [totalUsers, totalSimulations, totalResumes, totalDiagnostics, totalConversations, totalAiMessages] = await Promise.all([
+      prisma.user.count().catch(() => 0),
+      prisma.simulationSession.count().catch(() => 0),
+      prisma.resumeProfile.count().catch(() => 0),
+      (prisma as any).diagnosticIntake?.count().catch(() => 0) ?? Promise.resolve(0),
+      prisma.conversation.count().catch(() => 0),
+      (prisma as any).aiMessage?.count().catch(() => 0) ?? Promise.resolve(0),
+    ]);
+
+    res.json({
+      totalUsers,
+      totalSimulations,
+      totalResumes,
+      totalDiagnostics,
+      totalConversations,
+      totalAiMessages,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// 1c. GET SERVICES (static registry with basic status)
+adminRouter.get('/services', async (_req: Request, res: Response) => {
+  try {
+    let aiStatus = 'Offline';
+    try {
+      const aiRes = await fetch('http://localhost:8000/api/v1/health', { signal: AbortSignal.timeout(2000) });
+      if (aiRes.ok) aiStatus = 'Online';
+    } catch {
+      aiStatus = 'Standby';
+    }
+
+    res.json([
+      { name: 'web', port: 5173, status: 'Online', description: 'React candidate web client' },
+      { name: 'admin', port: 5174, status: 'Online', description: 'React admin console' },
+      { name: 'api-backend', port: 4000, status: 'Online', description: 'Express + Prisma REST API' },
+      { name: 'ai-service', port: 8000, status: aiStatus, description: 'Python FastAPI AI microservice' },
+    ]);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // 2. GET MONOREPO HEALTH NODES
 adminRouter.get('/health-nodes', async (req: Request, res: Response) => {
   try {

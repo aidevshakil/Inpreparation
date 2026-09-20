@@ -19,7 +19,7 @@ export const AiAnalysisRoleAlignmentCard: React.FC<AiAnalysisRoleAlignmentCardPr
   initialPaths,
   onSelectRole,
 }) => {
-  const paths: CareerPath[] = (initialPaths && initialPaths.length > 0) ? initialPaths : [
+  const paths: CareerPath[] = (Array.isArray(initialPaths) && initialPaths.length > 0) ? initialPaths : [
     {
       title: 'Senior Python Backend Engineer',
       matchScore: '98% High Alignment',

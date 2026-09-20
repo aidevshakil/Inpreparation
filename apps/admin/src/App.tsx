@@ -11,13 +11,13 @@ export function App() {
   const renderContent = () => {
     switch (currentTab) {
       case 'dashboard':
-        return <DashboardPage />;
+        return <DashboardPage onNavigate={setCurrentTab} />;
       case 'ai-analytics':
         return <AiAnalyticsPage />;
       case 'users':
         return <UsersPage />;
       default:
-        return <DashboardPage />;
+        return <DashboardPage onNavigate={setCurrentTab} />;
     }
   };
 

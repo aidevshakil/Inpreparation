@@ -10,7 +10,11 @@ interface NodeHealthItem {
   description?: string;
 }
 
-export const DashboardPage: React.FC = () => {
+interface DashboardPageProps {
+  onNavigate?: (tab: string) => void;
+}
+
+export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
   const [stats, setStats] = useState<any>(null);
   const [nodes, setNodes] = useState<NodeHealthItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -169,22 +173,22 @@ export const DashboardPage: React.FC = () => {
         <Card title="Quick Actions">
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '16px' }}>
             <button
-              onClick={() => alert('Prisma PostgreSQL connection healthy')}
+              onClick={() => onNavigate?.('users')}
               style={{ padding: '10px 14px', borderRadius: '6px', background: '#334155', border: 'none', color: '#fff', cursor: 'pointer', textAlign: 'left' }}
             >
-              🔄 Probe PostgreSQL DB
+              👥 Manage Users
             </button>
             <button
-              onClick={() => alert('Triggering background vector embedding synchronization')}
+              onClick={() => onNavigate?.('ai-analytics')}
               style={{ padding: '10px 14px', borderRadius: '6px', background: '#334155', border: 'none', color: '#fff', cursor: 'pointer', textAlign: 'left' }}
             >
-              📥 Sync Vector Embeddings
+              📊 View AI Analytics
             </button>
             <button
-              onClick={() => alert('Audit logs exported to admin console')}
+              onClick={loadData}
               style={{ padding: '10px 14px', borderRadius: '6px', background: '#334155', border: 'none', color: '#fff', cursor: 'pointer', textAlign: 'left' }}
             >
-              📋 Export Audit Logs
+              🔄 Probe System Health
             </button>
           </div>
         </Card>

@@ -3,11 +3,35 @@ import { Sparkles, CheckCircle2, TrendingUp } from 'lucide-react';
 
 interface CvExecutiveAiSynthesisCardProps {
   onEnhanceWithAi?: () => void;
+  candidateRole?: string;
+  skills?: string[];
+  strengths?: string[];
+  improvements?: string[];
 }
 
 export const CvExecutiveAiSynthesisCard: React.FC<CvExecutiveAiSynthesisCardProps> = ({
   onEnhanceWithAi,
+  candidateRole = 'Fullstack Flutter Developer',
+  skills = [],
+  strengths,
+  improvements,
 }) => {
+  const topSkillsList = skills.length > 0 ? skills.slice(0, 4).join(', ') : 'Flutter, Dart, Firebase, REST APIs';
+
+  const defaultStrengths = strengths && strengths.length > 0
+    ? strengths
+    : [
+        `Production competence in ${topSkillsList} verified through project structure and architectural patterns.`,
+        `Demonstrated end-to-end full-stack capability aligned with ${candidateRole} expectations.`,
+      ];
+
+  const defaultImprovements = improvements && improvements.length > 0
+    ? improvements
+    : [
+        `Quantify business impact: Add benchmark performance numbers, app store user counts, or latency reductions.`,
+        `Include automated testing metrics (e.g., unit/widget coverage, CI/CD pipeline deployment speed).`,
+      ];
+
   return (
     <div
       style={{
@@ -35,12 +59,9 @@ export const CvExecutiveAiSynthesisCard: React.FC<CvExecutiveAiSynthesisCardProp
         </div>
 
         <ul style={{ margin: 0, paddingLeft: '14px', fontSize: '0.72rem', color: 'var(--text-secondary)', lineHeight: 1.45, display: 'flex', flexDirection: 'column', gap: '5px' }}>
-          <li>
-            Comprehensive real-time queue expertise (Kafka, Celery) and PostgreSQL optimization are immediately noticeable by tier-1 evaluators.
-          </li>
-          <li>
-            Cohesive progression from client-side mobile Flutter architecture to large-scale distributed backend systems.
-          </li>
+          {defaultStrengths.map((item, idx) => (
+            <li key={idx}>{item}</li>
+          ))}
         </ul>
       </div>
 
@@ -52,12 +73,9 @@ export const CvExecutiveAiSynthesisCard: React.FC<CvExecutiveAiSynthesisCardProp
         </div>
 
         <ul style={{ margin: 0, paddingLeft: '14px', fontSize: '0.72rem', color: 'var(--text-secondary)', lineHeight: 1.45, display: 'flex', flexDirection: 'column', gap: '5px' }}>
-          <li>
-            <strong style={{ color: 'var(--text-main)' }}>Quantify business impact:</strong> Add dollar-value savings or latency figures to your Mobile/Fintech tenure to amplify executive presence.
-          </li>
-          <li>
-            <strong style={{ color: 'var(--text-main)' }}>Resilience patterns:</strong> Explicitly mention Circuit Breakers, Bulkheads, or Dead-Letter Queues in your FinScale experience.
-          </li>
+          {defaultImprovements.map((item, idx) => (
+            <li key={idx}>{item}</li>
+          ))}
         </ul>
       </div>
 

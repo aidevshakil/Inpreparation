@@ -1,6 +1,6 @@
 import { AIChatMessage } from '@packages/types';
 
-const NODE_BACKEND_URL = (import.meta as any).env?.VITE_API_URL || 'http://localhost:5000/api';
+export const NODE_BACKEND_URL = (import.meta as any).env?.VITE_API_URL || 'http://localhost:5000/api';
 const PYTHON_AI_URL = (import.meta as any).env?.VITE_AI_SERVICE_URL || 'http://localhost:8000/api/v1';
 
 // -------------------------------------------------------------
@@ -89,6 +89,7 @@ export interface UploadResumePayload {
   skills?: string[];
   experienceYears?: number;
   parsedSummary?: string;
+  fileBase64?: string;
 }
 
 export async function uploadResumeProfile(payload: UploadResumePayload) {
@@ -115,6 +116,54 @@ export async function uploadResumeProfile(payload: UploadResumePayload) {
         createdAt: new Date().toISOString(),
       },
     };
+  }
+}
+
+export async function getUserResumes(userId: string) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/resumes/user/${userId}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Failed to fetch user resumes:', error);
+    return [];
+  }
+}
+
+export async function getResumeById(resumeId: string) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/resumes/${resumeId}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Failed to fetch resume by id:', error);
+    return null;
+  }
+}
+
+export async function rollbackResumeVersion(resumeId: string) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/resumes/${resumeId}/rollback`, {
+      method: 'POST',
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Failed to rollback resume version:', error);
+    return null;
+  }
+}
+
+export async function deleteResumeVersion(resumeId: string) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/resumes/${resumeId}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Failed to delete resume version:', error);
+    return null;
   }
 }
 

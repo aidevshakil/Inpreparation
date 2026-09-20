@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ChevronLeft,
   ChevronRight,
@@ -15,7 +15,7 @@ import {
   MessageSquare,
   Layers,
 } from 'lucide-react';
-import { QUESTION_DATA_MAP, QuestionDossierItem } from '../../services/questionDataStore';
+import { QUESTION_DATA_MAP, QuestionDossierItem, fetchQuestionDossierCatalog } from '../../services/questionDataStore';
 
 interface QuestionDossierInspectViewProps {
   selectedQuestionId?: string;
@@ -40,9 +40,22 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [catalogReady, setCatalogReady] = useState(false);
 
-  const qData: QuestionDossierItem =
+  useEffect(() => {
+    fetchQuestionDossierCatalog().then(() => setCatalogReady(true));
+  }, []);
+
+  const qData: QuestionDossierItem | undefined =
     QUESTION_DATA_MAP[selectedQuestionId] || QUESTION_DATA_MAP['Q4'];
+
+  if (!qData) {
+    return (
+      <div style={{ padding: 32, color: '#94a3b8', backgroundColor: '#0d1322' }}>
+        Loading question dossier catalog...
+      </div>
+    );
+  }
 
   const handleCopy = () => {
     navigator.clipboard?.writeText(qData.candidateTranscript);

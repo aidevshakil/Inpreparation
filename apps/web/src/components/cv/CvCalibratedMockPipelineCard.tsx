@@ -3,11 +3,24 @@ import { GitBranch, ArrowDown, Play } from 'lucide-react';
 
 interface CvCalibratedMockPipelineCardProps {
   onStartCalibratedMock?: () => void;
+  targetRole?: string;
+  topSkills?: string[];
+  recentCompany?: string;
 }
 
 export const CvCalibratedMockPipelineCard: React.FC<CvCalibratedMockPipelineCardProps> = ({
   onStartCalibratedMock,
+  targetRole = 'Fullstack Flutter Developer',
+  topSkills = [],
+  recentCompany,
 }) => {
+  const techAnchor = topSkills.length > 0
+    ? topSkills.slice(0, 4).join(', ')
+    : 'Flutter, Dart, Firebase, REST APIs';
+
+  const trackProfile = `${targetRole.split(' ')[0] || 'Mobile'} Engineering • Production Track`;
+  const contextNote = recentCompany ? `Tailored to ${recentCompany} & production stack` : `Tailored to ${targetRole} stack`;
+
   return (
     <div
       style={{
@@ -62,7 +75,7 @@ export const CvCalibratedMockPipelineCard: React.FC<CvCalibratedMockPipelineCard
         </span>
         <div style={{ fontSize: '0.74rem' }}>
           <div style={{ color: 'var(--text-muted)', fontSize: '0.66rem' }}>Detected Tech Anchor:</div>
-          <div style={{ color: 'var(--text-main)', fontWeight: 600 }}>FastAPI, Kafka, PostgreSQL, 12k QPS</div>
+          <div style={{ color: 'var(--text-main)', fontWeight: 600 }}>{techAnchor}</div>
         </div>
       </div>
 
@@ -102,7 +115,7 @@ export const CvCalibratedMockPipelineCard: React.FC<CvCalibratedMockPipelineCard
         </span>
         <div style={{ fontSize: '0.74rem' }}>
           <div style={{ color: 'var(--text-muted)', fontSize: '0.66rem' }}>Vector Weight Profile:</div>
-          <div style={{ color: 'var(--text-main)', fontWeight: 600 }}>High Concurrency • Staff Backend Track</div>
+          <div style={{ color: 'var(--text-main)', fontWeight: 600 }}>{trackProfile}</div>
         </div>
       </div>
 
@@ -125,8 +138,8 @@ export const CvCalibratedMockPipelineCard: React.FC<CvCalibratedMockPipelineCard
         }}
       >
         <div style={{ fontSize: '0.74rem' }}>
-          <div style={{ color: '#059669', fontWeight: 700 }}>Python Backend Developer (Senior)</div>
-          <div style={{ color: 'var(--text-secondary)', fontSize: '0.68rem' }}>5 Questions • Tailored to FinScale stack</div>
+          <div style={{ color: '#059669', fontWeight: 700 }}>{targetRole}</div>
+          <div style={{ color: 'var(--text-secondary)', fontSize: '0.68rem' }}>5 Questions • {contextNote}</div>
         </div>
 
         <button

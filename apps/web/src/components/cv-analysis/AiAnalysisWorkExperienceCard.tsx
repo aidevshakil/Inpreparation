@@ -24,7 +24,7 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
   onAddRole,
   onEditExperience,
 }) => {
-  const experiences: WorkExperienceEntry[] = (initialExperiences && initialExperiences.length > 0)
+  const experiences: WorkExperienceEntry[] = (Array.isArray(initialExperiences) && initialExperiences.length > 0)
     ? initialExperiences
     : [
     {
@@ -165,19 +165,21 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
             </div>
 
             {/* Bullets */}
-            <ul style={{ margin: '10px 0', paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              {exp.bullets.map((bullet, bIdx) => (
-                <li key={bIdx} style={{ fontSize: '0.8rem', color: 'var(--text-main)', lineHeight: 1.55 }}>
-                  {bullet}
-                </li>
-              ))}
-            </ul>
+            {Array.isArray(exp.bullets) && exp.bullets.length > 0 && (
+              <ul style={{ margin: '10px 0', paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {exp.bullets.map((bullet, bIdx) => (
+                  <li key={bIdx} style={{ fontSize: '0.8rem', color: 'var(--text-main)', lineHeight: 1.55 }}>
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            )}
 
             {/* Stack chips & metrics link */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginTop: '12px', paddingTop: '10px', borderTop: '1px solid var(--border-subtle)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
                 <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontWeight: 600 }}>Detected Stack:</span>
-                {exp.stack.map((tech) => (
+                {(Array.isArray(exp.stack) ? exp.stack : Array.isArray((exp as any).skills) ? (exp as any).skills : []).map((tech: string) => (
                   <span
                     key={tech}
                     style={{
@@ -197,7 +199,7 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
 
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.7rem', color: '#059669', fontWeight: 600 }}>
                 <TrendingUp size={12} />
-                <span>{exp.metricsCount} Scale Metrics Extracted</span>
+                <span>{exp.metricsCount || 1} Scale Metrics Extracted</span>
               </div>
             </div>
           </div>

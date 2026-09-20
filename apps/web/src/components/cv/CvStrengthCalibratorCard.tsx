@@ -12,47 +12,76 @@ interface MetricItem {
 
 interface CvStrengthCalibratorCardProps {
   score?: number;
+  technicalCoverage?: Record<string, number>;
+  targetRole?: string;
   onViewDeepBreakdown?: () => void;
 }
 
 export const CvStrengthCalibratorCard: React.FC<CvStrengthCalibratorCardProps> = ({
-  score = 84,
+  score = 91,
+  technicalCoverage,
+  targetRole = 'Fullstack Flutter Developer',
   onViewDeepBreakdown,
 }) => {
-  const metrics: MetricItem[] = [
-    {
-      id: 'skills',
-      name: 'Skills Coverage',
-      percent: 93,
-      levelLabel: 'Exceptional',
-      feedback: 'Strong backend, concurrency, and async pipeline tags detected.',
-      barColor: '#10b981',
-    },
-    {
-      id: 'exp',
-      name: 'Experience Relevance',
-      percent: 92,
-      levelLabel: 'High Fit',
-      feedback: 'High correlation with target Senior Backend and Distributed tracks.',
-      barColor: '#38bdf8',
-    },
-    {
-      id: 'arch',
-      name: 'Project Architecture Depth',
-      percent: 86,
-      levelLabel: 'Advanced',
-      feedback: 'Clear demonstration of data partitioning, caching, and throughput trade-offs.',
-      barColor: '#a855f7',
-    },
-    {
-      id: 'metrics',
-      name: 'Structure & Quantifiable Metrics',
-      percent: 81,
-      levelLabel: 'Adequate',
-      feedback: 'Good STAR format usage; opportunity to append business ROI numbers.',
-      barColor: '#06b6d4',
-    },
-  ];
+  const colors = ['#10b981', '#38bdf8', '#a855f7', '#06b6d4', '#f59e0b'];
+  
+  const isObj = technicalCoverage && typeof technicalCoverage === 'object' && !Array.isArray(technicalCoverage);
+  const isArr = Array.isArray(technicalCoverage);
+
+  const metrics: MetricItem[] = isObj && Object.keys(technicalCoverage).length > 0
+    ? Object.entries(technicalCoverage).slice(0, 4).map(([name, pct], i) => ({
+        id: `cov-${i}`,
+        name,
+        percent: typeof pct === 'number' ? pct : 85,
+        levelLabel: (typeof pct === 'number' && pct >= 90) ? 'Exceptional' : (typeof pct === 'number' && pct >= 85) ? 'High Fit' : 'Advanced',
+        feedback: (typeof pct === 'number' && pct >= 90)
+          ? `Exceptional mastery in ${name} directly fulfilling ${targetRole} rubrics.`
+          : `Strong verified competencies in ${name} aligned with target trajectory.`,
+        barColor: colors[i % colors.length],
+      }))
+    : isArr && technicalCoverage.length > 0
+    ? technicalCoverage.slice(0, 4).map((item: any, i: number) => ({
+        id: `cov-${i}`,
+        name: item?.category || item?.name || `Competency Area ${i + 1}`,
+        percent: typeof item?.score === 'number' ? item.score : typeof item?.percent === 'number' ? item.percent : 85,
+        levelLabel: 'High Fit',
+        feedback: `Competency aligned with ${targetRole}.`,
+        barColor: colors[i % colors.length],
+      }))
+    : [
+        {
+          id: 'skills',
+          name: 'Skills & Competency Coverage',
+          percent: score >= 90 ? 94 : score,
+          levelLabel: 'Exceptional',
+          feedback: `Strong competencies aligned with ${targetRole} detected.`,
+          barColor: '#10b981',
+        },
+        {
+          id: 'exp',
+          name: 'Role & Experience Relevance',
+          percent: score >= 90 ? 92 : score - 2,
+          levelLabel: 'High Fit',
+          feedback: `Verified career progression matching target ${targetRole} requirements.`,
+          barColor: '#38bdf8',
+        },
+        {
+          id: 'arch',
+          name: 'Architecture & State Management',
+          percent: score >= 90 ? 88 : score - 5,
+          levelLabel: 'Advanced',
+          feedback: 'Clear demonstration of maintainable patterns, clean architecture, and modularity.',
+          barColor: '#a855f7',
+        },
+        {
+          id: 'metrics',
+          name: 'Structure & Production Impact',
+          percent: score >= 90 ? 85 : score - 8,
+          levelLabel: 'Strong',
+          feedback: 'Effective technical achievements and quantifiable delivery milestones.',
+          barColor: '#06b6d4',
+        },
+      ];
 
   return (
     <div

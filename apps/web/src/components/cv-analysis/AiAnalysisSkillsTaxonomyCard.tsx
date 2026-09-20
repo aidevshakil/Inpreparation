@@ -17,24 +17,24 @@ export const AiAnalysisSkillsTaxonomyCard: React.FC<AiAnalysisSkillsTaxonomyCard
   onAddSkill,
   onMarkInaccuracies,
 }) => {
-  const categories: SkillCategory[] = (initialCategories && initialCategories.length > 0)
+  const categories: SkillCategory[] = (Array.isArray(initialCategories) && initialCategories.length > 0)
     ? initialCategories
     : [
     {
       title: 'LANGUAGES & SCRIPTING',
-      skills: ['Python 3.12', 'Go (Golang)', 'Dart', 'SQL (PostgreSQL dialects)', 'Bash / Shell'],
+      skills: ['Flutter', 'Dart', 'TypeScript', 'JavaScript', 'SQL'],
     },
     {
-      title: 'FRAMEWORKS & PROTOCOLS',
-      skills: ['FastAPI (Asyncio)', 'gRPC & Protocol', 'RESTful Microservices', 'Flutter SDK', 'Celery / Distributed Tasks'],
+      title: 'FRAMEWORKS & ARCHITECTURE',
+      skills: ['Flutter SDK', 'Clean Architecture', 'Bloc / Provider', 'REST APIs', 'Node.js'],
     },
     {
       title: 'DATA STORAGE & STREAMING',
-      skills: ['Apache Kafka', 'PostgreSQL (Partitioning & Policies)', 'Redis Caching & Pub/Sub', 'Elasticsearch'],
+      skills: ['Firebase Firestore', 'PostgreSQL', 'SQLite Offline Sync', 'Redis'],
     },
     {
       title: 'INFRASTRUCTURE & DEVOPS',
-      skills: ['Docker Containers', 'Kubernetes (EKS/Basics)', 'AWS (ECS, S3, RDS)', 'Prometheus & Grafana'],
+      skills: ['Docker Containers', 'CI/CD Pipelines', 'GitHub Actions', 'AWS / Cloud'],
     },
   ];
 
@@ -93,7 +93,7 @@ export const AiAnalysisSkillsTaxonomyCard: React.FC<AiAnalysisSkillsTaxonomyCard
             </div>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-              {cat.skills.map((skill) => (
+              {Array.isArray(cat?.skills) && cat.skills.map((skill) => (
                 <div
                   key={skill}
                   style={{

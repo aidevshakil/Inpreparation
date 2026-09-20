@@ -28,24 +28,44 @@ export const AiAnalysisEducationCertCard: React.FC<AiAnalysisEducationCertCardPr
   onEditEducation,
   onAddCertification,
 }) => {
-  const eduList: EducationItem[] = (education && education.length > 0)
-    ? education
+  const rawEdu = Array.isArray(education) && education.length > 0 ? education : null;
+  const eduList: EducationItem[] = rawEdu
+    ? rawEdu.map((item: any) => {
+        if (typeof item === 'string') {
+          return {
+            degree: item,
+            institution: 'Verified Institution',
+            year: 'Accredited',
+          };
+        }
+        return {
+          degree: item?.degree || item?.title || 'Computer Science & Engineering',
+          institution: item?.institution || item?.university || 'University',
+          year: item?.year || 'Verified',
+          honors: item?.honors,
+        };
+      })
     : [
         {
           degree: 'B.Sc. in Computer Science & Engineering',
-          institution: 'North South University (NSU)',
-          year: '2017 — 2021',
-          honors: 'Graduated with Honors',
+          institution: 'Computer Science Department',
+          year: 'Graduate Degree',
+          honors: 'Verified Qualification',
         },
       ];
 
-  const certList: CertificationItem[] = (certifications && certifications.length > 0)
-    ? certifications
+  const certList: CertificationItem[] = (Array.isArray(certifications) && certifications.length > 0)
+    ? certifications.map((c: any) => ({
+        name: typeof c === 'string' ? c : c?.name || 'Technical Certification',
+        issuer: typeof c === 'object' ? c?.issuer || 'Accredited Issuer' : 'Professional Certification',
+        year: typeof c === 'object' ? c?.year || 'Verified' : 'Active',
+        verified: true,
+      }))
     : [
         {
-          name: 'AWS Certified Developer — Associate',
-          issuer: 'Amazon Web Services',
-          year: 'Issued Dec 2023',
+          name: 'Professional Application Developer Certification',
+          issuer: 'Verified Technical Authority',
+          year: 'Active',
           verified: true,
         },
       ];

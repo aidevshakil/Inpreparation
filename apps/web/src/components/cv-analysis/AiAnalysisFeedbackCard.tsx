@@ -10,7 +10,7 @@ export const AiAnalysisFeedbackCard: React.FC<AiAnalysisFeedbackCardProps> = ({
   improvements,
   onEnhanceInEditor,
 }) => {
-  const dynamicImprovements = improvements && improvements.length > 0 ? improvements : [
+  const dynamicImprovements = Array.isArray(improvements) && improvements.length > 0 ? improvements : [
     'Add Resilience Patterns: Explicit mention circuit breakers, bulkheads, or retry budgets.',
     'Highlight Business Impact: Quantify cost savings or developer velocity improvements.',
   ];

@@ -19,7 +19,7 @@ export const AiAnalysisProjectsCard: React.FC<AiAnalysisProjectsCardProps> = ({
   initialProjects,
   onAddProject,
 }) => {
-  const projects: ProjectEntry[] = (initialProjects && initialProjects.length > 0)
+  const projects: ProjectEntry[] = (Array.isArray(initialProjects) && initialProjects.length > 0)
     ? initialProjects
     : [
     {
@@ -154,27 +154,29 @@ export const AiAnalysisProjectsCard: React.FC<AiAnalysisProjectsCardProps> = ({
             </p>
 
             {/* Extracted Skills */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontWeight: 600 }}>
-                Extracted Skills:
-              </span>
-              {project.skills.map((skill) => (
-                <span
-                  key={skill}
-                  style={{
-                    fontSize: '0.68rem',
-                    padding: '2px 8px',
-                    borderRadius: '5px',
-                    backgroundColor: 'var(--bg-card)',
-                    border: '1px solid var(--border-subtle)',
-                    color: 'var(--text-main)',
-                    fontWeight: 500,
-                  }}
-                >
-                  {skill}
+            {Array.isArray(project.skills || (project as any).stack) && (project.skills || (project as any).stack).length > 0 && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontWeight: 600 }}>
+                  Extracted Skills:
                 </span>
-              ))}
-            </div>
+                {(Array.isArray(project.skills) ? project.skills : (project as any).stack || []).map((skill: string) => (
+                  <span
+                    key={skill}
+                    style={{
+                      fontSize: '0.68rem',
+                      padding: '2px 8px',
+                      borderRadius: '5px',
+                      backgroundColor: 'var(--bg-card)',
+                      border: '1px solid var(--border-subtle)',
+                      color: 'var(--text-main)',
+                      fontWeight: 500,
+                    }}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         ))}
       </div>

@@ -74,38 +74,101 @@ diagnosticRouter.post('/intake', async (req: Request, res: Response) => {
 // 2. TRIGGER PIPELINE SYNTHESIS PROCESSING (#22)
 diagnosticRouter.post('/pipeline/process', async (req: Request, res: Response) => {
   try {
-    const { intakeId, userId } = req.body;
+    const { diagnosticId, intakeId, userId } = req.body;
+    const targetId = diagnosticId || intakeId;
 
-    // Synthesize evaluation metrics
-    const overallScore = 88;
-    const technicalRigorScore = 92;
-    const systemsBreadthScore = 89;
-    const leadershipStarScore = 84;
-    const communicationScore = 87;
+    if (!targetId) {
+      return res.status(400).json({ error: 'diagnosticId is required' });
+    }
 
-    const pipelineResult = {
-      intakeId: intakeId || `diag-${Date.now()}`,
-      userId: userId || 'demo-user-1',
-      overallScore,
-      technicalRigorScore,
-      systemsBreadthScore,
-      leadershipStarScore,
-      communicationScore,
-      calibratedSeniority: 'General Level',
-      processingStages: [
-        { name: 'Phonetic & Audio Ingestion', status: 'completed', latencyMs: 310 },
-        { name: 'STAR Semantic Grounding', status: 'completed', latencyMs: 420 },
-        { name: 'Competency Radar Synthesis', status: 'completed', latencyMs: 390 },
-      ],
-      strengths: [],
-      growthAreas: [],
-      timestamp: new Date().toISOString(),
-    };
+    const t0 = Date.now();
+    const intake = await prisma.diagnosticIntake.findUnique({
+      where: { id: targetId },
+      include: { responses: true },
+    });
+    const ingestionMs = Date.now() - t0;
+
+    if (!intake) {
+      return res.status(404).json({ error: 'Diagnostic intake not found' });
+    }
+
+    const t1 = Date.now();
+    const responses = intake.responses || [];
+    const clamp = (n: number) => Math.max(0, Math.min(100, Math.round(n)));
+    const avg = (arr: number[]) => (arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0);
+
+    const clarityAvg = avg(responses.map((r: any) => r.clarityScore || 0));
+    const structureAvg = avg(responses.map((r: any) => r.structureScore || 0));
+    const starAvg = avg(responses.map((r: any) => r.starCompliance || 0));
+    const confidenceAvg = avg(responses.map((r: any) => r.confidenceRating || 0));
+    const wpmAvg = avg(responses.map((r: any) => r.wpm || 0));
+    const semanticMs = Date.now() - t1;
+
+    const t2 = Date.now();
+    const focusBonus = (intake.focusAreas || []).length * 0.5;
+    const technicalRigorScore = clamp(structureAvg * 0.55 + starAvg * 0.35 + focusBonus * 2);
+    const systemsBreadthScore = clamp(structureAvg * 0.45 + clarityAvg * 0.35 + focusBonus * 2);
+    const leadershipStarScore = clamp(starAvg * 0.7 + confidenceAvg * 0.3);
+    const wpmNorm = wpmAvg > 0 ? clamp(100 - Math.abs(wpmAvg - 140) * 1.2) : 0;
+    const communicationScore = clamp(clarityAvg * 0.55 + wpmNorm * 0.25 + confidenceAvg * 0.2);
+    const overallScore = clamp(
+      technicalRigorScore * 0.3 +
+        systemsBreadthScore * 0.25 +
+        leadershipStarScore * 0.2 +
+        communicationScore * 0.25,
+    );
+    const synthesisMs = Date.now() - t2;
+
+    const strengths: string[] = [];
+    const growthAreas: string[] = [];
+    const scored: [string, number][] = [
+      ['Technical Rigor', technicalRigorScore],
+      ['Systems Breadth', systemsBreadthScore],
+      ['Leadership & STAR', leadershipStarScore],
+      ['Communication', communicationScore],
+    ];
+    scored.forEach(([name, score]) => {
+      if (score >= 85) strengths.push(name);
+      else if (score < 75) growthAreas.push(name);
+    });
+
+    try {
+      await prisma.diagnosticIntake.update({
+        where: { id: intake.id },
+        data: {
+          overallScore,
+          technicalRigorScore,
+          systemsBreadthScore,
+          leadershipStarScore,
+          communicationScore,
+          status: 'analyzed',
+        },
+      });
+    } catch (persistErr) {
+      console.warn('Pipeline persist error:', persistErr);
+    }
 
     res.status(200).json({
       success: true,
       message: 'Diagnostic pipeline synthesis completed',
-      result: pipelineResult,
+      result: {
+        intakeId: intake.id,
+        userId: userId || intake.userId,
+        overallScore,
+        technicalRigorScore,
+        systemsBreadthScore,
+        leadershipStarScore,
+        communicationScore,
+        calibratedSeniority: intake.seniorityTier,
+        processingStages: [
+          { name: 'Phonetic & Audio Ingestion', status: 'completed', latencyMs: ingestionMs },
+          { name: 'STAR Semantic Grounding', status: 'completed', latencyMs: semanticMs },
+          { name: 'Competency Radar Synthesis', status: 'completed', latencyMs: synthesisMs },
+        ],
+        strengths,
+        growthAreas,
+        timestamp: new Date().toISOString(),
+      },
     });
   } catch (error: any) {
     console.error('Pipeline process error:', error);
