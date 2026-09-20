@@ -439,6 +439,22 @@ export async function toggleRecommendationBookmark(payload: {
   }
 }
 
+export async function getUserSavedTracks(userId: string) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/recommendations/saved/${userId}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Using fallback saved tracks:', error);
+    try {
+      const local = localStorage.getItem(`inprep_saved_tracks_${userId}`);
+      return { success: true, saved: local ? JSON.parse(local) : [] };
+    } catch {
+      return { success: true, saved: [] };
+    }
+  }
+}
+
 // -------------------------------------------------------------
 // 9. AI CV Analysis API (#26)
 // -------------------------------------------------------------

@@ -94,7 +94,7 @@ export const ProfileAnalysisPage: React.FC<ProfileAnalysisPageProps> = ({
   const displayRole = user?.targetRole || 'Target Role';
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-main)', color: 'var(--text-main)', display: 'flex', flexDirection: 'column' }}>
       {/* Main Workspace Frame */}
       <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
@@ -108,7 +108,7 @@ export const ProfileAnalysisPage: React.FC<ProfileAnalysisPageProps> = ({
         />
 
         {/* 3. Main Body Column */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, overflowX: 'hidden' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, overflowX: 'hidden', backgroundColor: 'var(--bg-main)' }}>
           {/* Top Navbar */}
           <DashboardNavbar
             onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}

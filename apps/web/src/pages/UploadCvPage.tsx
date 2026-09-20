@@ -103,7 +103,7 @@ export const UploadCvPage: React.FC<UploadCvPageProps> = ({
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#07090e', color: '#f8fafc', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-main)', color: 'var(--text-main)', display: 'flex', flexDirection: 'column' }}>
       {/* Main Workspace Frame */}
       <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>
         {/* 2. Left Navigation Sidebar */}
@@ -117,7 +117,7 @@ export const UploadCvPage: React.FC<UploadCvPageProps> = ({
         />
 
         {/* Right Content Column */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, backgroundColor: '#090c15' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, backgroundColor: 'var(--bg-main)' }}>
           {/* 3. Studio Navbar */}
           <DashboardNavbar
             onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
@@ -146,16 +146,16 @@ export const UploadCvPage: React.FC<UploadCvPageProps> = ({
               }}
             >
               <div>
-                <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '8px' }}>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '8px' }}>
                   <span>Workspace</span>
-                  <span style={{ margin: '0 6px', color: '#475569' }}>/</span>
-                  <span style={{ color: '#cbd5e1', cursor: 'pointer' }} onClick={onNavigateToCv}>My CV</span>
-                  <span style={{ margin: '0 6px', color: '#475569' }}>/</span>
-                  <span style={{ color: '#818cf8', fontWeight: 600 }}>Upload CV</span>
+                  <span style={{ margin: '0 6px', color: 'var(--border-accent)' }}>/</span>
+                  <span style={{ color: 'var(--text-secondary)', cursor: 'pointer' }} onClick={onNavigateToCv}>My CV</span>
+                  <span style={{ margin: '0 6px', color: 'var(--border-accent)' }}>/</span>
+                  <span style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Upload CV</span>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '6px' }}>
-                  <h1 style={{ fontSize: '2.1rem', fontWeight: 800, color: '#ffffff', margin: 0, letterSpacing: '-0.02em' }}>
+                  <h1 style={{ fontSize: '2.1rem', fontWeight: 800, color: 'var(--text-main)', margin: 0, letterSpacing: '-0.02em' }}>
                     Upload Your CV
                   </h1>
 
@@ -166,7 +166,7 @@ export const UploadCvPage: React.FC<UploadCvPageProps> = ({
                       padding: '3px 10px',
                       borderRadius: '9999px',
                       backgroundColor: 'rgba(99, 102, 241, 0.18)',
-                      color: '#a5b4fc',
+                      color: 'var(--primary-color)',
                       border: '1px solid rgba(99, 102, 241, 0.35)',
                     }}
                   >

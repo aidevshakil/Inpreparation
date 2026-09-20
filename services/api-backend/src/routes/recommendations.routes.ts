@@ -3,6 +3,24 @@ import { prisma } from '@packages/database';
 
 export const recommendationsRouter = Router();
 
+// 0. GET ALL SAVED TRACKS FOR USER
+recommendationsRouter.get('/saved/:userId', async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    if ((prisma as any).userSavedTrack) {
+      const saved = await (prisma as any).userSavedTrack.findMany({
+        where: { userId },
+        orderBy: { savedAt: 'desc' },
+      });
+      return res.status(200).json({ success: true, saved });
+    }
+    return res.status(200).json({ success: true, saved: [] });
+  } catch (error: any) {
+    console.error('Failed to get saved tracks:', error);
+    return res.status(500).json({ error: error.message || 'Database fetch error' });
+  }
+});
+
 // 1. GET TAILORED INTERVIEW RECOMMENDATIONS FOR USER (#25)
 recommendationsRouter.get('/:userId', async (req: Request, res: Response) => {
   try {

@@ -145,8 +145,8 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
         style={{
           position: 'fixed',
           inset: 0,
-          backgroundColor: 'rgba(7, 9, 14, 0.88)',
-          backdropFilter: 'blur(16px)',
+          backgroundColor: 'rgba(7, 9, 14, 0.75)',
+          backdropFilter: 'blur(8px)',
           zIndex: 9999,
           display: 'flex',
           alignItems: 'center',
@@ -158,13 +158,14 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
           style={{
             maxWidth: '660px',
             width: '100%',
-            backgroundColor: '#0c121e',
+            backgroundColor: 'var(--bg-card)',
             border: '1px solid rgba(239, 68, 68, 0.35)',
             borderRadius: '24px',
             padding: '36px 32px',
-            boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.95), 0 0 40px rgba(239, 68, 68, 0.12)',
+            boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.45), 0 0 40px rgba(239, 68, 68, 0.1)',
             position: 'relative',
-            color: '#f8fafc',
+            color: 'var(--text-main)',
+            transition: 'background-color 0.25s ease',
           }}
         >
           {/* Close Button */}
@@ -174,16 +175,25 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
               position: 'absolute',
               top: '20px',
               right: '20px',
-              background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '50%',
               width: '36px',
               height: '36px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#94a3b8',
+              color: 'var(--text-muted)',
               cursor: 'pointer',
+              transition: 'all 0.15s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = 'var(--text-main)';
+              e.currentTarget.style.borderColor = 'var(--border-accent)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = 'var(--text-muted)';
+              e.currentTarget.style.borderColor = 'var(--border-subtle)';
             }}
           >
             <X size={18} />
@@ -202,12 +212,12 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
               marginBottom: '16px',
             }}
           >
-            <AlertTriangle size={15} color="#f87171" />
+            <AlertTriangle size={15} color="#ef4444" />
             <span
               style={{
                 fontSize: '0.72rem',
                 fontWeight: 800,
-                color: '#f87171',
+                color: '#ef4444',
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase',
               }}
@@ -220,7 +230,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
             style={{
               fontSize: '1.65rem',
               fontWeight: 800,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               margin: '0 0 10px 0',
               letterSpacing: '-0.02em',
               lineHeight: 1.25,
@@ -232,12 +242,12 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
           <p
             style={{
               fontSize: '0.88rem',
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
               lineHeight: 1.6,
               margin: '0 0 28px 0',
             }}
           >
-            Inpreparation’s AI interviewer dynamically crafts technical questions, follow-up pressure tests, and ATS evaluation rubrics based on your <strong style={{ color: '#f8fafc' }}>actual resume and skill history</strong>. To ensure an authentic simulation, you must provide your CV first.
+            Inpreparation’s AI interviewer dynamically crafts technical questions, follow-up pressure tests, and ATS evaluation rubrics based on your <strong style={{ color: 'var(--text-main)' }}>actual resume and skill history</strong>. To ensure an authentic simulation, you must provide your CV first.
           </p>
 
           {/* 2 Path Choice Cards */}
@@ -257,8 +267,8 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                 window.dispatchEvent(new HashChangeEvent('hashchange'));
               }}
               style={{
-                backgroundColor: 'rgba(99, 102, 241, 0.06)',
-                border: '1px solid rgba(99, 102, 241, 0.28)',
+                backgroundColor: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '16px',
                 padding: '20px',
                 cursor: 'pointer',
@@ -268,13 +278,13 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                 justifyContent: 'space-between',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(99, 102, 241, 0.12)';
-                e.currentTarget.style.borderColor = '#818cf8';
+                e.currentTarget.style.backgroundColor = 'var(--bg-card-hover)';
+                e.currentTarget.style.borderColor = 'var(--primary-color)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(99, 102, 241, 0.06)';
-                e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.28)';
+                e.currentTarget.style.backgroundColor = 'var(--bg-surface)';
+                e.currentTarget.style.borderColor = 'var(--border-subtle)';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
@@ -284,21 +294,21 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                     width: '42px',
                     height: '42px',
                     borderRadius: '12px',
-                    backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                    backgroundColor: 'rgba(99, 102, 241, 0.15)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     marginBottom: '14px',
                   }}
                 >
-                  <UploadCloud size={22} color="#a5b4fc" />
+                  <UploadCloud size={22} color="var(--primary-color)" />
                 </div>
                 <h4
                   style={{
                     margin: '0 0 6px 0',
                     fontSize: '1rem',
                     fontWeight: 700,
-                    color: '#ffffff',
+                    color: 'var(--text-main)',
                   }}
                 >
                   Upload Existing CV / Resume
@@ -307,7 +317,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                   style={{
                     margin: 0,
                     fontSize: '0.78rem',
-                    color: '#94a3b8',
+                    color: 'var(--text-secondary)',
                     lineHeight: 1.5,
                   }}
                 >
@@ -323,7 +333,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                   marginTop: '16px',
                   fontSize: '0.8rem',
                   fontWeight: 700,
-                  color: '#818cf8',
+                  color: 'var(--primary-color)',
                 }}
               >
                 <span>Upload PDF / DOCX</span>
@@ -339,8 +349,8 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                 window.dispatchEvent(new HashChangeEvent('hashchange'));
               }}
               style={{
-                backgroundColor: 'rgba(16, 185, 129, 0.06)',
-                border: '1px solid rgba(16, 185, 129, 0.28)',
+                backgroundColor: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '16px',
                 padding: '20px',
                 cursor: 'pointer',
@@ -350,13 +360,13 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                 justifyContent: 'space-between',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(16, 185, 129, 0.12)';
-                e.currentTarget.style.borderColor = '#34d399';
+                e.currentTarget.style.backgroundColor = 'var(--bg-card-hover)';
+                e.currentTarget.style.borderColor = 'var(--color-success)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(16, 185, 129, 0.06)';
-                e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.28)';
+                e.currentTarget.style.backgroundColor = 'var(--bg-surface)';
+                e.currentTarget.style.borderColor = 'var(--border-subtle)';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
@@ -366,21 +376,21 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                     width: '42px',
                     height: '42px',
                     borderRadius: '12px',
-                    backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                    backgroundColor: 'rgba(16, 185, 129, 0.15)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     marginBottom: '14px',
                   }}
                 >
-                  <Sparkles size={22} color="#6ee7b7" />
+                  <Sparkles size={22} color="var(--color-success)" />
                 </div>
                 <h4
                   style={{
                     margin: '0 0 6px 0',
                     fontSize: '1rem',
                     fontWeight: 700,
-                    color: '#ffffff',
+                    color: 'var(--text-main)',
                   }}
                 >
                   Build CV Manually with AI
@@ -389,7 +399,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                   style={{
                     margin: 0,
                     fontSize: '0.78rem',
-                    color: '#94a3b8',
+                    color: 'var(--text-secondary)',
                     lineHeight: 1.5,
                   }}
                 >
@@ -405,7 +415,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                   marginTop: '16px',
                   fontSize: '0.8rem',
                   fontWeight: 700,
-                  color: '#34d399',
+                  color: 'var(--color-success)',
                 }}
               >
                 <span>Launch CV Builder</span>
@@ -420,11 +430,11 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+              borderTop: '1px solid var(--border-subtle)',
               paddingTop: '16px',
             }}
           >
-            <span style={{ fontSize: '0.74rem', color: '#64748b' }}>
+            <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>
               🔒 Completing your CV unlocks all live simulations and targeted practice.
             </span>
             <button
@@ -432,7 +442,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
               style={{
                 background: 'none',
                 border: 'none',
-                color: '#94a3b8',
+                color: 'var(--text-secondary)',
                 fontSize: '0.8rem',
                 fontWeight: 600,
                 cursor: 'pointer',
@@ -543,24 +553,25 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: '#0d121d',
-          border: '1px solid rgba(99, 102, 241, 0.4)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '24px',
           width: '100%',
           maxWidth: stage === 'active' ? '1040px' : '780px',
           maxHeight: '92vh',
           overflowY: 'auto',
-          boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 50px rgba(124, 58, 237, 0.3)',
+          boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.35)',
           display: 'flex',
           flexDirection: 'column',
-          position: 'relative'
+          position: 'relative',
+          color: 'var(--text-main)',
         }}
       >
         {/* Modal Top Header */}
         <div style={{
           padding: '16px 24px',
-          background: '#131828',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-surface)',
+          borderBottom: '1px solid var(--border-subtle)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'
@@ -578,10 +589,10 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
               <Sparkles size={16} color="#fff" />
             </div>
             <div>
-              <span style={{ fontSize: '15px', fontWeight: 800, color: '#f8fafc' }}>
+              <span style={{ fontSize: '15px', fontWeight: 800, color: 'var(--text-main)' }}>
                 InPrep AI Live Simulation Studio
               </span>
-              <span style={{ fontSize: '11px', color: '#06b6d4', marginLeft: '8px', fontWeight: 600 }}>
+              <span style={{ fontSize: '11px', color: '#0284c7', marginLeft: '8px', fontWeight: 600 }}>
                 ● Real-Time Multi-Modal Engine
               </span>
             </div>
@@ -593,9 +604,9 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
               onClose();
             }}
             style={{
-              background: 'rgba(255, 255, 255, 0.06)',
-              border: 'none',
-              color: '#94a3b8',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
+              color: 'var(--text-muted)',
               borderRadius: '8px',
               padding: '6px',
               cursor: 'pointer',
@@ -612,10 +623,10 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
         {stage === 'setup' && (
           <div style={{ padding: '32px' }}>
             <div style={{ textAlign: 'center', marginBottom: '28px' }}>
-              <h3 style={{ fontSize: '24px', fontWeight: 800, color: '#f8fafc', marginBottom: '8px' }}>
+              <h3 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--text-main)', marginBottom: '8px' }}>
                 Calibrate Your Live AI Interview
               </h3>
-              <p style={{ fontSize: '14px', color: '#94a3b8' }}>
+              <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
                 Choose your target role and interviewer persona to begin your real-time practice simulation.
               </p>
             </div>
@@ -623,7 +634,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '32px' }}>
               {/* Role Selection */}
               <div>
-                <label style={{ fontSize: '13px', fontWeight: 700, color: '#cbd5e1', display: 'block', marginBottom: '8px' }}>
+                <label style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)', display: 'block', marginBottom: '8px' }}>
                   Target Role Track
                 </label>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px' }}>
@@ -632,9 +643,9 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                       key={role}
                       onClick={() => setSelectedRole(role)}
                       style={{
-                        background: selectedRole === role ? 'rgba(99, 102, 241, 0.2)' : 'rgba(255, 255, 255, 0.03)',
-                        border: selectedRole === role ? '1px solid #818cf8' : '1px solid rgba(255, 255, 255, 0.08)',
-                        color: selectedRole === role ? '#f8fafc' : '#94a3b8',
+                        background: selectedRole === role ? 'rgba(99, 102, 241, 0.15)' : 'var(--bg-surface)',
+                        border: selectedRole === role ? '1px solid var(--primary-color)' : '1px solid var(--border-subtle)',
+                        color: selectedRole === role ? 'var(--primary-color)' : 'var(--text-secondary)',
                         padding: '12px 14px',
                         borderRadius: '10px',
                         fontSize: '13px',
@@ -651,7 +662,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
 
               {/* Persona Selection */}
               <div>
-                <label style={{ fontSize: '13px', fontWeight: 700, color: '#cbd5e1', display: 'block', marginBottom: '8px' }}>
+                <label style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)', display: 'block', marginBottom: '8px' }}>
                   Interviewer Persona & Tone
                 </label>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px' }}>
@@ -664,9 +675,9 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                       key={persona.name}
                       onClick={() => setSelectedPersona(persona.name)}
                       style={{
-                        background: selectedPersona === persona.name ? 'rgba(6, 182, 212, 0.2)' : 'rgba(255, 255, 255, 0.03)',
-                        border: selectedPersona === persona.name ? '1px solid #06b6d4' : '1px solid rgba(255, 255, 255, 0.08)',
-                        color: selectedPersona === persona.name ? '#f8fafc' : '#94a3b8',
+                        background: selectedPersona === persona.name ? 'rgba(6, 182, 212, 0.15)' : 'var(--bg-surface)',
+                        border: selectedPersona === persona.name ? '1px solid #06b6d4' : '1px solid var(--border-subtle)',
+                        color: selectedPersona === persona.name ? 'var(--text-main)' : 'var(--text-secondary)',
                         padding: '12px 14px',
                         borderRadius: '10px',
                         fontSize: '13px',
@@ -675,10 +686,10 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                         cursor: 'pointer'
                       }}
                     >
-                      <div style={{ color: selectedPersona === persona.name ? '#67e8f9' : '#f8fafc', fontWeight: 700 }}>
+                      <div style={{ color: selectedPersona === persona.name ? '#0284c7' : 'var(--text-main)', fontWeight: 700 }}>
                         {persona.name}
                       </div>
-                      <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
+                      <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '2px' }}>
                         {persona.desc}
                       </div>
                     </button>
@@ -687,7 +698,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
               </div>
 
               {/* Device Toggles */}
-              <div style={{ display: 'flex', gap: '16px', background: 'rgba(255, 255, 255, 0.02)', padding: '16px', borderRadius: '12px' }}>
+              <div style={{ display: 'flex', gap: '16px', background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', padding: '16px', borderRadius: '12px' }}>
                 <button
                   onClick={() => setCameraEnabled(!cameraEnabled)}
                   style={{
@@ -698,9 +709,9 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                     gap: '8px',
                     padding: '10px',
                     borderRadius: '8px',
-                    background: cameraEnabled ? 'rgba(16, 185, 129, 0.15)' : 'rgba(255, 255, 255, 0.05)',
-                    border: cameraEnabled ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid rgba(255, 255, 255, 0.1)',
-                    color: cameraEnabled ? '#6ee7b7' : '#94a3b8',
+                    background: cameraEnabled ? 'rgba(16, 185, 129, 0.15)' : 'var(--bg-card)',
+                    border: cameraEnabled ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid var(--border-subtle)',
+                    color: cameraEnabled ? 'var(--color-success)' : 'var(--text-muted)',
                     cursor: 'pointer',
                     fontSize: '13px',
                     fontWeight: 600
@@ -720,9 +731,9 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                     gap: '8px',
                     padding: '10px',
                     borderRadius: '8px',
-                    background: micEnabled ? 'rgba(99, 102, 241, 0.15)' : 'rgba(255, 255, 255, 0.05)',
-                    border: micEnabled ? '1px solid rgba(99, 102, 241, 0.3)' : '1px solid rgba(255, 255, 255, 0.1)',
-                    color: micEnabled ? '#a5b4fc' : '#94a3b8',
+                    background: micEnabled ? 'rgba(99, 102, 241, 0.15)' : 'var(--bg-card)',
+                    border: micEnabled ? '1px solid rgba(99, 102, 241, 0.3)' : '1px solid var(--border-subtle)',
+                    color: micEnabled ? 'var(--primary-color)' : 'var(--text-muted)',
                     cursor: 'pointer',
                     fontSize: '13px',
                     fontWeight: 600

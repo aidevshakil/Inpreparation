@@ -77,7 +77,7 @@ export const ProfileBasicInfoSection: React.FC<ProfileBasicInfoProps> = ({
                     <CheckCircle2 size={10} /> Verified
                   </span>
                 ) : (
-                  <span className="badge" style={{ backgroundColor: 'rgba(251, 191, 36, 0.1)', color: '#fbbf24', borderColor: 'rgba(251, 191, 36, 0.25)' }}>
+                  <span className="badge" style={{ backgroundColor: 'rgba(245, 158, 11, 0.12)', color: 'var(--color-warning)', borderColor: 'rgba(245, 158, 11, 0.25)' }}>
                     Unverified
                   </span>
                 )}

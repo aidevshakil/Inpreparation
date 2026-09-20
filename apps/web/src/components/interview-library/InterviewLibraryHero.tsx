@@ -74,9 +74,9 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
         {/* Top Centered Content */}
         <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 36px' }}>
           {/* Badge: INTERVIEW CATEGORIES */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(255, 255, 255, 0.04)', border: '1px solid rgba(255, 255, 255, 0.08)', padding: '5px 14px', borderRadius: '100px', marginBottom: '22px' }}>
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#818cf8', boxShadow: '0 0 8px #818cf8' }} />
-            <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', color: '#94a3b8', textTransform: 'uppercase' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', padding: '5px 14px', borderRadius: '100px', marginBottom: '22px' }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary-color)', boxShadow: '0 0 8px var(--primary-color)' }} />
+            <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>
               INTERVIEW CATEGORIES
             </span>
           </div>
@@ -85,19 +85,19 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
           <h1 style={{
             fontSize: 'clamp(32px, 4.2vw, 48px)',
             fontWeight: 800,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.025em',
             lineHeight: 1.18,
             marginBottom: '18px'
           }}>
             Practice the Interview That<br />
-            <span style={{ color: '#60a5fa' }}>Matches Your Career</span>
+            <span style={{ color: 'var(--primary-color)' }}>Matches Your Career</span>
           </h1>
 
           {/* Subtitle */}
           <p style={{
             fontSize: '15.5px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6,
             maxWidth: '700px',
             margin: '0 auto 32px'
@@ -143,26 +143,25 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '28px',
                 padding: '13px 24px',
-                color: '#cbd5e1',
+                color: 'var(--text-main)',
                 fontSize: '14px',
                 fontWeight: 600,
                 cursor: 'pointer',
-                transition: 'all 0.2s ease'
+                transition: 'all 0.2s ease',
+                boxShadow: 'var(--shadow-sm)'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                e.currentTarget.style.color = '#ffffff';
+                e.currentTarget.style.borderColor = 'var(--primary-color)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
-                e.currentTarget.style.color = '#cbd5e1';
+                e.currentTarget.style.borderColor = 'var(--border-subtle)';
               }}
             >
-              <Sparkles size={15} color="#c084fc" />
+              <Sparkles size={15} color="var(--primary-color)" />
               <span>{secondaryCtaText}</span>
             </button>
           </div>
@@ -187,13 +186,14 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '100px',
                   padding: '7px 16px',
                   fontSize: '12.5px',
                   fontWeight: 500,
-                  color: '#cbd5e1'
+                  color: 'var(--text-secondary)',
+                  boxShadow: 'var(--shadow-sm)'
                 }}
               >
                 {badge.icon}
@@ -205,25 +205,25 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
 
         {/* Interactive Search & Filter Console Card */}
         <div style={{
-          background: '#090d18',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '20px',
           padding: '24px 28px',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
+          boxShadow: 'var(--shadow-md)'
         }}>
           {/* Top Search Input */}
           <div style={{
             position: 'relative',
             display: 'flex',
             alignItems: 'center',
-            background: '#05070e',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '12px',
             padding: '12px 18px',
             marginBottom: '18px',
             transition: 'border-color 0.2s ease'
           }}>
-            <Search size={18} color="#64748b" style={{ marginRight: '12px', flexShrink: 0 }} />
+            <Search size={18} color="var(--text-muted)" style={{ marginRight: '12px', flexShrink: 0 }} />
             <input
               type="text"
               value={searchQuery}
@@ -234,18 +234,18 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
                 background: 'transparent',
                 border: 'none',
                 outline: 'none',
-                color: '#ffffff',
+                color: 'var(--text-main)',
                 fontSize: '14px',
                 fontFamily: 'inherit'
               }}
             />
             <span style={{
-              background: 'rgba(255, 255, 255, 0.06)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '6px',
               padding: '2px 8px',
               fontSize: '11px',
-              color: '#64748b',
+              color: 'var(--text-muted)',
               fontWeight: 600,
               flexShrink: 0
             }}>
@@ -261,7 +261,7 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
             gap: '8px',
             marginBottom: '20px'
           }}>
-            <span style={{ fontSize: '12px', color: '#64748b', marginRight: '4px' }}>
+            <span style={{ fontSize: '12px', color: 'var(--text-muted)', marginRight: '4px' }}>
               Popular:
             </span>
             {popularTags.map((tag, idx) => {
@@ -271,25 +271,25 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
                   key={idx}
                   onClick={() => onSelectPopularTag(tag)}
                   style={{
-                    background: isActive ? 'rgba(99, 102, 241, 0.2)' : 'rgba(255, 255, 255, 0.04)',
-                    border: isActive ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid rgba(255, 255, 255, 0.06)',
+                    background: isActive ? 'rgba(99, 102, 241, 0.15)' : 'var(--bg-surface)',
+                    border: isActive ? '1px solid var(--primary-color)' : '1px solid var(--border-subtle)',
                     borderRadius: '100px',
                     padding: '5px 14px',
                     fontSize: '12px',
-                    color: isActive ? '#a5b4fc' : '#94a3b8',
+                    color: isActive ? 'var(--primary-color)' : 'var(--text-secondary)',
                     cursor: 'pointer',
                     transition: 'all 0.15s ease'
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive) {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                      e.currentTarget.style.color = '#ffffff';
+                      e.currentTarget.style.borderColor = 'var(--primary-color)';
+                      e.currentTarget.style.color = 'var(--primary-color)';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isActive) {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
-                      e.currentTarget.style.color = '#94a3b8';
+                      e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                      e.currentTarget.style.color = 'var(--text-secondary)';
                     }
                   }}
                 >
@@ -307,7 +307,7 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
             flexWrap: 'wrap',
             gap: '12px',
             paddingTop: '16px',
-            borderTop: '1px solid rgba(255, 255, 255, 0.04)'
+            borderTop: '1px solid var(--border-subtle)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
               {/* Role Domains */}
@@ -317,12 +317,12 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
                   onChange={(e) => onSelectRoleDomain(e.target.value)}
                   style={{
                     appearance: 'none',
-                    background: '#0d1322',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-subtle)',
                     borderRadius: '100px',
                     padding: '8px 32px 8px 16px',
                     fontSize: '12.5px',
-                    color: '#cbd5e1',
+                    color: 'var(--text-main)',
                     cursor: 'pointer',
                     outline: 'none'
                   }}
@@ -333,7 +333,7 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
                   <option value="Data & AI">Data & AI</option>
                   <option value="Design">Design</option>
                 </select>
-                <ChevronDown size={14} color="#64748b" style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
+                <ChevronDown size={14} color="var(--text-muted)" style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
               </div>
 
               {/* Levels */}
@@ -343,12 +343,12 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
                   onChange={(e) => onSelectLevel(e.target.value)}
                   style={{
                     appearance: 'none',
-                    background: '#0d1322',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-subtle)',
                     borderRadius: '100px',
                     padding: '8px 32px 8px 16px',
                     fontSize: '12.5px',
-                    color: '#cbd5e1',
+                    color: 'var(--text-main)',
                     cursor: 'pointer',
                     outline: 'none'
                   }}
@@ -359,7 +359,7 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
                   <option value="Senior">Senior (L5)</option>
                   <option value="Staff">Staff / Lead (L6+)</option>
                 </select>
-                <ChevronDown size={14} color="#64748b" style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
+                <ChevronDown size={14} color="var(--text-muted)" style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
               </div>
 
               {/* Difficulties */}
@@ -369,12 +369,12 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
                   onChange={(e) => onSelectDifficulty(e.target.value)}
                   style={{
                     appearance: 'none',
-                    background: '#0d1322',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-subtle)',
                     borderRadius: '100px',
                     padding: '8px 32px 8px 16px',
                     fontSize: '12.5px',
-                    color: '#cbd5e1',
+                    color: 'var(--text-main)',
                     cursor: 'pointer',
                     outline: 'none'
                   }}
@@ -384,7 +384,7 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
                   <option value="Hard">Hard</option>
                   <option value="Expert">Expert</option>
                 </select>
-                <ChevronDown size={14} color="#64748b" style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
+                <ChevronDown size={14} color="var(--text-muted)" style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
               </div>
 
               {/* Formats */}
@@ -394,12 +394,12 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
                   onChange={(e) => onSelectFormat(e.target.value)}
                   style={{
                     appearance: 'none',
-                    background: '#0d1322',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-subtle)',
                     borderRadius: '100px',
                     padding: '8px 32px 8px 16px',
                     fontSize: '12.5px',
-                    color: '#cbd5e1',
+                    color: 'var(--text-main)',
                     cursor: 'pointer',
                     outline: 'none'
                   }}
@@ -409,7 +409,7 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
                   <option value="System Design">System Design Deep-Dive</option>
                   <option value="Behavioral">Behavioral STAR</option>
                 </select>
-                <ChevronDown size={14} color="#64748b" style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
+                <ChevronDown size={14} color="var(--text-muted)" style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
               </div>
             </div>
 
@@ -417,12 +417,13 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
             <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
               <span style={{
                 fontSize: '11.5px',
-                color: '#64748b',
-                background: 'rgba(255, 255, 255, 0.03)',
+                color: 'var(--text-muted)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 padding: '4px 10px',
                 borderRadius: '6px'
               }}>
-                Filters Active: <strong style={{ color: activeFiltersCount > 0 ? '#38bdf8' : '#94a3b8' }}>{activeFiltersCount}</strong>
+                Filters Active: <strong style={{ color: activeFiltersCount > 0 ? 'var(--primary-color)' : 'var(--text-secondary)' }}>{activeFiltersCount}</strong>
               </span>
 
               {activeFiltersCount > 0 && (
@@ -431,7 +432,7 @@ export const InterviewLibraryHero: React.FC<InterviewLibraryHeroProps> = ({
                   style={{
                     background: 'none',
                     border: 'none',
-                    color: '#38bdf8',
+                    color: 'var(--primary-color)',
                     fontSize: '12px',
                     fontWeight: 600,
                     cursor: 'pointer',

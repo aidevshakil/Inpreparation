@@ -329,7 +329,7 @@ export const TargetRoleCatalog: React.FC<TargetRoleCatalogProps> = ({
             <h2 style={{
               fontSize: 'clamp(26px, 3.2vw, 34px)',
               fontWeight: 700,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               letterSpacing: '-0.02em',
               marginBottom: '6px'
             }}>
@@ -337,7 +337,7 @@ export const TargetRoleCatalog: React.FC<TargetRoleCatalogProps> = ({
             </h2>
             <p style={{
               fontSize: '14.5px',
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
               margin: 0
             }}>
               Direct calibration matching active engineering requisitions across global tech hubs.
@@ -345,15 +345,15 @@ export const TargetRoleCatalog: React.FC<TargetRoleCatalogProps> = ({
           </div>
 
           <div style={{
-            background: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '100px',
             padding: '6px 16px',
             fontSize: '12.5px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             fontWeight: 500
           }}>
-            Showing <strong style={{ color: '#ffffff' }}>{filteredRoles.length}</strong> Curated Engineering Roles
+            Showing <strong style={{ color: 'var(--text-main)' }}>{filteredRoles.length}</strong> Curated Engineering Roles
           </div>
         </div>
 
@@ -368,26 +368,26 @@ export const TargetRoleCatalog: React.FC<TargetRoleCatalogProps> = ({
               key={role.id}
               onClick={() => onSelectRole(role.title)}
               style={{
-                background: '#0a0e18',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '18px',
                 padding: '24px 22px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.4)',
+                boxShadow: 'var(--shadow-sm)',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.16)';
-                e.currentTarget.style.boxShadow = '0 18px 40px rgba(0, 0, 0, 0.6)';
+                e.currentTarget.style.borderColor = 'var(--primary-color)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-md)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.4)';
+                e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
               }}
             >
               <div>
@@ -402,13 +402,13 @@ export const TargetRoleCatalog: React.FC<TargetRoleCatalogProps> = ({
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '6px',
-                    background: role.badgeType === 'cyan' ? 'rgba(56, 189, 248, 0.12)' : role.badgeType === 'purple' ? 'rgba(168, 85, 247, 0.15)' : 'rgba(255, 255, 255, 0.05)',
-                    border: role.badgeType === 'cyan' ? '1px solid rgba(56, 189, 248, 0.3)' : role.badgeType === 'purple' ? '1px solid rgba(168, 85, 247, 0.3)' : '1px solid rgba(255, 255, 255, 0.1)',
+                    background: role.badgeType === 'cyan' ? 'rgba(56, 189, 248, 0.12)' : role.badgeType === 'purple' ? 'rgba(168, 85, 247, 0.15)' : 'rgba(99, 102, 241, 0.08)',
+                    border: role.badgeType === 'cyan' ? '1px solid rgba(56, 189, 248, 0.3)' : role.badgeType === 'purple' ? '1px solid rgba(168, 85, 247, 0.3)' : '1px solid var(--border-subtle)',
                     borderRadius: '6px',
                     padding: '3px 9px',
                     fontSize: '11px',
                     fontWeight: 700,
-                    color: role.badgeType === 'cyan' ? '#38bdf8' : role.badgeType === 'purple' ? '#c084fc' : '#cbd5e1'
+                    color: role.badgeType === 'cyan' ? '#0284c7' : role.badgeType === 'purple' ? '#a855f7' : 'var(--text-secondary)'
                   }}>
                     {role.icon}
                     <span>{role.badge}</span>
@@ -420,17 +420,17 @@ export const TargetRoleCatalog: React.FC<TargetRoleCatalogProps> = ({
                 </div>
 
                 {/* Role Title */}
-                <h3 style={{ fontSize: '17px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
+                <h3 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
                   {role.title}
                 </h3>
 
                 {/* Meta Line */}
-                <div style={{ fontSize: '11.5px', color: '#64748b', marginBottom: '14px' }}>
+                <div style={{ fontSize: '11.5px', color: 'var(--text-muted)', marginBottom: '14px' }}>
                   {role.meta}
                 </div>
 
                 {/* Description */}
-                <p style={{ fontSize: '12.5px', color: '#94a3b8', lineHeight: 1.55, marginBottom: '22px' }}>
+                <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.55, marginBottom: '22px' }}>
                   {role.desc}
                 </p>
               </div>
@@ -440,7 +440,7 @@ export const TargetRoleCatalog: React.FC<TargetRoleCatalogProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
-                color: '#38bdf8',
+                color: 'var(--primary-color)',
                 fontSize: '12.5px',
                 fontWeight: 600
               }}>

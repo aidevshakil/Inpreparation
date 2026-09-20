@@ -66,14 +66,18 @@ export const ProfileProfessionalInfoSection: React.FC<ProfileProfessionalInfoPro
             <div className="flex items-center flex-wrap gap-3" style={{ padding: '16px', backgroundColor: 'var(--bg-surface)', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}>
               <div className="flex items-center gap-2">
                 <Briefcase size={16} style={{ color: 'var(--text-muted)' }} />
-                <span style={{ color: 'var(--text-main)', fontWeight: 500 }}>{currentRole}</span>
+                <span style={{ color: currentRole ? 'var(--text-main)' : 'var(--text-muted)', fontWeight: 500 }}>
+                  {currentRole || 'Current role not specified'}
+                </span>
               </div>
               
               <ChevronRight size={16} style={{ color: 'var(--primary-color)' }} />
               
               <div className="flex items-center gap-2">
                 <Target size={16} style={{ color: 'var(--primary-color)' }} />
-                <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>{targetRole}</span>
+                <span style={{ color: targetRole ? 'var(--text-main)' : 'var(--text-muted)', fontWeight: 600 }}>
+                  {targetRole || 'Target role not specified'}
+                </span>
               </div>
             </div>
           </div>
@@ -85,7 +89,9 @@ export const ProfileProfessionalInfoSection: React.FC<ProfileProfessionalInfoPro
               <span className="label">Seniority Level</span>
               <div className="flex items-center gap-2">
                 <Award size={14} style={{ color: 'var(--text-muted)' }} />
-                <span style={{ color: 'var(--text-main)', textTransform: 'capitalize' }}>{seniority}</span>
+                <span style={{ color: seniority ? 'var(--text-main)' : 'var(--text-muted)', textTransform: 'capitalize' }}>
+                  {seniority || 'Not specified'}
+                </span>
               </div>
             </div>
             
@@ -93,7 +99,7 @@ export const ProfileProfessionalInfoSection: React.FC<ProfileProfessionalInfoPro
               <span className="label">Years of Experience</span>
               <div className="flex items-center gap-2">
                 <Hash size={14} style={{ color: 'var(--text-muted)' }} />
-                <span style={{ color: 'var(--text-main)' }}>{yearsOfExperience} years</span>
+                <span style={{ color: 'var(--text-main)' }}>{yearsOfExperience || '0'} years</span>
               </div>
             </div>
 
@@ -101,7 +107,9 @@ export const ProfileProfessionalInfoSection: React.FC<ProfileProfessionalInfoPro
               <span className="label">Current Industry</span>
               <div className="flex items-center gap-2">
                 <Building size={14} style={{ color: 'var(--text-muted)' }} />
-                <span style={{ color: 'var(--text-main)' }}>{currentIndustry}</span>
+                <span style={{ color: currentIndustry ? 'var(--text-main)' : 'var(--text-muted)' }}>
+                  {currentIndustry || 'Not specified'}
+                </span>
               </div>
             </div>
 
@@ -109,7 +117,9 @@ export const ProfileProfessionalInfoSection: React.FC<ProfileProfessionalInfoPro
               <span className="label">Target Industry</span>
               <div className="flex items-center gap-2">
                 <Target size={14} style={{ color: 'var(--text-muted)' }} />
-                <span style={{ color: 'var(--text-main)' }}>{targetIndustry}</span>
+                <span style={{ color: targetIndustry ? 'var(--text-main)' : 'var(--text-muted)' }}>
+                  {targetIndustry || 'Not specified'}
+                </span>
               </div>
             </div>
           </div>

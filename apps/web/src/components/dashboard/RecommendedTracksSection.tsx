@@ -77,7 +77,7 @@ export const RecommendedTracksSection: React.FC<RecommendedTracksSectionProps> =
       >
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-            <h2 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+            <h2 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
               Recommended For You
             </h2>
             <span
@@ -87,14 +87,14 @@ export const RecommendedTracksSection: React.FC<RecommendedTracksSectionProps> =
                 padding: '2px 8px',
                 borderRadius: '9999px',
                 backgroundColor: 'rgba(99, 102, 241, 0.18)',
-                color: '#a5b4fc',
+                color: '#818cf8',
                 border: '1px solid rgba(99, 102, 241, 0.3)',
               }}
             >
               AI Matched
             </span>
           </div>
-          <p style={{ fontSize: '0.78rem', color: '#94a3b8', margin: 0 }}>
+          <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', margin: 0 }}>
             Based on your parsed CV, verified backend skills, and previous 5-question performance.
           </p>
         </div>
@@ -131,25 +131,25 @@ export const RecommendedTracksSection: React.FC<RecommendedTracksSectionProps> =
           <div
             key={track.id}
             style={{
-              backgroundColor: 'rgba(14, 18, 28, 0.85)',
-              border: '1px solid rgba(255, 255, 255, 0.07)',
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '16px',
               padding: '18px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
-              transition: 'transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
+              transition: 'transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.25s ease',
+              boxShadow: 'var(--shadow-sm)',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-3px)';
-              e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.35)';
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.35)';
+              e.currentTarget.style.borderColor = 'var(--primary-color)';
+              e.currentTarget.style.boxShadow = 'var(--shadow-md)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.07)';
-              e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.2)';
+              e.currentTarget.style.borderColor = 'var(--border-subtle)';
+              e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
             }}
           >
             <div>
@@ -172,11 +172,11 @@ export const RecommendedTracksSection: React.FC<RecommendedTracksSectionProps> =
                 <span
                   style={{
                     fontSize: '0.7rem',
-                    color: '#94a3b8',
-                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                    color: 'var(--text-muted)',
+                    backgroundColor: 'var(--bg-surface)',
                     padding: '2px 8px',
                     borderRadius: '6px',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    border: '1px solid var(--border-subtle)',
                   }}
                 >
                   {track.questionsCount} Questions
@@ -184,10 +184,10 @@ export const RecommendedTracksSection: React.FC<RecommendedTracksSectionProps> =
               </div>
 
               {/* Title & Level */}
-              <h3 style={{ fontSize: '0.98rem', fontWeight: 700, color: '#f8fafc', marginBottom: '4px' }}>
+              <h3 style={{ fontSize: '0.98rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
                 {track.title}
               </h3>
-              <p style={{ fontSize: '0.74rem', color: '#94a3b8', lineHeight: 1.4, marginBottom: '14px' }}>
+              <p style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', lineHeight: 1.4, marginBottom: '14px' }}>
                 {track.levelDesc}
               </p>
 
@@ -198,11 +198,11 @@ export const RecommendedTracksSection: React.FC<RecommendedTracksSectionProps> =
                     key={tag}
                     style={{
                       fontSize: '0.68rem',
-                      color: '#cbd5e1',
-                      backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                      color: 'var(--text-secondary)',
+                      backgroundColor: 'var(--bg-surface)',
                       padding: '3px 8px',
                       borderRadius: '6px',
-                      border: '1px solid rgba(255, 255, 255, 0.06)',
+                      border: '1px solid var(--border-subtle)',
                     }}
                   >
                     {tag}
@@ -218,10 +218,10 @@ export const RecommendedTracksSection: React.FC<RecommendedTracksSectionProps> =
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 paddingTop: '12px',
-                borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+                borderTop: '1px solid var(--border-subtle)',
               }}
             >
-              <span style={{ fontSize: '0.72rem', color: '#64748b' }}>{track.trackCategory}</span>
+              <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{track.trackCategory}</span>
 
               <button
                 onClick={() => onSelectTrack && onSelectTrack(track.id)}
@@ -234,17 +234,16 @@ export const RecommendedTracksSection: React.FC<RecommendedTracksSectionProps> =
                   border:
                     track.actionVariant === 'primary'
                       ? 'none'
-                      : '1px solid rgba(255, 255, 255, 0.12)',
+                      : '1px solid var(--border-subtle)',
                   backgroundColor:
                     track.actionVariant === 'primary'
-                      ? '#4f46e5'
-                      : 'rgba(255, 255, 255, 0.05)',
-                  color: '#ffffff',
+                      ? 'var(--primary-color)'
+                      : 'var(--bg-surface)',
+                  color: track.actionVariant === 'primary' ? '#ffffff' : 'var(--text-main)',
                   boxShadow:
                     track.actionVariant === 'primary'
                       ? '0 2px 10px rgba(79, 70, 229, 0.35)'
                       : 'none',
-                  transition: 'all 0.18s ease',
                 }}
               >
                 {track.actionText}

@@ -16,6 +16,7 @@ import {
   Zap,
   SlidersHorizontal,
   ChevronsLeft,
+  ChevronsRight,
   ChevronDown,
   LucideIcon,
 } from 'lucide-react';
@@ -80,8 +81,8 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
   totalCredits: propTotalCredits,
 }) => {
   const { user } = useAuth();
-  const creditsRemaining = propCreditsRemaining !== undefined ? propCreditsRemaining : user.creditsRemaining;
-  const totalCredits = propTotalCredits !== undefined ? propTotalCredits : user.totalCredits;
+  const creditsRemaining = user?.creditsRemaining !== undefined ? user.creditsRemaining : (propCreditsRemaining !== undefined ? propCreditsRemaining : 100);
+  const totalCredits = user?.totalCredits !== undefined ? user.totalCredits : (propTotalCredits !== undefined ? propTotalCredits : 100);
 
   const getInitials = (name: string) => {
     return name
@@ -144,8 +145,8 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
       style={{
         width: collapsed ? '76px' : '256px',
         minWidth: collapsed ? '76px' : '256px',
-        backgroundColor: '#080c14',
-        borderRight: '1px solid rgba(255, 255, 255, 0.07)',
+        backgroundColor: 'var(--bg-surface)',
+        borderRight: '1px solid var(--border-subtle)',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -153,7 +154,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
         position: 'sticky',
         top: 0,
         zIndex: 45,
-        transition: 'width 0.25s ease, min-width 0.25s ease',
+        transition: 'width 0.25s ease, min-width 0.25s ease, background-color 0.25s ease',
         userSelect: 'none',
       }}
     >
@@ -162,98 +163,177 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
         <div
           style={{
             height: '64px',
-            padding: '0 18px',
+            padding: collapsed ? '0' : '0 16px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+            justifyContent: collapsed ? 'center' : 'space-between',
+            borderBottom: '1px solid var(--border-subtle)',
+            position: 'relative',
           }}
         >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              cursor: 'pointer',
-              overflow: 'hidden',
-            }}
-            onClick={() => onSelectItem('dashboard')}
-          >
-            {/* Logo Mark */}
-            <div
-              style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '9px',
-                background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 0 16px rgba(124, 58, 237, 0.45)',
-                flexShrink: 0,
-              }}
-            >
-              <Zap size={18} color="#ffffff" fill="#ffffff" />
-            </div>
-
-            {!collapsed && (
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span style={{ color: '#ffffff', fontWeight: 700, fontSize: '0.96rem', letterSpacing: '-0.3px' }}>
-                    Inprep
-                  </span>
-                  <span
-                    style={{
-                      backgroundColor: '#6366f1',
-                      color: '#ffffff',
-                      fontSize: '0.62rem',
-                      fontWeight: 700,
-                      padding: '1px 5px',
-                      borderRadius: '4px',
-                      lineHeight: '1.2',
-                    }}
-                  >
-                    AI
-                  </span>
-                </div>
-                <span
+          {collapsed ? (
+            <>
+              <div
+                onClick={() => onSelectItem('dashboard')}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  width: '100%',
+                }}
+                title="Inprep AI - Candidate Studio"
+              >
+                <div
                   style={{
-                    color: '#64748b',
-                    fontSize: '0.62rem',
-                    fontWeight: 600,
-                    letterSpacing: '0.6px',
-                    textTransform: 'uppercase',
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '10px',
+                    background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 0 16px rgba(124, 58, 237, 0.45)',
+                    flexShrink: 0,
+                    transition: 'transform 0.15s ease',
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.06)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
+                >
+                  <Zap size={19} color="#ffffff" fill="#ffffff" />
+                </div>
+              </div>
+
+              {/* Floating Expand Toggle */}
+              {onToggleCollapse && (
+                <button
+                  onClick={onToggleCollapse}
+                  style={{
+                    position: 'absolute',
+                    right: '-11px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: '22px',
+                    height: '22px',
+                    borderRadius: '50%',
+                    backgroundColor: 'var(--bg-card)',
+                    border: '1px solid var(--border-subtle)',
+                    color: 'var(--text-muted)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    zIndex: 50,
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.25)',
+                    transition: 'all 0.15s ease',
+                    padding: 0,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--primary-color)';
+                    e.currentTarget.style.color = '#ffffff';
+                    e.currentTarget.style.borderColor = 'var(--primary-color)';
+                    e.currentTarget.style.transform = 'translateY(-50%) scale(1.15)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--bg-card)';
+                    e.currentTarget.style.color = 'var(--text-muted)';
+                    e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                    e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                  }}
+                  title="Expand Sidebar"
+                  aria-label="Expand Sidebar"
+                >
+                  <ChevronsRight size={13} />
+                </button>
+              )}
+            </>
+          ) : (
+            <>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  cursor: 'pointer',
+                  overflow: 'hidden',
+                }}
+                onClick={() => onSelectItem('dashboard')}
+              >
+                {/* Logo Mark */}
+                <div
+                  style={{
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '9px',
+                    background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 0 16px rgba(124, 58, 237, 0.45)',
+                    flexShrink: 0,
                   }}
                 >
-                  Candidate Studio
-                </span>
-              </div>
-            )}
-          </div>
+                  <Zap size={18} color="#ffffff" fill="#ffffff" />
+                </div>
 
-          <button
-            onClick={onToggleCollapse}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: '#64748b',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '4px',
-              borderRadius: '6px',
-            }}
-            title={collapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
-          >
-            <ChevronsLeft
-              size={16}
-              style={{
-                transform: collapsed ? 'rotate(180deg)' : 'none',
-                transition: 'transform 0.2s ease',
-              }}
-            />
-          </button>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span style={{ color: 'var(--text-main)', fontWeight: 700, fontSize: '0.96rem', letterSpacing: '-0.3px' }}>
+                      Inprep
+                    </span>
+                    <span
+                      style={{
+                        backgroundColor: '#6366f1',
+                        color: '#ffffff',
+                        fontSize: '0.62rem',
+                        fontWeight: 700,
+                        padding: '1px 5px',
+                        borderRadius: '4px',
+                        lineHeight: '1.2',
+                      }}
+                    >
+                      AI
+                    </span>
+                  </div>
+                  <span
+                    style={{
+                      color: 'var(--text-muted)',
+                      fontSize: '0.62rem',
+                      fontWeight: 600,
+                      letterSpacing: '0.6px',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    Candidate Studio
+                  </span>
+                </div>
+              </div>
+
+              {onToggleCollapse && (
+                <button
+                  onClick={onToggleCollapse}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'var(--text-muted)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '4px',
+                    borderRadius: '6px',
+                    transition: 'color 0.15s ease',
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-main)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)'; }}
+                  title="Collapse Sidebar"
+                  aria-label="Collapse Sidebar"
+                >
+                  <ChevronsLeft size={16} />
+                </button>
+              )}
+            </>
+          )}
         </div>
 
         {/* Navigation Groups */}
@@ -518,17 +598,19 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
           <div
             style={{
               padding: '12px',
-              backgroundColor: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
+              backgroundColor: 'var(--bg-main)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '12px',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <Zap size={13} color="#06b6d4" />
-                <span style={{ fontSize: '0.72rem', color: '#94a3b8', fontWeight: 500 }}>AI Telemetry Quota</span>
+                <span style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 500 }}>AI Practice Credits</span>
               </div>
-              <span style={{ fontSize: '0.74rem', color: '#38bdf8', fontWeight: 700 }}>84%</span>
+              <span style={{ fontSize: '0.74rem', color: '#0284c7', fontWeight: 700 }}>
+                {totalCredits > 0 ? Math.round((creditsRemaining / totalCredits) * 100) : 100}%
+              </span>
             </div>
 
             {/* Progress Bar */}
@@ -536,7 +618,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
               style={{
                 width: '100%',
                 height: '5px',
-                backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                backgroundColor: 'var(--border-subtle)',
                 borderRadius: '9999px',
                 overflow: 'hidden',
                 marginBottom: '6px',
@@ -544,17 +626,18 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
             >
               <div
                 style={{
-                  width: '84%',
+                  width: `${totalCredits > 0 ? Math.min(100, Math.max(0, Math.round((creditsRemaining / totalCredits) * 100))) : 100}%`,
                   height: '100%',
                   background: 'linear-gradient(90deg, #06b6d4, #3b82f6)',
                   borderRadius: '9999px',
+                  transition: 'width 0.3s ease',
                 }}
               />
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.68rem' }}>
-              <span style={{ color: '#64748b' }}>Active usage</span>
-              <span style={{ color: '#94a3b8', fontWeight: 600 }}>25.2 / 30 hrs</span>
+              <span style={{ color: 'var(--text-muted)' }}>Balance</span>
+              <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>{creditsRemaining} / {totalCredits} cr</span>
             </div>
           </div>
         ) : (
@@ -564,7 +647,8 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
               flexDirection: 'column',
               alignItems: 'center',
               padding: '8px',
-              backgroundColor: 'rgba(255, 255, 255, 0.03)',
+              backgroundColor: 'var(--bg-main)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '10px',
             }}
             title={`AI Credits: ${creditsRemaining}/${totalCredits}`}
@@ -585,19 +669,19 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
             gap: '10px',
             padding: collapsed ? '8px 0' : '8px 10px',
             justifyContent: collapsed ? 'center' : 'space-between',
-            backgroundColor: 'rgba(255, 255, 255, 0.02)',
+            backgroundColor: 'var(--bg-main)',
             borderRadius: '10px',
-            border: '1px solid rgba(255, 255, 255, 0.04)',
+            border: '1px solid var(--border-subtle)',
             cursor: 'pointer',
             transition: 'all 0.18s ease',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
-            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            e.currentTarget.style.backgroundColor = 'var(--bg-card-hover)';
+            e.currentTarget.style.borderColor = 'var(--border-accent)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.02)';
-            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.04)';
+            e.currentTarget.style.backgroundColor = 'var(--bg-main)';
+            e.currentTarget.style.borderColor = 'var(--border-subtle)';
           }}
           title={collapsed ? `${user.name || 'Candidate'} - View Profile` : 'Click to view profile'}
         >
@@ -624,7 +708,7 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
               <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
                 <span
                   style={{
-                    color: '#f8fafc',
+                    color: 'var(--text-main)',
                     fontSize: '0.78rem',
                     fontWeight: 600,
                     whiteSpace: 'nowrap',
@@ -634,13 +718,17 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                 >
                   {user.name || 'Candidate User'}
                 </span>
-                <span style={{ color: '#64748b', fontSize: '0.68rem' }}>{user.targetRole || 'Candidate Pro'}</span>
+                <span style={{ color: 'var(--text-muted)', fontSize: '0.68rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  {user.targetRole && user.targetRole !== 'Select Target Role' && user.targetRole !== 'Full Stack Software Engineer'
+                    ? user.targetRole
+                    : 'Target Role Not Set'}
+                </span>
               </div>
               <button
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: '#64748b',
+                  color: 'var(--text-muted)',
                   cursor: 'pointer',
                   padding: '2px',
                 }}

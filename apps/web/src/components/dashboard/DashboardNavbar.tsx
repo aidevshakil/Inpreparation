@@ -16,6 +16,7 @@ import {
   Globe,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 
 interface DashboardNavbarProps {
   onToggleSidebar?: () => void;
@@ -36,9 +37,9 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
   onNavigateToHome,
 }) => {
   const { user, logout } = useAuth();
+  const { isDarkMode, toggleTheme } = useTheme();
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
   
   const dropdownRef = useRef<HTMLDivElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
@@ -143,10 +144,10 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
 
         {/* Theme mode icon */}
         <button 
-          onClick={() => setIsDarkMode(!isDarkMode)} 
+          onClick={toggleTheme} 
           className="btn btn-outline" 
-          style={{ width: '36px', height: '36px', padding: 0, border: 'none' }} 
-          title="Toggle Theme"
+          style={{ width: '36px', height: '36px', padding: 0, border: 'none', cursor: 'pointer' }} 
+          title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
         >
           {isDarkMode ? <Moon size={16} /> : <Sun size={16} />}
         </button>

@@ -15,7 +15,7 @@ export const DashboardEmptyState: React.FC<DashboardEmptyStateProps> = ({
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
+        backgroundColor: 'var(--bg-card)',
         border: '1px dashed rgba(99, 102, 241, 0.35)',
         borderRadius: '20px',
         padding: '48px 24px',
@@ -25,6 +25,8 @@ export const DashboardEmptyState: React.FC<DashboardEmptyStateProps> = ({
         alignItems: 'center',
         justifyContent: 'center',
         margin: '20px 0',
+        boxShadow: 'var(--shadow-sm)',
+        transition: 'background-color 0.25s ease, border-color 0.25s ease',
       }}
     >
       <div
@@ -44,10 +46,10 @@ export const DashboardEmptyState: React.FC<DashboardEmptyStateProps> = ({
         <Sparkles size={30} />
       </div>
 
-      <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#f8fafc', marginBottom: '8px' }}>
+      <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '8px' }}>
         Welcome to your Candidate Studio!
       </h2>
-      <p style={{ fontSize: '0.9rem', color: '#94a3b8', maxWidth: '520px', lineHeight: 1.5, marginBottom: '28px' }}>
+      <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', maxWidth: '520px', lineHeight: 1.5, marginBottom: '28px' }}>
         You haven&apos;t taken your first 5-question mock simulation yet. Upload your CV or take the baseline calibration drill to unlock your tailored Readiness Metrics.
       </p>
 
@@ -80,13 +82,14 @@ export const DashboardEmptyState: React.FC<DashboardEmptyStateProps> = ({
             alignItems: 'center',
             gap: '8px',
             padding: '12px 20px',
-            backgroundColor: 'rgba(255, 255, 255, 0.05)',
-            color: '#cbd5e1',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
+            backgroundColor: 'var(--bg-surface)',
+            color: 'var(--text-main)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '12px',
             fontSize: '0.88rem',
             fontWeight: 500,
             cursor: 'pointer',
+            transition: 'all 0.15s ease',
           }}
         >
           <UploadCloud size={16} />
@@ -100,13 +103,14 @@ export const DashboardEmptyState: React.FC<DashboardEmptyStateProps> = ({
             alignItems: 'center',
             gap: '8px',
             padding: '12px 20px',
-            backgroundColor: 'rgba(255, 255, 255, 0.05)',
-            color: '#cbd5e1',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
+            backgroundColor: 'var(--bg-surface)',
+            color: 'var(--text-main)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '12px',
             fontSize: '0.88rem',
             fontWeight: 500,
             cursor: 'pointer',
+            transition: 'all 0.15s ease',
           }}
         >
           <Compass size={16} />
