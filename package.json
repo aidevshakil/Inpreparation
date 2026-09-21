@@ -12,7 +12,7 @@
     "dev:backend": "pnpm --filter @service/api-backend dev",
     "dev:web": "pnpm --filter @app/web dev",
     "dev:admin": "pnpm --filter @app/admin dev",
-    "dev:ai": "cd services/ai-service && uvicorn app.main:app --reload --port 8000",
+    "dev:ai": "cd services/ai-service && .venv\\Scripts\\python -m uvicorn app.main:app --reload --port 8000",
     "dev:mobile": "cd apps/mobile && flutter run",
     "db:generate": "pnpm --filter @packages/database db:generate",
     "db:push": "pnpm --filter @packages/database db:push",
@@ -20,14 +20,21 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "test:ai": "cd services/ai-service && pytest",
+    "test:ai": "cd services/ai-service && .venv\\Scripts\\python -m pytest",
     "test:mobile": "cd apps/mobile && flutter test",
     "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
-    "turbo": "^2.4.0",
     "prettier": "^3.5.0",
+    "turbo": "^2.4.0",
     "typescript": "^5.7.0"
   },
-  "packageManager": "pnpm@9.15.0"
+  "packageManager": "pnpm@9.15.0",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.70.0",
+    "@typescript-eslint/parser": "^8.70.0",
+    "eslint": "^10.10.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1"
+  }
 }
