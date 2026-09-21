@@ -30,6 +30,7 @@ model User {
   logs          AuditLog[]
   improvementPlans AiImprovementPlan[]
   questionDossiers QuestionPerformanceDossier[]
+  notifications    Notification[]
 
   @@map("users")
 }
@@ -341,6 +342,19 @@ model PlanDaySchedule {
 // -------------------------------------------------------------
 // Question Performance Analytics Dossier
 // -------------------------------------------------------------
+model SessionRecording {
+  id            String   @id @default(cuid())
+  userId        String
+  simulationId  String?
+  mediaUrl      String
+  durationSec   Int      @default(0)
+  mimeType      String   @default("video/webm")
+  createdAt     DateTime @default(now())
+
+  @@index([userId])
+  @@map("session_recordings")
+}
+
 model QuestionPerformanceDossier {
   id               String   @id @default(cuid())
   userId           String?
@@ -368,4 +382,20 @@ model QuestionPerformanceDossier {
   @@map("question_performance_dossiers")
 }
 
+// -------------------------------------------------------------
+// In-App Notifications
+// -------------------------------------------------------------
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  message   String
+  type      String   @default("system") // "system", "interview", "cv", "alert"
+  isRead    Boolean  @default(false)
+  linkUrl   String?
+  createdAt DateTime @default(now())
 
+  @@index([userId])
+  @@map("notifications")
+}

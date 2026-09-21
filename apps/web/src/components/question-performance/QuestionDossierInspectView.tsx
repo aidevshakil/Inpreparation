@@ -40,7 +40,7 @@ export const QuestionDossierInspectView: React.FC<QuestionDossierInspectViewProp
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [catalogReady, setCatalogReady] = useState(false);
+  const [, setCatalogReady] = useState(false);
 
   useEffect(() => {
     fetchQuestionDossierCatalog().then(() => setCatalogReady(true));

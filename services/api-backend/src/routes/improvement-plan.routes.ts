@@ -3,180 +3,10 @@ import { prisma } from '@packages/database';
 
 export const improvementPlanRouter = Router();
 
-// SEED HELPER: Ensures the PostgreSQL database has high-fidelity real records if table is empty
-async function seedDefaultImprovementPlan(userId?: string) {
-  return await prisma.aiImprovementPlan.create({
-    data: {
-      userId: userId || null,
-      targetRole: 'Staff Backend & Distributed Systems Architecture',
-      readinessScore: 80,
-      predictedTarget: 85,
-      starMethodologyScore: 78,
-      systemDesignScore: 82,
-      behavioralScore: 84,
-      velocityWpm: 142,
-      fillerRate: 1.4,
-      calibrationStatus: 'Calibrated against 1,420 Senior & Staff Backend Architecture candidates',
-      provenanceAssessment: 'Session #SIM-8492 • Technical Deep-Dive & Systems Design',
-      provenanceDate: 'March 15, 2025',
-      provenanceConfidence: 94,
-      provenanceQuestionsCount: 5,
-      customTargetScore: 85,
-      customIntensity: 'intensive',
-      customFocusAreas: ['Concurrency & Runtimes', 'Raft Consensus & Replication', 'STAR Action Specificity'],
-      notes: 'Focus on Day 4 consensus replication walkthrough with zero filler pauses.',
-      vectors: {
-        create: [
-          {
-            name: 'P99 Tail-Latency SLA Justification under Network Partition',
-            baselineScore: 68,
-            projectedScore: 86,
-            order: 1,
-          },
-          {
-            name: 'STAR Impact Quantification in Distributed Incident Post-Mortems',
-            baselineScore: 72,
-            projectedScore: 88,
-            order: 2,
-          },
-          {
-            name: 'Acoustic Pacing & Vocal Pitch Compression during Failure Mode Drills',
-            baselineScore: 74,
-            projectedScore: 85,
-            order: 3,
-          },
-          {
-            name: 'CPython GIL vs Tokio Thread-Pool Concurrency Articulation',
-            baselineScore: 70,
-            projectedScore: 90,
-            order: 4,
-          },
-        ],
-      },
-      modules: {
-        create: [
-          {
-            title: 'Sub-5ms Epoll Latency & ProcessPool Isolation Drill',
-            category: 'Architecture',
-            recommendedMin: 25,
-            priority: 'CRITICAL FOCUS',
-            status: 'in-progress',
-            order: 1,
-          },
-          {
-            title: 'Split-Brain Quorum & Raft Leader Election State Machine',
-            category: 'Architecture',
-            recommendedMin: 30,
-            priority: 'CRITICAL FOCUS',
-            status: 'pending',
-            order: 2,
-          },
-          {
-            title: 'STAR Structural Velocity & Non-Technical Executive Framing',
-            category: 'Communication',
-            recommendedMin: 20,
-            priority: 'HIGH PRIORITY',
-            status: 'pending',
-            order: 3,
-          },
-          {
-            title: 'Controlled Pitch Modulation under Contention Scenarios',
-            category: 'Acoustic',
-            recommendedMin: 15,
-            priority: 'FOUNDATIONAL',
-            status: 'completed',
-            order: 4,
-          },
-        ],
-      },
-      scheduleDays: {
-        create: [
-          {
-            dayNumber: 1,
-            title: 'STAR Incident Calibration',
-            focusArea: 'Quantified Metrics & Pacing',
-            durationMin: 35,
-            drills: ['Drill #ST-101', 'Drill #AC-204'],
-            status: 'completed',
-            completed: true,
-            order: 1,
-          },
-          {
-            dayNumber: 2,
-            title: 'GIL & Kernel Epoll Deep-Dive',
-            focusArea: 'Concurrency & Runtimes',
-            durationMin: 45,
-            drills: ['Drill #SYS-301', 'Drill #SYS-302'],
-            status: 'completed',
-            completed: true,
-            order: 2,
-          },
-          {
-            dayNumber: 3,
-            title: 'Distributed Consensus & Raft',
-            focusArea: 'Partition Tolerances & Quorum',
-            durationMin: 40,
-            drills: ['Drill #RAFT-101'],
-            status: 'completed',
-            completed: true,
-            order: 3,
-          },
-          {
-            dayNumber: 4,
-            title: 'Day 4: Live Deliberate Practice',
-            focusArea: 'Consensus Replication Walkthrough',
-            durationMin: 50,
-            drills: ['Drill #SYS-404', 'Acoustic Compression #AC-301'],
-            status: 'active',
-            completed: false,
-            order: 4,
-          },
-          {
-            dayNumber: 5,
-            title: 'Post-Mortem Executive Framing',
-            focusArea: 'Behavioral Leadership & Blameless Culture',
-            durationMin: 35,
-            drills: ['Drill #EXEC-102'],
-            status: 'upcoming',
-            completed: false,
-            order: 5,
-          },
-          {
-            dayNumber: 6,
-            title: 'Full Simulation Dry Run #2',
-            focusArea: 'Multi-Variant Staff Assessment',
-            durationMin: 60,
-            drills: ['Sim #SIM-9001'],
-            status: 'upcoming',
-            completed: false,
-            order: 6,
-          },
-          {
-            dayNumber: 7,
-            title: 'Comprehensive Diagnostic Benchmark',
-            focusArea: 'Final Readiness Validation',
-            durationMin: 45,
-            drills: ['Final Evaluation'],
-            status: 'upcoming',
-            completed: false,
-            order: 7,
-          },
-        ],
-      },
-    },
-    include: {
-      vectors: { orderBy: { order: 'asc' } },
-      modules: { orderBy: { order: 'asc' } },
-      scheduleDays: { orderBy: { dayNumber: 'asc' } },
-    },
-  });
-}
-
-// 1. GET ACTIVE IMPROVEMENT PLAN (Real DB fetch, auto-seeding baseline if DB is empty)
 improvementPlanRouter.get('/active', async (req: Request, res: Response) => {
   try {
     const userId = (req.query.userId as string) || undefined;
-    let plan = await prisma.aiImprovementPlan.findFirst({
+    const plan = await prisma.aiImprovementPlan.findFirst({
       where: userId ? { userId } : undefined,
       orderBy: { updatedAt: 'desc' },
       include: {
@@ -187,14 +17,130 @@ improvementPlanRouter.get('/active', async (req: Request, res: Response) => {
     });
 
     if (!plan) {
-      // Seed initial high-precision real data into PostgreSQL database
-      plan = await seedDefaultImprovementPlan(userId);
+      return res.status(404).json({ error: 'No plan yet — call /generate first' });
     }
 
     res.json(plan);
   } catch (error: any) {
     console.error('Error fetching active improvement plan:', error);
     res.status(500).json({ error: error.message || 'Failed to fetch improvement plan' });
+  }
+});
+
+improvementPlanRouter.get('/user/:userId', async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const plan = await prisma.aiImprovementPlan.findFirst({
+      where: { userId },
+      orderBy: { updatedAt: 'desc' },
+      include: {
+        vectors: { orderBy: { order: 'asc' } },
+        modules: { orderBy: { order: 'asc' } },
+        scheduleDays: { orderBy: { dayNumber: 'asc' } },
+      },
+    });
+    if (!plan) {
+      return res.status(404).json({ error: 'No plan yet — call /generate first' });
+    }
+    res.json(plan);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+improvementPlanRouter.post('/generate/:userId', async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const [profile, sims] = await Promise.all([
+      prisma.candidateProfile.findUnique({ where: { userId } }).catch(() => null),
+      prisma.simulationSession.findMany({ where: { userId }, orderBy: { createdAt: 'desc' }, take: 10 }).catch(() => []),
+    ]);
+
+    const aiBaseUrl = process.env.AI_SERVICE_URL || 'http://localhost:8000/api/v1';
+    const targetRole = profile?.targetRole || sims[0]?.roleTrack || 'Senior Software Engineer';
+    const prompt = `You are an interview coach. Given the candidate profile and recent simulation history, respond ONLY with strict JSON matching this schema: {"readinessScore":int,"predictedTarget":int,"starMethodologyScore":int,"systemDesignScore":int,"behavioralScore":int,"velocityWpm":int,"fillerRate":number,"vectors":[{"name":string,"baselineScore":int,"projectedScore":int}],"modules":[{"title":string,"category":string,"recommendedMin":int,"priority":"CRITICAL FOCUS"|"HIGH PRIORITY"|"FOUNDATIONAL","status":"pending"|"in-progress"|"completed"}],"scheduleDays":[{"dayNumber":int,"title":string,"focusArea":string,"durationMin":int,"drills":[string],"status":"upcoming"|"active"|"completed"}]}\n\nProfile: ${JSON.stringify({ targetRole, seniority: profile?.seniority, skills: profile?.skills, focus: profile?.interviewFocusAreas })}\nRecent simulations: ${JSON.stringify(sims.map((s: any) => ({ role: s.roleTrack, overall: s.overallScore, tech: s.technicalScore, structure: s.structureScore, pacing: s.pacingScore, wpm: s.wpmAverage, filler: s.fillerCount })))}`;
+
+    let aiResponse: globalThis.Response;
+    try {
+      aiResponse = await fetch(`${aiBaseUrl}/chat/completions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: [{ role: 'user', content: prompt }] }),
+      });
+    } catch (aiErr: any) {
+      return res.status(502).json({ error: 'AI service unavailable', detail: aiErr.message });
+    }
+    if (!aiResponse.ok) {
+      return res.status(502).json({ error: 'AI service error', status: aiResponse.status });
+    }
+
+    const aiJson: any = await aiResponse.json();
+    const reply: string = aiJson.reply || aiJson.content || '';
+    let parsed: any = {};
+    try {
+      const match = reply.match(/\{[\s\S]*\}/);
+      parsed = match ? JSON.parse(match[0]) : {};
+    } catch {
+      parsed = {};
+    }
+
+    const vectors = Array.isArray(parsed.vectors) ? parsed.vectors : [];
+    const modules = Array.isArray(parsed.modules) ? parsed.modules : [];
+    const scheduleDays = Array.isArray(parsed.scheduleDays) ? parsed.scheduleDays : [];
+
+    const plan = await prisma.aiImprovementPlan.create({
+      data: {
+        userId,
+        targetRole,
+        readinessScore: Number(parsed.readinessScore) || 70,
+        predictedTarget: Number(parsed.predictedTarget) || 85,
+        starMethodologyScore: Number(parsed.starMethodologyScore) || 70,
+        systemDesignScore: Number(parsed.systemDesignScore) || 70,
+        behavioralScore: Number(parsed.behavioralScore) || 70,
+        velocityWpm: Number(parsed.velocityWpm) || 140,
+        fillerRate: Number(parsed.fillerRate) || 2.0,
+        vectors: {
+          create: vectors.map((v: any, i: number) => ({
+            name: String(v.name || `Vector ${i + 1}`),
+            baselineScore: Number(v.baselineScore) || 60,
+            projectedScore: Number(v.projectedScore) || 85,
+            order: i + 1,
+          })),
+        },
+        modules: {
+          create: modules.map((m: any, i: number) => ({
+            title: String(m.title || `Module ${i + 1}`),
+            category: String(m.category || 'General'),
+            recommendedMin: Number(m.recommendedMin) || 20,
+            priority: String(m.priority || 'HIGH PRIORITY'),
+            status: String(m.status || 'pending'),
+            order: i + 1,
+          })),
+        },
+        scheduleDays: {
+          create: scheduleDays.map((d: any, i: number) => ({
+            dayNumber: Number(d.dayNumber) || i + 1,
+            title: String(d.title || `Day ${i + 1}`),
+            focusArea: String(d.focusArea || 'General Practice'),
+            durationMin: Number(d.durationMin) || 30,
+            drills: Array.isArray(d.drills) ? d.drills.map(String) : [],
+            status: String(d.status || 'upcoming'),
+            completed: d.status === 'completed',
+            order: i + 1,
+          })),
+        },
+      },
+      include: {
+        vectors: { orderBy: { order: 'asc' } },
+        modules: { orderBy: { order: 'asc' } },
+        scheduleDays: { orderBy: { dayNumber: 'asc' } },
+      },
+    });
+
+    res.status(201).json(plan);
+  } catch (error: any) {
+    console.error('Failed to generate improvement plan:', error);
+    res.status(500).json({ error: error.message });
   }
 });
 

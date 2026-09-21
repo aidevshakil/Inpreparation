@@ -48,7 +48,7 @@ userRouter.post('/', async (req: Request, res: Response) => {
 });
 
 // UPDATE a user
-userRouter.put('/:id', async (req: Request, res: Response) => {
+userRouter.put('/:id', requireRole('admin'), async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { name, role, targetRole, seniority } = req.body;

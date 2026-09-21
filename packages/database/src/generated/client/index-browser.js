@@ -362,6 +362,16 @@ exports.Prisma.PlanDayScheduleScalarFieldEnum = {
   order: 'order'
 };
 
+exports.Prisma.SessionRecordingScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  simulationId: 'simulationId',
+  mediaUrl: 'mediaUrl',
+  durationSec: 'durationSec',
+  mimeType: 'mimeType',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.QuestionPerformanceDossierScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -384,6 +394,17 @@ exports.Prisma.QuestionPerformanceDossierScalarFieldEnum = {
   tags: 'tags',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  message: 'message',
+  type: 'type',
+  isRead: 'isRead',
+  linkUrl: 'linkUrl',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -435,7 +456,9 @@ exports.Prisma.ModelName = {
   PlanPracticeVector: 'PlanPracticeVector',
   PlanPracticeModule: 'PlanPracticeModule',
   PlanDaySchedule: 'PlanDaySchedule',
-  QuestionPerformanceDossier: 'QuestionPerformanceDossier'
+  SessionRecording: 'SessionRecording',
+  QuestionPerformanceDossier: 'QuestionPerformanceDossier',
+  Notification: 'Notification'
 };
 
 /**

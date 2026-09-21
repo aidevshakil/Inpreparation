@@ -76,22 +76,32 @@ recommendationsRouter.get('/:userId', async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
 
-    const [savedRows, profile, latestDiagnostic, latestSim] = await Promise.all([
+    const [savedRows, profile, latestDiagnostic, recentSims] = await Promise.all([
       prisma.userSavedTrack.findMany({ where: { userId }, select: { trackId: true } }).catch(() => []),
       prisma.candidateProfile.findUnique({ where: { userId } }).catch(() => null),
       prisma.diagnosticIntake.findFirst({ where: { userId }, orderBy: { createdAt: 'desc' } }).catch(() => null),
-      prisma.simulationSession.findFirst({ where: { userId }, orderBy: { createdAt: 'desc' } }).catch(() => null),
+      prisma.simulationSession.findMany({ where: { userId }, orderBy: { createdAt: 'desc' }, take: 10 }).catch(() => []),
     ]);
 
     const bookmarkedIds = new Set(savedRows.map((s: any) => s.trackId));
+    const latestSim = recentSims[0];
 
     const targetRole = profile?.targetRole || latestDiagnostic?.targetRole || latestSim?.roleTrack || '';
     const seniority = (profile?.seniority || latestDiagnostic?.seniorityTier || 'mid').toLowerCase();
+
+    const weakCategories = new Set<string>();
+    recentSims.forEach((sim: any) => {
+      if ((sim.technicalScore || 100) < 75) weakCategories.add('technical');
+      if ((sim.structureScore || 100) < 75) weakCategories.add('structure');
+      if ((sim.pacingScore || 100) < 75) weakCategories.add('communication');
+      if ((sim.gazeScore || 100) < 75) weakCategories.add('presence');
+    });
 
     const userTokens = new Set<string>();
     tokenize(targetRole).forEach((t) => userTokens.add(t));
     (profile?.skills || []).forEach((s) => tokenize(s).forEach((t) => userTokens.add(t)));
     (latestDiagnostic?.focusAreas || []).forEach((f: string) => tokenize(f).forEach((t) => userTokens.add(t)));
+    weakCategories.forEach((c) => userTokens.add(c));
 
     let ranked: { track: InterviewTrack; score: number }[];
 
@@ -122,7 +132,9 @@ recommendationsRouter.get('/:userId', async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       hero: heroRecommendation,
+      heroRecommendation,
       tailored: tailoredTracks,
+      tracks: tailoredTracks,
       savedCount: bookmarkedIds.size,
     });
   } catch (error: any) {

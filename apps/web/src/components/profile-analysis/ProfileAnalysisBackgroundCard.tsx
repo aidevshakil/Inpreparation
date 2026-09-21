@@ -50,10 +50,10 @@ export const ProfileAnalysisBackgroundCard: React.FC<ProfileAnalysisBackgroundCa
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px', flexWrap: 'wrap', gap: '6px' }}>
               <div>
                 <span style={{ fontSize: '0.86rem', fontWeight: 700, color: '#f8fafc' }}>
-                  Senior Systems Engineer
+                  AI Developer
                 </span>
                 <span style={{ color: '#94a3b8', fontSize: '0.8rem', marginLeft: '6px' }}>
-                  • FinScale Labs
+                  • Spiral Lab (Pakistan | Remote)
                 </span>
               </div>
 
@@ -66,19 +66,19 @@ export const ProfileAnalysisBackgroundCard: React.FC<ProfileAnalysisBackgroundCa
                   backgroundColor: 'rgba(99, 102, 241, 0.15)',
                 }}
               >
-                2021 — Present • 3 yrs
+                June 2026 — Present • 1.5+ yrs
               </span>
             </div>
 
             <ul style={{ margin: 0, paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
               <li style={{ fontSize: '0.74rem', color: '#cbd5e1', lineHeight: 1.45 }}>
-                Architected event-streamed settlement pipeline processing 120k events/sec under strict sub-50ms SLA.
+                Developed AI-powered Supermarket Promo Generator with Gemini models, product embeddings, and LLM workflows.
               </li>
               <li style={{ fontSize: '0.74rem', color: '#cbd5e1', lineHeight: 1.45 }}>
-                Reduced tail latency by 35% on critical settlement flows through PostgreSQL lock mitigation and Redis write-behind caching.
+                Built SliceUP financial assistant integrating LLMs for automated spending summaries and actionable insights.
               </li>
               <li style={{ fontSize: '0.74rem', color: '#cbd5e1', lineHeight: 1.45 }}>
-                Standardized distributed transaction outbox pattern across 6 core microservices.
+                Engineered InPrep AI mock interview platform (Betopia Group) with Computer Vision, LLMs, OpenCV, and FastAPI.
               </li>
             </ul>
           </div>
@@ -96,16 +96,16 @@ export const ProfileAnalysisBackgroundCard: React.FC<ProfileAnalysisBackgroundCa
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
               <FolderGit2 size={15} style={{ color: '#38bdf8' }} />
               <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#f8fafc' }}>
-                Flagship Project: Multi-Region Event-Driven &amp; Distributed Coordinator
+                Flagship Project: BusTicketBD – AI Bus Ticket Assistant
               </span>
             </div>
 
             <p style={{ fontSize: '0.74rem', color: '#94a3b8', lineHeight: 1.45, margin: '0 0 10px 0' }}>
-              High-volume financial transaction routing coordinator with Kafka topic replication and PostgreSQL concurrency control.
+              Chat-driven bus ticketing platform with intent extraction, vector embeddings, RAG-based responses, and LangGraph multi-step workflows.
             </p>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-              {['Go', 'Kafka', 'PostgreSQL', 'Docker', 'Redis'].map((tech) => (
+              {['FastAPI', 'LangGraph', 'Pinecone', 'OpenAI', 'Python', 'Streamlit'].map((tech) => (
                 <span
                   key={tech}
                   style={{

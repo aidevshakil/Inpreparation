@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import { prisma } from '@packages/database';
 import { sendOtpEmail } from '../services/email.service';
 import { OAuth2Client } from 'google-auth-library';
+import bcrypt from 'bcryptjs';
 
 export const authRouter = Router();
 
@@ -162,8 +163,10 @@ authRouter.post('/verify-otp', async (req: Request, res: Response) => {
       console.warn('[Auth] VerificationToken query error, using fallback matching:', e);
     }
 
-    // If token matched or fallback demo code (e.g. 123456 in dev)
-    const isMasterDevCode = cleanCode === '123456';
+    const isMasterDevCode =
+      cleanCode === '123456' &&
+      process.env.NODE_ENV === 'development' &&
+      process.env.ALLOW_DEV_OTP === 'true';
     if (!tokenMatch && !isMasterDevCode) {
       return res.status(400).json({
         success: false,
@@ -215,7 +218,7 @@ authRouter.post('/verify-otp', async (req: Request, res: Response) => {
 // -------------------------------------------------------------
 authRouter.post('/login', async (req: Request, res: Response) => {
   try {
-    const { email } = req.body;
+    const { email, password } = req.body;
     if (!email) {
       return res.status(400).json({ error: 'Email is required' });
     }
@@ -232,6 +235,17 @@ authRouter.post('/login', async (req: Request, res: Response) => {
       },
     });
 
+    if (password) {
+      if (!user || !user.passwordHash) {
+        return res.status(401).json({ error: 'Invalid credentials' });
+      }
+      const ok = await bcrypt.compare(String(password), user.passwordHash);
+      if (!ok) {
+        return res.status(401).json({ error: 'Invalid credentials' });
+      }
+      return res.json({ success: true, message: 'Logged in successfully', user });
+    }
+
     if (!user) {
       user = await prisma.user.create({
         data: {
@@ -246,6 +260,25 @@ authRouter.post('/login', async (req: Request, res: Response) => {
     }
 
     res.json({ success: true, message: 'Logged in successfully', user });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+authRouter.post('/set-password', async (req: Request, res: Response) => {
+  try {
+    const { userId, password } = req.body;
+    const headerUserId = req.headers['x-user-id'];
+    const targetId = userId || (typeof headerUserId === 'string' ? headerUserId : null);
+    if (!targetId) {
+      return res.status(401).json({ error: 'Authentication required' });
+    }
+    if (!password || String(password).length < 8) {
+      return res.status(400).json({ error: 'Password must be at least 8 characters' });
+    }
+    const hash = await bcrypt.hash(String(password), 10);
+    await prisma.user.update({ where: { id: targetId }, data: { passwordHash: hash } });
+    res.json({ success: true, message: 'Password updated' });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }

@@ -21,20 +21,24 @@ export const AiAnalysisSkillsTaxonomyCard: React.FC<AiAnalysisSkillsTaxonomyCard
     ? initialCategories
     : [
     {
-      title: 'LANGUAGES & SCRIPTING',
-      skills: ['Flutter', 'Dart', 'TypeScript', 'JavaScript', 'SQL'],
+      title: 'GENERATIVE AI & LLMS',
+      skills: ['LLMs', 'Generative AI', 'OpenAI', 'Gemini', 'Prompt Engineering', 'AI Agents', 'Multi-Agent Systems'],
     },
     {
-      title: 'FRAMEWORKS & ARCHITECTURE',
-      skills: ['Flutter SDK', 'Clean Architecture', 'Bloc / Provider', 'REST APIs', 'Node.js'],
+      title: 'AI FRAMEWORKS & ORCHESTRATION',
+      skills: ['LangChain', 'LangGraph', 'RAG Pipelines', 'LLM Orchestration', 'AI Workflow Automation'],
     },
     {
-      title: 'DATA STORAGE & STREAMING',
-      skills: ['Firebase Firestore', 'PostgreSQL', 'SQLite Offline Sync', 'Redis'],
+      title: 'MACHINE LEARNING & COMPUTER VISION',
+      skills: ['PyTorch', 'TensorFlow', 'Keras', 'Scikit-learn', 'Hugging Face', 'OpenCV', 'Image Segmentation', 'Model Fine-Tuning'],
     },
     {
-      title: 'INFRASTRUCTURE & DEVOPS',
-      skills: ['Docker Containers', 'CI/CD Pipelines', 'GitHub Actions', 'AWS / Cloud'],
+      title: 'RAG, VECTOR SEARCH & DATABASES',
+      skills: ['Pinecone', 'FAISS', 'Chroma', 'Weaviate', 'Semantic Search', 'PostgreSQL', 'MongoDB', 'MySQL'],
+    },
+    {
+      title: 'BACKEND, MLOPS & CLOUD',
+      skills: ['FastAPI', 'Flask', 'Python', 'Streamlit', 'Docker', 'Kubernetes', 'CI/CD', 'AWS', 'Google Cloud'],
     },
   ];
 

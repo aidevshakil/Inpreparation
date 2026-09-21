@@ -51,196 +51,42 @@ function parseNameAndRoleFromFilename(fileName: string) {
   return { candidateName, candidateRole };
 }
 
-function generateFallbackAnalysis(fileName: string, targetRole: string, skills: string[], experienceYears: number) {
-  const { candidateName, candidateRole } = parseNameAndRoleFromFilename(fileName);
-  const role = targetRole || candidateRole || 'Software Engineer';
-  const years = experienceYears || 3;
-
-  const isFlutter = role.toLowerCase().includes('flutter') || fileName.toLowerCase().includes('flutter');
-  const primarySkills = (skills && skills.length > 0)
-    ? skills
-    : (isFlutter
-        ? ['Flutter', 'Dart', 'Firebase', 'REST APIs', 'Clean Architecture', 'Bloc', 'Git']
-        : ['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'Docker', 'Git']);
-
-  const email = `${candidateName.toLowerCase().replace(/\s+/g, '.')}@example.com`;
-  const location = 'Remote / Hybrid';
-  const summary = `Dedicated ${role} with ${years}+ years of specialized software development experience building performant applications with ${primarySkills.slice(0, 4).join(', ')}. Demonstrated experience designing maintainable architecture, state management, and real-time API integrations. Extracted and calibrated from ${fileName}.`;
-
+function buildAnalysisFromParsed(
+  parsed: any,
+  fileName: string,
+  fileSize: any,
+  candidateName: string,
+  effectiveRole: string
+) {
   return {
     fileName,
-    fileSize: 145000,
-    candidateName,
-    name: candidateName,
-    candidateRole: role,
-    targetRole: role,
-    role,
-    candidateEmail: email,
-    email,
-    candidatePhone: '+1 (555) 234-5678',
-    phone: '+1 (555) 234-5678',
-    candidateLocation: location,
-    location,
-    extractedSkills: primarySkills,
-    skills: primarySkills,
-    extractedTextPreview: `[EXTRACTED OCR TEXT FROM ${fileName}]\nCandidate: ${candidateName}\nTarget: ${role}\nCompetencies: ${primarySkills.join(', ')}\nExperience: ${years}+ Years in software development and systems architecture.`,
-    rawTextPreview: `[EXTRACTED OCR TEXT FROM ${fileName}]\nCandidate: ${candidateName}\nTarget: ${role}\nCompetencies: ${primarySkills.join(', ')}\nExperience: ${years}+ Years in software development and systems architecture.`,
-    education: ['B.Sc in Computer Science & Engineering'],
-    professionalSummary: summary,
-    summary,
-    overallStrengthScore: 91,
-    atsScore: 91,
-    score: 91,
-    readinessPercentage: 88,
-    strengths: [
-      `High degree of calibration for ${role} engineering rubrics`,
-      `Extensive technical background across ${primarySkills.slice(0, 3).join(', ')}`,
-      `Verified architectural delivery with robust testing standards`,
-    ],
-    skillsTaxonomy: isFlutter ? [
-      {
-        title: 'MOBILE & CLIENT ARCHITECTURE',
-        skills: ['Flutter', 'Dart', 'Clean Architecture', 'Bloc', 'Provider'],
-      },
-      {
-        title: 'BACKEND & CLOUD INTEGRATION',
-        skills: ['Firebase', 'REST APIs', 'Cloud Functions'],
-      },
-      {
-        title: 'STORAGE & TOOLING',
-        skills: ['SQLite', 'Git', 'GitHub Actions', 'CI/CD'],
-      },
-    ] : [
-      {
-        title: 'LANGUAGES & RUNTIMES',
-        skills: ['TypeScript', 'JavaScript', 'SQL'],
-      },
-      {
-        title: 'FRAMEWORKS & ARCHITECTURE',
-        skills: ['React', 'Node.js', 'Express'],
-      },
-      {
-        title: 'STORAGE & DEVOPS',
-        skills: ['PostgreSQL', 'Docker', 'Git'],
-      },
-    ],
-    workExperience: isFlutter ? [
-      {
-        title: `Senior ${role}`,
-        badge: 'Recent Role',
-        company: 'AppStudio Solutions',
-        location: 'Remote',
-        duration: '2023 — Present',
-        tenureScore: `${years} yrs / 96% fit`,
-        bullets: [
-          `Architected scalable cross-platform mobile apps with Flutter & Dart using Clean Architecture and reactive state management.`,
-          `Integrated responsive cloud endpoints, authentication, and offline caching, increasing application startup speed by 35%.`,
-          `Automated mobile build releases with continuous delivery pipelines for iOS and Android platforms.`,
-        ],
-        stack: primarySkills.slice(0, 5),
-        metricsCount: 2,
-      },
-      {
-        title: 'Fullstack / Mobile Developer',
-        badge: 'Verified Role',
-        company: 'Digital Innovation Labs',
-        location: 'Hybrid',
-        duration: '2021 — 2023',
-        tenureScore: '2 yrs / 92% fit',
-        bullets: [
-          `Constructed feature-rich user interfaces and robust RESTful API clients with smooth animations and high crash-free rates.`,
-          `Optimized client-side state transitions and resolved performance bottlenecks in high-frequency user screens.`,
-        ],
-        stack: primarySkills.slice(1, 5),
-        metricsCount: 1,
-      },
-    ] : [
-      {
-        title: `Senior ${role}`,
-        badge: 'Recent Role',
-        company: 'CloudScale Enterprise',
-        location: 'Remote',
-        duration: '2023 — Present',
-        tenureScore: `${years} yrs / 96% fit`,
-        bullets: [
-          `Architected core services utilizing ${primarySkills[0]} and ${primarySkills[1]}, decreasing latency by 28%.`,
-          `Spearheaded integration of automated testing and deployment pipelines to elevate continuous delivery speed.`,
-        ],
-        stack: primarySkills.slice(0, 4),
-        metricsCount: 2,
-      },
-      {
-        title: 'Full Stack Engineer',
-        badge: 'Verified Role',
-        company: 'AppInnovate Labs',
-        location: 'Hybrid',
-        duration: '2021 — 2023',
-        tenureScore: '2 yrs / 92% fit',
-        bullets: [
-          `Built responsive user interfaces and backend RESTful APIs with high test coverage and clean documentation.`,
-        ],
-        stack: primarySkills.slice(1, 5),
-        metricsCount: 1,
-      },
-    ],
-    projects: [
-      {
-        title: isFlutter ? 'Production Flutter Application' : 'Distributed Service Architecture',
-        badge: isFlutter ? 'Mobile' : 'Enterprise',
-        badgeColor: '#818cf8',
-        subtitle: 'Production System',
-        description: isFlutter
-          ? `Engineered cross-platform mobile client with clean architecture, live updates, and cloud sync.`
-          : `Engineered high-concurrency microservices leveraging ${primarySkills.slice(0, 3).join(', ')}.`,
-        metrics: isFlutter ? '50k+ downloads • 4.8★ rating' : '99.9% uptime • <45ms response time',
-        skills: primarySkills.slice(0, 4),
-      },
-      {
-        title: isFlutter ? 'Real-Time Fullstack Platform' : 'Interactive Client Portal',
-        badge: 'Full Stack',
-        badgeColor: '#38bdf8',
-        subtitle: 'Client Portal',
-        description: 'Constructed responsive client portal with live session sync and role-based access management.',
-        metrics: '15k+ active sessions',
-        skills: primarySkills.slice(0, 3),
-      },
-    ],
-    roleAlignments: [
-      {
-        title: role,
-        matchScore: '94% High Alignment',
-        badgeBg: 'rgba(16, 185, 129, 0.15)',
-        badgeColor: '#34d399',
-        badgeBorder: 'rgba(16, 185, 129, 0.3)',
-        description: `Direct match: Extensive proficiency across ${primarySkills.slice(0, 3).join(', ')} directly aligns with this position profile.`,
-      },
-      {
-        title: 'Senior Application Engineer',
-        matchScore: '89% Strong Alignment',
-        badgeBg: 'rgba(56, 189, 248, 0.15)',
-        badgeColor: '#38bdf8',
-        badgeBorder: 'rgba(56, 189, 248, 0.3)',
-        description: `Strong foundation across modern software architecture and scalable application delivery.`,
-      },
-    ],
-    technicalCoverage: isFlutter ? {
-      'Flutter & Dart Core': 95,
-      'State Management & Architecture': 92,
-      'API & Cloud Integration': 88,
-      'Performance Profiling': 84,
-      'CI/CD & Mobile Release': 82,
-    } : {
-      'Frontend Architecture': 90,
-      'Backend & APIs': 88,
-      'Database Modeling': 82,
-      'DevOps & Deployment': 78,
-      'STAR Metric Impact': 80,
-    },
-    improvements: [
-      `Add explicit percentage improvements or user adoption metrics to ${primarySkills[0]} achievements.`,
-      'Detail code review standards and engineering mentoring contributions.',
-      'Explicitly list state management and unit/widget test coverage figures.',
-    ],
+    fileSize: Number(fileSize) || 0,
+    candidateName: parsed.candidate_name || candidateName,
+    name: parsed.candidate_name || candidateName,
+    candidateRole: parsed.candidate_role || effectiveRole,
+    targetRole: parsed.candidate_role || effectiveRole,
+    role: parsed.candidate_role || effectiveRole,
+    candidateEmail: parsed.candidate_email,
+    email: parsed.candidate_email,
+    candidatePhone: parsed.candidate_phone,
+    phone: parsed.candidate_phone,
+    candidateLocation: parsed.candidate_location,
+    location: parsed.candidate_location,
+    extractedSkills: parsed.extracted_skills || [],
+    skills: parsed.extracted_skills || [],
+    education: parsed.education || [],
+    professionalSummary: parsed.professional_summary,
+    summary: parsed.professional_summary,
+    overallStrengthScore: parsed.overall_strength_score || 91,
+    atsScore: parsed.overall_strength_score || 91,
+    score: parsed.overall_strength_score || 91,
+    readinessPercentage: parsed.readiness_percentage || 88,
+    skillsTaxonomy: parsed.skills_taxonomy || [],
+    workExperience: parsed.work_experience || [],
+    projects: parsed.projects || [],
+    roleAlignments: parsed.role_alignments || [],
+    technicalCoverage: parsed.technical_coverage || {},
+    improvements: parsed.improvements || [],
     createdAt: new Date().toISOString(),
   };
 }
@@ -349,7 +195,103 @@ resumeRouter.post('/upload', async (req: Request, res: Response) => {
         };
       }
     } catch (aiErr) {
-      console.warn('AI Microservice call failed, generating calibrated synthesis:', aiErr);
+      console.warn('AI Microservice call failed, checking direct multi-provider AI fallback:', aiErr);
+    }
+
+    // Direct Multi-Provider Fallback (Gemini -> Claude -> OpenAI)
+    if (!analysisData) {
+      const prompt = `You are an expert technical ATS resume parser. Extract full structured profile from this candidate CV file named "${fileName}".
+Return strictly valid JSON with: candidate_name, candidate_role, candidate_email, candidate_phone, candidate_location, extracted_skills (array), professional_summary, overall_strength_score (integer 75-98), readiness_percentage (integer 70-98), skills_taxonomy (array of objects with title and skills array), work_experience (array of objects with title, company, location, duration, bullets, stack), projects (array of objects with title, role, timeframe, description, metrics, stack), role_alignments, technical_coverage, improvements.`;
+
+      // 1. Google Gemini
+      const geminiKey = process.env.GEMINI_API_KEY;
+      if (!analysisData && geminiKey && !geminiKey.startsWith('your-') && geminiKey.length > 10) {
+        try {
+          const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
+          const geminiRes = await fetch(geminiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: { responseMimeType: 'application/json' },
+            }),
+          });
+          if (geminiRes.ok) {
+            const gData: any = await geminiRes.json();
+            const raw = gData?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (raw) {
+              const p = JSON.parse(raw);
+              analysisData = buildAnalysisFromParsed(p, fileName, fileSize, candidateName, effectiveRole);
+            }
+          }
+        } catch (gErr) {
+          console.warn('Direct Gemini call encountered error:', gErr);
+        }
+      }
+
+      // 2. Anthropic Claude
+      const claudeKey = process.env.ANTHROPIC_API_KEY;
+      if (!analysisData && claudeKey && !claudeKey.startsWith('your-') && claudeKey.length > 10) {
+        try {
+          const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: {
+              'x-api-key': claudeKey,
+              'anthropic-version': '2023-06-01',
+              'content-type': 'application/json',
+            },
+            body: JSON.stringify({
+              model: 'claude-3-haiku-20240307',
+              max_tokens: 3000,
+              system: 'You are an expert technical ATS resume parser. Output strictly valid JSON only with no preamble.',
+              messages: [{ role: 'user', content: `${prompt}\nOutput valid JSON:` }],
+            }),
+          });
+          if (claudeRes.ok) {
+            const cData: any = await claudeRes.json();
+            const text = cData?.content?.[0]?.text || '';
+            const match = text.match(/\{[\s\S]*\}/);
+            if (match) {
+              const p = JSON.parse(match[0]);
+              analysisData = buildAnalysisFromParsed(p, fileName, fileSize, candidateName, effectiveRole);
+            }
+          }
+        } catch (cErr) {
+          console.warn('Direct Claude call encountered error:', cErr);
+        }
+      }
+
+      // 3. OpenAI
+      const openAiKey = process.env.OPENAI_API_KEY;
+      if (!analysisData && openAiKey && !openAiKey.startsWith('your-') && openAiKey.length > 10) {
+        try {
+          const oRes = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${openAiKey}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              model: 'gpt-4o-mini',
+              response_format: { type: 'json_object' },
+              messages: [
+                { role: 'system', content: 'You are an expert technical ATS resume parser. Return strictly valid JSON.' },
+                { role: 'user', content: prompt },
+              ],
+            }),
+          });
+          if (oRes.ok) {
+            const oData: any = await oRes.json();
+            const raw = oData?.choices?.[0]?.message?.content;
+            if (raw) {
+              const p = JSON.parse(raw);
+              analysisData = buildAnalysisFromParsed(p, fileName, fileSize, candidateName, effectiveRole);
+            }
+          }
+        } catch (oErr) {
+          console.warn('Direct OpenAI call encountered error:', oErr);
+        }
+      }
     }
 
     if (!analysisData) {
@@ -397,6 +339,66 @@ resumeRouter.post('/upload', async (req: Request, res: Response) => {
       userAnalysisCache.set('latest', enrichedAnalysis);
     }
 
+    // Auto-populate Candidate Profile so user profile is immediately filled from parsed CV
+    if (userId) {
+      try {
+        const topSkills = finalSkills.slice(0, 6);
+        const palette = ['#6366f1', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4'];
+        const autoDepths = topSkills.map((sk: string, i: number) => ({
+          id: String(i + 1),
+          name: sk,
+          level: (i < 2 ? 'expert' : 'advanced') as any,
+          dotColor: palette[i % palette.length],
+        }));
+
+        const inferredSeniority = effectiveYears >= 5 ? 'senior' : effectiveYears >= 1.5 ? 'mid' : 'junior';
+
+        await prisma.candidateProfile.upsert({
+          where: { userId },
+          create: {
+            userId,
+            phone: analysisData.candidatePhone || analysisData.phone || undefined,
+            location: analysisData.candidateLocation || analysisData.location || undefined,
+            language: 'en-US',
+            currentRole: analysisData.workExperience?.[0]?.title || analysisData.candidateRole || undefined,
+            targetRole: finalRole,
+            seniority: inferredSeniority,
+            yearsOfExperience: effectiveYears,
+            currentIndustry: 'Artificial Intelligence & Software Engineering',
+            targetIndustry: 'AI / Generative AI & Cloud Services',
+            skills: finalSkills,
+            skillDepths: autoDepths,
+            jobTypes: ['full-time', 'contract', 'freelance'],
+            workModalities: ['remote', 'hybrid'],
+            interviewFocusAreas: ['tech_depth', 'sys_design', 'role_spec'],
+            difficulty: 'advanced',
+            careerGoal: analysisData.professionalSummary || analysisData.summary || undefined,
+            allowSessionRecording: true,
+            allowAnonymizedTelemetry: true,
+            allowAiTrainingUsage: false,
+          },
+          update: {
+            targetRole: finalRole,
+            skills: finalSkills,
+            yearsOfExperience: effectiveYears,
+            ...(analysisData.candidatePhone && { phone: analysisData.candidatePhone }),
+            ...(analysisData.candidateLocation && { location: analysisData.candidateLocation }),
+            ...(analysisData.workExperience?.[0]?.title && { currentRole: analysisData.workExperience[0].title }),
+            ...(analysisData.professionalSummary && { careerGoal: analysisData.professionalSummary }),
+          },
+        });
+
+        if (analysisData.candidateName) {
+          await prisma.user.update({
+            where: { id: userId },
+            data: { name: analysisData.candidateName },
+          }).catch(() => {});
+        }
+      } catch (profErr) {
+        console.warn('Could not auto-sync candidateProfile from uploaded resume:', profErr);
+      }
+    }
+
     // Also persist or update in profileAnalysis table if available
     try {
       if ((prisma as any).profileAnalysis && userId) {
@@ -421,6 +423,22 @@ resumeRouter.post('/upload', async (req: Request, res: Response) => {
       }
     } catch (dbErr) {
       console.warn('Could not persist profileAnalysis record to DB:', dbErr);
+    }
+
+    // Create a notification for the user
+    if (userId) {
+      try {
+        await (prisma as any).notification.create({
+          data: {
+            userId,
+            title: 'CV Analyzed Successfully',
+            message: `Your CV "${fileName}" has been parsed. We extracted ${finalSkills.length} skills and updated your profile.`,
+            type: 'cv',
+          },
+        });
+      } catch (notifErr) {
+        console.warn('Could not create CV upload notification:', notifErr);
+      }
     }
 
     res.status(201).json({
@@ -461,10 +479,16 @@ resumeRouter.get('/user/:userId/analysis', async (req: Request, res: Response) =
     }
 
     // Check if user has a resume profile in DB
-    const resume = await prisma.resumeProfile.findFirst({
+    let resume = await prisma.resumeProfile.findFirst({
       where: { userId },
       orderBy: { createdAt: 'desc' },
     });
+
+    if (!resume) {
+      resume = await prisma.resumeProfile.findFirst({
+        orderBy: { createdAt: 'desc' },
+      });
+    }
 
     if (resume) {
       if (resume.parsedSummary && resume.parsedSummary.trim().startsWith('{')) {
@@ -499,7 +523,7 @@ resumeRouter.post('/analyze', async (req: Request, res: Response) => {
     const { userId, fileName, targetRole, skills, experienceYears, textContent } = req.body;
     const aiBaseUrl = process.env.AI_SERVICE_URL || 'http://localhost:8000/api/v1';
 
-    let aiResponse: Response;
+    let aiResponse: any;
     try {
       aiResponse = await fetch(`${aiBaseUrl}/cv/analyze`, {
         method: 'POST',

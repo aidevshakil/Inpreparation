@@ -99,10 +99,20 @@ export type PlanPracticeModule = $Result.DefaultSelection<Prisma.$PlanPracticeMo
  */
 export type PlanDaySchedule = $Result.DefaultSelection<Prisma.$PlanDaySchedulePayload>
 /**
+ * Model SessionRecording
+ * 
+ */
+export type SessionRecording = $Result.DefaultSelection<Prisma.$SessionRecordingPayload>
+/**
  * Model QuestionPerformanceDossier
  * 
  */
 export type QuestionPerformanceDossier = $Result.DefaultSelection<Prisma.$QuestionPerformanceDossierPayload>
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = $Result.DefaultSelection<Prisma.$NotificationPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -398,6 +408,16 @@ export class PrismaClient<
   get planDaySchedule(): Prisma.PlanDayScheduleDelegate<ExtArgs>;
 
   /**
+   * `prisma.sessionRecording`: Exposes CRUD operations for the **SessionRecording** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SessionRecordings
+    * const sessionRecordings = await prisma.sessionRecording.findMany()
+    * ```
+    */
+  get sessionRecording(): Prisma.SessionRecordingDelegate<ExtArgs>;
+
+  /**
    * `prisma.questionPerformanceDossier`: Exposes CRUD operations for the **QuestionPerformanceDossier** model.
     * Example usage:
     * ```ts
@@ -406,6 +426,16 @@ export class PrismaClient<
     * ```
     */
   get questionPerformanceDossier(): Prisma.QuestionPerformanceDossierDelegate<ExtArgs>;
+
+  /**
+   * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Notifications
+    * const notifications = await prisma.notification.findMany()
+    * ```
+    */
+  get notification(): Prisma.NotificationDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -864,7 +894,9 @@ export namespace Prisma {
     PlanPracticeVector: 'PlanPracticeVector',
     PlanPracticeModule: 'PlanPracticeModule',
     PlanDaySchedule: 'PlanDaySchedule',
-    QuestionPerformanceDossier: 'QuestionPerformanceDossier'
+    SessionRecording: 'SessionRecording',
+    QuestionPerformanceDossier: 'QuestionPerformanceDossier',
+    Notification: 'Notification'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -880,7 +912,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "conversation" | "message" | "simulationSession" | "simulationAnswer" | "resumeProfile" | "diagnosticIntake" | "diagnosticPromptResponse" | "profileAnalysis" | "userSavedTrack" | "auditLog" | "verificationToken" | "candidateProfile" | "aiImprovementPlan" | "planPracticeVector" | "planPracticeModule" | "planDaySchedule" | "questionPerformanceDossier"
+      modelProps: "user" | "conversation" | "message" | "simulationSession" | "simulationAnswer" | "resumeProfile" | "diagnosticIntake" | "diagnosticPromptResponse" | "profileAnalysis" | "userSavedTrack" | "auditLog" | "verificationToken" | "candidateProfile" | "aiImprovementPlan" | "planPracticeVector" | "planPracticeModule" | "planDaySchedule" | "sessionRecording" | "questionPerformanceDossier" | "notification"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2074,6 +2106,76 @@ export namespace Prisma {
           }
         }
       }
+      SessionRecording: {
+        payload: Prisma.$SessionRecordingPayload<ExtArgs>
+        fields: Prisma.SessionRecordingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SessionRecordingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionRecordingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SessionRecordingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionRecordingPayload>
+          }
+          findFirst: {
+            args: Prisma.SessionRecordingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionRecordingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SessionRecordingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionRecordingPayload>
+          }
+          findMany: {
+            args: Prisma.SessionRecordingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionRecordingPayload>[]
+          }
+          create: {
+            args: Prisma.SessionRecordingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionRecordingPayload>
+          }
+          createMany: {
+            args: Prisma.SessionRecordingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SessionRecordingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionRecordingPayload>[]
+          }
+          delete: {
+            args: Prisma.SessionRecordingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionRecordingPayload>
+          }
+          update: {
+            args: Prisma.SessionRecordingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionRecordingPayload>
+          }
+          deleteMany: {
+            args: Prisma.SessionRecordingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SessionRecordingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SessionRecordingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionRecordingPayload>
+          }
+          aggregate: {
+            args: Prisma.SessionRecordingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSessionRecording>
+          }
+          groupBy: {
+            args: Prisma.SessionRecordingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SessionRecordingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SessionRecordingCountArgs<ExtArgs>
+            result: $Utils.Optional<SessionRecordingCountAggregateOutputType> | number
+          }
+        }
+      }
       QuestionPerformanceDossier: {
         payload: Prisma.$QuestionPerformanceDossierPayload<ExtArgs>
         fields: Prisma.QuestionPerformanceDossierFieldRefs
@@ -2141,6 +2243,76 @@ export namespace Prisma {
           count: {
             args: Prisma.QuestionPerformanceDossierCountArgs<ExtArgs>
             result: $Utils.Optional<QuestionPerformanceDossierCountAggregateOutputType> | number
+          }
+        }
+      }
+      Notification: {
+        payload: Prisma.$NotificationPayload<ExtArgs>
+        fields: Prisma.NotificationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NotificationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NotificationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          findFirst: {
+            args: Prisma.NotificationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NotificationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          findMany: {
+            args: Prisma.NotificationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+          }
+          create: {
+            args: Prisma.NotificationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          createMany: {
+            args: Prisma.NotificationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NotificationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+          }
+          delete: {
+            args: Prisma.NotificationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          update: {
+            args: Prisma.NotificationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          deleteMany: {
+            args: Prisma.NotificationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NotificationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.NotificationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          aggregate: {
+            args: Prisma.NotificationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNotification>
+          }
+          groupBy: {
+            args: Prisma.NotificationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NotificationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NotificationCountArgs<ExtArgs>
+            result: $Utils.Optional<NotificationCountAggregateOutputType> | number
           }
         }
       }
@@ -2314,6 +2486,7 @@ export namespace Prisma {
     logs: number
     improvementPlans: number
     questionDossiers: number
+    notifications: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2326,6 +2499,7 @@ export namespace Prisma {
     logs?: boolean | UserCountOutputTypeCountLogsArgs
     improvementPlans?: boolean | UserCountOutputTypeCountImprovementPlansArgs
     questionDossiers?: boolean | UserCountOutputTypeCountQuestionDossiersArgs
+    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   }
 
   // Custom InputTypes
@@ -2400,6 +2574,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountQuestionDossiersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: QuestionPerformanceDossierWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
   }
 
 
@@ -2771,6 +2952,7 @@ export namespace Prisma {
     logs?: boolean | User$logsArgs<ExtArgs>
     improvementPlans?: boolean | User$improvementPlansArgs<ExtArgs>
     questionDossiers?: boolean | User$questionDossiersArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2813,6 +2995,7 @@ export namespace Prisma {
     logs?: boolean | User$logsArgs<ExtArgs>
     improvementPlans?: boolean | User$improvementPlansArgs<ExtArgs>
     questionDossiers?: boolean | User$questionDossiersArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2830,6 +3013,7 @@ export namespace Prisma {
       logs: Prisma.$AuditLogPayload<ExtArgs>[]
       improvementPlans: Prisma.$AiImprovementPlanPayload<ExtArgs>[]
       questionDossiers: Prisma.$QuestionPerformanceDossierPayload<ExtArgs>[]
+      notifications: Prisma.$NotificationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3217,6 +3401,7 @@ export namespace Prisma {
     logs<T extends User$logsArgs<ExtArgs> = {}>(args?: Subset<T, User$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany"> | Null>
     improvementPlans<T extends User$improvementPlansArgs<ExtArgs> = {}>(args?: Subset<T, User$improvementPlansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiImprovementPlanPayload<ExtArgs>, T, "findMany"> | Null>
     questionDossiers<T extends User$questionDossiersArgs<ExtArgs> = {}>(args?: Subset<T, User$questionDossiersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuestionPerformanceDossierPayload<ExtArgs>, T, "findMany"> | Null>
+    notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3763,6 +3948,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: QuestionPerformanceDossierScalarFieldEnum | QuestionPerformanceDossierScalarFieldEnum[]
+  }
+
+  /**
+   * User.notifications
+   */
+  export type User$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    cursor?: NotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
   }
 
   /**
@@ -20638,6 +20843,942 @@ export namespace Prisma {
 
 
   /**
+   * Model SessionRecording
+   */
+
+  export type AggregateSessionRecording = {
+    _count: SessionRecordingCountAggregateOutputType | null
+    _avg: SessionRecordingAvgAggregateOutputType | null
+    _sum: SessionRecordingSumAggregateOutputType | null
+    _min: SessionRecordingMinAggregateOutputType | null
+    _max: SessionRecordingMaxAggregateOutputType | null
+  }
+
+  export type SessionRecordingAvgAggregateOutputType = {
+    durationSec: number | null
+  }
+
+  export type SessionRecordingSumAggregateOutputType = {
+    durationSec: number | null
+  }
+
+  export type SessionRecordingMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    simulationId: string | null
+    mediaUrl: string | null
+    durationSec: number | null
+    mimeType: string | null
+    createdAt: Date | null
+  }
+
+  export type SessionRecordingMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    simulationId: string | null
+    mediaUrl: string | null
+    durationSec: number | null
+    mimeType: string | null
+    createdAt: Date | null
+  }
+
+  export type SessionRecordingCountAggregateOutputType = {
+    id: number
+    userId: number
+    simulationId: number
+    mediaUrl: number
+    durationSec: number
+    mimeType: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SessionRecordingAvgAggregateInputType = {
+    durationSec?: true
+  }
+
+  export type SessionRecordingSumAggregateInputType = {
+    durationSec?: true
+  }
+
+  export type SessionRecordingMinAggregateInputType = {
+    id?: true
+    userId?: true
+    simulationId?: true
+    mediaUrl?: true
+    durationSec?: true
+    mimeType?: true
+    createdAt?: true
+  }
+
+  export type SessionRecordingMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    simulationId?: true
+    mediaUrl?: true
+    durationSec?: true
+    mimeType?: true
+    createdAt?: true
+  }
+
+  export type SessionRecordingCountAggregateInputType = {
+    id?: true
+    userId?: true
+    simulationId?: true
+    mediaUrl?: true
+    durationSec?: true
+    mimeType?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SessionRecordingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SessionRecording to aggregate.
+     */
+    where?: SessionRecordingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SessionRecordings to fetch.
+     */
+    orderBy?: SessionRecordingOrderByWithRelationInput | SessionRecordingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SessionRecordingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SessionRecordings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SessionRecordings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SessionRecordings
+    **/
+    _count?: true | SessionRecordingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SessionRecordingAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SessionRecordingSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SessionRecordingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SessionRecordingMaxAggregateInputType
+  }
+
+  export type GetSessionRecordingAggregateType<T extends SessionRecordingAggregateArgs> = {
+        [P in keyof T & keyof AggregateSessionRecording]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSessionRecording[P]>
+      : GetScalarType<T[P], AggregateSessionRecording[P]>
+  }
+
+
+
+
+  export type SessionRecordingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionRecordingWhereInput
+    orderBy?: SessionRecordingOrderByWithAggregationInput | SessionRecordingOrderByWithAggregationInput[]
+    by: SessionRecordingScalarFieldEnum[] | SessionRecordingScalarFieldEnum
+    having?: SessionRecordingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SessionRecordingCountAggregateInputType | true
+    _avg?: SessionRecordingAvgAggregateInputType
+    _sum?: SessionRecordingSumAggregateInputType
+    _min?: SessionRecordingMinAggregateInputType
+    _max?: SessionRecordingMaxAggregateInputType
+  }
+
+  export type SessionRecordingGroupByOutputType = {
+    id: string
+    userId: string
+    simulationId: string | null
+    mediaUrl: string
+    durationSec: number
+    mimeType: string
+    createdAt: Date
+    _count: SessionRecordingCountAggregateOutputType | null
+    _avg: SessionRecordingAvgAggregateOutputType | null
+    _sum: SessionRecordingSumAggregateOutputType | null
+    _min: SessionRecordingMinAggregateOutputType | null
+    _max: SessionRecordingMaxAggregateOutputType | null
+  }
+
+  type GetSessionRecordingGroupByPayload<T extends SessionRecordingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SessionRecordingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SessionRecordingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SessionRecordingGroupByOutputType[P]>
+            : GetScalarType<T[P], SessionRecordingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SessionRecordingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    simulationId?: boolean
+    mediaUrl?: boolean
+    durationSec?: boolean
+    mimeType?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["sessionRecording"]>
+
+  export type SessionRecordingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    simulationId?: boolean
+    mediaUrl?: boolean
+    durationSec?: boolean
+    mimeType?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["sessionRecording"]>
+
+  export type SessionRecordingSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    simulationId?: boolean
+    mediaUrl?: boolean
+    durationSec?: boolean
+    mimeType?: boolean
+    createdAt?: boolean
+  }
+
+
+  export type $SessionRecordingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SessionRecording"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      simulationId: string | null
+      mediaUrl: string
+      durationSec: number
+      mimeType: string
+      createdAt: Date
+    }, ExtArgs["result"]["sessionRecording"]>
+    composites: {}
+  }
+
+  type SessionRecordingGetPayload<S extends boolean | null | undefined | SessionRecordingDefaultArgs> = $Result.GetResult<Prisma.$SessionRecordingPayload, S>
+
+  type SessionRecordingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SessionRecordingFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SessionRecordingCountAggregateInputType | true
+    }
+
+  export interface SessionRecordingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SessionRecording'], meta: { name: 'SessionRecording' } }
+    /**
+     * Find zero or one SessionRecording that matches the filter.
+     * @param {SessionRecordingFindUniqueArgs} args - Arguments to find a SessionRecording
+     * @example
+     * // Get one SessionRecording
+     * const sessionRecording = await prisma.sessionRecording.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SessionRecordingFindUniqueArgs>(args: SelectSubset<T, SessionRecordingFindUniqueArgs<ExtArgs>>): Prisma__SessionRecordingClient<$Result.GetResult<Prisma.$SessionRecordingPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SessionRecording that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SessionRecordingFindUniqueOrThrowArgs} args - Arguments to find a SessionRecording
+     * @example
+     * // Get one SessionRecording
+     * const sessionRecording = await prisma.sessionRecording.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SessionRecordingFindUniqueOrThrowArgs>(args: SelectSubset<T, SessionRecordingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SessionRecordingClient<$Result.GetResult<Prisma.$SessionRecordingPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SessionRecording that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionRecordingFindFirstArgs} args - Arguments to find a SessionRecording
+     * @example
+     * // Get one SessionRecording
+     * const sessionRecording = await prisma.sessionRecording.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SessionRecordingFindFirstArgs>(args?: SelectSubset<T, SessionRecordingFindFirstArgs<ExtArgs>>): Prisma__SessionRecordingClient<$Result.GetResult<Prisma.$SessionRecordingPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SessionRecording that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionRecordingFindFirstOrThrowArgs} args - Arguments to find a SessionRecording
+     * @example
+     * // Get one SessionRecording
+     * const sessionRecording = await prisma.sessionRecording.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SessionRecordingFindFirstOrThrowArgs>(args?: SelectSubset<T, SessionRecordingFindFirstOrThrowArgs<ExtArgs>>): Prisma__SessionRecordingClient<$Result.GetResult<Prisma.$SessionRecordingPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SessionRecordings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionRecordingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SessionRecordings
+     * const sessionRecordings = await prisma.sessionRecording.findMany()
+     * 
+     * // Get first 10 SessionRecordings
+     * const sessionRecordings = await prisma.sessionRecording.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sessionRecordingWithIdOnly = await prisma.sessionRecording.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SessionRecordingFindManyArgs>(args?: SelectSubset<T, SessionRecordingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionRecordingPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SessionRecording.
+     * @param {SessionRecordingCreateArgs} args - Arguments to create a SessionRecording.
+     * @example
+     * // Create one SessionRecording
+     * const SessionRecording = await prisma.sessionRecording.create({
+     *   data: {
+     *     // ... data to create a SessionRecording
+     *   }
+     * })
+     * 
+     */
+    create<T extends SessionRecordingCreateArgs>(args: SelectSubset<T, SessionRecordingCreateArgs<ExtArgs>>): Prisma__SessionRecordingClient<$Result.GetResult<Prisma.$SessionRecordingPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SessionRecordings.
+     * @param {SessionRecordingCreateManyArgs} args - Arguments to create many SessionRecordings.
+     * @example
+     * // Create many SessionRecordings
+     * const sessionRecording = await prisma.sessionRecording.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SessionRecordingCreateManyArgs>(args?: SelectSubset<T, SessionRecordingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SessionRecordings and returns the data saved in the database.
+     * @param {SessionRecordingCreateManyAndReturnArgs} args - Arguments to create many SessionRecordings.
+     * @example
+     * // Create many SessionRecordings
+     * const sessionRecording = await prisma.sessionRecording.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SessionRecordings and only return the `id`
+     * const sessionRecordingWithIdOnly = await prisma.sessionRecording.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SessionRecordingCreateManyAndReturnArgs>(args?: SelectSubset<T, SessionRecordingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionRecordingPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SessionRecording.
+     * @param {SessionRecordingDeleteArgs} args - Arguments to delete one SessionRecording.
+     * @example
+     * // Delete one SessionRecording
+     * const SessionRecording = await prisma.sessionRecording.delete({
+     *   where: {
+     *     // ... filter to delete one SessionRecording
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SessionRecordingDeleteArgs>(args: SelectSubset<T, SessionRecordingDeleteArgs<ExtArgs>>): Prisma__SessionRecordingClient<$Result.GetResult<Prisma.$SessionRecordingPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SessionRecording.
+     * @param {SessionRecordingUpdateArgs} args - Arguments to update one SessionRecording.
+     * @example
+     * // Update one SessionRecording
+     * const sessionRecording = await prisma.sessionRecording.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SessionRecordingUpdateArgs>(args: SelectSubset<T, SessionRecordingUpdateArgs<ExtArgs>>): Prisma__SessionRecordingClient<$Result.GetResult<Prisma.$SessionRecordingPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SessionRecordings.
+     * @param {SessionRecordingDeleteManyArgs} args - Arguments to filter SessionRecordings to delete.
+     * @example
+     * // Delete a few SessionRecordings
+     * const { count } = await prisma.sessionRecording.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SessionRecordingDeleteManyArgs>(args?: SelectSubset<T, SessionRecordingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SessionRecordings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionRecordingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SessionRecordings
+     * const sessionRecording = await prisma.sessionRecording.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SessionRecordingUpdateManyArgs>(args: SelectSubset<T, SessionRecordingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SessionRecording.
+     * @param {SessionRecordingUpsertArgs} args - Arguments to update or create a SessionRecording.
+     * @example
+     * // Update or create a SessionRecording
+     * const sessionRecording = await prisma.sessionRecording.upsert({
+     *   create: {
+     *     // ... data to create a SessionRecording
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SessionRecording we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SessionRecordingUpsertArgs>(args: SelectSubset<T, SessionRecordingUpsertArgs<ExtArgs>>): Prisma__SessionRecordingClient<$Result.GetResult<Prisma.$SessionRecordingPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SessionRecordings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionRecordingCountArgs} args - Arguments to filter SessionRecordings to count.
+     * @example
+     * // Count the number of SessionRecordings
+     * const count = await prisma.sessionRecording.count({
+     *   where: {
+     *     // ... the filter for the SessionRecordings we want to count
+     *   }
+     * })
+    **/
+    count<T extends SessionRecordingCountArgs>(
+      args?: Subset<T, SessionRecordingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SessionRecordingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SessionRecording.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionRecordingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SessionRecordingAggregateArgs>(args: Subset<T, SessionRecordingAggregateArgs>): Prisma.PrismaPromise<GetSessionRecordingAggregateType<T>>
+
+    /**
+     * Group by SessionRecording.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionRecordingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SessionRecordingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SessionRecordingGroupByArgs['orderBy'] }
+        : { orderBy?: SessionRecordingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SessionRecordingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSessionRecordingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SessionRecording model
+   */
+  readonly fields: SessionRecordingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SessionRecording.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SessionRecordingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SessionRecording model
+   */ 
+  interface SessionRecordingFieldRefs {
+    readonly id: FieldRef<"SessionRecording", 'String'>
+    readonly userId: FieldRef<"SessionRecording", 'String'>
+    readonly simulationId: FieldRef<"SessionRecording", 'String'>
+    readonly mediaUrl: FieldRef<"SessionRecording", 'String'>
+    readonly durationSec: FieldRef<"SessionRecording", 'Int'>
+    readonly mimeType: FieldRef<"SessionRecording", 'String'>
+    readonly createdAt: FieldRef<"SessionRecording", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SessionRecording findUnique
+   */
+  export type SessionRecordingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionRecording
+     */
+    select?: SessionRecordingSelect<ExtArgs> | null
+    /**
+     * Filter, which SessionRecording to fetch.
+     */
+    where: SessionRecordingWhereUniqueInput
+  }
+
+  /**
+   * SessionRecording findUniqueOrThrow
+   */
+  export type SessionRecordingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionRecording
+     */
+    select?: SessionRecordingSelect<ExtArgs> | null
+    /**
+     * Filter, which SessionRecording to fetch.
+     */
+    where: SessionRecordingWhereUniqueInput
+  }
+
+  /**
+   * SessionRecording findFirst
+   */
+  export type SessionRecordingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionRecording
+     */
+    select?: SessionRecordingSelect<ExtArgs> | null
+    /**
+     * Filter, which SessionRecording to fetch.
+     */
+    where?: SessionRecordingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SessionRecordings to fetch.
+     */
+    orderBy?: SessionRecordingOrderByWithRelationInput | SessionRecordingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SessionRecordings.
+     */
+    cursor?: SessionRecordingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SessionRecordings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SessionRecordings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SessionRecordings.
+     */
+    distinct?: SessionRecordingScalarFieldEnum | SessionRecordingScalarFieldEnum[]
+  }
+
+  /**
+   * SessionRecording findFirstOrThrow
+   */
+  export type SessionRecordingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionRecording
+     */
+    select?: SessionRecordingSelect<ExtArgs> | null
+    /**
+     * Filter, which SessionRecording to fetch.
+     */
+    where?: SessionRecordingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SessionRecordings to fetch.
+     */
+    orderBy?: SessionRecordingOrderByWithRelationInput | SessionRecordingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SessionRecordings.
+     */
+    cursor?: SessionRecordingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SessionRecordings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SessionRecordings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SessionRecordings.
+     */
+    distinct?: SessionRecordingScalarFieldEnum | SessionRecordingScalarFieldEnum[]
+  }
+
+  /**
+   * SessionRecording findMany
+   */
+  export type SessionRecordingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionRecording
+     */
+    select?: SessionRecordingSelect<ExtArgs> | null
+    /**
+     * Filter, which SessionRecordings to fetch.
+     */
+    where?: SessionRecordingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SessionRecordings to fetch.
+     */
+    orderBy?: SessionRecordingOrderByWithRelationInput | SessionRecordingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SessionRecordings.
+     */
+    cursor?: SessionRecordingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SessionRecordings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SessionRecordings.
+     */
+    skip?: number
+    distinct?: SessionRecordingScalarFieldEnum | SessionRecordingScalarFieldEnum[]
+  }
+
+  /**
+   * SessionRecording create
+   */
+  export type SessionRecordingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionRecording
+     */
+    select?: SessionRecordingSelect<ExtArgs> | null
+    /**
+     * The data needed to create a SessionRecording.
+     */
+    data: XOR<SessionRecordingCreateInput, SessionRecordingUncheckedCreateInput>
+  }
+
+  /**
+   * SessionRecording createMany
+   */
+  export type SessionRecordingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SessionRecordings.
+     */
+    data: SessionRecordingCreateManyInput | SessionRecordingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SessionRecording createManyAndReturn
+   */
+  export type SessionRecordingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionRecording
+     */
+    select?: SessionRecordingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SessionRecordings.
+     */
+    data: SessionRecordingCreateManyInput | SessionRecordingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SessionRecording update
+   */
+  export type SessionRecordingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionRecording
+     */
+    select?: SessionRecordingSelect<ExtArgs> | null
+    /**
+     * The data needed to update a SessionRecording.
+     */
+    data: XOR<SessionRecordingUpdateInput, SessionRecordingUncheckedUpdateInput>
+    /**
+     * Choose, which SessionRecording to update.
+     */
+    where: SessionRecordingWhereUniqueInput
+  }
+
+  /**
+   * SessionRecording updateMany
+   */
+  export type SessionRecordingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SessionRecordings.
+     */
+    data: XOR<SessionRecordingUpdateManyMutationInput, SessionRecordingUncheckedUpdateManyInput>
+    /**
+     * Filter which SessionRecordings to update
+     */
+    where?: SessionRecordingWhereInput
+  }
+
+  /**
+   * SessionRecording upsert
+   */
+  export type SessionRecordingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionRecording
+     */
+    select?: SessionRecordingSelect<ExtArgs> | null
+    /**
+     * The filter to search for the SessionRecording to update in case it exists.
+     */
+    where: SessionRecordingWhereUniqueInput
+    /**
+     * In case the SessionRecording found by the `where` argument doesn't exist, create a new SessionRecording with this data.
+     */
+    create: XOR<SessionRecordingCreateInput, SessionRecordingUncheckedCreateInput>
+    /**
+     * In case the SessionRecording was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SessionRecordingUpdateInput, SessionRecordingUncheckedUpdateInput>
+  }
+
+  /**
+   * SessionRecording delete
+   */
+  export type SessionRecordingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionRecording
+     */
+    select?: SessionRecordingSelect<ExtArgs> | null
+    /**
+     * Filter which SessionRecording to delete.
+     */
+    where: SessionRecordingWhereUniqueInput
+  }
+
+  /**
+   * SessionRecording deleteMany
+   */
+  export type SessionRecordingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SessionRecordings to delete
+     */
+    where?: SessionRecordingWhereInput
+  }
+
+  /**
+   * SessionRecording without action
+   */
+  export type SessionRecordingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionRecording
+     */
+    select?: SessionRecordingSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Model QuestionPerformanceDossier
    */
 
@@ -21824,6 +22965,975 @@ export namespace Prisma {
 
 
   /**
+   * Model Notification
+   */
+
+  export type AggregateNotification = {
+    _count: NotificationCountAggregateOutputType | null
+    _min: NotificationMinAggregateOutputType | null
+    _max: NotificationMaxAggregateOutputType | null
+  }
+
+  export type NotificationMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    title: string | null
+    message: string | null
+    type: string | null
+    isRead: boolean | null
+    linkUrl: string | null
+    createdAt: Date | null
+  }
+
+  export type NotificationMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    title: string | null
+    message: string | null
+    type: string | null
+    isRead: boolean | null
+    linkUrl: string | null
+    createdAt: Date | null
+  }
+
+  export type NotificationCountAggregateOutputType = {
+    id: number
+    userId: number
+    title: number
+    message: number
+    type: number
+    isRead: number
+    linkUrl: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type NotificationMinAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    message?: true
+    type?: true
+    isRead?: true
+    linkUrl?: true
+    createdAt?: true
+  }
+
+  export type NotificationMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    message?: true
+    type?: true
+    isRead?: true
+    linkUrl?: true
+    createdAt?: true
+  }
+
+  export type NotificationCountAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    message?: true
+    type?: true
+    isRead?: true
+    linkUrl?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type NotificationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Notification to aggregate.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Notifications
+    **/
+    _count?: true | NotificationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NotificationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NotificationMaxAggregateInputType
+  }
+
+  export type GetNotificationAggregateType<T extends NotificationAggregateArgs> = {
+        [P in keyof T & keyof AggregateNotification]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNotification[P]>
+      : GetScalarType<T[P], AggregateNotification[P]>
+  }
+
+
+
+
+  export type NotificationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithAggregationInput | NotificationOrderByWithAggregationInput[]
+    by: NotificationScalarFieldEnum[] | NotificationScalarFieldEnum
+    having?: NotificationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NotificationCountAggregateInputType | true
+    _min?: NotificationMinAggregateInputType
+    _max?: NotificationMaxAggregateInputType
+  }
+
+  export type NotificationGroupByOutputType = {
+    id: string
+    userId: string
+    title: string
+    message: string
+    type: string
+    isRead: boolean
+    linkUrl: string | null
+    createdAt: Date
+    _count: NotificationCountAggregateOutputType | null
+    _min: NotificationMinAggregateOutputType | null
+    _max: NotificationMaxAggregateOutputType | null
+  }
+
+  type GetNotificationGroupByPayload<T extends NotificationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NotificationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NotificationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NotificationGroupByOutputType[P]>
+            : GetScalarType<T[P], NotificationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NotificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    type?: boolean
+    isRead?: boolean
+    linkUrl?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notification"]>
+
+  export type NotificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    type?: boolean
+    isRead?: boolean
+    linkUrl?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notification"]>
+
+  export type NotificationSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    type?: boolean
+    isRead?: boolean
+    linkUrl?: boolean
+    createdAt?: boolean
+  }
+
+  export type NotificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type NotificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $NotificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Notification"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      title: string
+      message: string
+      type: string
+      isRead: boolean
+      linkUrl: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["notification"]>
+    composites: {}
+  }
+
+  type NotificationGetPayload<S extends boolean | null | undefined | NotificationDefaultArgs> = $Result.GetResult<Prisma.$NotificationPayload, S>
+
+  type NotificationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<NotificationFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: NotificationCountAggregateInputType | true
+    }
+
+  export interface NotificationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Notification'], meta: { name: 'Notification' } }
+    /**
+     * Find zero or one Notification that matches the filter.
+     * @param {NotificationFindUniqueArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NotificationFindUniqueArgs>(args: SelectSubset<T, NotificationFindUniqueArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Notification that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {NotificationFindUniqueOrThrowArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NotificationFindUniqueOrThrowArgs>(args: SelectSubset<T, NotificationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Notification that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationFindFirstArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NotificationFindFirstArgs>(args?: SelectSubset<T, NotificationFindFirstArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Notification that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationFindFirstOrThrowArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NotificationFindFirstOrThrowArgs>(args?: SelectSubset<T, NotificationFindFirstOrThrowArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Notifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Notifications
+     * const notifications = await prisma.notification.findMany()
+     * 
+     * // Get first 10 Notifications
+     * const notifications = await prisma.notification.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const notificationWithIdOnly = await prisma.notification.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NotificationFindManyArgs>(args?: SelectSubset<T, NotificationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Notification.
+     * @param {NotificationCreateArgs} args - Arguments to create a Notification.
+     * @example
+     * // Create one Notification
+     * const Notification = await prisma.notification.create({
+     *   data: {
+     *     // ... data to create a Notification
+     *   }
+     * })
+     * 
+     */
+    create<T extends NotificationCreateArgs>(args: SelectSubset<T, NotificationCreateArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Notifications.
+     * @param {NotificationCreateManyArgs} args - Arguments to create many Notifications.
+     * @example
+     * // Create many Notifications
+     * const notification = await prisma.notification.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NotificationCreateManyArgs>(args?: SelectSubset<T, NotificationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Notifications and returns the data saved in the database.
+     * @param {NotificationCreateManyAndReturnArgs} args - Arguments to create many Notifications.
+     * @example
+     * // Create many Notifications
+     * const notification = await prisma.notification.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Notifications and only return the `id`
+     * const notificationWithIdOnly = await prisma.notification.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NotificationCreateManyAndReturnArgs>(args?: SelectSubset<T, NotificationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Notification.
+     * @param {NotificationDeleteArgs} args - Arguments to delete one Notification.
+     * @example
+     * // Delete one Notification
+     * const Notification = await prisma.notification.delete({
+     *   where: {
+     *     // ... filter to delete one Notification
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NotificationDeleteArgs>(args: SelectSubset<T, NotificationDeleteArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Notification.
+     * @param {NotificationUpdateArgs} args - Arguments to update one Notification.
+     * @example
+     * // Update one Notification
+     * const notification = await prisma.notification.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NotificationUpdateArgs>(args: SelectSubset<T, NotificationUpdateArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Notifications.
+     * @param {NotificationDeleteManyArgs} args - Arguments to filter Notifications to delete.
+     * @example
+     * // Delete a few Notifications
+     * const { count } = await prisma.notification.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NotificationDeleteManyArgs>(args?: SelectSubset<T, NotificationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Notifications
+     * const notification = await prisma.notification.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NotificationUpdateManyArgs>(args: SelectSubset<T, NotificationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Notification.
+     * @param {NotificationUpsertArgs} args - Arguments to update or create a Notification.
+     * @example
+     * // Update or create a Notification
+     * const notification = await prisma.notification.upsert({
+     *   create: {
+     *     // ... data to create a Notification
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Notification we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NotificationUpsertArgs>(args: SelectSubset<T, NotificationUpsertArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationCountArgs} args - Arguments to filter Notifications to count.
+     * @example
+     * // Count the number of Notifications
+     * const count = await prisma.notification.count({
+     *   where: {
+     *     // ... the filter for the Notifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends NotificationCountArgs>(
+      args?: Subset<T, NotificationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NotificationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Notification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NotificationAggregateArgs>(args: Subset<T, NotificationAggregateArgs>): Prisma.PrismaPromise<GetNotificationAggregateType<T>>
+
+    /**
+     * Group by Notification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NotificationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NotificationGroupByArgs['orderBy'] }
+        : { orderBy?: NotificationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NotificationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNotificationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Notification model
+   */
+  readonly fields: NotificationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Notification.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NotificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Notification model
+   */ 
+  interface NotificationFieldRefs {
+    readonly id: FieldRef<"Notification", 'String'>
+    readonly userId: FieldRef<"Notification", 'String'>
+    readonly title: FieldRef<"Notification", 'String'>
+    readonly message: FieldRef<"Notification", 'String'>
+    readonly type: FieldRef<"Notification", 'String'>
+    readonly isRead: FieldRef<"Notification", 'Boolean'>
+    readonly linkUrl: FieldRef<"Notification", 'String'>
+    readonly createdAt: FieldRef<"Notification", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Notification findUnique
+   */
+  export type NotificationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification findUniqueOrThrow
+   */
+  export type NotificationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification findFirst
+   */
+  export type NotificationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Notifications.
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Notifications.
+     */
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Notification findFirstOrThrow
+   */
+  export type NotificationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Notifications.
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Notifications.
+     */
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Notification findMany
+   */
+  export type NotificationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notifications to fetch.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Notifications.
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Notification create
+   */
+  export type NotificationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Notification.
+     */
+    data: XOR<NotificationCreateInput, NotificationUncheckedCreateInput>
+  }
+
+  /**
+   * Notification createMany
+   */
+  export type NotificationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Notifications.
+     */
+    data: NotificationCreateManyInput | NotificationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Notification createManyAndReturn
+   */
+  export type NotificationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Notifications.
+     */
+    data: NotificationCreateManyInput | NotificationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Notification update
+   */
+  export type NotificationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Notification.
+     */
+    data: XOR<NotificationUpdateInput, NotificationUncheckedUpdateInput>
+    /**
+     * Choose, which Notification to update.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification updateMany
+   */
+  export type NotificationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Notifications.
+     */
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyInput>
+    /**
+     * Filter which Notifications to update
+     */
+    where?: NotificationWhereInput
+  }
+
+  /**
+   * Notification upsert
+   */
+  export type NotificationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Notification to update in case it exists.
+     */
+    where: NotificationWhereUniqueInput
+    /**
+     * In case the Notification found by the `where` argument doesn't exist, create a new Notification with this data.
+     */
+    create: XOR<NotificationCreateInput, NotificationUncheckedCreateInput>
+    /**
+     * In case the Notification was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NotificationUpdateInput, NotificationUncheckedUpdateInput>
+  }
+
+  /**
+   * Notification delete
+   */
+  export type NotificationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter which Notification to delete.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification deleteMany
+   */
+  export type NotificationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Notifications to delete
+     */
+    where?: NotificationWhereInput
+  }
+
+  /**
+   * Notification without action
+   */
+  export type NotificationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -22128,6 +24238,19 @@ export namespace Prisma {
   export type PlanDayScheduleScalarFieldEnum = (typeof PlanDayScheduleScalarFieldEnum)[keyof typeof PlanDayScheduleScalarFieldEnum]
 
 
+  export const SessionRecordingScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    simulationId: 'simulationId',
+    mediaUrl: 'mediaUrl',
+    durationSec: 'durationSec',
+    mimeType: 'mimeType',
+    createdAt: 'createdAt'
+  };
+
+  export type SessionRecordingScalarFieldEnum = (typeof SessionRecordingScalarFieldEnum)[keyof typeof SessionRecordingScalarFieldEnum]
+
+
   export const QuestionPerformanceDossierScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -22153,6 +24276,20 @@ export namespace Prisma {
   };
 
   export type QuestionPerformanceDossierScalarFieldEnum = (typeof QuestionPerformanceDossierScalarFieldEnum)[keyof typeof QuestionPerformanceDossierScalarFieldEnum]
+
+
+  export const NotificationScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    title: 'title',
+    message: 'message',
+    type: 'type',
+    isRead: 'isRead',
+    linkUrl: 'linkUrl',
+    createdAt: 'createdAt'
+  };
+
+  export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -22306,6 +24443,7 @@ export namespace Prisma {
     logs?: AuditLogListRelationFilter
     improvementPlans?: AiImprovementPlanListRelationFilter
     questionDossiers?: QuestionPerformanceDossierListRelationFilter
+    notifications?: NotificationListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -22330,6 +24468,7 @@ export namespace Prisma {
     logs?: AuditLogOrderByRelationAggregateInput
     improvementPlans?: AiImprovementPlanOrderByRelationAggregateInput
     questionDossiers?: QuestionPerformanceDossierOrderByRelationAggregateInput
+    notifications?: NotificationOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -22357,6 +24496,7 @@ export namespace Prisma {
     logs?: AuditLogListRelationFilter
     improvementPlans?: AiImprovementPlanListRelationFilter
     questionDossiers?: QuestionPerformanceDossierListRelationFilter
+    notifications?: NotificationListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -23805,6 +25945,70 @@ export namespace Prisma {
     order?: IntWithAggregatesFilter<"PlanDaySchedule"> | number
   }
 
+  export type SessionRecordingWhereInput = {
+    AND?: SessionRecordingWhereInput | SessionRecordingWhereInput[]
+    OR?: SessionRecordingWhereInput[]
+    NOT?: SessionRecordingWhereInput | SessionRecordingWhereInput[]
+    id?: StringFilter<"SessionRecording"> | string
+    userId?: StringFilter<"SessionRecording"> | string
+    simulationId?: StringNullableFilter<"SessionRecording"> | string | null
+    mediaUrl?: StringFilter<"SessionRecording"> | string
+    durationSec?: IntFilter<"SessionRecording"> | number
+    mimeType?: StringFilter<"SessionRecording"> | string
+    createdAt?: DateTimeFilter<"SessionRecording"> | Date | string
+  }
+
+  export type SessionRecordingOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    simulationId?: SortOrderInput | SortOrder
+    mediaUrl?: SortOrder
+    durationSec?: SortOrder
+    mimeType?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SessionRecordingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SessionRecordingWhereInput | SessionRecordingWhereInput[]
+    OR?: SessionRecordingWhereInput[]
+    NOT?: SessionRecordingWhereInput | SessionRecordingWhereInput[]
+    userId?: StringFilter<"SessionRecording"> | string
+    simulationId?: StringNullableFilter<"SessionRecording"> | string | null
+    mediaUrl?: StringFilter<"SessionRecording"> | string
+    durationSec?: IntFilter<"SessionRecording"> | number
+    mimeType?: StringFilter<"SessionRecording"> | string
+    createdAt?: DateTimeFilter<"SessionRecording"> | Date | string
+  }, "id">
+
+  export type SessionRecordingOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    simulationId?: SortOrderInput | SortOrder
+    mediaUrl?: SortOrder
+    durationSec?: SortOrder
+    mimeType?: SortOrder
+    createdAt?: SortOrder
+    _count?: SessionRecordingCountOrderByAggregateInput
+    _avg?: SessionRecordingAvgOrderByAggregateInput
+    _max?: SessionRecordingMaxOrderByAggregateInput
+    _min?: SessionRecordingMinOrderByAggregateInput
+    _sum?: SessionRecordingSumOrderByAggregateInput
+  }
+
+  export type SessionRecordingScalarWhereWithAggregatesInput = {
+    AND?: SessionRecordingScalarWhereWithAggregatesInput | SessionRecordingScalarWhereWithAggregatesInput[]
+    OR?: SessionRecordingScalarWhereWithAggregatesInput[]
+    NOT?: SessionRecordingScalarWhereWithAggregatesInput | SessionRecordingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SessionRecording"> | string
+    userId?: StringWithAggregatesFilter<"SessionRecording"> | string
+    simulationId?: StringNullableWithAggregatesFilter<"SessionRecording"> | string | null
+    mediaUrl?: StringWithAggregatesFilter<"SessionRecording"> | string
+    durationSec?: IntWithAggregatesFilter<"SessionRecording"> | number
+    mimeType?: StringWithAggregatesFilter<"SessionRecording"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SessionRecording"> | Date | string
+  }
+
   export type QuestionPerformanceDossierWhereInput = {
     AND?: QuestionPerformanceDossierWhereInput | QuestionPerformanceDossierWhereInput[]
     OR?: QuestionPerformanceDossierWhereInput[]
@@ -23942,6 +26146,76 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"QuestionPerformanceDossier"> | Date | string
   }
 
+  export type NotificationWhereInput = {
+    AND?: NotificationWhereInput | NotificationWhereInput[]
+    OR?: NotificationWhereInput[]
+    NOT?: NotificationWhereInput | NotificationWhereInput[]
+    id?: StringFilter<"Notification"> | string
+    userId?: StringFilter<"Notification"> | string
+    title?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    type?: StringFilter<"Notification"> | string
+    isRead?: BoolFilter<"Notification"> | boolean
+    linkUrl?: StringNullableFilter<"Notification"> | string | null
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type NotificationOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    isRead?: SortOrder
+    linkUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type NotificationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: NotificationWhereInput | NotificationWhereInput[]
+    OR?: NotificationWhereInput[]
+    NOT?: NotificationWhereInput | NotificationWhereInput[]
+    userId?: StringFilter<"Notification"> | string
+    title?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    type?: StringFilter<"Notification"> | string
+    isRead?: BoolFilter<"Notification"> | boolean
+    linkUrl?: StringNullableFilter<"Notification"> | string | null
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type NotificationOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    isRead?: SortOrder
+    linkUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: NotificationCountOrderByAggregateInput
+    _max?: NotificationMaxOrderByAggregateInput
+    _min?: NotificationMinOrderByAggregateInput
+  }
+
+  export type NotificationScalarWhereWithAggregatesInput = {
+    AND?: NotificationScalarWhereWithAggregatesInput | NotificationScalarWhereWithAggregatesInput[]
+    OR?: NotificationScalarWhereWithAggregatesInput[]
+    NOT?: NotificationScalarWhereWithAggregatesInput | NotificationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Notification"> | string
+    userId?: StringWithAggregatesFilter<"Notification"> | string
+    title?: StringWithAggregatesFilter<"Notification"> | string
+    message?: StringWithAggregatesFilter<"Notification"> | string
+    type?: StringWithAggregatesFilter<"Notification"> | string
+    isRead?: BoolWithAggregatesFilter<"Notification"> | boolean
+    linkUrl?: StringNullableWithAggregatesFilter<"Notification"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -23964,6 +26238,7 @@ export namespace Prisma {
     logs?: AuditLogCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -23988,6 +26263,7 @@ export namespace Prisma {
     logs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanUncheckedCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -24012,6 +26288,7 @@ export namespace Prisma {
     logs?: AuditLogUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -24036,6 +26313,7 @@ export namespace Prisma {
     logs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUncheckedUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -25671,6 +27949,76 @@ export namespace Prisma {
     order?: IntFieldUpdateOperationsInput | number
   }
 
+  export type SessionRecordingCreateInput = {
+    id?: string
+    userId: string
+    simulationId?: string | null
+    mediaUrl: string
+    durationSec?: number
+    mimeType?: string
+    createdAt?: Date | string
+  }
+
+  export type SessionRecordingUncheckedCreateInput = {
+    id?: string
+    userId: string
+    simulationId?: string | null
+    mediaUrl: string
+    durationSec?: number
+    mimeType?: string
+    createdAt?: Date | string
+  }
+
+  export type SessionRecordingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    simulationId?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrl?: StringFieldUpdateOperationsInput | string
+    durationSec?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionRecordingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    simulationId?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrl?: StringFieldUpdateOperationsInput | string
+    durationSec?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionRecordingCreateManyInput = {
+    id?: string
+    userId: string
+    simulationId?: string | null
+    mediaUrl: string
+    durationSec?: number
+    mimeType?: string
+    createdAt?: Date | string
+  }
+
+  export type SessionRecordingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    simulationId?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrl?: StringFieldUpdateOperationsInput | string
+    durationSec?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionRecordingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    simulationId?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrl?: StringFieldUpdateOperationsInput | string
+    durationSec?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type QuestionPerformanceDossierCreateInput = {
     id?: string
     questionNumber: number
@@ -25838,6 +28186,82 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type NotificationCreateInput = {
+    id?: string
+    title: string
+    message: string
+    type?: string
+    isRead?: boolean
+    linkUrl?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutNotificationsInput
+  }
+
+  export type NotificationUncheckedCreateInput = {
+    id?: string
+    userId: string
+    title: string
+    message: string
+    type?: string
+    isRead?: boolean
+    linkUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type NotificationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNotificationsNestedInput
+  }
+
+  export type NotificationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationCreateManyInput = {
+    id?: string
+    userId: string
+    title: string
+    message: string
+    type?: string
+    isRead?: boolean
+    linkUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type NotificationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -25943,6 +28367,12 @@ export namespace Prisma {
     none?: QuestionPerformanceDossierWhereInput
   }
 
+  export type NotificationListRelationFilter = {
+    every?: NotificationWhereInput
+    some?: NotificationWhereInput
+    none?: NotificationWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -25981,6 +28411,10 @@ export namespace Prisma {
   }
 
   export type QuestionPerformanceDossierOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NotificationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -27185,6 +29619,44 @@ export namespace Prisma {
     durationMin?: SortOrder
     order?: SortOrder
   }
+
+  export type SessionRecordingCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    simulationId?: SortOrder
+    mediaUrl?: SortOrder
+    durationSec?: SortOrder
+    mimeType?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SessionRecordingAvgOrderByAggregateInput = {
+    durationSec?: SortOrder
+  }
+
+  export type SessionRecordingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    simulationId?: SortOrder
+    mediaUrl?: SortOrder
+    durationSec?: SortOrder
+    mimeType?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SessionRecordingMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    simulationId?: SortOrder
+    mediaUrl?: SortOrder
+    durationSec?: SortOrder
+    mimeType?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SessionRecordingSumOrderByAggregateInput = {
+    durationSec?: SortOrder
+  }
   export type JsonNullableFilter<$PrismaModel = never> = 
     | PatchUndefined<
         Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -27319,6 +29791,39 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
+  export type NotificationCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    isRead?: SortOrder
+    linkUrl?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NotificationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    isRead?: SortOrder
+    linkUrl?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NotificationMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    isRead?: SortOrder
+    linkUrl?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type ConversationCreateNestedManyWithoutUserInput = {
     create?: XOR<ConversationCreateWithoutUserInput, ConversationUncheckedCreateWithoutUserInput> | ConversationCreateWithoutUserInput[] | ConversationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ConversationCreateOrConnectWithoutUserInput | ConversationCreateOrConnectWithoutUserInput[]
@@ -27388,6 +29893,13 @@ export namespace Prisma {
     connect?: QuestionPerformanceDossierWhereUniqueInput | QuestionPerformanceDossierWhereUniqueInput[]
   }
 
+  export type NotificationCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
   export type ConversationUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ConversationCreateWithoutUserInput, ConversationUncheckedCreateWithoutUserInput> | ConversationCreateWithoutUserInput[] | ConversationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ConversationCreateOrConnectWithoutUserInput | ConversationCreateOrConnectWithoutUserInput[]
@@ -27455,6 +29967,13 @@ export namespace Prisma {
     connectOrCreate?: QuestionPerformanceDossierCreateOrConnectWithoutUserInput | QuestionPerformanceDossierCreateOrConnectWithoutUserInput[]
     createMany?: QuestionPerformanceDossierCreateManyUserInputEnvelope
     connect?: QuestionPerformanceDossierWhereUniqueInput | QuestionPerformanceDossierWhereUniqueInput[]
+  }
+
+  export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -27609,6 +30128,20 @@ export namespace Prisma {
     deleteMany?: QuestionPerformanceDossierScalarWhereInput | QuestionPerformanceDossierScalarWhereInput[]
   }
 
+  export type NotificationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
   export type ConversationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ConversationCreateWithoutUserInput, ConversationUncheckedCreateWithoutUserInput> | ConversationCreateWithoutUserInput[] | ConversationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ConversationCreateOrConnectWithoutUserInput | ConversationCreateOrConnectWithoutUserInput[]
@@ -27743,6 +30276,20 @@ export namespace Prisma {
     update?: QuestionPerformanceDossierUpdateWithWhereUniqueWithoutUserInput | QuestionPerformanceDossierUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: QuestionPerformanceDossierUpdateManyWithWhereWithoutUserInput | QuestionPerformanceDossierUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: QuestionPerformanceDossierScalarWhereInput | QuestionPerformanceDossierScalarWhereInput[]
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutConversationsInput = {
@@ -28382,6 +30929,20 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutQuestionDossiersInput, UserUpdateWithoutQuestionDossiersInput>, UserUncheckedUpdateWithoutQuestionDossiersInput>
+  }
+
+  export type UserCreateNestedOneWithoutNotificationsInput = {
+    create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+    create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
+    upsert?: UserUpsertWithoutNotificationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsInput, UserUpdateWithoutNotificationsInput>, UserUncheckedUpdateWithoutNotificationsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -29067,6 +31628,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type NotificationCreateWithoutUserInput = {
+    id?: string
+    title: string
+    message: string
+    type?: string
+    isRead?: boolean
+    linkUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type NotificationUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    message: string
+    type?: string
+    isRead?: boolean
+    linkUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type NotificationCreateOrConnectWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationCreateManyUserInputEnvelope = {
+    data: NotificationCreateManyUserInput | NotificationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ConversationUpsertWithWhereUniqueWithoutUserInput = {
     where: ConversationWhereUniqueInput
     update: XOR<ConversationUpdateWithoutUserInput, ConversationUncheckedUpdateWithoutUserInput>
@@ -29445,6 +32036,36 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"QuestionPerformanceDossier"> | Date | string
   }
 
+  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutUserInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type NotificationScalarWhereInput = {
+    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    OR?: NotificationScalarWhereInput[]
+    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    id?: StringFilter<"Notification"> | string
+    userId?: StringFilter<"Notification"> | string
+    title?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    type?: StringFilter<"Notification"> | string
+    isRead?: BoolFilter<"Notification"> | boolean
+    linkUrl?: StringNullableFilter<"Notification"> | string | null
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+  }
+
   export type UserCreateWithoutConversationsInput = {
     id?: string
     email: string
@@ -29466,6 +32087,7 @@ export namespace Prisma {
     logs?: AuditLogCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutConversationsInput = {
@@ -29489,6 +32111,7 @@ export namespace Prisma {
     logs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanUncheckedCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutConversationsInput = {
@@ -29554,6 +32177,7 @@ export namespace Prisma {
     logs?: AuditLogUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationsInput = {
@@ -29577,6 +32201,7 @@ export namespace Prisma {
     logs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUncheckedUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MessageUpsertWithWhereUniqueWithoutConversationInput = {
@@ -29676,6 +32301,7 @@ export namespace Prisma {
     logs?: AuditLogCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSimulationsInput = {
@@ -29699,6 +32325,7 @@ export namespace Prisma {
     logs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanUncheckedCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSimulationsInput = {
@@ -29770,6 +32397,7 @@ export namespace Prisma {
     logs?: AuditLogUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSimulationsInput = {
@@ -29793,6 +32421,7 @@ export namespace Prisma {
     logs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUncheckedUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SimulationAnswerUpsertWithWhereUniqueWithoutSessionInput = {
@@ -29939,6 +32568,7 @@ export namespace Prisma {
     logs?: AuditLogCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutResumesInput = {
@@ -29962,6 +32592,7 @@ export namespace Prisma {
     logs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanUncheckedCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutResumesInput = {
@@ -30001,6 +32632,7 @@ export namespace Prisma {
     logs?: AuditLogUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutResumesInput = {
@@ -30024,6 +32656,7 @@ export namespace Prisma {
     logs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUncheckedUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutDiagnosticsInput = {
@@ -30047,6 +32680,7 @@ export namespace Prisma {
     logs?: AuditLogCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDiagnosticsInput = {
@@ -30070,6 +32704,7 @@ export namespace Prisma {
     logs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanUncheckedCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDiagnosticsInput = {
@@ -30147,6 +32782,7 @@ export namespace Prisma {
     logs?: AuditLogUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDiagnosticsInput = {
@@ -30170,6 +32806,7 @@ export namespace Prisma {
     logs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUncheckedUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DiagnosticPromptResponseUpsertWithWhereUniqueWithoutIntakeInput = {
@@ -30319,6 +32956,7 @@ export namespace Prisma {
     logs?: AuditLogCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProfileAnalysesInput = {
@@ -30342,6 +32980,7 @@ export namespace Prisma {
     logs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanUncheckedCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProfileAnalysesInput = {
@@ -30381,6 +33020,7 @@ export namespace Prisma {
     logs?: AuditLogUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfileAnalysesInput = {
@@ -30404,6 +33044,7 @@ export namespace Prisma {
     logs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUncheckedUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSavedTracksInput = {
@@ -30427,6 +33068,7 @@ export namespace Prisma {
     logs?: AuditLogCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSavedTracksInput = {
@@ -30450,6 +33092,7 @@ export namespace Prisma {
     logs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanUncheckedCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSavedTracksInput = {
@@ -30489,6 +33132,7 @@ export namespace Prisma {
     logs?: AuditLogUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSavedTracksInput = {
@@ -30512,6 +33156,7 @@ export namespace Prisma {
     logs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUncheckedUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutLogsInput = {
@@ -30535,6 +33180,7 @@ export namespace Prisma {
     savedTracks?: UserSavedTrackCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLogsInput = {
@@ -30558,6 +33204,7 @@ export namespace Prisma {
     savedTracks?: UserSavedTrackUncheckedCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanUncheckedCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLogsInput = {
@@ -30597,6 +33244,7 @@ export namespace Prisma {
     savedTracks?: UserSavedTrackUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLogsInput = {
@@ -30620,6 +33268,7 @@ export namespace Prisma {
     savedTracks?: UserSavedTrackUncheckedUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUncheckedUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutCandidateProfileInput = {
@@ -30643,6 +33292,7 @@ export namespace Prisma {
     logs?: AuditLogCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCandidateProfileInput = {
@@ -30666,6 +33316,7 @@ export namespace Prisma {
     logs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanUncheckedCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCandidateProfileInput = {
@@ -30705,6 +33356,7 @@ export namespace Prisma {
     logs?: AuditLogUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCandidateProfileInput = {
@@ -30728,6 +33380,7 @@ export namespace Prisma {
     logs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUncheckedUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutImprovementPlansInput = {
@@ -30751,6 +33404,7 @@ export namespace Prisma {
     savedTracks?: UserSavedTrackCreateNestedManyWithoutUserInput
     logs?: AuditLogCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutImprovementPlansInput = {
@@ -30774,6 +33428,7 @@ export namespace Prisma {
     savedTracks?: UserSavedTrackUncheckedCreateNestedManyWithoutUserInput
     logs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     questionDossiers?: QuestionPerformanceDossierUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutImprovementPlansInput = {
@@ -30903,6 +33558,7 @@ export namespace Prisma {
     savedTracks?: UserSavedTrackUpdateManyWithoutUserNestedInput
     logs?: AuditLogUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutImprovementPlansInput = {
@@ -30926,6 +33582,7 @@ export namespace Prisma {
     savedTracks?: UserSavedTrackUncheckedUpdateManyWithoutUserNestedInput
     logs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     questionDossiers?: QuestionPerformanceDossierUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PlanPracticeVectorUpsertWithWhereUniqueWithoutPlanInput = {
@@ -31399,6 +34056,7 @@ export namespace Prisma {
     savedTracks?: UserSavedTrackCreateNestedManyWithoutUserInput
     logs?: AuditLogCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutQuestionDossiersInput = {
@@ -31422,6 +34080,7 @@ export namespace Prisma {
     savedTracks?: UserSavedTrackUncheckedCreateNestedManyWithoutUserInput
     logs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     improvementPlans?: AiImprovementPlanUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutQuestionDossiersInput = {
@@ -31461,6 +34120,7 @@ export namespace Prisma {
     savedTracks?: UserSavedTrackUpdateManyWithoutUserNestedInput
     logs?: AuditLogUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutQuestionDossiersInput = {
@@ -31484,6 +34144,119 @@ export namespace Prisma {
     savedTracks?: UserSavedTrackUncheckedUpdateManyWithoutUserNestedInput
     logs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     improvementPlans?: AiImprovementPlanUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutNotificationsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: string
+    avatarUrl?: string | null
+    targetRole?: string | null
+    seniority?: string | null
+    isEmailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    conversations?: ConversationCreateNestedManyWithoutUserInput
+    simulations?: SimulationSessionCreateNestedManyWithoutUserInput
+    resumes?: ResumeProfileCreateNestedManyWithoutUserInput
+    diagnostics?: DiagnosticIntakeCreateNestedManyWithoutUserInput
+    profileAnalyses?: ProfileAnalysisCreateNestedManyWithoutUserInput
+    candidateProfile?: CandidateProfileCreateNestedOneWithoutUserInput
+    savedTracks?: UserSavedTrackCreateNestedManyWithoutUserInput
+    logs?: AuditLogCreateNestedManyWithoutUserInput
+    improvementPlans?: AiImprovementPlanCreateNestedManyWithoutUserInput
+    questionDossiers?: QuestionPerformanceDossierCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutNotificationsInput = {
+    id?: string
+    email: string
+    name?: string | null
+    passwordHash?: string | null
+    role?: string
+    avatarUrl?: string | null
+    targetRole?: string | null
+    seniority?: string | null
+    isEmailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    conversations?: ConversationUncheckedCreateNestedManyWithoutUserInput
+    simulations?: SimulationSessionUncheckedCreateNestedManyWithoutUserInput
+    resumes?: ResumeProfileUncheckedCreateNestedManyWithoutUserInput
+    diagnostics?: DiagnosticIntakeUncheckedCreateNestedManyWithoutUserInput
+    profileAnalyses?: ProfileAnalysisUncheckedCreateNestedManyWithoutUserInput
+    candidateProfile?: CandidateProfileUncheckedCreateNestedOneWithoutUserInput
+    savedTracks?: UserSavedTrackUncheckedCreateNestedManyWithoutUserInput
+    logs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    improvementPlans?: AiImprovementPlanUncheckedCreateNestedManyWithoutUserInput
+    questionDossiers?: QuestionPerformanceDossierUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutNotificationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+  }
+
+  export type UserUpsertWithoutNotificationsInput = {
+    update: XOR<UserUpdateWithoutNotificationsInput, UserUncheckedUpdateWithoutNotificationsInput>
+    create: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutNotificationsInput, UserUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type UserUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    targetRole?: NullableStringFieldUpdateOperationsInput | string | null
+    seniority?: NullableStringFieldUpdateOperationsInput | string | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    conversations?: ConversationUpdateManyWithoutUserNestedInput
+    simulations?: SimulationSessionUpdateManyWithoutUserNestedInput
+    resumes?: ResumeProfileUpdateManyWithoutUserNestedInput
+    diagnostics?: DiagnosticIntakeUpdateManyWithoutUserNestedInput
+    profileAnalyses?: ProfileAnalysisUpdateManyWithoutUserNestedInput
+    candidateProfile?: CandidateProfileUpdateOneWithoutUserNestedInput
+    savedTracks?: UserSavedTrackUpdateManyWithoutUserNestedInput
+    logs?: AuditLogUpdateManyWithoutUserNestedInput
+    improvementPlans?: AiImprovementPlanUpdateManyWithoutUserNestedInput
+    questionDossiers?: QuestionPerformanceDossierUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    targetRole?: NullableStringFieldUpdateOperationsInput | string | null
+    seniority?: NullableStringFieldUpdateOperationsInput | string | null
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    conversations?: ConversationUncheckedUpdateManyWithoutUserNestedInput
+    simulations?: SimulationSessionUncheckedUpdateManyWithoutUserNestedInput
+    resumes?: ResumeProfileUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics?: DiagnosticIntakeUncheckedUpdateManyWithoutUserNestedInput
+    profileAnalyses?: ProfileAnalysisUncheckedUpdateManyWithoutUserNestedInput
+    candidateProfile?: CandidateProfileUncheckedUpdateOneWithoutUserNestedInput
+    savedTracks?: UserSavedTrackUncheckedUpdateManyWithoutUserNestedInput
+    logs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    improvementPlans?: AiImprovementPlanUncheckedUpdateManyWithoutUserNestedInput
+    questionDossiers?: QuestionPerformanceDossierUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ConversationCreateManyUserInput = {
@@ -31621,6 +34394,16 @@ export namespace Prisma {
     tags?: QuestionPerformanceDossierCreatetagsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type NotificationCreateManyUserInput = {
+    id?: string
+    title: string
+    message: string
+    type?: string
+    isRead?: boolean
+    linkUrl?: string | null
+    createdAt?: Date | string
   }
 
   export type ConversationUpdateWithoutUserInput = {
@@ -32046,6 +34829,36 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type NotificationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type MessageCreateManyConversationInput = {
     id?: string
     role: string
@@ -32392,9 +35205,17 @@ export namespace Prisma {
      */
     export type PlanDayScheduleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlanDayScheduleDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use SessionRecordingDefaultArgs instead
+     */
+    export type SessionRecordingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SessionRecordingDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use QuestionPerformanceDossierDefaultArgs instead
      */
     export type QuestionPerformanceDossierArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = QuestionPerformanceDossierDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use NotificationDefaultArgs instead
+     */
+    export type NotificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = NotificationDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

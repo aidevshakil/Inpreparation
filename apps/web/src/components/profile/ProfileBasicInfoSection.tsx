@@ -69,9 +69,9 @@ export const ProfileBasicInfoSection: React.FC<ProfileBasicInfoProps> = ({
             
             <div>
               <span className="label">Email Address</span>
-              <div className="flex items-center gap-2">
-                <Mail size={14} style={{ color: 'var(--text-muted)' }} />
-                <span style={{ color: 'var(--text-main)' }}>{email}</span>
+              <div className="flex items-center gap-2" style={{ flexWrap: 'wrap' }}>
+                <Mail size={14} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
+                <span style={{ color: 'var(--text-main)', wordBreak: 'break-all' }}>{email}</span>
                 {isEmailVerified ? (
                   <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: 'var(--color-success)', borderColor: 'rgba(16, 185, 129, 0.2)' }}>
                     <CheckCircle2 size={10} /> Verified

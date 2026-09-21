@@ -15,7 +15,7 @@ export const AiAnalysisProfessionalSummaryCard: React.FC<AiAnalysisProfessionalS
   const [editing, setEditing] = useState(isEditMode);
   const [summary, setSummary] = useState(
     initialSummary ||
-    'Staff-aspiring Software Engineer with 3.5+ years of production experience building high-throughput microservices using Python, FastAPI, and Go, combined with native mobile client experience in Flutter and Dart. Proven track record eliminating P99 tail latencies by 34% through distributed event backbones (Apache Kafka) and partitioned database clusters (PostgreSQL & Redis).'
+    'Full-Stack AI Developer with 1.5+ years of professional AI/ML experience building and deploying end-to-end AI-powered applications and intelligent software systems. Experienced in Generative AI, LLMs, RAG, AI agents, multi-agent systems, Computer Vision, and Machine Learning, with hands-on experience in LLM integration, prompt engineering, embeddings, vector search, model development, training, fine-tuning, evaluation, and deployment using Python, FastAPI, LangChain, LangGraph, vector databases, Docker, and Kubernetes.'
   );
 
   React.useEffect(() => {

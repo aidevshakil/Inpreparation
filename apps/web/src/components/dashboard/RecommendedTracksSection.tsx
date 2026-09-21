@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 interface RecommendedTrack {
   id: string;
@@ -23,40 +24,50 @@ export const RecommendedTracksSection: React.FC<RecommendedTracksSectionProps> =
   onSelectTrack,
   onExploreLibrary,
 }) => {
+  const { user } = useAuth();
+
+  const skills = user?.cvSkills && user.cvSkills.length > 0 
+    ? user.cvSkills 
+    : ['Python', 'React', 'Node.js', 'System Design'];
+    
+  const role = user?.targetRole && user.targetRole !== 'Select Target Role'
+    ? user.targetRole
+    : 'Software Engineer';
+
   const tracks: RecommendedTrack[] = [
     {
-      id: 'python-backend',
+      id: `${role} - Core Skills`,
       matchScore: 98,
       badgeColor: '#10b981',
       questionsCount: 5,
-      title: 'Python Backend Developer',
-      levelDesc: 'Intermediate to Senior Level • Focus on REST, concurrency, and DB optimization.',
-      tags: ['Python', 'FastAPI', 'PostgreSQL', 'REST APIs'],
-      trackCategory: 'Technical + System',
+      title: `${role}`,
+      levelDesc: `Calibrated for ${role} • Focus on ${skills.slice(0, 2).join(', ')} and core principles.`,
+      tags: skills.slice(0, 4),
+      trackCategory: 'Technical + Core',
       actionText: 'Practice Now',
       actionVariant: 'primary',
     },
     {
-      id: 'ml-engineer',
+      id: `${role} - Architecture`,
       matchScore: 93,
       badgeColor: '#38bdf8',
       questionsCount: 5,
-      title: 'Machine Learning Engineer',
-      levelDesc: 'Intermediate Level • Model deployment, feature pipelines, and inference scaling.',
-      tags: ['Python', 'PyTorch', 'Docker', 'MLOps'],
-      trackCategory: 'Technical + Architecture',
+      title: `${role} (Architecture)`,
+      levelDesc: `Intermediate Level • System architecture, ${skills[2] || 'scalability'}, and optimization.`,
+      tags: [skills[0] || 'System Design', 'Architecture', 'Scaling', 'Databases'],
+      trackCategory: 'System Architecture',
       actionText: 'View Interview',
       actionVariant: 'secondary',
     },
     {
-      id: 'flutter-mobile',
+      id: `${skills[1] || 'Tech'} Deep Dive`,
       matchScore: 87,
       badgeColor: '#a855f7',
       questionsCount: 5,
-      title: 'Flutter & Mobile Systems',
-      levelDesc: 'Intermediate Level • State architecture (Bloc/Provider), offline sync & UI.',
-      tags: ['Flutter', 'Dart', 'Firebase', 'State Mgmt'],
-      trackCategory: 'Engineering + Product',
+      title: `${skills[1] || 'Tech'} Deep Dive`,
+      levelDesc: `Intermediate Level • Deep dive into ${skills[1] || 'framework'} internals, edge cases, and best practices.`,
+      tags: [skills[1] || 'Framework', 'Performance', 'Debugging', 'Optimization'],
+      trackCategory: 'Engineering Depth',
       actionText: 'Practice Now',
       actionVariant: 'primary',
     },

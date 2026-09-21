@@ -180,7 +180,7 @@ export const SimulationDetailsPage: React.FC<SimulationDetailsPageProps> = ({
                       </div>
                       <h2 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#f8fafc', margin: '0 0 8px 0' }}>Synthesized from your verified background</h2>
                       <p style={{ fontSize: '0.85rem', color: '#cbd5e1', margin: '0 0 16px 0', lineHeight: 1.5 }}>
-                        Anchored to your verified CV achievements at <strong>FinScale Labs</strong> (250k tx/sec pipelines) and stated preparation goal to target <strong>Staff Backend Architect</strong> roles.
+                        Anchored to your verified CV achievements at <strong>Spiral Lab &amp; Betopia Group</strong> (LLM multi-agent workflows, RAG, and Computer Vision) and stated preparation goal to target <strong>Full-Stack AI Developer</strong> roles.
                       </p>
                       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                         <span style={{ fontSize: '0.75rem', color: '#94a3b8', alignSelf: 'center' }}>Proven Skills:</span>

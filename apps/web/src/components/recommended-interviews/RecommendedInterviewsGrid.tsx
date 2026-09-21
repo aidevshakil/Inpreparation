@@ -98,7 +98,7 @@ export const RecommendedInterviewsGrid: React.FC<RecommendedInterviewsGridProps>
       mode: 'Spoken Audio',
       skills: ['PostgreSQL', 'MVCC', 'Redis Redlock', 'Distributed Locking', 'Query Tuning'],
       whyText:
-        'Directly tests locking hot-spots and database concurrency mitigation cited in your FinScale Labs production experience.',
+        'Directly tests locking hot-spots and database concurrency mitigation cited in your Spiral Lab and Betopia Group production experience.',
     },
     {
       id: 'cloud-resilience',

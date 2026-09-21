@@ -185,7 +185,7 @@ export const RecommendedInterviewsFeaturedHeroCard: React.FC<RecommendedIntervie
           >
             <Sparkles size={14} style={{ color: '#818cf8', flexShrink: 0, marginTop: '2px' }} />
             <p style={{ fontSize: '0.72rem', color: '#cbd5e1', lineHeight: 1.45, margin: 0 }}>
-              <strong style={{ color: '#a5b4fc' }}>Why this is recommended for you:</strong> Your verified CV lists 6+ years designing 120k/sec pipelines at FinScale Labs, and your spoken intake highlighted consensus trade-offs. This simulation tests staff-level depth without trick questions.
+              <strong style={{ color: '#a5b4fc' }}>Why this is recommended for you:</strong> Your verified CV lists 1.5+ years building and deploying end-to-end AI systems, LLM multi-agent workflows, and Computer Vision pipelines at Spiral Lab &amp; Betopia Group. This simulation tests practical AI engineering depth without trick questions.
             </p>
           </div>
 

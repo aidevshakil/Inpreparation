@@ -31,26 +31,38 @@ aiRouter.post('/chat', async (req: Request, res: Response) => {
       });
     }
 
-    // 3. Forward to Python AI microservice
+    let trainingOptOut = false;
+    if (userId) {
+      try {
+        const profile = await prisma.candidateProfile.findUnique({ where: { userId } });
+        trainingOptOut = profile ? profile.allowAiTrainingUsage === false : true;
+      } catch {
+        trainingOptOut = true;
+      }
+    }
+
     const aiBaseUrl = process.env.AI_SERVICE_URL || 'http://localhost:8000/api/v1';
-    let aiReply = 'AI service response';
+    let aiResponse: globalThis.Response;
     try {
-      const aiResponse = await fetch(`${aiBaseUrl}/chat/completions`, {
+      aiResponse = await fetch(`${aiBaseUrl}/chat/completions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: [{ role: 'user', content: message }],
+          trainingOptOut,
         }),
       });
-      if (aiResponse.ok) {
-        const data: any = await aiResponse.json();
-        aiReply = data.reply || aiReply;
-      }
     } catch (e: any) {
-      aiReply = `AI Service offline stub: ${message}`;
+      return res.status(502).json({ error: 'AI service unavailable', details: e.message, conversationId: convId });
     }
 
-    // 4. Save Assistant reply in Prisma DB
+    if (!aiResponse.ok) {
+      return res.status(502).json({ error: 'AI service unavailable', status: aiResponse.status, conversationId: convId });
+    }
+
+    const data: any = await aiResponse.json();
+    const aiReply = data.reply || '';
+
     if (convId) {
       await prisma.message.create({
         data: {

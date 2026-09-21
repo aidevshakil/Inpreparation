@@ -191,7 +191,7 @@ export const RecommendedInterviewsHeader: React.FC<RecommendedInterviewsHeaderPr
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
             <span style={{ color: '#cbd5e1' }}>
-              Sources Synthesized: <strong style={{ color: '#f8fafc' }}>CV (FinScale Labs), Profile, Spoken Audio Intake (8/8)</strong>
+              Sources Synthesized: <strong style={{ color: '#f8fafc' }}>CV (Spiral Lab / Betopia Group), Profile, Spoken Audio Intake (8/8)</strong>
             </span>
             <span>•</span>
             <span>Personalization Freshness: Just now • Synced to AES-256 Vault</span>
