@@ -655,6 +655,18 @@ export async function saveCandidateProfile(userId: string, payload: Record<strin
   return await response.json();
 }
 
+export async function syncProfileFromCv(userId: string) {
+  const response = await fetch(`${NODE_BACKEND_URL}/profile/${userId}/sync-from-cv`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.error || `Failed to sync profile from CV: ${response.statusText}`);
+  }
+  return await response.json();
+}
+
 // -------------------------------------------------------------
 // 13. Question Performance Dossier (PostgreSQL)
 // -------------------------------------------------------------

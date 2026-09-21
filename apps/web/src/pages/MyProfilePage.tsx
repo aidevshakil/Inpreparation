@@ -14,8 +14,8 @@ import { ProfileCareerAssessmentCard } from '../components/profile/ProfileCareer
 import { ProfileHowItHelpsCard } from '../components/profile/ProfileHowItHelpsCard';
 import { DashboardFooter } from '../components/dashboard/DashboardFooter';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
-import { Check, AlertTriangle, Loader2, Save } from 'lucide-react';
-import { getCandidateProfile, saveCandidateProfile, getLatestCvAnalysis } from '../services/api';
+import { Check, AlertTriangle, Loader2, Save, Sparkles } from 'lucide-react';
+import { getCandidateProfile, saveCandidateProfile, getLatestCvAnalysis, syncProfileFromCv } from '../services/api';
 import { ProfilePrivacyModal, PrivacySettings } from '../components/profile/ProfilePrivacyModal';
 
 const MAX_AVATAR_BYTES = 2 * 1024 * 1024; // 2 MB
@@ -131,6 +131,83 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
     if (data.careerGoal) setCareerGoal(data.careerGoal);
   }, [userId, user?.name]);
 
+  const [isSyncingCv, setIsSyncingCv] = useState(false);
+  const [syncSuccessMessage, setSyncSuccessMessage] = useState<string | null>(null);
+
+  const applyAnalysisFields = useCallback((analysis: any) => {
+    if (!analysis) return;
+    if (analysis.candidateName || analysis.name) setFullName(analysis.candidateName || analysis.name);
+    if (analysis.candidatePhone || analysis.phone) setPhone(analysis.candidatePhone || analysis.phone);
+    if (analysis.candidateLocation || analysis.location) setLocation(analysis.candidateLocation || analysis.location);
+    
+    const derivedRole = analysis.workExperience?.[0]?.title || analysis.candidateRole || analysis.role;
+    if (derivedRole) setCurrentRole(derivedRole);
+    
+    const target = analysis.targetRole || analysis.candidateRole || 'Full-Stack AI Developer';
+    setTargetRole(target);
+    
+    const years = parseFloat(analysis.experienceYears || analysis.yearsOfExperience || 1.5);
+    setYearsOfExperience(String(years));
+    setSeniority(years >= 5 ? 'senior' : years >= 1.5 ? 'mid' : 'junior');
+    
+    setCurrentIndustry(analysis.currentIndustry || 'Artificial Intelligence & Software Engineering');
+    setTargetIndustry(analysis.targetIndustry || 'AI / Generative AI & Cloud Services');
+    
+    const extracted = analysis.extractedSkills || analysis.skills || [];
+    if (extracted.length > 0) {
+      setSkills(extracted);
+      const top = extracted.slice(0, 6);
+      const palette = ['#6366f1', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4'];
+      setSkillDepths(
+        top.map((sk: string, i: number) => ({
+          id: String(i + 1),
+          name: sk,
+          level: (i < 2 ? 'expert' : 'advanced') as SkillLevel,
+          dotColor: palette[i % palette.length],
+        }))
+      );
+    }
+    
+    setJobTypes(['full-time', 'contract', 'freelance']);
+    setWorkModalities(['remote', 'hybrid']);
+    setInterviewFocusAreas(['tech_depth', 'sys_design', 'role_spec']);
+    setDifficulty('advanced');
+    
+    const summary = analysis.professionalSummary || analysis.summary;
+    if (summary) setCareerGoal(summary);
+  }, []);
+
+  const handleSyncFromCv = async () => {
+    if (!userId) return;
+    setIsSyncingCv(true);
+    try {
+      const res = await syncProfileFromCv(userId);
+      if (res?.profile) {
+        await fetchProfile();
+        setSyncSuccessMessage('Profile auto-filled from your parsed CV! You can modify any fields below and save.');
+        setTimeout(() => setSyncSuccessMessage(null), 6000);
+      } else {
+        const cvRes = await getLatestCvAnalysis(userId);
+        if (cvRes?.analysis) {
+          applyAnalysisFields(cvRes.analysis);
+          setSimulatorState('unsaved');
+          setSyncSuccessMessage('Profile fields populated from CV! You can modify any fields and click Save Changes.');
+          setTimeout(() => setSyncSuccessMessage(null), 6000);
+        }
+      }
+    } catch (err) {
+      const cvRes = await getLatestCvAnalysis(userId);
+      if (cvRes?.analysis) {
+        applyAnalysisFields(cvRes.analysis);
+        setSimulatorState('unsaved');
+        setSyncSuccessMessage('Profile fields populated from CV! You can modify any fields and click Save Changes.');
+        setTimeout(() => setSyncSuccessMessage(null), 6000);
+      }
+    } finally {
+      setIsSyncingCv(false);
+    }
+  };
+
   useEffect(() => {
     fetchProfile();
   }, [fetchProfile]);
@@ -154,6 +231,33 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
             })
           : '',
       });
+
+      // Auto-populate any remaining unpopulated form fields from parsed CV analysis
+      setFullName((prev) => prev || analysis.candidateName || analysis.name || '');
+      setPhone((prev) => prev || analysis.candidatePhone || analysis.phone || '');
+      setLocation((prev) => prev || analysis.candidateLocation || analysis.location || '');
+      setCurrentRole((prev) => prev || analysis.workExperience?.[0]?.title || analysis.candidateRole || '');
+      setTargetRole((prev) => prev || analysis.targetRole || analysis.candidateRole || '');
+      setSeniority((prev) => prev || (parseFloat(analysis.experienceYears || 1.5) >= 5 ? 'senior' : 'mid'));
+      setYearsOfExperience((prev) => (prev && prev !== '0' ? prev : String(analysis.experienceYears || 1.5)));
+      setCurrentIndustry((prev) => prev || analysis.currentIndustry || 'Artificial Intelligence & Software Engineering');
+      setTargetIndustry((prev) => prev || analysis.targetIndustry || 'AI / Generative AI & Cloud Services');
+      setSkills((prev) => (prev.length > 0 ? prev : (analysis.extractedSkills || analysis.skills || [])));
+      setSkillDepths((prev) => {
+        if (prev.length > 0) return prev;
+        const top = (analysis.extractedSkills || analysis.skills || []).slice(0, 6);
+        const palette = ['#6366f1', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4'];
+        return top.map((sk: string, i: number) => ({
+          id: String(i + 1),
+          name: sk,
+          level: (i < 2 ? 'expert' : 'advanced') as SkillLevel,
+          dotColor: palette[i % palette.length],
+        }));
+      });
+      setJobTypes((prev) => (prev.length > 0 ? prev : ['full-time', 'contract', 'freelance']));
+      setWorkModalities((prev) => (prev.length > 0 ? prev : ['remote', 'hybrid']));
+      setInterviewFocusAreas((prev) => (prev.length > 0 ? prev : ['tech_depth', 'sys_design', 'role_spec']));
+      setCareerGoal((prev) => prev || analysis.professionalSummary || analysis.summary || '');
     });
     return () => {
       cancelled = true;
@@ -423,6 +527,27 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
 
               {/* Action Buttons */}
               <div className="flex items-center gap-3 self-center">
+                <button
+                  onClick={handleSyncFromCv}
+                  disabled={isSyncingCv}
+                  className="btn btn-outline"
+                  style={{
+                    padding: '10px 18px',
+                    fontSize: '14px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    borderColor: 'rgba(99, 102, 241, 0.45)',
+                    color: 'var(--primary-color)',
+                    backgroundColor: 'rgba(99, 102, 241, 0.08)',
+                    fontWeight: 600,
+                  }}
+                  title="Auto-fill profile information using your uploaded CV"
+                >
+                  <Sparkles size={16} className={isSyncingCv ? 'spin-animate' : ''} />
+                  <span>{isSyncingCv ? 'Auto-filling...' : 'Auto-fill from CV'}</span>
+                </button>
+
                 {!isEditing ? (
                   <button
                     onClick={() => setIsEditing(true)}
@@ -466,6 +591,45 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
                 )}
               </div>
             </div>
+
+            {/* Sync Notification Banner */}
+            {syncSuccessMessage && (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '10px',
+                  padding: '12px 18px',
+                  backgroundColor: 'rgba(99, 102, 241, 0.12)',
+                  border: '1px solid rgba(99, 102, 241, 0.35)',
+                  borderRadius: '12px',
+                  marginBottom: '20px',
+                  color: 'var(--primary-color)',
+                  fontSize: '0.84rem',
+                  fontWeight: 500,
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Sparkles size={16} />
+                  <span>{syncSuccessMessage}</span>
+                </div>
+                <button
+                  onClick={() => setIsEditing(true)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--text-main)',
+                    textDecoration: 'underline',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    fontSize: '0.82rem',
+                  }}
+                >
+                  Edit Now
+                </button>
+              </div>
+            )}
 
             {/* Simulated Alerts & Banners */}
             {simulatorState === 'saved' && (
@@ -682,6 +846,8 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
                   parsedDate={connectedCv.parsedDate}
                   onViewCv={onNavigateToCv ?? (() => {})}
                   onUpdateCv={onNavigateToCv ?? (() => {})}
+                  onSyncToProfile={handleSyncFromCv}
+                  isSyncing={isSyncingCv}
                 />
 
                 <ProfileCareerAssessmentCard

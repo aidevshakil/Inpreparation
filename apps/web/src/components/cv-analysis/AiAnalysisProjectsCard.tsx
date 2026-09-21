@@ -23,22 +23,40 @@ export const AiAnalysisProjectsCard: React.FC<AiAnalysisProjectsCardProps> = ({
     ? initialProjects
     : [
     {
-      title: 'Distributed Transaction Saga Engine',
-      badge: 'L6-ready',
+      title: 'BusTicketBD – AI Bus Ticket Assistant',
+      badge: 'Featured',
       badgeColor: '#818cf8',
-      subtitle: 'Open Source | Jan 2024',
+      subtitle: 'FastAPI • LangGraph • Pinecone | 2025',
       description:
-        'High-reliability saga coordinator built with Go and Kafka for compensation-driven multi-phase distributed rollbacks across heterogeneous stateful databases.',
-      skills: ['Go', 'Distributed Transactions', 'Kafka'],
+        'Built a chat-driven bus ticket assistant for Bangladesh using FastAPI, Streamlit, MongoDB, Pinecone, OpenAI, and LangGraph. Implemented intent extraction, embeddings, vector search, RAG-based responses, and stateful multi-step conversational workflows for intelligent ticket assistance.',
+      skills: ['FastAPI', 'LangGraph', 'Pinecone', 'OpenAI', 'MongoDB', 'Streamlit', 'Python'],
     },
     {
-      title: 'Acoustic Voice Prosody Analyzer',
-      badge: 'AI / Audio',
-      badgeColor: '#c084fc',
-      subtitle: 'Academic / Research',
+      title: 'InPrep AI – Mock Interview Platform',
+      badge: 'Core System',
+      badgeColor: '#10b981',
+      subtitle: 'Betopia Group | 2025 — 2026',
       description:
-        'Real-time microphone stream parsing detecting speaking cadence, conversational pauses, and filler word frequency using Python and Librosa acoustic models.',
-      skills: ['Python', 'Acoustic AI & Audio', 'PyTorch / Real-time DSP'],
+        'AI-powered mock interview platform integrating Computer Vision, LLMs, TensorFlow, OpenCV, FastAPI, and PostgreSQL for interview analysis, confidence assessment, and personalized AI feedback.',
+      skills: ['Computer Vision', 'LLMs', 'TensorFlow', 'OpenCV', 'FastAPI', 'PostgreSQL'],
+    },
+    {
+      title: 'Brain Tumor Segmentation using MRI',
+      badge: 'Deep Learning',
+      badgeColor: '#a855f7',
+      subtitle: 'Medical Imaging CV | 2024',
+      description:
+        'Developed a deep learning-based medical image segmentation solution for detecting and segmenting brain tumors from MRI scans using computer vision techniques.',
+      skills: ['PyTorch', 'TensorFlow', 'OpenCV', 'Medical Imaging', 'Deep Learning'],
+    },
+    {
+      title: 'HarmoniAI Multi-Agent Platform',
+      badge: 'Multi-Agent',
+      badgeColor: '#f59e0b',
+      subtitle: 'GenAI Orchestration | 2025',
+      description:
+        'Architected multi-agent platform integrating LLMs, image generation/editing, voice synthesis, and multi-agent workflows for e-commerce assistance and AI-powered media creation.',
+      skills: ['LangGraph', 'Multi-Agent', 'Python', 'LLMs', 'Voice AI'],
     },
   ];
 

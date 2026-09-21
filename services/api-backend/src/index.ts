@@ -23,6 +23,9 @@ import { questionPerformanceRouter } from './routes/question-performance.routes'
 import { adminRouter } from './routes/admin.routes';
 import { roleCatalogRouter } from './routes/role-catalog.routes';
 import { questionDossierCatalogRouter } from './routes/question-dossier-catalog.routes';
+import { analyticsRouter } from './routes/analytics.routes';
+import { sessionRecordingRouter } from './routes/session-recording.routes';
+import { requireRole } from './middleware/requireRole';
 
 const app = express();
 const PORT = process.env.BACKEND_PORT || 5000;
@@ -49,9 +52,11 @@ app.use('/api/profile', profileRouter);
 app.use('/api/recommendations', recommendationsRouter);
 app.use('/api/improvement-plan', improvementPlanRouter);
 app.use('/api/question-performance', questionPerformanceRouter);
-app.use('/api/admin', adminRouter);
+app.use('/api/admin', requireRole('admin'), adminRouter);
 app.use('/api/role-catalog', roleCatalogRouter);
 app.use('/api/question-dossiers', questionDossierCatalogRouter);
+app.use('/api/analytics', requireRole('admin'), analyticsRouter);
+app.use('/api/session-recordings', sessionRecordingRouter);
 
 // Health check
 app.get('/api/health', (req, res) => {

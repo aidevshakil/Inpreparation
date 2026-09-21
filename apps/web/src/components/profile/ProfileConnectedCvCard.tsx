@@ -7,6 +7,8 @@ interface ProfileConnectedCvCardProps {
   parsedDate?: string;
   onViewCv?: () => void;
   onUpdateCv?: () => void;
+  onSyncToProfile?: () => void;
+  isSyncing?: boolean;
 }
 
 export const ProfileConnectedCvCard: React.FC<ProfileConnectedCvCardProps> = ({
@@ -15,6 +17,8 @@ export const ProfileConnectedCvCard: React.FC<ProfileConnectedCvCardProps> = ({
   parsedDate = '',
   onViewCv,
   onUpdateCv,
+  onSyncToProfile,
+  isSyncing = false,
 }) => {
   const hasCv = Boolean(fileName);
 
@@ -58,7 +62,7 @@ export const ProfileConnectedCvCard: React.FC<ProfileConnectedCvCardProps> = ({
           </div>
 
           {/* Action Buttons */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: onSyncToProfile ? '8px' : 0 }}>
             <button onClick={onViewCv} className="btn btn-outline" style={{ padding: '6px 12px', fontSize: '12px', justifyContent: 'center' }}>
               View CV
             </button>
@@ -66,6 +70,26 @@ export const ProfileConnectedCvCard: React.FC<ProfileConnectedCvCardProps> = ({
               Update CV
             </button>
           </div>
+
+          {onSyncToProfile && (
+            <button
+              onClick={onSyncToProfile}
+              disabled={isSyncing}
+              className="btn btn-outline"
+              style={{
+                width: '100%',
+                padding: '7px 12px',
+                fontSize: '12px',
+                justifyContent: 'center',
+                borderColor: 'rgba(99, 102, 241, 0.35)',
+                color: 'var(--primary-color)',
+                backgroundColor: 'rgba(99, 102, 241, 0.06)',
+                fontWeight: 600,
+              }}
+            >
+              {isSyncing ? 'Auto-filling Profile...' : '✨ Auto-fill Profile from CV'}
+            </button>
+          )}
         </>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '16px 0' }}>

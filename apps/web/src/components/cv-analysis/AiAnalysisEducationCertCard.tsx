@@ -48,9 +48,14 @@ export const AiAnalysisEducationCertCard: React.FC<AiAnalysisEducationCertCardPr
     : [
         {
           degree: 'B.Sc. in Computer Science & Engineering',
-          institution: 'Computer Science Department',
-          year: 'Graduate Degree',
-          honors: 'Verified Qualification',
+          institution: 'Gopalganj Science and Technology University (GSTU)',
+          year: '2019 – 2022',
+          honors: 'Verified Graduation',
+        },
+        {
+          degree: 'Higher Secondary Certificate (HSC)',
+          institution: 'Birshreshtha Munshi Abdur Rouf Public College',
+          year: '2018',
         },
       ];
 
@@ -63,9 +68,15 @@ export const AiAnalysisEducationCertCard: React.FC<AiAnalysisEducationCertCardPr
       }))
     : [
         {
-          name: 'Professional Application Developer Certification',
-          issuer: 'Verified Technical Authority',
-          year: 'Active',
+          name: 'Data Analysis with Python',
+          issuer: 'EDGE Project, ICT Division',
+          year: '2024',
+          verified: true,
+        },
+        {
+          name: 'Skill Development for Mobile Game & Application',
+          issuer: 'ICT Division, Government of Bangladesh',
+          year: '2022',
           verified: true,
         },
       ];

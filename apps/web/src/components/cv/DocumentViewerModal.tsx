@@ -10,7 +10,6 @@ import {
   MapPin,
   Mail,
   Phone,
-  Briefcase,
   GraduationCap,
   Sparkles,
 } from 'lucide-react';
@@ -54,7 +53,6 @@ export const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({
   rawTextPreview,
   onDownload,
 }) => {
-  const isPdf = fileName.toLowerCase().endsWith('.pdf') || (fileUrl && fileUrl.startsWith('data:application/pdf'));
   const [activeTab, setActiveTab] = useState<'preview' | 'ocr'>('preview');
   const [copied, setCopied] = useState(false);
 
@@ -504,6 +502,34 @@ export const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({
                                   <li key={bIdx} style={{ marginBottom: '4px' }}>{b}</li>
                                 ))}
                               </ul>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Featured Projects */}
+                  {projects && projects.length > 0 && (
+                    <div style={{ marginBottom: '24px' }}>
+                      <h4 style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', margin: '0 0 14px 0' }}>
+                        Featured Projects
+                      </h4>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                        {projects.map((p, idx) => (
+                          <div key={idx} style={{ borderLeft: '2px solid var(--primary-color)', paddingLeft: '14px' }}>
+                            <h5 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
+                              {p.title}
+                            </h5>
+                            {p.description && (
+                              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: '4px 0' }}>
+                                {p.description}
+                              </p>
+                            )}
+                            {p.metrics && (
+                              <span style={{ fontSize: '0.74rem', color: 'var(--primary-color)', fontWeight: 600 }}>
+                                {p.metrics}
+                              </span>
                             )}
                           </div>
                         ))}

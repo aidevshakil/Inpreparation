@@ -7,20 +7,27 @@ export interface WorkExperienceEntry {
   company: string;
   location: string;
   duration: string;
-  tenureScore: string;
+  tenureScore?: string;
+  tenure_score?: string;
   bullets: string[];
-  stack: string[];
-  metricsCount: number;
+  stack?: string[];
+  skills?: string[];
+  metricsCount?: number;
+  metrics_count?: number;
 }
 
 interface AiAnalysisWorkExperienceCardProps {
   initialExperiences?: WorkExperienceEntry[];
+  verifiedStrength?: string;
+  polishOpportunity?: string;
   onAddRole?: () => void;
   onEditExperience?: (index: number) => void;
 }
 
 export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCardProps> = ({
   initialExperiences,
+  verifiedStrength,
+  polishOpportunity,
   onAddRole,
   onEditExperience,
 }) => {
@@ -28,33 +35,38 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
     ? initialExperiences
     : [
     {
-      title: 'Senior Backend Engineer',
+      title: 'AI Developer',
       badge: 'Current Role',
-      company: 'FinScale Labs',
-      location: 'San Francisco, CA (Remote)',
-      duration: 'Jan 2023 — Present',
-      tenureScore: '1.1 yr / 98%',
+      company: 'Spiral Lab',
+      location: 'Pakistan | Remote',
+      duration: 'June 2026 — Present',
+      tenureScore: '1.5+ yr / 98%',
       bullets: [
-        'Architected and delivered real-time microservices using FastAPI and Kafka, scaling from 2,000 QPS to 12,000+ QPS under peak transactional load.',
-        'Migrated monolithic billing data structures into partitioned PostgreSQL and Redis write-through caching, reducing P99 query latency by 34%.',
-        'Maintained 99.98% service uptime across 4 AWS multi-AZ regions with automated dead-letter queue re-drive handlers.',
+        'Developed an AI-powered Supermarket Promo Generator for retail marketing automation, using Gemini models, product embeddings, and LLM-based workflows to generate product-aware promotional copy and campaign content for supermarket offers.',
+        'Built SliceUP, an AI-powered financial assistant integrating LLMs and intelligent data analysis to generate financial summaries, interpret spending patterns, and provide personalized insights.',
+        'Developed ADS-AI, a Generative AI marketing automation platform for automated ad copy, image, and promotional video generation.',
+        'Designed and integrated LLM-powered AI applications using modern AI APIs, prompt engineering, RAG workflows, and intelligent automation pipelines.',
+        'Containerized and deployed AI services using Docker and Kubernetes across cloud and production environments, focusing on scalable and reliable AI services.',
       ],
-      stack: ['Python', 'FastAPI', 'Apache Kafka', 'PostgreSQL'],
+      stack: ['Gemini', 'LLMs', 'Embeddings', 'RAG', 'FastAPI', 'Docker', 'Kubernetes', 'Python'],
       metricsCount: 2,
     },
     {
-      title: 'Software Engineer (Mobile & Backend)',
-      company: 'Prime Tech Solutions',
+      title: 'AI Engineer',
+      company: 'Betopia Group',
       location: 'Dhaka, Bangladesh',
-      duration: 'Jan 2021 — Dec 2022',
-      tenureScore: '1.11 yr / 95%',
+      duration: 'January 2025 — June 2026',
+      tenureScore: '1.5 yr / 96%',
       bullets: [
-        'Built responsive cross-platform client for fintech mobile wallet using Flutter (BLoC pattern), serving 150k active monthly users.',
-        'Implemented secure biometric authentication & SQLite offline state synchronization engine.',
-        'Created intermediate REST endpoints in Python/Django for KYC verification and push notification delivery.',
+        'Designed and developed InPrep AI, an AI-powered mock interview platform integrating Computer Vision, LLMs, TensorFlow, OpenCV, FastAPI, and PostgreSQL for interview analysis, confidence assessment, and personalized AI feedback.',
+        'Developed a Hair Shade Recommendation Pipeline using ResNet-based segmentation and K-Means clustering for automated hair color analysis and recommendation.',
+        'Architected HarmoniAI Multi-Agent Platform integrating LLMs, image generation/editing, voice synthesis, and multi-agent workflows for e-commerce assistance and AI-powered media creation.',
+        'Built HyperSpeed – CarWrapAI using an optimized Computer Vision segmentation pipeline and Docker-based deployment to improve AI inference performance.',
+        'Engineered Sports Prediction Models for score, lineup, and head-to-head analysis using external APIs and deployed real-time AI prediction services.',
+        'Developed Tom Storytelling, an AI-powered storytelling application designed around major life phases, including childhood, teenage years, early adulthood, career, relationships, hobbies, and later-life reflections.',
       ],
-      stack: ['Flutter', 'Dart', 'Django', 'SQLite'],
-      metricsCount: 1,
+      stack: ['Computer Vision', 'LLMs', 'TensorFlow', 'OpenCV', 'FastAPI', 'PostgreSQL', 'ResNet', 'Multi-Agent'],
+      metricsCount: 3,
     },
   ];
 
@@ -147,7 +159,7 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
 
               <div style={{ textAlign: 'right', display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span style={{ fontSize: '0.74rem', color: 'var(--text-main)', fontWeight: 600 }}>{exp.duration}</span>
-                <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>({exp.tenureScore})</span>
+                <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>({exp.tenureScore || exp.tenure_score || '1.5+ yr / 98%'})</span>
                 <button
                   onClick={() => onEditExperience && onEditExperience(idx)}
                   style={{
@@ -199,7 +211,7 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
 
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.7rem', color: '#059669', fontWeight: 600 }}>
                 <TrendingUp size={12} />
-                <span>{exp.metricsCount || 1} Scale Metrics Extracted</span>
+                <span>{exp.metricsCount || exp.metrics_count || 2} Scale Metrics Extracted</span>
               </div>
             </div>
           </div>
@@ -241,7 +253,7 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
               <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#059669' }}>Verified Strengths</span>
             </div>
             <p style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', lineHeight: 1.45, margin: 0 }}>
-              Solid progression from mobile UI engineer into distributed backend architecture. Explicit throughput numbers (12k QPS) present.
+              {verifiedStrength || 'Strong progression in production AI systems, LLM multi-agent pipelines (LangGraph), Computer Vision (OpenCV, ResNet), and scalable backend architectures (FastAPI, Docker, Kubernetes).'}
             </p>
           </div>
 
@@ -259,7 +271,7 @@ export const AiAnalysisWorkExperienceCard: React.FC<AiAnalysisWorkExperienceCard
               <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#d97706' }}>Polish Opportunity</span>
             </div>
             <p style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', lineHeight: 1.45, margin: 0 }}>
-              Measure more cost/impact: give actual dollar savings or head reduction percentages to match Staff-role expectations.
+              {polishOpportunity || 'Quantify inference latency reductions (p95/p99 ms), model benchmark metrics (F1/accuracy), and compute cost savings across deployed AI workflows.'}
             </p>
           </div>
         </div>

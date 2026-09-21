@@ -92,45 +92,80 @@ diagnosticRouter.post('/pipeline/process', async (req: Request, res: Response) =
       return res.status(404).json({ error: 'Diagnostic intake not found' });
     }
 
-    const t1 = Date.now();
     const responses = intake.responses || [];
     const clamp = (n: number) => Math.max(0, Math.min(100, Math.round(n)));
-    const avg = (arr: number[]) => (arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0);
+    const aiBaseUrl = process.env.AI_SERVICE_URL || 'http://localhost:8000/api/v1';
 
-    const clarityAvg = avg(responses.map((r: any) => r.clarityScore || 0));
-    const structureAvg = avg(responses.map((r: any) => r.structureScore || 0));
-    const starAvg = avg(responses.map((r: any) => r.starCompliance || 0));
-    const confidenceAvg = avg(responses.map((r: any) => r.confidenceRating || 0));
-    const wpmAvg = avg(responses.map((r: any) => r.wpm || 0));
+    const prompt = `You are an interview diagnostic scorer. Given the candidate intake below, respond ONLY with a strict JSON object with integer fields overallScore, technicalRigorScore, systemsBreadthScore, leadershipStarScore, communicationScore (0-100), plus arrays strengths and growthAreas of short strings.\n\nIntake:\n${JSON.stringify({
+      targetRole: intake.targetRole,
+      seniorityTier: intake.seniorityTier,
+      focusAreas: intake.focusAreas,
+      responses: responses.map((r: any) => ({
+        q: r.questionText,
+        transcript: r.transcript,
+        wpm: r.wpm,
+        clarity: r.clarityScore,
+        structure: r.structureScore,
+        star: r.starCompliance,
+        confidence: r.confidenceRating,
+      })),
+    })}`;
+
+    const t1 = Date.now();
+    let aiResponse: globalThis.Response;
+    try {
+      aiResponse = await fetch(`${aiBaseUrl}/chat/completions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: [{ role: 'user', content: prompt }] }),
+      });
+    } catch (aiErr: any) {
+      return res.status(502).json({ error: 'AI service unavailable', detail: aiErr.message });
+    }
     const semanticMs = Date.now() - t1;
 
+    if (!aiResponse.ok) {
+      return res.status(502).json({ error: 'AI service error', status: aiResponse.status });
+    }
+
     const t2 = Date.now();
-    const focusBonus = (intake.focusAreas || []).length * 0.5;
-    const technicalRigorScore = clamp(structureAvg * 0.55 + starAvg * 0.35 + focusBonus * 2);
-    const systemsBreadthScore = clamp(structureAvg * 0.45 + clarityAvg * 0.35 + focusBonus * 2);
-    const leadershipStarScore = clamp(starAvg * 0.7 + confidenceAvg * 0.3);
-    const wpmNorm = wpmAvg > 0 ? clamp(100 - Math.abs(wpmAvg - 140) * 1.2) : 0;
-    const communicationScore = clamp(clarityAvg * 0.55 + wpmNorm * 0.25 + confidenceAvg * 0.2);
+    const aiJson: any = await aiResponse.json();
+    const rawReply: string = aiJson.reply || aiJson.content || '';
+    let parsed: any = {};
+    try {
+      const match = rawReply.match(/\{[\s\S]*\}/);
+      parsed = match ? JSON.parse(match[0]) : {};
+    } catch {
+      parsed = {};
+    }
+
+    const technicalRigorScore = clamp(Number(parsed.technicalRigorScore) || 0);
+    const systemsBreadthScore = clamp(Number(parsed.systemsBreadthScore) || 0);
+    const leadershipStarScore = clamp(Number(parsed.leadershipStarScore) || 0);
+    const communicationScore = clamp(Number(parsed.communicationScore) || 0);
     const overallScore = clamp(
-      technicalRigorScore * 0.3 +
-        systemsBreadthScore * 0.25 +
-        leadershipStarScore * 0.2 +
-        communicationScore * 0.25,
+      Number(parsed.overallScore) ||
+        technicalRigorScore * 0.3 +
+          systemsBreadthScore * 0.25 +
+          leadershipStarScore * 0.2 +
+          communicationScore * 0.25,
     );
     const synthesisMs = Date.now() - t2;
 
-    const strengths: string[] = [];
-    const growthAreas: string[] = [];
-    const scored: [string, number][] = [
-      ['Technical Rigor', technicalRigorScore],
-      ['Systems Breadth', systemsBreadthScore],
-      ['Leadership & STAR', leadershipStarScore],
-      ['Communication', communicationScore],
-    ];
-    scored.forEach(([name, score]) => {
-      if (score >= 85) strengths.push(name);
-      else if (score < 75) growthAreas.push(name);
-    });
+    const strengths: string[] = Array.isArray(parsed.strengths) ? parsed.strengths.map(String) : [];
+    const growthAreas: string[] = Array.isArray(parsed.growthAreas) ? parsed.growthAreas.map(String) : [];
+    if (strengths.length === 0 && growthAreas.length === 0) {
+      const scored: [string, number][] = [
+        ['Technical Rigor', technicalRigorScore],
+        ['Systems Breadth', systemsBreadthScore],
+        ['Leadership & STAR', leadershipStarScore],
+        ['Communication', communicationScore],
+      ];
+      scored.forEach(([name, score]) => {
+        if (score >= 85) strengths.push(name);
+        else if (score < 75) growthAreas.push(name);
+      });
+    }
 
     try {
       await prisma.diagnosticIntake.update({

@@ -59,17 +59,19 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
   const displayLocation = analysisData?.candidateLocation || analysisData?.location;
   const rawSkills: string[] = Array.isArray(analysisData?.skillsTaxonomy) && analysisData.skillsTaxonomy.length > 0
     ? analysisData.skillsTaxonomy.flatMap((c: any) => (Array.isArray(c?.skills) ? c.skills : []))
+    : Array.isArray(analysisData?.skills_taxonomy) && analysisData.skills_taxonomy.length > 0
+    ? analysisData.skills_taxonomy.flatMap((c: any) => (Array.isArray(c?.skills) ? c.skills : []))
     : Array.isArray(analysisData?.extractedSkills) && analysisData.extractedSkills.length > 0
     ? analysisData.extractedSkills
     : Array.isArray(analysisData?.skills) && analysisData.skills.length > 0
     ? analysisData.skills
     : Array.isArray(user.cvSkills) && user.cvSkills.length > 0
     ? user.cvSkills
-    : ['Flutter', 'Dart', 'Firebase', 'REST APIs', 'Clean Architecture'];
+    : ['Generative AI', 'LLMs', 'Python', 'FastAPI', 'LangGraph', 'Docker', 'Computer Vision', 'PyTorch'];
 
   const displaySkills = (rawSkills && rawSkills.length > 0)
     ? rawSkills.filter((s): s is string => typeof s === 'string' && s.trim().length > 0)
-    : ['Flutter', 'Dart', 'Firebase', 'REST APIs', 'Clean Architecture'];
+    : ['Generative AI', 'LLMs', 'Python', 'FastAPI', 'LangGraph', 'Docker', 'Computer Vision', 'PyTorch'];
   const displayRawText = analysisData?.extractedTextPreview || analysisData?.rawTextPreview;
 
   const handleDownloadDossier = () => {
@@ -114,24 +116,37 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
   // Load latest AI Analysis for current user or file
   useEffect(() => {
     let isMounted = true;
+
+    // Check local storage immediately for responsive UI
+    try {
+      const localCached = localStorage.getItem('inprep_cv_analysis');
+      if (localCached) {
+        const parsed = JSON.parse(localCached);
+        if (parsed && isMounted) {
+          setAnalysisData(parsed);
+        }
+      }
+    } catch {}
+
     async function loadAnalysis() {
-      if (!user.cvFileName) return;
       setIsLoadingAnalysis(true);
       try {
         const res = await getLatestCvAnalysis(user.id || 'demo-user-1');
         if (isMounted && res && res.analysis) {
           setAnalysisData(res.analysis);
+          localStorage.setItem('inprep_cv_analysis', JSON.stringify(res.analysis));
         } else if (isMounted) {
           // Trigger on-the-fly synthesis
           const triggered = await triggerCvAnalysis({
             userId: user.id,
-            fileName: user.cvFileName || 'Uploaded_CV.pdf',
-            targetRole: user.targetRole || 'Full Stack Software Engineer',
-            skills: user.cvSkills && user.cvSkills.length > 0 ? user.cvSkills : ['TypeScript', 'React', 'Node.js', 'PostgreSQL'],
-            experienceYears: Number(user.yearsOfExperience) || 3,
+            fileName: user.cvFileName || 'Shakil_Ahamed_Full_Stack_AI_Developer.pdf',
+            targetRole: user.targetRole || 'Full-Stack AI Developer',
+            skills: user.cvSkills && user.cvSkills.length > 0 ? user.cvSkills : ['Generative AI', 'LLMs', 'Python', 'FastAPI', 'LangGraph', 'Docker', 'Computer Vision'],
+            experienceYears: Number(user.yearsOfExperience) || 1.5,
           });
           if (isMounted && triggered && triggered.analysis) {
             setAnalysisData(triggered.analysis);
+            localStorage.setItem('inprep_cv_analysis', JSON.stringify(triggered.analysis));
           }
         }
       } catch (err) {
@@ -422,23 +437,61 @@ export const AiCvAnalysisPage: React.FC<AiCvAnalysisPageProps> = ({
                     <div>
                       <AiAnalysisProfessionalSummaryCard
                         isEditMode={simulatorState === 'edit_mode'}
-                        initialSummary={analysisData?.professionalSummary}
+                        initialSummary={analysisData?.professionalSummary || analysisData?.professional_summary || analysisData?.summary}
                         onSaveSummary={(newSummary) => {
                           setAnalysisData((prev: any) => ({ ...prev, professionalSummary: newSummary }));
                         }}
                       />
                       <AiAnalysisSkillsTaxonomyCard
-                        initialCategories={analysisData?.skillsTaxonomy}
+                        initialCategories={analysisData?.skillsTaxonomy || analysisData?.skills_taxonomy}
                         onAddSkill={() => alert('Open Add Skill Modal')}
                         onMarkInaccuracies={() => alert('Feedback modal: report CV taxonomy discrepancy')}
                       />
                       <AiAnalysisWorkExperienceCard
-                        initialExperiences={analysisData?.workExperience}
+                        initialExperiences={
+                          Array.isArray(analysisData?.workExperience) && analysisData.workExperience.length > 0
+                            ? analysisData.workExperience
+                            : Array.isArray(analysisData?.work_experience) && analysisData.work_experience.length > 0
+                            ? analysisData.work_experience.map((w: any) => ({
+                                title: w.title,
+                                badge: w.badge || 'Verified Role',
+                                company: w.company,
+                                location: w.location,
+                                duration: w.duration,
+                                tenureScore: w.tenureScore || w.tenure_score || '1.5+ yr / 98%',
+                                bullets: w.bullets || [],
+                                stack: w.stack || w.skills || [],
+                                metricsCount: w.metricsCount || w.metrics_count || 2,
+                              }))
+                            : undefined
+                        }
+                        verifiedStrength={
+                          Array.isArray(analysisData?.strengths) && analysisData.strengths.length > 0
+                            ? analysisData.strengths[0]
+                            : undefined
+                        }
+                        polishOpportunity={
+                          Array.isArray(analysisData?.improvements) && analysisData.improvements.length > 0
+                            ? analysisData.improvements[0]
+                            : undefined
+                        }
                         onAddRole={() => alert('Open Add Role Modal')}
                         onEditExperience={(idx) => alert(`Editing experience entry #${idx + 1}`)}
                       />
                       <AiAnalysisProjectsCard
-                        initialProjects={analysisData?.projects}
+                        initialProjects={
+                          Array.isArray(analysisData?.projects) && analysisData.projects.length > 0
+                            ? analysisData.projects.map((p: any) => ({
+                                title: p.title,
+                                badge: p.badge || 'Featured',
+                                badgeColor: p.badgeColor || p.badge_color || '#818cf8',
+                                subtitle: p.subtitle || p.timeframe || 'Recent',
+                                description: p.description,
+                                metrics: p.metrics,
+                                skills: p.skills || p.stack || [],
+                              }))
+                            : undefined
+                        }
                         onAddProject={() => alert('Open Add Project Modal')}
                       />
                       <AiAnalysisEducationCertCard

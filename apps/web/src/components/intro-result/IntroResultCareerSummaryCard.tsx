@@ -14,7 +14,7 @@ export const IntroResultCareerSummaryCard: React.FC<IntroResultCareerSummaryCard
 }) => {
   const [copied, setCopied] = useState(false);
 
-  const summaryText = `Shakil is an accomplished Senior Backend and Distributed Systems Engineer with 6+ years of production experience architecting high-throughput financial pipelines and resilient event-driven systems. He has demonstrated consistent technical ownership across Kafka streaming clusters, PostgreSQL concurrency mitigation, and microservice decoupling at FinScale Labs and Nexura Tech.\n\nHis stated trajectory centers on Staff Backend Engineer and Distributed Systems Architect roles. Key career objectives include strengthening executive-level architectural trade-off articulation under CAP constraints, presenting multi-datacenter disaster recovery strategies, and leading cross-functional engineering reviews at scale.`;
+  const summaryText = `Shakil Ahamed is an accomplished Full-Stack AI Developer with 1.5+ years of professional AI/ML experience building and deploying end-to-end AI-powered applications and intelligent software systems. He has demonstrated technical ownership across LLM integration, LangGraph multi-agent workflows, RAG pipelines, Computer Vision (OpenCV, ResNet), and scalable FastAPI microservices at Spiral Lab and Betopia Group.\n\nHis stated trajectory centers on Full-Stack AI Developer and Generative AI Engineer roles. Key career objectives include advancing multi-agent orchestration, optimizing real-time multimodal inference pipelines, and deploying robust containerized AI architectures with Docker and Kubernetes at scale.`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(summaryText);

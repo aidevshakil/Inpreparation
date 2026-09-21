@@ -524,29 +524,45 @@ async def analyze_cv(request: CvAnalysisRequest):
             except Exception as e:
                 logger.warning(f"Could not decode base64 file data: {e}")
 
-        # 2. If LLM is configured with a real API key, invoke LLM
-        if llm_engine.api_key and not llm_engine.api_key.startswith("your-") and raw_text:
+        # 2. If Gemini or OpenAI API is configured, invoke live AI API directly
+        if llm_engine.has_active_api_key and raw_text:
             prompt = (
-                f"Extract complete structured resume profile and ATS calibration from this candidate CV text:\n\n"
-                f"--- BEGIN CV TEXT ---\n{raw_text[:4000]}\n--- END CV TEXT ---\n\n"
-                f"Return a strict JSON object with: candidate_name, candidate_role, candidate_email, candidate_phone, "
-                f"candidate_location, extracted_skills (array of string), professional_summary, overall_strength_score (integer 0-100), "
-                f"readiness_percentage (integer 0-100), skills_taxonomy, work_experience, projects, role_alignments, "
-                f"technical_coverage, improvements."
+                f"You are an expert technical recruiter and ATS engine.\n"
+                f"Extract the complete structured profile and career diagnostics from this uploaded CV text:\n\n"
+                f"--- BEGIN CV TEXT ---\n{raw_text[:7000]}\n--- END CV TEXT ---\n\n"
+                f"Extract candidate_name (the real person's full name from the document), candidate_role, candidate_email, candidate_phone, "
+                f"candidate_location, extracted_skills (comprehensive list of skills found in the document), "
+                f"education (list of degrees/schools), professional_summary (high-impact 2-4 sentences), "
+                f"overall_strength_score (integer 75-98), readiness_percentage (integer 70-98), "
+                f"skills_taxonomy (array of objects with title and skills array), "
+                f"work_experience (array of objects with title, company, location, duration, tenure_score, bullets, stack, metrics_count), "
+                f"projects (array of objects with title, role, timeframe, description, metrics, stack), "
+                f"role_alignments (array of objects with title, match_score, badge_bg, badge_color, badge_border, description), "
+                f"technical_coverage (object mapping categories to scores 60-100), "
+                f"improvements (list of 3 actionable recommendations)."
             )
             try:
-                chat_res = await llm_engine.generate_response(
-                    messages=[ChatMessage(role="user", content=prompt)],
-                    system_prompt="You are an expert Technical Recruiter and ATS parser. Output strictly valid JSON.",
-                    max_tokens=1500
+                parsed = await llm_engine.generate_structured_json(
+                    prompt=prompt,
+                    system_prompt="You are an expert AI Career and Resume intelligence system. Return strictly valid JSON conforming to the requested schema based on the candidate CV text.",
+                    max_tokens=3000,
                 )
-                raw = chat_res.reply
-                json_match = re.search(r'\{.*\}', raw, re.DOTALL)
-                if json_match:
-                    parsed = json.loads(json_match.group())
+                if parsed and isinstance(parsed, dict) and (parsed.get("candidate_name") or parsed.get("extracted_skills")):
+                    logger.info(f"Successfully processed CV using live AI API for '{parsed.get('candidate_name')}'")
+                    parsed["extracted_text_preview"] = raw_text[:2500]
+                    # Ensure defaults for required fields if missing
+                    parsed["overall_strength_score"] = parsed.get("overall_strength_score", 90)
+                    parsed["readiness_percentage"] = parsed.get("readiness_percentage", 88)
+                    parsed["professional_summary"] = parsed.get("professional_summary", "Experienced software engineer with verified technical competencies.")
+                    parsed["skills_taxonomy"] = parsed.get("skills_taxonomy", [])
+                    parsed["work_experience"] = parsed.get("work_experience", [])
+                    parsed["projects"] = parsed.get("projects", [])
+                    parsed["role_alignments"] = parsed.get("role_alignments", [])
+                    parsed["technical_coverage"] = parsed.get("technical_coverage", {})
+                    parsed["improvements"] = parsed.get("improvements", [])
                     return CvAnalysisResponse(**parsed)
-            except Exception as parse_err:
-                logger.warning(f"LLM JSON parsing fallback: {parse_err}")
+            except Exception as live_err:
+                logger.error(f"Live AI API analysis encountered error: {live_err}")
 
         # 3. High-fidelity contextual extraction & synthesis
         return generate_structured_cv_analysis(
