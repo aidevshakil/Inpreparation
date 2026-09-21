@@ -207,7 +207,7 @@ export const UploadCvPage: React.FC<UploadCvPageProps> = ({
                   </span>
                 </div>
 
-                <p style={{ fontSize: '0.86rem', color: '#94a3b8', margin: 0, maxWidth: '680px', lineHeight: 1.5 }}>
+                <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', margin: 0, maxWidth: '680px', lineHeight: 1.5 }}>
                   Upload your latest resume to let Inprep AI extract professional competencies, analyze technical projects, and auto-calibrate your 5-question mock simulations.
                 </p>
               </div>
@@ -221,10 +221,10 @@ export const UploadCvPage: React.FC<UploadCvPageProps> = ({
                     alignItems: 'center',
                     gap: '6px',
                     padding: '9px 16px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    backgroundColor: 'var(--bg-card)',
+                    border: '1px solid var(--border-subtle)',
                     borderRadius: '10px',
-                    color: '#cbd5e1',
+                    color: 'var(--text-secondary)',
                     fontSize: '0.82rem',
                     fontWeight: 500,
                     cursor: 'pointer',
@@ -244,10 +244,10 @@ export const UploadCvPage: React.FC<UploadCvPageProps> = ({
                     alignItems: 'center',
                     gap: '6px',
                     padding: '9px 16px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    backgroundColor: 'var(--bg-card)',
+                    border: '1px solid var(--border-subtle)',
                     borderRadius: '10px',
-                    color: '#cbd5e1',
+                    color: 'var(--text-secondary)',
                     fontSize: '0.82rem',
                     fontWeight: 500,
                     cursor: 'pointer',

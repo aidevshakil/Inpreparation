@@ -38,12 +38,12 @@ export const CvUploadManualBuilderCard: React.FC<CvUploadManualBuilderCardProps>
           >
             <Edit3 size={16} />
           </div>
-          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
             Don&apos;t have a CV ready?
           </h3>
         </div>
 
-        <p style={{ fontSize: '0.78rem', color: '#94a3b8', lineHeight: 1.5, margin: '0 0 18px 0' }}>
+        <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', lineHeight: 1.5, margin: '0 0 18px 0' }}>
           Build your professional credentials directly through our interactive step-by-step editor without needing an external document file.
         </p>
       </div>
@@ -57,7 +57,7 @@ export const CvUploadManualBuilderCard: React.FC<CvUploadManualBuilderCardProps>
           backgroundColor: 'rgba(255, 255, 255, 0.05)',
           border: '1px solid rgba(255, 255, 255, 0.1)',
           borderRadius: '10px',
-          color: '#cbd5e1',
+          color: 'var(--text-secondary)',
           fontSize: '0.78rem',
           fontWeight: 600,
           cursor: 'pointer',

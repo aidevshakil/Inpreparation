@@ -106,7 +106,7 @@ export const ScheduleDemoModal: React.FC<ScheduleDemoModalProps> = ({ isOpen, on
 
               <button
                 onClick={onClose}
-                className="btn-primary"
+                className="btn btn-primary"
                 style={{ width: '100%', justifyContent: 'center' }}
               >
                 Done
@@ -248,7 +248,7 @@ export const ScheduleDemoModal: React.FC<ScheduleDemoModalProps> = ({ isOpen, on
 
               <button
                 type="submit"
-                className="btn-primary"
+                className="btn btn-primary"
                 style={{ width: '100%', justifyContent: 'center', marginTop: '8px', padding: '14px' }}
               >
                 <span>Request Custom Demo</span>

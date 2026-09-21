@@ -25,7 +25,7 @@ export const CvUploadSimulatorBar: React.FC<CvUploadSimulatorBarProps> = ({
     { id: 'file_selected', label: '3. File Selected' },
     { id: 'uploading', label: '4. Uploading (68%)' },
     { id: 'processing', label: '5. AI Processing' },
-    { id: 'ready', label: '6. Analysis Ready', color: '#34d399' },
+    { id: 'ready', label: '6. Analysis Ready', color: 'var(--color-success, #059669)' },
     { id: 'format_error', label: '7. Format Error', color: '#fbbf24' },
     { id: 'pipeline_failure', label: '8. Pipeline Failure', color: '#fb7185' },
   ];
@@ -43,7 +43,7 @@ export const CvUploadSimulatorBar: React.FC<CvUploadSimulatorBarProps> = ({
         flexWrap: 'wrap',
         gap: '12px',
         fontSize: '0.78rem',
-        color: '#94a3b8',
+        color: 'var(--text-muted)',
         zIndex: 50,
         position: 'sticky',
         top: 0,
@@ -61,11 +61,11 @@ export const CvUploadSimulatorBar: React.FC<CvUploadSimulatorBarProps> = ({
             boxShadow: '0 0 10px #6366f1',
           }}
         />
-        <strong style={{ color: '#e2e8f0', fontWeight: 600 }}>
+        <strong style={{ color: 'var(--text-main)', fontWeight: 600 }}>
           Interactive Prototype Simulator
         </strong>
-        <span style={{ color: '#64748b' }}>|</span>
-        <span style={{ color: '#94a3b8' }}>Test all CV upload &amp; AI pipeline states:</span>
+        <span style={{ color: 'var(--text-muted)' }}>|</span>
+        <span style={{ color: 'var(--text-muted)' }}>Test all CV upload &amp; AI pipeline states:</span>
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>

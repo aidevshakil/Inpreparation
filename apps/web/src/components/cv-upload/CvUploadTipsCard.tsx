@@ -42,12 +42,12 @@ export const CvUploadTipsCard: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#818cf8',
+              color: 'var(--primary-color)',
             }}
           >
             <Shield size={16} />
           </div>
-          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
             For Better Results
           </h3>
         </div>
@@ -65,15 +65,15 @@ export const CvUploadTipsCard: React.FC = () => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#10b981',
+                  color: 'var(--color-success, #059669)',
                   flexShrink: 0,
                   marginTop: '2px',
                 }}
               >
                 <Check size={9} strokeWidth={3} />
               </div>
-              <p style={{ margin: 0, color: '#94a3b8' }}>
-                <strong style={{ color: '#e2e8f0' }}>{tip.title}</strong> {tip.desc}
+              <p style={{ margin: 0, color: 'var(--text-muted)' }}>
+                <strong style={{ color: 'var(--text-main)' }}>{tip.title}</strong> {tip.desc}
               </p>
             </div>
           ))}

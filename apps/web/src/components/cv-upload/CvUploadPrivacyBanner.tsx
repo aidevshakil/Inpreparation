@@ -35,7 +35,7 @@ export const CvUploadPrivacyBanner: React.FC<CvUploadPrivacyBannerProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#818cf8',
+            color: 'var(--primary-color)',
             flexShrink: 0,
           }}
         >
@@ -44,7 +44,7 @@ export const CvUploadPrivacyBanner: React.FC<CvUploadPrivacyBannerProps> = ({
 
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '3px' }}>
-            <span style={{ fontSize: '0.86rem', fontWeight: 700, color: '#f8fafc' }}>
+            <span style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--text-main)' }}>
               Your CV Contains Personal Career Information
             </span>
             <span
@@ -54,7 +54,7 @@ export const CvUploadPrivacyBanner: React.FC<CvUploadPrivacyBannerProps> = ({
                 padding: '2px 7px',
                 borderRadius: '6px',
                 backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                color: '#cbd5e1',
+                color: 'var(--text-secondary)',
                 border: '1px solid rgba(255, 255, 255, 0.08)',
               }}
             >
@@ -62,7 +62,7 @@ export const CvUploadPrivacyBanner: React.FC<CvUploadPrivacyBannerProps> = ({
             </span>
           </div>
 
-          <p style={{ fontSize: '0.74rem', color: '#94a3b8', margin: 0, lineHeight: 1.45 }}>
+          <p style={{ fontSize: '0.74rem', color: 'var(--text-muted)', margin: 0, lineHeight: 1.45 }}>
             Uploaded resumes are encrypted and solely used to calibrate realistic synthetic mock interview questions. AI-generated insights are advisory suggestions. Review extracted information before mock generation.
           </p>
         </div>
@@ -73,7 +73,7 @@ export const CvUploadPrivacyBanner: React.FC<CvUploadPrivacyBannerProps> = ({
         style={{
           background: 'transparent',
           border: 'none',
-          color: '#818cf8',
+          color: 'var(--primary-color)',
           fontSize: '0.78rem',
           fontWeight: 600,
           cursor: 'pointer',
