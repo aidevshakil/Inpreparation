@@ -61,7 +61,7 @@ export const PricingFaqSection: React.FC = () => {
             fontWeight: 800,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: '#818cf8',
+            color: 'var(--primary-color)',
             marginBottom: '10px'
           }}>
             GOT QUESTIONS?
@@ -69,7 +69,7 @@ export const PricingFaqSection: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(28px, 3.5vw, 38px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '10px'
           }}>
@@ -77,7 +77,7 @@ export const PricingFaqSection: React.FC = () => {
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6,
             margin: 0
           }}>
@@ -93,12 +93,12 @@ export const PricingFaqSection: React.FC = () => {
               <div
                 key={idx}
                 style={{
-                  background: '#0a0e18',
-                  border: isOpen ? '1px solid rgba(129, 140, 248, 0.3)' : '1px solid rgba(255, 255, 255, 0.07)',
+                  background: 'var(--bg-card)',
+                  border: isOpen ? '1px solid var(--primary-color)' : '1px solid var(--border-subtle)',
                   borderRadius: '14px',
                   overflow: 'hidden',
                   transition: 'all 0.25s ease',
-                  boxShadow: isOpen ? '0 10px 30px rgba(0, 0, 0, 0.4)' : 'none'
+                  boxShadow: isOpen ? 'var(--shadow-md)' : 'none'
                 }}
               >
                 <button
@@ -112,14 +112,14 @@ export const PricingFaqSection: React.FC = () => {
                     gap: '16px',
                     background: 'transparent',
                     border: 'none',
-                    color: '#ffffff',
+                    color: 'var(--text-main)',
                     fontSize: '15px',
                     fontWeight: 600,
                     cursor: 'pointer',
                     textAlign: 'left'
                   }}
                 >
-                  <span style={{ color: isOpen ? '#f8fafc' : '#cbd5e1' }}>
+                  <span style={{ color: isOpen ? 'var(--text-main)' : 'var(--text-secondary)' }}>
                     {faq.question}
                   </span>
                   <div
@@ -127,7 +127,7 @@ export const PricingFaqSection: React.FC = () => {
                       width: '28px',
                       height: '28px',
                       borderRadius: '50%',
-                      background: isOpen ? 'rgba(129, 140, 248, 0.15)' : 'rgba(255, 255, 255, 0.04)',
+                      background: isOpen ? 'rgba(99, 102, 241, 0.12)' : 'var(--bg-surface)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -137,7 +137,7 @@ export const PricingFaqSection: React.FC = () => {
                   >
                     <ChevronDown
                       size={16}
-                      color={isOpen ? '#818cf8' : '#94a3b8'}
+                      color={isOpen ? 'var(--primary-color)' : 'var(--text-secondary)'}
                       style={{
                         transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                         transition: 'transform 0.25s ease'
@@ -151,9 +151,9 @@ export const PricingFaqSection: React.FC = () => {
                     style={{
                       padding: '0 24px 22px',
                       fontSize: '14px',
-                      color: '#94a3b8',
+                      color: 'var(--text-secondary)',
                       lineHeight: 1.7,
-                      borderTop: '1px solid rgba(255, 255, 255, 0.04)',
+                      borderTop: '1px solid var(--border-subtle)',
                       paddingTop: '16px',
                       animation: 'fadeIn 0.2s ease-out'
                     }}

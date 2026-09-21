@@ -13,7 +13,7 @@ export const FitDiscoveryStep: React.FC = () => {
             fontWeight: 800,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: '#818cf8',
+            color: 'var(--primary-color)',
             marginBottom: '10px'
           }}>
             STEP 03
@@ -21,7 +21,7 @@ export const FitDiscoveryStep: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(28px, 3.5vw, 38px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '12px'
           }}>
@@ -29,7 +29,7 @@ export const FitDiscoveryStep: React.FC = () => {
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6
           }}>
             Before entering full mock interviews, an optional adaptive diagnostic assessment verifies your conceptual limits, eliminating misaligned practice sessions.
@@ -38,13 +38,13 @@ export const FitDiscoveryStep: React.FC = () => {
 
         {/* Main Assessment Room Card */}
         <div style={{
-          background: '#0a0e18',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '24px',
           padding: '28px',
           maxWidth: '1080px',
           margin: '0 auto',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
+          boxShadow: 'var(--shadow-lg)'
         }}>
           {/* Top Header */}
           <div style={{
@@ -53,17 +53,17 @@ export const FitDiscoveryStep: React.FC = () => {
             alignItems: 'center',
             marginBottom: '24px',
             paddingBottom: '16px',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.06)'
+            borderBottom: '1px solid var(--border-subtle)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fb7185', boxShadow: '0 0 10px #fb7185' }} />
-              <span style={{ fontSize: '13.5px', fontWeight: 600, color: '#f8fafc' }}>
+              <span style={{ fontSize: '13.5px', fontWeight: 600, color: 'var(--text-main)' }}>
                 Initial Alignment Assessment Room
               </span>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <span style={{ fontSize: '12px', color: '#94a3b8' }}>
+              <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
                 Session: Arch-Eval-09
               </span>
               <span style={{
@@ -89,8 +89,8 @@ export const FitDiscoveryStep: React.FC = () => {
           }}>
             {/* Left HUD: AI Evaluator */}
             <div style={{
-              background: '#060911',
-              border: '1px solid rgba(255, 255, 255, 0.05)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '16px',
               padding: '24px',
               display: 'flex',
@@ -136,7 +136,7 @@ export const FitDiscoveryStep: React.FC = () => {
                   }}>
                     <Bot size={28} color="#c084fc" />
                   </div>
-                  <div style={{ fontSize: '12px', color: '#94a3b8' }}>
+                  <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
                     Evaluating Architectural Trade-Offs
                   </div>
                 </div>
@@ -144,8 +144,8 @@ export const FitDiscoveryStep: React.FC = () => {
 
               {/* Active Prompt Box */}
               <div style={{
-                background: '#0e1322',
-                border: '1px solid rgba(255, 255, 255, 0.05)',
+                background: 'var(--bg-main)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '10px',
                 padding: '14px 16px',
                 textAlign: 'left'
@@ -153,7 +153,7 @@ export const FitDiscoveryStep: React.FC = () => {
                 <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#38bdf8', letterSpacing: '0.06em', marginBottom: '6px' }}>
                   ACTIVE ASSESSMENT PROMPT:
                 </div>
-                <div style={{ fontSize: '13px', color: '#e2e8f0', lineHeight: 1.5, fontWeight: 500 }}>
+                <div style={{ fontSize: '13px', color: 'var(--text-main)', lineHeight: 1.5, fontWeight: 500 }}>
                   "Tell me about your architectural trade-offs when designing multi-region distributed cache invalidation."
                 </div>
               </div>
@@ -161,8 +161,8 @@ export const FitDiscoveryStep: React.FC = () => {
 
             {/* Right HUD: Candidate Feed */}
             <div style={{
-              background: '#060911',
-              border: '1px solid rgba(255, 255, 255, 0.05)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '16px',
               padding: '24px',
               display: 'flex',
@@ -186,7 +186,7 @@ export const FitDiscoveryStep: React.FC = () => {
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#38bdf8' }} />
-                    <span style={{ fontSize: '11.5px', color: '#94a3b8' }}>1080p 60fps</span>
+                    <span style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>1080p 60fps</span>
                   </div>
                 </div>
 
@@ -196,16 +196,16 @@ export const FitDiscoveryStep: React.FC = () => {
                     width: '60px',
                     height: '60px',
                     borderRadius: '50%',
-                    background: '#111726',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    background: 'var(--bg-main)',
+                    border: '1px solid var(--border-subtle)',
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     marginBottom: '10px'
                   }}>
-                    <User size={28} color="#94a3b8" />
+                    <User size={28} color="var(--text-muted)" />
                   </div>
-                  <div style={{ fontSize: '12px', color: '#94a3b8' }}>
+                  <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
                     Framing & Audio Level: Optimal
                   </div>
                 </div>
@@ -213,8 +213,8 @@ export const FitDiscoveryStep: React.FC = () => {
 
               {/* Live Speech Telemetry Box */}
               <div style={{
-                background: '#0e1322',
-                border: '1px solid rgba(255, 255, 255, 0.05)',
+                background: 'var(--bg-main)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '10px',
                 padding: '14px 16px',
                 display: 'flex',
@@ -223,8 +223,8 @@ export const FitDiscoveryStep: React.FC = () => {
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Mic size={15} color="#38bdf8" />
-                  <span style={{ fontSize: '12px', color: '#94a3b8' }}>
-                    Speaking: <span style={{ color: '#f8fafc', fontWeight: 600 }}>138 WPM</span>
+                  <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
+                    Speaking: <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>138 WPM</span>
                   </span>
                 </div>
 
@@ -251,10 +251,10 @@ export const FitDiscoveryStep: React.FC = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
             paddingTop: '16px',
-            borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+            borderTop: '1px solid var(--border-subtle)',
             fontSize: '12.5px'
           }}>
-            <span style={{ color: '#8896ab' }}>
+            <span style={{ color: 'var(--text-secondary)' }}>
               Establishes target role benchmarks without high-stakes pressure.
             </span>
             <span style={{ color: '#a5b4fc', fontWeight: 600 }}>

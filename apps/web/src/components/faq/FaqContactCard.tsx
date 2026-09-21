@@ -12,8 +12,8 @@ export const FaqContactCard: React.FC<FaqContactCardProps> = () => {
     <section style={{ padding: '30px 0 20px', position: 'relative' }}>
       <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
         <div style={{
-          background: 'linear-gradient(135deg, #0d1220 0%, #080c16 100%)',
-          border: '1px solid rgba(124, 58, 237, 0.25)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '20px',
           padding: '32px 36px',
           display: 'flex',
@@ -21,7 +21,7 @@ export const FaqContactCard: React.FC<FaqContactCardProps> = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: '24px',
-          boxShadow: '0 15px 40px rgba(0, 0, 0, 0.5)'
+          boxShadow: 'var(--shadow-lg)'
         }}>
           {/* Left info */}
           <div style={{ maxWidth: '620px' }}>
@@ -31,22 +31,22 @@ export const FaqContactCard: React.FC<FaqContactCardProps> = () => {
               gap: '6px',
               padding: '4px 12px',
               borderRadius: '100px',
-              background: 'rgba(124, 58, 237, 0.15)',
-              border: '1px solid rgba(168, 85, 247, 0.3)',
+              background: 'rgba(99, 102, 241, 0.12)',
+              border: '1px solid rgba(99, 102, 241, 0.25)',
               fontSize: '11px',
               fontWeight: 700,
-              color: '#c084fc',
+              color: 'var(--primary-color)',
               marginBottom: '12px'
             }}>
               <Headphones size={13} />
               <span>Direct Support Channel</span>
             </div>
 
-            <h3 style={{ fontSize: '24px', fontWeight: 700, color: '#ffffff', marginBottom: '8px', letterSpacing: '-0.02em' }}>
+            <h3 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px', letterSpacing: '-0.02em' }}>
               Still Can’t Find Your Answer?
             </h3>
 
-            <p style={{ fontSize: '13.5px', color: '#94a3b8', lineHeight: 1.6, margin: 0 }}>
+            <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
               Our engineering and interview coaching teams are standing by. We respond to candidate technical tickets and rubric queries within 4 hours.
             </p>
           </div>
@@ -56,7 +56,7 @@ export const FaqContactCard: React.FC<FaqContactCardProps> = () => {
             <a
               href="mailto:support@inprep.ai"
               style={{
-                background: 'linear-gradient(135deg, #7c3aed 0%, #6366f1 100%)',
+                background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
                 color: '#ffffff',
                 border: 'none',
                 borderRadius: '100px',
@@ -68,16 +68,16 @@ export const FaqContactCard: React.FC<FaqContactCardProps> = () => {
                 alignItems: 'center',
                 gap: '8px',
                 textDecoration: 'none',
-                boxShadow: '0 4px 15px rgba(124, 58, 237, 0.35)',
+                boxShadow: '0 4px 15px rgba(99, 102, 241, 0.35)',
                 transition: 'all 0.2s ease'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 6px 20px rgba(124, 58, 237, 0.5)';
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(99, 102, 241, 0.5)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 15px rgba(124, 58, 237, 0.35)';
+                e.currentTarget.style.boxShadow = '0 4px 15px rgba(99, 102, 241, 0.35)';
               }}
             >
               <span>Contact Support</span>
@@ -88,9 +88,9 @@ export const FaqContactCard: React.FC<FaqContactCardProps> = () => {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                color: '#e2e8f0',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                background: 'var(--bg-surface)',
+                color: 'var(--text-main)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '100px',
                 padding: '12px 22px',
                 fontSize: '13.5px',
@@ -103,15 +103,13 @@ export const FaqContactCard: React.FC<FaqContactCardProps> = () => {
                 transition: 'all 0.2s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                e.currentTarget.style.background = 'var(--bg-card-hover)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                e.currentTarget.style.background = 'var(--bg-surface)';
               }}
             >
-              <MessageSquare size={15} color="#cbd5e1" />
+              <MessageSquare size={15} color="var(--text-secondary)" />
               <span>Candidate Discord</span>
             </a>
           </div>

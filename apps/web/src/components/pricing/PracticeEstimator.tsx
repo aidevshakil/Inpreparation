@@ -70,11 +70,11 @@ export const PracticeEstimator: React.FC<PracticeEstimatorProps> = ({
         
         {/* Container Box */}
         <div style={{
-          background: '#090d16',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '24px',
           padding: '40px',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
+          boxShadow: 'var(--shadow-lg)'
         }}>
           <div style={{
             display: 'grid',
@@ -92,13 +92,13 @@ export const PracticeEstimator: React.FC<PracticeEstimatorProps> = ({
                 gap: '6px',
                 padding: '4px 12px',
                 borderRadius: '100px',
-                background: 'rgba(56, 189, 248, 0.12)',
-                border: '1px solid rgba(56, 189, 248, 0.25)',
+                background: 'rgba(2, 132, 199, 0.12)',
+                border: '1px solid rgba(2, 132, 199, 0.25)',
                 fontSize: '11px',
                 fontWeight: 700,
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase',
-                color: '#38bdf8',
+                color: '#0284c7',
                 marginBottom: '16px'
               }}>
                 <SlidersHorizontal size={13} />
@@ -109,7 +109,7 @@ export const PracticeEstimator: React.FC<PracticeEstimatorProps> = ({
               <h2 style={{
                 fontSize: 'clamp(26px, 3.2vw, 36px)',
                 fontWeight: 700,
-                color: '#ffffff',
+                color: 'var(--text-main)',
                 letterSpacing: '-0.02em',
                 marginBottom: '12px'
               }}>
@@ -119,7 +119,7 @@ export const PracticeEstimator: React.FC<PracticeEstimatorProps> = ({
               {/* Subtitle */}
               <p style={{
                 fontSize: '14.5px',
-                color: '#94a3b8',
+                color: 'var(--text-secondary)',
                 lineHeight: 1.6,
                 marginBottom: '32px'
               }}>
@@ -133,7 +133,7 @@ export const PracticeEstimator: React.FC<PracticeEstimatorProps> = ({
                   fontWeight: 800,
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
-                  color: '#64748b',
+                  color: 'var(--text-muted)',
                   marginBottom: '12px'
                 }}>
                   TARGET WEEKLY CADENCE
@@ -147,27 +147,27 @@ export const PracticeEstimator: React.FC<PracticeEstimatorProps> = ({
                         key={cadence}
                         onClick={() => setSelectedCadence(cadence)}
                         style={{
-                          background: isSelected ? '#a5b4fc' : '#121726',
-                          color: isSelected ? '#0f172a' : '#94a3b8',
-                          border: isSelected ? 'none' : '1px solid rgba(255, 255, 255, 0.08)',
+                          background: isSelected ? 'var(--primary-color)' : 'var(--bg-surface)',
+                          color: isSelected ? '#ffffff' : 'var(--text-secondary)',
+                          border: isSelected ? 'none' : '1px solid var(--border-subtle)',
                           borderRadius: '10px',
                           padding: '10px 18px',
                           fontSize: '13px',
                           fontWeight: isSelected ? 700 : 500,
                           cursor: 'pointer',
                           transition: 'all 0.15s ease',
-                          boxShadow: isSelected ? '0 4px 14px rgba(165, 180, 252, 0.35)' : 'none'
+                          boxShadow: isSelected ? '0 4px 14px rgba(99, 102, 241, 0.35)' : 'none'
                         }}
                         onMouseEnter={(e) => {
                           if (!isSelected) {
-                            e.currentTarget.style.background = '#1a2238';
-                            e.currentTarget.style.color = '#ffffff';
+                            e.currentTarget.style.background = 'var(--bg-card-hover)';
+                            e.currentTarget.style.color = 'var(--text-main)';
                           }
                         }}
                         onMouseLeave={(e) => {
                           if (!isSelected) {
-                            e.currentTarget.style.background = '#121726';
-                            e.currentTarget.style.color = '#94a3b8';
+                            e.currentTarget.style.background = 'var(--bg-surface)';
+                            e.currentTarget.style.color = 'var(--text-secondary)';
                           }
                         }}
                       >
@@ -181,11 +181,11 @@ export const PracticeEstimator: React.FC<PracticeEstimatorProps> = ({
 
             {/* Right Column: Suggested Tier Card */}
             <div style={{
-              background: '#0e1320',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '20px',
               padding: '32px 28px',
-              boxShadow: '0 12px 36px rgba(0, 0, 0, 0.45)',
+              boxShadow: 'var(--shadow-md)',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between'
@@ -193,12 +193,12 @@ export const PracticeEstimator: React.FC<PracticeEstimatorProps> = ({
               <div>
                 {/* Card Header Row */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                     SUGGESTED TIER
                   </span>
                   <span style={{
                     background: 'rgba(99, 102, 241, 0.15)',
-                    color: '#a5b4fc',
+                    color: 'var(--primary-color)',
                     fontSize: '10px',
                     fontWeight: 800,
                     padding: '3px 10px',
@@ -211,10 +211,10 @@ export const PracticeEstimator: React.FC<PracticeEstimatorProps> = ({
 
                 {/* Plan Title & Price */}
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '10px' }}>
-                  <h3 style={{ fontSize: '24px', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+                  <h3 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                     {current.tierName}
                   </h3>
-                  <span style={{ fontSize: '15px', fontWeight: 600, color: '#a5b4fc' }}>
+                  <span style={{ fontSize: '15px', fontWeight: 600, color: 'var(--primary-color)' }}>
                     {current.tierPrice}
                   </span>
                 </div>
@@ -222,7 +222,7 @@ export const PracticeEstimator: React.FC<PracticeEstimatorProps> = ({
                 {/* Description */}
                 <p style={{
                   fontSize: '13px',
-                  color: '#94a3b8',
+                  color: 'var(--text-secondary)',
                   lineHeight: 1.55,
                   marginBottom: '26px'
                 }}>
@@ -238,21 +238,21 @@ export const PracticeEstimator: React.FC<PracticeEstimatorProps> = ({
                     fontSize: '12px',
                     marginBottom: '8px'
                   }}>
-                    <span style={{ color: '#cbd5e1', fontWeight: 500 }}>Recommended AI Credits</span>
-                    <span style={{ color: '#f8fafc', fontWeight: 700, fontFamily: 'monospace' }}>{current.creditsUsed}</span>
+                    <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>Recommended AI Credits</span>
+                    <span style={{ color: 'var(--text-main)', fontWeight: 700, fontFamily: 'monospace' }}>{current.creditsUsed}</span>
                   </div>
 
                   <div style={{
                     width: '100%',
                     height: '6px',
-                    background: 'rgba(255, 255, 255, 0.08)',
+                    background: 'var(--border-subtle)',
                     borderRadius: '100px',
                     overflow: 'hidden'
                   }}>
                     <div style={{
                       width: `${current.progressPct}%`,
                       height: '100%',
-                      background: 'linear-gradient(90deg, #818cf8, #c084fc)',
+                      background: 'linear-gradient(90deg, #6366f1, #a855f7)',
                       borderRadius: '100px',
                       transition: 'width 0.4s ease'
                     }} />
@@ -267,8 +267,8 @@ export const PracticeEstimator: React.FC<PracticeEstimatorProps> = ({
                   fontSize: '12px',
                   marginBottom: '28px'
                 }}>
-                  <span style={{ color: '#64748b' }}>Buffer for CV Analysis & Coaching</span>
-                  <span style={{ color: '#38bdf8', fontWeight: 600 }}>{current.bufferStatus}</span>
+                  <span style={{ color: 'var(--text-muted)' }}>Buffer for CV Analysis & Coaching</span>
+                  <span style={{ color: '#0284c7', fontWeight: 600 }}>{current.bufferStatus}</span>
                 </div>
               </div>
 
@@ -280,13 +280,13 @@ export const PracticeEstimator: React.FC<PracticeEstimatorProps> = ({
                   padding: '13px 20px',
                   borderRadius: '100px',
                   border: 'none',
-                  background: 'linear-gradient(135deg, #a5b4fc 0%, #c084fc 100%)',
-                  color: '#0f172a',
+                  background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                  color: '#ffffff',
                   fontSize: '14px',
                   fontWeight: 700,
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
-                  boxShadow: '0 4px 18px rgba(165, 180, 252, 0.35)'
+                  boxShadow: '0 4px 18px rgba(99, 102, 241, 0.35)'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.opacity = '0.92';

@@ -4,6 +4,7 @@ import { AuthStateMode } from './AuthPrototypeBar';
 import { GoogleLogin } from '@react-oauth/google';
 
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 
 interface LoginFormCardProps {
   mode: AuthStateMode;
@@ -19,6 +20,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
   onNavigateForgot
 }) => {
   const { login, loginWithGoogleProvider } = useAuth();
+  const { theme } = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -82,11 +84,11 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
 
   return (
     <div style={{
-      background: '#090d16',
-      border: '1px solid rgba(255, 255, 255, 0.08)',
+      background: 'var(--bg-card)',
+      border: '1px solid var(--border-subtle)',
       borderRadius: '24px',
       padding: '36px 32px',
-      boxShadow: '0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(99, 102, 241, 0.06)',
+      boxShadow: 'var(--shadow-xl)',
       width: '100%',
       maxWidth: '460px'
     }}>
@@ -98,14 +100,14 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
         gap: '6px',
         padding: '4px 12px',
         borderRadius: '100px',
-        background: 'rgba(129, 140, 248, 0.12)',
-        border: '1px solid rgba(129, 140, 248, 0.25)',
+        background: 'rgba(99, 102, 241, 0.12)',
+        border: '1px solid rgba(99, 102, 241, 0.25)',
         fontSize: '11px',
         fontWeight: 700,
-        color: '#c7d2fe',
+        color: 'var(--primary-color)',
         marginBottom: '16px'
       }}>
-        <Lock size={12} color="#a5b4fc" />
+        <Lock size={12} color="var(--primary-color)" />
         <span>Secure Authentication</span>
       </div>
 
@@ -113,7 +115,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
       <h1 style={{
         fontSize: '28px',
         fontWeight: 800,
-        color: '#ffffff',
+        color: 'var(--text-main)',
         letterSpacing: '-0.025em',
         marginBottom: '8px'
       }}>
@@ -122,7 +124,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
 
       <p style={{
         fontSize: '13.5px',
-        color: '#94a3b8',
+        color: 'var(--text-secondary)',
         lineHeight: 1.5,
         marginBottom: '26px'
       }}>
@@ -192,19 +194,19 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
         
         {/* Email Address */}
         <div>
-          <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#e2e8f0', marginBottom: '8px' }}>
+          <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--text-main)', marginBottom: '8px' }}>
             Email Address <span style={{ color: '#f43f5e' }}>*</span>
           </label>
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            background: '#0e1320',
-            border: localStatus === 'empty-error' ? '1px solid #ef4444' : '1px solid rgba(255, 255, 255, 0.1)',
+            background: 'var(--bg-surface)',
+            border: localStatus === 'empty-error' ? '1px solid #ef4444' : '1px solid var(--border-subtle)',
             borderRadius: '12px',
             padding: '12px 14px',
             transition: 'all 0.2s ease'
           }}>
-            <Mail size={16} color="#64748b" style={{ marginRight: '10px', flexShrink: 0 }} />
+            <Mail size={16} color="var(--text-muted)" style={{ marginRight: '10px', flexShrink: 0 }} />
             <input
               type="email"
               required
@@ -219,7 +221,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
                 background: 'transparent',
                 border: 'none',
                 outline: 'none',
-                color: '#ffffff',
+                color: 'var(--text-main)',
                 fontSize: '14px',
                 fontFamily: 'inherit'
               }}
@@ -230,7 +232,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
         {/* Password */}
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-            <label style={{ fontSize: '12.5px', fontWeight: 600, color: '#e2e8f0' }}>
+            <label style={{ fontSize: '12.5px', fontWeight: 600, color: 'var(--text-main)' }}>
               Password <span style={{ color: '#f43f5e' }}>*</span>
             </label>
             <button
@@ -240,7 +242,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
                 background: 'transparent',
                 border: 'none',
                 fontSize: '12px',
-                color: '#818cf8',
+                color: 'var(--primary-color)',
                 cursor: 'pointer',
                 fontWeight: 500,
                 padding: 0
@@ -252,13 +254,13 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            background: '#0e1320',
-            border: localStatus === 'empty-error' || localStatus === 'invalid-credentials' ? '1px solid #ef4444' : '1px solid rgba(255, 255, 255, 0.1)',
+            background: 'var(--bg-surface)',
+            border: localStatus === 'empty-error' || localStatus === 'invalid-credentials' ? '1px solid #ef4444' : '1px solid var(--border-subtle)',
             borderRadius: '12px',
             padding: '12px 14px',
             transition: 'all 0.2s ease'
           }}>
-            <Lock size={16} color="#64748b" style={{ marginRight: '10px', flexShrink: 0 }} />
+            <Lock size={16} color="var(--text-muted)" style={{ marginRight: '10px', flexShrink: 0 }} />
             <input
               type={showPassword ? 'text' : 'password'}
               required
@@ -273,7 +275,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
                 background: 'transparent',
                 border: 'none',
                 outline: 'none',
-                color: '#ffffff',
+                color: 'var(--text-main)',
                 fontSize: '14px',
                 fontFamily: 'inherit'
               }}
@@ -297,11 +299,11 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
             style={{
               width: '15px',
               height: '15px',
-              accentColor: '#6366f1',
+              accentColor: 'var(--primary-color)',
               cursor: 'pointer'
             }}
           />
-          <span style={{ fontSize: '12.5px', color: '#cbd5e1' }}>
+          <span style={{ fontSize: '12.5px', color: 'var(--text-secondary)' }}>
             Remember this device for 30 days
           </span>
         </div>
@@ -363,11 +365,11 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
           gap: '12px',
           margin: '6px 0'
         }}>
-          <div style={{ flex: 1, height: '1px', background: 'rgba(255, 255, 255, 0.08)' }} />
-          <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 700, letterSpacing: '0.05em' }}>
+          <div style={{ flex: 1, height: '1px', background: 'var(--border-subtle)' }} />
+          <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.05em' }}>
             OR CONTINUE WITH
           </span>
-          <div style={{ flex: 1, height: '1px', background: 'rgba(255, 255, 255, 0.08)' }} />
+          <div style={{ flex: 1, height: '1px', background: 'var(--border-subtle)' }} />
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
@@ -377,7 +379,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
               console.warn('Google Login Failed');
               setLocalStatus('invalid-credentials');
             }}
-            theme="filled_black"
+            theme={theme === 'dark' ? 'filled_black' : 'outline'}
             shape="rectangular"
             width="100%"
             text="continue_with"
@@ -388,14 +390,14 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
 
       {/* Footer Registration Link */}
       <div style={{ textAlign: 'center', marginTop: '22px' }}>
-        <p style={{ fontSize: '13px', color: '#94a3b8', margin: 0 }}>
+        <p style={{ fontSize: '13px', color: 'var(--text-secondary)', margin: 0 }}>
           New to Inprep AI?{' '}
           <button
             onClick={onNavigateRegister}
             style={{
               background: 'transparent',
               border: 'none',
-              color: '#818cf8',
+              color: 'var(--primary-color)',
               fontWeight: 700,
               cursor: 'pointer',
               textDecoration: 'none',
@@ -406,8 +408,8 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
           </button>
         </p>
 
-        <p style={{ fontSize: '11px', color: '#64748b', lineHeight: 1.5, marginTop: '12px' }}>
-          By continuing, you agree to Inprep AI’s <a href="#" style={{ color: '#818cf8', textDecoration: 'none' }}>Terms of Service</a> and <a href="#" style={{ color: '#818cf8', textDecoration: 'none' }}>Privacy Policy</a>.
+        <p style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: 1.5, marginTop: '12px' }}>
+          By continuing, you agree to Inprep AI’s <a href="#" style={{ color: 'var(--primary-color)', textDecoration: 'none' }}>Terms of Service</a> and <a href="#" style={{ color: 'var(--primary-color)', textDecoration: 'none' }}>Privacy Policy</a>.
         </p>
       </div>
 

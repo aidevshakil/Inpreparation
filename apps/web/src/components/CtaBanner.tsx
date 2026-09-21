@@ -11,8 +11,8 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onStartPractice }) => {
     <section style={{ padding: '80px 0 100px', position: 'relative' }}>
       <div className="container">
         <div style={{
-          background: 'radial-gradient(ellipse 80% 60% at 50% -20%, rgba(99, 102, 241, 0.25), transparent 70%), linear-gradient(180deg, rgba(15, 21, 35, 0.7) 0%, rgba(10, 14, 24, 0.95) 100%)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'radial-gradient(ellipse 80% 60% at 50% -20%, rgba(99, 102, 241, 0.15), transparent 70%), var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '28px',
           padding: '72px 32px 64px',
           textAlign: 'center',
@@ -38,8 +38,8 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onStartPractice }) => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              background: 'rgba(30, 27, 75, 0.8)',
-              border: '1px solid rgba(129, 140, 248, 0.3)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '9999px',
               padding: '6px 16px',
               marginBottom: '26px'
@@ -50,7 +50,7 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onStartPractice }) => {
                 fontWeight: 700,
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
-                color: '#c7d2fe'
+                color: 'var(--text-main)'
               }}>
                 READY TO TEST YOUR READINESS?
               </span>
@@ -60,7 +60,7 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onStartPractice }) => {
             <h2 style={{
               fontSize: 'clamp(32px, 4.5vw, 48px)',
               fontWeight: 800,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               letterSpacing: '-0.025em',
               lineHeight: 1.18,
               marginBottom: '20px'
@@ -71,7 +71,7 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onStartPractice }) => {
             {/* Subtitle */}
             <p style={{
               fontSize: '15px',
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
               lineHeight: 1.65,
               maxWidth: '680px',
               margin: '0 auto 36px'
@@ -123,9 +123,9 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onStartPractice }) => {
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  background: 'rgba(255, 255, 255, 0.07)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  color: '#e2e8f0',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
+                  color: 'var(--text-main)',
                   borderRadius: '9999px',
                   padding: '14px 26px',
                   fontSize: '14px',
@@ -135,12 +135,12 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onStartPractice }) => {
                   transition: 'all 0.2s ease'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                  e.currentTarget.style.background = 'var(--bg-card-hover)';
+                  e.currentTarget.style.borderColor = 'var(--primary-color)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.07)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                  e.currentTarget.style.background = 'var(--bg-surface)';
+                  e.currentTarget.style.borderColor = 'var(--border-subtle)';
                 }}
               >
                 <span>Explore Interview Library</span>
@@ -150,7 +150,7 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onStartPractice }) => {
             {/* Micro Details */}
             <div style={{
               fontSize: '12px',
-              color: '#64748b',
+              color: 'var(--text-muted)',
               letterSpacing: '0.01em'
             }}>
               No credit card required • 1 full session included free • Instant setup

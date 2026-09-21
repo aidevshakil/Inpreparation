@@ -20,7 +20,7 @@ export const FeedbackProgressStep: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(28px, 3.5vw, 38px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '12px'
           }}>
@@ -28,7 +28,7 @@ export const FeedbackProgressStep: React.FC = () => {
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6
           }}>
             Evaluation is useless without synthesis. Inprep generates 3 high-leverage action levers after every mock session, tracking your compounding gains across retakes.
@@ -44,15 +44,15 @@ export const FeedbackProgressStep: React.FC = () => {
         }}>
           {/* Left Column: Targeted Focus Levers */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '18px' }}>
+            <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '18px' }}>
               Targeted Focus Levers
             </h3>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', flex: 1 }}>
               {/* Priority 1 */}
               <div style={{
-                background: '#0a0e18',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '16px',
                 padding: '20px 22px',
                 transition: 'all 0.25s ease'
@@ -61,30 +61,30 @@ export const FeedbackProgressStep: React.FC = () => {
                   <span style={{
                     fontSize: '11px',
                     fontWeight: 700,
-                    color: '#c084fc',
-                    background: 'rgba(168, 85, 247, 0.15)',
-                    border: '1px solid rgba(168, 85, 247, 0.3)',
+                    color: 'var(--primary-color)',
+                    background: 'rgba(99, 102, 241, 0.12)',
+                    border: '1px solid rgba(99, 102, 241, 0.25)',
                     padding: '3px 9px',
                     borderRadius: '6px'
                   }}>
                     Priority 1 (Highest Impact)
                   </span>
-                  <span style={{ fontSize: '11.5px', color: '#64748b', fontWeight: 500 }}>
+                  <span style={{ fontSize: '11.5px', color: 'var(--text-secondary)', fontWeight: 500 }}>
                     62% Calibrated
                   </span>
                 </div>
-                <h4 style={{ fontSize: '14.5px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
+                <h4 style={{ fontSize: '14.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
                   Sharpen Distributed Locking Explanations
                 </h4>
-                <p style={{ fontSize: '12.5px', color: '#94a3b8', lineHeight: 1.55, margin: 0 }}>
+                <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.55, margin: 0 }}>
                   Dedicate practice to explicitly stating lease expiration parameters and fencing tokens rather than generic Redis setnx concepts.
                 </p>
               </div>
 
               {/* Priority 2 */}
               <div style={{
-                background: '#0a0e18',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '16px',
                 padding: '20px 22px',
                 transition: 'all 0.25s ease'
@@ -93,30 +93,30 @@ export const FeedbackProgressStep: React.FC = () => {
                   <span style={{
                     fontSize: '11px',
                     fontWeight: 700,
-                    color: '#38bdf8',
-                    background: 'rgba(56, 189, 248, 0.15)',
-                    border: '1px solid rgba(56, 189, 248, 0.3)',
+                    color: '#0284c7',
+                    background: 'rgba(2, 132, 199, 0.12)',
+                    border: '1px solid rgba(2, 132, 199, 0.25)',
                     padding: '3px 9px',
                     borderRadius: '6px'
                   }}>
                     Priority 2
                   </span>
-                  <span style={{ fontSize: '11.5px', color: '#64748b', fontWeight: 500 }}>
+                  <span style={{ fontSize: '11.5px', color: 'var(--text-secondary)', fontWeight: 500 }}>
                     74% Calibrated
                   </span>
                 </div>
-                <h4 style={{ fontSize: '14.5px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
+                <h4 style={{ fontSize: '14.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
                   Replace Fillers with Intentional Pauses
                 </h4>
-                <p style={{ fontSize: '12.5px', color: '#94a3b8', lineHeight: 1.55, margin: 0 }}>
+                <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.55, margin: 0 }}>
                   Insert a deliberate 1.5-second breath before answering Question 2. Your filler frequency dropped 40% when taking a beat to structure thoughts.
                 </p>
               </div>
 
               {/* Priority 3 */}
               <div style={{
-                background: '#0a0e18',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '16px',
                 padding: '20px 22px',
                 transition: 'all 0.25s ease'
@@ -125,9 +125,9 @@ export const FeedbackProgressStep: React.FC = () => {
                   <span style={{
                     fontSize: '11px',
                     fontWeight: 600,
-                    color: '#94a3b8',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    color: 'var(--text-secondary)',
+                    background: 'var(--border-subtle)',
+                    border: '1px solid var(--border-subtle)',
                     padding: '3px 9px',
                     borderRadius: '6px'
                   }}>
@@ -137,10 +137,10 @@ export const FeedbackProgressStep: React.FC = () => {
                     81% Calibrated
                   </span>
                 </div>
-                <h4 style={{ fontSize: '14.5px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
+                <h4 style={{ fontSize: '14.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
                   Camera Elevation & Eye Contact Alignment
                 </h4>
-                <p style={{ fontSize: '12.5px', color: '#94a3b8', lineHeight: 1.55, margin: 0 }}>
+                <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.55, margin: 0 }}>
                   Elevate laptop height by 2 inches to meet natural horizon level. Eliminates downward gaze during complex conceptual thinking.
                 </p>
               </div>
@@ -149,30 +149,30 @@ export const FeedbackProgressStep: React.FC = () => {
 
           {/* Right Column: Longitudinal Growth Score Velocity Chart */}
           <div style={{
-            background: '#0a0e18',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '20px',
             padding: '28px 30px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
+            boxShadow: 'var(--shadow-lg)'
           }}>
             <div>
               <div style={{
                 fontSize: '10.5px',
                 fontWeight: 700,
-                color: '#38bdf8',
+                color: '#0284c7',
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
                 marginBottom: '6px'
               }}>
                 LONGITUDINAL GROWTH
               </div>
-              <h3 style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
+              <h3 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
                 Score Velocity (+14 pts Gain)
               </h3>
-              <p style={{ fontSize: '12.5px', color: '#94a3b8', lineHeight: 1.5, marginBottom: '32px' }}>
+              <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: '32px' }}>
                 Measured progress across 4 consecutive practice mock attempts over 10 days.
               </p>
 
@@ -184,14 +184,14 @@ export const FeedbackProgressStep: React.FC = () => {
                 height: '180px',
                 alignItems: 'flex-end',
                 paddingBottom: '20px',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+                borderBottom: '1px solid var(--border-subtle)',
                 marginBottom: '16px'
               }}>
                 {[
-                  { label: 'Att 1', score: 68, height: '52%', bg: '#171d2b', textColor: '#64748b' },
-                  { label: 'Att 2', score: 74, height: '66%', bg: '#1e2638', textColor: '#94a3b8' },
-                  { label: 'Att 3', score: 79, height: '78%', bg: '#4c1d95', textColor: '#cbd5e1' },
-                  { label: 'Att 4', score: 82, height: '90%', bg: '#7c3aed', textColor: '#ffffff', glow: true }
+                  { label: 'Att 1', score: 68, height: '52%', bg: 'rgba(99, 102, 241, 0.25)', textColor: 'var(--text-secondary)' },
+                  { label: 'Att 2', score: 74, height: '66%', bg: 'rgba(99, 102, 241, 0.5)', textColor: 'var(--text-main)' },
+                  { label: 'Att 3', score: 79, height: '78%', bg: '#818cf8', textColor: 'var(--text-main)' },
+                  { label: 'Att 4', score: 82, height: '90%', bg: '#6366f1', textColor: 'var(--text-main)', glow: true }
                 ].map((col, idx) => (
                   <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', justifyContent: 'flex-end' }}>
                     <span style={{
@@ -229,7 +229,7 @@ export const FeedbackProgressStep: React.FC = () => {
               <span style={{ color: '#64748b' }}>
                 Continuous Iterative Loop
               </span>
-              <span style={{ color: '#38bdf8', fontWeight: 600, cursor: 'pointer' }}>
+              <span style={{ color: '#0284c7', fontWeight: 600, cursor: 'pointer' }}>
                 Ready for Next Session
               </span>
             </div>

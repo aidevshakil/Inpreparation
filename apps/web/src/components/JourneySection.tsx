@@ -10,25 +10,25 @@ export const JourneySection: React.FC<JourneySectionProps> = ({ onStartPractice 
     {
       num: '01',
       numColor: '#818cf8',
-      icon: <FileText size={18} color="#64748b" />,
+      icon: <FileText size={18} color="var(--text-muted)" />,
       title: 'Build Your Profile',
       desc: 'Upload your CV or connect LinkedIn. Inprep AI extracts your true seniority, architectural footprint, and primary frameworks.',
       tag: 'CV Extraction: 100% Parsed',
-      tagColor: '#64748b',
+      tagColor: 'var(--text-muted)',
     },
     {
       num: '02',
       numColor: '#a5b4fc',
-      icon: <Compass size={18} color="#64748b" />,
+      icon: <Compass size={18} color="var(--text-muted)" />,
       title: 'AI Career Assessment',
       desc: 'Complete a rapid 3–minute diagnostic assessing target role requirements, industry benchmarks, and compensation tier targets.',
       tag: 'Benchmark: Staff / L6',
-      tagColor: '#64748b',
+      tagColor: 'var(--text-muted)',
     },
     {
       num: '03',
       numColor: '#38bdf8',
-      icon: <Network size={18} color="#64748b" />,
+      icon: <Network size={18} color="var(--text-muted)" />,
       title: 'Curated Interviews',
       desc: 'Receive matched simulations based precisely on your target company archetype (e.g. Big Tech, High–Growth Series B, FinTech).',
       tag: 'Match Score: 98.4%',
@@ -37,7 +37,7 @@ export const JourneySection: React.FC<JourneySectionProps> = ({ onStartPractice 
     {
       num: '04',
       numColor: '#34d399',
-      icon: <UserCheck size={18} color="#64748b" />,
+      icon: <UserCheck size={18} color="var(--text-muted)" />,
       title: 'Practice With AI',
       desc: 'Speak naturally to an expressive conversational AI interviewer across exactly five progressive, calibrated scenario questions.',
       tag: '5 Questions • 15 Mins',
@@ -45,21 +45,21 @@ export const JourneySection: React.FC<JourneySectionProps> = ({ onStartPractice 
     },
     {
       num: '05',
-      numColor: '#cbd5e1',
-      icon: <TrendingUp size={18} color="#64748b" />,
+      numColor: '#c084fc',
+      icon: <TrendingUp size={18} color="var(--text-muted)" />,
       title: 'Deep Multimodal Feedback',
       desc: 'Instant analytical breakdown: Code syntax logic, pacing cadences, verbal ticks, and objective webcam alignment scores.',
       tag: 'Rubrics: 4 Vector Deep Scan',
-      tagColor: '#64748b',
+      tagColor: 'var(--text-muted)',
     },
     {
       num: '06',
-      numColor: '#cbd5e1',
-      icon: <ArrowUp size={18} color="#64748b" />,
+      numColor: '#f59e0b',
+      icon: <ArrowUp size={18} color="var(--text-muted)" />,
       title: 'Targeted Re-Practice',
       desc: 'Iterate directly on your #1 improvement lever using contextual AI Suggested Answers modeled on executive clarity.',
       tag: 'Delta Tracking: Enabled',
-      tagColor: '#64748b',
+      tagColor: 'var(--text-muted)',
     }
   ];
 
@@ -83,7 +83,7 @@ export const JourneySection: React.FC<JourneySectionProps> = ({ onStartPractice 
           <h2 style={{
             fontSize: 'clamp(30px, 4.2vw, 46px)',
             fontWeight: 800,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.03em',
             lineHeight: 1.15,
             marginBottom: '16px'
@@ -93,7 +93,7 @@ export const JourneySection: React.FC<JourneySectionProps> = ({ onStartPractice 
 
           <p style={{
             fontSize: '16px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6,
             margin: 0
           }}>
@@ -112,8 +112,8 @@ export const JourneySection: React.FC<JourneySectionProps> = ({ onStartPractice 
               key={idx}
               onClick={() => onStartPractice()}
               style={{
-                background: 'rgba(15, 21, 35, 0.65)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '18px',
                 padding: '28px',
                 display: 'flex',
@@ -146,7 +146,7 @@ export const JourneySection: React.FC<JourneySectionProps> = ({ onStartPractice 
                   </span>
 
                   <div style={{
-                    color: '#64748b',
+                    color: 'var(--text-muted)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
@@ -159,7 +159,7 @@ export const JourneySection: React.FC<JourneySectionProps> = ({ onStartPractice 
                 <h3 style={{
                   fontSize: '18px',
                   fontWeight: 700,
-                  color: '#ffffff',
+                  color: 'var(--text-main)',
                   marginBottom: '10px',
                   letterSpacing: '-0.015em'
                 }}>
@@ -169,7 +169,7 @@ export const JourneySection: React.FC<JourneySectionProps> = ({ onStartPractice 
                 {/* Description */}
                 <p style={{
                   fontSize: '13px',
-                  color: '#94a3b8',
+                  color: 'var(--text-secondary)',
                   lineHeight: 1.6,
                   marginBottom: '28px'
                 }}>

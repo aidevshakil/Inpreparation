@@ -90,7 +90,7 @@ export const PopularInterviewPaths: React.FC<PopularInterviewPathsProps> = ({
               fontWeight: 800,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
-              color: '#38bdf8',
+              color: '#0284c7',
               marginBottom: '8px'
             }}>
               FEATURED PATHS
@@ -98,7 +98,7 @@ export const PopularInterviewPaths: React.FC<PopularInterviewPathsProps> = ({
             <h2 style={{
               fontSize: 'clamp(26px, 3.2vw, 34px)',
               fontWeight: 700,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               letterSpacing: '-0.02em',
               marginBottom: '6px'
             }}>
@@ -106,7 +106,7 @@ export const PopularInterviewPaths: React.FC<PopularInterviewPathsProps> = ({
             </h2>
             <p style={{
               fontSize: '14.5px',
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
               margin: 0
             }}>
               Start with the foundational career disciplines candidates practice most often.
@@ -118,14 +118,14 @@ export const PopularInterviewPaths: React.FC<PopularInterviewPathsProps> = ({
             alignItems: 'center',
             gap: '8px',
             fontSize: '12px',
-            color: '#94a3b8'
+            color: 'var(--text-secondary)'
           }}>
             <span style={{
               width: '6px',
               height: '6px',
               borderRadius: '50%',
-              background: '#38bdf8',
-              boxShadow: '0 0 8px #38bdf8'
+              background: '#0284c7',
+              boxShadow: '0 0 8px rgba(2, 132, 199, 0.5)'
             }} />
             <span>Calibrated against 2026 FAANG & Tier-1 hiring rubrics</span>
           </div>
@@ -142,26 +142,26 @@ export const PopularInterviewPaths: React.FC<PopularInterviewPathsProps> = ({
               key={idx}
               onClick={() => onSelectTrack(card.title)}
               style={{
-                background: '#0a0e18',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '20px',
                 padding: '28px 26px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                boxShadow: '0 15px 35px rgba(0, 0, 0, 0.4)',
+                boxShadow: 'var(--shadow-md)',
                 cursor: 'pointer',
                 transition: 'all 0.25s ease'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-3px)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.16)';
-                e.currentTarget.style.boxShadow = '0 20px 45px rgba(0, 0, 0, 0.6)';
+                e.currentTarget.style.borderColor = 'var(--border-accent)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                e.currentTarget.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.4)';
+                e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-md)';
               }}
             >
               <div>
@@ -184,7 +184,7 @@ export const PopularInterviewPaths: React.FC<PopularInterviewPathsProps> = ({
                 <h3 style={{
                   fontSize: '18px',
                   fontWeight: 700,
-                  color: '#ffffff',
+                  color: 'var(--text-main)',
                   marginBottom: '10px'
                 }}>
                   {card.title}
@@ -193,7 +193,7 @@ export const PopularInterviewPaths: React.FC<PopularInterviewPathsProps> = ({
                 {/* Card Description */}
                 <p style={{
                   fontSize: '13px',
-                  color: '#94a3b8',
+                  color: 'var(--text-secondary)',
                   lineHeight: 1.6,
                   marginBottom: '22px'
                 }}>
@@ -212,12 +212,12 @@ export const PopularInterviewPaths: React.FC<PopularInterviewPathsProps> = ({
                     <span
                       key={tIdx}
                       style={{
-                        background: 'rgba(255, 255, 255, 0.04)',
-                        border: '1px solid rgba(255, 255, 255, 0.08)',
+                        background: 'var(--bg-surface)',
+                        border: '1px solid var(--border-subtle)',
                         borderRadius: '6px',
                         padding: '3px 10px',
                         fontSize: '11.5px',
-                        color: '#cbd5e1'
+                        color: 'var(--text-secondary)'
                       }}
                     >
                       {tag}
@@ -231,7 +231,7 @@ export const PopularInterviewPaths: React.FC<PopularInterviewPathsProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
-                color: card.linkColor,
+                color: 'var(--primary-color)',
                 fontSize: '13px',
                 fontWeight: 600
               }}>

@@ -14,7 +14,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>(() => {
     try {
-      const stored = localStorage.getItem('inprep_theme');
+      const stored = localStorage.getItem('inprep_theme') || localStorage.getItem('theme');
       if (stored === 'light' || stored === 'dark') {
         return stored;
       }
@@ -29,6 +29,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   useEffect(() => {
     try {
       localStorage.setItem('inprep_theme', theme);
+      localStorage.setItem('theme', theme);
       document.documentElement.setAttribute('data-theme', theme);
       document.documentElement.classList.remove('dark', 'light');
       document.documentElement.classList.add(theme);

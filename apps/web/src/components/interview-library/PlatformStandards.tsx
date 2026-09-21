@@ -40,7 +40,7 @@ export const PlatformStandards: React.FC = () => {
             fontWeight: 800,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: '#38bdf8',
+            color: '#0284c7',
             marginBottom: '10px'
           }}>
             PLATFORM STANDARDS
@@ -48,7 +48,7 @@ export const PlatformStandards: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(28px, 3.5vw, 38px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '12px'
           }}>
@@ -56,10 +56,10 @@ export const PlatformStandards: React.FC = () => {
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6
           }}>
-            Uncompromising consistency designed to recreate realistic interview scenarios.
+            Consistent quality, standardized scoring, and low friction across every domain.
           </p>
         </div>
 
@@ -73,21 +73,21 @@ export const PlatformStandards: React.FC = () => {
             <div
               key={idx}
               style={{
-                background: '#0a0e18',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '18px',
                 padding: '28px 24px',
                 display: 'flex',
                 flexDirection: 'column',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.4)',
+                boxShadow: 'var(--shadow-md)',
                 transition: 'all 0.2s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.16)';
+                e.currentTarget.style.borderColor = 'var(--border-accent)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.borderColor = 'var(--border-subtle)';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
@@ -107,7 +107,7 @@ export const PlatformStandards: React.FC = () => {
               <h3 style={{
                 fontSize: '17px',
                 fontWeight: 700,
-                color: '#ffffff',
+                color: 'var(--text-main)',
                 marginBottom: '10px'
               }}>
                 {std.title}
@@ -115,7 +115,7 @@ export const PlatformStandards: React.FC = () => {
 
               <p style={{
                 fontSize: '13px',
-                color: '#94a3b8',
+                color: 'var(--text-secondary)',
                 lineHeight: 1.6,
                 margin: 0
               }}>

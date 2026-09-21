@@ -18,7 +18,7 @@ export const InterviewTracksStep: React.FC<InterviewTracksStepProps> = ({
             fontWeight: 800,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: '#818cf8',
+            color: 'var(--primary-color)',
             marginBottom: '10px'
           }}>
             STEP 04
@@ -26,7 +26,7 @@ export const InterviewTracksStep: React.FC<InterviewTracksStepProps> = ({
           <h2 style={{
             fontSize: 'clamp(28px, 3.5vw, 38px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '12px'
           }}>
@@ -34,7 +34,7 @@ export const InterviewTracksStep: React.FC<InterviewTracksStepProps> = ({
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6
           }}>
             Never sit through irrelevant generic question sets. Inprep dynamically generates custom tracks based on your verified strengths and target benchmarks.
@@ -49,14 +49,14 @@ export const InterviewTracksStep: React.FC<InterviewTracksStepProps> = ({
         }}>
           {/* Card 1: AI / ML Engineer Track */}
           <div style={{
-            background: '#0a0e18',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid rgba(99, 102, 241, 0.35)',
             borderRadius: '20px',
             padding: '28px 24px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            boxShadow: '0 12px 35px rgba(0, 0, 0, 0.4)',
+            boxShadow: 'var(--shadow-md)',
             transition: 'all 0.25s ease'
           }}>
             <div>
@@ -64,41 +64,41 @@ export const InterviewTracksStep: React.FC<InterviewTracksStepProps> = ({
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
                 <span style={{
                   fontSize: '11.5px',
-                  fontWeight: 600,
-                  color: '#a5b4fc',
-                  background: 'rgba(99, 102, 241, 0.15)',
+                  fontWeight: 700,
+                  color: 'var(--primary-color)',
+                  background: 'rgba(99, 102, 241, 0.12)',
                   border: '1px solid rgba(99, 102, 241, 0.25)',
                   padding: '3px 10px',
                   borderRadius: '6px'
                 }}>
                   Strong Match 96%
                 </span>
-                <span style={{ fontSize: '12px', color: '#64748b' }}>
+                <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 500 }}>
                   15 min
                 </span>
               </div>
 
               {/* Title & Description */}
-              <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '10px' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '10px' }}>
                 AI / ML Engineer Track
               </h3>
-              <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '22px' }}>
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '22px' }}>
                 Focuses on inference latency optimization, PyTorch serving pipelines, and concurrency challenges in transformer deployment.
               </p>
 
               {/* Focus Dimensions */}
               <div style={{ marginBottom: '22px' }}>
-                <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '8px' }}>
+                <div style={{ fontSize: '10.5px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '8px' }}>
                   FOCUS DIMENSIONS:
                 </div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                   {['PyTorch', 'Latency Slicing', 'vLLM'].map((tag) => (
                     <span key={tag} style={{
                       fontSize: '11px',
-                      fontWeight: 500,
-                      color: '#cbd5e1',
-                      background: '#121726',
-                      border: '1px solid rgba(255, 255, 255, 0.06)',
+                      fontWeight: 600,
+                      color: 'var(--text-main)',
+                      background: 'var(--bg-surface)',
+                      border: '1px solid var(--border-subtle)',
                       padding: '4px 10px',
                       borderRadius: '6px'
                     }}>
@@ -110,16 +110,16 @@ export const InterviewTracksStep: React.FC<InterviewTracksStepProps> = ({
 
               {/* Callout Box */}
               <div style={{
-                background: '#060911',
-                border: '1px solid rgba(255, 255, 255, 0.04)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '10px',
                 padding: '12px 14px',
                 marginBottom: '24px',
                 fontSize: '12.5px',
                 lineHeight: 1.5,
-                color: '#94a3b8'
+                color: 'var(--text-secondary)'
               }}>
-                <span style={{ color: '#818cf8', fontWeight: 600 }}>Why this interview?</span> Matches your 3+ years experience building model serving endpoints.
+                <span style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Why this interview?</span> Matches your 3+ years experience building model serving endpoints.
               </div>
             </div>
 
@@ -131,15 +131,16 @@ export const InterviewTracksStep: React.FC<InterviewTracksStepProps> = ({
                 padding: '12px',
                 borderRadius: '10px',
                 border: 'none',
-                background: '#a5b4fc',
-                color: '#090d16',
+                background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)',
+                color: '#ffffff',
                 fontSize: '13.5px',
                 fontWeight: 700,
                 cursor: 'pointer',
+                boxShadow: '0 4px 14px rgba(99, 102, 241, 0.35)',
                 transition: 'all 0.2s ease'
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = '#c7d2fe'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = '#a5b4fc'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.9'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'translateY(0)'; }}
             >
               Launch 5-Question Session
             </button>
@@ -147,14 +148,14 @@ export const InterviewTracksStep: React.FC<InterviewTracksStepProps> = ({
 
           {/* Card 2: Python Backend Developer */}
           <div style={{
-            background: '#0a0e18',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '20px',
             padding: '28px 24px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            boxShadow: '0 12px 35px rgba(0, 0, 0, 0.4)',
+            boxShadow: 'var(--shadow-md)',
             transition: 'all 0.25s ease'
           }}>
             <div>
@@ -162,41 +163,41 @@ export const InterviewTracksStep: React.FC<InterviewTracksStepProps> = ({
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
                 <span style={{
                   fontSize: '11.5px',
-                  fontWeight: 600,
-                  color: '#38bdf8',
-                  background: 'rgba(56, 189, 248, 0.12)',
-                  border: '1px solid rgba(56, 189, 248, 0.25)',
+                  fontWeight: 700,
+                  color: '#0284c7',
+                  background: 'rgba(2, 132, 199, 0.12)',
+                  border: '1px solid rgba(2, 132, 199, 0.25)',
                   padding: '3px 10px',
                   borderRadius: '6px'
                 }}>
                   High Match 92%
                 </span>
-                <span style={{ fontSize: '12px', color: '#64748b' }}>
+                <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 500 }}>
                   14 min
                 </span>
               </div>
 
               {/* Title & Description */}
-              <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '10px' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '10px' }}>
                 Python Backend Developer
               </h3>
-              <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '22px' }}>
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '22px' }}>
                 Rigorous drills covering asynchronous architecture, FastAPI database connection pooling, and resilient worker systems.
               </p>
 
               {/* Focus Dimensions */}
               <div style={{ marginBottom: '22px' }}>
-                <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '8px' }}>
+                <div style={{ fontSize: '10.5px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '8px' }}>
                   FOCUS DIMENSIONS:
                 </div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                   {['Asyncio', 'FastAPI', 'Postgres Pool'].map((tag) => (
                     <span key={tag} style={{
                       fontSize: '11px',
-                      fontWeight: 500,
-                      color: '#cbd5e1',
-                      background: '#121726',
-                      border: '1px solid rgba(255, 255, 255, 0.06)',
+                      fontWeight: 600,
+                      color: 'var(--text-main)',
+                      background: 'var(--bg-surface)',
+                      border: '1px solid var(--border-subtle)',
                       padding: '4px 10px',
                       borderRadius: '6px'
                     }}>
@@ -208,16 +209,16 @@ export const InterviewTracksStep: React.FC<InterviewTracksStepProps> = ({
 
               {/* Callout Box */}
               <div style={{
-                background: '#060911',
-                border: '1px solid rgba(255, 255, 255, 0.04)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '10px',
                 padding: '12px 14px',
                 marginBottom: '24px',
                 fontSize: '12.5px',
                 lineHeight: 1.5,
-                color: '#94a3b8'
+                color: 'var(--text-secondary)'
               }}>
-                <span style={{ color: '#38bdf8', fontWeight: 600 }}>Why this interview?</span> Targets core framework proficiency derived from recent project logs.
+                <span style={{ color: '#0284c7', fontWeight: 600 }}>Why this interview?</span> Targets core framework proficiency derived from recent project logs.
               </div>
             </div>
 
@@ -228,16 +229,16 @@ export const InterviewTracksStep: React.FC<InterviewTracksStepProps> = ({
                 width: '100%',
                 padding: '12px',
                 borderRadius: '10px',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                background: '#182030',
-                color: '#cbd5e1',
+                border: '1px solid var(--border-accent)',
+                background: 'var(--bg-surface)',
+                color: 'var(--text-main)',
                 fontSize: '13.5px',
                 fontWeight: 600,
                 cursor: 'pointer',
                 transition: 'all 0.2s ease'
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = '#222d42'; e.currentTarget.style.color = '#ffffff'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = '#182030'; e.currentTarget.style.color = '#cbd5e1'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--bg-card-hover)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--bg-surface)'; }}
             >
               Launch 5-Question Session
             </button>
@@ -245,14 +246,14 @@ export const InterviewTracksStep: React.FC<InterviewTracksStepProps> = ({
 
           {/* Card 3: Data Platform Engineer */}
           <div style={{
-            background: '#0a0e18',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '20px',
             padding: '28px 24px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            boxShadow: '0 12px 35px rgba(0, 0, 0, 0.4)',
+            boxShadow: 'var(--shadow-md)',
             transition: 'all 0.25s ease'
           }}>
             <div>
@@ -260,41 +261,41 @@ export const InterviewTracksStep: React.FC<InterviewTracksStepProps> = ({
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
                 <span style={{
                   fontSize: '11.5px',
-                  fontWeight: 600,
-                  color: '#93c5fd',
-                  background: 'rgba(59, 130, 246, 0.15)',
-                  border: '1px solid rgba(59, 130, 246, 0.25)',
+                  fontWeight: 700,
+                  color: '#2563eb',
+                  background: 'rgba(37, 99, 235, 0.12)',
+                  border: '1px solid rgba(37, 99, 235, 0.25)',
                   padding: '3px 10px',
                   borderRadius: '6px'
                 }}>
                   Good Match 85%
                 </span>
-                <span style={{ fontSize: '12px', color: '#64748b' }}>
+                <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 500 }}>
                   17 min
                 </span>
               </div>
 
               {/* Title & Description */}
-              <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '10px' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '10px' }}>
                 Data Platform Engineer
               </h3>
-              <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '22px' }}>
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '22px' }}>
                 Tests distributed stream processing resiliency, Apache Spark memory management, and exactly-once message delivery semantics.
               </p>
 
               {/* Focus Dimensions */}
               <div style={{ marginBottom: '22px' }}>
-                <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '8px' }}>
+                <div style={{ fontSize: '10.5px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '8px' }}>
                   FOCUS DIMENSIONS:
                 </div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                   {['Spark', 'Kafka', 'Data Lakehouse'].map((tag) => (
                     <span key={tag} style={{
                       fontSize: '11px',
-                      fontWeight: 500,
-                      color: '#cbd5e1',
-                      background: '#121726',
-                      border: '1px solid rgba(255, 255, 255, 0.06)',
+                      fontWeight: 600,
+                      color: 'var(--text-main)',
+                      background: 'var(--bg-surface)',
+                      border: '1px solid var(--border-subtle)',
                       padding: '4px 10px',
                       borderRadius: '6px'
                     }}>
@@ -306,16 +307,16 @@ export const InterviewTracksStep: React.FC<InterviewTracksStepProps> = ({
 
               {/* Callout Box */}
               <div style={{
-                background: '#060911',
-                border: '1px solid rgba(255, 255, 255, 0.04)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '10px',
                 padding: '12px 14px',
                 marginBottom: '24px',
                 fontSize: '12.5px',
                 lineHeight: 1.5,
-                color: '#94a3b8'
+                color: 'var(--text-secondary)'
               }}>
-                <span style={{ color: '#818cf8', fontWeight: 600 }}>Why this interview?</span> Addresses senior-level distributed architecture criteria.
+                <span style={{ color: '#2563eb', fontWeight: 600 }}>Why this interview?</span> Addresses senior-level distributed architecture criteria.
               </div>
             </div>
 
@@ -326,16 +327,16 @@ export const InterviewTracksStep: React.FC<InterviewTracksStepProps> = ({
                 width: '100%',
                 padding: '12px',
                 borderRadius: '10px',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                background: '#182030',
-                color: '#cbd5e1',
+                border: '1px solid var(--border-accent)',
+                background: 'var(--bg-surface)',
+                color: 'var(--text-main)',
                 fontSize: '13.5px',
                 fontWeight: 600,
                 cursor: 'pointer',
                 transition: 'all 0.2s ease'
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = '#222d42'; e.currentTarget.style.color = '#ffffff'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = '#182030'; e.currentTarget.style.color = '#cbd5e1'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--bg-card-hover)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--bg-surface)'; }}
             >
               Launch 5-Question Session
             </button>
@@ -346,4 +347,3 @@ export const InterviewTracksStep: React.FC<InterviewTracksStepProps> = ({
     </section>
   );
 };
-

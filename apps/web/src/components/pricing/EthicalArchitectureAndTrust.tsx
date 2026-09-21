@@ -52,11 +52,11 @@ export const EthicalArchitectureAndTrust: React.FC = () => {
             ETHICAL AI ARCHITECTURE CARD
         ======================================================== */}
         <div style={{
-          background: '#090d16',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '24px',
           padding: '36px 40px',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)',
+          boxShadow: 'var(--shadow-lg)',
           marginBottom: '32px'
         }}>
           <div style={{
@@ -75,13 +75,13 @@ export const EthicalArchitectureAndTrust: React.FC = () => {
                 gap: '6px',
                 padding: '4px 12px',
                 borderRadius: '100px',
-                background: 'rgba(56, 189, 248, 0.12)',
-                border: '1px solid rgba(56, 189, 248, 0.25)',
+                background: 'rgba(2, 132, 199, 0.12)',
+                border: '1px solid rgba(2, 132, 199, 0.25)',
                 fontSize: '11px',
                 fontWeight: 700,
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase',
-                color: '#38bdf8',
+                color: '#0284c7',
                 marginBottom: '16px'
               }}>
                 <ShieldCheck size={13} />
@@ -92,7 +92,7 @@ export const EthicalArchitectureAndTrust: React.FC = () => {
               <h2 style={{
                 fontSize: 'clamp(24px, 3vw, 32px)',
                 fontWeight: 700,
-                color: '#ffffff',
+                color: 'var(--text-main)',
                 letterSpacing: '-0.02em',
                 marginBottom: '12px'
               }}>
@@ -102,7 +102,7 @@ export const EthicalArchitectureAndTrust: React.FC = () => {
               {/* Description */}
               <p style={{
                 fontSize: '14px',
-                color: '#94a3b8',
+                color: 'var(--text-secondary)',
                 lineHeight: 1.6,
                 marginBottom: '22px'
               }}>
@@ -116,14 +116,14 @@ export const EthicalArchitectureAndTrust: React.FC = () => {
                   fontWeight: 800,
                   letterSpacing: '0.06em',
                   textTransform: 'uppercase',
-                  color: '#f59e0b',
+                  color: '#d97706',
                   marginBottom: '6px'
                 }}>
                   WHAT WE EXPLICITLY DO NOT DO:
                 </div>
                 <p style={{
                   fontSize: '13px',
-                  color: '#cbd5e1',
+                  color: 'var(--text-main)',
                   lineHeight: 1.6,
                   margin: 0
                 }}>
@@ -134,11 +134,11 @@ export const EthicalArchitectureAndTrust: React.FC = () => {
 
             {/* Right Card: Zero Biometric Storage */}
             <div style={{
-              background: '#0e1320',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '18px',
               padding: '28px',
-              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.4)'
+              boxShadow: 'var(--shadow-sm)'
             }}>
               <div style={{
                 display: 'flex',
@@ -146,26 +146,26 @@ export const EthicalArchitectureAndTrust: React.FC = () => {
                 gap: '10px',
                 fontSize: '15px',
                 fontWeight: 700,
-                color: '#ffffff',
+                color: 'var(--text-main)',
                 marginBottom: '14px'
               }}>
                 <div style={{
                   width: '32px',
                   height: '32px',
                   borderRadius: '8px',
-                  background: 'rgba(56, 189, 248, 0.15)',
+                  background: 'rgba(2, 132, 199, 0.12)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}>
-                  <Lock size={16} color="#38bdf8" />
+                  <Lock size={16} color="#0284c7" />
                 </div>
                 <span>Zero Biometric Storage</span>
               </div>
 
               <p style={{
                 fontSize: '13px',
-                color: '#94a3b8',
+                color: 'var(--text-secondary)',
                 lineHeight: 1.6,
                 margin: 0
               }}>
@@ -188,8 +188,8 @@ export const EthicalArchitectureAndTrust: React.FC = () => {
             <div
               key={idx}
               style={{
-                background: '#0a0e18',
-                border: '1px solid rgba(255, 255, 255, 0.07)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '14px',
                 padding: '18px 16px',
                 display: 'flex',
@@ -197,23 +197,24 @@ export const EthicalArchitectureAndTrust: React.FC = () => {
                 alignItems: 'center',
                 textAlign: 'center',
                 gap: '8px',
+                boxShadow: 'var(--shadow-sm)',
                 transition: 'all 0.2s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                e.currentTarget.style.borderColor = 'var(--border-accent)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.07)';
+                e.currentTarget.style.borderColor = 'var(--border-subtle)';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
               <div>{badge.icon}</div>
               <div>
-                <div style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff', marginBottom: '2px' }}>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '2px' }}>
                   {badge.title}
                 </div>
-                <div style={{ fontSize: '11.5px', color: '#94a3b8' }}>
+                <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)' }}>
                   {badge.subtitle}
                 </div>
               </div>

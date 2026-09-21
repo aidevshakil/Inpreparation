@@ -87,7 +87,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg-main)', color: 'var(--text-main)' }}>
       {/* Sticky Top Navigation */}
       <Navbar
         onStartPractice={handleStartPractice}

@@ -35,7 +35,7 @@ export const ModelAnswerSection: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(30px, 4.2vw, 46px)',
             fontWeight: 800,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.03em',
             lineHeight: 1.15,
             marginBottom: '16px'
@@ -45,7 +45,7 @@ export const ModelAnswerSection: React.FC = () => {
 
           <p style={{
             fontSize: '16px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6,
             maxWidth: '680px',
             margin: '0 auto'
@@ -63,8 +63,8 @@ export const ModelAnswerSection: React.FC = () => {
         }}>
           {/* Left Card: Your Transcribed Answer */}
           <div style={{
-            background: 'rgba(15, 21, 35, 0.65)',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '20px',
             padding: '28px',
             display: 'flex',
@@ -84,9 +84,9 @@ export const ModelAnswerSection: React.FC = () => {
                 <span style={{
                   fontSize: '11px',
                   fontWeight: 600,
-                  color: '#cbd5e1',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  color: 'var(--text-secondary)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   padding: '4px 12px',
                   borderRadius: '9999px'
                 }}>
@@ -109,7 +109,7 @@ export const ModelAnswerSection: React.FC = () => {
               {/* Transcribed text in quotes */}
               <p style={{
                 fontSize: '14px',
-                color: '#cbd5e1',
+                color: 'var(--text-secondary)',
                 lineHeight: 1.7,
                 fontStyle: 'italic',
                 marginBottom: '28px'
@@ -120,26 +120,26 @@ export const ModelAnswerSection: React.FC = () => {
 
             {/* Critique Details Box */}
             <div style={{
-              background: 'rgba(9, 13, 22, 0.65)',
-              border: '1px solid rgba(255, 255, 255, 0.05)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '12px',
               padding: '14px 16px',
               fontSize: '12px',
-              color: '#94a3b8',
+              color: 'var(--text-muted)',
               lineHeight: 1.6,
               display: 'flex',
               flexDirection: 'column',
               gap: '6px'
             }}>
-              <div>• Cadence: <strong style={{ color: '#e2e8f0' }}>118 WPM</strong> (Slight hesitation at start)</div>
+              <div>• Cadence: <strong style={{ color: 'var(--text-main)' }}>118 WPM</strong> (Slight hesitation at start)</div>
               <div>• Missing: <strong style={{ color: '#f87171' }}>Explicit mention of CPU vs I/O bound bottlenecks</strong></div>
             </div>
           </div>
 
           {/* Right Card: AI Recommended Structure */}
           <div style={{
-            background: 'rgba(15, 21, 35, 0.75)',
-            border: '1px solid rgba(99, 102, 241, 0.25)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--primary-color)',
             borderRadius: '20px',
             padding: '28px',
             display: 'flex',
@@ -189,23 +189,23 @@ export const ModelAnswerSection: React.FC = () => {
                 gap: '14px',
                 fontSize: '13px',
                 lineHeight: 1.6,
-                color: '#cbd5e1',
+                color: 'var(--text-secondary)',
                 marginBottom: '24px'
               }}>
                 <div>
-                  <strong style={{ color: '#ffffff' }}>1. High–Level Definition:</strong> “Synchronous execution is blocking; asynchronous execution yields control while awaiting high–latency operations.”
+                  <strong style={{ color: 'var(--text-main)' }}>1. High–Level Definition:</strong> “Synchronous execution is blocking; asynchronous execution yields control while awaiting high–latency operations.”
                 </div>
 
                 <div>
-                  <strong style={{ color: '#ffffff' }}>2. Mechanism:</strong> “Python achieves this via the single–threaded asyncio event loop, registering coroutines rather than spinning OS–level threads.”
+                  <strong style={{ color: 'var(--text-main)' }}>2. Mechanism:</strong> “Python achieves this via the single–threaded asyncio event loop, registering coroutines rather than spinning OS–level threads.”
                 </div>
 
                 <div>
-                  <strong style={{ color: '#ffffff' }}>3. Workload Distinction:</strong> “Asyncio is ideal for I/O–bound workloads (HTTP, database calls), whereas CPU–bound operations require multiprocessing to bypass Python’s GIL.”
+                  <strong style={{ color: 'var(--text-main)' }}>3. Workload Distinction:</strong> “Asyncio is ideal for I/O–bound workloads (HTTP, database calls), whereas CPU–bound operations require multiprocessing to bypass Python’s GIL.”
                 </div>
 
                 <div>
-                  <strong style={{ color: '#ffffff' }}>4. Production Example:</strong> “In our microservice, switching from synchronous requests to httpx with asyncio cut p99 latency from 420ms to 65ms.”
+                  <strong style={{ color: 'var(--text-main)' }}>4. Production Example:</strong> “In our microservice, switching from synchronous requests to httpx with asyncio cut p99 latency from 420ms to 65ms.”
                 </div>
               </div>
             </div>
@@ -218,11 +218,11 @@ export const ModelAnswerSection: React.FC = () => {
               justifyContent: 'space-between',
               gap: '12px',
               paddingTop: '16px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+              borderTop: '1px solid var(--border-subtle)',
               fontSize: '12px'
             }}>
-              <span style={{ color: '#64748b' }}>
-                Framework: <span style={{ color: '#94a3b8' }}>Concept → Mechanism → Workload → Concrete Result</span>
+              <span style={{ color: 'var(--text-muted)' }}>
+                Framework: <span style={{ color: 'var(--text-secondary)' }}>Concept → Mechanism → Workload → Concrete Result</span>
               </span>
 
               <button

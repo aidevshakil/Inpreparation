@@ -15,13 +15,13 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
       id: 'free',
       name: 'Starter Profile',
       badge: 'FREE ACCOUNT',
-      badgeBg: 'rgba(255, 255, 255, 0.06)',
-      badgeColor: '#94a3b8',
+      badgeBg: 'var(--border-subtle)',
+      badgeColor: 'var(--text-secondary)',
       desc: 'Build your profile & explore question library',
       priceMonthly: 0,
       priceYearly: 0,
       priceSubtext: 'Free account forever. Practice requires Pro.',
-      priceSubtextColor: '#94a3b8',
+      priceSubtextColor: 'var(--text-muted)',
       featuresHeader: 'INCLUDED IN STARTER',
       features: [
         { text: 'Create professional profile & CV builder', isZap: false, isCloud: false },
@@ -39,13 +39,13 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
       id: 'pro',
       name: 'Pro Plan',
       badge: 'RECOMMENDED',
-      badgeBg: 'rgba(99, 102, 241, 0.18)',
-      badgeColor: '#a5b4fc',
+      badgeBg: 'rgba(99, 102, 241, 0.15)',
+      badgeColor: 'var(--primary-color)',
       desc: 'For serious interview preparation & real acceleration',
       priceMonthly: 19,
       priceYearly: 15,
       priceSubtext: billingCycle === 'monthly' ? 'Billed monthly. Cancel anytime.' : 'Billed annually ($180/yr). Cancel anytime.',
-      priceSubtextColor: '#818cf8',
+      priceSubtextColor: 'var(--primary-color)',
       featuresHeader: 'EVERYTHING IN FREE, PLUS:',
       features: [
         { text: 'Full interview library access (100+ tracks)', isZap: false, isCloud: false },
@@ -65,13 +65,13 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
       id: 'premium',
       name: 'Premium',
       badge: 'INTENSIVE',
-      badgeBg: 'rgba(56, 189, 248, 0.12)',
-      badgeColor: '#38bdf8',
+      badgeBg: 'rgba(2, 132, 199, 0.12)',
+      badgeColor: '#0284c7',
       desc: 'For high-capacity practice and rapid career transitions',
       priceMonthly: 39,
       priceYearly: 31,
       priceSubtext: billingCycle === 'monthly' ? 'Billed monthly. Cancel anytime.' : 'Billed annually ($372/yr). Cancel anytime.',
-      priceSubtextColor: '#818cf8',
+      priceSubtextColor: '#0284c7',
       featuresHeader: 'EVERYTHING IN PRO, PLUS:',
       features: [
         { text: '3,000 AI usage credits / month', isZap: true, isCloud: false },
@@ -109,10 +109,10 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
             fontWeight: 700,
             letterSpacing: '0.08em',
             textTransform: 'uppercase',
-            color: '#a5b4fc',
+            color: 'var(--primary-color)',
             marginBottom: '20px'
           }}>
-            <Sparkles size={13} color="#a5b4fc" />
+            <Sparkles size={13} color="var(--primary-color)" />
             <span>SIMPLE, FLEXIBLE PRICING</span>
           </div>
 
@@ -120,14 +120,14 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
           <h1 style={{
             fontSize: 'clamp(32px, 4.5vw, 52px)',
             fontWeight: 800,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.03em',
             lineHeight: 1.15,
             marginBottom: '16px'
           }}>
             Practice More. Improve Faster.<br />
             <span style={{
-              background: 'linear-gradient(135deg, #a5b4fc 0%, #c084fc 50%, #93c5fd 100%)',
+              background: 'linear-gradient(135deg, var(--primary-color) 0%, #8b5cf6 50%, #0284c7 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
             }}>
@@ -138,7 +138,7 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
           {/* Subtitle */}
           <p style={{
             fontSize: '15.5px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6,
             maxWidth: '680px',
             margin: '0 auto 24px'
@@ -154,21 +154,21 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
             justifyContent: 'center',
             gap: '16px',
             fontSize: '12.5px',
-            color: '#cbd5e1',
+            color: 'var(--text-secondary)',
             marginBottom: '32px'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Shield size={14} color="#38bdf8" />
+              <Shield size={14} color="#0284c7" />
               <span>No complicated setup</span>
             </div>
-            <span style={{ color: 'rgba(255, 255, 255, 0.2)' }}>•</span>
+            <span style={{ color: 'var(--border-accent)' }}>•</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Eye size={14} color="#38bdf8" />
+              <Eye size={14} color="#0284c7" />
               <span>Transparent usage</span>
             </div>
-            <span style={{ color: 'rgba(255, 255, 255, 0.2)' }}>•</span>
+            <span style={{ color: 'var(--border-accent)' }}>•</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <ArrowUpRight size={14} color="#38bdf8" />
+              <ArrowUpRight size={14} color="#0284c7" />
               <span>Upgrade when you're ready</span>
             </div>
           </div>
@@ -177,17 +177,18 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
           <div style={{
             display: 'inline-flex',
             alignItems: 'center',
-            background: '#0e1320',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '100px',
             padding: '4px',
-            gap: '4px'
+            gap: '4px',
+            boxShadow: 'var(--shadow-sm)'
           }}>
             <button
               onClick={() => setBillingCycle('monthly')}
               style={{
-                background: billingCycle === 'monthly' ? '#6366f1' : 'transparent',
-                color: billingCycle === 'monthly' ? '#ffffff' : '#94a3b8',
+                background: billingCycle === 'monthly' ? 'var(--primary-color)' : 'transparent',
+                color: billingCycle === 'monthly' ? '#ffffff' : 'var(--text-secondary)',
                 border: 'none',
                 borderRadius: '100px',
                 padding: '8px 22px',
@@ -204,8 +205,8 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
             <button
               onClick={() => setBillingCycle('yearly')}
               style={{
-                background: billingCycle === 'yearly' ? '#6366f1' : 'transparent',
-                color: billingCycle === 'yearly' ? '#ffffff' : '#94a3b8',
+                background: billingCycle === 'yearly' ? 'var(--primary-color)' : 'transparent',
+                color: billingCycle === 'yearly' ? '#ffffff' : 'var(--text-secondary)',
                 border: 'none',
                 borderRadius: '100px',
                 padding: '8px 18px',
@@ -221,8 +222,8 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
             >
               <span>Yearly</span>
               <span style={{
-                background: billingCycle === 'yearly' ? '#ffffff' : 'rgba(56, 189, 248, 0.15)',
-                color: billingCycle === 'yearly' ? '#4f46e5' : '#38bdf8',
+                background: billingCycle === 'yearly' ? '#ffffff' : 'rgba(2, 132, 199, 0.15)',
+                color: billingCycle === 'yearly' ? 'var(--primary-color)' : '#0284c7',
                 fontSize: '10px',
                 fontWeight: 800,
                 padding: '2px 8px',
@@ -252,12 +253,10 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
               <div
                 key={plan.id}
                 style={{
-                  background: plan.isPopular
-                    ? 'linear-gradient(180deg, #0f152a 0%, #090d18 100%)'
-                    : '#0a0e18',
+                  background: 'var(--bg-card)',
                   border: plan.isPopular
-                    ? '1px solid rgba(99, 102, 241, 0.45)'
-                    : '1px solid rgba(255, 255, 255, 0.08)',
+                    ? '2px solid var(--primary-color)'
+                    : '1px solid var(--border-subtle)',
                   borderRadius: '24px',
                   padding: '36px 30px',
                   display: 'flex',
@@ -265,17 +264,17 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
                   justifyContent: 'space-between',
                   position: 'relative',
                   boxShadow: plan.isPopular
-                    ? '0 20px 50px rgba(99, 102, 241, 0.2), 0 0 30px rgba(99, 102, 241, 0.1)'
-                    : '0 10px 30px rgba(0, 0, 0, 0.4)',
+                    ? '0 12px 30px rgba(99, 102, 241, 0.25)'
+                    : 'var(--shadow-md)',
                   transition: 'all 0.25s ease'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-4px)';
-                  if (!plan.isPopular) e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.18)';
+                  if (!plan.isPopular) e.currentTarget.style.borderColor = 'var(--border-accent)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  if (!plan.isPopular) e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                  if (!plan.isPopular) e.currentTarget.style.borderColor = 'var(--border-subtle)';
                 }}
               >
                 {/* Popular Pill */}
@@ -305,7 +304,7 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
                 <div>
                   {/* Top Header */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-                    <h3 style={{ fontSize: '22px', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+                    <h3 style={{ fontSize: '22px', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                       {plan.name}
                     </h3>
                     <span style={{
@@ -322,16 +321,16 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
                   </div>
 
                   {/* Subtitle */}
-                  <p style={{ fontSize: '13px', color: '#94a3b8', margin: '0 0 24px 0', minHeight: '38px', lineHeight: 1.5 }}>
+                  <p style={{ fontSize: '13px', color: 'var(--text-secondary)', margin: '0 0 24px 0', minHeight: '38px', lineHeight: 1.5 }}>
                     {plan.desc}
                   </p>
 
                   {/* Price */}
                   <div style={{ marginBottom: '8px', display: 'flex', alignItems: 'baseline', gap: '4px' }}>
-                    <span style={{ fontSize: '42px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.03em' }}>
+                    <span style={{ fontSize: '42px', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.03em' }}>
                       ${price}
                     </span>
-                    <span style={{ fontSize: '14px', color: '#94a3b8', fontWeight: 500 }}>
+                    <span style={{ fontSize: '14px', color: 'var(--text-secondary)', fontWeight: 500 }}>
                       / month
                     </span>
                   </div>
@@ -342,7 +341,7 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
                   </div>
 
                   {/* Divider */}
-                  <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.07)', marginBottom: '24px' }} />
+                  <div style={{ height: '1px', background: 'var(--border-subtle)', marginBottom: '24px' }} />
 
                   {/* Features Header */}
                   <div style={{
@@ -350,7 +349,7 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
                     fontWeight: 800,
                     letterSpacing: '0.06em',
                     textTransform: 'uppercase',
-                    color: '#64748b',
+                    color: 'var(--text-muted)',
                     marginBottom: '16px'
                   }}>
                     {plan.featuresHeader}
@@ -359,15 +358,15 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
                   {/* Checklist */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
                     {plan.features.map((feat, fIdx) => (
-                      <div key={fIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '12.5px', color: '#cbd5e1', lineHeight: 1.5 }}>
+                      <div key={fIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
                         {feat.isZap ? (
-                          <Zap size={14} color="#38bdf8" style={{ marginTop: '3px', flexShrink: 0 }} />
+                          <Zap size={14} color="#0284c7" style={{ marginTop: '3px', flexShrink: 0 }} />
                         ) : feat.isCloud ? (
-                          <Cloud size={14} color="#38bdf8" style={{ marginTop: '3px', flexShrink: 0 }} />
+                          <Cloud size={14} color="#0284c7" style={{ marginTop: '3px', flexShrink: 0 }} />
                         ) : (
-                          <Check size={14} color={plan.isPopular ? '#818cf8' : '#38bdf8'} style={{ marginTop: '3px', flexShrink: 0 }} />
+                          <Check size={14} color={plan.isPopular ? 'var(--primary-color)' : '#0284c7'} style={{ marginTop: '3px', flexShrink: 0 }} />
                         )}
-                        <span style={{ color: feat.isCloud ? '#38bdf8' : '#cbd5e1' }}>
+                        <span style={{ color: feat.isCloud ? '#0284c7' : 'var(--text-secondary)' }}>
                           {feat.text}
                         </span>
                       </div>
@@ -382,31 +381,31 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
                     width: '100%',
                     padding: '13px 20px',
                     borderRadius: '100px',
-                    border: plan.isPopular ? 'none' : '1px solid rgba(255, 255, 255, 0.1)',
+                    border: plan.isPopular ? 'none' : '1px solid var(--border-subtle)',
                     background: plan.isPopular
-                      ? 'linear-gradient(135deg, #818cf8 0%, #a855f7 100%)'
-                      : '#131828',
-                    color: plan.isPopular ? '#ffffff' : '#cbd5e1',
+                      ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)'
+                      : 'var(--bg-surface)',
+                    color: plan.isPopular ? '#ffffff' : 'var(--text-main)',
                     fontSize: '14px',
                     fontWeight: 600,
                     cursor: 'pointer',
                     transition: 'all 0.2s ease',
-                    boxShadow: plan.isPopular ? '0 4px 18px rgba(129, 140, 248, 0.4)' : 'none'
+                    boxShadow: plan.isPopular ? '0 4px 18px rgba(99, 102, 241, 0.4)' : 'none'
                   }}
                   onMouseEnter={(e) => {
                     if (plan.isPopular) {
                       e.currentTarget.style.opacity = '0.92';
                     } else {
-                      e.currentTarget.style.background = '#1a2238';
-                      e.currentTarget.style.color = '#ffffff';
+                      e.currentTarget.style.background = 'var(--bg-card-hover)';
+                      e.currentTarget.style.borderColor = 'var(--border-accent)';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (plan.isPopular) {
                       e.currentTarget.style.opacity = '1';
                     } else {
-                      e.currentTarget.style.background = '#131828';
-                      e.currentTarget.style.color = '#cbd5e1';
+                      e.currentTarget.style.background = 'var(--bg-surface)';
+                      e.currentTarget.style.borderColor = 'var(--border-subtle)';
                     }
                   }}
                 >
@@ -421,7 +420,7 @@ export const PricingHeroTierCards: React.FC<PricingHeroTierCardsProps> = ({
         <div style={{
           textAlign: 'center',
           fontSize: '12px',
-          color: '#64748b'
+          color: 'var(--text-muted)'
         }}>
           Prices displayed are configurable sample tiers. Applicable taxes and local billing terms calculated at checkout.
         </div>

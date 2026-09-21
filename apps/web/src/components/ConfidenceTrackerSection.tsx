@@ -19,8 +19,8 @@ export const ConfidenceTrackerSection: React.FC = () => {
       <div className="container">
         {/* Main Card */}
         <div style={{
-          background: 'rgba(15, 21, 35, 0.7)',
-          border: '1px solid rgba(255, 255, 255, 0.07)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '24px',
           padding: '40px',
           display: 'grid',
@@ -28,7 +28,7 @@ export const ConfidenceTrackerSection: React.FC = () => {
           gap: '44px',
           alignItems: 'center',
           backdropFilter: 'blur(16px)',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6)'
+          boxShadow: 'var(--shadow-lg)'
         }}>
           {/* Left Column: Compound Growth Copy & Stats */}
           <div>
@@ -47,7 +47,7 @@ export const ConfidenceTrackerSection: React.FC = () => {
             <h2 style={{
               fontSize: 'clamp(28px, 3.8vw, 40px)',
               fontWeight: 800,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               letterSpacing: '-0.025em',
               lineHeight: 1.18,
               marginBottom: '14px'
@@ -57,7 +57,7 @@ export const ConfidenceTrackerSection: React.FC = () => {
 
             <p style={{
               fontSize: '14px',
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
               lineHeight: 1.65,
               marginBottom: '32px',
               maxWidth: '480px'
@@ -68,23 +68,23 @@ export const ConfidenceTrackerSection: React.FC = () => {
             {/* Score Baseline vs Current Gain Indicator */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
               <div>
-                <div style={{ fontSize: '36px', fontWeight: 800, color: '#ffffff', lineHeight: 1 }}>
+                <div style={{ fontSize: '36px', fontWeight: 800, color: 'var(--text-main)', lineHeight: 1 }}>
                   68
                 </div>
-                <div style={{ fontSize: '11px', color: '#64748b', marginTop: '4px' }}>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px' }}>
                   Baseline (Round 1)
                 </div>
               </div>
 
-              <div style={{ color: '#64748b', display: 'flex', alignItems: 'center' }}>
+              <div style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center' }}>
                 <ArrowRight size={20} />
               </div>
 
               <div>
-                <div style={{ fontSize: '36px', fontWeight: 800, color: '#ffffff', lineHeight: 1 }}>
+                <div style={{ fontSize: '36px', fontWeight: 800, color: 'var(--text-main)', lineHeight: 1 }}>
                   82
                 </div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px' }}>
+                <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '4px' }}>
                   Current (Round 5)
                 </div>
               </div>
@@ -106,8 +106,8 @@ export const ConfidenceTrackerSection: React.FC = () => {
 
           {/* Right Column: Readiness Score Trajectory Chart */}
           <div style={{
-            background: 'rgba(10, 14, 24, 0.8)',
-            border: '1px solid rgba(255, 255, 255, 0.05)',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '18px',
             padding: '24px',
             position: 'relative'
@@ -120,7 +120,7 @@ export const ConfidenceTrackerSection: React.FC = () => {
               fontSize: '11px',
               marginBottom: '20px'
             }}>
-              <span style={{ color: '#cbd5e1', fontWeight: 500 }}>
+              <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
                 Readiness Score Trajectory (Last 5 Sessions)
               </span>
               <span style={{ color: '#38bdf8', fontWeight: 600 }}>
@@ -155,7 +155,7 @@ export const ConfidenceTrackerSection: React.FC = () => {
                     cy={p.y}
                     r="4"
                     fill="#a5b4fc"
-                    stroke="#0a0e18"
+                    stroke="var(--bg-surface)"
                     strokeWidth="2"
                   />
                 ))}
@@ -165,7 +165,7 @@ export const ConfidenceTrackerSection: React.FC = () => {
                   cx={points[4].x}
                   cy={points[4].y}
                   r="7"
-                  fill="#ffffff"
+                  fill="var(--text-main)"
                   stroke="#38bdf8"
                   strokeWidth="3"
                   style={{ filter: 'drop-shadow(0 0 8px rgba(56, 189, 248, 0.8))' }}
@@ -179,10 +179,10 @@ export const ConfidenceTrackerSection: React.FC = () => {
               justifyContent: 'space-between',
               alignItems: 'center',
               fontSize: '11px',
-              color: '#64748b',
+              color: 'var(--text-muted)',
               marginTop: '12px',
               paddingTop: '10px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+              borderTop: '1px solid var(--border-subtle)'
             }}>
               {points.map((p, idx) => {
                 const isLast = idx === points.length - 1;
@@ -190,7 +190,7 @@ export const ConfidenceTrackerSection: React.FC = () => {
                   <span
                     key={idx}
                     style={{
-                      color: isLast ? '#38bdf8' : '#64748b',
+                      color: isLast ? '#38bdf8' : 'var(--text-muted)',
                       fontWeight: isLast ? 700 : 500
                     }}
                   >

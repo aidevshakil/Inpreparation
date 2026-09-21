@@ -51,9 +51,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         }}>
           {/* Left Column: Headline, Copy & CTAs */}
           <div className="flex-col gap-6">
-            <div className="badge" style={{ alignSelf: 'flex-start', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', padding: '6px 14px' }}>
+            <div className="badge" style={{ alignSelf: 'flex-start', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', padding: '6px 14px' }}>
               <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#38bdf8' }} />
-              <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.05em', color: '#cbd5e1' }}>AI-POWERED INTERVIEW PREPARATION</span>
+              <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>AI-POWERED INTERVIEW PREPARATION</span>
             </div>
 
             <h1 style={{
@@ -73,7 +73,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               Improve Faster.
             </h1>
 
-            <p style={{ fontSize: '17px', color: '#94a3b8', maxWidth: '540px', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '17px', color: 'var(--text-secondary)', maxWidth: '540px', lineHeight: 1.6 }}>
               Practice realistic interviews with AI and receive actionable feedback on your technical answers, communication, speech, and on-camera presentation.
             </p>
 
@@ -105,9 +105,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   padding: '16px 32px', 
                   fontSize: '16px',
                   fontWeight: 600,
-                  backgroundColor: 'rgba(255,255,255,0.05)',
-                  color: '#fff',
-                  border: 'none',
+                  backgroundColor: 'var(--bg-surface)',
+                  color: 'var(--text-main)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '100px',
                   display: 'flex',
                   alignItems: 'center',
@@ -119,15 +119,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </button>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 mt-4" style={{ fontSize: '13px', color: '#cbd5e1', fontWeight: 500 }}>
+            <div className="flex flex-wrap items-center gap-4 mt-4" style={{ fontSize: '13px', color: 'var(--text-secondary)', fontWeight: 500 }}>
               <span className="flex items-center gap-2">
                 <Check size={14} color="#38bdf8" /> No credit card required
               </span>
-              <span style={{ color: '#475569' }}>•</span>
+              <span style={{ color: 'var(--text-muted)' }}>•</span>
               <span className="flex items-center gap-2">
                 <Check size={14} color="#38bdf8" /> Exactly 5 questions per session
               </span>
-              <span style={{ color: '#475569' }}>•</span>
+              <span style={{ color: 'var(--text-muted)' }}>•</span>
               <span className="flex items-center gap-2">
                 <Check size={14} color="#38bdf8" /> Real-time AI coaching
               </span>
@@ -135,16 +135,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </div>
 
           {/* Right Column: Clean Mockup */}
-          <div className="card" style={{ padding: '0', overflow: 'hidden', backgroundColor: '#11131a', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '16px', boxShadow: '0 24px 48px rgba(0,0,0,0.4)' }}>
+          <div className="card" style={{ padding: '0', overflow: 'hidden', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-subtle)', borderRadius: '16px', boxShadow: '0 24px 48px rgba(0,0,0,0.1)' }}>
             {/* Window Header */}
-            <div className="flex items-center justify-between" style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="flex items-center justify-between" style={{ padding: '16px 20px', borderBottom: '1px solid var(--border-subtle)' }}>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
                   <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#ef4444' }} />
                   <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#eab308' }} />
                   <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#22c55e' }} />
                 </div>
-                <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>
+                <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 500 }}>
                   Inprep Live Diagnostic Room • ID-8492
                 </span>
               </div>
@@ -155,18 +155,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
 
             <div className="flex-col gap-6" style={{ padding: '24px' }}>
-              <div className="flex items-center justify-between" style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', letterSpacing: '0.05em' }}>
+              <div className="flex items-center justify-between" style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', letterSpacing: '0.05em' }}>
                 <span>QUESTION 2 OF 5 • TECHNICAL CORE</span>
                 <span>Time in Prompt: 01:14</span>
               </div>
 
-              <div style={{ fontSize: '18px', fontWeight: 600, lineHeight: 1.5, color: '#f8fafc' }}>
+              <div style={{ fontSize: '18px', fontWeight: 600, lineHeight: 1.5, color: 'var(--text-main)' }}>
                 “Explain the difference between synchronous and asynchronous programming in Python, highlighting event loops and I/O bound tasks.”
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 {/* AI Interviewer Video */}
-                <div style={{ height: '220px', backgroundColor: '#1e293b', borderRadius: '12px', overflow: 'hidden', position: 'relative', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ height: '220px', backgroundColor: 'var(--bg-surface)', borderRadius: '12px', overflow: 'hidden', position: 'relative', border: '1px solid var(--border-subtle)' }}>
                   <img src="/assets/ai_interviewer.jpg" alt="AI Interviewer" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} />
                   
                   {/* Top overlay */}
@@ -185,12 +185,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                       <div style={{ width: '3px', height: '16px', backgroundColor: '#38bdf8', borderRadius: '2px' }} />
                       <div style={{ width: '3px', height: '10px', backgroundColor: '#38bdf8', borderRadius: '2px' }} />
                     </div>
-                    <span style={{ fontSize: '12px', fontWeight: 500, color: '#cbd5e1' }}>Listening to explanation</span>
+                    <span style={{ fontSize: '12px', fontWeight: 500, color: '#fff' }}>Listening to explanation</span>
                   </div>
                 </div>
 
                 {/* Candidate Video */}
-                <div style={{ height: '220px', backgroundColor: '#1e293b', borderRadius: '12px', overflow: 'hidden', position: 'relative', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ height: '220px', backgroundColor: 'var(--bg-surface)', borderRadius: '12px', overflow: 'hidden', position: 'relative', border: '1px solid var(--border-subtle)' }}>
                   <img src="/assets/candidate.jpg" alt="Candidate" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} />
                   
                   {/* AI Scanning bounding box visual */}
@@ -208,11 +208,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   {/* Bottom overlay */}
                   <div style={{ position: 'absolute', bottom: '12px', left: '12px', right: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div style={{ fontSize: '11px', fontWeight: 500, backgroundColor: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>
-                      <span style={{ color: '#cbd5e1' }}>Lighting: </span>
+                      <span style={{ color: '#fff' }}>Lighting: </span>
                       <span style={{ color: '#38bdf8' }}>Optimal</span>
                     </div>
                     <div style={{ fontSize: '11px', fontWeight: 500, backgroundColor: 'rgba(0,0,0,0.5)', padding: '2px 6px', borderRadius: '4px' }}>
-                      <span style={{ color: '#cbd5e1' }}>Eye-level: </span>
+                      <span style={{ color: '#fff' }}>Eye-level: </span>
                       <span style={{ color: '#4ade80' }}>Calibrated</span>
                     </div>
                   </div>
@@ -220,11 +220,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
               
               {/* Telemetry Footer */}
-              <div className="flex-col gap-3" style={{ padding: '16px', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <div className="flex-col gap-3" style={{ padding: '16px', backgroundColor: 'var(--bg-surface)', borderRadius: '12px', border: '1px solid var(--border-subtle)' }}>
                 <div className="flex items-center gap-3">
                   <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#f87171', boxShadow: '0 0 8px #f87171' }} />
-                  <span style={{ fontSize: '13px', fontWeight: 700, color: '#f8fafc' }}>Live Speech Telemetry</span>
-                  <span style={{ fontSize: '11px', fontWeight: 600, color: '#94a3b8', backgroundColor: 'rgba(255,255,255,0.1)', padding: '2px 6px', borderRadius: '4px' }}>REC 01:14</span>
+                  <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)' }}>Live Speech Telemetry</span>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-secondary)', backgroundColor: 'var(--border-subtle)', padding: '2px 6px', borderRadius: '4px' }}>REC 01:14</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div style={{ backgroundColor: 'rgba(99, 102, 241, 0.15)', color: '#a855f7', padding: '4px 10px', borderRadius: '100px', fontSize: '11px', fontWeight: 600 }}>
@@ -247,8 +247,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         }}>
           {featurePillars.map((pillar, idx) => (
             <div key={idx} style={{ 
-              backgroundColor: 'rgba(255,255,255,0.02)', 
-              border: '1px solid rgba(255,255,255,0.05)', 
+              backgroundColor: 'var(--bg-card)', 
+              border: '1px solid var(--border-subtle)', 
               borderRadius: '16px', 
               padding: '20px',
               display: 'flex',
@@ -269,8 +269,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
 
               <div className="flex-col gap-1">
-                <div style={{ fontSize: '14px', fontWeight: 600, color: '#f8fafc' }}>{pillar.title}</div>
-                <div style={{ fontSize: '12px', color: '#94a3b8' }}>{pillar.subtitle}</div>
+                <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-main)' }}>{pillar.title}</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{pillar.subtitle}</div>
               </div>
             </div>
           ))}

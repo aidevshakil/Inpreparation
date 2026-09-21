@@ -30,7 +30,7 @@ export const FaqCategoryList: React.FC<FaqCategoryListProps> = ({
   searchQuery
 }) => {
   const getCategoryIcon = (iconName: string) => {
-    const color = '#a5b4fc';
+    const color = 'var(--primary-color)';
     const size = 20;
     switch (iconName) {
       case 'Rocket':
@@ -77,8 +77,8 @@ export const FaqCategoryList: React.FC<FaqCategoryListProps> = ({
   if (filteredCategories.length === 0) {
     return (
       <div style={{
-        background: '#0a0e18',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '20px',
         padding: '50px 30px',
         textAlign: 'center'
@@ -87,18 +87,18 @@ export const FaqCategoryList: React.FC<FaqCategoryListProps> = ({
           width: '50px',
           height: '50px',
           borderRadius: '50%',
-          background: 'rgba(124, 58, 237, 0.15)',
+          background: 'rgba(99, 102, 241, 0.15)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           margin: '0 auto 16px'
         }}>
-          <HelpCircle size={24} color="#a5b4fc" />
+          <HelpCircle size={24} color="var(--primary-color)" />
         </div>
-        <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '8px' }}>
+        <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px' }}>
           No Matching Answers Found
         </h3>
-        <p style={{ fontSize: '14px', color: '#94a3b8', margin: 0 }}>
+        <p style={{ fontSize: '14px', color: 'var(--text-secondary)', margin: 0 }}>
           Try adjusting your search terms or browse categories using the directory on the left.
         </p>
       </div>
@@ -114,12 +114,12 @@ export const FaqCategoryList: React.FC<FaqCategoryListProps> = ({
           {cat.description ? (
             /* Featured Category Card Banner (e.g., Computer Vision & Camera) */
             <div style={{
-              background: '#090f1d',
-              border: '1px solid rgba(56, 189, 248, 0.25)',
+              background: 'var(--bg-card)',
+              border: '1px solid rgba(2, 132, 199, 0.25)',
               borderRadius: '16px',
               padding: '22px 24px',
               marginBottom: '16px',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.4)'
+              boxShadow: 'var(--shadow-md)'
             }}>
               <div style={{
                 display: 'flex',
@@ -134,20 +134,20 @@ export const FaqCategoryList: React.FC<FaqCategoryListProps> = ({
                     width: '38px',
                     height: '38px',
                     borderRadius: '10px',
-                    background: 'rgba(56, 189, 248, 0.15)',
+                    background: 'rgba(2, 132, 199, 0.15)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0
                   }}>
-                    <Video size={20} color="#38bdf8" />
+                    <Video size={20} color="#0284c7" />
                   </div>
                   <div>
-                    <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff', margin: 0, letterSpacing: '-0.02em' }}>
+                    <h2 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--text-main)', margin: 0, letterSpacing: '-0.02em' }}>
                       {cat.name}
                     </h2>
                     {cat.subtitle && (
-                      <div style={{ fontSize: '12px', fontWeight: 600, color: '#38bdf8', marginTop: '2px' }}>
+                      <div style={{ fontSize: '12px', fontWeight: 600, color: '#0284c7', marginTop: '2px' }}>
                         {cat.subtitle}
                       </div>
                     )}
@@ -160,11 +160,11 @@ export const FaqCategoryList: React.FC<FaqCategoryListProps> = ({
                     alignItems: 'center',
                     padding: '4px 12px',
                     borderRadius: '100px',
-                    background: 'rgba(56, 189, 248, 0.12)',
-                    border: '1px solid rgba(56, 189, 248, 0.3)',
+                    background: 'rgba(2, 132, 199, 0.12)',
+                    border: '1px solid rgba(2, 132, 199, 0.3)',
                     fontSize: '11px',
                     fontWeight: 700,
-                    color: '#38bdf8',
+                    color: '#0284c7',
                     letterSpacing: '0.04em'
                   }}>
                     <span>{cat.badge}</span>
@@ -174,7 +174,7 @@ export const FaqCategoryList: React.FC<FaqCategoryListProps> = ({
 
               <p style={{
                 fontSize: '13px',
-                color: '#94a3b8',
+                color: 'var(--text-secondary)',
                 lineHeight: 1.6,
                 margin: 0
               }}>
@@ -196,14 +196,14 @@ export const FaqCategoryList: React.FC<FaqCategoryListProps> = ({
                   width: '36px',
                   height: '36px',
                   borderRadius: '10px',
-                  background: 'rgba(124, 58, 237, 0.15)',
+                  background: 'rgba(99, 102, 241, 0.15)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}>
                   {getCategoryIcon(cat.iconName)}
                 </div>
-                <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+                <h2 style={{ fontSize: '22px', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                   {cat.name}
                 </h2>
               </div>
@@ -215,11 +215,11 @@ export const FaqCategoryList: React.FC<FaqCategoryListProps> = ({
                   gap: '6px',
                   padding: '4px 12px',
                   borderRadius: '100px',
-                  background: 'rgba(56, 189, 248, 0.12)',
-                  border: '1px solid rgba(56, 189, 248, 0.25)',
+                  background: 'rgba(2, 132, 199, 0.12)',
+                  border: '1px solid rgba(2, 132, 199, 0.25)',
                   fontSize: '11px',
                   fontWeight: 700,
-                  color: '#38bdf8',
+                  color: '#0284c7',
                   letterSpacing: '0.04em'
                 }}>
                   <Lock size={12} />
@@ -237,12 +237,12 @@ export const FaqCategoryList: React.FC<FaqCategoryListProps> = ({
                 <div
                   key={q.id}
                   style={{
-                    background: '#0a0e18',
-                    border: isOpen ? '1px solid rgba(129, 140, 248, 0.3)' : '1px solid rgba(255, 255, 255, 0.07)',
+                    background: 'var(--bg-card)',
+                    border: isOpen ? '1px solid var(--primary-color)' : '1px solid var(--border-subtle)',
                     borderRadius: '14px',
                     overflow: 'hidden',
                     transition: 'all 0.2s ease',
-                    boxShadow: isOpen ? '0 10px 30px rgba(0, 0, 0, 0.4)' : 'none'
+                    boxShadow: isOpen ? 'var(--shadow-md)' : 'none'
                   }}
                 >
                   <button
@@ -256,21 +256,21 @@ export const FaqCategoryList: React.FC<FaqCategoryListProps> = ({
                       gap: '16px',
                       background: 'transparent',
                       border: 'none',
-                      color: '#ffffff',
+                      color: 'var(--text-main)',
                       fontSize: '15px',
                       fontWeight: 600,
                       cursor: 'pointer',
                       textAlign: 'left'
                     }}
                   >
-                    <span style={{ color: isOpen ? '#f8fafc' : '#cbd5e1' }}>
+                    <span style={{ color: isOpen ? 'var(--primary-color)' : 'var(--text-main)' }}>
                       {q.question}
                     </span>
                     <div style={{
                       width: '26px',
                       height: '26px',
                       borderRadius: '50%',
-                      background: isOpen ? 'rgba(129, 140, 248, 0.15)' : 'rgba(255, 255, 255, 0.04)',
+                      background: isOpen ? 'rgba(99, 102, 241, 0.15)' : 'var(--bg-surface)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -279,7 +279,7 @@ export const FaqCategoryList: React.FC<FaqCategoryListProps> = ({
                     }}>
                       <ChevronDown
                         size={15}
-                        color={isOpen ? '#818cf8' : '#94a3b8'}
+                        color={isOpen ? 'var(--primary-color)' : 'var(--text-muted)'}
                         style={{
                           transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                           transition: 'transform 0.25s ease'
@@ -292,9 +292,9 @@ export const FaqCategoryList: React.FC<FaqCategoryListProps> = ({
                     <div style={{
                       padding: '0 22px 20px',
                       fontSize: '14px',
-                      color: '#94a3b8',
+                      color: 'var(--text-secondary)',
                       lineHeight: 1.7,
-                      borderTop: '1px solid rgba(255, 255, 255, 0.04)',
+                      borderTop: '1px solid var(--border-subtle)',
                       paddingTop: '14px',
                       animation: 'fadeIn 0.2s ease-out'
                     }}>

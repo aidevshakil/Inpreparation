@@ -19,7 +19,7 @@ export const ExperienceUnderstandingStep: React.FC = () => {
               fontWeight: 800,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
-              color: '#818cf8',
+              color: 'var(--primary-color)',
               marginBottom: '10px'
             }}>
               STEP 02
@@ -28,7 +28,7 @@ export const ExperienceUnderstandingStep: React.FC = () => {
             <h2 style={{
               fontSize: 'clamp(26px, 3.2vw, 36px)',
               fontWeight: 800,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               letterSpacing: '-0.02em',
               lineHeight: 1.25,
               marginBottom: '14px'
@@ -38,7 +38,7 @@ export const ExperienceUnderstandingStep: React.FC = () => {
 
             <p style={{
               fontSize: '14.5px',
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
               lineHeight: 1.6,
               marginBottom: '28px'
             }}>
@@ -49,8 +49,8 @@ export const ExperienceUnderstandingStep: React.FC = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '24px' }}>
               {/* Feature 1 */}
               <div style={{
-                background: '#0a0e18',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '14px',
                 padding: '18px 20px',
                 display: 'flex',
@@ -72,10 +72,10 @@ export const ExperienceUnderstandingStep: React.FC = () => {
                   <GitBranch size={17} color="#818cf8" />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+                  <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
                     Semantic Competency Mapping
                   </h3>
-                  <p style={{ fontSize: '13px', color: '#8896ab', lineHeight: 1.5, margin: 0 }}>
+                  <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
                     Dissects concrete project outcomes versus passive tool mentions.
                   </p>
                 </div>
@@ -83,8 +83,8 @@ export const ExperienceUnderstandingStep: React.FC = () => {
 
               {/* Feature 2 */}
               <div style={{
-                background: '#0a0e18',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '14px',
                 padding: '18px 20px',
                 display: 'flex',
@@ -106,10 +106,10 @@ export const ExperienceUnderstandingStep: React.FC = () => {
                   <FileCheck size={17} color="#38bdf8" />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+                  <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
                     Verifiable Resume Grounding
                   </h3>
-                  <p style={{ fontSize: '13px', color: '#8896ab', lineHeight: 1.5, margin: 0 }}>
+                  <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
                     Generates questions strictly aligned to what you have actually built.
                   </p>
                 </div>
@@ -121,13 +121,13 @@ export const ExperienceUnderstandingStep: React.FC = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               padding: '6px 14px',
               borderRadius: '100px'
             }}>
               <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#38bdf8', boxShadow: '0 0 8px #38bdf8' }} />
-              <span style={{ fontSize: '12px', color: '#94a3b8', fontWeight: 500 }}>
+              <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: 500 }}>
                 AI Profile Analysis — Based on verifiable resume data
               </span>
             </div>
@@ -135,22 +135,21 @@ export const ExperienceUnderstandingStep: React.FC = () => {
 
           {/* Right Column: Synthesis Pipeline Card */}
           <div style={{
-            background: '#0a0e18',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '20px',
             padding: '24px 26px',
-            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
+            boxShadow: 'var(--shadow-lg)'
           }}>
-            {/* Header Row */}
             <div style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
               marginBottom: '20px',
               paddingBottom: '14px',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.06)'
+              borderBottom: '1px solid var(--border-subtle)'
             }}>
-              <span style={{ fontSize: '13px', fontWeight: 600, color: '#e2e8f0' }}>
+              <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-main)' }}>
                 Synthesis Pipeline: Input to Semantic Graph
               </span>
               <span style={{
@@ -175,8 +174,8 @@ export const ExperienceUnderstandingStep: React.FC = () => {
             }}>
               {/* Node 1: Source File */}
               <div style={{
-                background: '#060911',
-                border: '1px solid rgba(255, 255, 255, 0.05)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '12px',
                 padding: '16px 14px',
                 display: 'flex',
@@ -184,27 +183,27 @@ export const ExperienceUnderstandingStep: React.FC = () => {
                 justifyContent: 'space-between'
               }}>
                 <div>
-                  <div style={{ fontSize: '11px', color: '#64748b', fontWeight: 500, marginBottom: '4px' }}>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 500, marginBottom: '4px' }}>
                     Source File
                   </div>
-                  <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#ffffff', marginBottom: '16px' }}>
+                  <div style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '16px' }}>
                     curriculum_vitae.pdf
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '16px' }}>
-                    <div style={{ width: '90%', height: '5px', background: 'rgba(255, 255, 255, 0.08)', borderRadius: '3px' }} />
-                    <div style={{ width: '70%', height: '5px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '3px' }} />
-                    <div style={{ width: '85%', height: '5px', background: 'rgba(255, 255, 255, 0.06)', borderRadius: '3px' }} />
+                    <div style={{ width: '90%', height: '5px', background: 'var(--border-subtle)', borderRadius: '3px' }} />
+                    <div style={{ width: '70%', height: '5px', background: 'var(--border-subtle)', borderRadius: '3px' }} />
+                    <div style={{ width: '85%', height: '5px', background: 'var(--border-subtle)', borderRadius: '3px' }} />
                   </div>
                 </div>
-                <div style={{ fontSize: '11px', color: '#64748b' }}>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
                   4 Pages • 1,280 Words
                 </div>
               </div>
 
               {/* Node 2: Neural Parser */}
               <div style={{
-                background: '#0f1422',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                background: 'var(--bg-main)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '12px',
                 padding: '18px 12px',
                 textAlign: 'center',
@@ -226,18 +225,18 @@ export const ExperienceUnderstandingStep: React.FC = () => {
                 }}>
                   <Brain size={20} color="#818cf8" />
                 </div>
-                <div style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
                   Neural Parser
                 </div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', lineHeight: 1.4 }}>
+                <div style={{ fontSize: '11px', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
                   Deconstructing 14 roles & 38 technical competencies
                 </div>
               </div>
 
               {/* Node 3: Synthesized Record */}
               <div style={{
-                background: '#060911',
-                border: '1px solid rgba(255, 255, 255, 0.05)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '12px',
                 padding: '16px 14px',
                 display: 'flex',
@@ -245,10 +244,10 @@ export const ExperienceUnderstandingStep: React.FC = () => {
                 justifyContent: 'space-between'
               }}>
                 <div>
-                  <div style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 600, marginBottom: '4px' }}>
+                  <div style={{ fontSize: '11px', color: 'var(--primary-color)', fontWeight: 600, marginBottom: '4px' }}>
                     Synthesized Record
                   </div>
-                  <div style={{ fontSize: '14px', fontWeight: 700, color: '#ffffff', marginBottom: '10px' }}>
+                  <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '10px' }}>
                     Senior Tech Profile
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '14px' }}>
@@ -267,9 +266,9 @@ export const ExperienceUnderstandingStep: React.FC = () => {
                       <span key={tag} style={{
                         fontSize: '10px',
                         fontWeight: 500,
-                        color: '#cbd5e1',
-                        background: '#131825',
-                        border: '1px solid rgba(255, 255, 255, 0.06)',
+                        color: 'var(--text-main)',
+                        background: 'var(--bg-main)',
+                        border: '1px solid var(--border-subtle)',
                         padding: '2px 7px',
                         borderRadius: '4px'
                       }}>
@@ -278,8 +277,8 @@ export const ExperienceUnderstandingStep: React.FC = () => {
                     ))}
                   </div>
                 </div>
-                <div style={{ fontSize: '11px', color: '#94a3b8' }}>
-                  Calibrated Tier: <span style={{ color: '#38bdf8', fontWeight: 600 }}>Staff Level (L6)</span>
+                <div style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>
+                  Calibrated Tier: <span style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Staff Level (L6)</span>
                 </div>
               </div>
             </div>

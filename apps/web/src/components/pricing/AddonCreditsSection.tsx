@@ -41,11 +41,11 @@ export const AddonCreditsSection: React.FC<AddonCreditsSectionProps> = ({
         
         {/* Container Box */}
         <div style={{
-          background: '#090d16',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '24px',
           padding: '40px',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
+          boxShadow: 'var(--shadow-lg)'
         }}>
           {/* Header */}
           <div style={{ marginBottom: '36px' }}>
@@ -54,7 +54,7 @@ export const AddonCreditsSection: React.FC<AddonCreditsSectionProps> = ({
               fontWeight: 800,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
-              color: '#38bdf8',
+              color: '#0284c7',
               marginBottom: '8px'
             }}>
               EXTRA FLEXIBILITY
@@ -62,7 +62,7 @@ export const AddonCreditsSection: React.FC<AddonCreditsSectionProps> = ({
             <h2 style={{
               fontSize: 'clamp(26px, 3.2vw, 36px)',
               fontWeight: 700,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               letterSpacing: '-0.02em',
               marginBottom: '10px'
             }}>
@@ -70,7 +70,7 @@ export const AddonCreditsSection: React.FC<AddonCreditsSectionProps> = ({
             </h2>
             <p style={{
               fontSize: '14.5px',
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
               lineHeight: 1.6,
               margin: 0
             }}>
@@ -90,24 +90,24 @@ export const AddonCreditsSection: React.FC<AddonCreditsSectionProps> = ({
               <div
                 key={idx}
                 style={{
-                  background: pack.isPopular ? 'linear-gradient(180deg, #10162a 0%, #0c101d 100%)' : '#0e1320',
-                  border: pack.isPopular ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'var(--bg-surface)',
+                  border: pack.isPopular ? '2px solid var(--primary-color)' : '1px solid var(--border-subtle)',
                   borderRadius: '18px',
                   padding: '28px 24px',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
                   position: 'relative',
-                  boxShadow: pack.isPopular ? '0 10px 30px rgba(99, 102, 241, 0.15)' : 'none',
+                  boxShadow: pack.isPopular ? '0 10px 25px rgba(99, 102, 241, 0.2)' : 'var(--shadow-sm)',
                   transition: 'all 0.2s ease'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-2px)';
-                  if (!pack.isPopular) e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.16)';
+                  if (!pack.isPopular) e.currentTarget.style.borderColor = 'var(--border-accent)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  if (!pack.isPopular) e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                  if (!pack.isPopular) e.currentTarget.style.borderColor = 'var(--border-subtle)';
                 }}
               >
                 {/* Popular Badge */}
@@ -132,10 +132,10 @@ export const AddonCreditsSection: React.FC<AddonCreditsSectionProps> = ({
                 <div>
                   {/* Credits & Price Row */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-                    <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+                    <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                       {pack.title}
                     </h3>
-                    <div style={{ fontSize: '24px', fontWeight: 800, color: pack.isPopular ? '#a5b4fc' : '#ffffff' }}>
+                    <div style={{ fontSize: '24px', fontWeight: 800, color: pack.isPopular ? 'var(--primary-color)' : 'var(--text-main)' }}>
                       ${pack.price}
                     </div>
                   </div>
@@ -143,7 +143,7 @@ export const AddonCreditsSection: React.FC<AddonCreditsSectionProps> = ({
                   {/* Description */}
                   <p style={{
                     fontSize: '13px',
-                    color: '#94a3b8',
+                    color: 'var(--text-secondary)',
                     lineHeight: 1.55,
                     marginBottom: '26px'
                   }}>
@@ -158,31 +158,31 @@ export const AddonCreditsSection: React.FC<AddonCreditsSectionProps> = ({
                     width: '100%',
                     padding: '12px 18px',
                     borderRadius: '100px',
-                    border: pack.isPopular ? 'none' : '1px solid rgba(255, 255, 255, 0.1)',
+                    border: pack.isPopular ? 'none' : '1px solid var(--border-subtle)',
                     background: pack.isPopular
-                      ? 'linear-gradient(135deg, #a5b4fc 0%, #c084fc 100%)'
-                      : '#131828',
-                    color: pack.isPopular ? '#0f172a' : '#cbd5e1',
+                      ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)'
+                      : 'var(--bg-card)',
+                    color: pack.isPopular ? '#ffffff' : 'var(--text-main)',
                     fontSize: '13.5px',
                     fontWeight: pack.isPopular ? 700 : 600,
                     cursor: 'pointer',
                     transition: 'all 0.2s ease',
-                    boxShadow: pack.isPopular ? '0 4px 16px rgba(165, 180, 252, 0.3)' : 'none'
+                    boxShadow: pack.isPopular ? '0 4px 16px rgba(99, 102, 241, 0.3)' : 'none'
                   }}
                   onMouseEnter={(e) => {
                     if (pack.isPopular) {
                       e.currentTarget.style.opacity = '0.92';
                     } else {
-                      e.currentTarget.style.background = '#1a2238';
-                      e.currentTarget.style.color = '#ffffff';
+                      e.currentTarget.style.background = 'var(--bg-card-hover)';
+                      e.currentTarget.style.borderColor = 'var(--border-accent)';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (pack.isPopular) {
                       e.currentTarget.style.opacity = '1';
                     } else {
-                      e.currentTarget.style.background = '#131828';
-                      e.currentTarget.style.color = '#cbd5e1';
+                      e.currentTarget.style.background = 'var(--bg-card)';
+                      e.currentTarget.style.borderColor = 'var(--border-subtle)';
                     }
                   }}
                 >
@@ -198,9 +198,9 @@ export const AddonCreditsSection: React.FC<AddonCreditsSectionProps> = ({
             alignItems: 'center',
             gap: '8px',
             fontSize: '12.5px',
-            color: '#94a3b8'
+            color: 'var(--text-secondary)'
           }}>
-            <RotateCcw size={14} color="#38bdf8" />
+            <RotateCcw size={14} color="#0284c7" />
             <span>Credits roll over month–to–month while your subscription remains active. Non–expiring during membership.</span>
           </div>
 

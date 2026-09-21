@@ -68,7 +68,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#07090e', color: '#f8fafc' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg-main)', color: 'var(--text-main)' }}>
       {/* Navbar */}
       <Navbar
         onStartPractice={() => handleStartPractice()}
