@@ -136,6 +136,7 @@ export const EmailVerificationCard: React.FC<EmailVerificationCardProps> = ({
     try {
       const response = await verifyEmailOtp(emailAddress, code);
       if (response && response.success) {
+        if (response.token) localStorage.setItem('inprep_token', response.token);
         updateUser({ isEmailVerified: true });
         setLocalStatus('verified-success');
         setTimeout(() => {

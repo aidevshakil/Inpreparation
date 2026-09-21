@@ -96,10 +96,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [user]);
 
-  const login = async (email: string, _password?: string): Promise<boolean> => {
+  const login = async (email: string, password?: string): Promise<boolean> => {
     setIsLoading(true);
     try {
-      const result = await loginUser(email);
+      const result = await loginUser(email, password);
       if (result && result.user) {
         const updated: UserProfile = {
           ...user,
@@ -118,16 +118,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setUser(updated);
         setIsAuthenticated(true);
         localStorage.setItem('inprep_authenticated', 'true');
+        if (result.token) localStorage.setItem('inprep_token', result.token);
         return true;
       }
-      setIsAuthenticated(true);
-      localStorage.setItem('inprep_authenticated', 'true');
-      return true;
+      return false;
     } catch (error) {
       console.error('Login error:', error);
-      setIsAuthenticated(true);
-      localStorage.setItem('inprep_authenticated', 'true');
-      return true;
+      return false;
     } finally {
       setIsLoading(false);
     }
@@ -156,6 +153,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setUser(updated);
         setIsAuthenticated(true);
         localStorage.setItem('inprep_authenticated', 'true');
+        if (result.token) localStorage.setItem('inprep_token', result.token);
         return true;
       }
       return false;
@@ -205,6 +203,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = () => {
     localStorage.removeItem('inprep_user');
     localStorage.removeItem('inprep_authenticated');
+    localStorage.removeItem('inprep_token');
     setUser(DEFAULT_USER);
     setIsAuthenticated(false);
   };

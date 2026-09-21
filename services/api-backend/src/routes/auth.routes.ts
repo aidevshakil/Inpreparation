@@ -1,9 +1,23 @@
 import { Router, Request, Response } from 'express';
 import { prisma } from '@packages/database';
 import { sendOtpEmail } from '../services/email.service';
+import { requireAuth } from '../middleware/authenticate';
+import { validate } from '../middleware/validate';
+import {
+  registerSchema,
+  sendOtpSchema,
+  verifyOtpSchema,
+  loginSchema,
+  setPasswordSchema,
+  googleSchema,
+} from './auth.schemas';
 import { OAuth2Client } from 'google-auth-library';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
+const JWT_SECRET = process.env.JWT_SECRET || (process.env.NODE_ENV === 'production'
+  ? (() => { throw new Error('JWT_SECRET must be set in production'); })()
+  : 'fallback-secret-for-dev');
 export const authRouter = Router();
 
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID || 'your-google-client-id-here');
@@ -16,14 +30,10 @@ function generateOtpCode(): string {
 // -------------------------------------------------------------
 // 1. REGISTER & SEND VERIFICATION OTP
 // -------------------------------------------------------------
-authRouter.post('/register', async (req: Request, res: Response) => {
+authRouter.post('/register', validate(registerSchema), async (req: Request, res: Response) => {
   try {
     const { email, name, targetRole, seniority } = req.body;
-    if (!email || !email.trim()) {
-      return res.status(400).json({ error: 'Email is required' });
-    }
-
-    const cleanEmail = email.trim().toLowerCase();
+    const cleanEmail = email;
     const cleanName = (name || cleanEmail.split('@')[0]).trim();
 
     let user = await prisma.user.findUnique({ where: { email: cleanEmail } });
@@ -45,10 +55,10 @@ authRouter.post('/register', async (req: Request, res: Response) => {
 
     // Invalidate existing tokens for this email and save new token
     try {
-      await (prisma as any).verificationToken.deleteMany({
+      await prisma.verificationToken.deleteMany({
         where: { email: cleanEmail, type: 'email_verification' },
       });
-      await (prisma as any).verificationToken.create({
+      await prisma.verificationToken.create({
         data: {
           email: cleanEmail,
           code: otpCode,
@@ -84,14 +94,10 @@ authRouter.post('/register', async (req: Request, res: Response) => {
 // -------------------------------------------------------------
 // 2. RESEND VERIFICATION OTP
 // -------------------------------------------------------------
-authRouter.post('/send-otp', async (req: Request, res: Response) => {
+authRouter.post('/send-otp', validate(sendOtpSchema), async (req: Request, res: Response) => {
   try {
     const { email, type = 'signup' } = req.body;
-    if (!email || !email.trim()) {
-      return res.status(400).json({ error: 'Email is required' });
-    }
-
-    const cleanEmail = email.trim().toLowerCase();
+    const cleanEmail = email;
     const user = await prisma.user.findUnique({ where: { email: cleanEmail } });
     const userName = user?.name || cleanEmail.split('@')[0];
 
@@ -99,10 +105,10 @@ authRouter.post('/send-otp', async (req: Request, res: Response) => {
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
 
     try {
-      await (prisma as any).verificationToken.deleteMany({
+      await prisma.verificationToken.deleteMany({
         where: { email: cleanEmail, type: 'email_verification' },
       });
-      await (prisma as any).verificationToken.create({
+      await prisma.verificationToken.create({
         data: {
           email: cleanEmail,
           code: otpCode,
@@ -136,20 +142,16 @@ authRouter.post('/send-otp', async (req: Request, res: Response) => {
 // -------------------------------------------------------------
 // 3. VERIFY OTP CODE
 // -------------------------------------------------------------
-authRouter.post('/verify-otp', async (req: Request, res: Response) => {
+authRouter.post('/verify-otp', validate(verifyOtpSchema), async (req: Request, res: Response) => {
   try {
     const { email, code } = req.body;
-    if (!email || !code) {
-      return res.status(400).json({ error: 'Email and OTP code are required' });
-    }
-
-    const cleanEmail = email.trim().toLowerCase();
-    const cleanCode = code.toString().trim();
+    const cleanEmail = email;
+    const cleanCode = code;
 
     // Look up token in DB
     let tokenMatch = null;
     try {
-      tokenMatch = await (prisma as any).verificationToken.findFirst({
+      tokenMatch = await prisma.verificationToken.findFirst({
         where: {
           email: cleanEmail,
           code: cleanCode,
@@ -163,11 +165,7 @@ authRouter.post('/verify-otp', async (req: Request, res: Response) => {
       console.warn('[Auth] VerificationToken query error, using fallback matching:', e);
     }
 
-    const isMasterDevCode =
-      cleanCode === '123456' &&
-      process.env.NODE_ENV === 'development' &&
-      process.env.ALLOW_DEV_OTP === 'true';
-    if (!tokenMatch && !isMasterDevCode) {
+    if (!tokenMatch) {
       return res.status(400).json({
         success: false,
         error: 'Invalid or expired verification code. Please check your inbox or request a new code.',
@@ -177,7 +175,7 @@ authRouter.post('/verify-otp', async (req: Request, res: Response) => {
     // Clean up consumed token
     try {
       if (tokenMatch) {
-        await (prisma as any).verificationToken.delete({
+        await prisma.verificationToken.delete({
           where: { id: tokenMatch.id },
         });
       }
@@ -187,25 +185,22 @@ authRouter.post('/verify-otp', async (req: Request, res: Response) => {
 
     // Mark user as verified
     let user = await prisma.user.findUnique({ where: { email: cleanEmail } });
-    if (user) {
-      user = await prisma.user.update({
-        where: { email: cleanEmail },
-        data: { isEmailVerified: true },
-      });
-    } else {
-      user = await prisma.user.create({
-        data: {
-          email: cleanEmail,
-          name: cleanEmail.split('@')[0],
-          isEmailVerified: true,
-        },
-      });
+    if (!user) {
+      return res.status(400).json({ error: 'User does not exist' });
     }
+    
+    user = await prisma.user.update({
+      where: { email: cleanEmail },
+      data: { isEmailVerified: true },
+    });
+
+    const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
 
     res.json({
       success: true,
       message: 'Email address verified successfully.',
       user,
+      token,
     });
   } catch (error: any) {
     console.error('[Auth Verify OTP Error]:', error);
@@ -216,14 +211,10 @@ authRouter.post('/verify-otp', async (req: Request, res: Response) => {
 // -------------------------------------------------------------
 // 4. LOGIN / GET PROFILE
 // -------------------------------------------------------------
-authRouter.post('/login', async (req: Request, res: Response) => {
+authRouter.post('/login', validate(loginSchema), async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
-    if (!email) {
-      return res.status(400).json({ error: 'Email is required' });
-    }
-
-    const cleanEmail = email.trim().toLowerCase();
+    const cleanEmail = email;
 
     let user = await prisma.user.findUnique({
       where: { email: cleanEmail },
@@ -235,47 +226,29 @@ authRouter.post('/login', async (req: Request, res: Response) => {
       },
     });
 
-    if (password) {
-      if (!user || !user.passwordHash) {
-        return res.status(401).json({ error: 'Invalid credentials' });
-      }
-      const ok = await bcrypt.compare(String(password), user.passwordHash);
-      if (!ok) {
-        return res.status(401).json({ error: 'Invalid credentials' });
-      }
-      return res.json({ success: true, message: 'Logged in successfully', user });
+    if (!password) {
+      return res.status(400).json({ error: 'Password is required' });
     }
-
-    if (!user) {
-      user = await prisma.user.create({
-        data: {
-          email: cleanEmail,
-          name: cleanEmail.split('@')[0],
-          targetRole: null,
-        },
-        include: {
-          simulations: true,
-        },
-      });
+    
+    if (!user || !user.passwordHash) {
+      return res.status(401).json({ error: 'Invalid credentials' });
     }
-
-    res.json({ success: true, message: 'Logged in successfully', user });
+    const ok = await bcrypt.compare(String(password), user.passwordHash);
+    if (!ok) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+    
+    const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
+    return res.json({ success: true, message: 'Logged in successfully', user, token });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
 });
 
-authRouter.post('/set-password', async (req: Request, res: Response) => {
+authRouter.post('/set-password', requireAuth, validate(setPasswordSchema), async (req: Request, res: Response) => {
   try {
-    const { userId, password } = req.body;
-    const headerUserId = req.headers['x-user-id'];
-    const targetId = userId || (typeof headerUserId === 'string' ? headerUserId : null);
-    if (!targetId) {
-      return res.status(401).json({ error: 'Authentication required' });
-    }
-    if (!password || String(password).length < 8) {
-      return res.status(400).json({ error: 'Password must be at least 8 characters' });
-    }
+    const { password } = req.body;
+    const targetId = req.user!.id;
     const hash = await bcrypt.hash(String(password), 10);
     await prisma.user.update({ where: { id: targetId }, data: { passwordHash: hash } });
     res.json({ success: true, message: 'Password updated' });
@@ -287,24 +260,21 @@ authRouter.post('/set-password', async (req: Request, res: Response) => {
 // -------------------------------------------------------------
 // 5. GOOGLE OAUTH LOGIN
 // -------------------------------------------------------------
-authRouter.post('/google', async (req: Request, res: Response) => {
+authRouter.post('/google', validate(googleSchema), async (req: Request, res: Response) => {
   try {
-    const { accessToken } = req.body;
-    if (!accessToken) {
-      return res.status(400).json({ error: 'Access token is required' });
-    }
+    const { credential } = req.body;
+    const idToken = credential || req.body.idToken || req.body.accessToken;
 
-    // Use the google client to get user info from the access token
-    const tokenInfo = await googleClient.getTokenInfo(accessToken);
-    const userInfoResponse = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-      headers: { Authorization: `Bearer ${accessToken}` }
+    // Verify ID token cryptographically
+    const ticket = await googleClient.verifyIdToken({
+      idToken: idToken,
+      audience: process.env.GOOGLE_CLIENT_ID || 'your-google-client-id-here',
     });
-    
-    if (!userInfoResponse.ok) {
-      return res.status(401).json({ error: 'Invalid Google access token' });
+    const payload = ticket.getPayload();
+    if (!payload || !payload.email) {
+      return res.status(401).json({ error: 'Invalid Google ID token payload' });
     }
     
-    const payload = await userInfoResponse.json();
     const cleanEmail = payload.email.trim().toLowerCase();
 
     let user = await prisma.user.findUnique({
@@ -331,13 +301,16 @@ authRouter.post('/google', async (req: Request, res: Response) => {
       });
     }
 
+    const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
+
     res.json({ 
       success: true, 
       message: 'Logged in via Google successfully', 
       user: {
         ...user,
         picture: payload.picture,
-      }
+      },
+      token
     });
   } catch (error: any) {
     console.error('[Auth Google SSO Error]:', error);

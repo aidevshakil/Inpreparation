@@ -3,6 +3,22 @@ import { AIChatMessage } from '@packages/types';
 export const NODE_BACKEND_URL = (import.meta as any).env?.VITE_API_URL || 'http://localhost:5000/api';
 const PYTHON_AI_URL = (import.meta as any).env?.VITE_AI_SERVICE_URL || 'http://localhost:8000/api/v1';
 
+
+// -------------------------------------------------------------
+// Core Fetch Wrapper for JWT
+// -------------------------------------------------------------
+export async function fetchWithAuth(url: string, options: RequestInit = {}) {
+  const token = typeof window !== 'undefined' ? localStorage.getItem('inprep_token') : null;
+  const headers = new Headers(options.headers || {});
+  
+  if (token && !headers.has('Authorization')) {
+    headers.set('Authorization', `Bearer ${token}`);
+  }
+  
+  return fetch(url, { ...options, headers });
+}
+
+
 // -------------------------------------------------------------
 // 1. Simulation & Scorecard Persistence (PostgreSQL / Prisma)
 // -------------------------------------------------------------
@@ -31,7 +47,7 @@ export interface SaveSimulationPayload {
 
 export async function saveSimulationScorecard(payload: SaveSimulationPayload) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/simulations`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/simulations`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -58,7 +74,7 @@ export async function saveSimulationScorecard(payload: SaveSimulationPayload) {
 
 export async function getRecentSimulations(limit = 10) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/simulations?limit=${limit}`);
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/simulations?limit=${limit}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -69,7 +85,7 @@ export async function getRecentSimulations(limit = 10) {
 
 export async function getUserSimulationHistory(userId: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/simulations/user/${userId}`);
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/simulations/user/${userId}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -94,7 +110,7 @@ export interface UploadResumePayload {
 
 export async function uploadResumeProfile(payload: UploadResumePayload) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/resumes/upload`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/resumes/upload`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -121,7 +137,7 @@ export async function uploadResumeProfile(payload: UploadResumePayload) {
 
 export async function getUserResumes(userId: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/resumes/user/${userId}`);
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/resumes/user/${userId}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -132,7 +148,7 @@ export async function getUserResumes(userId: string) {
 
 export async function getResumeById(resumeId: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/resumes/${resumeId}`);
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/resumes/${resumeId}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -143,7 +159,7 @@ export async function getResumeById(resumeId: string) {
 
 export async function rollbackResumeVersion(resumeId: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/resumes/${resumeId}/rollback`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/resumes/${resumeId}/rollback`, {
       method: 'POST',
     });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -156,7 +172,7 @@ export async function rollbackResumeVersion(resumeId: string) {
 
 export async function deleteResumeVersion(resumeId: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/resumes/${resumeId}`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/resumes/${resumeId}`, {
       method: 'DELETE',
     });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -172,7 +188,7 @@ export async function deleteResumeVersion(resumeId: string) {
 // -------------------------------------------------------------
 export async function registerUser(name: string, email: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/auth/register`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email }),
@@ -201,7 +217,7 @@ export async function registerUser(name: string, email: string) {
 
 export async function sendVerificationOtp(email: string, type: 'signup' | 'reset-password' = 'signup') {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/auth/send-otp`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/auth/send-otp`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, type }),
@@ -224,7 +240,7 @@ export async function sendVerificationOtp(email: string, type: 'signup' | 'reset
 
 export async function verifyEmailOtp(email: string, code: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/auth/verify-otp`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/auth/verify-otp`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, code }),
@@ -254,12 +270,12 @@ export async function verifyEmailOtp(email: string, code: string) {
   }
 }
 
-export async function loginUser(email: string) {
+export async function loginUser(email: string, password?: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/auth/login`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email, password }),
     });
 
     if (!response.ok) throw new Error(`Login failed: ${response.statusText}`);
@@ -280,7 +296,7 @@ export async function loginUser(email: string) {
 
 export async function loginWithGoogle(accessToken: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/auth/google`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/auth/google`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ accessToken }),
@@ -307,7 +323,7 @@ export async function loginWithGoogle(accessToken: string) {
 // 4. Send Chat with Prisma DB Persistence
 // -------------------------------------------------------------
 export async function sendChatWithPersistence(userId: string, conversationId: string | null, message: string) {
-  const response = await fetch(`${NODE_BACKEND_URL}/ai/chat`, {
+  const response = await fetchWithAuth(`${NODE_BACKEND_URL}/ai/chat`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ userId, conversationId, message }),
@@ -324,7 +340,7 @@ export async function sendChatWithPersistence(userId: string, conversationId: st
 // 5. Send Chat directly to Python AI Microservice (FastAPI)
 // -------------------------------------------------------------
 export async function sendChatMessage(messages: AIChatMessage[]) {
-  const response = await fetch(`${PYTHON_AI_URL}/chat/completions`, {
+  const response = await fetchWithAuth(`${PYTHON_AI_URL}/chat/completions`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -367,7 +383,7 @@ export interface SaveDiagnosticIntakePayload {
 
 export async function saveDiagnosticIntake(payload: SaveDiagnosticIntakePayload) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/diagnostic/intake`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/diagnostic/intake`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -390,7 +406,7 @@ export async function saveDiagnosticIntake(payload: SaveDiagnosticIntakePayload)
 
 export async function processDiagnosticPipeline(intakeId?: string, userId?: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/diagnostic/pipeline/process`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/diagnostic/pipeline/process`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ intakeId, userId: userId || 'demo-user-1' }),
@@ -418,7 +434,7 @@ export async function processDiagnosticPipeline(intakeId?: string, userId?: stri
 
 export async function getDiagnosticResult(userId: string = 'demo-user-1') {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/diagnostic/result/${userId}`);
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/diagnostic/result/${userId}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -436,7 +452,7 @@ export async function getDiagnosticResult(userId: string = 'demo-user-1') {
 // -------------------------------------------------------------
 export async function getProfileAnalysisDossier(userId: string = 'demo-user-1') {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/profile-analysis/${userId}`);
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/profile-analysis/${userId}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -454,7 +470,7 @@ export async function getProfileAnalysisDossier(userId: string = 'demo-user-1') 
 // -------------------------------------------------------------
 export async function getRecommendedInterviews(userId: string = 'demo-user-1') {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/recommendations/${userId}`);
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/recommendations/${userId}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -475,7 +491,7 @@ export async function toggleRecommendationBookmark(payload: {
   matchScore?: number;
 }) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/recommendations/bookmark`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/recommendations/bookmark`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -490,7 +506,7 @@ export async function toggleRecommendationBookmark(payload: {
 
 export async function getUserSavedTracks(userId: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/recommendations/saved/${userId}`);
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/recommendations/saved/${userId}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -509,7 +525,7 @@ export async function getUserSavedTracks(userId: string) {
 // -------------------------------------------------------------
 export async function getLatestCvAnalysis(userId: string = 'demo-user-1') {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/resumes/user/${userId}/analysis`);
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/resumes/user/${userId}/analysis`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -530,7 +546,7 @@ export async function triggerCvAnalysis(payload: {
   textContent?: string;
 }) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/resumes/analyze`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/resumes/analyze`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -552,7 +568,7 @@ export async function triggerCvAnalysis(payload: {
 export async function getActiveImprovementPlan(userId?: string) {
   try {
     const url = userId ? `${NODE_BACKEND_URL}/improvement-plan/active?userId=${userId}` : `${NODE_BACKEND_URL}/improvement-plan/active`;
-    const response = await fetch(url);
+    const response = await fetchWithAuth(url);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -569,7 +585,7 @@ export async function updatePlanTargetsInDb(planId: string, targets: {
   predictedTarget?: number;
 }) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/improvement-plan/${planId}/targets`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/improvement-plan/${planId}/targets`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(targets),
@@ -584,7 +600,7 @@ export async function updatePlanTargetsInDb(planId: string, targets: {
 
 export async function updatePlanRoleInDb(planId: string, targetRole: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/improvement-plan/${planId}/role`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/improvement-plan/${planId}/role`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ targetRole }),
@@ -599,7 +615,7 @@ export async function updatePlanRoleInDb(planId: string, targetRole: string) {
 
 export async function updatePlanDayStatusInDb(dayId: string, status: string, completed: boolean) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/improvement-plan/day/${dayId}`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/improvement-plan/day/${dayId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status, completed }),
@@ -614,7 +630,7 @@ export async function updatePlanDayStatusInDb(dayId: string, status: string, com
 
 export async function updatePlanNotesInDb(planId: string, notes: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/improvement-plan/${planId}/notes`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/improvement-plan/${planId}/notes`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ notes }),
@@ -632,7 +648,7 @@ export async function updatePlanNotesInDb(planId: string, notes: string) {
 // -------------------------------------------------------------
 export async function getCandidateProfile(userId: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/profile/${userId}`);
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/profile/${userId}`);
     if (response.status === 404) return null;
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
@@ -643,7 +659,7 @@ export async function getCandidateProfile(userId: string) {
 }
 
 export async function saveCandidateProfile(userId: string, payload: Record<string, any>) {
-  const response = await fetch(`${NODE_BACKEND_URL}/profile/${userId}`, {
+  const response = await fetchWithAuth(`${NODE_BACKEND_URL}/profile/${userId}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -656,7 +672,7 @@ export async function saveCandidateProfile(userId: string, payload: Record<strin
 }
 
 export async function syncProfileFromCv(userId: string) {
-  const response = await fetch(`${NODE_BACKEND_URL}/profile/${userId}/sync-from-cv`, {
+  const response = await fetchWithAuth(`${NODE_BACKEND_URL}/profile/${userId}/sync-from-cv`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
   });
@@ -673,7 +689,7 @@ export async function syncProfileFromCv(userId: string) {
 export async function getQuestionPerformanceDossiers(userId?: string) {
   try {
     const url = userId ? `${NODE_BACKEND_URL}/question-performance?userId=${userId}` : `${NODE_BACKEND_URL}/question-performance`;
-    const response = await fetch(url);
+    const response = await fetchWithAuth(url);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -684,7 +700,7 @@ export async function getQuestionPerformanceDossiers(userId?: string) {
 
 export async function getQuestionDossierItem(numberOrId: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/question-performance/${numberOrId}`);
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/question-performance/${numberOrId}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -700,7 +716,7 @@ export async function updateQuestionDossierInDb(id: string, updates: {
   starScore?: number;
 }) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/question-performance/${id}`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/question-performance/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updates),
@@ -718,7 +734,7 @@ export async function updateQuestionDossierInDb(id: string, updates: {
 // -------------------------------------------------------------
 export async function updateImprovementPlanDrill(drillId: string, status: string, scoreAchieved?: number) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/improvement-plan/drills/${drillId}`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/improvement-plan/drills/${drillId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status, scoreAchieved }),
@@ -733,7 +749,7 @@ export async function updateImprovementPlanDrill(drillId: string, status: string
 
 export async function updateImprovementScheduleDay(dayNumber: number, completed: boolean) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/improvement-plan/schedule/${dayNumber}`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/improvement-plan/schedule/${dayNumber}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ completed }),
@@ -748,7 +764,7 @@ export async function updateImprovementScheduleDay(dayNumber: number, completed:
 
 export async function saveCustomTargets(payload: any) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/improvement-plan/custom-targets`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/improvement-plan/custom-targets`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -766,7 +782,7 @@ export async function saveCustomTargets(payload: any) {
 // -------------------------------------------------------------
 export async function getUserNotifications(userId: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/notifications/user/${userId}`);
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/notifications/user/${userId}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -777,7 +793,7 @@ export async function getUserNotifications(userId: string) {
 
 export async function markNotificationAsRead(notificationId: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/notifications/read/${notificationId}`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/notifications/read/${notificationId}`, {
       method: 'PATCH',
     });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -790,7 +806,7 @@ export async function markNotificationAsRead(notificationId: string) {
 
 export async function markAllNotificationsAsRead(userId: string) {
   try {
-    const response = await fetch(`${NODE_BACKEND_URL}/notifications/read-all/${userId}`, {
+    const response = await fetchWithAuth(`${NODE_BACKEND_URL}/notifications/read-all/${userId}`, {
       method: 'PATCH',
     });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
