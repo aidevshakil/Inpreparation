@@ -184,7 +184,10 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
                   userName={user.name}
                   targetRole={selectedRole}
                   onStartInterview={() => handleStartInterview()}
-                  onViewRecommendations={() => {}}
+                  onViewRecommendations={() => {
+                    const el = document.getElementById('recommended-section');
+                    el?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                 />
                 <DashboardProcessingState />
                 <ExecutiveReadinessSuite
@@ -208,17 +211,22 @@ export const CandidateDashboardPage: React.FC<CandidateDashboardPageProps> = ({
                   targetRole={user.targetRole || "Target Role Needed"}
                   focusArea="initial baseline calibration & CV sync"
                   onStartInterview={() => handleStartInterview()}
-                  onViewRecommendations={() => {}}
+                  onViewRecommendations={() => {
+                    const el = document.getElementById('recommended-section');
+                    el?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                 />
                 <DashboardEmptyState
                   onStartInterview={() => handleStartInterview()}
                   onUploadCV={() => { if (onNavigateToCv) onNavigateToCv(); }}
                   onTakeBaseline={() => handleStartInterview('Full-Stack Calibration Baseline')}
                 />
-                <RecommendedTracksSection
-                  onSelectTrack={(trackId) => handleStartInterview(trackId)}
-                  onExploreLibrary={onNavigateToSimulations}
-                />
+                <div id="recommended-section">
+                  <RecommendedTracksSection
+                    onSelectTrack={(trackId) => handleStartInterview(trackId)}
+                    onExploreLibrary={onNavigateToSimulations}
+                  />
+                </div>
                 <QuickNavAndAlgorithmSection
                   onStartInterview={() => handleStartInterview()}
                   onBrowseLibrary={onNavigateToSimulations}

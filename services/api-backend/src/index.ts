@@ -25,6 +25,7 @@ import { roleCatalogRouter } from './routes/role-catalog.routes';
 import { questionDossierCatalogRouter } from './routes/question-dossier-catalog.routes';
 import { analyticsRouter } from './routes/analytics.routes';
 import { sessionRecordingRouter } from './routes/session-recording.routes';
+import { notificationRouter } from './routes/notification.routes';
 import { requireRole } from './middleware/requireRole';
 
 const app = express();
@@ -57,6 +58,7 @@ app.use('/api/role-catalog', roleCatalogRouter);
 app.use('/api/question-dossiers', questionDossierCatalogRouter);
 app.use('/api/analytics', requireRole('admin'), analyticsRouter);
 app.use('/api/session-recordings', sessionRecordingRouter);
+app.use('/api/notifications', notificationRouter);
 
 // Health check
 app.get('/api/health', (req, res) => {

@@ -35,6 +35,20 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
   const [isZoomed, setIsZoomed] = useState(false);
   const { isDarkMode } = useTheme();
 
+  // Helper to safely render unknown AI payload types
+  const safeRender = (val: any): React.ReactNode => {
+    if (val === null || val === undefined) return '';
+    if (typeof val === 'string' || typeof val === 'number' || typeof val === 'boolean') return val;
+    if (Array.isArray(val)) return val.map(safeRender).join(', ');
+    if (typeof val === 'object') {
+      // If it's a known schema object that slipped in, try to format it nicely
+      if (val.degree || val.institution) return `${val.degree || ''} ${val.institution ? `at ${val.institution}` : ''}`;
+      if (val.title || val.company) return `${val.title || ''} ${val.company ? `at ${val.company}` : ''}`;
+      return JSON.stringify(val);
+    }
+    return String(val);
+  };
+
   // Theme-aware color tokens
   const canvasBg = isDarkMode ? '#090d16' : '#ffffff';
   const nameColor = isDarkMode ? '#ffffff' : '#0f172a';
@@ -341,7 +355,7 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
                       fontWeight: 600,
                     }}
                   >
-                    {sk}
+                    {safeRender(sk)}
                   </span>
                 ))}
               </div>
@@ -356,15 +370,15 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
               {expsToRender.map((exp: any, idx: number) => (
                 <div key={idx} style={{ marginBottom: idx < expsToRender.length - 1 ? '14px' : '0' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '4px' }}>
-                    <strong style={{ fontSize: '0.84rem', color: headingBoldColor }}>{exp?.title || 'AI Developer'}</strong>
+                    <strong style={{ fontSize: '0.84rem', color: headingBoldColor }}>{safeRender(exp?.title || 'AI Developer')}</strong>
                     <span style={{ fontSize: '0.72rem', color: metaTextColor }}>
-                      {exp?.duration || 'Recent'} • {exp?.company || 'Company'} {exp?.location ? `(${exp.location})` : ''}
+                      {safeRender(exp?.duration || 'Recent')} • {safeRender(exp?.company || 'Company')} {exp?.location ? `(${safeRender(exp.location)})` : ''}
                     </span>
                   </div>
                   {Array.isArray(exp?.bullets) && exp.bullets.length > 0 && (
                     <ul style={{ margin: '6px 0 0 16px', padding: 0, fontSize: '0.76rem', color: bodyTextColor, lineHeight: 1.55 }}>
-                      {exp.bullets.map((b: string, bIdx: number) => (
-                        <li key={bIdx} style={{ marginBottom: '2px' }}>{b}</li>
+                      {exp.bullets.map((b: any, bIdx: number) => (
+                        <li key={bIdx} style={{ marginBottom: '2px' }}>{safeRender(b)}</li>
                       ))}
                     </ul>
                   )}
@@ -405,17 +419,17 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
-                        <strong style={{ fontSize: '0.82rem', color: headingBoldColor }}>{proj?.title || 'Production Project'}</strong>
+                        <strong style={{ fontSize: '0.82rem', color: headingBoldColor }}>{safeRender(proj?.title || 'Production Project')}</strong>
                         {proj?.metrics && (
-                          <span style={{ fontSize: '0.68rem', color: '#059669', fontWeight: 600 }}>{proj.metrics}</span>
+                          <span style={{ fontSize: '0.68rem', color: '#059669', fontWeight: 600 }}>{safeRender(proj.metrics)}</span>
                         )}
                       </div>
                       <p style={{ fontSize: '0.74rem', color: cardDescColor, margin: '0 0 8px 0', lineHeight: 1.45 }}>
-                        {proj?.description}
+                        {safeRender(proj?.description)}
                       </p>
                       {pSkills.length > 0 && (
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
-                          {pSkills.map((s: string, sIdx: number) => (
+                          {pSkills.map((s: any, sIdx: number) => (
                             <span
                               key={sIdx}
                               style={{
@@ -427,7 +441,7 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
                                 fontWeight: 600,
                               }}
                             >
-                              {s}
+                              {safeRender(s)}
                             </span>
                           ))}
                         </div>
@@ -446,7 +460,7 @@ export const CvOcrPreviewCanvas: React.FC<CvOcrPreviewCanvasProps> = ({
               </div>
               <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '0.76rem', color: bodyTextColor, lineHeight: 1.6 }}>
                 {eduToRender.map((edu: any, eIdx: number) => (
-                  <li key={eIdx}>{typeof edu === 'object' ? (edu?.degree || edu?.institution || JSON.stringify(edu)) : String(edu)}</li>
+                  <li key={eIdx}>{safeRender(edu)}</li>
                 ))}
               </ul>
             </div>

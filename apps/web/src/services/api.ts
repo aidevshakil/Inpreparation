@@ -761,4 +761,42 @@ export async function saveCustomTargets(payload: any) {
   }
 }
 
+// -------------------------------------------------------------
+// 15. Notifications (PostgreSQL / Prisma)
+// -------------------------------------------------------------
+export async function getUserNotifications(userId: string) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/notifications/user/${userId}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Failed to fetch notifications:', error);
+    return { success: false, notifications: [], unreadCount: 0 };
+  }
+}
 
+export async function markNotificationAsRead(notificationId: string) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/notifications/read/${notificationId}`, {
+      method: 'PATCH',
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Failed to mark notification as read:', error);
+    return null;
+  }
+}
+
+export async function markAllNotificationsAsRead(userId: string) {
+  try {
+    const response = await fetch(`${NODE_BACKEND_URL}/notifications/read-all/${userId}`, {
+      method: 'PATCH',
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn('Failed to mark all notifications as read:', error);
+    return null;
+  }
+}

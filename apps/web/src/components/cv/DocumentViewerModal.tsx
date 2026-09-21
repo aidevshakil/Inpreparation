@@ -56,6 +56,19 @@ export const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({
   const [activeTab, setActiveTab] = useState<'preview' | 'ocr'>('preview');
   const [copied, setCopied] = useState(false);
 
+  // Helper to safely render unknown AI payload types
+  const safeRender = (val: any): React.ReactNode => {
+    if (val === null || val === undefined) return '';
+    if (typeof val === 'string' || typeof val === 'number' || typeof val === 'boolean') return val;
+    if (Array.isArray(val)) return val.map(safeRender).join(', ');
+    if (typeof val === 'object') {
+      if (val.degree || val.institution) return `${val.degree || ''} ${val.institution ? `at ${val.institution}` : ''}`;
+      if (val.title || val.company) return `${val.title || ''} ${val.company ? `at ${val.company}` : ''}`;
+      return JSON.stringify(val);
+    }
+    return String(val);
+  };
+
   // Close on Escape key
   useEffect(() => {
     if (!isOpen) return;
@@ -485,21 +498,23 @@ export const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         {workExperience.map((w, idx) => (
                           <div key={idx} style={{ borderLeft: '2px solid var(--border-subtle)', paddingLeft: '14px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px' }}>
-                              <h5 style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
-                                {w.title}
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                              <h5 style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
+                                {safeRender(w.title)}
                               </h5>
-                              <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', fontWeight: 500 }}>
-                                {w.duration}
-                              </span>
+                              {w.duration && (
+                                <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>
+                                  {safeRender(w.duration)}
+                                </span>
+                              )}
                             </div>
-                            <p style={{ fontSize: '0.78rem', color: 'var(--primary-color)', fontWeight: 600, margin: '2px 0 8px 0' }}>
-                              {w.company} {w.location ? `• ${w.location}` : ''}
-                            </p>
-                            {w.bullets && (
+                            <div style={{ fontSize: '0.8rem', color: 'var(--primary-color)', fontWeight: 600, marginBottom: '6px' }}>
+                              {safeRender(w.company)}
+                            </div>
+                            {w.bullets && w.bullets.length > 0 && (
                               <ul style={{ margin: 0, paddingLeft: '16px', fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                                {w.bullets.map((b: string, bIdx: number) => (
-                                  <li key={bIdx} style={{ marginBottom: '4px' }}>{b}</li>
+                                {w.bullets.map((b: any, bIdx: number) => (
+                                  <li key={bIdx} style={{ marginBottom: '4px' }}>{safeRender(b)}</li>
                                 ))}
                               </ul>
                             )}
@@ -519,16 +534,16 @@ export const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({
                         {projects.map((p, idx) => (
                           <div key={idx} style={{ borderLeft: '2px solid var(--primary-color)', paddingLeft: '14px' }}>
                             <h5 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
-                              {p.title}
+                              {safeRender(p.title)}
                             </h5>
                             {p.description && (
                               <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: '4px 0' }}>
-                                {p.description}
+                                {safeRender(p.description)}
                               </p>
                             )}
                             {p.metrics && (
                               <span style={{ fontSize: '0.74rem', color: 'var(--primary-color)', fontWeight: 600 }}>
-                                {p.metrics}
+                                {safeRender(p.metrics)}
                               </span>
                             )}
                           </div>
@@ -546,8 +561,8 @@ export const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                         {education.map((edu, idx) => (
                           <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
-                            <GraduationCap size={15} color="var(--primary-color)" />
-                            <span>{edu}</span>
+                            <GraduationCap size={15} color="var(--primary-color)" style={{ flexShrink: 0 }} />
+                            <span>{safeRender(edu)}</span>
                           </div>
                         ))}
                       </div>

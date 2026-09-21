@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
+import { getUserNotifications, markNotificationAsRead, markAllNotificationsAsRead } from '../../services/api';
 
 interface DashboardNavbarProps {
   onToggleSidebar?: () => void;
@@ -40,9 +41,40 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
   const { isDarkMode, toggleTheme } = useTheme();
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [notifications, setNotifications] = useState<any[]>([]);
+  const [unreadCount, setUnreadCount] = useState(0);
   
   const dropdownRef = useRef<HTMLDivElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!user?.id) return;
+    
+    const fetchNotifs = async () => {
+      const data = await getUserNotifications(user.id);
+      if (data && data.success) {
+        setNotifications(data.notifications);
+        setUnreadCount(data.unreadCount);
+      }
+    };
+
+    fetchNotifs();
+    const interval = setInterval(fetchNotifs, 30000); // Poll every 30 seconds
+    return () => clearInterval(interval);
+  }, [user?.id]);
+
+  const handleMarkAsRead = async (id: string) => {
+    await markNotificationAsRead(id);
+    setNotifications(prev => prev.map(n => n.id === id ? { ...n, isRead: true } : n));
+    setUnreadCount(prev => Math.max(0, prev - 1));
+  };
+
+  const handleMarkAllAsRead = async () => {
+    if (!user?.id) return;
+    await markAllNotificationsAsRead(user.id);
+    setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
+    setUnreadCount(0);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -161,20 +193,51 @@ export const DashboardNavbar: React.FC<DashboardNavbarProps> = ({
             title="Notifications"
           >
             <Bell size={16} />
-            <span style={{ position: 'absolute', top: '8px', right: '8px', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--color-error)' }} />
+            {unreadCount > 0 && (
+              <span style={{ position: 'absolute', top: '8px', right: '8px', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--color-error)' }} />
+            )}
           </button>
 
           {/* Notifications Dropdown Menu */}
           {notificationsOpen && (
             <div className="card flex-col gap-1" style={{
-              position: 'absolute', top: 'calc(100% + 8px)', right: 0, width: '280px',
+              position: 'absolute', top: 'calc(100% + 8px)', right: 0, width: '320px',
               padding: '16px', zIndex: 100, backgroundColor: 'var(--bg-card)',
             }}>
-              <h3 style={{ fontSize: '14px', marginBottom: '8px' }}>Notifications</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center', justifyContent: 'center', padding: '16px 0', color: 'var(--text-muted)' }}>
-                <Bell size={24} style={{ opacity: 0.5 }} />
-                <span style={{ fontSize: '13px' }}>No new notifications</span>
+              <div className="flex items-center justify-between" style={{ marginBottom: '8px' }}>
+                <h3 style={{ fontSize: '14px', margin: 0 }}>Notifications</h3>
+                {unreadCount > 0 && (
+                  <button onClick={handleMarkAllAsRead} style={{ fontSize: '12px', color: 'var(--primary-color)', background: 'none', border: 'none', cursor: 'pointer' }}>
+                    Mark all read
+                  </button>
+                )}
               </div>
+              
+              {notifications.length === 0 ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center', justifyContent: 'center', padding: '16px 0', color: 'var(--text-muted)' }}>
+                  <Bell size={24} style={{ opacity: 0.5 }} />
+                  <span style={{ fontSize: '13px' }}>No new notifications</span>
+                </div>
+              ) : (
+                <div style={{ maxHeight: '300px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  {notifications.map(notif => (
+                    <div 
+                      key={notif.id} 
+                      onClick={() => !notif.isRead && handleMarkAsRead(notif.id)}
+                      style={{ 
+                        padding: '12px', 
+                        borderRadius: '8px', 
+                        backgroundColor: notif.isRead ? 'transparent' : 'var(--bg-surface)',
+                        cursor: notif.isRead ? 'default' : 'pointer',
+                        borderLeft: notif.isRead ? '2px solid transparent' : '2px solid var(--primary-color)'
+                      }}
+                    >
+                      <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-main)', marginBottom: '4px' }}>{notif.title}</div>
+                      <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{notif.message}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>

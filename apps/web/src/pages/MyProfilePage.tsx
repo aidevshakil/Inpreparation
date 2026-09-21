@@ -837,6 +837,11 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
               <div style={{ position: 'sticky', top: '120px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 <ProfileCompletionSidebarCard
                   percentage={completionPercent}
+                  hasBasicInfo={Boolean(fullName && phone && location)}
+                  hasProfInfo={Boolean(currentRole && targetRole && seniority && currentIndustry)}
+                  hasSkills={skills.length > 0}
+                  hasCv={Boolean(connectedCv.fileName)}
+                  hasAssessment={false} // Currently no assessment flag in this page
                   onCompleteMissing={() => setAssessmentModalOpen(true)}
                 />
 
