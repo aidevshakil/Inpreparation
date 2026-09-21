@@ -46,8 +46,8 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-surface)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '18px',
         marginBottom: '20px',
@@ -70,10 +70,10 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
           style={{
             display: 'flex',
             alignItems: 'center',
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
+            backgroundColor: 'var(--bg-card)',
             padding: '3px',
             borderRadius: '8px',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            border: '1px solid var(--border-subtle)',
           }}
         >
           {templates.map((tpl) => {
@@ -87,8 +87,8 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
                   borderRadius: '6px',
                   fontSize: '0.72rem',
                   fontWeight: isSelected ? 600 : 400,
-                  backgroundColor: isSelected ? '#4f46e5' : 'transparent',
-                  color: isSelected ? '#ffffff' : '#94a3b8',
+                  backgroundColor: isSelected ? 'var(--primary-color)' : 'transparent',
+                  color: isSelected ? '#ffffff' : 'var(--text-secondary)',
                   border: 'none',
                   cursor: 'pointer',
                   transition: 'all 0.15s ease',
@@ -106,10 +106,10 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
             onClick={() => setZoom(Math.max(70, zoom - 10))}
             style={{
               padding: '4px 8px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '6px',
-              color: '#cbd5e1',
+              color: 'var(--text-secondary)',
               fontSize: '0.72rem',
               cursor: 'pointer',
               display: 'flex',
@@ -120,7 +120,7 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
             <ZoomOut size={12} />
           </button>
 
-          <span style={{ fontSize: '0.7rem', color: '#94a3b8', minWidth: '32px', textAlign: 'center' }}>
+          <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', minWidth: '32px', textAlign: 'center' }}>
             {zoom}%
           </span>
 
@@ -128,10 +128,10 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
             onClick={() => setZoom(Math.min(130, zoom + 10))}
             style={{
               padding: '4px 8px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '6px',
-              color: '#cbd5e1',
+              color: 'var(--text-secondary)',
               fontSize: '0.72rem',
               cursor: 'pointer',
               display: 'flex',
@@ -146,10 +146,10 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
             onClick={onExpandFullscreen}
             style={{
               padding: '4px 8px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '6px',
-              color: '#cbd5e1',
+              color: 'var(--text-secondary)',
               fontSize: '0.72rem',
               cursor: 'pointer',
               display: 'flex',
@@ -164,10 +164,10 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
             onClick={onDownloadPdf}
             style={{
               padding: '4px 8px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '6px',
-              color: '#cbd5e1',
+              color: 'var(--text-secondary)',
               fontSize: '0.72rem',
               cursor: 'pointer',
               display: 'flex',
@@ -192,7 +192,7 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
           gap: '8px',
         }}
       >
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#94a3b8' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--text-muted)' }}>
           <span
             style={{
               width: '7px',
@@ -213,7 +213,7 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
             padding: '2px 8px',
             borderRadius: '9999px',
             backgroundColor: 'rgba(16, 185, 129, 0.15)',
-            color: '#34d399',
+            color: 'var(--color-success, #10b981)',
             border: '1px solid rgba(16, 185, 129, 0.3)',
             fontWeight: 700,
           }}
@@ -227,7 +227,7 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
         style={{
           overflow: 'auto',
           maxHeight: '680px',
-          backgroundColor: '#030712',
+          backgroundColor: 'var(--bg-main)',
           borderRadius: '12px',
           padding: '16px',
           display: 'flex',
@@ -242,7 +242,7 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
             color: '#0f172a',
             padding: '24px 28px',
             borderRadius: '4px',
-            boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
             fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
             fontSize: `${0.68 * (zoom / 100)}rem`,
             lineHeight: 1.45,

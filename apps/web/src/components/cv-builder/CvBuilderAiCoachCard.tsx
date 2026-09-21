@@ -5,8 +5,8 @@ export const CvBuilderAiCoachCard: React.FC = () => {
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-surface)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '20px',
         marginBottom: '20px',
@@ -24,7 +24,7 @@ export const CvBuilderAiCoachCard: React.FC = () => {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Sparkles size={16} style={{ color: '#818cf8' }} />
-          <h4 style={{ fontSize: '0.92rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <h4 style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
             Inprep AI Coach Diagnostics
           </h4>
         </div>
@@ -96,7 +96,7 @@ export const CvBuilderAiCoachCard: React.FC = () => {
           fontSize: '0.68rem',
           color: '#64748b',
           paddingTop: '10px',
-          borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+          borderTop: '1px solid var(--border-subtle)',
         }}
       >
         <ShieldCheck size={14} style={{ color: '#818cf8', flexShrink: 0 }} />

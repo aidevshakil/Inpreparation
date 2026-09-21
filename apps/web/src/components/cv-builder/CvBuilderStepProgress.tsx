@@ -58,8 +58,8 @@ export const CvBuilderStepProgress: React.FC<CvBuilderStepProgressProps> = ({
   return (
     <div
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-surface)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '16px',
         padding: '16px 20px',
         marginBottom: '24px',
@@ -78,7 +78,7 @@ export const CvBuilderStepProgress: React.FC<CvBuilderStepProgressProps> = ({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#ffffff' }}>
+          <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-main)' }}>
             Step 3 of 4: In-depth Profile Registration
           </span>
           <span
@@ -96,7 +96,7 @@ export const CvBuilderStepProgress: React.FC<CvBuilderStepProgressProps> = ({
           </span>
         </div>
 
-        <span style={{ fontSize: '0.72rem', color: '#64748b' }}>
+        <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
           Completion measures calibration coverage, not hiring probability or employability.
         </span>
       </div>
@@ -106,7 +106,7 @@ export const CvBuilderStepProgress: React.FC<CvBuilderStepProgressProps> = ({
         style={{
           width: '100%',
           height: '4px',
-          backgroundColor: 'rgba(255, 255, 255, 0.06)',
+          backgroundColor: 'var(--bg-card)',
           borderRadius: '9999px',
           overflow: 'hidden',
           marginBottom: '14px',
@@ -143,12 +143,12 @@ export const CvBuilderStepProgress: React.FC<CvBuilderStepProgressProps> = ({
                 padding: '7px 10px',
                 borderRadius: '8px',
                 backgroundColor: isActive
-                  ? 'rgba(99, 102, 241, 0.18)'
-                  : 'rgba(255, 255, 255, 0.02)',
+                  ? 'rgba(99, 102, 241, 0.15)'
+                  : 'var(--bg-card)',
                 border: isActive
-                  ? '1px solid rgba(129, 140, 248, 0.5)'
-                  : '1px solid rgba(255, 255, 255, 0.05)',
-                color: '#cbd5e1',
+                  ? '1px solid rgba(99, 102, 241, 0.3)'
+                  : '1px solid var(--border-subtle)',
+                color: 'var(--text-secondary)',
                 cursor: 'pointer',
                 textAlign: 'left',
                 transition: 'all 0.15s ease',
@@ -159,13 +159,13 @@ export const CvBuilderStepProgress: React.FC<CvBuilderStepProgressProps> = ({
                   width: '16px',
                   height: '16px',
                   borderRadius: '50%',
-                  backgroundColor: step.isComplete ? '#10b981' : 'rgba(255, 255, 255, 0.1)',
+                  backgroundColor: step.isComplete ? '#10b981' : 'var(--border-subtle)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontSize: '0.62rem',
                   fontWeight: 700,
-                  color: step.isComplete ? '#ffffff' : '#94a3b8',
+                  color: step.isComplete ? '#ffffff' : 'var(--text-muted)',
                   flexShrink: 0,
                 }}
               >
@@ -177,7 +177,7 @@ export const CvBuilderStepProgress: React.FC<CvBuilderStepProgressProps> = ({
                   style={{
                     fontSize: '0.72rem',
                     fontWeight: 600,
-                    color: isActive ? '#ffffff' : '#e2e8f0',
+                    color: isActive ? 'var(--primary-color)' : 'var(--text-main)',
                     whiteSpace: 'nowrap',
                     textOverflow: 'ellipsis',
                     overflow: 'hidden',
@@ -185,7 +185,7 @@ export const CvBuilderStepProgress: React.FC<CvBuilderStepProgressProps> = ({
                 >
                   {step.number}. {step.label}
                 </div>
-                <div style={{ fontSize: '0.64rem', color: '#64748b' }}>{step.status}</div>
+                <div style={{ fontSize: '0.64rem', color: 'var(--text-muted)' }}>{step.status}</div>
               </div>
             </button>
           );

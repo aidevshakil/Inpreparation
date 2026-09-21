@@ -26,8 +26,8 @@ export const CvBuilderProjectsSection: React.FC<CvBuilderProjectsSectionProps> =
     <div
       id="section-projects"
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-surface)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '22px',
         marginBottom: '20px',
@@ -58,7 +58,7 @@ export const CvBuilderProjectsSection: React.FC<CvBuilderProjectsSectionProps> =
           >
             <FolderGit2 size={14} />
           </span>
-          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
             6. Key Projects
           </h3>
         </div>
@@ -90,7 +90,7 @@ export const CvBuilderProjectsSection: React.FC<CvBuilderProjectsSectionProps> =
           <div
             key={proj.id}
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.02)',
+              backgroundColor: 'var(--bg-card)',
               border: '1px solid rgba(255, 255, 255, 0.06)',
               borderRadius: '12px',
               padding: '16px',
@@ -105,10 +105,10 @@ export const CvBuilderProjectsSection: React.FC<CvBuilderProjectsSectionProps> =
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+                <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                   {proj.name}
                 </h4>
-                <span style={{ fontSize: '0.74rem', color: '#94a3b8' }}>
+                <span style={{ fontSize: '0.74rem', color: 'var(--text-secondary)' }}>
                   • {proj.badge} • {proj.year}
                 </span>
               </div>

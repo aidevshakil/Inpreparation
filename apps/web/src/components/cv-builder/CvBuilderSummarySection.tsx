@@ -18,8 +18,8 @@ export const CvBuilderSummarySection: React.FC<CvBuilderSummarySectionProps> = (
     <div
       id="section-summary"
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-surface)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '22px',
         marginBottom: '20px',
@@ -52,7 +52,7 @@ export const CvBuilderSummarySection: React.FC<CvBuilderSummarySectionProps> = (
           >
             <FileText size={14} />
           </span>
-          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
             2. Professional Summary
           </h3>
         </div>
@@ -88,10 +88,10 @@ export const CvBuilderSummarySection: React.FC<CvBuilderSummarySectionProps> = (
         style={{
           width: '100%',
           padding: '12px 14px',
-          backgroundColor: 'rgba(255, 255, 255, 0.025)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          backgroundColor: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '10px',
-          color: '#f8fafc',
+          color: 'var(--text-main)',
           fontSize: '0.82rem',
           lineHeight: 1.6,
           outline: 'none',
@@ -115,7 +115,7 @@ export const CvBuilderSummarySection: React.FC<CvBuilderSummarySectionProps> = (
             padding: '4px 10px',
             borderRadius: '6px',
             backgroundColor: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            border: '1px solid var(--border-subtle)',
             color: '#cbd5e1',
             fontSize: '0.72rem',
             fontWeight: 500,
@@ -135,7 +135,7 @@ export const CvBuilderSummarySection: React.FC<CvBuilderSummarySectionProps> = (
             padding: '4px 10px',
             borderRadius: '6px',
             backgroundColor: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            border: '1px solid var(--border-subtle)',
             color: '#cbd5e1',
             fontSize: '0.72rem',
             fontWeight: 500,
@@ -155,7 +155,7 @@ export const CvBuilderSummarySection: React.FC<CvBuilderSummarySectionProps> = (
             padding: '4px 10px',
             borderRadius: '6px',
             backgroundColor: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            border: '1px solid var(--border-subtle)',
             color: '#cbd5e1',
             fontSize: '0.72rem',
             fontWeight: 500,
@@ -174,13 +174,13 @@ export const CvBuilderSummarySection: React.FC<CvBuilderSummarySectionProps> = (
           alignItems: 'flex-start',
           gap: '10px',
           padding: '10px 14px',
-          backgroundColor: 'rgba(255, 255, 255, 0.02)',
+          backgroundColor: 'var(--bg-card)',
           borderRadius: '10px',
-          border: '1px solid rgba(255, 255, 255, 0.05)',
+          border: '1px solid var(--border-subtle)',
         }}
       >
         <ShieldCheck size={16} style={{ color: '#10b981', flexShrink: 0, marginTop: '2px' }} />
-        <p style={{ fontSize: '0.71rem', color: '#94a3b8', lineHeight: 1.45, margin: 0 }}>
+        <p style={{ fontSize: '0.71rem', color: 'var(--text-secondary)', lineHeight: 1.45, margin: 0 }}>
           <strong style={{ color: '#cbd5e1' }}>Responsible AI Guarantee:</strong> AI enhancements rephrase syntax and elevate clarity based solely on facts you share. Inprep AI never introduces synthetic metrics or false credentials.
         </p>
       </div>

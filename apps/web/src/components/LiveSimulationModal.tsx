@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { X, Mic, MicOff, Video, VideoOff, Sparkles, CheckCircle2, ArrowRight, RefreshCw, AlertTriangle, UserCheck, FileText, Database, UploadCloud } from 'lucide-react';
 import { saveSimulationScorecard } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import * as faceapi from '@vladmandic/face-api';
 
 interface LiveSimulationModalProps {
   isOpen: boolean;
@@ -30,9 +31,13 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
   const [isListening, setIsListening] = useState(false);
   const [conversationHistory, setConversationHistory] = useState<Array<{ sender: 'ai' | 'user'; text: string; score?: number }>>([]);
 
+  // Face Tracking State
+  const [modelsLoaded, setModelsLoaded] = useState(false);
+  const animationRef = useRef<number | null>(null);
+
   // Live Telemetry
-  const [confidenceScore] = useState(88);
-  const [eyeContactPct] = useState(94);
+  const [confidenceScore, setConfidenceScore] = useState(88);
+  const [eyeContactPct, setEyeContactPct] = useState(94);
   const [wordsPerMin, setWordsPerMin] = useState(138);
   const [fillerWordCount, setFillerWordCount] = useState(0);
 
@@ -67,7 +72,70 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
     ]
   };
 
-  const currentQuestions = questionsByRole[selectedRole] || questionsByRole['Senior Frontend Engineer'];
+  // If initialRole is not in our hardcoded list, add it dynamically
+  const rolesList = Object.keys(questionsByRole).includes(initialRole) 
+    ? Object.keys(questionsByRole) 
+    : [initialRole, ...Object.keys(questionsByRole)];
+
+  const [currentQuestions, setCurrentQuestions] = useState<string[]>(
+    questionsByRole[selectedRole] || [
+      `Loading AI calibration topics for ${selectedRole}...`
+    ]
+  );
+  const [isLoadingQuestions, setIsLoadingQuestions] = useState(false);
+
+  useEffect(() => {
+    if (questionsByRole[selectedRole]) {
+      setCurrentQuestions(questionsByRole[selectedRole]);
+      return;
+    }
+    
+    let isMounted = true;
+    setIsLoadingQuestions(true);
+    setCurrentQuestions([`Loading AI calibration topics for ${selectedRole}...`]);
+
+    fetch('http://localhost:4000/api/ai/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        message: `Generate exactly 3 specific, highly technical interview questions for a ${selectedRole} position. Return ONLY a valid JSON array of 3 strings. Do not include markdown formatting or backticks.` 
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (!isMounted) return;
+      try {
+        let parsed = JSON.parse(data.reply.replace(/```json/g, '').replace(/```/g, '').trim());
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setCurrentQuestions(parsed.slice(0, 3));
+        } else {
+          throw new Error('Invalid format');
+        }
+      } catch (e) {
+        if (isMounted) {
+          setCurrentQuestions([
+            `Welcome to the ${selectedRole} simulation! Could you walk me through a recent complex technical challenge you solved?`,
+            "What are the most common performance bottlenecks you encounter in this domain, and how do you resolve them?",
+            "Tell me about a time you had to make a tough architectural trade-off. What was the outcome?"
+          ]);
+        }
+      }
+    })
+    .catch(() => {
+      if (isMounted) {
+        setCurrentQuestions([
+          `Welcome to the ${selectedRole} simulation! Could you walk me through a recent complex technical challenge you solved?`,
+          "What are the most common performance bottlenecks you encounter in this domain, and how do you resolve them?",
+          "Tell me about a time you had to make a tough architectural trade-off. What was the outcome?"
+        ]);
+      }
+    })
+    .finally(() => {
+      if (isMounted) setIsLoadingQuestions(false);
+    });
+
+    return () => { isMounted = false; };
+  }, [selectedRole]);
 
   // Initialize Speech Recognition if supported
   useEffect(() => {
@@ -107,6 +175,71 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
     }
   }, []);
 
+  // Load Face API Models
+  useEffect(() => {
+    const loadModels = async () => {
+      const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
+      try {
+        await Promise.all([
+          faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+          faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL)
+        ]);
+        setModelsLoaded(true);
+      } catch (err) {
+        console.warn('Face API Model loading failed:', err);
+      }
+    };
+    loadModels();
+  }, []);
+
+  // Real-time Face Tracking Loop
+  useEffect(() => {
+    const video = videoRef.current;
+    
+    const trackFace = async () => {
+      if (video && !video.paused && !video.ended && modelsLoaded && cameraEnabled) {
+        const detection = await faceapi
+          .detectSingleFace(video, new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.4 }))
+          .withFaceExpressions();
+
+        if (detection) {
+          // Eye Contact: Proxy via detection score (face visibility and directness)
+          const contact = Math.min(99, Math.round(detection.detection.score * 100));
+          
+          // Confidence: Blend of neutral, happy, and lack of fear/sadness
+          const expr = detection.expressions;
+          const pos = (expr.neutral * 0.6) + (expr.happy * 0.4);
+          const neg = (expr.sad * 0.5) + (expr.fearful * 0.5) + (expr.angry * 0.3) + (expr.disgusted * 0.2);
+          const conf = Math.max(50, Math.min(99, Math.round((pos - neg) * 100) + 15));
+          
+          setEyeContactPct(contact);
+          setConfidenceScore(conf);
+        } else {
+          setEyeContactPct(0);
+          setConfidenceScore(0);
+        }
+      }
+      
+      if (stage === 'active' && cameraEnabled) {
+        animationRef.current = requestAnimationFrame(trackFace);
+      }
+    };
+
+    if (stage === 'active' && cameraEnabled && modelsLoaded) {
+      trackFace();
+    } else {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      if (!cameraEnabled) {
+        setEyeContactPct(0);
+        setConfidenceScore(0);
+      }
+    }
+
+    return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+  }, [stage, cameraEnabled, modelsLoaded]);
+
   // Handle camera video stream
   useEffect(() => {
     if (stage === 'active' && cameraEnabled && navigator.mediaDevices?.getUserMedia) {
@@ -129,7 +262,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
     };
   }, [stage, cameraEnabled]);
 
-  const { user } = useAuth();
+  const { user, consumeCredits } = useAuth();
   const hasCv = Boolean(
     (user?.cvFileName && user.cvFileName.trim().length > 0) ||
     (user?.cvSkills && user.cvSkills.length > 0) ||
@@ -503,6 +636,11 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
       setConversationHistory(newHistory);
       setStage('report');
 
+      // Consume credits for completing a mock interview (15 credits)
+      if (consumeCredits) {
+        consumeCredits(15);
+      }
+
       // Persist to PostgreSQL Database via Prisma Backend
       setDbSaveStatus('saving');
       saveSimulationScorecard({
@@ -638,7 +776,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                   Target Role Track
                 </label>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px' }}>
-                  {Object.keys(questionsByRole).map((role) => (
+                  {rolesList.slice(0, 5).map((role) => (
                     <button
                       key={role}
                       onClick={() => setSelectedRole(role)}
@@ -697,6 +835,27 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                 </div>
               </div>
 
+              {/* Preview Topics (AI Generated) */}
+              <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', borderRadius: '12px', padding: '16px' }}>
+                <p style={{ color: 'var(--text-main)', fontSize: '13px', fontWeight: 700, marginBottom: '10px' }}>
+                  {isLoadingQuestions ? (
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span className="spin-animate" style={{ display: 'inline-block', width: '12px', height: '12px', border: '2px solid var(--primary-color)', borderTopColor: 'transparent', borderRadius: '50%' }}></span>
+                      Generating AI Calibration Topics...
+                    </span>
+                  ) : (
+                    'Preview Simulation Topics'
+                  )}
+                </p>
+                <ul style={{ margin: 0, paddingLeft: '22px', color: 'var(--text-secondary)', fontSize: '13px', lineHeight: 1.6 }}>
+                  {currentQuestions.map((q, i) => (
+                    <li key={i} style={{ marginBottom: '6px', opacity: isLoadingQuestions ? 0.6 : 1 }}>
+                      {q}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
               {/* Device Toggles */}
               <div style={{ display: 'flex', gap: '16px', background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', padding: '16px', borderRadius: '12px' }}>
                 <button
@@ -747,7 +906,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
 
             <button
               onClick={startInterview}
-              className="btn-primary"
+              className="btn btn-primary"
               style={{ width: '100%', justifyContent: 'center', padding: '16px', fontSize: '16px' }}
             >
               <span>Begin Live Simulation</span>
@@ -770,7 +929,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                 position: 'relative',
                 height: '240px',
                 borderRadius: '16px',
-                background: 'linear-gradient(180deg, #161e30 0%, #0c101a 100%)',
+                background: 'var(--bg-surface)',
                 border: '1px solid rgba(99, 102, 241, 0.3)',
                 boxShadow: '0 0 25px rgba(99, 102, 241, 0.15)',
                 display: 'flex',
@@ -793,7 +952,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                   <UserCheck size={38} color="#fff" />
                 </div>
 
-                <div style={{ fontSize: '14px', fontWeight: 800, color: '#f8fafc' }}>
+                <div style={{ fontSize: '14px', fontWeight: 800, color: 'var(--text-main)' }}>
                   {selectedPersona}
                 </div>
                 <div style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', marginTop: '4px' }}>
@@ -826,7 +985,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                 position: 'relative',
                 height: '240px',
                 borderRadius: '16px',
-                background: '#090d16',
+                background: 'var(--bg-surface)',
                 border: '1px solid rgba(6, 182, 212, 0.3)',
                 overflow: 'hidden',
                 display: 'flex',
@@ -849,22 +1008,27 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                   </div>
                 )}
 
-                {/* Candidate Overlay HUD */}
+                {/* Candidate Overlay HUD - Modern Glassmorphism */}
                 <div style={{
                   position: 'absolute',
                   top: '12px',
                   left: '12px',
-                  background: 'rgba(15, 23, 42, 0.85)',
-                  padding: '4px 10px',
-                  borderRadius: '6px',
+                  background: 'rgba(15, 23, 42, 0.65)',
+                  backdropFilter: 'blur(8px)',
+                  WebkitBackdropFilter: 'blur(8px)',
+                  padding: '6px 12px',
+                  borderRadius: '8px',
                   fontSize: '11px',
                   color: '#6ee7b7',
                   fontWeight: 700,
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '6px'
+                  gap: '6px',
+                  border: '1px solid rgba(110, 231, 183, 0.2)',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
                 }}>
-                  <span>Eye Contact: {eyeContactPct}%</span>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981', boxShadow: '0 0 8px #10b981' }} />
+                  <span>Eye Contact: {cameraEnabled ? `${eyeContactPct}%` : 'N/A'}</span>
                 </div>
 
                 <div style={{
@@ -872,24 +1036,38 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                   bottom: '12px',
                   left: '12px',
                   right: '12px',
-                  background: 'rgba(15, 23, 42, 0.9)',
-                  padding: '6px 12px',
-                  borderRadius: '8px',
-                  fontSize: '11px',
+                  background: 'rgba(15, 23, 42, 0.75)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  padding: '10px 14px',
+                  borderRadius: '12px',
+                  fontSize: '12px',
                   display: 'flex',
                   justifyContent: 'space-between',
-                  color: '#94a3b8'
+                  alignItems: 'center',
+                  color: '#cbd5e1',
+                  border: '1px solid rgba(255,255,255,0.15)',
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.3)'
                 }}>
-                  <span>Pacing: <b style={{ color: '#fff' }}>{wordsPerMin} WPM</b></span>
-                  <span>Fillers: <b style={{ color: fillerWordCount > 2 ? '#f87171' : '#10b981' }}>{fillerWordCount} detected</b></span>
-                  <span>Confidence: <b style={{ color: '#67e8f9' }}>{confidenceScore}%</b></span>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                    <span style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#94a3b8' }}>Pacing</span>
+                    <b style={{ color: '#ffffff', fontSize: '13px' }}>{wordsPerMin} WPM</b>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', alignItems: 'center' }}>
+                    <span style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Fillers</span>
+                    <b style={{ color: fillerWordCount > 2 ? '#f87171' : '#10b981', fontSize: '13px' }}>{fillerWordCount} detected</b>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', alignItems: 'flex-end' }}>
+                    <span style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Confidence</span>
+                    <b style={{ color: '#67e8f9', fontSize: '13px' }}>{confidenceScore}%</b>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Current Active Question Display */}
             <div style={{
-              background: '#131929',
+              background: 'var(--bg-surface)',
               border: '1px solid rgba(99, 102, 241, 0.3)',
               borderRadius: '16px',
               padding: '18px 22px'
@@ -898,32 +1076,32 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                 <span style={{ fontSize: '11px', fontWeight: 800, color: '#818cf8', background: 'rgba(99, 102, 241, 0.15)', padding: '2px 8px', borderRadius: '4px' }}>
                   QUESTION {currentQuestionIndex + 1} OF {currentQuestions.length}
                 </span>
-                <span style={{ fontSize: '12px', color: '#64748b' }}>
+                <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
                   {selectedRole} Track
                 </span>
               </div>
-              <p style={{ fontSize: '15px', color: '#f8fafc', fontWeight: 600, lineHeight: 1.5 }}>
+              <p style={{ fontSize: '15px', color: 'var(--text-main)', fontWeight: 600, lineHeight: 1.5 }}>
                 "{currentQuestions[currentQuestionIndex]}"
               </p>
             </div>
 
             {/* Candidate Answer Input & Speech Controls */}
             <div style={{
-              background: '#0e1422',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '16px',
               padding: '18px'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-                <span style={{ fontSize: '12px', fontWeight: 700, color: '#cbd5e1' }}>
+                <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-main)' }}>
                   Your Response (Speak via Mic or Type)
                 </span>
                 <button
                   onClick={toggleMic}
                   style={{
-                    background: isListening ? 'rgba(239, 68, 68, 0.2)' : 'rgba(99, 102, 241, 0.15)',
-                    border: isListening ? '1px solid #ef4444' : '1px solid rgba(99, 102, 241, 0.3)',
-                    color: isListening ? '#fca5a5' : '#818cf8',
+                    background: isListening ? 'rgba(239, 68, 68, 0.15)' : 'rgba(99, 102, 241, 0.15)',
+                    border: isListening ? '1px solid rgba(239, 68, 68, 0.3)' : '1px solid rgba(99, 102, 241, 0.3)',
+                    color: isListening ? '#ef4444' : 'var(--primary-color)',
                     padding: '5px 12px',
                     borderRadius: '8px',
                     fontSize: '12px',
@@ -946,10 +1124,10 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                 rows={3}
                 style={{
                   width: '100%',
-                  background: 'rgba(0, 0, 0, 0.3)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '10px',
-                  color: '#f8fafc',
+                  color: 'var(--text-main)',
                   padding: '12px',
                   fontSize: '14px',
                   fontFamily: 'inherit',
@@ -960,13 +1138,13 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
               />
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ fontSize: '12px', color: '#64748b' }}>
+                <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
                   💡 Tip: Structure your answer with Situation, Action, and Quantifiable Results.
                 </div>
                 <button
                   onClick={submitAnswer}
                   disabled={!userSpeechInput.trim()}
-                  className="btn-primary btn-sm"
+                  className="btn btn-primary btn-sm"
                   style={{
                     opacity: userSpeechInput.trim() ? 1 : 0.5,
                     cursor: userSpeechInput.trim() ? 'pointer' : 'not-allowed'
@@ -991,10 +1169,10 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
               <span className="badge-pill badge-emerald" style={{ marginBottom: '10px' }}>
                 ✦ SIMULATION COMPLETED
               </span>
-              <h3 style={{ fontSize: '28px', fontWeight: 800, color: '#f8fafc', letterSpacing: '-0.02em', marginTop: '6px' }}>
+              <h3 style={{ fontSize: '28px', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.02em', marginTop: '6px' }}>
                 Comprehensive Interview Scorecard
               </h3>
-              <p style={{ fontSize: '14px', color: '#94a3b8', marginBottom: '12px' }}>
+              <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '12px' }}>
                 Target: <b>{selectedRole}</b> • Evaluated by <b>{selectedPersona}</b>
               </p>
 
@@ -1029,28 +1207,28 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
               gap: '16px',
               marginBottom: '32px'
             }}>
-              <div style={{ background: '#131929', border: '1px solid rgba(99, 102, 241, 0.3)', borderRadius: '16px', padding: '20px', textAlign: 'center' }}>
+              <div style={{ background: 'var(--bg-surface)', border: '1px solid rgba(99, 102, 241, 0.3)', borderRadius: '16px', padding: '20px', textAlign: 'center' }}>
                 <div style={{ fontSize: '36px', fontWeight: 800, color: '#818cf8' }}>
                   89%
                 </div>
-                <div style={{ fontSize: '13px', fontWeight: 700, color: '#cbd5e1' }}>Overall Performance</div>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)' }}>Overall Performance</div>
                 <div style={{ fontSize: '11px', color: '#10b981', marginTop: '2px' }}>✦ Top 7% Candidate Tier</div>
               </div>
 
-              <div style={{ background: '#131929', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '16px', padding: '20px', textAlign: 'center' }}>
+              <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', borderRadius: '16px', padding: '20px', textAlign: 'center' }}>
                 <div style={{ fontSize: '36px', fontWeight: 800, color: '#06b6d4' }}>
                   94%
                 </div>
-                <div style={{ fontSize: '13px', fontWeight: 700, color: '#cbd5e1' }}>Eye Contact & Composure</div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>Stable camera alignment</div>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)' }}>Eye Contact & Composure</div>
+                <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '2px' }}>Stable camera alignment</div>
               </div>
 
-              <div style={{ background: '#131929', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '16px', padding: '20px', textAlign: 'center' }}>
+              <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', borderRadius: '16px', padding: '20px', textAlign: 'center' }}>
                 <div style={{ fontSize: '36px', fontWeight: 800, color: '#10b981' }}>
                   138
                 </div>
-                <div style={{ fontSize: '13px', fontWeight: 700, color: '#cbd5e1' }}>Words Per Minute (WPM)</div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>Optimal conversational rhythm</div>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)' }}>Words Per Minute (WPM)</div>
+                <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '2px' }}>Optimal conversational rhythm</div>
               </div>
             </div>
 
@@ -1060,7 +1238,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                 <div style={{ fontSize: '13px', fontWeight: 700, color: '#10b981', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
                   <CheckCircle2 size={16} /> Key Strengths
                 </div>
-                <ul style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.6, paddingLeft: '16px' }}>
+                <ul style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.6, paddingLeft: '16px' }}>
                   <li>Clear technical rationale when discussing architectural trade-offs.</li>
                   <li>Good pace with minimal verbal hesitation.</li>
                   <li>Maintained steady eye contact with the camera.</li>
@@ -1071,7 +1249,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
                 <div style={{ fontSize: '13px', fontWeight: 700, color: '#f59e0b', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
                   <AlertTriangle size={16} /> Action Plan
                 </div>
-                <ul style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.6, paddingLeft: '16px' }}>
+                <ul style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.6, paddingLeft: '16px' }}>
                   <li>Quantify engineering ROI (e.g. % throughput gain, latency drop).</li>
                   <li>Adopt STAR framework explicitly in opening 20 seconds.</li>
                   <li>Practice targeted drills on system design sharding.</li>
@@ -1083,7 +1261,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
               <button
                 onClick={resetSimulation}
-                className="btn-secondary"
+                className="btn btn-secondary"
                 style={{ flex: 1, justifyContent: 'center' }}
               >
                 <RefreshCw size={15} />
@@ -1092,7 +1270,7 @@ export const LiveSimulationModal: React.FC<LiveSimulationModalProps> = ({
 
               <button
                 onClick={() => window.print()}
-                className="btn-primary"
+                className="btn btn-primary"
                 style={{ flex: 1, justifyContent: 'center' }}
                 title="Print or Save as PDF"
               >

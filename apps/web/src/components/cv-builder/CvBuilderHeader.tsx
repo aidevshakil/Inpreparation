@@ -33,7 +33,7 @@ export const CvBuilderHeader: React.FC<CvBuilderHeaderProps> = ({
       >
         <div>
           {/* Breadcrumb */}
-          <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '8px' }}>
+          <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '8px' }}>
             <span>Workspace</span>
             <span style={{ margin: '0 6px', color: '#475569' }}>/</span>
             <span style={{ color: '#cbd5e1', cursor: 'pointer' }} onClick={onNavigateToCv}>
@@ -74,7 +74,7 @@ export const CvBuilderHeader: React.FC<CvBuilderHeaderProps> = ({
             </span>
           </div>
 
-          <p style={{ fontSize: '0.86rem', color: '#94a3b8', margin: 0, maxWidth: '680px', lineHeight: 1.5 }}>
+          <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', margin: 0, maxWidth: '680px', lineHeight: 1.5 }}>
             Craft your career narrative from scratch or customize logic requirements. Inprep AI standardizes layout, optimizes ATS keywords, and polishes wording without inventing qualifications.
           </p>
         </div>
@@ -181,7 +181,7 @@ export const CvBuilderHeader: React.FC<CvBuilderHeaderProps> = ({
           border: '1px solid rgba(99, 102, 241, 0.25)',
           borderRadius: '14px',
           fontSize: '0.8rem',
-          color: '#cbd5e1',
+          color: 'var(--text-secondary)',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -194,7 +194,7 @@ export const CvBuilderHeader: React.FC<CvBuilderHeaderProps> = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#818cf8',
+              color: 'var(--primary-color)',
               flexShrink: 0,
             }}
           >
@@ -210,7 +210,7 @@ export const CvBuilderHeader: React.FC<CvBuilderHeaderProps> = ({
           style={{
             background: 'transparent',
             border: 'none',
-            color: '#818cf8',
+            color: 'var(--primary-color)',
             fontWeight: 600,
             cursor: 'pointer',
             fontSize: '0.8rem',

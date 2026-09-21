@@ -40,8 +40,8 @@ export const CvBuilderSkillsSection: React.FC<CvBuilderSkillsSectionProps> = ({
     <div
       id="section-skills"
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-surface)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '22px',
         marginBottom: '20px',
@@ -72,7 +72,7 @@ export const CvBuilderSkillsSection: React.FC<CvBuilderSkillsSectionProps> = ({
           >
             <Cpu size={14} />
           </span>
-          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
             5. Technical Competencies &amp; Skills
           </h3>
         </div>
@@ -92,7 +92,7 @@ export const CvBuilderSkillsSection: React.FC<CvBuilderSkillsSectionProps> = ({
         </span>
       </div>
 
-      <p style={{ fontSize: '0.74rem', color: '#94a3b8', margin: '0 0 16px 0' }}>
+      <p style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', margin: '0 0 16px 0' }}>
         Add technical competencies. Inprep AI prompts custom-tailor to each skill category.
       </p>
 
@@ -124,7 +124,7 @@ export const CvBuilderSkillsSection: React.FC<CvBuilderSkillsSectionProps> = ({
                     padding: '5px 10px',
                     borderRadius: '8px',
                     backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    border: '1px solid var(--border-subtle)',
                     fontSize: '0.76rem',
                     color: '#e2e8f0',
                     fontWeight: 500,
@@ -164,10 +164,10 @@ export const CvBuilderSkillsSection: React.FC<CvBuilderSkillsSectionProps> = ({
           style={{
             flex: 1,
             padding: '9px 12px',
-            backgroundColor: 'rgba(255, 255, 255, 0.03)',
-            border: '1px solid rgba(255, 255, 255, 0.09)',
+            backgroundColor: 'var(--bg-main)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '8px',
-            color: '#f8fafc',
+            color: 'var(--text-main)',
             fontSize: '0.8rem',
             outline: 'none',
           }}

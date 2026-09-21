@@ -93,8 +93,8 @@ export const ProfilePrivacyModal: React.FC<ProfilePrivacyModalProps> = ({
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: '#0f1420',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '16px',
           maxWidth: '540px',
           width: '100%',
@@ -118,10 +118,10 @@ export const ProfilePrivacyModal: React.FC<ProfilePrivacyModalProps> = ({
               <ShieldCheck size={18} color="#a5b4fc" />
             </div>
             <div>
-              <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 700, color: '#f8fafc' }}>
+              <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-main)' }}>
                 Privacy & Data Settings
               </h3>
-              <p style={{ margin: '2px 0 0 0', fontSize: '0.76rem', color: '#94a3b8' }}>
+              <p style={{ margin: '2px 0 0 0', fontSize: '0.76rem', color: 'var(--text-secondary)' }}>
                 Control how your data is stored and used.
               </p>
             </div>
@@ -142,17 +142,17 @@ export const ProfilePrivacyModal: React.FC<ProfilePrivacyModalProps> = ({
                 display: 'flex',
                 gap: '14px',
                 padding: '12px 14px',
-                background: 'rgba(255, 255, 255, 0.02)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '10px',
                 cursor: 'pointer',
               }}
             >
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '0.86rem', fontWeight: 600, color: '#f8fafc', marginBottom: '2px' }}>
+                <div style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '2px' }}>
                   {t.title}
                 </div>
-                <div style={{ fontSize: '0.74rem', color: '#94a3b8', lineHeight: 1.45 }}>{t.description}</div>
+                <div style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', lineHeight: 1.45 }}>{t.description}</div>
               </div>
               <div
                 onClick={(e) => {
@@ -163,9 +163,10 @@ export const ProfilePrivacyModal: React.FC<ProfilePrivacyModalProps> = ({
                   width: 40,
                   height: 22,
                   borderRadius: '999px',
-                  backgroundColor: settings[t.key] ? '#4f46e5' : 'rgba(255, 255, 255, 0.15)',
+                  backgroundColor: settings[t.key] ? '#4f46e5' : 'var(--text-muted)',
+                  opacity: settings[t.key] ? 1 : 0.6,
                   position: 'relative',
-                  transition: 'background-color 0.2s',
+                  transition: 'all 0.2s ease',
                   flexShrink: 0,
                   alignSelf: 'center',
                 }}
@@ -178,8 +179,9 @@ export const ProfilePrivacyModal: React.FC<ProfilePrivacyModalProps> = ({
                     width: 18,
                     height: 18,
                     borderRadius: '50%',
-                    background: '#f8fafc',
-                    transition: 'left 0.2s',
+                    background: '#ffffff',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                    transition: 'left 0.2s ease',
                   }}
                 />
               </div>

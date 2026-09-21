@@ -71,7 +71,7 @@ export const CvBuilderAiModal: React.FC<CvBuilderAiModalProps> = ({
             justifyContent: 'space-between',
             marginBottom: '16px',
             paddingBottom: '12px',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            borderBottom: '1px solid var(--border-subtle)',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -90,10 +90,10 @@ export const CvBuilderAiModal: React.FC<CvBuilderAiModalProps> = ({
               <Wand2 size={16} />
             </div>
             <div>
-              <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+              <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                 Inprep AI Bullet Polisher
               </h3>
-              <span style={{ fontSize: '0.72rem', color: '#94a3b8' }}>
+              <span style={{ fontSize: '0.72rem', color: 'var(--text-secondary)' }}>
                 Refining for technical depth and quantifiable STAR metric resonance.
               </span>
             </div>
@@ -104,7 +104,7 @@ export const CvBuilderAiModal: React.FC<CvBuilderAiModalProps> = ({
             style={{
               background: 'transparent',
               border: 'none',
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
               cursor: 'pointer',
               padding: '6px',
             }}
@@ -120,7 +120,7 @@ export const CvBuilderAiModal: React.FC<CvBuilderAiModalProps> = ({
           </div>
           <div
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.02)',
+              backgroundColor: 'var(--bg-card)',
               border: '1px solid rgba(255, 255, 255, 0.06)',
               borderRadius: '8px',
               padding: '10px 12px',
@@ -146,7 +146,7 @@ export const CvBuilderAiModal: React.FC<CvBuilderAiModalProps> = ({
                 key={idx}
                 onClick={() => setSelectedOption(idx)}
                 style={{
-                  backgroundColor: isSelected ? 'rgba(99, 102, 241, 0.1)' : 'rgba(255, 255, 255, 0.02)',
+                  backgroundColor: isSelected ? 'rgba(99, 102, 241, 0.1)' : 'var(--bg-card)',
                   border: isSelected ? '1px solid rgba(129, 140, 248, 0.6)' : '1px solid rgba(255, 255, 255, 0.06)',
                   borderRadius: '12px',
                   padding: '14px',
@@ -165,7 +165,7 @@ export const CvBuilderAiModal: React.FC<CvBuilderAiModalProps> = ({
                         backgroundColor: '#ffffff',
                       }}
                     />
-                    <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#f8fafc' }}>
+                    <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-main)' }}>
                       {v.title}
                     </span>
                   </div>

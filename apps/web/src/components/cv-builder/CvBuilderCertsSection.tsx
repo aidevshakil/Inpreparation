@@ -23,8 +23,8 @@ export const CvBuilderCertsSection: React.FC<CvBuilderCertsSectionProps> = ({
     <div
       id="section-certs"
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-surface)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '22px',
         marginBottom: '20px',
@@ -55,7 +55,7 @@ export const CvBuilderCertsSection: React.FC<CvBuilderCertsSectionProps> = ({
           >
             <Award size={14} />
           </span>
-          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
             7. Certifications &amp; Additional Info
           </h3>
         </div>
@@ -87,7 +87,7 @@ export const CvBuilderCertsSection: React.FC<CvBuilderCertsSectionProps> = ({
           <div
             key={cert.id}
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.02)',
+              backgroundColor: 'var(--bg-card)',
               border: '1px solid rgba(255, 255, 255, 0.06)',
               borderRadius: '12px',
               padding: '16px',
@@ -99,10 +99,10 @@ export const CvBuilderCertsSection: React.FC<CvBuilderCertsSectionProps> = ({
             }}
           >
             <div>
-              <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: '#f8fafc', margin: '0 0 4px 0' }}>
+              <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)', margin: '0 0 4px 0' }}>
                 {cert.title}
               </h4>
-              <div style={{ fontSize: '0.76rem', color: '#94a3b8' }}>
+              <div style={{ fontSize: '0.76rem', color: 'var(--text-secondary)' }}>
                 {cert.issuerDate}
               </div>
             </div>
