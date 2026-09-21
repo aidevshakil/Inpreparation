@@ -84,7 +84,7 @@ export const CvBuilderAiModal: React.FC<CvBuilderAiModalProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#818cf8',
+                color: 'var(--primary-color)',
               }}
             >
               <Wand2 size={16} />
@@ -115,17 +115,17 @@ export const CvBuilderAiModal: React.FC<CvBuilderAiModalProps> = ({
 
         {/* Original Snippet */}
         <div style={{ marginBottom: '16px' }}>
-          <div style={{ fontSize: '0.7rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', marginBottom: '6px' }}>
+          <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '6px' }}>
             Original Text
           </div>
           <div
             style={{
               backgroundColor: 'var(--bg-card)',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '8px',
               padding: '10px 12px',
               fontSize: '0.76rem',
-              color: '#cbd5e1',
+              color: 'var(--text-secondary)',
               whiteSpace: 'pre-line',
             }}
           >
@@ -135,7 +135,7 @@ export const CvBuilderAiModal: React.FC<CvBuilderAiModalProps> = ({
 
         {/* AI Variations */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '20px' }}>
-          <div style={{ fontSize: '0.7rem', fontWeight: 700, color: '#a5b4fc', textTransform: 'uppercase' }}>
+          <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--primary-color)', textTransform: 'uppercase' }}>
             AI Enhanced Variations
           </div>
 
@@ -162,7 +162,7 @@ export const CvBuilderAiModal: React.FC<CvBuilderAiModalProps> = ({
                         height: '18px',
                         borderRadius: '50%',
                         border: isSelected ? '5px solid #6366f1' : '2px solid #64748b',
-                        backgroundColor: '#ffffff',
+                        backgroundColor: 'var(--bg-surface)',
                       }}
                     />
                     <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-main)' }}>
@@ -189,7 +189,7 @@ export const CvBuilderAiModal: React.FC<CvBuilderAiModalProps> = ({
                   </div>
                 </div>
 
-                <div style={{ fontSize: '0.78rem', color: '#cbd5e1', lineHeight: 1.5, whiteSpace: 'pre-line', paddingLeft: '26px' }}>
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.5, whiteSpace: 'pre-line', paddingLeft: '26px' }}>
                   {v.text}
                 </div>
               </div>
@@ -203,10 +203,10 @@ export const CvBuilderAiModal: React.FC<CvBuilderAiModalProps> = ({
             onClick={onClose}
             style={{
               padding: '9px 16px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '8px',
-              color: '#cbd5e1',
+              color: 'var(--text-secondary)',
               fontSize: '0.8rem',
               cursor: 'pointer',
             }}

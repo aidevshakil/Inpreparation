@@ -27,17 +27,17 @@ export const CvUploadWhatNextCard: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#818cf8',
+              color: 'var(--primary-color)',
             }}
           >
             <Zap size={16} />
           </div>
-          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
             What happens next?
           </h3>
         </div>
 
-        <p style={{ fontSize: '0.78rem', color: '#94a3b8', lineHeight: 1.5, margin: '0 0 18px 0' }}>
+        <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', lineHeight: 1.5, margin: '0 0 18px 0' }}>
           Inprep AI extracts your technical toolsets, seniority benchmarks, and system scale metrics. You will review this synthesized profile before any 5-question interview session begins.
         </p>
       </div>
@@ -54,7 +54,7 @@ export const CvUploadWhatNextCard: React.FC = () => {
           borderRadius: '12px',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.76rem', color: '#cbd5e1' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.76rem', color: 'var(--text-secondary)' }}>
           <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#6366f1' }} />
           <span>CV Content Ingestion</span>
         </div>
@@ -63,7 +63,7 @@ export const CvUploadWhatNextCard: React.FC = () => {
           <ArrowDown size={11} color="#475569" />
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.76rem', color: '#cbd5e1' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.76rem', color: 'var(--text-secondary)' }}>
           <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#a855f7' }} />
           <span>Vectorized Competencies</span>
         </div>
@@ -72,7 +72,7 @@ export const CvUploadWhatNextCard: React.FC = () => {
           <ArrowDown size={11} color="#475569" />
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.76rem', color: '#34d399', fontWeight: 600 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.76rem', color: 'var(--color-success, #059669)', fontWeight: 600 }}>
           <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981', boxShadow: '0 0 6px #10b981' }} />
           <span>5-Q Calibrated Mock Drill</span>
         </div>

@@ -23,7 +23,7 @@ export const CvBuilderAiCoachCard: React.FC = () => {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Sparkles size={16} style={{ color: '#818cf8' }} />
+          <Sparkles size={16} style={{ color: 'var(--primary-color)' }} />
           <h4 style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
             Inprep AI Coach Diagnostics
           </h4>
@@ -36,7 +36,7 @@ export const CvBuilderAiCoachCard: React.FC = () => {
             padding: '2px 8px',
             borderRadius: '9999px',
             backgroundColor: 'rgba(99, 102, 241, 0.15)',
-            color: '#a5b4fc',
+            color: 'var(--primary-color)',
             border: '1px solid rgba(99, 102, 241, 0.3)',
           }}
         >
@@ -56,12 +56,12 @@ export const CvBuilderAiCoachCard: React.FC = () => {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-            <CheckCircle2 size={13} style={{ color: '#10b981' }} />
+            <CheckCircle2 size={13} style={{ color: 'var(--color-success, #059669)' }} />
             <span style={{ fontSize: '0.74rem', fontWeight: 700, color: '#34d399' }}>
               Add Quantifiable Metrics
             </span>
           </div>
-          <p style={{ fontSize: '0.72rem', color: '#cbd5e1', lineHeight: 1.45, margin: 0 }}>
+          <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', lineHeight: 1.45, margin: 0 }}>
             Metrics like QPS, revenue impact, or latency reduction provide strong signals for evaluator systems.
           </p>
         </div>
@@ -77,11 +77,11 @@ export const CvBuilderAiCoachCard: React.FC = () => {
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
             <AlertCircle size={13} style={{ color: '#f59e0b' }} />
-            <span style={{ fontSize: '0.74rem', fontWeight: 700, color: '#fbbf24' }}>
+            <span style={{ fontSize: '0.74rem', fontWeight: 700, color: '#d97706' }}>
               Highlight Architecture Depth
             </span>
           </div>
-          <p style={{ fontSize: '0.72rem', color: '#cbd5e1', lineHeight: 1.45, margin: 0 }}>
+          <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', lineHeight: 1.45, margin: 0 }}>
             Ensure your project descriptions mention specific distributed system patterns and the trade-offs you considered.
           </p>
         </div>
@@ -94,12 +94,12 @@ export const CvBuilderAiCoachCard: React.FC = () => {
           alignItems: 'center',
           gap: '8px',
           fontSize: '0.68rem',
-          color: '#64748b',
+          color: 'var(--text-muted)',
           paddingTop: '10px',
           borderTop: '1px solid var(--border-subtle)',
         }}
       >
-        <ShieldCheck size={14} style={{ color: '#818cf8', flexShrink: 0 }} />
+        <ShieldCheck size={14} style={{ color: 'var(--primary-color)', flexShrink: 0 }} />
         <span>Your CV data is private and encrypted. Never shared with third-party models.</span>
       </div>
     </div>

@@ -67,7 +67,7 @@ export const CvBuilderSkillsSection: React.FC<CvBuilderSkillsSectionProps> = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#818cf8',
+              color: 'var(--primary-color)',
             }}
           >
             <Cpu size={14} />
@@ -84,7 +84,7 @@ export const CvBuilderSkillsSection: React.FC<CvBuilderSkillsSectionProps> = ({
             padding: '2px 8px',
             borderRadius: '9999px',
             backgroundColor: 'rgba(99, 102, 241, 0.15)',
-            color: '#a5b4fc',
+            color: 'var(--primary-color)',
             border: '1px solid rgba(99, 102, 241, 0.3)',
           }}
         >
@@ -105,7 +105,7 @@ export const CvBuilderSkillsSection: React.FC<CvBuilderSkillsSectionProps> = ({
                 fontSize: '0.68rem',
                 fontWeight: 700,
                 letterSpacing: '0.8px',
-                color: '#64748b',
+                color: 'var(--text-muted)',
                 textTransform: 'uppercase',
                 marginBottom: '8px',
               }}
@@ -123,7 +123,7 @@ export const CvBuilderSkillsSection: React.FC<CvBuilderSkillsSectionProps> = ({
                     gap: '6px',
                     padding: '5px 10px',
                     borderRadius: '8px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                    backgroundColor: 'var(--bg-card)',
                     border: '1px solid var(--border-subtle)',
                     fontSize: '0.76rem',
                     color: '#e2e8f0',
@@ -136,7 +136,7 @@ export const CvBuilderSkillsSection: React.FC<CvBuilderSkillsSectionProps> = ({
                     style={{
                       background: 'transparent',
                       border: 'none',
-                      color: '#64748b',
+                      color: 'var(--text-muted)',
                       cursor: 'pointer',
                       padding: 0,
                       display: 'flex',
@@ -183,7 +183,7 @@ export const CvBuilderSkillsSection: React.FC<CvBuilderSkillsSectionProps> = ({
             backgroundColor: 'rgba(99, 102, 241, 0.15)',
             border: '1px solid rgba(99, 102, 241, 0.35)',
             borderRadius: '8px',
-            color: '#a5b4fc',
+            color: 'var(--primary-color)',
             fontSize: '0.78rem',
             fontWeight: 600,
             cursor: 'pointer',

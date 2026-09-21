@@ -112,7 +112,7 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#818cf8',
+                color: 'var(--primary-color)',
                 marginBottom: '20px',
                 boxShadow: isDragging ? '0 0 24px rgba(99, 102, 241, 0.6)' : 'none',
                 transform: isDragging ? 'scale(1.08)' : 'scale(1)',
@@ -122,11 +122,11 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
               <UploadCloud size={30} />
             </div>
 
-            <h2 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#ffffff', marginBottom: '8px', letterSpacing: '-0.02em' }}>
+            <h2 style={{ fontSize: '1.45rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '8px', letterSpacing: '-0.02em' }}>
               {isDragging ? 'Release file to start upload' : 'Drop your CV here'}
             </h2>
 
-            <p style={{ fontSize: '0.86rem', color: '#94a3b8', maxWidth: '520px', lineHeight: 1.5, marginBottom: '24px' }}>
+            <p style={{ fontSize: '0.86rem', color: 'var(--text-muted)', maxWidth: '520px', lineHeight: 1.5, marginBottom: '24px' }}>
               Drag and drop your resume file here, or browse directly from your computer to initiate semantic analysis.
             </p>
 
@@ -140,7 +140,7 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
                   gap: '8px',
                   padding: '11px 24px',
                   background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)',
-                  color: '#ffffff',
+                  color: 'var(--text-main)',
                   border: 'none',
                   borderRadius: '11px',
                   fontSize: '0.86rem',
@@ -156,7 +156,7 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
                 <span>Browse Files</span>
               </button>
 
-              <span style={{ fontSize: '0.74rem', color: '#64748b', fontWeight: 600, letterSpacing: '0.8px' }}>
+              <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', fontWeight: 600, letterSpacing: '0.8px' }}>
                 OR DRAG &amp; DROP
               </span>
             </div>
@@ -198,10 +198,10 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
               </div>
 
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#ffffff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   Shakil_Ahamed_Resume_2026.pdf
                 </div>
-                <div style={{ fontSize: '0.74rem', color: '#94a3b8', marginTop: '2px' }}>
+                <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '2px' }}>
                   142 KB • Ready to vectorize
                 </div>
               </div>
@@ -211,7 +211,7 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: '#64748b',
+                  color: 'var(--text-muted)',
                   cursor: 'pointer',
                   padding: '4px',
                 }}
@@ -229,7 +229,7 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
                   backgroundColor: 'rgba(255, 255, 255, 0.05)',
                   border: '1px solid rgba(255, 255, 255, 0.1)',
                   borderRadius: '10px',
-                  color: '#cbd5e1',
+                  color: 'var(--text-secondary)',
                   fontSize: '0.84rem',
                   fontWeight: 500,
                   cursor: 'pointer',
@@ -243,7 +243,7 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
                 style={{
                   padding: '10px 24px',
                   background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
-                  color: '#ffffff',
+                  color: 'var(--text-main)',
                   border: 'none',
                   borderRadius: '10px',
                   fontSize: '0.84rem',
@@ -270,17 +270,17 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#818cf8',
+                color: 'var(--primary-color)',
                 marginBottom: '16px',
               }}
             >
               <Loader2 size={24} className="spin-animate" />
             </div>
 
-            <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#ffffff', marginBottom: '8px' }}>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '8px' }}>
               Uploading Resume (68%)
             </h3>
-            <p style={{ fontSize: '0.78rem', color: '#94a3b8', margin: '0 0 16px 0' }}>
+            <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: '0 0 16px 0' }}>
               Transferring encrypted file to isolated sandbox container...
             </p>
 
@@ -326,10 +326,10 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
               <Cpu size={26} className="spin-animate" />
             </div>
 
-            <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#ffffff', marginBottom: '8px' }}>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '8px' }}>
               AI Semantic Vectorization Pipeline
             </h3>
-            <p style={{ fontSize: '0.78rem', color: '#94a3b8', margin: '0 0 16px 0' }}>
+            <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: '0 0 16px 0' }}>
               Parsing 28 competency dimensions and mapping against Staff-level rubrics...
             </p>
 
@@ -342,7 +342,7 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
                 borderRadius: '9999px',
                 backgroundColor: 'rgba(99, 102, 241, 0.15)',
                 border: '1px solid rgba(99, 102, 241, 0.3)',
-                color: '#a5b4fc',
+                color: 'var(--primary-color)',
                 fontSize: '0.74rem',
                 fontWeight: 600,
               }}
@@ -365,17 +365,17 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#34d399',
+                color: 'var(--color-success, #059669)',
                 marginBottom: '16px',
               }}
             >
               <CheckCircle2 size={28} />
             </div>
 
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', marginBottom: '6px' }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '6px' }}>
               Analysis &amp; Vectorization Ready!
             </h3>
-            <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: '0 0 20px 0' }}>
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '0 0 20px 0' }}>
               Successfully extracted 28 technical attributes with 84/100 CV Strength Score.
             </p>
 
@@ -387,7 +387,7 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
                 gap: '8px',
                 padding: '11px 24px',
                 background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                color: '#ffffff',
+                color: 'var(--text-main)',
                 border: 'none',
                 borderRadius: '11px',
                 fontSize: '0.86rem',
@@ -424,7 +424,7 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
             <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#fbbf24', marginBottom: '6px' }}>
               Unsupported File Format
             </h3>
-            <p style={{ fontSize: '0.8rem', color: '#94a3b8', maxWidth: '420px', lineHeight: 1.5, marginBottom: '18px' }}>
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', maxWidth: '420px', lineHeight: 1.5, marginBottom: '18px' }}>
               Only PDF, DOC, or DOCX documents up to 15 MB are supported. Scanned images without text layers cannot be parsed.
             </p>
 
@@ -468,7 +468,7 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
             <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#fb7185', marginBottom: '6px' }}>
               Embedding Vector Pipeline Failure
             </h3>
-            <p style={{ fontSize: '0.8rem', color: '#94a3b8', maxWidth: '420px', lineHeight: 1.5, marginBottom: '18px' }}>
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', maxWidth: '420px', lineHeight: 1.5, marginBottom: '18px' }}>
               The parsing backend timed out while processing tokens. Please check your network connection and retry.
             </p>
 
@@ -480,7 +480,7 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
                 gap: '6px',
                 padding: '9px 20px',
                 backgroundColor: '#f43f5e',
-                color: '#ffffff',
+                color: 'var(--text-main)',
                 border: 'none',
                 borderRadius: '10px',
                 fontSize: '0.82rem',
@@ -505,26 +505,26 @@ export const CvUploadHeroDropzone: React.FC<CvUploadHeroDropzoneProps> = ({
           gap: '12px',
           marginTop: '20px',
           fontSize: '0.74rem',
-          color: '#94a3b8',
+          color: 'var(--text-muted)',
         }}
       >
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
           <CheckCircle2 size={13} color="#10b981" />
-          <span>Supported formats: <strong style={{ color: '#f8fafc' }}>PDF, DOC, DOCX</strong></span>
+          <span>Supported formats: <strong style={{ color: 'var(--text-main)' }}>PDF, DOC, DOCX</strong></span>
         </div>
 
         <span style={{ color: '#334155' }}>•</span>
 
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
           <Info size={13} color="#818cf8" />
-          <span>Recommended limit: <strong style={{ color: '#f8fafc' }}>Up to 15 MB</strong></span>
+          <span>Recommended limit: <strong style={{ color: 'var(--text-main)' }}>Up to 15 MB</strong></span>
         </div>
 
         <span style={{ color: '#334155' }}>•</span>
 
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
           <Lock size={13} color="#34d399" />
-          <span>Privacy: <strong style={{ color: '#34d399' }}>Encrypted at rest</strong></span>
+          <span>Privacy: <strong style={{ color: 'var(--color-success, #059669)' }}>Encrypted at rest</strong></span>
         </div>
       </div>
     </div>

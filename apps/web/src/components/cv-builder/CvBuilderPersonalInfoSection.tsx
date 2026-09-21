@@ -70,7 +70,7 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
             padding: '2px 8px',
             borderRadius: '9999px',
             backgroundColor: 'rgba(56, 189, 248, 0.12)',
-            color: '#38bdf8',
+            color: 'var(--text-secondary)',
             border: '1px solid rgba(56, 189, 248, 0.25)',
           }}
         >
@@ -241,7 +241,7 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
                 boxSizing: 'border-box',
               }}
             />
-            <Mail size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: '#64748b' }} />
+            <Mail size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: 'var(--text-muted)' }} />
           </div>
         </div>
 
@@ -268,7 +268,7 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
                 boxSizing: 'border-box',
               }}
             />
-            <Phone size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: '#64748b' }} />
+            <Phone size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: 'var(--text-muted)' }} />
           </div>
         </div>
 
@@ -295,7 +295,7 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
                 boxSizing: 'border-box',
               }}
             />
-            <MapPin size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: '#64748b' }} />
+            <MapPin size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: 'var(--text-muted)' }} />
           </div>
         </div>
 
@@ -322,7 +322,7 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
                 boxSizing: 'border-box',
               }}
             />
-            <Linkedin size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: '#64748b' }} />
+            <Linkedin size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: 'var(--text-muted)' }} />
           </div>
         </div>
 
@@ -349,7 +349,7 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
                 boxSizing: 'border-box',
               }}
             />
-            <Github size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: '#64748b' }} />
+            <Github size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: 'var(--text-muted)' }} />
           </div>
         </div>
 
@@ -376,7 +376,7 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
                 boxSizing: 'border-box',
               }}
             />
-            <Globe size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: '#64748b' }} />
+            <Globe size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: 'var(--text-muted)' }} />
           </div>
         </div>
       </div>

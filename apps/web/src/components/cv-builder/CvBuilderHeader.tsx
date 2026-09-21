@@ -35,17 +35,17 @@ export const CvBuilderHeader: React.FC<CvBuilderHeaderProps> = ({
           {/* Breadcrumb */}
           <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '8px' }}>
             <span>Workspace</span>
-            <span style={{ margin: '0 6px', color: '#475569' }}>/</span>
-            <span style={{ color: '#cbd5e1', cursor: 'pointer' }} onClick={onNavigateToCv}>
+            <span style={{ margin: '0 6px', color: 'var(--text-muted)' }}>/</span>
+            <span style={{ color: 'var(--text-secondary)', cursor: 'pointer' }} onClick={onNavigateToCv}>
               My CV
             </span>
-            <span style={{ margin: '0 6px', color: '#475569' }}>/</span>
-            <span style={{ color: '#818cf8', fontWeight: 600 }}>Manual CV Builder</span>
+            <span style={{ margin: '0 6px', color: 'var(--text-muted)' }}>/</span>
+            <span style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Manual CV Builder</span>
           </div>
 
           {/* Title & Status Badge */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', marginBottom: '6px' }}>
-            <h1 style={{ fontSize: '2.1rem', fontWeight: 800, color: '#ffffff', margin: 0, letterSpacing: '-0.02em' }}>
+            <h1 style={{ fontSize: '2.1rem', fontWeight: 800, color: 'var(--text-main)', margin: 0, letterSpacing: '-0.02em' }}>
               Build Your CV
             </h1>
             <span
@@ -54,9 +54,9 @@ export const CvBuilderHeader: React.FC<CvBuilderHeaderProps> = ({
                 fontWeight: 600,
                 padding: '3px 10px',
                 borderRadius: '9999px',
-                backgroundColor: isAutosaving ? 'rgba(99, 102, 241, 0.2)' : 'rgba(16, 185, 129, 0.15)',
-                color: isAutosaving ? '#a5b4fc' : '#34d399',
-                border: isAutosaving ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid rgba(16, 185, 129, 0.3)',
+                backgroundColor: isAutosaving ? 'var(--bg-card)' : 'rgba(16, 185, 129, 0.15)',
+                color: isAutosaving ? 'var(--text-secondary)' : 'var(--color-success, #10b981)',
+                border: isAutosaving ? '1px solid var(--border-subtle)' : '1px solid rgba(16, 185, 129, 0.3)',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '5px',
@@ -88,10 +88,10 @@ export const CvBuilderHeader: React.FC<CvBuilderHeaderProps> = ({
               alignItems: 'center',
               gap: '6px',
               padding: '9px 15px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '10px',
-              color: '#cbd5e1',
+              color: 'var(--text-secondary)',
               fontSize: '0.82rem',
               fontWeight: 500,
               cursor: 'pointer',
@@ -109,10 +109,10 @@ export const CvBuilderHeader: React.FC<CvBuilderHeaderProps> = ({
               alignItems: 'center',
               gap: '6px',
               padding: '9px 15px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '10px',
-              color: '#cbd5e1',
+              color: 'var(--text-secondary)',
               fontSize: '0.82rem',
               fontWeight: 500,
               cursor: 'pointer',
@@ -130,10 +130,10 @@ export const CvBuilderHeader: React.FC<CvBuilderHeaderProps> = ({
               alignItems: 'center',
               gap: '6px',
               padding: '9px 15px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '10px',
-              color: '#cbd5e1',
+              color: 'var(--text-secondary)',
               fontSize: '0.82rem',
               fontWeight: 500,
               cursor: 'pointer',

@@ -47,7 +47,7 @@ export const CvBuilderSummarySection: React.FC<CvBuilderSummarySectionProps> = (
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#818cf8',
+              color: 'var(--primary-color)',
             }}
           >
             <FileText size={14} />
@@ -66,15 +66,15 @@ export const CvBuilderSummarySection: React.FC<CvBuilderSummarySectionProps> = (
             padding: '6px 13px',
             borderRadius: '8px',
             background: 'linear-gradient(135deg, rgba(124, 58, 237, 0.25), rgba(79, 70, 229, 0.25))',
-            border: '1px solid rgba(129, 140, 248, 0.4)',
-            color: '#a5b4fc',
+            border: '1px solid var(--border-subtle)',
+            color: 'var(--primary-color)',
             fontSize: '0.74rem',
             fontWeight: 600,
             cursor: 'pointer',
             transition: 'all 0.18s ease',
           }}
         >
-          <Sparkles size={13} style={{ color: '#818cf8' }} />
+          <Sparkles size={13} style={{ color: 'var(--primary-color)' }} />
           <span>Improve with AI</span>
         </button>
       </div>
@@ -104,7 +104,7 @@ export const CvBuilderSummarySection: React.FC<CvBuilderSummarySectionProps> = (
 
       {/* Quick Action Chips */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
-        <span style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: 600 }}>Quick Actions:</span>
+        <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontWeight: 600 }}>Quick Actions:</span>
 
         <button
           onClick={() => onApplyPreset && onApplyPreset('concise')}
@@ -114,9 +114,9 @@ export const CvBuilderSummarySection: React.FC<CvBuilderSummarySectionProps> = (
             gap: '4px',
             padding: '4px 10px',
             borderRadius: '6px',
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
+            backgroundColor: 'var(--bg-card)',
             border: '1px solid var(--border-subtle)',
-            color: '#cbd5e1',
+            color: 'var(--text-secondary)',
             fontSize: '0.72rem',
             fontWeight: 500,
             cursor: 'pointer',
@@ -134,15 +134,15 @@ export const CvBuilderSummarySection: React.FC<CvBuilderSummarySectionProps> = (
             gap: '4px',
             padding: '4px 10px',
             borderRadius: '6px',
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
+            backgroundColor: 'var(--bg-card)',
             border: '1px solid var(--border-subtle)',
-            color: '#cbd5e1',
+            color: 'var(--text-secondary)',
             fontSize: '0.72rem',
             fontWeight: 500,
             cursor: 'pointer',
           }}
         >
-          <Code2 size={11} style={{ color: '#38bdf8' }} />
+          <Code2 size={11} style={{ color: 'var(--text-secondary)' }} />
           <span>Highly Technical Focus</span>
         </button>
 
@@ -154,15 +154,15 @@ export const CvBuilderSummarySection: React.FC<CvBuilderSummarySectionProps> = (
             gap: '4px',
             padding: '4px 10px',
             borderRadius: '6px',
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
+            backgroundColor: 'var(--bg-card)',
             border: '1px solid var(--border-subtle)',
-            color: '#cbd5e1',
+            color: 'var(--text-secondary)',
             fontSize: '0.72rem',
             fontWeight: 500,
             cursor: 'pointer',
           }}
         >
-          <Zap size={11} style={{ color: '#fbbf24' }} />
+          <Zap size={11} style={{ color: '#d97706' }} />
           <span>Quantify Impact</span>
         </button>
       </div>
@@ -179,9 +179,9 @@ export const CvBuilderSummarySection: React.FC<CvBuilderSummarySectionProps> = (
           border: '1px solid var(--border-subtle)',
         }}
       >
-        <ShieldCheck size={16} style={{ color: '#10b981', flexShrink: 0, marginTop: '2px' }} />
+        <ShieldCheck size={16} style={{ color: 'var(--color-success, #059669)', flexShrink: 0, marginTop: '2px' }} />
         <p style={{ fontSize: '0.71rem', color: 'var(--text-secondary)', lineHeight: 1.45, margin: 0 }}>
-          <strong style={{ color: '#cbd5e1' }}>Responsible AI Guarantee:</strong> AI enhancements rephrase syntax and elevate clarity based solely on facts you share. Inprep AI never introduces synthetic metrics or false credentials.
+          <strong style={{ color: 'var(--text-secondary)' }}>Responsible AI Guarantee:</strong> AI enhancements rephrase syntax and elevate clarity based solely on facts you share. Inprep AI never introduces synthetic metrics or false credentials.
         </p>
       </div>
     </div>

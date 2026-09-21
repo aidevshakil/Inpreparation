@@ -238,8 +238,8 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
           style={{
             width: '100%',
             maxWidth: '520px',
-            backgroundColor: '#ffffff',
-            color: '#0f172a',
+            backgroundColor: 'var(--bg-surface)',
+            color: 'var(--text-main)',
             padding: '24px 28px',
             borderRadius: '4px',
             boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
@@ -255,7 +255,7 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
               style={{
                 fontSize: `${1.3 * (zoom / 100)}rem`,
                 fontWeight: 800,
-                color: '#0f172a',
+                color: 'var(--text-main)',
                 margin: '0 0 2px 0',
                 letterSpacing: '-0.02em',
               }}
@@ -275,7 +275,7 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
             <div
               style={{
                 fontSize: `${0.64 * (zoom / 100)}rem`,
-                color: '#64748b',
+                color: 'var(--text-muted)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: activeTemplate === 'minimal' ? 'flex-start' : 'center',
@@ -332,13 +332,13 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
 
               {experiences.map((exp) => (
                 <div key={exp.id} style={{ marginBottom: '8px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700, color: '#0f172a' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700, color: 'var(--text-main)' }}>
                     <span>
                       {exp.roleTitle} — <span style={{ color: '#475569' }}>{exp.company}</span>
                     </span>
-                    <span style={{ color: '#64748b', fontSize: `${0.62 * (zoom / 100)}rem` }}>{exp.timeline}</span>
+                    <span style={{ color: 'var(--text-muted)', fontSize: `${0.62 * (zoom / 100)}rem` }}>{exp.timeline}</span>
                   </div>
-                  <div style={{ fontSize: `${0.62 * (zoom / 100)}rem`, color: '#64748b', marginBottom: '3px' }}>
+                  <div style={{ fontSize: `${0.62 * (zoom / 100)}rem`, color: 'var(--text-muted)', marginBottom: '3px' }}>
                     {exp.location}
                   </div>
                   <div style={{ color: '#334155', paddingLeft: '12px', whiteSpace: 'pre-line' }}>
@@ -366,7 +366,7 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
               </div>
               {skillGroups.map((group) => (
                 <div key={group.category} style={{ color: '#334155', marginBottom: '2px' }}>
-                  <strong style={{ color: '#0f172a' }}>{group.category}:</strong> {group.skills.join(', ')}
+                  <strong style={{ color: 'var(--text-main)' }}>{group.category}:</strong> {group.skills.join(', ')}
                 </div>
               ))}
             </div>
@@ -389,9 +389,9 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
               </div>
               {educations.map((edu) => (
                 <div key={edu.id} style={{ marginBottom: '4px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700, color: '#0f172a' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700, color: 'var(--text-main)' }}>
                     <span>{edu.degree}</span>
-                    <span style={{ color: '#64748b', fontSize: `${0.62 * (zoom / 100)}rem` }}>{edu.yearHonors}</span>
+                    <span style={{ color: 'var(--text-muted)', fontSize: `${0.62 * (zoom / 100)}rem` }}>{edu.yearHonors}</span>
                   </div>
                   <div style={{ color: '#475569' }}>{edu.institution}</div>
                 </div>
@@ -416,8 +416,8 @@ export const CvBuilderA4PreviewSheet: React.FC<CvBuilderA4PreviewSheetProps> = (
               </div>
               {projects.map((proj) => (
                 <div key={proj.id} style={{ marginBottom: '4px' }}>
-                  <div style={{ fontWeight: 700, color: '#0f172a' }}>
-                    {proj.name} <span style={{ fontWeight: 400, color: '#64748b' }}>({proj.badge})</span>:
+                  <div style={{ fontWeight: 700, color: 'var(--text-main)' }}>
+                    {proj.name} <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>({proj.badge})</span>:
                     <span style={{ fontWeight: 400, color: '#334155', marginLeft: '4px' }}>{proj.description}</span>
                   </div>
                 </div>

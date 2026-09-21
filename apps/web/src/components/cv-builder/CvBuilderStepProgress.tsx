@@ -88,7 +88,7 @@ export const CvBuilderStepProgress: React.FC<CvBuilderStepProgressProps> = ({
               padding: '2px 8px',
               borderRadius: '9999px',
               backgroundColor: 'rgba(99, 102, 241, 0.15)',
-              color: '#a5b4fc',
+              color: 'var(--primary-color)',
               border: '1px solid rgba(99, 102, 241, 0.3)',
             }}
           >

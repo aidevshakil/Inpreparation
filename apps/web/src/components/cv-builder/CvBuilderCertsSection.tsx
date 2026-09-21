@@ -50,7 +50,7 @@ export const CvBuilderCertsSection: React.FC<CvBuilderCertsSectionProps> = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#818cf8',
+              color: 'var(--primary-color)',
             }}
           >
             <Award size={14} />
@@ -70,7 +70,7 @@ export const CvBuilderCertsSection: React.FC<CvBuilderCertsSectionProps> = ({
             borderRadius: '8px',
             backgroundColor: 'rgba(99, 102, 241, 0.15)',
             border: '1px solid rgba(99, 102, 241, 0.35)',
-            color: '#a5b4fc',
+            color: 'var(--primary-color)',
             fontSize: '0.74rem',
             fontWeight: 600,
             cursor: 'pointer',
@@ -88,7 +88,7 @@ export const CvBuilderCertsSection: React.FC<CvBuilderCertsSectionProps> = ({
             key={cert.id}
             style={{
               backgroundColor: 'var(--bg-card)',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '12px',
               padding: '16px',
               display: 'flex',
