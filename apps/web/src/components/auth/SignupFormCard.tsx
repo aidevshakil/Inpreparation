@@ -10,9 +10,12 @@ import {
   CheckCircle2,
   AlertCircle,
   Loader2,
-  Check
+  Check,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 import { GoogleLogin } from '@react-oauth/google';
 
 interface SignupFormCardProps {
@@ -25,6 +28,7 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
   onNavigateLogin
 }) => {
   const { signup, loginWithGoogleProvider } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -101,38 +105,78 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
 
   return (
     <div style={{
-      background: '#090d16',
-      border: '1px solid rgba(255, 255, 255, 0.08)',
+      background: 'var(--bg-card)',
+      border: '1px solid var(--border-subtle)',
       borderRadius: '24px',
       padding: '36px 32px',
-      boxShadow: '0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(99, 102, 241, 0.06)',
+      boxShadow: 'var(--shadow-xl)',
       width: '100%',
       maxWidth: '480px'
     }}>
       
-      {/* Candidate Registration Badge */}
+      {/* Top Header Row with Badge & Theme Switcher */}
       <div style={{
-        display: 'inline-flex',
+        display: 'flex',
         alignItems: 'center',
-        gap: '6px',
-        padding: '4px 12px',
-        borderRadius: '100px',
-        background: 'rgba(124, 58, 237, 0.15)',
-        border: '1px solid rgba(168, 85, 247, 0.3)',
-        fontSize: '11px',
-        fontWeight: 700,
-        color: '#c084fc',
+        justifyContent: 'space-between',
         marginBottom: '16px'
       }}>
-        <User size={12} color="#c084fc" />
-        <span>Candidate Registration</span>
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          padding: '4px 12px',
+          borderRadius: '100px',
+          background: 'rgba(99, 102, 241, 0.12)',
+          border: '1px solid rgba(99, 102, 241, 0.25)',
+          fontSize: '11px',
+          fontWeight: 700,
+          color: 'var(--primary-color)'
+        }}>
+          <User size={12} color="var(--primary-color)" />
+          <span>Candidate Registration</span>
+        </div>
+
+        <button
+          type="button"
+          onClick={toggleTheme}
+          title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          aria-label="Toggle Theme"
+          style={{
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
+            color: 'var(--text-secondary)',
+            cursor: 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '28px',
+            height: '28px',
+            borderRadius: '50%',
+            transition: 'all 0.2s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = 'var(--text-main)';
+            e.currentTarget.style.borderColor = 'var(--border-accent)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = 'var(--text-secondary)';
+            e.currentTarget.style.borderColor = 'var(--border-subtle)';
+          }}
+        >
+          {theme === 'dark' ? (
+            <Sun size={14} color="#eab308" />
+          ) : (
+            <Moon size={14} color="#6366f1" />
+          )}
+        </button>
       </div>
 
       {/* Heading & Subtitle */}
       <h1 style={{
         fontSize: '28px',
         fontWeight: 800,
-        color: '#ffffff',
+        color: 'var(--text-main)',
         letterSpacing: '-0.025em',
         marginBottom: '8px'
       }}>
@@ -141,11 +185,11 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
 
       <p style={{
         fontSize: '13.5px',
-        color: '#94a3b8',
+        color: 'var(--text-secondary)',
         lineHeight: 1.5,
-        marginBottom: '24px'
+        marginBottom: '26px'
       }}>
-        Start practicing smarter and get personalized AI feedback on your interviews.
+        Access our realistic simulation studio and multimodal evaluation rubrics.
       </p>
 
       {/* Prototype Error / Success Banners */}
@@ -225,18 +269,18 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
         
         {/* Full Name */}
         <div>
-          <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#e2e8f0', marginBottom: '6px' }}>
+          <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--text-main)', marginBottom: '6px' }}>
             Full Name <span style={{ color: '#f43f5e' }}>*</span>
           </label>
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            background: '#0e1320',
-            border: localStatus === 'validation-error' && !fullName ? '1px solid #ef4444' : '1px solid rgba(255, 255, 255, 0.1)',
+            background: 'var(--bg-surface)',
+            border: localStatus === 'validation-error' && !fullName ? '1px solid #ef4444' : '1px solid var(--border-subtle)',
             borderRadius: '12px',
             padding: '11px 14px'
           }}>
-            <User size={16} color="#64748b" style={{ marginRight: '10px', flexShrink: 0 }} />
+            <User size={16} color="var(--text-muted)" style={{ marginRight: '10px', flexShrink: 0 }} />
             <input
               type="text"
               required
@@ -251,18 +295,18 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
 
         {/* Email Address */}
         <div>
-          <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#e2e8f0', marginBottom: '6px' }}>
+          <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--text-main)', marginBottom: '6px' }}>
             Email Address <span style={{ color: '#f43f5e' }}>*</span>
           </label>
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            background: '#0e1320',
-            border: localStatus === 'validation-error' && !email ? '1px solid #ef4444' : '1px solid rgba(255, 255, 255, 0.1)',
+            background: 'var(--bg-surface)',
+            border: localStatus === 'validation-error' && !email ? '1px solid #ef4444' : '1px solid var(--border-subtle)',
             borderRadius: '12px',
             padding: '11px 14px'
           }}>
-            <Mail size={16} color="#64748b" style={{ marginRight: '10px', flexShrink: 0 }} />
+            <Mail size={16} color="var(--text-muted)" style={{ marginRight: '10px', flexShrink: 0 }} />
             <input
               type="email"
               required
@@ -280,22 +324,22 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
         {/* Password */}
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-            <label style={{ fontSize: '12.5px', fontWeight: 600, color: '#e2e8f0' }}>
+            <label style={{ fontSize: '12.5px', fontWeight: 600, color: 'var(--text-main)' }}>
               Password <span style={{ color: '#f43f5e' }}>*</span>
             </label>
-            <span style={{ fontSize: '11.5px', color: '#64748b' }}>
+            <span style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>
               Min. 8 characters
             </span>
           </div>
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            background: '#0e1320',
-            border: localStatus === 'weak-password' ? '1px solid #ef4444' : '1px solid rgba(255, 255, 255, 0.1)',
+            background: 'var(--bg-surface)',
+            border: localStatus === 'weak-password' ? '1px solid #ef4444' : '1px solid var(--border-subtle)',
             borderRadius: '12px',
             padding: '11px 14px'
           }}>
-            <Lock size={16} color="#64748b" style={{ marginRight: '10px', flexShrink: 0 }} />
+            <Lock size={16} color="var(--text-muted)" style={{ marginRight: '10px', flexShrink: 0 }} />
             <input
               type={showPassword ? 'text' : 'password'}
               required
@@ -316,64 +360,66 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
             </button>
           </div>
 
-          {/* Password Strength Meter */}
-          <div style={{ marginTop: '10px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11.5px', marginBottom: '6px' }}>
-              <span style={{ color: '#94a3b8' }}>Password strength:</span>
-              <span style={{ color: strengthColor, fontWeight: 700 }}>{strengthLabel}</span>
-            </div>
+          {/* Password Strength Meter - Only visible when user begins typing */}
+          {password.length > 0 && (
+            <div style={{ marginTop: '10px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11.5px', marginBottom: '6px' }}>
+                <span style={{ color: '#94a3b8' }}>Password strength:</span>
+                <span style={{ color: strengthColor, fontWeight: 700 }}>{strengthLabel}</span>
+              </div>
 
-            {/* 4 Segment Bars */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '5px', marginBottom: '10px' }}>
-              {[1, 2, 3, 4].map((seg) => (
-                <div
-                  key={seg}
-                  style={{
-                    height: '4px',
-                    borderRadius: '100px',
-                    background: seg <= strengthCount ? strengthColor : 'rgba(255, 255, 255, 0.08)',
-                    transition: 'all 0.3s ease'
-                  }}
-                />
-              ))}
-            </div>
+              {/* 4 Segment Bars */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '5px', marginBottom: '10px' }}>
+                {[1, 2, 3, 4].map((seg) => (
+                  <div
+                    key={seg}
+                    style={{
+                      height: '4px',
+                      borderRadius: '100px',
+                      background: seg <= strengthCount ? strengthColor : 'rgba(255, 255, 255, 0.08)',
+                      transition: 'all 0.3s ease'
+                    }}
+                  />
+                ))}
+              </div>
 
-            {/* Checklist items */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', fontSize: '11px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasMinLength ? '#10b981' : '#64748b' }}>
-                <Check size={12} strokeWidth={3} />
-                <span>8+ characters</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasUpper ? '#10b981' : '#64748b' }}>
-                <Check size={12} strokeWidth={3} />
-                <span>Uppercase letter</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasLower ? '#10b981' : '#64748b' }}>
-                <Check size={12} strokeWidth={3} />
-                <span>Lowercase letter</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasNumberOrSymbol ? '#10b981' : '#64748b' }}>
-                <Check size={12} strokeWidth={3} />
-                <span>Number & symbol</span>
+              {/* Checklist items */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', fontSize: '11px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasMinLength ? '#10b981' : '#64748b' }}>
+                  <Check size={12} strokeWidth={3} />
+                  <span>8+ characters</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasUpper ? '#10b981' : '#64748b' }}>
+                  <Check size={12} strokeWidth={3} />
+                  <span>Uppercase letter</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasLower ? '#10b981' : '#64748b' }}>
+                  <Check size={12} strokeWidth={3} />
+                  <span>Lowercase letter</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasNumberOrSymbol ? '#10b981' : '#64748b' }}>
+                  <Check size={12} strokeWidth={3} />
+                  <span>Number & symbol</span>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Confirm Password */}
         <div>
-          <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: '#e2e8f0', marginBottom: '6px' }}>
+          <label style={{ display: 'block', fontSize: '12.5px', fontWeight: 600, color: 'var(--text-main)', marginBottom: '6px' }}>
             Confirm Password <span style={{ color: '#f43f5e' }}>*</span>
           </label>
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            background: '#0e1320',
-            border: localStatus === 'password-mismatch' ? '1px solid #ef4444' : '1px solid rgba(255, 255, 255, 0.1)',
+            background: 'var(--bg-surface)',
+            border: localStatus === 'password-mismatch' ? '1px solid #ef4444' : '1px solid var(--border-subtle)',
             borderRadius: '12px',
             padding: '11px 14px'
           }}>
-            <ShieldCheck size={16} color="#64748b" style={{ marginRight: '10px', flexShrink: 0 }} />
+            <ShieldCheck size={16} color="var(--text-muted)" style={{ marginRight: '10px', flexShrink: 0 }} />
             <input
               type={showConfirmPassword ? 'text' : 'password'}
               required
@@ -402,13 +448,13 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
             style={{
               width: '15px',
               height: '15px',
-              accentColor: '#6366f1',
+              accentColor: 'var(--primary-color)',
               cursor: 'pointer',
               marginTop: '2px'
             }}
           />
-          <span style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5 }}>
-            I agree to Inprep AI's <a href="#" style={{ color: '#818cf8', textDecoration: 'none' }}>Terms of Service</a> and <a href="#" style={{ color: '#818cf8', textDecoration: 'none' }}>Privacy Policy</a>.
+          <span style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+            I agree to Inprep AI's <a href="#" style={{ color: 'var(--primary-color)', textDecoration: 'none' }}>Terms of Service</a> and <a href="#" style={{ color: 'var(--primary-color)', textDecoration: 'none' }}>Privacy Policy</a>.
           </span>
         </div>
 
@@ -463,40 +509,45 @@ export const SignupFormCard: React.FC<SignupFormCardProps> = ({
         </button>
 
         {/* Divider */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', margin: '4px 0' }}>
-          <div style={{ flex: 1, height: '1px', background: 'rgba(255, 255, 255, 0.08)' }} />
-          <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 700, letterSpacing: '0.05em' }}>
-            OR CONTINUE WITH
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          margin: '4px 0'
+        }}>
+          <div style={{ flex: 1, height: '1px', background: 'var(--border-subtle)' }} />
+          <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.05em' }}>
+            OR SIGN UP WITH
           </span>
-          <div style={{ flex: 1, height: '1px', background: 'rgba(255, 255, 255, 0.08)' }} />
+          <div style={{ flex: 1, height: '1px', background: 'var(--border-subtle)' }} />
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', minHeight: '44px' }}>
           <GoogleLogin
             onSuccess={handleGoogleSuccess}
             onError={() => {
               console.warn('Google Signup Failed');
-              setLocalStatus('conflict-error');
+              setLocalStatus('general-error');
             }}
-            theme="filled_black"
+            theme={theme === 'dark' ? 'filled_black' : 'outline'}
             shape="rectangular"
-            width="100%"
-            text="continue_with"
+            width="360"
+            text="signup_with"
           />
         </div>
 
       </form>
 
-      {/* Footer Already have an account link */}
-      <div style={{ textAlign: 'center', marginTop: '20px' }}>
-        <p style={{ fontSize: '13px', color: '#94a3b8', margin: 0 }}>
+      {/* Footer Login Link */}
+      <div style={{ textAlign: 'center', marginTop: '22px' }}>
+        <p style={{ fontSize: '13px', color: 'var(--text-secondary)', margin: 0 }}>
           Already have an account?{' '}
           <button
             onClick={onNavigateLogin}
             style={{
               background: 'transparent',
               border: 'none',
-              color: '#818cf8',
+              color: 'var(--primary-color)',
               fontWeight: 700,
               cursor: 'pointer',
               textDecoration: 'none',
@@ -517,7 +568,7 @@ const inputStyle: React.CSSProperties = {
   background: 'transparent',
   border: 'none',
   outline: 'none',
-  color: '#ffffff',
+  color: 'var(--text-main)',
   fontSize: '13.5px',
   fontFamily: 'inherit'
 };

@@ -135,20 +135,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const result = await loginWithGoogle(accessToken);
       if (result && result.user) {
+        const incomingEmail = (result.user.email || '').toLowerCase();
+        const isSameAccount = !user?.email || user.email.toLowerCase() === incomingEmail;
+        const base = isSameAccount ? user : DEFAULT_USER;
+
         const updated: UserProfile = {
-          ...user,
-          id: result.user.id || user.id,
-          email: result.user.email || user.email,
-          name: result.user.name || user.name,
-          targetRole: result.user.targetRole || '',
-          avatarUrl: result.user.picture || user.avatarUrl,
-          seniority: result.user.seniority || 'Entry / Mid',
-          creditsRemaining: result.user.creditsRemaining ?? 100,
-          totalCredits: result.user.totalCredits ?? 100,
-          cvFileName: result.user.cvFileName || undefined,
-          cvSkills: result.user.cvSkills || [],
-          cvAtsScore: result.user.cvAtsScore || undefined,
-          isEmailVerified: result.user.isEmailVerified || true,
+          ...base,
+          id: result.user.id || base.id,
+          email: result.user.email || base.email,
+          name: result.user.name || base.name,
+          targetRole: result.user.targetRole || base.targetRole || '',
+          avatarUrl: result.user.picture || result.user.avatarUrl || base.avatarUrl,
+          seniority: result.user.seniority || base.seniority || 'Entry / Mid',
+          creditsRemaining: result.user.creditsRemaining ?? base.creditsRemaining ?? 100,
+          totalCredits: result.user.totalCredits ?? base.totalCredits ?? 100,
+          cvFileName: result.user.cvFileName || base.cvFileName || undefined,
+          cvSkills: (result.user.cvSkills && result.user.cvSkills.length > 0)
+            ? result.user.cvSkills
+            : (base.cvSkills || []),
+          cvAtsScore: result.user.cvAtsScore || base.cvAtsScore || undefined,
+          isEmailVerified: result.user.isEmailVerified ?? true,
         };
         setUser(updated);
         setIsAuthenticated(true);

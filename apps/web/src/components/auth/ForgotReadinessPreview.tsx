@@ -38,7 +38,7 @@ export const ForgotReadinessPreview: React.FC = () => {
         <h2 style={{
           fontSize: 'clamp(28px, 4vw, 42px)',
           fontWeight: 800,
-          color: '#ffffff',
+          color: 'var(--text-main)',
           letterSpacing: '-0.03em',
           lineHeight: 1.15,
           marginBottom: '12px'
@@ -49,7 +49,7 @@ export const ForgotReadinessPreview: React.FC = () => {
         {/* Subtitle */}
         <p style={{
           fontSize: '14px',
-          color: '#94a3b8',
+          color: 'var(--text-secondary)',
           lineHeight: 1.6,
           margin: 0
         }}>
@@ -59,11 +59,11 @@ export const ForgotReadinessPreview: React.FC = () => {
 
       {/* Main Interactive Readiness HUD Card */}
       <div style={{
-        background: '#090d16',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '24px',
         padding: '28px 26px',
-        boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
+        boxShadow: 'var(--shadow-md)'
       }}>
         
         {/* Simulation Header */}
@@ -72,7 +72,7 @@ export const ForgotReadinessPreview: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           paddingBottom: '20px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+          borderBottom: '1px solid var(--border-subtle)',
           marginBottom: '20px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -91,10 +91,10 @@ export const ForgotReadinessPreview: React.FC = () => {
               AI
             </div>
             <div>
-              <div style={{ fontSize: '13px', fontWeight: 800, color: '#ffffff', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '13px', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
                 CANDIDATE READINESS CALIBRATION
               </div>
-              <div style={{ fontSize: '11.5px', color: '#64748b' }}>
+              <div style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>
                 Synthetic Mock Telemetry • Last Session Benchmarks
               </div>
             </div>
@@ -105,9 +105,9 @@ export const ForgotReadinessPreview: React.FC = () => {
             fontWeight: 800,
             padding: '3px 8px',
             borderRadius: '6px',
-            background: 'rgba(255, 255, 255, 0.05)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            color: '#94a3b8',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
+            color: 'var(--text-muted)',
             letterSpacing: '0.06em'
           }}>
             DEMO UI
@@ -123,19 +123,19 @@ export const ForgotReadinessPreview: React.FC = () => {
         }}>
           {/* Interview Readiness */}
           <div style={{
-            background: '#0e1320',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '14px',
             padding: '16px 18px'
           }}>
-            <div style={{ fontSize: '11.5px', color: '#8896ab', marginBottom: '6px' }}>
+            <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)', marginBottom: '6px' }}>
               Interview Readiness
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '4px' }}>
-              <span style={{ fontSize: '32px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em' }}>
+              <span style={{ fontSize: '32px', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.02em' }}>
                 82
               </span>
-              <span style={{ fontSize: '14px', color: '#64748b' }}>/ 100</span>
+              <span style={{ fontSize: '14px', color: 'var(--text-muted)' }}>/ 100</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11.5px', color: '#10b981', fontWeight: 600 }}>
               <TrendingUp size={13} />
@@ -145,18 +145,18 @@ export const ForgotReadinessPreview: React.FC = () => {
 
           {/* Target Role Tier */}
           <div style={{
-            background: '#0e1320',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '14px',
             padding: '16px 18px'
           }}>
-            <div style={{ fontSize: '11.5px', color: '#8896ab', marginBottom: '6px' }}>
+            <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)', marginBottom: '6px' }}>
               Target Role Tier
             </div>
-            <div style={{ fontSize: '22px', fontWeight: 800, color: '#818cf8', letterSpacing: '-0.02em', marginBottom: '4px', marginTop: '4px' }}>
+            <div style={{ fontSize: '22px', fontWeight: 800, color: 'var(--primary-color)', letterSpacing: '-0.02em', marginBottom: '4px', marginTop: '4px' }}>
               Staff Tier
             </div>
-            <div style={{ fontSize: '11.5px', color: '#64748b' }}>
+            <div style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>
               Top 12% in System Concurrency
             </div>
           </div>
@@ -172,11 +172,11 @@ export const ForgotReadinessPreview: React.FC = () => {
             fontWeight: 700,
             letterSpacing: '0.06em',
             textTransform: 'uppercase',
-            color: '#64748b',
+            color: 'var(--text-muted)',
             marginBottom: '14px'
           }}>
             <span>MULTIMODAL FEEDBACK VECTORS</span>
-            <span style={{ color: '#818cf8' }}>4 DIMENSIONS</span>
+            <span style={{ color: 'var(--primary-color)' }}>4 DIMENSIONS</span>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -185,11 +185,11 @@ export const ForgotReadinessPreview: React.FC = () => {
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px', marginBottom: '6px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: vec.color, display: 'inline-block' }} />
-                    <span style={{ color: '#ffffff', fontWeight: 600 }}>{vec.label}</span>
-                    <span style={{ color: '#64748b', fontSize: '11.5px' }}>• {vec.sub}</span>
+                    <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>{vec.label}</span>
+                    <span style={{ color: 'var(--text-muted)', fontSize: '11.5px' }}>• {vec.sub}</span>
                   </div>
-                  <div style={{ color: '#ffffff', fontWeight: 700 }}>
-                    {vec.score} <span style={{ color: '#64748b', fontWeight: 400 }}>/ 100</span>
+                  <div style={{ color: 'var(--text-main)', fontWeight: 700 }}>
+                    {vec.score} <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>/ 100</span>
                   </div>
                 </div>
 
@@ -197,7 +197,8 @@ export const ForgotReadinessPreview: React.FC = () => {
                 <div style={{
                   height: '6px',
                   borderRadius: '100px',
-                  background: 'rgba(255, 255, 255, 0.06)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   overflow: 'hidden'
                 }}>
                   <div style={{
@@ -219,13 +220,13 @@ export const ForgotReadinessPreview: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           fontSize: '11.5px',
-          color: '#64748b',
-          borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+          color: 'var(--text-muted)',
+          borderTop: '1px solid var(--border-subtle)',
           paddingTop: '14px'
         }}>
           <span>Continuous Growth Loop:</span>
-          <span style={{ color: '#cbd5e1', fontWeight: 600 }}>
-            Practice <span style={{ color: '#818cf8' }}>→</span> Feedback <span style={{ color: '#818cf8' }}>→</span> Improvement
+          <span style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>
+            Practice <span style={{ color: 'var(--primary-color)' }}>→</span> Feedback <span style={{ color: 'var(--primary-color)' }}>→</span> Improvement
           </span>
         </div>
 
@@ -233,8 +234,8 @@ export const ForgotReadinessPreview: React.FC = () => {
 
       {/* Responsible AI & Ethical Safeguards Card */}
       <div style={{
-        background: '#090d16',
-        border: '1px solid rgba(255, 255, 255, 0.06)',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '16px',
         padding: '18px 20px',
         display: 'flex',
@@ -255,10 +256,10 @@ export const ForgotReadinessPreview: React.FC = () => {
         </div>
 
         <div>
-          <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+          <div style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
             Responsible AI & Ethical Safeguards:
           </div>
-          <p style={{ fontSize: '11.5px', color: '#94a3b8', lineHeight: 1.55, margin: 0 }}>
+          <p style={{ fontSize: '11.5px', color: 'var(--text-secondary)', lineHeight: 1.55, margin: 0 }}>
             AI feedback is derived exclusively from observable technical responses, speech acoustics, and camera framing hygiene. Inprep AI strictly disclaims psychological inference, emotion detection, honesty claims, or automated hiring decisions.
           </p>
         </div>

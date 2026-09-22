@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Lock, Mail, Eye, EyeOff, ArrowRight, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { Lock, Mail, Eye, EyeOff, ArrowRight, CheckCircle2, AlertCircle, Loader2, Sun, Moon } from 'lucide-react';
 import { AuthStateMode } from './AuthPrototypeBar';
 import { GoogleLogin } from '@react-oauth/google';
 
@@ -20,7 +20,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
   onNavigateForgot
 }) => {
   const { login, loginWithGoogleProvider } = useAuth();
-  const { theme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -93,22 +93,62 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
       maxWidth: '460px'
     }}>
       
-      {/* Secure Authentication Badge */}
+      {/* Top Header Row with Badge & Theme Switcher */}
       <div style={{
-        display: 'inline-flex',
+        display: 'flex',
         alignItems: 'center',
-        gap: '6px',
-        padding: '4px 12px',
-        borderRadius: '100px',
-        background: 'rgba(99, 102, 241, 0.12)',
-        border: '1px solid rgba(99, 102, 241, 0.25)',
-        fontSize: '11px',
-        fontWeight: 700,
-        color: 'var(--primary-color)',
+        justifyContent: 'space-between',
         marginBottom: '16px'
       }}>
-        <Lock size={12} color="var(--primary-color)" />
-        <span>Secure Authentication</span>
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          padding: '4px 12px',
+          borderRadius: '100px',
+          background: 'rgba(99, 102, 241, 0.12)',
+          border: '1px solid rgba(99, 102, 241, 0.25)',
+          fontSize: '11px',
+          fontWeight: 700,
+          color: 'var(--primary-color)'
+        }}>
+          <Lock size={12} color="var(--primary-color)" />
+          <span>Secure Authentication</span>
+        </div>
+
+        <button
+          type="button"
+          onClick={toggleTheme}
+          title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          aria-label="Toggle Theme"
+          style={{
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
+            color: 'var(--text-secondary)',
+            cursor: 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '28px',
+            height: '28px',
+            borderRadius: '50%',
+            transition: 'all 0.2s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = 'var(--text-main)';
+            e.currentTarget.style.borderColor = 'var(--border-accent)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = 'var(--text-secondary)';
+            e.currentTarget.style.borderColor = 'var(--border-subtle)';
+          }}
+        >
+          {theme === 'dark' ? (
+            <Sun size={14} color="#eab308" />
+          ) : (
+            <Moon size={14} color="#6366f1" />
+          )}
+        </button>
       </div>
 
       {/* Heading & Subtitle */}
@@ -372,7 +412,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
           <div style={{ flex: 1, height: '1px', background: 'var(--border-subtle)' }} />
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', minHeight: '44px' }}>
           <GoogleLogin
             onSuccess={handleGoogleSuccess}
             onError={() => {
@@ -381,7 +421,7 @@ export const LoginFormCard: React.FC<LoginFormCardProps> = ({
             }}
             theme={theme === 'dark' ? 'filled_black' : 'outline'}
             shape="rectangular"
-            width="100%"
+            width="360"
             text="continue_with"
           />
         </div>

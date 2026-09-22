@@ -79,7 +79,7 @@ export const AuthNavbar: React.FC<AuthNavbarProps> = ({
         </div>
 
         {/* Center Nav Links */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '28px' }}>
+        <nav className="auth-nav-links" style={{ display: 'flex', alignItems: 'center', gap: '28px' }}>
           <button onClick={onNavigateFeatures} style={navLinkStyle}>Features</button>
           <button onClick={onNavigateHowItWorks} style={navLinkStyle}>How It Works</button>
           <button onClick={onNavigateSimulations} style={navLinkStyle}>Interview Library</button>
@@ -93,29 +93,37 @@ export const AuthNavbar: React.FC<AuthNavbarProps> = ({
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
+            title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            aria-label="Toggle Theme"
             style={{
-              background: 'transparent',
+              background: 'var(--bg-surface)',
               border: '1px solid var(--border-subtle)',
               color: 'var(--text-secondary)',
               cursor: 'pointer',
-              display: 'flex',
+              display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '7px',
+              width: '36px',
+              height: '36px',
               borderRadius: '50%',
               transition: 'all 0.2s ease',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--bg-surface)';
+              e.currentTarget.style.backgroundColor = 'var(--bg-card-hover)';
               e.currentTarget.style.color = 'var(--text-main)';
+              e.currentTarget.style.borderColor = 'var(--border-accent)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.backgroundColor = 'var(--bg-surface)';
               e.currentTarget.style.color = 'var(--text-secondary)';
+              e.currentTarget.style.borderColor = 'var(--border-subtle)';
             }}
-            aria-label="Toggle Theme"
           >
-            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+            {theme === 'dark' ? (
+              <Sun size={16} color="#eab308" />
+            ) : (
+              <Moon size={16} color="#6366f1" />
+            )}
           </button>
 
           <span style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>

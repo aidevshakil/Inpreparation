@@ -608,6 +608,12 @@ export function App() {
           onNavigateToCategories={() => navigateTo('categories')}
           onNavigateToSearch={() => navigateTo('search')}
           onNavigateToAi={() => navigateTo('chat')}
+          onNavigateToLogin={() => navigateTo('login')}
+          onNavigateToSignup={() => navigateTo('signup')}
+          onNavigateToFeatures={() => navigateTo('features')}
+          onNavigateToHowItWorks={() => navigateTo('how-it-works')}
+          onNavigateToPricing={() => navigateTo('pricing')}
+          onNavigateToFaq={() => navigateTo('faq')}
         />
       )}
 

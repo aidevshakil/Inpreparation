@@ -69,6 +69,14 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const handleLinkClick = (link: typeof navLinks[0], e: React.MouseEvent) => {
     e.preventDefault();
+    if (currentPage === 'home' && link.href && link.href.startsWith('#')) {
+      const targetEl = document.querySelector(link.href);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+        window.history.replaceState(null, '', link.href);
+        return;
+      }
+    }
     handleNavigatePage(link.page);
   };
 

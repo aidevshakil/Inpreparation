@@ -36,6 +36,9 @@ export const SignupPage: React.FC<SignupPageProps> = ({
         onNavigateCategories={onNavigateToSimulations}
         onNavigatePricing={onNavigateToPricing}
         onNavigateFaq={onNavigateToFaq}
+        ctaPrompt="Already have an account?"
+        ctaLabel="Log In"
+        onNavigateCta={onNavigateToLogin}
         onNavigateSignUp={onNavigateToLogin}
       />
 

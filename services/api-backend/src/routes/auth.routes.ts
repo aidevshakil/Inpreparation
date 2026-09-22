@@ -219,6 +219,11 @@ authRouter.post('/login', validate(loginSchema), async (req: Request, res: Respo
     let user = await prisma.user.findUnique({
       where: { email: cleanEmail },
       include: {
+        candidateProfile: true,
+        resumes: {
+          orderBy: { createdAt: 'desc' },
+          take: 1,
+        },
         simulations: {
           take: 5,
           orderBy: { createdAt: 'desc' },
@@ -239,7 +244,23 @@ authRouter.post('/login', validate(loginSchema), async (req: Request, res: Respo
     }
     
     const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
-    return res.json({ success: true, message: 'Logged in successfully', user, token });
+    const targetRole = user.targetRole || user.candidateProfile?.targetRole || '';
+    const cvFileName = user.resumes?.[0]?.fileName;
+    const cvSkills = user.candidateProfile?.skills || user.resumes?.[0]?.skills || [];
+    const cvAtsScore = user.resumes?.[0]?.atsScore;
+
+    return res.json({ 
+      success: true, 
+      message: 'Logged in successfully', 
+      user: {
+        ...user,
+        targetRole,
+        cvFileName,
+        cvSkills,
+        cvAtsScore,
+      }, 
+      token 
+    });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
@@ -265,10 +286,13 @@ authRouter.post('/google', validate(googleSchema), async (req: Request, res: Res
     const { credential } = req.body;
     const idToken = credential || req.body.idToken || req.body.accessToken;
 
+    const clientId = process.env.GOOGLE_CLIENT_ID || '750479771075-8tac688o0ag749vk6gg687844sbucdde.apps.googleusercontent.com';
+    const client = new OAuth2Client(clientId);
+
     // Verify ID token cryptographically
-    const ticket = await googleClient.verifyIdToken({
+    const ticket = await client.verifyIdToken({
       idToken: idToken,
-      audience: process.env.GOOGLE_CLIENT_ID || 'your-google-client-id-here',
+      audience: clientId,
     });
     const payload = ticket.getPayload();
     if (!payload || !payload.email) {
@@ -280,6 +304,11 @@ authRouter.post('/google', validate(googleSchema), async (req: Request, res: Res
     let user = await prisma.user.findUnique({
       where: { email: cleanEmail },
       include: {
+        candidateProfile: true,
+        resumes: {
+          orderBy: { createdAt: 'desc' },
+          take: 1,
+        },
         simulations: {
           take: 5,
           orderBy: { createdAt: 'desc' },
@@ -293,22 +322,52 @@ authRouter.post('/google', validate(googleSchema), async (req: Request, res: Res
           email: cleanEmail,
           name: payload.name || cleanEmail.split('@')[0],
           targetRole: null,
+          avatarUrl: payload.picture || null,
           isEmailVerified: true, // Google verified
         },
         include: {
+          candidateProfile: true,
+          resumes: true,
           simulations: true,
+        },
+      });
+    } else if (!user.isEmailVerified || (payload.picture && !user.avatarUrl)) {
+      user = await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          isEmailVerified: true,
+          avatarUrl: user.avatarUrl || payload.picture || null,
+        },
+        include: {
+          candidateProfile: true,
+          resumes: {
+            orderBy: { createdAt: 'desc' },
+            take: 1,
+          },
+          simulations: {
+            take: 5,
+            orderBy: { createdAt: 'desc' },
+          },
         },
       });
     }
 
     const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
+    const targetRole = user.targetRole || user.candidateProfile?.targetRole || '';
+    const cvFileName = user.resumes?.[0]?.fileName;
+    const cvSkills = user.candidateProfile?.skills || user.resumes?.[0]?.skills || [];
+    const cvAtsScore = user.resumes?.[0]?.atsScore;
 
     res.json({ 
       success: true, 
       message: 'Logged in via Google successfully', 
       user: {
         ...user,
-        picture: payload.picture,
+        targetRole,
+        cvFileName,
+        cvSkills,
+        cvAtsScore,
+        picture: payload.picture || user.avatarUrl,
       },
       token
     });
