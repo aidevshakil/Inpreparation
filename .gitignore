@@ -67,14 +67,13 @@ jspm_packages/
 .yarn-integrity
 
 # dotenv environment variable files
-.env
 .env.development.local
 .env.test.local
 .env.production.local
-.env.local
 
 # Turborepo cache
 .turbo
+temp_auto_push.bat
 
 # Vite build output
 dist
@@ -147,9 +146,11 @@ services/ai-service/weights/
 
 # IDE / OS
 .idea/
-.vscode/
 *.swp
 *.swo
 *~
 .DS_Store
 Thumbs.db
+.gitignore
+branch_structure.json
+config.bat

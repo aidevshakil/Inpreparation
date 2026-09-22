@@ -36,7 +36,7 @@ export const ResetSecurityPreview: React.FC = () => {
         <h2 style={{
           fontSize: '36px',
           fontWeight: 800,
-          color: '#ffffff',
+          color: 'var(--text-main)',
           letterSpacing: '-0.03em',
           lineHeight: 1.15,
           margin: '0 0 14px 0'
@@ -46,7 +46,7 @@ export const ResetSecurityPreview: React.FC = () => {
 
         <p style={{
           fontSize: '14px',
-          color: '#94a3b8',
+          color: 'var(--text-secondary)',
           lineHeight: 1.6,
           margin: 0
         }}>
@@ -56,11 +56,11 @@ export const ResetSecurityPreview: React.FC = () => {
 
       {/* Security Defense Card */}
       <div style={{
-        background: 'rgba(12, 17, 29, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '16px',
         padding: '20px',
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)'
+        boxShadow: 'var(--shadow-md)'
       }}>
         {/* Card Header */}
         <div style={{
@@ -75,11 +75,11 @@ export const ResetSecurityPreview: React.FC = () => {
             gap: '8px',
             fontSize: '11.5px',
             fontWeight: 700,
-            color: '#a5b4fc',
+            color: 'var(--primary-color)',
             letterSpacing: '0.05em',
             textTransform: 'uppercase'
           }}>
-            <ShieldCheck size={16} color="#818cf8" />
+            <ShieldCheck size={16} color="var(--primary-color)" />
             <span>AUTHENTICATION &amp; TELEMETRY SAFEGUARDS</span>
           </div>
 
@@ -89,7 +89,7 @@ export const ResetSecurityPreview: React.FC = () => {
             border: '1px solid rgba(16, 185, 129, 0.3)',
             fontSize: '11px',
             fontWeight: 600,
-            color: '#34d399',
+            color: '#10b981',
             background: 'rgba(16, 185, 129, 0.1)'
           }}>
             Argon2id Enforced
@@ -105,8 +105,8 @@ export const ResetSecurityPreview: React.FC = () => {
           
           {/* Card 1: Zero-Knowledge Key Derivation */}
           <div style={{
-            background: 'rgba(255, 255, 255, 0.02)',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '12px',
             padding: '14px',
             display: 'flex',
@@ -126,19 +126,19 @@ export const ResetSecurityPreview: React.FC = () => {
               }}>
                 <Lock size={14} />
               </div>
-              <h3 style={{ fontSize: '12.5px', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+              <h3 style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                 Argon2id Derivation
               </h3>
             </div>
-            <p style={{ fontSize: '11.5px', color: '#94a3b8', lineHeight: 1.45, margin: 0 }}>
+            <p style={{ fontSize: '11.5px', color: 'var(--text-secondary)', lineHeight: 1.45, margin: 0 }}>
               Credentials are never persisted in plaintext. Memory-hard salted key derivation protects against GPU-accelerated brute force attacks.
             </p>
           </div>
 
           {/* Card 2: Universal Session Invalidation */}
           <div style={{
-            background: 'rgba(255, 255, 255, 0.02)',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '12px',
             padding: '14px',
             display: 'flex',
@@ -158,19 +158,19 @@ export const ResetSecurityPreview: React.FC = () => {
               }}>
                 <RefreshCw size={14} />
               </div>
-              <h3 style={{ fontSize: '12.5px', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+              <h3 style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                 Session Invalidation
               </h3>
             </div>
-            <p style={{ fontSize: '11.5px', color: '#94a3b8', lineHeight: 1.45, margin: 0 }}>
+            <p style={{ fontSize: '11.5px', color: 'var(--text-secondary)', lineHeight: 1.45, margin: 0 }}>
               Resetting your password immediately revokes active refresh tokens and terminates previous browser and client sessions.
             </p>
           </div>
 
           {/* Card 3: Encrypted Telemetry Vault */}
           <div style={{
-            background: 'rgba(255, 255, 255, 0.02)',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '12px',
             padding: '14px',
             display: 'flex',
@@ -190,19 +190,19 @@ export const ResetSecurityPreview: React.FC = () => {
               }}>
                 <FileCheck size={14} />
               </div>
-              <h3 style={{ fontSize: '12.5px', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+              <h3 style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                 Telemetry Vault
               </h3>
             </div>
-            <p style={{ fontSize: '11.5px', color: '#94a3b8', lineHeight: 1.45, margin: 0 }}>
+            <p style={{ fontSize: '11.5px', color: 'var(--text-secondary)', lineHeight: 1.45, margin: 0 }}>
               Your mock practice recordings, acoustic WPM benchmarks, and AI scoring rubrics remain locked in your encrypted candidate vault.
             </p>
           </div>
 
           {/* Card 4: Biometric & 2FA Ready */}
           <div style={{
-            background: 'rgba(255, 255, 255, 0.02)',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '12px',
             padding: '14px',
             display: 'flex',
@@ -222,11 +222,11 @@ export const ResetSecurityPreview: React.FC = () => {
               }}>
                 <Fingerprint size={14} />
               </div>
-              <h3 style={{ fontSize: '12.5px', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+              <h3 style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                 Biometric 2FA Ready
               </h3>
             </div>
-            <p style={{ fontSize: '11.5px', color: '#94a3b8', lineHeight: 1.45, margin: 0 }}>
+            <p style={{ fontSize: '11.5px', color: 'var(--text-secondary)', lineHeight: 1.45, margin: 0 }}>
               Once signed in, you can enroll in Passkeys (WebAuthn) or time-based one-time password (TOTP) authenticators for zero-phishing access.
             </p>
           </div>
@@ -236,27 +236,28 @@ export const ResetSecurityPreview: React.FC = () => {
 
       {/* Responsible AI & Candidate Data Sovereignty */}
       <div style={{
-        background: 'rgba(12, 17, 29, 0.75)',
-        border: '1px solid rgba(255, 255, 255, 0.06)',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '14px',
         padding: '16px 20px',
         display: 'flex',
         alignItems: 'flex-start',
-        gap: '14px'
+        gap: '14px',
+        boxShadow: 'var(--shadow-sm)'
       }}>
-        <ShieldAlert size={20} color="#818cf8" style={{ flexShrink: 0, marginTop: '2px' }} />
+        <ShieldAlert size={20} color="var(--primary-color)" style={{ flexShrink: 0, marginTop: '2px' }} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           <h4 style={{
             fontSize: '13px',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             margin: 0
           }}>
             Responsible AI &amp; Candidate Data Sovereignty
           </h4>
           <p style={{
             fontSize: '12px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.55,
             margin: 0
           }}>
