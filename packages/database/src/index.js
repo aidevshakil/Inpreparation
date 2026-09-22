@@ -15,9 +15,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.prisma = void 0;
-const client_1 = require("./generated/client");
+const index_js_1 = require("./generated/client/index.js");
 exports.prisma = globalThis.prismaGlobal ??
-    new client_1.PrismaClient({
+    new index_js_1.PrismaClient({
         log: [
             { emit: 'stdout', level: 'query' },
             { emit: 'stdout', level: 'info' },
@@ -28,5 +28,5 @@ exports.prisma = globalThis.prismaGlobal ??
 if (process.env.NODE_ENV !== 'production') {
     globalThis.prismaGlobal = exports.prisma;
 }
-__exportStar(require("./generated/client"), exports);
+__exportStar(require("./generated/client/index.js"), exports);
 exports.default = exports.prisma;
