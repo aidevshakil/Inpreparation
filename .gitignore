@@ -75,6 +75,7 @@ jspm_packages/
 
 # Turborepo cache
 .turbo
+temp_auto_push.bat
 
 # Vite build output
 dist
@@ -147,9 +148,10 @@ services/ai-service/weights/
 
 # IDE / OS
 .idea/
-.vscode/
 *.swp
 *.swo
 *~
 .DS_Store
 Thumbs.db
+.gitignore
+branch_structure.json
