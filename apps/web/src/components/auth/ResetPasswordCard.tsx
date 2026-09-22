@@ -81,12 +81,12 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
       
       {/* Main Glassmorphic Card */}
       <div style={{
-        background: 'rgba(10, 14, 23, 0.85)',
+        background: 'var(--bg-card)',
         backdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '20px',
         padding: '32px',
-        boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+        boxShadow: 'var(--shadow-xl)',
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
@@ -105,17 +105,17 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
             border: '1px solid rgba(99, 102, 241, 0.25)',
             fontSize: '11px',
             fontWeight: 600,
-            color: '#a5b4fc',
+            color: 'var(--primary-color)',
             letterSpacing: '0.02em'
           }}>
-            <KeyRound size={13} color="#818cf8" />
+            <KeyRound size={13} color="var(--primary-color)" />
             <span>Account Security &amp; Credential Recovery</span>
           </div>
 
           <div style={{
             fontSize: '11px',
             fontWeight: 700,
-            color: '#64748b',
+            color: 'var(--text-muted)',
             letterSpacing: '0.08em',
             textTransform: 'uppercase'
           }}>
@@ -128,7 +128,7 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
           <h1 style={{
             fontSize: '26px',
             fontWeight: 800,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             margin: '0 0 8px 0'
           }}>
@@ -136,7 +136,7 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
           </h1>
           <p style={{
             fontSize: '13px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.5,
             margin: 0
           }}>
@@ -230,7 +230,7 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
             <label style={{
               fontSize: '11px',
               fontWeight: 700,
-              color: '#94a3b8',
+              color: 'var(--text-main)',
               letterSpacing: '0.06em',
               textTransform: 'uppercase'
             }}>
@@ -241,7 +241,7 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
               <div style={{
                 position: 'absolute',
                 left: '14px',
-                color: '#64748b',
+                color: 'var(--text-muted)',
                 display: 'flex',
                 alignItems: 'center',
                 pointerEvents: 'none'
@@ -258,23 +258,23 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
                   width: '100%',
                   padding: '12px 42px 12px 40px',
                   borderRadius: '10px',
-                  background: 'rgba(255, 255, 255, 0.03)',
+                  background: 'var(--bg-surface)',
                   border: localStatus === 'weak-password'
                     ? '1px solid #ef4444'
-                    : '1px solid rgba(255, 255, 255, 0.1)',
-                  color: '#f8fafc',
+                    : '1px solid var(--border-subtle)',
+                  color: 'var(--text-main)',
                   fontSize: '13.5px',
                   outline: 'none',
                   boxSizing: 'border-box',
                   transition: 'border-color 0.2s ease'
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = '#6366f1';
+                  e.target.style.borderColor = 'var(--primary-color)';
                 }}
                 onBlur={(e) => {
                   e.target.style.borderColor = localStatus === 'weak-password'
                     ? '#ef4444'
-                    : 'rgba(255, 255, 255, 0.1)';
+                    : 'var(--border-subtle)';
                 }}
               />
 
@@ -286,7 +286,7 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
                   right: '12px',
                   background: 'transparent',
                   border: 'none',
-                  color: '#64748b',
+                  color: 'var(--text-muted)',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
@@ -302,7 +302,7 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
               <>
                 <div style={{ marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '11px' }}>
-                    <span style={{ color: '#64748b' }}>Password Strength:</span>
+                    <span style={{ color: 'var(--text-muted)' }}>Password Strength:</span>
                     <span style={{ fontWeight: 600, color: strength.color }}>{strength.label}</span>
                   </div>
 
@@ -313,7 +313,7 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
                         style={{
                           height: '3px',
                           borderRadius: '2px',
-                          background: bar <= strength.bars ? strength.color : 'rgba(255, 255, 255, 0.08)',
+                          background: bar <= strength.bars ? strength.color : 'var(--border-subtle)',
                           transition: 'background 0.3s ease'
                         }}
                       />
@@ -329,22 +329,22 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
                   marginTop: '4px',
                   fontSize: '11px'
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasMinLength ? '#34d399' : '#64748b' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasMinLength ? '#10b981' : 'var(--text-muted)' }}>
                     {hasMinLength ? <Check size={12} strokeWidth={3} /> : <X size={12} />}
                     <span>8+ characters</span>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasUppercase ? '#34d399' : '#64748b' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasUppercase ? '#10b981' : 'var(--text-muted)' }}>
                     {hasUppercase ? <Check size={12} strokeWidth={3} /> : <X size={12} />}
                     <span>1 uppercase letter</span>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasNumber ? '#34d399' : '#64748b' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasNumber ? '#10b981' : 'var(--text-muted)' }}>
                     {hasNumber ? <Check size={12} strokeWidth={3} /> : <X size={12} />}
                     <span>1 number</span>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasSpecial ? '#34d399' : '#64748b' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasSpecial ? '#10b981' : 'var(--text-muted)' }}>
                     {hasSpecial ? <Check size={12} strokeWidth={3} /> : <X size={12} />}
                     <span>1 symbol/special</span>
                   </div>
@@ -359,7 +359,7 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
               <label style={{
                 fontSize: '11px',
                 fontWeight: 700,
-                color: '#94a3b8',
+                color: 'var(--text-main)',
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase'
               }}>
@@ -370,7 +370,7 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
                 <span style={{
                   fontSize: '11px',
                   fontWeight: 600,
-                  color: isMatch ? '#34d399' : '#ef4444'
+                  color: isMatch ? '#10b981' : '#ef4444'
                 }}>
                   {isMatch ? 'Passwords match' : 'Passwords do not match'}
                 </span>
@@ -381,7 +381,7 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
               <div style={{
                 position: 'absolute',
                 left: '14px',
-                color: '#64748b',
+                color: 'var(--text-muted)',
                 display: 'flex',
                 alignItems: 'center',
                 pointerEvents: 'none'
@@ -398,23 +398,23 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
                   width: '100%',
                   padding: '12px 42px 12px 40px',
                   borderRadius: '10px',
-                  background: 'rgba(255, 255, 255, 0.03)',
+                  background: 'var(--bg-surface)',
                   border: localStatus === 'mismatch' || (confirmPassword.length > 0 && !isMatch)
                     ? '1px solid #ef4444'
-                    : '1px solid rgba(255, 255, 255, 0.1)',
-                  color: '#f8fafc',
+                    : '1px solid var(--border-subtle)',
+                  color: 'var(--text-main)',
                   fontSize: '13.5px',
                   outline: 'none',
                   boxSizing: 'border-box',
                   transition: 'border-color 0.2s ease'
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = '#6366f1';
+                  e.target.style.borderColor = 'var(--primary-color)';
                 }}
                 onBlur={(e) => {
                   e.target.style.borderColor = localStatus === 'mismatch' || (confirmPassword.length > 0 && !isMatch)
                     ? '#ef4444'
-                    : 'rgba(255, 255, 255, 0.1)';
+                    : 'var(--border-subtle)';
                 }}
               />
 
@@ -426,7 +426,7 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
                   right: '12px',
                   background: 'transparent',
                   border: 'none',
-                  color: '#64748b',
+                  color: 'var(--text-muted)',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
@@ -511,7 +511,7 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
           justifyContent: 'space-between',
           fontSize: '12.5px',
           paddingTop: '4px',
-          borderTop: '1px solid rgba(255, 255, 255, 0.06)'
+          borderTop: '1px solid var(--border-subtle)'
         }}>
           <button
             type="button"
@@ -520,15 +520,15 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
               background: 'transparent',
               border: 'none',
               padding: 0,
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
               cursor: 'pointer',
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
               fontSize: '12.5px'
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#94a3b8'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-main)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; }}
           >
             <ArrowLeft size={13} />
             <span>Back to Log In</span>
@@ -541,12 +541,12 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
               background: 'transparent',
               border: 'none',
               padding: 0,
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
               cursor: 'pointer',
               fontSize: '12.5px'
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = '#818cf8'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#94a3b8'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--primary-color)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; }}
           >
             Request New Link
           </button>
@@ -558,10 +558,10 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
           alignItems: 'flex-start',
           gap: '8px',
           fontSize: '11px',
-          color: '#64748b',
+          color: 'var(--text-muted)',
           lineHeight: 1.45
         }}>
-          <ShieldCheck size={13} color="#64748b" style={{ flexShrink: 0, marginTop: '2px' }} />
+          <ShieldCheck size={13} color="var(--text-muted)" style={{ flexShrink: 0, marginTop: '2px' }} />
           <span>
             Passwords are salted and cryptographically hashed with Argon2id. We enforce zero-knowledge authentication across all candidate records.
           </span>
