@@ -81,7 +81,7 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
         <h2 style={{
           fontSize: '36px',
           fontWeight: 800,
-          color: '#ffffff',
+          color: 'var(--text-main)',
           letterSpacing: '-0.03em',
           lineHeight: 1.15,
           margin: '0 0 14px 0'
@@ -91,7 +91,7 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
 
         <p style={{
           fontSize: '14px',
-          color: '#94a3b8',
+          color: 'var(--text-secondary)',
           lineHeight: 1.6,
           margin: 0
         }}>
@@ -101,11 +101,11 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
 
       {/* The Candidate Journey Flow Card */}
       <div style={{
-        background: 'rgba(12, 17, 29, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '16px',
         padding: '20px',
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)'
+        boxShadow: 'var(--shadow-md)'
       }}>
         {/* Card Header */}
         <div style={{
@@ -120,21 +120,21 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
             gap: '8px',
             fontSize: '11.5px',
             fontWeight: 700,
-            color: '#a5b4fc',
+            color: 'var(--primary-color)',
             letterSpacing: '0.05em',
             textTransform: 'uppercase'
           }}>
-            <Activity size={15} color="#818cf8" />
+            <Activity size={15} color="var(--primary-color)" />
             <span>THE CANDIDATE JOURNEY FLOW</span>
           </div>
 
           <div style={{
             padding: '3px 10px',
             borderRadius: '9999px',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            border: '1px solid var(--border-subtle)',
             fontSize: '11px',
-            color: '#94a3b8',
-            background: 'rgba(255, 255, 255, 0.03)'
+            color: 'var(--text-secondary)',
+            background: 'var(--bg-surface)'
           }}>
             7 Progressive Milestones
           </div>
@@ -150,8 +150,8 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
             <div
               key={step.num}
               style={{
-                background: step.isActive ? 'rgba(79, 70, 229, 0.18)' : 'rgba(255, 255, 255, 0.02)',
-                border: step.isActive ? '1px solid #6366f1' : '1px solid rgba(255, 255, 255, 0.06)',
+                background: step.isActive ? 'rgba(79, 70, 229, 0.12)' : 'var(--bg-surface)',
+                border: step.isActive ? '1px solid var(--primary-color)' : '1px solid var(--border-subtle)',
                 borderRadius: '10px',
                 padding: '10px 8px',
                 display: 'flex',
@@ -168,7 +168,7 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
                 <span style={{
                   fontSize: '10.5px',
                   fontWeight: 700,
-                  color: step.isActive ? '#a5b4fc' : '#64748b'
+                  color: step.isActive ? 'var(--primary-color)' : 'var(--text-muted)'
                 }}>
                   {step.num}
                 </span>
@@ -177,8 +177,8 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
                     width: '6px',
                     height: '6px',
                     borderRadius: '50%',
-                    background: '#818cf8',
-                    boxShadow: '0 0 6px #818cf8'
+                    background: 'var(--primary-color)',
+                    boxShadow: '0 0 6px var(--primary-color)'
                   }} />
                 )}
               </div>
@@ -186,7 +186,7 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
               <div style={{
                 fontSize: '11px',
                 fontWeight: 700,
-                color: step.isActive ? '#ffffff' : '#cbd5e1',
+                color: step.isActive ? 'var(--primary-color)' : 'var(--text-main)',
                 lineHeight: 1.25
               }}>
                 {step.title}
@@ -194,7 +194,7 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
 
               <div style={{
                 fontSize: '9.5px',
-                color: step.isActive ? '#a5b4fc' : '#64748b',
+                color: step.isActive ? 'var(--primary-color)' : 'var(--text-muted)',
                 lineHeight: 1.2
               }}>
                 {step.subtitle}
@@ -213,13 +213,14 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
         
         {/* Card 1: Role-Specific Simulation */}
         <div style={{
-          background: 'rgba(12, 17, 29, 0.75)',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '14px',
           padding: '16px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '10px'
+          gap: '10px',
+          boxShadow: 'var(--shadow-sm)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{
@@ -237,7 +238,7 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
             <h3 style={{
               fontSize: '13.5px',
               fontWeight: 700,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               margin: 0
             }}>
               Role-Specific Simulation
@@ -245,7 +246,7 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
           </div>
           <p style={{
             fontSize: '12px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.5,
             margin: 0
           }}>
@@ -255,13 +256,14 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
 
         {/* Card 2: Technical Deep-Dive Rubrics */}
         <div style={{
-          background: 'rgba(12, 17, 29, 0.75)',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '14px',
           padding: '16px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '10px'
+          gap: '10px',
+          boxShadow: 'var(--shadow-sm)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{
@@ -279,7 +281,7 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
             <h3 style={{
               fontSize: '13.5px',
               fontWeight: 700,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               margin: 0
             }}>
               Technical Deep-Dive Rubrics
@@ -287,7 +289,7 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
           </div>
           <p style={{
             fontSize: '12px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.5,
             margin: 0
           }}>
@@ -297,13 +299,14 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
 
         {/* Card 3: Speech Cadence & Delivery */}
         <div style={{
-          background: 'rgba(12, 17, 29, 0.75)',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '14px',
           padding: '16px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '10px'
+          gap: '10px',
+          boxShadow: 'var(--shadow-sm)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{
@@ -321,7 +324,7 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
             <h3 style={{
               fontSize: '13.5px',
               fontWeight: 700,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               margin: 0
             }}>
               Speech Cadence &amp; Delivery
@@ -329,7 +332,7 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
           </div>
           <p style={{
             fontSize: '12px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.5,
             margin: 0
           }}>
@@ -339,13 +342,14 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
 
         {/* Card 4: Observable Video Hygiene */}
         <div style={{
-          background: 'rgba(12, 17, 29, 0.75)',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '14px',
           padding: '16px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '10px'
+          gap: '10px',
+          boxShadow: 'var(--shadow-sm)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{
@@ -363,7 +367,7 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
             <h3 style={{
               fontSize: '13.5px',
               fontWeight: 700,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               margin: 0
             }}>
               Observable Video Hygiene
@@ -371,7 +375,7 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
           </div>
           <p style={{
             fontSize: '12px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.5,
             margin: 0
           }}>
@@ -383,27 +387,28 @@ export const EmailVerificationJourneyPreview: React.FC = () => {
 
       {/* Responsible AI & Multimodal Transparency Card */}
       <div style={{
-        background: 'rgba(12, 17, 29, 0.75)',
-        border: '1px solid rgba(255, 255, 255, 0.06)',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '14px',
         padding: '16px 20px',
         display: 'flex',
         alignItems: 'flex-start',
-        gap: '14px'
+        gap: '14px',
+        boxShadow: 'var(--shadow-sm)'
       }}>
-        <ShieldAlert size={20} color="#818cf8" style={{ flexShrink: 0, marginTop: '2px' }} />
+        <ShieldAlert size={20} color="var(--primary-color)" style={{ flexShrink: 0, marginTop: '2px' }} />
         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           <h4 style={{
             fontSize: '13px',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             margin: 0
           }}>
             Responsible AI &amp; Multimodal Transparency
           </h4>
           <p style={{
             fontSize: '12px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.55,
             margin: 0
           }}>
