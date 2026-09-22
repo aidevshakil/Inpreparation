@@ -8,7 +8,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "node api.js && turbo run dev",
     "dev:backend": "pnpm --filter @service/api-backend dev",
     "dev:web": "pnpm --filter @app/web dev",
     "dev:admin": "pnpm --filter @app/admin dev",
@@ -17,7 +17,7 @@
     "db:generate": "pnpm --filter @packages/database db:generate",
     "db:push": "pnpm --filter @packages/database db:push",
     "db:studio": "pnpm --filter @packages/database db:studio",
-    "build": "turbo run build",
+    "build": "node api.js && turbo run build",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "test:ai": "cd services/ai-service && .venv\\Scripts\\python -m pytest",
