@@ -64,7 +64,13 @@ app.use(
     origin: (origin, callback) => {
       // Allow requests with no origin (curl, server-to-server, mobile apps)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) return callback(null, true);
+      if (
+        allowedOrigins.includes('*') ||
+        allowedOrigins.includes(origin) ||
+        origin.endsWith('.onrender.com')
+      ) {
+        return callback(null, true);
+      }
       return callback(new Error(`CORS: origin ${origin} not allowed`));
     },
     credentials: true,
