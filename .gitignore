@@ -147,9 +147,12 @@ services/ai-service/weights/
 
 # IDE / OS
 .idea/
-.vscode/
 *.swp
 *.swo
 *~
 .DS_Store
 Thumbs.db
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
