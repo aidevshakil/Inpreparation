@@ -9,8 +9,8 @@ export const AiAnalysisMatrix: React.FC = () => {
       title: '1. Technical Evaluation',
       desc: 'Goes beyond surface keywords. Evaluates architectural trade-offs, failover considerations, Big-O bounds, and system robustness in response to real-world edge cases.',
       metrics: [
-        { label: 'Algorithmic Complexity & Correctness', value: '92% Precision', color: '#ffffff' },
-        { label: 'Trade-Off Articulation', value: '86% Benchmark', color: '#ffffff' }
+        { label: 'Algorithmic Complexity & Correctness', value: '92% Precision', color: 'var(--text-main)' },
+        { label: 'Trade-Off Articulation', value: '86% Benchmark', color: 'var(--text-main)' }
       ]
     },
     {
@@ -19,8 +19,8 @@ export const AiAnalysisMatrix: React.FC = () => {
       title: '2. Communication Analysis',
       desc: 'Audits your response hierarchy. Measures conciseness, structured progression (Situation → Metric → Outcome), and whether your answer directly addresses the interviewer\'s constraint.',
       metrics: [
-        { label: 'Structured Causal Progression', value: 'High (STAR)', color: '#ffffff' },
-        { label: 'Direct Question Relevance', value: '94% Aligned', color: '#ffffff' }
+        { label: 'Structured Causal Progression', value: 'High (STAR)', color: 'var(--text-main)' },
+        { label: 'Direct Question Relevance', value: '94% Aligned', color: 'var(--text-main)' }
       ]
     },
     {
@@ -65,7 +65,7 @@ export const AiAnalysisMatrix: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(30px, 4.4vw, 46px)',
             fontWeight: 800,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.03em',
             lineHeight: 1.15,
             marginBottom: '16px'
@@ -75,7 +75,7 @@ export const AiAnalysisMatrix: React.FC = () => {
 
           <p style={{
             fontSize: '16px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6,
             maxWidth: '660px',
             margin: 0
@@ -95,8 +95,8 @@ export const AiAnalysisMatrix: React.FC = () => {
             <div
               key={dim.id}
               style={{
-                background: 'rgba(15, 21, 35, 0.65)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '20px',
                 padding: '30px 26px',
                 display: 'flex',
@@ -114,8 +114,8 @@ export const AiAnalysisMatrix: React.FC = () => {
                   width: '40px',
                   height: '40px',
                   borderRadius: '10px',
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -128,7 +128,7 @@ export const AiAnalysisMatrix: React.FC = () => {
                 <h3 style={{
                   fontSize: '18px',
                   fontWeight: 700,
-                  color: '#ffffff',
+                  color: 'var(--text-main)',
                   marginBottom: '12px',
                   letterSpacing: '-0.015em'
                 }}>
@@ -138,7 +138,7 @@ export const AiAnalysisMatrix: React.FC = () => {
                 {/* Description */}
                 <p style={{
                   fontSize: '13px',
-                  color: '#94a3b8',
+                  color: 'var(--text-secondary)',
                   lineHeight: 1.65,
                   marginBottom: '26px'
                 }}>
@@ -152,7 +152,7 @@ export const AiAnalysisMatrix: React.FC = () => {
                 flexDirection: 'column',
                 gap: '10px',
                 paddingTop: '16px',
-                borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+                borderTop: '1px solid var(--border-subtle)'
               }}>
                 {dim.metrics.map((m, mIdx) => (
                   <div
@@ -164,7 +164,7 @@ export const AiAnalysisMatrix: React.FC = () => {
                       fontSize: '13px'
                     }}
                   >
-                    <span style={{ color: '#94a3b8' }}>{m.label}</span>
+                    <span style={{ color: 'var(--text-secondary)' }}>{m.label}</span>
                     <span style={{ color: m.color, fontWeight: 700 }}>{m.value}</span>
                   </div>
                 ))}
@@ -175,8 +175,8 @@ export const AiAnalysisMatrix: React.FC = () => {
 
         {/* Responsible AI Transparency Notice Banner */}
         <div style={{
-          background: 'rgba(15, 21, 35, 0.75)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '20px',
           padding: '28px',
           display: 'grid',
@@ -191,7 +191,7 @@ export const AiAnalysisMatrix: React.FC = () => {
             height: '210px',
             borderRadius: '14px',
             overflow: 'hidden',
-            background: '#090d16',
+            background: 'var(--bg-surface)',
             border: '1px solid rgba(6, 182, 212, 0.3)'
           }}>
             <img
@@ -283,7 +283,7 @@ export const AiAnalysisMatrix: React.FC = () => {
             <h3 style={{
               fontSize: '22px',
               fontWeight: 800,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               letterSpacing: '-0.02em',
               marginBottom: '10px',
               lineHeight: 1.25
@@ -293,7 +293,7 @@ export const AiAnalysisMatrix: React.FC = () => {
 
             <p style={{
               fontSize: '13px',
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
               lineHeight: 1.6,
               marginBottom: '18px'
             }}>
@@ -302,15 +302,15 @@ export const AiAnalysisMatrix: React.FC = () => {
 
             {/* Ethical Guarantee Callout */}
             <div style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.07)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '10px',
               padding: '12px 14px',
               fontSize: '11px',
-              color: '#cbd5e1',
+              color: 'var(--text-secondary)',
               lineHeight: 1.55
             }}>
-              <strong style={{ color: '#ffffff' }}>• Ethical AI Guarantee:</strong> Inprep AI does <span style={{ textDecoration: 'underline' }}>not</span> infer, evaluate, or score candidate personality, emotion, intelligence, honesty, psychological traits, or mental state.
+              <strong style={{ color: 'var(--text-main)' }}>• Ethical AI Guarantee:</strong> Inprep AI does <span style={{ textDecoration: 'underline' }}>not</span> infer, evaluate, or score candidate personality, emotion, intelligence, honesty, psychological traits, or mental state.
             </div>
           </div>
         </div>

@@ -144,7 +144,7 @@ export const DomainCoverageSection: React.FC<DomainCoverageSectionProps> = ({ on
           <h2 style={{
             fontSize: 'clamp(28px, 4vw, 42px)',
             fontWeight: 800,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.025em',
             lineHeight: 1.2
           }}>
@@ -163,8 +163,8 @@ export const DomainCoverageSection: React.FC<DomainCoverageSectionProps> = ({ on
               key={track.id}
               onClick={() => onSelectTrack?.(track.title)}
               style={{
-                background: 'rgba(15, 21, 35, 0.65)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '16px',
                 padding: '24px 22px',
                 backdropFilter: 'blur(12px)',
@@ -182,7 +182,7 @@ export const DomainCoverageSection: React.FC<DomainCoverageSectionProps> = ({ on
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
+                e.currentTarget.style.borderColor = 'var(--border-subtle)';
                 e.currentTarget.style.boxShadow = 'none';
               }}
             >
@@ -205,7 +205,7 @@ export const DomainCoverageSection: React.FC<DomainCoverageSectionProps> = ({ on
 
                 <span style={{
                   fontSize: '11px',
-                  color: '#64748b',
+                  color: 'var(--text-muted)',
                   fontWeight: 500,
                   letterSpacing: '0.02em'
                 }}>
@@ -218,7 +218,7 @@ export const DomainCoverageSection: React.FC<DomainCoverageSectionProps> = ({ on
                 <h3 style={{
                   fontSize: '15px',
                   fontWeight: 700,
-                  color: '#ffffff',
+                  color: 'var(--text-main)',
                   marginBottom: '6px',
                   letterSpacing: '-0.01em'
                 }}>
@@ -226,7 +226,7 @@ export const DomainCoverageSection: React.FC<DomainCoverageSectionProps> = ({ on
                 </h3>
                 <p style={{
                   fontSize: '12px',
-                  color: '#64748b',
+                  color: 'var(--text-muted)',
                   margin: 0,
                   lineHeight: 1.5
                 }}>

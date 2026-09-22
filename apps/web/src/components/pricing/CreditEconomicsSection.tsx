@@ -51,7 +51,7 @@ export const CreditEconomicsSection: React.FC = () => {
             fontWeight: 700,
             letterSpacing: '0.06em',
             textTransform: 'uppercase',
-            color: '#a5b4fc',
+            color: 'var(--primary-color)',
             marginBottom: '14px'
           }}>
             <CreditCard size={13} />
@@ -61,7 +61,7 @@ export const CreditEconomicsSection: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(28px, 3.5vw, 38px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '10px'
           }}>
@@ -70,7 +70,7 @@ export const CreditEconomicsSection: React.FC = () => {
 
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6,
             maxWidth: '740px',
             margin: 0
@@ -90,22 +90,22 @@ export const CreditEconomicsSection: React.FC = () => {
             <div
               key={idx}
               style={{
-                background: '#0a0e18',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '18px',
                 padding: '28px 24px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.4)',
+                boxShadow: 'var(--shadow-md)',
                 transition: 'all 0.2s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.16)';
+                e.currentTarget.style.borderColor = 'var(--border-accent)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.borderColor = 'var(--border-subtle)';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
@@ -123,16 +123,16 @@ export const CreditEconomicsSection: React.FC = () => {
                   {act.icon}
                 </div>
 
-                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '10px' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '10px' }}>
                   {act.title}
                 </h3>
 
-                <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '24px' }}>
+                <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '24px' }}>
                   {act.desc}
                 </p>
               </div>
 
-              <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 600, fontFamily: 'monospace' }}>
+              <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 600, fontFamily: 'monospace' }}>
                 {act.usage}
               </div>
             </div>
@@ -141,18 +141,19 @@ export const CreditEconomicsSection: React.FC = () => {
 
         {/* Bottom Information Callout Banner */}
         <div style={{
-          background: '#0a0e18',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '14px',
           padding: '16px 20px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
-          gap: '16px'
+          gap: '16px',
+          boxShadow: 'var(--shadow-sm)'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#94a3b8' }}>
-            <Info size={16} color="#818cf8" style={{ flexShrink: 0 }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: 'var(--text-secondary)' }}>
+            <Info size={16} color="var(--primary-color)" style={{ flexShrink: 0 }} />
             <span>
               Your remaining credits are always visible in your account dashboard and refresh automatically on each renewal cycle.
             </span>
@@ -161,7 +162,7 @@ export const CreditEconomicsSection: React.FC = () => {
           <div style={{
             fontSize: '11px',
             fontWeight: 800,
-            color: '#38bdf8',
+            color: '#0284c7',
             letterSpacing: '0.08em',
             textTransform: 'uppercase'
           }}>

@@ -21,7 +21,7 @@ export const SystemTelemetrySection: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(28px, 3.5vw, 38px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '12px'
           }}>
@@ -29,7 +29,7 @@ export const SystemTelemetrySection: React.FC = () => {
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6
           }}>
             Visualizing how Inprep transforms 15 minutes of raw audio-video recording into clear, compound action levers.
@@ -38,11 +38,11 @@ export const SystemTelemetrySection: React.FC = () => {
 
         {/* Pipeline Container Card */}
         <div style={{
-          background: '#0a0e18',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '24px',
           padding: '36px 30px',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
+          boxShadow: 'var(--shadow-lg)'
         }}>
           <div style={{
             display: 'grid',
@@ -62,27 +62,27 @@ export const SystemTelemetrySection: React.FC = () => {
                 width: '54px',
                 height: '54px',
                 borderRadius: '50%',
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginBottom: '16px'
               }}>
-                <Video size={22} color="#ffffff" />
+                <Video size={22} color="var(--primary-color)" />
               </div>
-              <h4 style={{ fontSize: '16.5px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
+              <h4 style={{ fontSize: '16.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
                 Raw Session
               </h4>
-              <div style={{ fontSize: '12.5px', color: '#94a3b8', marginBottom: '18px' }}>
+              <div style={{ fontSize: '12.5px', color: 'var(--text-secondary)', marginBottom: '18px' }}>
                 AV Stream (WebRTC)
               </div>
               <span style={{
                 fontSize: '11px',
                 fontWeight: 500,
-                color: '#94a3b8',
-                background: '#121726',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                color: 'var(--text-secondary)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 padding: '4px 12px',
                 borderRadius: '6px'
               }}>
@@ -107,8 +107,8 @@ export const SystemTelemetrySection: React.FC = () => {
                   <div
                     key={i}
                     style={{
-                      background: '#060911',
-                      border: '1px solid rgba(255, 255, 255, 0.05)',
+                      background: 'var(--bg-surface)',
+                      border: '1px solid var(--border-subtle)',
                       borderRadius: '8px',
                       padding: '10px 14px',
                       display: 'flex',
@@ -118,7 +118,7 @@ export const SystemTelemetrySection: React.FC = () => {
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
                       <IconComp size={14} color={pipe.color} />
-                      <span style={{ fontSize: '12px', color: '#cbd5e1', fontWeight: 500 }}>
+                      <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: 500 }}>
                         {pipe.label}
                       </span>
                     </div>
@@ -151,10 +151,10 @@ export const SystemTelemetrySection: React.FC = () => {
               }}>
                 <RefreshCw size={22} color="#c084fc" />
               </div>
-              <h4 style={{ fontSize: '16.5px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
+              <h4 style={{ fontSize: '16.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
                 Multimodal Engine
               </h4>
-              <div style={{ fontSize: '12.5px', color: '#94a3b8', marginBottom: '18px' }}>
+              <div style={{ fontSize: '12.5px', color: 'var(--text-secondary)', marginBottom: '18px' }}>
                 Cross-Sensor Correlation
               </div>
               <span style={{
@@ -191,16 +191,16 @@ export const SystemTelemetrySection: React.FC = () => {
               }}>
                 <CheckCheck size={22} color="#38bdf8" />
               </div>
-              <h4 style={{ fontSize: '16.5px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
+              <h4 style={{ fontSize: '16.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
                 Action Blueprint
               </h4>
-              <div style={{ fontSize: '12.5px', color: '#94a3b8', marginBottom: '18px' }}>
+              <div style={{ fontSize: '12.5px', color: 'var(--text-secondary)', marginBottom: '18px' }}>
                 Staff-Tier Benchmark
               </div>
               <span style={{
                 fontSize: '11px',
                 color: '#38bdf8',
-                background: '#0d283f',
+                background: 'var(--bg-surface)',
                 border: '1px solid rgba(56, 189, 248, 0.25)',
                 padding: '4px 12px',
                 borderRadius: '6px',

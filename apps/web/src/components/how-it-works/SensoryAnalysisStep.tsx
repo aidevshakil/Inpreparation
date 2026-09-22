@@ -21,7 +21,7 @@ export const SensoryAnalysisStep: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(28px, 3.5vw, 38px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '12px'
           }}>
@@ -29,7 +29,7 @@ export const SensoryAnalysisStep: React.FC = () => {
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6
           }}>
             Executive hiring committees evaluate far more than verbatim recall. Inprep processes your session across 4 distinct sensory dimensions in real-time.
@@ -45,14 +45,14 @@ export const SensoryAnalysisStep: React.FC = () => {
         }}>
           {/* Card 1: Technical Evaluation */}
           <div style={{
-            background: '#0a0e18',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '20px',
             padding: '24px 22px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            boxShadow: '0 12px 30px rgba(0, 0, 0, 0.4)'
+            boxShadow: 'var(--shadow-md)'
           }}>
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
@@ -73,35 +73,35 @@ export const SensoryAnalysisStep: React.FC = () => {
                 </div>
               </div>
 
-              <h3 style={{ fontSize: '16.5px', fontWeight: 700, color: '#ffffff', marginBottom: '8px' }}>
+              <h3 style={{ fontSize: '16.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px' }}>
                 Technical Evaluation
               </h3>
-              <p style={{ fontSize: '12.5px', color: '#94a3b8', lineHeight: 1.5, marginBottom: '22px' }}>
+              <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: '22px' }}>
                 Algorithmic correctness, edge cases, system trade-offs, and fallback engineering.
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', marginBottom: '22px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
-                  <span style={{ color: '#94a3b8' }}>Problem Solving</span>
-                  <span style={{ color: '#f8fafc', fontWeight: 600 }}>90%</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>Problem Solving</span>
+                  <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>90%</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
-                  <span style={{ color: '#94a3b8' }}>Edge Case Coverage</span>
-                  <span style={{ color: '#f8fafc', fontWeight: 600 }}>82%</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>Edge Case Coverage</span>
+                  <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>82%</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
-                  <span style={{ color: '#94a3b8' }}>Architectural Rationale</span>
-                  <span style={{ color: '#f8fafc', fontWeight: 600 }}>86%</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>Architectural Rationale</span>
+                  <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>86%</span>
                 </div>
               </div>
             </div>
 
             <div style={{
               fontSize: '11.5px',
-              color: '#818cf8',
-              fontWeight: 600,
+              color: 'var(--primary-color)',
+              fontWeight: 700,
               paddingTop: '12px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+              borderTop: '1px solid var(--border-subtle)'
             }}>
               Sub-score: Exceeds Staff Bar
             </div>
@@ -109,14 +109,14 @@ export const SensoryAnalysisStep: React.FC = () => {
 
           {/* Card 2: Communication Quality */}
           <div style={{
-            background: '#0a0e18',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '20px',
             padding: '24px 22px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            boxShadow: '0 12px 30px rgba(0, 0, 0, 0.4)'
+            boxShadow: 'var(--shadow-md)'
           }}>
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
@@ -137,35 +137,35 @@ export const SensoryAnalysisStep: React.FC = () => {
                 </div>
               </div>
 
-              <h3 style={{ fontSize: '16.5px', fontWeight: 700, color: '#ffffff', marginBottom: '8px' }}>
+              <h3 style={{ fontSize: '16.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px' }}>
                 Communication Quality
               </h3>
-              <p style={{ fontSize: '12.5px', color: '#94a3b8', lineHeight: 1.5, marginBottom: '22px' }}>
+              <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: '22px' }}>
                 Answer structure (STAR/PREP), conciseness, executive summarization, and tone control.
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', marginBottom: '22px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
-                  <span style={{ color: '#94a3b8' }}>Clarity & Structure</span>
-                  <span style={{ color: '#f8fafc', fontWeight: 600 }}>88%</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>Clarity & Structure</span>
+                  <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>88%</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
-                  <span style={{ color: '#94a3b8' }}>Conciseness</span>
-                  <span style={{ color: '#f8fafc', fontWeight: 600 }}>79%</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>Conciseness</span>
+                  <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>79%</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
-                  <span style={{ color: '#94a3b8' }}>Executive Polish</span>
-                  <span style={{ color: '#f8fafc', fontWeight: 600 }}>85%</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>Executive Polish</span>
+                  <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>85%</span>
                 </div>
               </div>
             </div>
 
             <div style={{
               fontSize: '11.5px',
-              color: '#38bdf8',
-              fontWeight: 600,
+              color: '#0284c7',
+              fontWeight: 700,
               paddingTop: '12px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+              borderTop: '1px solid var(--border-subtle)'
             }}>
               Sub-score: Crisp Delivery
             </div>
@@ -173,14 +173,14 @@ export const SensoryAnalysisStep: React.FC = () => {
 
           {/* Card 3: Speech Intelligence */}
           <div style={{
-            background: '#0a0e18',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '20px',
             padding: '24px 22px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            boxShadow: '0 12px 30px rgba(0, 0, 0, 0.4)'
+            boxShadow: 'var(--shadow-md)'
           }}>
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
@@ -194,42 +194,42 @@ export const SensoryAnalysisStep: React.FC = () => {
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}>
-                  <Volume2 size={19} color="#c084fc" />
+                  <Volume2 size={19} color="#a855f7" />
                 </div>
-                <div style={{ fontSize: '22px', fontWeight: 800, color: '#c084fc', letterSpacing: '-0.02em' }}>
+                <div style={{ fontSize: '22px', fontWeight: 800, color: '#a855f7', letterSpacing: '-0.02em' }}>
                   81<span style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>/100</span>
                 </div>
               </div>
 
-              <h3 style={{ fontSize: '16.5px', fontWeight: 700, color: '#ffffff', marginBottom: '8px' }}>
+              <h3 style={{ fontSize: '16.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px' }}>
                 Speech Intelligence
               </h3>
-              <p style={{ fontSize: '12.5px', color: '#94a3b8', lineHeight: 1.5, marginBottom: '22px' }}>
+              <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: '22px' }}>
                 Pacing analysis, filler word frequency, micro-pauses, and acoustic resonance.
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', marginBottom: '22px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
-                  <span style={{ color: '#94a3b8' }}>Speaking Rate</span>
-                  <span style={{ color: '#f8fafc', fontWeight: 600 }}>142 WPM</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>Speaking Rate</span>
+                  <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>142 WPM</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
-                  <span style={{ color: '#94a3b8' }}>Filler Count</span>
-                  <span style={{ color: '#f8fafc', fontWeight: 600 }}>11 (Low)</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>Filler Count</span>
+                  <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>11 (Low)</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
-                  <span style={{ color: '#94a3b8' }}>Pause Cadence</span>
-                  <span style={{ color: '#f8fafc', fontWeight: 600 }}>Natural</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>Pause Cadence</span>
+                  <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>Natural</span>
                 </div>
               </div>
             </div>
 
             <div style={{
               fontSize: '11.5px',
-              color: '#a5b4fc',
-              fontWeight: 600,
+              color: '#9333ea',
+              fontWeight: 700,
               paddingTop: '12px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+              borderTop: '1px solid var(--border-subtle)'
             }}>
               Sub-score: Steady Cadence
             </div>
@@ -237,14 +237,14 @@ export const SensoryAnalysisStep: React.FC = () => {
 
           {/* Card 4: Computer Vision */}
           <div style={{
-            background: '#0a0e18',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '20px',
             padding: '24px 22px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            boxShadow: '0 12px 30px rgba(0, 0, 0, 0.4)'
+            boxShadow: 'var(--shadow-md)'
           }}>
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
@@ -260,40 +260,40 @@ export const SensoryAnalysisStep: React.FC = () => {
                 }}>
                   <Eye size={19} color="#818cf8" />
                 </div>
-                <div style={{ fontSize: '22px', fontWeight: 800, color: '#f8fafc', letterSpacing: '-0.02em' }}>
+                <div style={{ fontSize: '22px', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.02em' }}>
                   85<span style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>/100</span>
                 </div>
               </div>
 
-              <h3 style={{ fontSize: '16.5px', fontWeight: 700, color: '#ffffff', marginBottom: '8px' }}>
+              <h3 style={{ fontSize: '16.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px' }}>
                 Computer Vision
               </h3>
-              <p style={{ fontSize: '12.5px', color: '#94a3b8', lineHeight: 1.5, marginBottom: '22px' }}>
+              <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: '22px' }}>
                 Eye level alignment, framing stability, lighting uniformity, and posture stability.
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', marginBottom: '22px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
-                  <span style={{ color: '#94a3b8' }}>Face Visibility</span>
-                  <span style={{ color: '#f8fafc', fontWeight: 600 }}>96%</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>Face Visibility</span>
+                  <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>96%</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
-                  <span style={{ color: '#94a3b8' }}>Eye Contact</span>
-                  <span style={{ color: '#f8fafc', fontWeight: 600 }}>88%</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>Eye Contact</span>
+                  <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>88%</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
-                  <span style={{ color: '#94a3b8' }}>Framing Quality</span>
-                  <span style={{ color: '#f8fafc', fontWeight: 600 }}>94%</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>Framing Quality</span>
+                  <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>94%</span>
                 </div>
               </div>
             </div>
 
             <div style={{
               fontSize: '11.5px',
-              color: '#94a3b8',
-              fontWeight: 600,
+              color: '#059669',
+              fontWeight: 700,
               paddingTop: '12px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+              borderTop: '1px solid var(--border-subtle)'
             }}>
               Sub-score: Confident Setup
             </div>
@@ -302,15 +302,16 @@ export const SensoryAnalysisStep: React.FC = () => {
 
         {/* Observable Signals Banner */}
         <div style={{
-          background: '#0a0e18',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '16px',
           padding: '20px 24px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: '20px',
-          flexWrap: 'wrap'
+          flexWrap: 'wrap',
+          boxShadow: 'var(--shadow-sm)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, minWidth: '280px' }}>
             <div style={{
@@ -324,26 +325,26 @@ export const SensoryAnalysisStep: React.FC = () => {
               justifyContent: 'center',
               flexShrink: 0
             }}>
-              <ShieldCheck size={22} color="#818cf8" />
+              <ShieldCheck size={22} color="var(--primary-color)" />
             </div>
             <div>
-              <h4 style={{ fontSize: '14.5px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+              <h4 style={{ fontSize: '14.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
                 Observable Signals, Not Psychological Profiling
               </h4>
-              <p style={{ fontSize: '12px', color: '#94a3b8', lineHeight: 1.55, margin: 0 }}>
+              <p style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.55, margin: 0 }}>
                 Presentation analysis focuses solely on observable camera setup and acoustic signals (lighting, camera distance, clear articulation, and eye level). It strictly does not attempt to evaluate personality, inner emotion, innate intelligence, mental health, or truthfulness.
               </p>
             </div>
           </div>
 
           <div style={{
-            background: '#111a2c',
-            border: '1px solid rgba(56, 189, 248, 0.25)',
+            background: 'rgba(2, 132, 199, 0.12)',
+            border: '1px solid rgba(2, 132, 199, 0.25)',
             padding: '6px 14px',
             borderRadius: '20px',
             fontSize: '11.5px',
-            fontWeight: 600,
-            color: '#38bdf8',
+            fontWeight: 700,
+            color: '#0284c7',
             whiteSpace: 'nowrap'
           }}>
             Ethical AI Compliant

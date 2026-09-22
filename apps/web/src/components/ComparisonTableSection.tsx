@@ -83,7 +83,7 @@ export const ComparisonTableSection: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(28px, 4vw, 44px)',
             fontWeight: 800,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.025em',
             lineHeight: 1.18,
             marginBottom: '16px'
@@ -93,7 +93,7 @@ export const ComparisonTableSection: React.FC = () => {
 
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.65,
             maxWidth: '680px',
             margin: '0 auto'
@@ -104,25 +104,25 @@ export const ComparisonTableSection: React.FC = () => {
 
         {/* Comparison Table Container */}
         <div style={{
-          background: 'rgba(15, 21, 35, 0.65)',
-          border: '1px solid rgba(255, 255, 255, 0.07)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '20px',
           padding: '24px 32px',
           backdropFilter: 'blur(16px)',
-          boxShadow: '0 20px 45px rgba(0, 0, 0, 0.5)',
+          boxShadow: 'var(--shadow-lg)',
           marginBottom: '32px',
           overflowX: 'auto'
         }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '680px' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
+              <tr style={{ borderBottom: '1px solid var(--border-subtle)' }}>
                 <th style={{
                   padding: '16px 20px 18px 8px',
                   fontSize: '11px',
                   fontWeight: 700,
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
-                  color: '#64748b',
+                  color: 'var(--text-muted)',
                   width: '32%'
                 }}>
                   DIMENSION
@@ -133,7 +133,7 @@ export const ComparisonTableSection: React.FC = () => {
                   fontWeight: 700,
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
-                  color: '#818cf8',
+                  color: 'var(--primary-color)',
                   width: '38%'
                 }}>
                   INPREP AI STUDIO
@@ -144,7 +144,7 @@ export const ComparisonTableSection: React.FC = () => {
                   fontWeight: 700,
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
-                  color: '#64748b',
+                  color: 'var(--text-muted)',
                   width: '30%'
                 }}>
                   GENERIC CHATBOTS / MOCK TOOLS
@@ -156,11 +156,11 @@ export const ComparisonTableSection: React.FC = () => {
                 <tr
                   key={idx}
                   style={{
-                    borderBottom: idx === COMPARISON_ROWS.length - 1 ? 'none' : '1px solid rgba(255, 255, 255, 0.04)',
+                    borderBottom: idx === COMPARISON_ROWS.length - 1 ? 'none' : '1px solid var(--border-subtle)',
                     transition: 'background 0.2s ease'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
+                    e.currentTarget.style.background = 'var(--bg-card-hover)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = 'transparent';
@@ -170,7 +170,7 @@ export const ComparisonTableSection: React.FC = () => {
                     padding: '20px 20px 20px 8px',
                     fontSize: '13px',
                     fontWeight: 600,
-                    color: '#ffffff'
+                    color: 'var(--text-main)'
                   }}>
                     {row.dimension}
                   </td>
@@ -178,7 +178,7 @@ export const ComparisonTableSection: React.FC = () => {
                     padding: '20px',
                     fontSize: '13px',
                     fontWeight: 500,
-                    color: '#e2e8f0'
+                    color: 'var(--text-secondary)'
                   }}>
                     {row.inprep}
                   </td>
@@ -186,7 +186,7 @@ export const ComparisonTableSection: React.FC = () => {
                     padding: '20px',
                     fontSize: '13px',
                     fontWeight: 400,
-                    color: '#64748b'
+                    color: 'var(--text-muted)'
                   }}>
                     {row.generic}
                   </td>
@@ -208,8 +208,8 @@ export const ComparisonTableSection: React.FC = () => {
               <div
                 key={idx}
                 style={{
-                  background: 'rgba(15, 21, 35, 0.65)',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '16px',
                   padding: '24px 22px',
                   backdropFilter: 'blur(12px)',
@@ -217,12 +217,12 @@ export const ComparisonTableSection: React.FC = () => {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.35)';
-                  e.currentTarget.style.boxShadow = '0 12px 28px rgba(0, 0, 0, 0.45)';
+                  e.currentTarget.style.borderColor = 'var(--primary-color)';
+                  e.currentTarget.style.boxShadow = 'var(--shadow-md)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
+                  e.currentTarget.style.borderColor = 'var(--border-subtle)';
                   e.currentTarget.style.boxShadow = 'none';
                 }}
               >
@@ -240,7 +240,7 @@ export const ComparisonTableSection: React.FC = () => {
                 <h3 style={{
                   fontSize: '15px',
                   fontWeight: 700,
-                  color: '#ffffff',
+                  color: 'var(--text-main)',
                   marginBottom: '6px',
                   letterSpacing: '-0.01em'
                 }}>
@@ -249,7 +249,7 @@ export const ComparisonTableSection: React.FC = () => {
 
                 <p style={{
                   fontSize: '12px',
-                  color: '#64748b',
+                  color: 'var(--text-muted)',
                   margin: 0,
                   lineHeight: 1.55
                 }}>

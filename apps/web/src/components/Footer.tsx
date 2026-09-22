@@ -8,8 +8,8 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer style={{
-      background: '#06080e',
-      borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+      background: 'var(--bg-main)',
+      borderTop: '1px solid var(--border-subtle)',
       padding: '70px 0 36px',
       position: 'relative'
     }}>
@@ -37,14 +37,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               }}>
                 <Sparkles size={16} color="#ffffff" />
               </div>
-              <span style={{ fontSize: '18px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em' }}>
+              <span style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.02em' }}>
                 Inprep.ai
               </span>
             </div>
 
             <p style={{
               fontSize: '13px',
-              color: '#8896ab',
+              color: 'var(--text-secondary)',
               lineHeight: 1.65,
               marginBottom: '20px'
             }}>
@@ -66,8 +66,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     width: '34px',
                     height: '34px',
                     borderRadius: '50%',
-                    background: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-subtle)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -94,12 +94,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <div style={{
               fontSize: '14px',
               fontWeight: 700,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               marginBottom: '18px'
             }}>
               Product
             </div>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13.5px', color: '#8896ab' }}>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13.5px', color: 'var(--text-secondary)' }}>
               <li><a href="#features" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('features'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Features</a></li>
               <li><a href="#simulations" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('simulations'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Simulation Engine</a></li>
               <li><a href="#simulations" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('simulations'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Role Tracks</a></li>
@@ -113,12 +113,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <div style={{
               fontSize: '14px',
               fontWeight: 700,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               marginBottom: '18px'
             }}>
               Resources
             </div>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13.5px', color: '#8896ab' }}>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13.5px', color: 'var(--text-secondary)' }}>
               <li><a href="#how-it-works" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('how-it-works'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Methodology</a></li>
               <li><a href="#simulations" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('simulations'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Question Library</a></li>
               <li><a href="#how-it-works" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('how-it-works'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Executive Guide</a></li>
@@ -132,12 +132,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <div style={{
               fontSize: '14px',
               fontWeight: 700,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               marginBottom: '18px'
             }}>
               Company
             </div>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13.5px', color: '#8896ab' }}>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13.5px', color: 'var(--text-secondary)' }}>
               <li><a href="#" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('about'); window.scrollTo({ top: 0, behavior: 'smooth' }); } }} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>About Studio</a></li>
               <li><a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>AI Ethics</a></li>
               <li><a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Research</a></li>
@@ -149,7 +149,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
         {/* Bottom Bar */}
         <div style={{
-          borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+          borderTop: '1px solid var(--border-subtle)',
           paddingTop: '24px',
           display: 'flex',
           flexWrap: 'wrap',
@@ -157,16 +157,16 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           justifyContent: 'space-between',
           gap: '16px',
           fontSize: '12.5px',
-          color: '#64748b'
+          color: 'var(--text-muted)'
         }}>
           <div>
             © 2025 Inprep AI Inc. All rights reserved.
           </div>
 
           <div style={{ display: 'flex', gap: '24px' }}>
-            <a href="#" style={{ color: '#8896ab', textDecoration: 'none', transition: 'color 0.2s' }}>Privacy Policy</a>
-            <a href="#" style={{ color: '#8896ab', textDecoration: 'none', transition: 'color 0.2s' }}>Terms of Service</a>
-            <a href="#" style={{ color: '#8896ab', textDecoration: 'none', transition: 'color 0.2s' }}>Security Whitepaper</a>
+            <a href="#" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }}>Privacy Policy</a>
+            <a href="#" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }}>Terms of Service</a>
+            <a href="#" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }}>Security Whitepaper</a>
           </div>
         </div>
 

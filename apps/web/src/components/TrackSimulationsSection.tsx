@@ -107,7 +107,7 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
             <h2 style={{
               fontSize: 'clamp(28px, 3.8vw, 42px)',
               fontWeight: 800,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               letterSpacing: '-0.03em',
               lineHeight: 1.18,
               marginBottom: '14px'
@@ -117,7 +117,7 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
 
             <p style={{
               fontSize: '15px',
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
               lineHeight: 1.6,
               marginBottom: '32px',
               maxWidth: '520px'
@@ -134,8 +134,8 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
                     key={t.id}
                     onClick={() => setSelectedTrackIndex(idx)}
                     style={{
-                      background: isSelected ? 'rgba(20, 28, 48, 0.85)' : 'rgba(15, 21, 35, 0.6)',
-                      border: isSelected ? '1px solid rgba(99, 102, 241, 0.5)' : '1px solid rgba(255, 255, 255, 0.06)',
+                      background: isSelected ? 'var(--bg-card-hover)' : 'var(--bg-card)',
+                      border: isSelected ? '1px solid var(--primary-color)' : '1px solid var(--border-subtle)',
                       borderRadius: '16px',
                       padding: '20px 22px',
                       cursor: 'pointer',
@@ -150,7 +150,7 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
                       justifyContent: 'space-between',
                       marginBottom: '6px'
                     }}>
-                      <h4 style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+                      <h4 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                         {t.role}
                       </h4>
                       <span style={{
@@ -166,7 +166,7 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
                       </span>
                     </div>
 
-                    <div style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '14px' }}>
+                    <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '14px' }}>
                       {t.meta}
                     </div>
 
@@ -176,10 +176,10 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
                       justifyContent: 'space-between',
                       fontSize: '12px',
                       paddingTop: '10px',
-                      borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+                      borderTop: '1px solid var(--border-subtle)'
                     }}>
-                      <span style={{ color: '#64748b' }}>
-                        Last Session Score: <strong style={{ color: '#ffffff' }}>{t.lastScore}</strong>
+                      <span style={{ color: 'var(--text-muted)' }}>
+                        Last Session Score: <strong style={{ color: 'var(--text-main)' }}>{t.lastScore}</strong>
                       </span>
 
                       <button
@@ -210,8 +210,8 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
 
           {/* Right Column: Scorecard Diagnostic Report */}
           <div style={{
-            background: 'linear-gradient(180deg, #101524 0%, #0a0d16 100%)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '20px',
             padding: '28px',
             boxShadow: '0 20px 50px rgba(0, 0, 0, 0.7)',
@@ -224,7 +224,7 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
               justifyContent: 'space-between',
               marginBottom: '24px',
               paddingBottom: '16px',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.06)'
+              borderBottom: '1px solid var(--border-subtle)'
             }}>
               <div>
                 <span style={{
@@ -232,13 +232,13 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
                   fontWeight: 700,
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
-                  color: '#94a3b8',
+                  color: 'var(--text-secondary)',
                   display: 'block',
                   marginBottom: '4px'
                 }}>
                   EVALUATION SCORECARD
                 </span>
-                <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#ffffff', margin: 0 }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-main)', margin: 0 }}>
                   {active.reportId}
                 </h3>
               </div>
@@ -269,7 +269,7 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
                 height: '74px',
                 borderRadius: '50%',
                 border: '3px solid #6366f1',
-                background: 'radial-gradient(circle, #171f33 50%, #0d121f 100%)',
+                background: 'var(--bg-surface)',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -277,10 +277,10 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
                 flexShrink: 0,
                 boxShadow: '0 0 20px rgba(99, 102, 241, 0.35)'
               }}>
-                <span style={{ fontSize: '22px', fontWeight: 800, color: '#ffffff', lineHeight: 1 }}>
+                <span style={{ fontSize: '22px', fontWeight: 800, color: 'var(--text-main)', lineHeight: 1 }}>
                   {active.overallScore}
                 </span>
-                <span style={{ fontSize: '9px', color: '#a5b4fc', textTransform: 'uppercase', fontWeight: 700, marginTop: '2px' }}>
+                <span style={{ fontSize: '9px', color: 'var(--primary-color)', textTransform: 'uppercase', fontWeight: 700, marginTop: '2px' }}>
                   / 100
                 </span>
               </div>
@@ -289,7 +289,7 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
                 <div style={{ fontSize: '13px', fontWeight: 700, color: '#34d399', marginBottom: '4px' }}>
                   {active.progressText}
                 </div>
-                <div style={{ fontSize: '12px', color: '#94a3b8', lineHeight: 1.5 }}>
+                <div style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
                   {active.progressDesc}
                 </div>
               </div>
@@ -305,10 +305,10 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
               {active.competencies.map((c, cIdx) => (
                 <div key={cIdx}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', marginBottom: '6px' }}>
-                    <span style={{ color: '#94a3b8' }}>{c.label}</span>
-                    <span style={{ color: '#ffffff', fontWeight: 700 }}>{c.val}</span>
+                    <span style={{ color: 'var(--text-secondary)' }}>{c.label}</span>
+                    <span style={{ color: 'var(--text-main)', fontWeight: 700 }}>{c.val}</span>
                   </div>
-                  <div style={{ width: '100%', height: '5px', background: 'rgba(255, 255, 255, 0.08)', borderRadius: '9999px', overflow: 'hidden' }}>
+                  <div style={{ width: '100%', height: '5px', background: 'var(--border-subtle)', borderRadius: '9999px', overflow: 'hidden' }}>
                     <div style={{
                       width: `${c.pct}%`,
                       height: '100%',
@@ -334,7 +334,7 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
                   <CheckCircle2 size={13} color="#34d399" />
                   <span>{active.strengthTitle}</span>
                 </div>
-                <div style={{ fontSize: '11px', color: '#cbd5e1', lineHeight: 1.5 }}>
+                <div style={{ fontSize: '11px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
                   {active.strengthText}
                 </div>
               </div>
@@ -350,7 +350,7 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
                   <Pin size={13} color="#c084fc" />
                   <span>{active.focusTitle}</span>
                 </div>
-                <div style={{ fontSize: '11px', color: '#cbd5e1', lineHeight: 1.5 }}>
+                <div style={{ fontSize: '11px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
                   {active.focusText}
                 </div>
               </div>
@@ -362,9 +362,9 @@ export const TrackSimulationsSection: React.FC<TrackSimulationsProps> = ({ onSta
                 width: '100%',
                 marginTop: '20px',
                 padding: '12px',
-                background: 'linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)',
-                color: '#ffffff',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
+                background: 'var(--primary-color)',
+                color: 'var(--bg-main)',
+                border: 'none',
                 borderRadius: '10px',
                 fontWeight: 600,
                 fontSize: '13px',

@@ -31,7 +31,7 @@ export const ProfilePathwayStep: React.FC<ProfilePathwayStepProps> = ({
             fontWeight: 800,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: '#818cf8',
+            color: 'var(--primary-color)',
             marginBottom: '10px'
           }}>
             STEP 01
@@ -39,7 +39,7 @@ export const ProfilePathwayStep: React.FC<ProfilePathwayStepProps> = ({
           <h2 style={{
             fontSize: 'clamp(28px, 3.5vw, 38px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '12px'
           }}>
@@ -47,7 +47,7 @@ export const ProfilePathwayStep: React.FC<ProfilePathwayStepProps> = ({
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6,
             maxWidth: '780px',
             margin: 0
@@ -66,14 +66,14 @@ export const ProfilePathwayStep: React.FC<ProfilePathwayStepProps> = ({
           <div
             onClick={() => setActivePathway('upload')}
             style={{
-              background: '#0a0e18',
-              border: activePathway === 'upload' ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg-card)',
+              border: activePathway === 'upload' ? '1px solid var(--primary-color)' : '1px solid var(--border-subtle)',
               borderRadius: '20px',
               padding: '30px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
-              boxShadow: activePathway === 'upload' ? '0 12px 35px rgba(0, 0, 0, 0.5)' : 'none',
+              boxShadow: activePathway === 'upload' ? 'var(--shadow-md)' : 'none',
               transition: 'all 0.25s ease',
               cursor: 'pointer'
             }}
@@ -94,20 +94,20 @@ export const ProfilePathwayStep: React.FC<ProfilePathwayStepProps> = ({
                 }}>
                   <UploadCloud size={19} color="#818cf8" />
                 </div>
-                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                   Pathway A: Upload Your CV
                 </h3>
               </div>
 
-              <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '24px' }}>
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '24px' }}>
                 Drag and drop your existing PDF or Word document. Our deep NLP parser extracts roles, tech stacks, and career milestones automatically.
               </p>
 
               {/* Dropzone Container */}
               <label style={{
                 display: 'block',
-                background: '#060911',
-                border: '1px solid rgba(255, 255, 255, 0.05)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '14px',
                 padding: '32px 20px 24px',
                 textAlign: 'center',
@@ -120,42 +120,42 @@ export const ProfilePathwayStep: React.FC<ProfilePathwayStepProps> = ({
                   width: '44px',
                   height: '44px',
                   borderRadius: '10px',
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)',
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginBottom: '14px'
                 }}>
-                  <FileText size={22} color="#ffffff" />
+                  <FileText size={22} color="var(--text-main)" />
                 </div>
 
-                <div style={{ fontSize: '14.5px', fontWeight: 600, color: '#ffffff', marginBottom: '6px' }}>
+                <div style={{ fontSize: '14.5px', fontWeight: 600, color: 'var(--text-main)', marginBottom: '6px' }}>
                   Drag & drop your resume file here
                 </div>
-                <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '22px' }}>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '22px' }}>
                   Supports PDF, DOCX up to 15MB
                 </div>
 
                 {/* Progress Pill Bar */}
                 <div style={{
-                  background: '#101524',
+                  background: 'var(--bg-main)',
                   borderRadius: '10px',
                   padding: '12px 16px',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  border: '1px solid var(--border-subtle)',
                   textAlign: 'left',
                   position: 'relative',
                   overflow: 'hidden'
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '12.5px', color: '#f8fafc', fontWeight: 500 }}>
+                    <span style={{ fontSize: '12.5px', color: 'var(--text-main)', fontWeight: 500 }}>
                       {isUploading ? 'Parsing document...' : (uploadedFileName || 'resume_senior_backend.pdf')}
                     </span>
-                    <span style={{ fontSize: '12px', color: '#38bdf8', fontWeight: 700 }}>
+                    <span style={{ fontSize: '12px', color: 'var(--primary-color)', fontWeight: 700 }}>
                       {isUploading ? 'Analyzing...' : '100% Parsed'}
                     </span>
                   </div>
-                  <div style={{ width: '100%', height: '4px', background: 'rgba(255, 255, 255, 0.08)', borderRadius: '2px', overflow: 'hidden' }}>
+                  <div style={{ width: '100%', height: '4px', background: 'var(--bg-surface)', borderRadius: '2px', overflow: 'hidden' }}>
                     <div style={{ width: isUploading ? '60%' : '100%', height: '100%', background: 'linear-gradient(90deg, #6366f1 0%, #38bdf8 100%)', transition: 'width 0.3s ease' }} />
                   </div>
                 </div>
@@ -168,15 +168,15 @@ export const ProfilePathwayStep: React.FC<ProfilePathwayStepProps> = ({
               alignItems: 'center',
               justifyContent: 'space-between',
               paddingTop: '16px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.06)'
+              borderTop: '1px solid var(--border-subtle)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <CheckCircle2 size={16} color="#38bdf8" />
-                <span style={{ fontSize: '12.5px', color: '#cbd5e1', fontWeight: 500 }}>
+                <CheckCircle2 size={16} color="var(--primary-color)" />
+                <span style={{ fontSize: '12.5px', color: 'var(--text-main)', fontWeight: 500 }}>
                   Instant Data Extraction
                 </span>
               </div>
-              <span style={{ fontSize: '12px', color: '#64748b' }}>
+              <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
                 Takes ~30 seconds
               </span>
             </div>
@@ -186,14 +186,14 @@ export const ProfilePathwayStep: React.FC<ProfilePathwayStepProps> = ({
           <div
             onClick={() => setActivePathway('role')}
             style={{
-              background: '#0a0e18',
-              border: activePathway === 'role' ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg-card)',
+              border: activePathway === 'role' ? '1px solid var(--primary-color)' : '1px solid var(--border-subtle)',
               borderRadius: '20px',
               padding: '30px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
-              boxShadow: activePathway === 'role' ? '0 12px 35px rgba(0, 0, 0, 0.5)' : 'none',
+              boxShadow: activePathway === 'role' ? 'var(--shadow-md)' : 'none',
               transition: 'all 0.25s ease',
               cursor: 'pointer'
             }}
@@ -214,19 +214,19 @@ export const ProfilePathwayStep: React.FC<ProfilePathwayStepProps> = ({
                 }}>
                   <SlidersHorizontal size={19} color="#818cf8" />
                 </div>
-                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                   Pathway B: Build Manually
                 </h3>
               </div>
 
-              <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '24px' }}>
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '24px' }}>
                 Fine-tune the exact focus areas you want to be quizzed on by selecting target level, primary frameworks, and past architecture environments.
               </p>
 
               {/* Form Controls Container */}
               <div style={{
-                background: '#060911',
-                border: '1px solid rgba(255, 255, 255, 0.05)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '14px',
                 padding: '24px 20px',
                 marginBottom: '24px',
@@ -236,17 +236,17 @@ export const ProfilePathwayStep: React.FC<ProfilePathwayStepProps> = ({
               }}>
                 {/* Level Selection */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '11.5px', color: '#94a3b8', fontWeight: 500, marginBottom: '8px' }}>
+                  <label style={{ display: 'block', fontSize: '11.5px', color: 'var(--text-secondary)', fontWeight: 500, marginBottom: '8px' }}>
                     Target Engineering Level
                   </label>
                   <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(3, 1fr)',
                     gap: '8px',
-                    background: '#0c101a',
+                    background: 'var(--bg-main)',
                     padding: '4px',
                     borderRadius: '10px',
-                    border: '1px solid rgba(255, 255, 255, 0.06)'
+                    border: '1px solid var(--border-subtle)'
                   }}>
                     {['Mid-Level', 'Senior Staff', 'Principal'].map((lvl) => {
                       const isSelected = selectedLevel === lvl || (selectedLevel === 'Senior' && lvl === 'Senior Staff');
@@ -266,8 +266,8 @@ export const ProfilePathwayStep: React.FC<ProfilePathwayStepProps> = ({
                             border: 'none',
                             cursor: 'pointer',
                             transition: 'all 0.2s ease',
-                            background: isSelected ? '#6366f1' : 'transparent',
-                            color: isSelected ? '#ffffff' : '#94a3b8',
+                            background: isSelected ? 'var(--primary-color)' : 'transparent',
+                            color: isSelected ? '#ffffff' : 'var(--text-secondary)',
                             boxShadow: isSelected ? '0 2px 8px rgba(99, 102, 241, 0.35)' : 'none'
                           }}
                         >
@@ -280,7 +280,7 @@ export const ProfilePathwayStep: React.FC<ProfilePathwayStepProps> = ({
 
                 {/* Tech Stack Tags */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '11.5px', color: '#94a3b8', fontWeight: 500, marginBottom: '8px' }}>
+                  <label style={{ display: 'block', fontSize: '11.5px', color: 'var(--text-secondary)', fontWeight: 500, marginBottom: '8px' }}>
                     Core Tech Stack
                   </label>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
@@ -292,9 +292,9 @@ export const ProfilePathwayStep: React.FC<ProfilePathwayStepProps> = ({
                           fontWeight: 500,
                           padding: '5px 12px',
                           borderRadius: '100px',
-                          background: '#131825',
-                          border: '1px solid rgba(255, 255, 255, 0.08)',
-                          color: '#e2e8f0'
+                          background: 'var(--bg-main)',
+                          border: '1px solid var(--border-subtle)',
+                          color: 'var(--text-main)'
                         }}
                       >
                         {tech}
@@ -306,9 +306,9 @@ export const ProfilePathwayStep: React.FC<ProfilePathwayStepProps> = ({
                         fontWeight: 500,
                         padding: '5px 12px',
                         borderRadius: '100px',
-                        background: 'rgba(255, 255, 255, 0.04)',
-                        border: '1px dashed rgba(255, 255, 255, 0.15)',
-                        color: '#94a3b8',
+                        background: 'var(--bg-card)',
+                        border: '1px dashed var(--border-subtle)',
+                        color: 'var(--text-secondary)',
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '4px',
@@ -329,14 +329,14 @@ export const ProfilePathwayStep: React.FC<ProfilePathwayStepProps> = ({
                   paddingTop: '6px'
                 }}>
                   <div>
-                    <div style={{ fontSize: '11.5px', color: '#94a3b8', fontWeight: 500, marginBottom: '4px' }}>
+                    <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)', fontWeight: 500, marginBottom: '4px' }}>
                       Years of Professional Experience
                     </div>
-                    <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc' }}>
+                    <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-main)' }}>
                       6+ Years
                     </div>
                   </div>
-                  <span style={{ fontSize: '12px', fontWeight: 600, color: '#38bdf8' }}>
+                  <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--primary-color)' }}>
                     Calibrated
                   </span>
                 </div>
@@ -349,15 +349,15 @@ export const ProfilePathwayStep: React.FC<ProfilePathwayStepProps> = ({
               alignItems: 'center',
               justifyContent: 'space-between',
               paddingTop: '16px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.06)'
+              borderTop: '1px solid var(--border-subtle)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Sliders size={16} color="#818cf8" />
-                <span style={{ fontSize: '12.5px', color: '#cbd5e1', fontWeight: 500 }}>
+                <Sliders size={16} color="var(--primary-color)" />
+                <span style={{ fontSize: '12.5px', color: 'var(--text-main)', fontWeight: 500 }}>
                   Tailor Every Dimension
                 </span>
               </div>
-              <span style={{ fontSize: '12px', color: '#64748b' }}>
+              <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
                 Custom Focus
               </span>
             </div>

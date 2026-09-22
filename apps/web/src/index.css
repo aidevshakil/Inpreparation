@@ -533,4 +533,10 @@ a:hover {
   border-color: var(--border-subtle) !important;
 }
 
+@media (max-width: 1024px) {
+  .auth-nav-links {
+    display: none !important;
+  }
+}
+
 

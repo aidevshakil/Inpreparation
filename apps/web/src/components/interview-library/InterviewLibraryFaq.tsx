@@ -38,7 +38,7 @@ export const InterviewLibraryFaq: React.FC = () => {
             fontWeight: 800,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: '#818cf8',
+            color: 'var(--primary-color)',
             marginBottom: '10px'
           }}>
             COMMON INQUIRIES
@@ -46,7 +46,7 @@ export const InterviewLibraryFaq: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(28px, 3.5vw, 38px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '10px'
           }}>
@@ -54,11 +54,11 @@ export const InterviewLibraryFaq: React.FC = () => {
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6,
             margin: 0
           }}>
-            Everything you need to know about Inprep AI category tracks.
+            Everything you need to know about categories, rubrics, and dynamic track selection.
           </p>
         </div>
 
@@ -70,11 +70,12 @@ export const InterviewLibraryFaq: React.FC = () => {
               <div
                 key={idx}
                 style={{
-                  background: '#0a0e18',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'var(--bg-card)',
+                  border: isOpen ? '1px solid var(--primary-color)' : '1px solid var(--border-subtle)',
                   borderRadius: '14px',
                   overflow: 'hidden',
-                  transition: 'all 0.2s ease'
+                  transition: 'all 0.2s ease',
+                  boxShadow: isOpen ? 'var(--shadow-md)' : 'none'
                 }}
               >
                 <button
@@ -87,17 +88,17 @@ export const InterviewLibraryFaq: React.FC = () => {
                     justifyContent: 'space-between',
                     background: 'transparent',
                     border: 'none',
-                    color: '#ffffff',
+                    color: isOpen ? 'var(--primary-color)' : 'var(--text-main)',
                     fontSize: '15.5px',
                     fontWeight: 600,
                     cursor: 'pointer',
                     textAlign: 'left'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.color = '#38bdf8';
+                    e.currentTarget.style.color = 'var(--primary-color)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.color = '#ffffff';
+                    e.currentTarget.style.color = isOpen ? 'var(--primary-color)' : 'var(--text-main)';
                   }}
                 >
                   <span>{faq.q}</span>
@@ -106,7 +107,7 @@ export const InterviewLibraryFaq: React.FC = () => {
                     style={{
                       transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                       transition: 'transform 0.25s ease',
-                      color: '#818cf8',
+                      color: isOpen ? 'var(--primary-color)' : 'var(--text-muted)',
                       flexShrink: 0,
                       marginLeft: '12px'
                     }}
@@ -117,9 +118,9 @@ export const InterviewLibraryFaq: React.FC = () => {
                   <div style={{
                     padding: '0 24px 20px',
                     fontSize: '13.5px',
-                    color: '#94a3b8',
+                    color: 'var(--text-secondary)',
                     lineHeight: 1.65,
-                    borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+                    borderTop: '1px solid var(--border-subtle)',
                     paddingTop: '14px'
                   }}>
                     {faq.a}

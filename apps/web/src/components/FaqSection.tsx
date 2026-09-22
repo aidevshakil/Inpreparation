@@ -52,7 +52,7 @@ export const FaqSection: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(28px, 4vw, 42px)',
             fontWeight: 800,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.025em',
             lineHeight: 1.2
           }}>
@@ -68,8 +68,8 @@ export const FaqSection: React.FC = () => {
               <div
                 key={idx}
                 style={{
-                  background: 'rgba(15, 21, 35, 0.65)',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '14px',
                   backdropFilter: 'blur(12px)',
                   overflow: 'hidden',
@@ -86,7 +86,7 @@ export const FaqSection: React.FC = () => {
                     justifyContent: 'space-between',
                     background: 'transparent',
                     border: 'none',
-                    color: '#ffffff',
+                    color: 'var(--text-main)',
                     fontSize: '15px',
                     fontWeight: 600,
                     textAlign: 'left',
@@ -108,10 +108,10 @@ export const FaqSection: React.FC = () => {
                 {isOpen && (
                   <div style={{
                     padding: '0 24px 20px',
-                    color: '#94a3b8',
+                    color: 'var(--text-secondary)',
                     fontSize: '13.5px',
                     lineHeight: 1.65,
-                    borderTop: '1px solid rgba(255, 255, 255, 0.04)',
+                    borderTop: '1px solid var(--border-subtle)',
                     paddingTop: '14px'
                   }}>
                     {faq.a}

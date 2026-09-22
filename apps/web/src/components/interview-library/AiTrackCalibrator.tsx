@@ -109,11 +109,11 @@ export const AiTrackCalibrator: React.FC<AiTrackCalibratorProps> = ({
 
             {/* Live Profile Match Card */}
             <div style={{
-              background: '#0a0e18',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '18px',
               padding: '22px 24px',
-              boxShadow: '0 12px 36px rgba(0, 0, 0, 0.45)',
+              boxShadow: 'var(--shadow-md)',
               marginBottom: '28px'
             }}>
               <div style={{
@@ -123,12 +123,12 @@ export const AiTrackCalibrator: React.FC<AiTrackCalibratorProps> = ({
                 marginBottom: '18px',
                 fontSize: '12px'
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#ffffff', fontWeight: 600 }}>
-                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#38bdf8', boxShadow: '0 0 8px #38bdf8' }} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-main)', fontWeight: 600 }}>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0284c7', boxShadow: '0 0 8px rgba(2, 132, 199, 0.5)' }} />
                   <span>Live Profile Match Result</span>
                 </div>
-                <div style={{ color: '#64748b', fontSize: '11px', fontWeight: 600 }}>
-                  Profile: <span style={{ color: '#cbd5e1' }}>Mid Backend</span>
+                <div style={{ color: 'var(--text-muted)', fontSize: '11px', fontWeight: 600 }}>
+                  Profile: <span style={{ color: 'var(--text-main)' }}>Mid Backend</span>
                 </div>
               </div>
 
@@ -236,11 +236,11 @@ export const AiTrackCalibrator: React.FC<AiTrackCalibratorProps> = ({
 
           {/* Right Column: Telemetry / AI Pipeline Flow HUD */}
           <div style={{
-            background: 'radial-gradient(ellipse at top right, rgba(99, 102, 241, 0.08), transparent 70%), #090c14',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '24px',
             padding: '28px',
-            boxShadow: '0 25px 60px rgba(0, 0, 0, 0.6)',
+            boxShadow: 'var(--shadow-lg)',
             position: 'relative',
             display: 'flex',
             flexDirection: 'column',
@@ -249,8 +249,8 @@ export const AiTrackCalibrator: React.FC<AiTrackCalibratorProps> = ({
             
             {/* Step 1: Candidate Ingestion Node */}
             <div style={{
-              background: '#0e1320',
-              border: '1px solid rgba(255, 255, 255, 0.07)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '16px',
               padding: '18px 20px',
               display: 'flex',
@@ -269,32 +269,32 @@ export const AiTrackCalibrator: React.FC<AiTrackCalibratorProps> = ({
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}>
-                  <FolderGit2 size={18} color="#818cf8" />
+                  <FolderGit2 size={18} color="var(--primary-color)" />
                 </div>
                 <div>
-                  <div style={{ fontSize: '13px', fontWeight: 600, color: '#ffffff', marginBottom: '2px' }}>
+                  <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-main)', marginBottom: '2px' }}>
                     Candidate Ingestion Node
                   </div>
-                  <div style={{ fontSize: '11.5px', color: '#94a3b8' }}>
+                  <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)' }}>
                     Skills: Python, FastAPI, SQL, PostgreSQL, Docker (1–3 Yrs)
                   </div>
                 </div>
               </div>
-              <CheckCircle2 size={16} color="#38bdf8" />
+              <CheckCircle2 size={16} color="#0284c7" />
             </div>
 
             {/* Down Arrow connector */}
-            <div style={{ display: 'flex', justifyContent: 'center', color: '#475569', margin: '-4px 0' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', color: 'var(--text-muted)', margin: '-4px 0' }}>
               <ArrowDown size={18} />
             </div>
 
             {/* Step 2: AI Neural Calibrator Node */}
             <div style={{
-              background: '#0e1320',
-              border: '1px solid rgba(99, 102, 241, 0.25)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '16px',
               padding: '20px',
-              boxShadow: '0 8px 24px rgba(99, 102, 241, 0.1)'
+              boxShadow: 'var(--shadow-sm)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -309,7 +309,7 @@ export const AiTrackCalibrator: React.FC<AiTrackCalibratorProps> = ({
                   }}>
                     <Cpu size={16} color="#c084fc" />
                   </div>
-                  <div style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff' }}>
+                  <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)' }}>
                     AI Neural Calibrator
                   </div>
                 </div>
@@ -317,16 +317,16 @@ export const AiTrackCalibrator: React.FC<AiTrackCalibratorProps> = ({
                   fontSize: '10.5px',
                   fontWeight: 700,
                   letterSpacing: '0.05em',
-                  color: '#94a3b8',
+                  color: 'var(--text-muted)',
                   fontFamily: 'monospace'
                 }}>
-                  LATENCY: <span style={{ color: '#38bdf8' }}>148ms</span>
+                  LATENCY: <span style={{ color: '#0284c7' }}>148ms</span>
                 </div>
               </div>
 
               <p style={{
                 fontSize: '12px',
-                color: '#94a3b8',
+                color: 'var(--text-secondary)',
                 lineHeight: 1.5,
                 margin: '0 0 16px 0'
               }}>
@@ -335,14 +335,14 @@ export const AiTrackCalibrator: React.FC<AiTrackCalibratorProps> = ({
 
               {/* Audio / Neural Frequency Equalizer Bars */}
               <div style={{
-                background: '#080b12',
+                background: 'var(--bg-card)',
                 borderRadius: '12px',
                 padding: '16px 20px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-around',
                 height: '56px',
-                border: '1px solid rgba(255, 255, 255, 0.05)'
+                border: '1px solid var(--border-subtle)'
               }}>
                 {waveBars.map((bar, bIdx) => (
                   <div
@@ -361,40 +361,40 @@ export const AiTrackCalibrator: React.FC<AiTrackCalibratorProps> = ({
             </div>
 
             {/* Down Arrow connector */}
-            <div style={{ display: 'flex', justifyContent: 'center', color: '#475569', margin: '-4px 0' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', color: 'var(--text-muted)', margin: '-4px 0' }}>
               <ArrowDown size={18} />
             </div>
 
             {/* Step 3: Recommended Output Track */}
             <div style={{
-              background: '#0e1320',
-              border: '1px solid rgba(56, 189, 248, 0.25)',
+              background: 'var(--bg-surface)',
+              border: '1px solid rgba(2, 132, 199, 0.25)',
               borderRadius: '16px',
               padding: '16px 20px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
               gap: '14px',
-              boxShadow: '0 8px 24px rgba(56, 189, 248, 0.08)'
+              boxShadow: 'var(--shadow-sm)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{
                   width: '38px',
                   height: '38px',
                   borderRadius: '10px',
-                  background: 'rgba(56, 189, 248, 0.15)',
-                  border: '1px solid rgba(56, 189, 248, 0.3)',
+                  background: 'rgba(2, 132, 199, 0.15)',
+                  border: '1px solid rgba(2, 132, 199, 0.3)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}>
-                  <ShieldCheck size={20} color="#38bdf8" />
+                  <ShieldCheck size={20} color="#0284c7" />
                 </div>
                 <div>
-                  <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                     Recommended Output Track
                   </div>
-                  <div style={{ fontSize: '15px', fontWeight: 700, color: '#ffffff' }}>
+                  <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-main)' }}>
                     Python Backend Specialist
                   </div>
                 </div>
@@ -403,25 +403,23 @@ export const AiTrackCalibrator: React.FC<AiTrackCalibratorProps> = ({
               <button
                 onClick={() => onStartPractice && onStartPractice('Python Backend Specialist')}
                 style={{
-                  background: '#121829',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '8px',
                   padding: '7px 14px',
                   fontSize: '11.5px',
                   fontWeight: 600,
-                  color: '#cbd5e1',
+                  color: 'var(--text-main)',
                   cursor: 'pointer',
                   transition: 'all 0.15s ease'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#1a223a';
-                  e.currentTarget.style.color = '#ffffff';
-                  e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.4)';
+                  e.currentTarget.style.background = 'var(--bg-card-hover)';
+                  e.currentTarget.style.borderColor = 'var(--primary-color)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#121829';
-                  e.currentTarget.style.color = '#cbd5e1';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                  e.currentTarget.style.background = 'var(--bg-card)';
+                  e.currentTarget.style.borderColor = 'var(--border-subtle)';
                 }}
               >
                 Sign Up to Practice

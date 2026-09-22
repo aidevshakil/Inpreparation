@@ -26,7 +26,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
           <h2 style={{
             fontSize: 'clamp(28px, 4vw, 44px)',
             fontWeight: 800,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.025em',
             lineHeight: 1.18,
             marginBottom: '16px'
@@ -36,7 +36,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
 
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.65,
             maxWidth: '640px',
             margin: '0 auto'
@@ -54,8 +54,8 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
         }}>
           {/* Plan 1: Starter Account */}
           <div style={{
-            background: 'rgba(15, 21, 35, 0.65)',
-            border: '1px solid rgba(255, 255, 255, 0.07)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '20px',
             padding: '36px 28px',
             backdropFilter: 'blur(16px)',
@@ -77,17 +77,17 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
               </div>
 
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '16px' }}>
-                <span style={{ fontSize: '42px', fontWeight: 800, color: '#ffffff', lineHeight: 1 }}>
+                <span style={{ fontSize: '42px', fontWeight: 800, color: 'var(--text-main)', lineHeight: 1 }}>
                   $0
                 </span>
-                <span style={{ fontSize: '13px', color: '#64748b' }}>
+                <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
                   / forever
                 </span>
               </div>
 
               <p style={{
                 fontSize: '13px',
-                color: '#94a3b8',
+                color: 'var(--text-secondary)',
                 lineHeight: 1.6,
                 marginBottom: '28px',
                 minHeight: '42px'
@@ -97,20 +97,20 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
 
               {/* Feature List */}
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#cbd5e1' }}>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: 'var(--text-secondary)' }}>
                   <Check size={16} color="#34d399" strokeWidth={2.5} style={{ flexShrink: 0 }} />
                   <span>Profile & Automated CV Parsing</span>
                 </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#cbd5e1' }}>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: 'var(--text-secondary)' }}>
                   <Check size={16} color="#34d399" strokeWidth={2.5} style={{ flexShrink: 0 }} />
                   <span>Curated Question Bank (50+ Roles)</span>
                 </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#cbd5e1' }}>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: 'var(--text-secondary)' }}>
                   <Check size={16} color="#34d399" strokeWidth={2.5} style={{ flexShrink: 0 }} />
                   <span>Introduction Interview Intake</span>
                 </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#475569' }}>
-                  <Minus size={16} color="#475569" strokeWidth={2} style={{ flexShrink: 0 }} />
+                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: 'var(--text-muted)' }}>
+                  <Minus size={16} color="var(--text-muted)" strokeWidth={2} style={{ flexShrink: 0 }} />
                   <span>Live AI Mock Simulations (Pro Tier)</span>
                 </li>
               </ul>
@@ -122,21 +122,21 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
                 width: '100%',
                 padding: '13px 20px',
                 borderRadius: '9999px',
-                background: 'rgba(255, 255, 255, 0.07)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#ffffff',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
+                color: 'var(--text-main)',
                 fontSize: '14px',
                 fontWeight: 600,
                 cursor: 'pointer',
                 transition: 'all 0.2s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                e.currentTarget.style.background = 'var(--bg-card-hover)';
+                e.currentTarget.style.borderColor = 'var(--border-accent)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.07)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                e.currentTarget.style.background = 'var(--bg-surface)';
+                e.currentTarget.style.borderColor = 'var(--border-subtle)';
               }}
             >
               Get Started
@@ -145,8 +145,8 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
 
           {/* Plan 2: Pro Engineer (Highlighted / Most Popular) */}
           <div style={{
-            background: 'rgba(18, 24, 40, 0.85)',
-            border: '1px solid rgba(129, 140, 248, 0.35)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--primary-color)',
             borderRadius: '20px',
             padding: '36px 28px',
             backdropFilter: 'blur(16px)',
@@ -181,24 +181,24 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
                 fontWeight: 700,
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
-                color: '#818cf8',
+                color: 'var(--primary-color)',
                 marginBottom: '16px'
               }}>
                 PRO ENGINEER
               </div>
 
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '16px' }}>
-                <span style={{ fontSize: '42px', fontWeight: 800, color: '#ffffff', lineHeight: 1 }}>
+                <span style={{ fontSize: '42px', fontWeight: 800, color: 'var(--text-main)', lineHeight: 1 }}>
                   $19
                 </span>
-                <span style={{ fontSize: '13px', color: '#64748b' }}>
+                <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
                   / month
                 </span>
               </div>
 
               <p style={{
                 fontSize: '13px',
-                color: '#94a3b8',
+                color: 'var(--text-secondary)',
                 lineHeight: 1.6,
                 marginBottom: '28px',
                 minHeight: '42px'
@@ -208,19 +208,19 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
 
               {/* Feature List */}
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#f8fafc', fontWeight: 600 }}>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: 'var(--text-main)', fontWeight: 600 }}>
                   <Check size={16} color="#34d399" strokeWidth={2.5} style={{ flexShrink: 0 }} />
                   <span>Unlimited 5–Question Interviews</span>
                 </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#cbd5e1' }}>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: 'var(--text-secondary)' }}>
                   <Check size={16} color="#34d399" strokeWidth={2.5} style={{ flexShrink: 0 }} />
                   <span>Automated CV Parsing & Role Matching</span>
                 </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#cbd5e1' }}>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: 'var(--text-secondary)' }}>
                   <Check size={16} color="#34d399" strokeWidth={2.5} style={{ flexShrink: 0 }} />
                   <span>AI Suggested Answer Formulations</span>
                 </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#cbd5e1' }}>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: 'var(--text-secondary)' }}>
                   <Check size={16} color="#34d399" strokeWidth={2.5} style={{ flexShrink: 0 }} />
                   <span>Longitudinal Progress & Delta History</span>
                 </li>
@@ -257,8 +257,8 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
 
           {/* Plan 3: Career Accelerator */}
           <div style={{
-            background: 'rgba(15, 21, 35, 0.65)',
-            border: '1px solid rgba(255, 255, 255, 0.07)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '20px',
             padding: '36px 28px',
             backdropFilter: 'blur(16px)',
@@ -273,24 +273,24 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
                 fontWeight: 700,
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
-                color: '#94a3b8',
+                color: 'var(--text-secondary)',
                 marginBottom: '16px'
               }}>
                 CAREER ACCELERATOR
               </div>
 
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '16px' }}>
-                <span style={{ fontSize: '42px', fontWeight: 800, color: '#ffffff', lineHeight: 1 }}>
+                <span style={{ fontSize: '42px', fontWeight: 800, color: 'var(--text-main)', lineHeight: 1 }}>
                   $39
                 </span>
-                <span style={{ fontSize: '13px', color: '#64748b' }}>
+                <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
                   / month
                 </span>
               </div>
 
               <p style={{
                 fontSize: '13px',
-                color: '#94a3b8',
+                color: 'var(--text-secondary)',
                 lineHeight: 1.6,
                 marginBottom: '28px',
                 minHeight: '42px'
@@ -300,19 +300,19 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
 
               {/* Feature List */}
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px 0', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#cbd5e1' }}>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: 'var(--text-secondary)' }}>
                   <Check size={16} color="#34d399" strokeWidth={2.5} style={{ flexShrink: 0 }} />
                   <span>Everything in Pro</span>
                 </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#cbd5e1' }}>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: 'var(--text-secondary)' }}>
                   <Check size={16} color="#34d399" strokeWidth={2.5} style={{ flexShrink: 0 }} />
                   <span>Staff & Executive Interview Rubrics</span>
                 </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#cbd5e1' }}>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: 'var(--text-secondary)' }}>
                   <Check size={16} color="#34d399" strokeWidth={2.5} style={{ flexShrink: 0 }} />
                   <span>Video Playback & Timestamped Annotations</span>
                 </li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#cbd5e1' }}>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: 'var(--text-secondary)' }}>
                   <Check size={16} color="#34d399" strokeWidth={2.5} style={{ flexShrink: 0 }} />
                   <span>Priority Support & Custom Scenario Generator</span>
                 </li>
@@ -325,21 +325,21 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onSelectPlan }) 
                 width: '100%',
                 padding: '13px 20px',
                 borderRadius: '9999px',
-                background: 'rgba(255, 255, 255, 0.07)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#ffffff',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
+                color: 'var(--text-main)',
                 fontSize: '14px',
                 fontWeight: 600,
                 cursor: 'pointer',
                 transition: 'all 0.2s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                e.currentTarget.style.background = 'var(--bg-card-hover)';
+                e.currentTarget.style.borderColor = 'var(--border-accent)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.07)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                e.currentTarget.style.background = 'var(--bg-surface)';
+                e.currentTarget.style.borderColor = 'var(--border-subtle)';
               }}
             >
               Choose Career

@@ -7,6 +7,7 @@ dotenv.config();
 
 import express from 'express';
 import cors from 'cors';
+import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
 import pino from 'pino';
 import pinoHttp from 'pino-http';
 import { userRouter } from './routes/user.routes';
@@ -27,6 +28,8 @@ import { analyticsRouter } from './routes/analytics.routes';
 import { sessionRecordingRouter } from './routes/session-recording.routes';
 import { notificationRouter } from './routes/notification.routes';
 import { requireRole } from './middleware/requireRole';
+import { attachUser } from './middleware/authenticate';
+import { errorHandler, notFoundHandler } from './middleware/errorHandler';
 
 const app = express();
 const PORT = process.env.BACKEND_PORT || 5000;
@@ -36,10 +39,74 @@ const httpLogger = pinoHttp({
   logger,
 });
 
-app.use(cors());
+// CORS: parse comma-separated CORS_ORIGINS env var into allowlist.
+// In development, default to localhost dev ports. In production, CORS_ORIGINS must be explicitly set.
+const defaultDevOrigins = [
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'http://localhost:3002',
+  'http://localhost:5173',
+  'http://localhost:5174',
+];
+const configuredOrigins = (process.env.CORS_ORIGINS || '')
+  .split(',')
+  .map((o) => o.trim())
+  .filter(Boolean);
+const allowedOrigins =
+  configuredOrigins.length > 0
+    ? configuredOrigins
+    : process.env.NODE_ENV === 'production'
+    ? []
+    : defaultDevOrigins;
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (curl, server-to-server, mobile apps)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error(`CORS: origin ${origin} not allowed`));
+    },
+    credentials: true,
+  })
+);
 app.use(express.json({ limit: '25mb' }));
 app.use(express.urlencoded({ extended: true, limit: '25mb' }));
 app.use(httpLogger);
+app.use(attachUser);
+
+// Rate limiters
+const authOtpLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many OTP requests. Please try again in 15 minutes.' },
+  keyGenerator: (req, res) => `${ipKeyGenerator(req.ip || '', 56)}:${(req.body?.email || '').toLowerCase()}`,
+});
+const authLoginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many login attempts. Please try again in 15 minutes.' },
+  keyGenerator: (req, res) => `${ipKeyGenerator(req.ip || '', 56)}:${(req.body?.email || '').toLowerCase()}`,
+});
+const authVerifyLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many verification attempts. Please try again in 15 minutes.' },
+  keyGenerator: (req, res) => `${ipKeyGenerator(req.ip || '', 56)}:${(req.body?.email || '').toLowerCase()}`,
+});
+
+// Apply per-endpoint auth limiters before mounting the router
+app.use('/api/auth/register', authOtpLimiter);
+app.use('/api/auth/send-otp', authOtpLimiter);
+app.use('/api/auth/verify-otp', authVerifyLimiter);
+app.use('/api/auth/login', authLoginLimiter);
+app.use('/api/auth/google', authLoginLimiter);
 
 // Mount API Routes
 app.use('/api/users', userRouter);
@@ -65,13 +132,21 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', service: 'Node.js Prisma API Backend', timestamp: new Date() });
 });
 
-app.listen(PORT, () => {
-  logger.info(
-    {
-      port: PORT,
-      baseUrl: `http://localhost:${PORT}/api`,
-      allowedOrigins: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002'],
-    },
-    'Central API listening'
-  );
-});
+// 404 for unmatched routes and centralized error handler (must be last)
+app.use(notFoundHandler);
+app.use(errorHandler);
+
+export { app };
+
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    logger.info(
+      {
+        port: PORT,
+        baseUrl: `http://localhost:${PORT}/api`,
+        allowedOrigins,
+      },
+      'Central API listening'
+    );
+  });
+}

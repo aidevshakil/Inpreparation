@@ -37,7 +37,7 @@ export const TrackingVaultSection: React.FC<TrackingVaultSectionProps> = ({
             <h2 style={{
               fontSize: 'clamp(26px, 3.2vw, 34px)',
               fontWeight: 700,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               letterSpacing: '-0.02em',
               margin: 0
             }}>
@@ -65,11 +65,11 @@ export const TrackingVaultSection: React.FC<TrackingVaultSectionProps> = ({
 
         {/* Table Container Card */}
         <div style={{
-          background: '#0a0e18',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '20px',
           padding: '24px 30px',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)',
+          boxShadow: 'var(--shadow-lg)',
           overflowX: 'auto'
         }}>
           <div style={{ minWidth: '760px' }}>
@@ -80,7 +80,7 @@ export const TrackingVaultSection: React.FC<TrackingVaultSectionProps> = ({
               gap: '16px',
               alignItems: 'center',
               paddingBottom: '16px',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+              borderBottom: '1px solid var(--border-subtle)',
               fontSize: '11px',
               fontWeight: 700,
               color: '#64748b',
@@ -129,12 +129,12 @@ export const TrackingVaultSection: React.FC<TrackingVaultSectionProps> = ({
                   gap: '16px',
                   alignItems: 'center',
                   padding: '22px 0',
-                  borderBottom: idx < 2 ? '1px solid rgba(255, 255, 255, 0.04)' : 'none'
+                  borderBottom: idx < 2 ? '1px solid var(--border-subtle)' : 'none'
                 }}
               >
                 {/* Module Column */}
                 <div>
-                  <div style={{ fontSize: '15.5px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+                  <div style={{ fontSize: '15.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
                     {row.title}
                   </div>
                   <div style={{ fontSize: '12px', color: '#64748b' }}>
@@ -143,7 +143,7 @@ export const TrackingVaultSection: React.FC<TrackingVaultSectionProps> = ({
                 </div>
 
                 {/* Date Column */}
-                <div style={{ fontSize: '13px', color: '#94a3b8', fontWeight: 500 }}>
+                <div style={{ fontSize: '13px', color: 'var(--text-secondary)', fontWeight: 500 }}>
                   {row.date}
                 </div>
 
@@ -152,7 +152,7 @@ export const TrackingVaultSection: React.FC<TrackingVaultSectionProps> = ({
                   <span style={{
                     fontSize: '17px',
                     fontWeight: 800,
-                    color: row.statusType === 'passed' ? '#818cf8' : '#cbd5e1'
+                    color: row.statusType === 'passed' ? '#818cf8' : 'var(--text-secondary)'
                   }}>
                     {row.score}
                   </span>
@@ -166,9 +166,9 @@ export const TrackingVaultSection: React.FC<TrackingVaultSectionProps> = ({
                   <span style={{
                     fontSize: '11px',
                     fontWeight: 600,
-                    color: row.statusType === 'passed' ? '#38bdf8' : '#94a3b8',
-                    background: row.statusType === 'passed' ? 'rgba(56, 189, 248, 0.12)' : 'rgba(255, 255, 255, 0.05)',
-                    border: row.statusType === 'passed' ? '1px solid rgba(56, 189, 248, 0.25)' : '1px solid rgba(255, 255, 255, 0.08)',
+                    color: row.statusType === 'passed' ? '#38bdf8' : 'var(--text-secondary)',
+                    background: row.statusType === 'passed' ? 'rgba(56, 189, 248, 0.12)' : 'var(--bg-surface)',
+                    border: row.statusType === 'passed' ? '1px solid rgba(56, 189, 248, 0.25)' : '1px solid var(--border-subtle)',
                     padding: '4px 10px',
                     borderRadius: '6px',
                     display: 'inline-block'
@@ -182,25 +182,25 @@ export const TrackingVaultSection: React.FC<TrackingVaultSectionProps> = ({
                   <button
                     onClick={() => onStartPractice(row.title)}
                     style={{
-                      background: 'rgba(255, 255, 255, 0.04)',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      background: 'var(--bg-surface)',
+                      border: '1px solid var(--border-subtle)',
                       borderRadius: '20px',
                       padding: '8px 18px',
-                      color: '#cbd5e1',
+                      color: 'var(--text-secondary)',
                       fontSize: '12px',
                       fontWeight: 600,
                       cursor: 'pointer',
                       transition: 'all 0.2s ease'
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.16)';
-                      e.currentTarget.style.color = '#ffffff';
+                      e.currentTarget.style.background = 'var(--bg-card-hover)';
+                      e.currentTarget.style.borderColor = 'var(--border-accent)';
+                      e.currentTarget.style.color = 'var(--text-main)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                      e.currentTarget.style.color = '#cbd5e1';
+                      e.currentTarget.style.background = 'var(--bg-surface)';
+                      e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                      e.currentTarget.style.color = 'var(--text-secondary)';
                     }}
                   >
                     Review Diagnostic

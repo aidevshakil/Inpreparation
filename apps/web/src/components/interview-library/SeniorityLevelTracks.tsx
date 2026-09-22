@@ -62,7 +62,7 @@ export const SeniorityLevelTracks: React.FC<SeniorityLevelTracksProps> = ({
             fontWeight: 800,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: '#38bdf8',
+            color: '#0284c7',
             marginBottom: '10px'
           }}>
             SENIORITY ALIGNMENT
@@ -70,7 +70,7 @@ export const SeniorityLevelTracks: React.FC<SeniorityLevelTracksProps> = ({
           <h2 style={{
             fontSize: 'clamp(28px, 3.5vw, 38px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '12px'
           }}>
@@ -78,7 +78,7 @@ export const SeniorityLevelTracks: React.FC<SeniorityLevelTracksProps> = ({
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6
           }}>
             Rubrics and inquiry depth match the exact expectations of hiring committees.
@@ -96,24 +96,24 @@ export const SeniorityLevelTracks: React.FC<SeniorityLevelTracksProps> = ({
             <div
               key={idx}
               style={{
-                background: '#0a0e18',
-                border: lvl.isHighlight ? '1px solid rgba(99, 102, 241, 0.45)' : '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-card)',
+                border: lvl.isHighlight ? '2px solid var(--primary-color)' : '1px solid var(--border-subtle)',
                 borderRadius: '20px',
                 padding: '30px 24px 26px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
                 position: 'relative',
-                boxShadow: lvl.isHighlight ? '0 20px 50px rgba(99, 102, 241, 0.18)' : '0 10px 30px rgba(0, 0, 0, 0.4)',
+                boxShadow: lvl.isHighlight ? '0 12px 30px rgba(99, 102, 241, 0.2)' : 'var(--shadow-md)',
                 transition: 'all 0.25s ease'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-3px)';
-                if (!lvl.isHighlight) e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.16)';
+                if (!lvl.isHighlight) e.currentTarget.style.borderColor = 'var(--border-accent)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                if (!lvl.isHighlight) e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                if (!lvl.isHighlight) e.currentTarget.style.borderColor = 'var(--border-subtle)';
               }}
             >
               {/* Highlight Badge */}
@@ -123,7 +123,7 @@ export const SeniorityLevelTracks: React.FC<SeniorityLevelTracksProps> = ({
                   top: '-12px',
                   left: '50%',
                   transform: 'translateX(-50%)',
-                  background: '#6366f1',
+                  background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
                   color: '#ffffff',
                   fontSize: '11px',
                   fontWeight: 700,
@@ -155,7 +155,7 @@ export const SeniorityLevelTracks: React.FC<SeniorityLevelTracksProps> = ({
                 <div style={{
                   fontSize: '11px',
                   fontWeight: 700,
-                  color: '#64748b',
+                  color: 'var(--text-muted)',
                   letterSpacing: '0.06em',
                   textTransform: 'uppercase',
                   marginBottom: '6px'
@@ -167,7 +167,7 @@ export const SeniorityLevelTracks: React.FC<SeniorityLevelTracksProps> = ({
                 <h3 style={{
                   fontSize: '22px',
                   fontWeight: 700,
-                  color: '#ffffff',
+                  color: 'var(--text-main)',
                   marginBottom: '10px'
                 }}>
                   {lvl.title}
@@ -176,7 +176,7 @@ export const SeniorityLevelTracks: React.FC<SeniorityLevelTracksProps> = ({
                 {/* Description */}
                 <p style={{
                   fontSize: '13px',
-                  color: '#94a3b8',
+                  color: 'var(--text-secondary)',
                   lineHeight: 1.6,
                   marginBottom: '24px'
                 }}>
@@ -186,8 +186,8 @@ export const SeniorityLevelTracks: React.FC<SeniorityLevelTracksProps> = ({
                 {/* Features Checklist */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '28px' }}>
                   {lvl.features.map((feat, fIdx) => (
-                    <div key={fIdx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: '#cbd5e1' }}>
-                      <Check size={14} color="#38bdf8" />
+                    <div key={fIdx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: 'var(--text-main)' }}>
+                      <Check size={14} color="#0284c7" />
                       <span>{feat}</span>
                     </div>
                   ))}
@@ -201,29 +201,27 @@ export const SeniorityLevelTracks: React.FC<SeniorityLevelTracksProps> = ({
                   width: '100%',
                   padding: '12px 18px',
                   borderRadius: '24px',
-                  border: lvl.isHighlight ? 'none' : '1px solid rgba(255, 255, 255, 0.08)',
-                  background: lvl.isHighlight ? 'linear-gradient(135deg, #818cf8 0%, #a855f7 100%)' : '#151a28',
-                  color: lvl.isHighlight ? '#ffffff' : '#cbd5e1',
+                  border: lvl.isHighlight ? 'none' : '1px solid var(--border-subtle)',
+                  background: lvl.isHighlight ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)' : 'var(--bg-surface)',
+                  color: lvl.isHighlight ? '#ffffff' : 'var(--text-main)',
                   fontSize: '13.5px',
                   fontWeight: 600,
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
-                  boxShadow: lvl.isHighlight ? '0 4px 15px rgba(129, 140, 248, 0.35)' : 'none'
+                  boxShadow: lvl.isHighlight ? '0 4px 15px rgba(99, 102, 241, 0.35)' : 'none'
                 }}
                 onMouseEnter={(e) => {
                   if (lvl.isHighlight) {
                     e.currentTarget.style.opacity = '0.92';
                   } else {
-                    e.currentTarget.style.background = '#1e2638';
-                    e.currentTarget.style.color = '#ffffff';
+                    e.currentTarget.style.background = 'var(--bg-card-hover)';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (lvl.isHighlight) {
                     e.currentTarget.style.opacity = '1';
                   } else {
-                    e.currentTarget.style.background = '#151a28';
-                    e.currentTarget.style.color = '#cbd5e1';
+                    e.currentTarget.style.background = 'var(--bg-surface)';
                   }
                 }}
               >

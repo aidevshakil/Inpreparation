@@ -21,7 +21,7 @@ export const MethodologySection: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(28px, 3.5vw, 38px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '12px'
           }}>
@@ -29,7 +29,7 @@ export const MethodologySection: React.FC = () => {
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6
           }}>
             Built on learning science and executive recruiting calibration, not generic chat prompts.
@@ -44,24 +44,24 @@ export const MethodologySection: React.FC = () => {
         }}>
           {/* Card 1: 1. Personalized */}
           <div style={{
-            background: '#0a0e18',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '20px',
             padding: '28px 24px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.5)',
+            boxShadow: 'var(--shadow-md)',
             transition: 'transform 0.2s ease, border-color 0.2s ease'
           }}>
             <div>
               <div style={{ marginBottom: '20px' }}>
-                <Fingerprint size={28} color="#cbd5e1" />
+                <Fingerprint size={28} color="var(--primary-color)" />
               </div>
-              <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '12px' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '12px' }}>
                 1. Personalized
               </h3>
-              <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '28px' }}>
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '28px' }}>
                 Rooted in your verifiable resume context, preventing irrelevant trivia and targeting your exact seniority tier.
               </p>
             </div>
@@ -70,7 +70,7 @@ export const MethodologySection: React.FC = () => {
               fontWeight: 600,
               color: '#38bdf8',
               paddingTop: '16px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+              borderTop: '1px solid var(--border-subtle)'
             }}>
               Contextually Calibrated
             </div>
@@ -78,33 +78,33 @@ export const MethodologySection: React.FC = () => {
 
           {/* Card 2: 2. Multimodal */}
           <div style={{
-            background: '#0a0e18',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '20px',
             padding: '28px 24px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.5)',
+            boxShadow: 'var(--shadow-md)',
             transition: 'transform 0.2s ease, border-color 0.2s ease'
           }}>
             <div>
               <div style={{ marginBottom: '20px' }}>
-                <Scan size={28} color="#38bdf8" />
+                <Scan size={28} color="#0284c7" />
               </div>
-              <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '12px' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '12px' }}>
                 2. Multimodal
               </h3>
-              <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '28px' }}>
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '28px' }}>
                 Evaluates spoken audio cadence, body posture, framing stability, and architectural rigor in parallel.
               </p>
             </div>
             <div style={{
               fontSize: '11.5px',
               fontWeight: 600,
-              color: '#38bdf8',
+              color: '#0284c7',
               paddingTop: '16px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+              borderTop: '1px solid var(--border-subtle)'
             }}>
               Complete Sensory Assessment
             </div>
@@ -112,33 +112,33 @@ export const MethodologySection: React.FC = () => {
 
           {/* Card 3: 3. Actionable */}
           <div style={{
-            background: '#0a0e18',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '20px',
             padding: '28px 24px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.5)',
+            boxShadow: 'var(--shadow-md)',
             transition: 'transform 0.2s ease, border-color 0.2s ease'
           }}>
             <div>
               <div style={{ marginBottom: '20px' }}>
-                <Bot size={28} color="#c084fc" />
+                <Bot size={28} color="#9333ea" />
               </div>
-              <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '12px' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '12px' }}>
                 3. Actionable
               </h3>
-              <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '28px' }}>
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '28px' }}>
                 Delivers concrete staff-level answers and prioritized drills instead of vague "sound more confident" generalities.
               </p>
             </div>
             <div style={{
               fontSize: '11.5px',
               fontWeight: 600,
-              color: '#c084fc',
+              color: '#9333ea',
               paddingTop: '16px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+              borderTop: '1px solid var(--border-subtle)'
             }}>
               Measurable Correction
             </div>
@@ -146,33 +146,33 @@ export const MethodologySection: React.FC = () => {
 
           {/* Card 4: 4. Continuous */}
           <div style={{
-            background: '#0a0e18',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '20px',
             padding: '28px 24px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.5)',
+            boxShadow: 'var(--shadow-md)',
             transition: 'transform 0.2s ease, border-color 0.2s ease'
           }}>
             <div>
               <div style={{ marginBottom: '20px' }}>
-                <RefreshCw size={28} color="#cbd5e1" />
+                <RefreshCw size={28} color="#059669" />
               </div>
-              <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '12px' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '12px' }}>
                 4. Continuous
               </h3>
-              <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '28px' }}>
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '28px' }}>
                 Every 5-question mock writes to your historical readiness graph, verifying compound score velocity before real rounds.
               </p>
             </div>
             <div style={{
               fontSize: '11.5px',
               fontWeight: 600,
-              color: '#94a3b8',
+              color: '#059669',
               paddingTop: '16px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+              borderTop: '1px solid var(--border-subtle)'
             }}>
               Compounding Preparedness
             </div>

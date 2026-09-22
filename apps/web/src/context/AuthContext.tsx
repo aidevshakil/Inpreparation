@@ -96,10 +96,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [user]);
 
-  const login = async (email: string, _password?: string): Promise<boolean> => {
+  const login = async (email: string, password?: string): Promise<boolean> => {
     setIsLoading(true);
     try {
-      const result = await loginUser(email);
+      const result = await loginUser(email, password);
       if (result && result.user) {
         const updated: UserProfile = {
           ...user,
@@ -118,16 +118,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setUser(updated);
         setIsAuthenticated(true);
         localStorage.setItem('inprep_authenticated', 'true');
+        if (result.token) localStorage.setItem('inprep_token', result.token);
         return true;
       }
-      setIsAuthenticated(true);
-      localStorage.setItem('inprep_authenticated', 'true');
-      return true;
+      return false;
     } catch (error) {
       console.error('Login error:', error);
-      setIsAuthenticated(true);
-      localStorage.setItem('inprep_authenticated', 'true');
-      return true;
+      return false;
     } finally {
       setIsLoading(false);
     }
@@ -138,24 +135,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const result = await loginWithGoogle(accessToken);
       if (result && result.user) {
+        const incomingEmail = (result.user.email || '').toLowerCase();
+        const isSameAccount = !user?.email || user.email.toLowerCase() === incomingEmail;
+        const base = isSameAccount ? user : DEFAULT_USER;
+
         const updated: UserProfile = {
-          ...user,
-          id: result.user.id || user.id,
-          email: result.user.email || user.email,
-          name: result.user.name || user.name,
-          targetRole: result.user.targetRole || '',
-          avatarUrl: result.user.picture || user.avatarUrl,
-          seniority: result.user.seniority || 'Entry / Mid',
-          creditsRemaining: result.user.creditsRemaining ?? 100,
-          totalCredits: result.user.totalCredits ?? 100,
-          cvFileName: result.user.cvFileName || undefined,
-          cvSkills: result.user.cvSkills || [],
-          cvAtsScore: result.user.cvAtsScore || undefined,
-          isEmailVerified: result.user.isEmailVerified || true,
+          ...base,
+          id: result.user.id || base.id,
+          email: result.user.email || base.email,
+          name: result.user.name || base.name,
+          targetRole: result.user.targetRole || base.targetRole || '',
+          avatarUrl: result.user.picture || result.user.avatarUrl || base.avatarUrl,
+          seniority: result.user.seniority || base.seniority || 'Entry / Mid',
+          creditsRemaining: result.user.creditsRemaining ?? base.creditsRemaining ?? 100,
+          totalCredits: result.user.totalCredits ?? base.totalCredits ?? 100,
+          cvFileName: result.user.cvFileName || base.cvFileName || undefined,
+          cvSkills: (result.user.cvSkills && result.user.cvSkills.length > 0)
+            ? result.user.cvSkills
+            : (base.cvSkills || []),
+          cvAtsScore: result.user.cvAtsScore || base.cvAtsScore || undefined,
+          isEmailVerified: result.user.isEmailVerified ?? true,
         };
         setUser(updated);
         setIsAuthenticated(true);
         localStorage.setItem('inprep_authenticated', 'true');
+        if (result.token) localStorage.setItem('inprep_token', result.token);
         return true;
       }
       return false;
@@ -205,6 +209,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = () => {
     localStorage.removeItem('inprep_user');
     localStorage.removeItem('inprep_authenticated');
+    localStorage.removeItem('inprep_token');
     setUser(DEFAULT_USER);
     setIsAuthenticated(false);
   };

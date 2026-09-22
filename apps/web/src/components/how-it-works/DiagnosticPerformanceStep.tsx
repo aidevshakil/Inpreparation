@@ -20,7 +20,7 @@ export const DiagnosticPerformanceStep: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(28px, 3.5vw, 38px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '12px'
           }}>
@@ -28,7 +28,7 @@ export const DiagnosticPerformanceStep: React.FC = () => {
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6,
             maxWidth: '780px',
             margin: 0
@@ -39,12 +39,12 @@ export const DiagnosticPerformanceStep: React.FC = () => {
 
         {/* Card 1: Session Diagnostic Summary */}
         <div style={{
-          background: '#0a0e18',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '20px',
           padding: '28px 30px',
           marginBottom: '24px',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
+          boxShadow: 'var(--shadow-lg)'
         }}>
           {/* Header Row */}
           <div style={{
@@ -56,10 +56,10 @@ export const DiagnosticPerformanceStep: React.FC = () => {
             gap: '12px'
           }}>
             <div>
-              <div style={{ fontSize: '11.5px', color: '#94a3b8', fontWeight: 500, marginBottom: '4px' }}>
+              <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)', fontWeight: 500, marginBottom: '4px' }}>
                 Session Diagnostic Summary
               </div>
-              <h3 style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+              <h3 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                 AI/ML Engineering Mock Results
               </h3>
             </div>
@@ -67,9 +67,9 @@ export const DiagnosticPerformanceStep: React.FC = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{
                 fontSize: '11.5px',
-                color: '#94a3b8',
-                background: '#121726',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                color: 'var(--text-secondary)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 padding: '4px 12px',
                 borderRadius: '6px'
               }}>
@@ -79,7 +79,7 @@ export const DiagnosticPerformanceStep: React.FC = () => {
                 fontSize: '11.5px',
                 fontWeight: 600,
                 color: '#38bdf8',
-                background: '#0e2942',
+                background: 'var(--bg-surface)',
                 border: '1px solid rgba(56, 189, 248, 0.25)',
                 padding: '4px 12px',
                 borderRadius: '6px'
@@ -98,8 +98,8 @@ export const DiagnosticPerformanceStep: React.FC = () => {
           }}>
             {/* Left: Overall Score Circular Gauge */}
             <div style={{
-              background: '#060911',
-              border: '1px solid rgba(255, 255, 255, 0.05)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '16px',
               padding: '28px 20px',
               display: 'flex',
@@ -111,7 +111,7 @@ export const DiagnosticPerformanceStep: React.FC = () => {
                 width: '124px',
                 height: '124px',
                 borderRadius: '50%',
-                border: '5px solid rgba(255, 255, 255, 0.06)',
+                border: '5px solid var(--border-subtle)',
                 borderTopColor: '#818cf8',
                 borderRightColor: '#38bdf8',
                 borderBottomColor: '#a855f7',
@@ -122,15 +122,15 @@ export const DiagnosticPerformanceStep: React.FC = () => {
                 marginBottom: '18px',
                 boxShadow: '0 0 30px rgba(99, 102, 241, 0.25)'
               }}>
-                <span style={{ fontSize: '38px', fontWeight: 800, color: '#ffffff', lineHeight: 1 }}>
+                <span style={{ fontSize: '38px', fontWeight: 800, color: 'var(--text-main)', lineHeight: 1 }}>
                   82
                 </span>
-                <span style={{ fontSize: '9px', fontWeight: 700, color: '#94a3b8', letterSpacing: '0.08em', marginTop: '4px' }}>
+                <span style={{ fontSize: '9px', fontWeight: 700, color: 'var(--text-secondary)', letterSpacing: '0.08em', marginTop: '4px' }}>
                   OVERALL SCORE
                 </span>
               </div>
 
-              <div style={{ fontSize: '13.5px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+              <div style={{ fontSize: '13.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
                 Executive Readiness: Senior Grade
               </div>
               <div style={{ fontSize: '12px', color: '#38bdf8', fontWeight: 500 }}>
@@ -144,14 +144,14 @@ export const DiagnosticPerformanceStep: React.FC = () => {
                 { label: 'Technical Precision & Trade-Offs', pct: 86, color: '#a78bfa' },
                 { label: 'Structured Communication (STAR Framework)', pct: 84, color: '#38bdf8' },
                 { label: 'Pacing, Cadence & Filler Word Minimization', pct: 81, color: '#c084fc' },
-                { label: 'Physical Composure & Setup Ergonomics', pct: 85, color: '#e2e8f0' }
+                { label: 'Physical Composure & Setup Ergonomics', pct: 85, color: '#10b981' }
               ].map((bar, i) => (
                 <div key={i}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px', marginBottom: '7px' }}>
-                    <span style={{ color: '#cbd5e1', fontWeight: 500 }}>{bar.label}</span>
-                    <span style={{ color: '#ffffff', fontWeight: 700 }}>{bar.pct}%</span>
+                    <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>{bar.label}</span>
+                    <span style={{ color: 'var(--text-main)', fontWeight: 700 }}>{bar.pct}%</span>
                   </div>
-                  <div style={{ width: '100%', height: '6px', background: 'rgba(255, 255, 255, 0.06)', borderRadius: '3px', overflow: 'hidden' }}>
+                  <div style={{ width: '100%', height: '6px', background: 'var(--border-subtle)', borderRadius: '3px', overflow: 'hidden' }}>
                     <div style={{ width: `${bar.pct}%`, height: '100%', background: bar.color, borderRadius: '3px' }} />
                   </div>
                 </div>
@@ -162,12 +162,12 @@ export const DiagnosticPerformanceStep: React.FC = () => {
 
         {/* Card 2: Question 1 of 5 Micro-Rubric */}
         <div style={{
-          background: '#0a0e18',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '20px',
           padding: '24px 28px',
           marginBottom: '20px',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
+          boxShadow: 'var(--shadow-lg)'
         }}>
           {/* Header */}
           <div style={{
@@ -181,9 +181,9 @@ export const DiagnosticPerformanceStep: React.FC = () => {
             <span style={{
               fontSize: '11.5px',
               fontWeight: 600,
-              color: '#94a3b8',
-              background: '#121726',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
+              color: 'var(--text-secondary)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               padding: '3px 10px',
               borderRadius: '6px'
             }}>
@@ -194,12 +194,12 @@ export const DiagnosticPerformanceStep: React.FC = () => {
             </span>
           </div>
 
-          <h4 style={{ fontSize: '16.5px', fontWeight: 700, color: '#ffffff', marginBottom: '10px' }}>
+          <h4 style={{ fontSize: '16.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '10px' }}>
             "How do you manage schema evolution in high-throughput event logs without downtime?"
           </h4>
 
-          <p style={{ fontSize: '12.5px', color: '#94a3b8', lineHeight: 1.5, marginBottom: '20px' }}>
-            <strong style={{ color: '#ffffff' }}>Strengths:</strong> Accurately detailed Avro Schema Registry and forward/backward compatibility checks. Highlighted consumer lag metrics.
+          <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: '20px' }}>
+            <strong style={{ color: 'var(--text-main)' }}>Strengths:</strong> Accurately detailed Avro Schema Registry and forward/backward compatibility checks. Highlighted consumer lag metrics.
           </p>
 
           <div style={{
@@ -209,30 +209,30 @@ export const DiagnosticPerformanceStep: React.FC = () => {
           }}>
             {/* Left: Your Transcript Excerpt */}
             <div style={{
-              background: '#060911',
-              border: '1px solid rgba(255, 255, 255, 0.05)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '10px',
               padding: '16px'
             }}>
               <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', marginBottom: '8px', textTransform: 'uppercase' }}>
                 YOUR TRANSCRIPT EXCERPT:
               </div>
-              <div style={{ fontSize: '12.5px', color: '#cbd5e1', lineHeight: 1.55, fontStyle: 'italic' }}>
+              <div style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.55, fontStyle: 'italic' }}>
                 "...we used schema registry with Avro. We made sure fields had default values so old consumers wouldn't crash when new writers published..."
               </div>
             </div>
 
             {/* Right: Staff-Tier Benchmark */}
             <div style={{
-              background: '#060911',
+              background: 'var(--bg-surface)',
               border: '1px solid rgba(56, 189, 248, 0.15)',
               borderRadius: '10px',
               padding: '16px'
             }}>
-              <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#38bdf8', letterSpacing: '0.05em', marginBottom: '8px', textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#0284c7', letterSpacing: '0.05em', marginBottom: '8px', textTransform: 'uppercase' }}>
                 STAFF-TIER BENCHMARK:
               </div>
-              <div style={{ fontSize: '12.5px', color: '#e2e8f0', lineHeight: 1.55 }}>
+              <div style={{ fontSize: '12.5px', color: 'var(--text-main)', lineHeight: 1.55 }}>
                 1. Define Compatibility Mode (FULL/BACKWARD) • 2. Enforce CI schema validation • 3. Deploy Consumer before Producer • 4. Monitor Dead-Letter Queues.
               </div>
             </div>
@@ -241,11 +241,11 @@ export const DiagnosticPerformanceStep: React.FC = () => {
 
         {/* Card 3: Question 2 of 5 - Diagnostic Gap */}
         <div style={{
-          background: '#0a0e18',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '20px',
           padding: '24px 28px',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
+          boxShadow: 'var(--shadow-lg)'
         }}>
           <div style={{
             display: 'flex',
@@ -258,9 +258,9 @@ export const DiagnosticPerformanceStep: React.FC = () => {
             <span style={{
               fontSize: '11.5px',
               fontWeight: 600,
-              color: '#94a3b8',
-              background: '#121726',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
+              color: 'var(--text-secondary)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               padding: '3px 10px',
               borderRadius: '6px'
             }}>
@@ -271,12 +271,12 @@ export const DiagnosticPerformanceStep: React.FC = () => {
             </span>
           </div>
 
-          <h4 style={{ fontSize: '16.5px', fontWeight: 700, color: '#ffffff', marginBottom: '10px' }}>
+          <h4 style={{ fontSize: '16.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '10px' }}>
             "Walk through handling split-brain scenarios in a distributed consensus layer."
           </h4>
 
-          <p style={{ fontSize: '12.5px', color: '#94a3b8', lineHeight: 1.5, marginBottom: '20px' }}>
-            <strong style={{ color: '#ffffff' }}>Diagnostic Gap:</strong> Answer omitted majority quorum math and fencing tokens. Addressed symptom mitigation rather than consensus protocol guarantees.
+          <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: '20px' }}>
+            <strong style={{ color: 'var(--text-main)' }}>Diagnostic Gap:</strong> Answer omitted majority quorum math and fencing tokens. Addressed symptom mitigation rather than consensus protocol guarantees.
           </p>
 
           <div style={{
@@ -284,15 +284,15 @@ export const DiagnosticPerformanceStep: React.FC = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
             paddingTop: '16px',
-            borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+            borderTop: '1px solid var(--border-subtle)',
             fontSize: '12px',
             flexWrap: 'wrap',
             gap: '8px'
           }}>
-            <span style={{ color: '#38bdf8' }}>
+            <span style={{ color: 'var(--text-secondary)' }}>
               AI-generated benchmark for practice calibration
             </span>
-            <span style={{ color: '#38bdf8', fontWeight: 600, cursor: 'pointer' }}>
+            <span style={{ color: '#0284c7', fontWeight: 600, cursor: 'pointer' }}>
               View Suggested Remediation Answer →
             </span>
           </div>

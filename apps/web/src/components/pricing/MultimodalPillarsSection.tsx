@@ -48,7 +48,7 @@ export const MultimodalPillarsSection: React.FC = () => {
             fontWeight: 800,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: '#38bdf8',
+            color: '#0284c7',
             marginBottom: '10px'
           }}>
             BEYOND ORDINARY TESTING
@@ -56,7 +56,7 @@ export const MultimodalPillarsSection: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(28px, 3.5vw, 38px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '10px'
           }}>
@@ -64,7 +64,7 @@ export const MultimodalPillarsSection: React.FC = () => {
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6,
             margin: 0
           }}>
@@ -82,22 +82,22 @@ export const MultimodalPillarsSection: React.FC = () => {
             <div
               key={idx}
               style={{
-                background: '#0a0e18',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '18px',
                 padding: '28px 24px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.4)',
+                boxShadow: 'var(--shadow-md)',
                 transition: 'all 0.2s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.16)';
+                e.currentTarget.style.borderColor = 'var(--border-accent)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.borderColor = 'var(--border-subtle)';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
@@ -115,11 +115,11 @@ export const MultimodalPillarsSection: React.FC = () => {
                   {pil.icon}
                 </div>
 
-                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#ffffff', marginBottom: '10px' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '10px' }}>
                   {pil.title}
                 </h3>
 
-                <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '24px' }}>
+                <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '24px' }}>
                   {pil.desc}
                 </p>
               </div>
@@ -130,12 +130,12 @@ export const MultimodalPillarsSection: React.FC = () => {
                   <span
                     key={tIdx}
                     style={{
-                      background: '#121726',
-                      border: '1px solid rgba(255, 255, 255, 0.06)',
+                      background: 'var(--bg-surface)',
+                      border: '1px solid var(--border-subtle)',
                       borderRadius: '6px',
                       padding: '4px 8px',
                       fontSize: '11px',
-                      color: '#cbd5e1',
+                      color: 'var(--text-secondary)',
                       fontWeight: 500
                     }}
                   >

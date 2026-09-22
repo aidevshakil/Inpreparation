@@ -7,9 +7,12 @@ import {
   ShieldCheck,
   Clock,
   KeyRound,
-  RotateCcw
+  RotateCcw,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { ForgotStateMode } from './ForgotPrototypeBar';
+import { useTheme } from '../../context/ThemeContext';
 
 interface ForgotPasswordCardProps {
   mode: ForgotStateMode;
@@ -24,6 +27,7 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
   onNavigateSignup,
   onNavigateReset
 }) => {
+  const { theme, toggleTheme } = useTheme();
   const [step, setStep] = useState<'email' | 'otp'>('email');
   const [email, setEmail] = useState('');
   const [localStatus, setLocalStatus] = useState<ForgotStateMode>(mode);
@@ -137,11 +141,11 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
 
   return (
     <div style={{
-      background: '#090d16',
-      border: '1px solid rgba(255, 255, 255, 0.08)',
+      background: 'var(--bg-card)',
+      border: '1px solid var(--border-subtle)',
       borderRadius: '24px',
       padding: '36px 32px',
-      boxShadow: '0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(99, 102, 241, 0.06)',
+      boxShadow: 'var(--shadow-xl)',
       width: '100%',
       maxWidth: '480px'
     }}>
@@ -161,26 +165,62 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
           gap: '6px',
           padding: '4px 12px',
           borderRadius: '100px',
-          background: 'rgba(124, 58, 237, 0.15)',
-          border: '1px solid rgba(168, 85, 247, 0.3)',
+          background: 'rgba(99, 102, 241, 0.12)',
+          border: '1px solid rgba(99, 102, 241, 0.25)',
           fontSize: '11px',
           fontWeight: 700,
-          color: '#c084fc'
+          color: 'var(--primary-color)'
         }}>
-          <KeyRound size={12} color="#c084fc" />
-          <span>6-Digit Verification Code Recovery</span>
+          <KeyRound size={12} color="var(--primary-color)" />
+          <span>Password Recovery</span>
         </div>
 
-        <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 600, letterSpacing: '0.05em' }}>
-          {step === 'email' ? 'Step 1 of 3' : 'Step 2 of 3'}
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            aria-label="Toggle Theme"
+            style={{
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
+              color: 'var(--text-secondary)',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '28px',
+              height: '28px',
+              borderRadius: '50%',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = 'var(--text-main)';
+              e.currentTarget.style.borderColor = 'var(--border-accent)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = 'var(--text-secondary)';
+              e.currentTarget.style.borderColor = 'var(--border-subtle)';
+            }}
+          >
+            {theme === 'dark' ? (
+              <Sun size={14} color="#eab308" />
+            ) : (
+              <Moon size={14} color="#6366f1" />
+            )}
+          </button>
+
+          <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 600, letterSpacing: '0.05em' }}>
+            {step === 'email' ? 'Step 1 of 3' : 'Step 2 of 3'}
+          </span>
+        </div>
       </div>
 
       {/* Heading & Subtitle */}
       <h1 style={{
         fontSize: '28px',
         fontWeight: 800,
-        color: '#ffffff',
+        color: 'var(--text-main)',
         letterSpacing: '-0.025em',
         marginBottom: '8px'
       }}>
@@ -189,13 +229,13 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
 
       <p style={{
         fontSize: '13.5px',
-        color: '#94a3b8',
+        color: 'var(--text-secondary)',
         lineHeight: 1.55,
         marginBottom: '24px'
       }}>
         {step === 'email'
           ? 'Enter the email address associated with your Inprep AI account and we’ll send a secure 6-digit verification code.'
-          : <>We sent a 6-digit verification code to <strong style={{ color: '#f8fafc' }}>{email}</strong>. Enter it below to reset your password.</>}
+          : <>We sent a 6-digit verification code to <strong style={{ color: 'var(--text-main)' }}>{email}</strong>. Enter it below to reset your password.</>}
       </p>
 
       {/* Error & Success Notifications */}
@@ -243,7 +283,7 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
               display: 'block',
               fontSize: '11px',
               fontWeight: 800,
-              color: '#cbd5e1',
+              color: 'var(--text-main)',
               letterSpacing: '0.06em',
               textTransform: 'uppercase',
               marginBottom: '8px'
@@ -253,13 +293,13 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
             <div style={{
               display: 'flex',
               alignItems: 'center',
-              background: '#0e1320',
-              border: localStatus === 'empty-error' || localStatus === 'invalid-format' ? '1px solid #ef4444' : '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--bg-surface)',
+              border: localStatus === 'empty-error' || localStatus === 'invalid-format' ? '1px solid #ef4444' : '1px solid var(--border-subtle)',
               borderRadius: '12px',
               padding: '12px 14px',
               transition: 'all 0.2s ease'
             }}>
-              <span style={{ color: '#64748b', marginRight: '10px', fontWeight: 600, fontSize: '15px' }}>
+              <span style={{ color: 'var(--text-muted)', marginRight: '10px', fontWeight: 600, fontSize: '15px' }}>
                 @
               </span>
               <input
@@ -273,13 +313,13 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
                   background: 'transparent',
                   border: 'none',
                   outline: 'none',
-                  color: '#ffffff',
+                  color: 'var(--text-main)',
                   fontSize: '14px',
                   fontFamily: 'inherit'
                 }}
               />
             </div>
-            <div style={{ fontSize: '11.5px', color: '#64748b', marginTop: '6px' }}>
+            <div style={{ fontSize: '11.5px', color: 'var(--text-muted)', marginTop: '6px' }}>
               We'll send a 6-digit verification code valid for 10 minutes.
             </div>
           </div>
@@ -328,7 +368,7 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
               <label style={{
                 fontSize: '11px',
                 fontWeight: 800,
-                color: '#cbd5e1',
+                color: 'var(--text-main)',
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase',
               }}>
@@ -340,7 +380,7 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: '#818cf8',
+                  color: 'var(--primary-color)',
                   fontSize: '11px',
                   fontWeight: 600,
                   cursor: 'pointer',
@@ -368,12 +408,12 @@ export const ForgotPasswordCard: React.FC<ForgotPasswordCardProps> = ({
                     textAlign: 'center',
                     fontSize: '20px',
                     fontWeight: 800,
-                    color: '#ffffff',
-                    background: '#0e1320',
-                    border: digit ? '1px solid #818cf8' : '1px solid rgba(255, 255, 255, 0.12)',
+                    color: 'var(--text-main)',
+                    background: 'var(--bg-surface)',
+                    border: digit ? '1px solid var(--primary-color)' : '1px solid var(--border-subtle)',
                     borderRadius: '12px',
                     outline: 'none',
-                    boxShadow: digit ? '0 0 12px rgba(129, 140, 248, 0.25)' : 'none',
+                    boxShadow: digit ? '0 0 12px rgba(99, 102, 241, 0.25)' : 'none',
                     transition: 'all 0.15s ease'
                   }}
                 />

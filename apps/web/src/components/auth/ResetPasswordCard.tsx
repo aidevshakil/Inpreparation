@@ -297,56 +297,60 @@ export const ResetPasswordCard: React.FC<ResetPasswordCardProps> = ({
               </button>
             </div>
 
-            {/* Password Strength Meter */}
-            <div style={{ marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '11px' }}>
-                <span style={{ color: '#64748b' }}>Password Strength:</span>
-                <span style={{ fontWeight: 600, color: strength.color }}>{strength.label}</span>
-              </div>
+            {/* Password Strength Meter - Only visible when typing */}
+            {password.length > 0 && (
+              <>
+                <div style={{ marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '11px' }}>
+                    <span style={{ color: '#64748b' }}>Password Strength:</span>
+                    <span style={{ fontWeight: 600, color: strength.color }}>{strength.label}</span>
+                  </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '4px' }}>
-                {[1, 2, 3, 4].map((bar) => (
-                  <div
-                    key={bar}
-                    style={{
-                      height: '3px',
-                      borderRadius: '2px',
-                      background: bar <= strength.bars ? strength.color : 'rgba(255, 255, 255, 0.08)',
-                      transition: 'background 0.3s ease'
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '4px' }}>
+                    {[1, 2, 3, 4].map((bar) => (
+                      <div
+                        key={bar}
+                        style={{
+                          height: '3px',
+                          borderRadius: '2px',
+                          background: bar <= strength.bars ? strength.color : 'rgba(255, 255, 255, 0.08)',
+                          transition: 'background 0.3s ease'
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
 
-            {/* Criteria Checklist */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '6px',
-              marginTop: '4px',
-              fontSize: '11px'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasMinLength ? '#34d399' : '#64748b' }}>
-                {hasMinLength ? <Check size={12} strokeWidth={3} /> : <X size={12} />}
-                <span>8+ characters</span>
-              </div>
+                {/* Criteria Checklist */}
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '6px',
+                  marginTop: '4px',
+                  fontSize: '11px'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasMinLength ? '#34d399' : '#64748b' }}>
+                    {hasMinLength ? <Check size={12} strokeWidth={3} /> : <X size={12} />}
+                    <span>8+ characters</span>
+                  </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasUppercase ? '#34d399' : '#64748b' }}>
-                {hasUppercase ? <Check size={12} strokeWidth={3} /> : <X size={12} />}
-                <span>1 uppercase letter</span>
-              </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasUppercase ? '#34d399' : '#64748b' }}>
+                    {hasUppercase ? <Check size={12} strokeWidth={3} /> : <X size={12} />}
+                    <span>1 uppercase letter</span>
+                  </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasNumber ? '#34d399' : '#64748b' }}>
-                {hasNumber ? <Check size={12} strokeWidth={3} /> : <X size={12} />}
-                <span>1 number</span>
-              </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasNumber ? '#34d399' : '#64748b' }}>
+                    {hasNumber ? <Check size={12} strokeWidth={3} /> : <X size={12} />}
+                    <span>1 number</span>
+                  </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasSpecial ? '#34d399' : '#64748b' }}>
-                {hasSpecial ? <Check size={12} strokeWidth={3} /> : <X size={12} />}
-                <span>1 symbol/special</span>
-              </div>
-            </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: hasSpecial ? '#34d399' : '#64748b' }}>
+                    {hasSpecial ? <Check size={12} strokeWidth={3} /> : <X size={12} />}
+                    <span>1 symbol/special</span>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Field 2: Confirm New Password */}

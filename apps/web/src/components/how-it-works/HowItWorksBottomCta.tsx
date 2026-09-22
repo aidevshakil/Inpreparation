@@ -14,14 +14,14 @@ export const HowItWorksBottomCta: React.FC<HowItWorksBottomCtaProps> = ({
     <section style={{ padding: '60px 0 100px', position: 'relative' }}>
       <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
         <div style={{
-          background: '#0a0e18',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '24px',
           padding: '64px 32px',
           textAlign: 'center',
           maxWidth: '1040px',
           margin: '0 auto',
-          boxShadow: '0 30px 80px rgba(0, 0, 0, 0.7)',
+          boxShadow: 'var(--shadow-lg)',
           position: 'relative',
           overflow: 'hidden'
         }}>
@@ -44,9 +44,9 @@ export const HowItWorksBottomCta: React.FC<HowItWorksBottomCtaProps> = ({
               fontWeight: 800,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
-              color: '#c084fc',
-              background: 'rgba(168, 85, 247, 0.15)',
-              border: '1px solid rgba(168, 85, 247, 0.3)',
+              color: 'var(--primary-color)',
+              background: 'rgba(99, 102, 241, 0.12)',
+              border: '1px solid rgba(99, 102, 241, 0.25)',
               padding: '5px 14px',
               borderRadius: '20px',
               marginBottom: '22px'
@@ -58,7 +58,7 @@ export const HowItWorksBottomCta: React.FC<HowItWorksBottomCtaProps> = ({
             <h2 style={{
               fontSize: 'clamp(30px, 4.2vw, 44px)',
               fontWeight: 800,
-              color: '#ffffff',
+              color: 'var(--text-main)',
               letterSpacing: '-0.025em',
               lineHeight: 1.25,
               marginBottom: '18px'
@@ -69,7 +69,7 @@ export const HowItWorksBottomCta: React.FC<HowItWorksBottomCtaProps> = ({
             {/* Subtitle */}
             <p style={{
               fontSize: '15px',
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
               lineHeight: 1.6,
               maxWidth: '680px',
               margin: '0 auto 36px'
@@ -119,23 +119,23 @@ export const HowItWorksBottomCta: React.FC<HowItWorksBottomCtaProps> = ({
               <button
                 onClick={() => onNavigateToSimulations && onNavigateToSimulations()}
                 style={{
-                  background: '#151a28',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '28px',
                   padding: '14px 28px',
-                  color: '#cbd5e1',
+                  color: 'var(--text-secondary)',
                   fontSize: '14px',
                   fontWeight: 600,
                   cursor: 'pointer',
                   transition: 'all 0.2s ease'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#1e2638';
-                  e.currentTarget.style.color = '#ffffff';
+                  e.currentTarget.style.background = 'var(--bg-card-hover)';
+                  e.currentTarget.style.color = 'var(--text-main)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#151a28';
-                  e.currentTarget.style.color = '#cbd5e1';
+                  e.currentTarget.style.background = 'var(--bg-surface)';
+                  e.currentTarget.style.color = 'var(--text-secondary)';
                 }}
               >
                 Explore Interview Library
@@ -150,7 +150,7 @@ export const HowItWorksBottomCta: React.FC<HowItWorksBottomCtaProps> = ({
               gap: '16px',
               flexWrap: 'wrap',
               fontSize: '12.5px',
-              color: '#94a3b8'
+              color: 'var(--text-secondary)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <Check size={14} color="#38bdf8" />

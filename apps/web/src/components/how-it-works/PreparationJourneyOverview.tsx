@@ -80,7 +80,7 @@ export const PreparationJourneyOverview: React.FC = () => {
             fontSize: '11.5px',
             fontWeight: 700,
             letterSpacing: '0.1em',
-            color: '#818cf8',
+            color: 'var(--primary-color)',
             textTransform: 'uppercase',
             marginBottom: '12px'
           }}>
@@ -91,7 +91,7 @@ export const PreparationJourneyOverview: React.FC = () => {
             fontSize: 'clamp(28px, 4vw, 40px)',
             fontWeight: 800,
             lineHeight: 1.25,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '14px'
           }}>
@@ -100,7 +100,7 @@ export const PreparationJourneyOverview: React.FC = () => {
 
           <p style={{
             fontSize: 'clamp(14px, 1.6vw, 16px)',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6,
             maxWidth: '750px',
             margin: '0 auto'
@@ -121,8 +121,8 @@ export const PreparationJourneyOverview: React.FC = () => {
               <div
                 key={index}
                 style={{
-                  background: '#0d121f',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '16px',
                   padding: '24px 20px',
                   display: 'flex',
@@ -134,12 +134,12 @@ export const PreparationJourneyOverview: React.FC = () => {
                   overflow: 'hidden'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.35)';
+                  e.currentTarget.style.borderColor = 'var(--primary-color)';
                   e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 12px 28px -8px rgba(0, 0, 0, 0.5)';
+                  e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
+                  e.currentTarget.style.borderColor = 'var(--border-subtle)';
                   e.currentTarget.style.transform = 'translateY(0)';
                   e.currentTarget.style.boxShadow = 'none';
                 }}
@@ -155,7 +155,7 @@ export const PreparationJourneyOverview: React.FC = () => {
                     <span style={{
                       fontSize: '30px',
                       fontWeight: 800,
-                      color: '#334155',
+                      color: 'var(--text-muted)',
                       letterSpacing: '-0.03em',
                       lineHeight: 1
                     }}>
@@ -166,13 +166,13 @@ export const PreparationJourneyOverview: React.FC = () => {
                       width: '34px',
                       height: '34px',
                       borderRadius: '50%',
-                      background: 'rgba(255, 255, 255, 0.03)',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      background: 'var(--bg-surface)',
+                      border: '1px solid var(--border-subtle)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      <IconComponent size={16} color="#818cf8" />
+                      <IconComponent size={16} color="var(--primary-color)" />
                     </div>
                   </div>
 
@@ -180,7 +180,7 @@ export const PreparationJourneyOverview: React.FC = () => {
                   <h3 style={{
                     fontSize: '16px',
                     fontWeight: 700,
-                    color: '#f8fafc',
+                    color: 'var(--text-main)',
                     marginBottom: '10px',
                     lineHeight: 1.3
                   }}>
@@ -190,7 +190,7 @@ export const PreparationJourneyOverview: React.FC = () => {
                   {/* Description */}
                   <p style={{
                     fontSize: '13px',
-                    color: '#8896ab',
+                    color: 'var(--text-secondary)',
                     lineHeight: 1.55,
                     margin: 0
                   }}>
@@ -202,7 +202,7 @@ export const PreparationJourneyOverview: React.FC = () => {
                 <div style={{
                   fontSize: '11.5px',
                   fontWeight: 600,
-                  color: '#38bdf8',
+                  color: 'var(--primary-color)',
                   marginTop: '20px',
                   letterSpacing: '0.02em'
                 }}>

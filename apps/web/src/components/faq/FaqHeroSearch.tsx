@@ -57,16 +57,15 @@ export const FaqHeroSearch: React.FC<FaqHeroSearchProps> = ({
             gap: '8px',
             padding: '6px 16px',
             borderRadius: '100px',
-            background: 'rgba(124, 58, 237, 0.15)',
-            border: '1px solid rgba(168, 85, 247, 0.35)',
+            background: 'rgba(99, 102, 241, 0.12)',
+            border: '1px solid rgba(99, 102, 241, 0.25)',
             fontSize: '11px',
             fontWeight: 700,
             letterSpacing: '0.08em',
             textTransform: 'uppercase',
-            color: '#c084fc',
-            boxShadow: '0 0 20px rgba(124, 58, 237, 0.25)'
+            color: 'var(--primary-color)'
           }}>
-            <Sparkles size={13} color="#c084fc" />
+            <Sparkles size={13} color="var(--primary-color)" />
             <span>HELP CENTER & KNOWLEDGE BASE</span>
           </div>
         </div>
@@ -80,9 +79,9 @@ export const FaqHeroSearch: React.FC<FaqHeroSearchProps> = ({
             lineHeight: 1.15,
             margin: 0
           }}>
-            <span style={{ color: '#ffffff' }}>Questions? </span>
+            <span style={{ color: 'var(--text-main)' }}>Questions? </span>
             <span style={{
-              background: 'linear-gradient(135deg, #a78bfa 0%, #818cf8 50%, #38bdf8 100%)',
+              background: 'linear-gradient(135deg, var(--primary-color) 0%, #8b5cf6 50%, #0284c7 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
             }}>
@@ -97,7 +96,7 @@ export const FaqHeroSearch: React.FC<FaqHeroSearchProps> = ({
           maxWidth: '720px',
           margin: '0 auto 28px',
           fontSize: '15px',
-          color: '#94a3b8',
+          color: 'var(--text-secondary)',
           lineHeight: 1.65
         }}>
           Learn how Inprep AI conducts multimodal evaluations, how your AI credits are spent, and the strict zero-psychological-profiling privacy protocols guarding your voice and video.
@@ -115,7 +114,7 @@ export const FaqHeroSearch: React.FC<FaqHeroSearchProps> = ({
           <button
             onClick={onStartPracticing}
             style={{
-              background: 'linear-gradient(135deg, #7c3aed 0%, #6366f1 100%)',
+              background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
               color: '#ffffff',
               border: 'none',
               borderRadius: '100px',
@@ -126,16 +125,16 @@ export const FaqHeroSearch: React.FC<FaqHeroSearchProps> = ({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              boxShadow: '0 4px 20px rgba(124, 58, 237, 0.4), 0 0 15px rgba(99, 102, 241, 0.3)',
+              boxShadow: '0 4px 20px rgba(99, 102, 241, 0.35)',
               transition: 'all 0.2s ease'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 6px 24px rgba(124, 58, 237, 0.5), 0 0 20px rgba(99, 102, 241, 0.4)';
+              e.currentTarget.style.opacity = '0.92';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 20px rgba(124, 58, 237, 0.4), 0 0 15px rgba(99, 102, 241, 0.3)';
+              e.currentTarget.style.opacity = '1';
             }}
           >
             <span>Start Practicing Free</span>
@@ -145,9 +144,9 @@ export const FaqHeroSearch: React.FC<FaqHeroSearchProps> = ({
           <button
             onClick={onExploreHowItWorks}
             style={{
-              background: '#0e1320',
-              color: '#e2e8f0',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--bg-surface)',
+              color: 'var(--text-secondary)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '100px',
               padding: '12px 24px',
               fontSize: '14px',
@@ -156,12 +155,14 @@ export const FaqHeroSearch: React.FC<FaqHeroSearchProps> = ({
               transition: 'all 0.2s ease'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#141c2e';
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+              e.currentTarget.style.background = 'var(--bg-card-hover)';
+              e.currentTarget.style.borderColor = 'var(--border-accent)';
+              e.currentTarget.style.color = 'var(--text-main)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#0e1320';
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+              e.currentTarget.style.background = 'var(--bg-surface)';
+              e.currentTarget.style.borderColor = 'var(--border-subtle)';
+              e.currentTarget.style.color = 'var(--text-secondary)';
             }}
           >
             <span>Explore How It Works</span>
@@ -185,8 +186,9 @@ export const FaqHeroSearch: React.FC<FaqHeroSearchProps> = ({
             gap: '16px',
             padding: '8px 20px',
             borderRadius: '100px',
-            background: 'rgba(255, 255, 255, 0.02)',
-            border: '1px solid rgba(255, 255, 255, 0.06)'
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
+            boxShadow: 'var(--shadow-sm)'
           }}>
             {valuePillars.map((pillar, idx) => (
               <div
@@ -196,7 +198,7 @@ export const FaqHeroSearch: React.FC<FaqHeroSearchProps> = ({
                   alignItems: 'center',
                   gap: '6px',
                   fontSize: '12px',
-                  color: '#94a3b8',
+                  color: 'var(--text-secondary)',
                   fontWeight: 500
                 }}
               >
@@ -204,7 +206,7 @@ export const FaqHeroSearch: React.FC<FaqHeroSearchProps> = ({
                   width: '5px',
                   height: '5px',
                   borderRadius: '50%',
-                  background: '#38bdf8',
+                  background: '#0284c7',
                   display: 'inline-block'
                 }} />
                 <span>{pillar}</span>
@@ -222,14 +224,14 @@ export const FaqHeroSearch: React.FC<FaqHeroSearchProps> = ({
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            background: '#0a0e18',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '14px',
             padding: '12px 18px',
-            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.4)',
+            boxShadow: 'var(--shadow-md)',
             transition: 'border-color 0.2s, box-shadow 0.2s'
           }}>
-            <Search size={18} color="#64748b" style={{ marginRight: '12px', flexShrink: 0 }} />
+            <Search size={18} color="var(--text-muted)" style={{ marginRight: '12px', flexShrink: 0 }} />
             
             <input
               type="text"
@@ -241,7 +243,7 @@ export const FaqHeroSearch: React.FC<FaqHeroSearchProps> = ({
                 background: 'transparent',
                 border: 'none',
                 outline: 'none',
-                color: '#ffffff',
+                color: 'var(--text-main)',
                 fontSize: '14px',
                 fontFamily: 'inherit'
               }}
@@ -250,10 +252,10 @@ export const FaqHeroSearch: React.FC<FaqHeroSearchProps> = ({
             <div style={{
               padding: '2px 8px',
               borderRadius: '6px',
-              background: 'rgba(255, 255, 255, 0.06)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               fontSize: '11px',
-              color: '#64748b',
+              color: 'var(--text-muted)',
               fontWeight: 600,
               marginLeft: '12px',
               flexShrink: 0
@@ -272,7 +274,7 @@ export const FaqHeroSearch: React.FC<FaqHeroSearchProps> = ({
           alignItems: 'center',
           gap: '8px'
         }}>
-          <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', letterSpacing: '0.05em' }}>
+          <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.05em' }}>
             TRY:
           </span>
           {suggestedQueries.map((query, idx) => (
@@ -280,24 +282,24 @@ export const FaqHeroSearch: React.FC<FaqHeroSearchProps> = ({
               key={idx}
               onClick={() => onSelectSuggestedQuery(query)}
               style={{
-                background: '#0e1320',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '100px',
                 padding: '5px 12px',
                 fontSize: '12px',
-                color: '#cbd5e1',
+                color: 'var(--text-secondary)',
                 cursor: 'pointer',
                 transition: 'all 0.15s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#151c2e';
-                e.currentTarget.style.borderColor = 'rgba(129, 140, 248, 0.3)';
-                e.currentTarget.style.color = '#ffffff';
+                e.currentTarget.style.background = 'var(--bg-card-hover)';
+                e.currentTarget.style.borderColor = 'var(--border-accent)';
+                e.currentTarget.style.color = 'var(--text-main)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#0e1320';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
-                e.currentTarget.style.color = '#cbd5e1';
+                e.currentTarget.style.background = 'var(--bg-surface)';
+                e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                e.currentTarget.style.color = 'var(--text-secondary)';
               }}
             >
               {query}

@@ -4,10 +4,10 @@ import { Terminal, MessageSquare, Mic, Video } from 'lucide-react';
 export const ProblemSolutionSection: React.FC = () => {
   const rubrics = [
     {
-      icon: <Terminal size={18} color="#cbd5e1" />,
+      icon: <Terminal size={18} color="#818cf8" />,
       badge: 'Target 85+',
-      badgeBg: 'rgba(255, 255, 255, 0.05)',
-      badgeColor: '#94a3b8',
+      badgeBg: 'var(--bg-surface)',
+      badgeColor: 'var(--text-secondary)',
       title: 'Technical Accuracy',
       desc: 'Can you articulate algorithms, boundary constraints, and architectural trade-offs correctly without hesitation?',
       score: '86 / 100',
@@ -15,10 +15,10 @@ export const ProblemSolutionSection: React.FC = () => {
       barColor: '#a78bfa'
     },
     {
-      icon: <MessageSquare size={18} color="#cbd5e1" />,
+      icon: <MessageSquare size={18} color="#c084fc" />,
       badge: 'Target 80+',
-      badgeBg: 'rgba(255, 255, 255, 0.05)',
-      badgeColor: '#94a3b8',
+      badgeBg: 'var(--bg-surface)',
+      badgeColor: 'var(--text-secondary)',
       title: 'Communication',
       desc: 'Do you structure your rationale logically using STAR frameworks, crisp problem scopes, and causality?',
       score: '84 / 100',
@@ -69,7 +69,7 @@ export const ProblemSolutionSection: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(32px, 4.5vw, 48px)',
             fontWeight: 800,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.03em',
             lineHeight: 1.15,
             marginBottom: '18px'
@@ -79,7 +79,7 @@ export const ProblemSolutionSection: React.FC = () => {
 
           <p style={{
             fontSize: '16px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.65,
             maxWidth: '680px',
             margin: 0
@@ -98,8 +98,8 @@ export const ProblemSolutionSection: React.FC = () => {
             <div
               key={idx}
               style={{
-                background: 'rgba(15, 21, 35, 0.7)',
-                border: '1px solid rgba(255, 255, 255, 0.07)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '18px',
                 padding: '24px',
                 display: 'flex',
@@ -123,8 +123,8 @@ export const ProblemSolutionSection: React.FC = () => {
                     width: '38px',
                     height: '38px',
                     borderRadius: '10px',
-                    background: 'rgba(255, 255, 255, 0.04)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-subtle)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
@@ -137,7 +137,7 @@ export const ProblemSolutionSection: React.FC = () => {
                     fontWeight: 700,
                     color: item.badgeColor,
                     background: item.badgeBg,
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    border: '1px solid var(--border-subtle)',
                     padding: '3px 10px',
                     borderRadius: '9999px'
                   }}>
@@ -149,7 +149,7 @@ export const ProblemSolutionSection: React.FC = () => {
                 <h3 style={{
                   fontSize: '17px',
                   fontWeight: 700,
-                  color: '#ffffff',
+                  color: 'var(--text-main)',
                   marginBottom: '10px',
                   letterSpacing: '-0.01em'
                 }}>
@@ -159,7 +159,7 @@ export const ProblemSolutionSection: React.FC = () => {
                 {/* Description */}
                 <p style={{
                   fontSize: '13px',
-                  color: '#94a3b8',
+                  color: 'var(--text-secondary)',
                   lineHeight: 1.6,
                   marginBottom: '28px'
                 }}>
@@ -176,14 +176,14 @@ export const ProblemSolutionSection: React.FC = () => {
                   fontSize: '11px',
                   marginBottom: '8px'
                 }}>
-                  <span style={{ color: '#64748b', fontWeight: 600 }}>Benchmark Level</span>
-                  <span style={{ color: '#ffffff', fontWeight: 700 }}>{item.score}</span>
+                  <span style={{ color: 'var(--text-muted)', fontWeight: 600 }}>Benchmark Level</span>
+                  <span style={{ color: 'var(--text-main)', fontWeight: 700 }}>{item.score}</span>
                 </div>
 
                 <div style={{
                   width: '100%',
                   height: '5px',
-                  background: 'rgba(255, 255, 255, 0.08)',
+                  background: 'var(--border-subtle)',
                   borderRadius: '9999px',
                   overflow: 'hidden'
                 }}>
