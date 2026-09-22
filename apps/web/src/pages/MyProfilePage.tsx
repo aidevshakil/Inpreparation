@@ -41,7 +41,7 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
   const [assessmentModalOpen, setAssessmentModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
   
   // Form State
   const [fullName, setFullName] = useState('');
@@ -95,8 +95,12 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
       return;
     }
 
-    if (data.user?.name) setFullName(data.user.name);
-    else if (user?.name) setFullName(user.name);
+    if (data.user?.name) {
+      setFullName(data.user.name);
+      if (updateUser && user?.name !== data.user.name) updateUser({ name: data.user.name });
+    } else if (user?.name) {
+      setFullName(user.name);
+    }
 
     if (data.user?.avatarUrl) setAvatarUrl(data.user.avatarUrl);
     else if (user?.avatarUrl) setAvatarUrl(user.avatarUrl);
@@ -117,7 +121,10 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
     if (data.location) setLocation(data.location);
     if (data.language) setLanguage(data.language);
     if (data.currentRole) setCurrentRole(data.currentRole);
-    if (data.targetRole) setTargetRole(data.targetRole);
+    if (data.targetRole) {
+      setTargetRole(data.targetRole);
+      if (updateUser && user?.targetRole !== data.targetRole) updateUser({ targetRole: data.targetRole });
+    }
     if (data.seniority) setSeniority(data.seniority);
     if (data.yearsOfExperience != null) setYearsOfExperience(String(data.yearsOfExperience));
     if (data.currentIndustry) setCurrentIndustry(data.currentIndustry);
@@ -129,7 +136,7 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
     if (data.interviewFocusAreas?.length > 0) setInterviewFocusAreas(data.interviewFocusAreas);
     if (data.difficulty) setDifficulty(data.difficulty as SimulationDifficulty);
     if (data.careerGoal) setCareerGoal(data.careerGoal);
-  }, [userId, user?.name]);
+  }, [userId, user?.name, user?.targetRole, updateUser]);
 
   const [isSyncingCv, setIsSyncingCv] = useState(false);
   const [syncSuccessMessage, setSyncSuccessMessage] = useState<string | null>(null);
@@ -264,39 +271,26 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
     };
   }, [userId]);
 
-  // Real completion % based on populated fields (12 tracked fields)
+  // Real completion % based on the 5 major profile checklist items
   const completionPercent = React.useMemo(() => {
-    const fields: Array<boolean> = [
-      Boolean(fullName),
-      Boolean(phone),
-      Boolean(location),
-      Boolean(currentRole),
-      Boolean(targetRole),
-      Boolean(seniority),
-      Boolean(yearsOfExperience && yearsOfExperience !== '0'),
-      Boolean(currentIndustry),
-      Boolean(targetIndustry),
-      skills.length > 0,
-      jobTypes.length > 0,
-      Boolean(careerGoal),
-    ];
-    const filled = fields.filter(Boolean).length;
-    return Math.round((filled / fields.length) * 100);
-  }, [fullName, phone, location, currentRole, targetRole, seniority, yearsOfExperience, currentIndustry, targetIndustry, skills, jobTypes, careerGoal]);
+    const hasBasicInfo = Boolean(fullName && phone && location);
+    const hasProfInfo = Boolean(currentRole && targetRole && seniority && currentIndustry);
+    const hasSkills = skills.length > 0;
+    const hasCv = Boolean(connectedCv.fileName);
+    const hasAssessment = false; // Placeholder for actual assessment logic
+
+    const items = [hasBasicInfo, hasProfInfo, hasSkills, hasCv, hasAssessment];
+    const filled = items.filter(Boolean).length;
+    return Math.round((filled / items.length) * 100);
+  }, [fullName, phone, location, currentRole, targetRole, seniority, currentIndustry, skills, connectedCv.fileName]);
 
   const nextMissingField = React.useMemo(() => {
-    if (!fullName) return 'Add Full Name';
-    if (!phone) return 'Add Phone Number';
-    if (!location) return 'Add Location';
-    if (!currentRole) return 'Add Current Role';
-    if (!targetRole) return 'Add Target Role';
-    if (!seniority) return 'Set Seniority';
-    if (!currentIndustry) return 'Add Current Industry';
+    if (!fullName || !phone || !location) return 'Complete Basic Info';
+    if (!currentRole || !targetRole || !seniority || !currentIndustry) return 'Complete Professional Info';
     if (skills.length === 0) return 'Add Technical Skills';
-    if (jobTypes.length === 0) return 'Pick Job Types';
-    if (!careerGoal) return 'Write Career Goal';
-    return 'Profile Complete';
-  }, [fullName, phone, location, currentRole, targetRole, seniority, currentIndustry, skills, jobTypes, careerGoal]);
+    if (!connectedCv.fileName) return 'Upload CV';
+    return 'Complete AI Assessment';
+  }, [fullName, phone, location, currentRole, targetRole, seniority, currentIndustry, skills, connectedCv.fileName]);
 
   const handleAddSkill = (skill: string) => {
     if (!skills.includes(skill)) {
@@ -373,6 +367,7 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
     setSimulatorState('saving');
     try {
       await saveCandidateProfile(userId, buildProfilePayload());
+      if (updateUser) updateUser({ targetRole, name: fullName });
       setSimulatorState('saved');
       setIsEditing(false);
       setTimeout(() => setSimulatorState('default'), 3000);
@@ -837,6 +832,11 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
               <div style={{ position: 'sticky', top: '120px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 <ProfileCompletionSidebarCard
                   percentage={completionPercent}
+                  hasBasicInfo={Boolean(fullName && phone && location)}
+                  hasProfInfo={Boolean(currentRole && targetRole && seniority && currentIndustry)}
+                  hasSkills={skills.length > 0}
+                  hasCv={Boolean(connectedCv.fileName)}
+                  hasAssessment={false} // Currently no assessment flag in this page
                   onCompleteMissing={() => setAssessmentModalOpen(true)}
                 />
 
@@ -871,7 +871,7 @@ export const MyProfilePage: React.FC<MyProfilePageProps> = ({
         <LiveSimulationModal
           isOpen={assessmentModalOpen}
           onClose={() => setAssessmentModalOpen(false)}
-          initialRole="System Concurrency & Architecture"
+          initialRole={targetRole || 'Software Engineer'}
         />
       )}
 

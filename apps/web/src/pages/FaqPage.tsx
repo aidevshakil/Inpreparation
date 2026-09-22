@@ -67,7 +67,7 @@ export const FaqPage: React.FC<FaqPageProps> = ({
   const totalAnswersCount = FAQ_CATEGORIES.reduce((acc, cat) => acc + cat.count, 0);
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#07090e', color: '#f8fafc' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg-main)', color: 'var(--text-main)' }}>
       
       {/* Global Navbar */}
       <Navbar

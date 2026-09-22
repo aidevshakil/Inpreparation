@@ -425,6 +425,22 @@ Return strictly valid JSON with: candidate_name, candidate_role, candidate_email
       console.warn('Could not persist profileAnalysis record to DB:', dbErr);
     }
 
+    // Create a notification for the user
+    if (userId) {
+      try {
+        await (prisma as any).notification.create({
+          data: {
+            userId,
+            title: 'CV Analyzed Successfully',
+            message: `Your CV "${fileName}" has been parsed. We extracted ${finalSkills.length} skills and updated your profile.`,
+            type: 'cv',
+          },
+        });
+      } catch (notifErr) {
+        console.warn('Could not create CV upload notification:', notifErr);
+      }
+    }
+
     res.status(201).json({
       success: true,
       message: 'Resume uploaded and analyzed by AI successfully',

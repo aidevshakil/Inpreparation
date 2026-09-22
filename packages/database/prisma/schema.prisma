@@ -30,6 +30,7 @@ model User {
   logs          AuditLog[]
   improvementPlans AiImprovementPlan[]
   questionDossiers QuestionPerformanceDossier[]
+  notifications    Notification[]
 
   @@map("users")
 }
@@ -381,4 +382,20 @@ model QuestionPerformanceDossier {
   @@map("question_performance_dossiers")
 }
 
+// -------------------------------------------------------------
+// In-App Notifications
+// -------------------------------------------------------------
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  message   String
+  type      String   @default("system") // "system", "interview", "cv", "alert"
+  isRead    Boolean  @default(false)
+  linkUrl   String?
+  createdAt DateTime @default(now())
 
+  @@index([userId])
+  @@map("notifications")
+}

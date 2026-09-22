@@ -36,7 +36,7 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
           <h2 style={{
             fontSize: 'clamp(28px, 3.5vw, 38px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '12px'
           }}>
@@ -44,7 +44,7 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6
           }}>
             Each interview is strictly calibrated to exactly 5 high-impact questions. No exhausting open-ended slogs; only precise, realistic evaluation designed for rapid iteration.
@@ -63,25 +63,26 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
             <div
               key={idx}
               style={{
-                background: step.active ? 'rgba(56, 189, 248, 0.12)' : '#0a0e18',
-                border: step.active ? '1px solid rgba(56, 189, 248, 0.45)' : '1px solid rgba(255, 255, 255, 0.06)',
+                background: step.active ? 'rgba(56, 189, 248, 0.12)' : 'var(--bg-card)',
+                border: step.active ? '1px solid rgba(56, 189, 248, 0.5)' : '1px solid var(--border-subtle)',
                 borderRadius: '12px',
                 padding: '14px 10px',
                 textAlign: 'center',
+                boxShadow: step.active ? '0 0 16px rgba(56, 189, 248, 0.15)' : 'var(--shadow-sm)',
                 transition: 'all 0.2s ease'
               }}
             >
               <div style={{
                 fontSize: '12px',
                 fontWeight: 700,
-                color: step.active ? '#38bdf8' : '#ffffff',
+                color: step.active ? '#0284c7' : 'var(--text-main)',
                 marginBottom: '4px'
               }}>
                 {step.title}
               </div>
               <div style={{
                 fontSize: '11px',
-                color: step.active ? '#94a3b8' : '#64748b'
+                color: step.active ? '#0284c7' : 'var(--text-secondary)'
               }}>
                 {step.sub}
               </div>
@@ -91,13 +92,13 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
 
         {/* Main Live Mock Interview Studio Card */}
         <div style={{
-          background: '#0a0e18',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '24px',
           padding: '28px 30px',
           maxWidth: '1080px',
           margin: '0 auto',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6)'
+          boxShadow: 'var(--shadow-lg)'
         }}>
           {/* Studio Top Header */}
           <div style={{
@@ -106,7 +107,7 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
             alignItems: 'center',
             marginBottom: '24px',
             paddingBottom: '16px',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+            borderBottom: '1px solid var(--border-subtle)',
             flexWrap: 'wrap',
             gap: '12px'
           }}>
@@ -122,7 +123,7 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
               }}>
                 Live Mock Interview
               </span>
-              <span style={{ fontSize: '14px', fontWeight: 600, color: '#ffffff' }}>
+              <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-main)' }}>
                 AI/ML Engineer Assessment
               </span>
             </div>
@@ -135,9 +136,9 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
               <span style={{
                 fontSize: '12px',
                 fontWeight: 600,
-                color: '#cbd5e1',
-                background: '#151a28',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                color: 'var(--text-secondary)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 padding: '4px 12px',
                 borderRadius: '6px'
               }}>
@@ -155,8 +156,8 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
           }}>
             {/* Left Box: Interviewer Question & Acoustic Telemetry */}
             <div style={{
-              background: '#060911',
-              border: '1px solid rgba(255, 255, 255, 0.05)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '16px',
               padding: '24px',
               display: 'flex',
@@ -165,7 +166,7 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
             }}>
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
-                  <span style={{ fontSize: '12.5px', color: '#94a3b8', fontWeight: 500 }}>
+                  <span style={{ fontSize: '12.5px', color: 'var(--text-secondary)', fontWeight: 500 }}>
                     Interviewer: Synthetic Persona (Staff Lead)
                   </span>
                   <Volume2 size={18} color="#818cf8" />
@@ -174,7 +175,7 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
                 <div style={{
                   fontSize: '16.5px',
                   fontWeight: 600,
-                  color: '#ffffff',
+                  color: 'var(--text-main)',
                   lineHeight: 1.55,
                   marginBottom: '28px'
                 }}>
@@ -183,14 +184,14 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
 
                 {/* Live Acoustic Telemetry Box */}
                 <div style={{
-                  background: '#0a0f1d',
-                  border: '1px solid rgba(255, 255, 255, 0.05)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '12px',
                   padding: '18px 20px',
                   marginBottom: '20px'
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <span style={{ fontSize: '11.5px', color: '#94a3b8', fontWeight: 500 }}>
+                    <span style={{ fontSize: '11.5px', color: 'var(--text-secondary)', fontWeight: 500 }}>
                       Live Acoustic Telemetry
                     </span>
                     <span style={{ fontSize: '11.5px', color: '#38bdf8', fontWeight: 600 }}>
@@ -224,7 +225,7 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
                 fontSize: '11.5px',
                 color: '#64748b',
                 paddingTop: '12px',
-                borderTop: '1px solid rgba(255, 255, 255, 0.04)'
+                borderTop: '1px solid var(--border-subtle)'
               }}>
                 <span>Speaking cadence calibrated to 140 WPM target</span>
                 <span style={{ color: '#38bdf8', fontWeight: 500 }}>Audio fidelity: 48kHz</span>
@@ -239,8 +240,8 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
             }}>
               {/* Webcam Feed Frame with AR Overlays */}
               <div style={{
-                background: '#060911',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '16px',
                 position: 'relative',
                 overflow: 'hidden',
@@ -248,7 +249,7 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.7)'
+                boxShadow: 'var(--shadow-md)'
               }}>
                 {/* Background Video Image */}
                 <img
@@ -293,18 +294,18 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
                       background: '#ef4444',
                       boxShadow: '0 0 8px #ef4444'
                     }} />
-                    <span style={{ fontSize: '10.5px', color: '#ffffff', fontWeight: 700, letterSpacing: '0.04em' }}>
+                    <span style={{ fontSize: '10.5px', color: 'var(--text-main)', fontWeight: 700, letterSpacing: '0.04em' }}>
                       • LIVE | INPREP AI - MOCK INTERVIEW
                     </span>
                   </div>
-                  <span style={{ fontSize: '10.5px', color: '#cbd5e1' }}>
+                  <span style={{ fontSize: '10.5px', color: 'var(--text-secondary)' }}>
                     Candidate View: Sarah J. <span style={{ color: '#64748b', marginLeft: '6px' }}>Session Time: 14:28</span>
                   </span>
                 </div>
 
                 {/* Floating Candidate Feed Title */}
                 <div style={{ position: 'relative', zIndex: 2, padding: '0 14px' }}>
-                  <span style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff' }}>
+                  <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)' }}>
                     Candidate Feed
                   </span>
                 </div>
@@ -329,7 +330,7 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
                     backdropFilter: 'blur(4px)'
                   }}>
                     Gaze: Focused<br />
-                    <span style={{ color: '#cbd5e1' }}>Confidence: 98%</span>
+                    <span style={{ color: 'var(--text-secondary)' }}>Confidence: 98%</span>
                   </div>
 
                   {/* Right AR Tag */}
@@ -344,7 +345,7 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
                     textAlign: 'right'
                   }}>
                     Audio: Active<br />
-                    <span style={{ color: '#cbd5e1' }}>Confidence: High</span>
+                    <span style={{ color: 'var(--text-secondary)' }}>Confidence: High</span>
                   </div>
                 </div>
 
@@ -357,7 +358,7 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
                   alignItems: 'center',
                   padding: '12px 14px'
                 }}>
-                  <span style={{ fontSize: '11px', color: '#cbd5e1', fontWeight: 500 }}>
+                  <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontWeight: 500 }}>
                     Confidence: 92% • Engagement: High
                   </span>
                   <span style={{
@@ -408,21 +409,19 @@ export const MockStudioStep: React.FC<MockStudioStepProps> = ({
                   width: '100%',
                   padding: '12px',
                   borderRadius: '24px',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  background: '#151a28',
-                  color: '#cbd5e1',
+                  border: '1px solid var(--border-accent)',
+                  background: 'var(--bg-surface)',
+                  color: 'var(--text-main)',
                   fontSize: '13.5px',
                   fontWeight: 600,
                   cursor: 'pointer',
                   transition: 'all 0.2s ease'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#1e2638';
-                  e.currentTarget.style.color = '#ffffff';
+                  e.currentTarget.style.background = 'var(--bg-card-hover)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#151a28';
-                  e.currentTarget.style.color = '#cbd5e1';
+                  e.currentTarget.style.background = 'var(--bg-surface)';
                 }}
               >
                 Review Transcript & Retake (1 Left)

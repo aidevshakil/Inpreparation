@@ -6,29 +6,29 @@ export const StatsBanner: React.FC = () => {
       value: '10K+',
       label: 'Practice Sessions',
       desc: 'Simulated under authentic high-pressure interview dynamics',
-      valueColor: '#ffffff',
-      labelColor: '#94a3b8'
+      valueColor: 'var(--text-main)',
+      labelColor: 'var(--text-secondary)'
     },
     {
       value: '50K+',
       label: 'Questions Answered',
       desc: 'Strictly five-question calibrated rounds for peak retention',
-      valueColor: '#ffffff',
-      labelColor: '#a5b4fc'
+      valueColor: 'var(--text-main)',
+      labelColor: 'var(--primary-color)'
     },
     {
       value: '4.8 / 5',
       label: 'Candidate Rating',
       desc: 'Across L5/L6 software engineers & engineering leaders',
-      valueColor: '#ffffff',
-      labelColor: '#38bdf8'
+      valueColor: 'var(--text-main)',
+      labelColor: 'var(--color-info)'
     },
     {
       value: '100+',
       label: 'Curated Tech Roles',
       desc: 'Full-stack, Systems, ML, SRE, Product, and Leadership',
-      valueColor: '#34d399',
-      labelColor: '#34d399'
+      valueColor: 'var(--color-success)',
+      labelColor: 'var(--color-success)'
     }
   ];
 
@@ -58,7 +58,7 @@ export const StatsBanner: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(28px, 3.8vw, 40px)',
             fontWeight: 800,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.025em',
             lineHeight: 1.2
           }}>
@@ -78,8 +78,8 @@ export const StatsBanner: React.FC = () => {
               style={{
                 textAlign: 'center',
                 padding: '36px 24px',
-                background: 'rgba(15, 21, 35, 0.65)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '18px',
                 display: 'flex',
                 flexDirection: 'column',
@@ -112,7 +112,7 @@ export const StatsBanner: React.FC = () => {
 
               <div style={{
                 fontSize: '12px',
-                color: '#64748b',
+                color: 'var(--text-muted)',
                 lineHeight: 1.5,
                 maxWidth: '220px'
               }}>

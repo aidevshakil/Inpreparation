@@ -26,8 +26,8 @@ export const CvBuilderProjectsSection: React.FC<CvBuilderProjectsSectionProps> =
     <div
       id="section-projects"
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-surface)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '22px',
         marginBottom: '20px',
@@ -53,12 +53,12 @@ export const CvBuilderProjectsSection: React.FC<CvBuilderProjectsSectionProps> =
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#818cf8',
+              color: 'var(--primary-color)',
             }}
           >
             <FolderGit2 size={14} />
           </span>
-          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
             6. Key Projects
           </h3>
         </div>
@@ -73,7 +73,7 @@ export const CvBuilderProjectsSection: React.FC<CvBuilderProjectsSectionProps> =
             borderRadius: '8px',
             backgroundColor: 'rgba(99, 102, 241, 0.15)',
             border: '1px solid rgba(99, 102, 241, 0.35)',
-            color: '#a5b4fc',
+            color: 'var(--primary-color)',
             fontSize: '0.74rem',
             fontWeight: 600,
             cursor: 'pointer',
@@ -90,8 +90,8 @@ export const CvBuilderProjectsSection: React.FC<CvBuilderProjectsSectionProps> =
           <div
             key={proj.id}
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.02)',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '12px',
               padding: '16px',
             }}
@@ -105,10 +105,10 @@ export const CvBuilderProjectsSection: React.FC<CvBuilderProjectsSectionProps> =
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+                <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                   {proj.name}
                 </h4>
-                <span style={{ fontSize: '0.74rem', color: '#94a3b8' }}>
+                <span style={{ fontSize: '0.74rem', color: 'var(--text-secondary)' }}>
                   • {proj.badge} • {proj.year}
                 </span>
               </div>
@@ -119,7 +119,7 @@ export const CvBuilderProjectsSection: React.FC<CvBuilderProjectsSectionProps> =
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    color: '#818cf8',
+                    color: 'var(--primary-color)',
                     cursor: 'pointer',
                     padding: '2px',
                   }}
@@ -145,7 +145,7 @@ export const CvBuilderProjectsSection: React.FC<CvBuilderProjectsSectionProps> =
               </div>
             </div>
 
-            <p style={{ fontSize: '0.76rem', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
+            <p style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
               {proj.description}
             </p>
           </div>

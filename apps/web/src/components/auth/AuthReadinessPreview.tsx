@@ -38,7 +38,7 @@ export const AuthReadinessPreview: React.FC = () => {
         <h2 style={{
           fontSize: 'clamp(28px, 4vw, 42px)',
           fontWeight: 800,
-          color: '#ffffff',
+          color: 'var(--text-main)',
           letterSpacing: '-0.03em',
           lineHeight: 1.15,
           marginBottom: '12px'
@@ -49,7 +49,7 @@ export const AuthReadinessPreview: React.FC = () => {
         {/* Subtitle */}
         <p style={{
           fontSize: '14.5px',
-          color: '#94a3b8',
+          color: 'var(--text-secondary)',
           lineHeight: 1.6,
           margin: 0
         }}>
@@ -59,11 +59,11 @@ export const AuthReadinessPreview: React.FC = () => {
 
       {/* Main Interactive HUD Card */}
       <div style={{
-        background: '#090d16',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '24px',
         padding: '28px 26px',
-        boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
+        boxShadow: 'var(--shadow-md)'
       }}>
         
         {/* Simulation Header */}
@@ -72,7 +72,7 @@ export const AuthReadinessPreview: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           paddingBottom: '20px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+          borderBottom: '1px solid var(--border-subtle)',
           marginBottom: '20px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -91,10 +91,10 @@ export const AuthReadinessPreview: React.FC = () => {
               AI
             </div>
             <div>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: '#ffffff' }}>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-main)' }}>
                 Full Stack Engineering Simulation
               </div>
-              <div style={{ fontSize: '11.5px', color: '#64748b' }}>
+              <div style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>
                 5–Question Calibrated Session • Recent Result
               </div>
             </div>
@@ -105,9 +105,9 @@ export const AuthReadinessPreview: React.FC = () => {
             fontWeight: 800,
             padding: '3px 8px',
             borderRadius: '6px',
-            background: 'rgba(255, 255, 255, 0.05)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            color: '#94a3b8',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
+            color: 'var(--text-muted)',
             letterSpacing: '0.06em'
           }}>
             DEMO UI
@@ -123,19 +123,19 @@ export const AuthReadinessPreview: React.FC = () => {
         }}>
           {/* Overall Score */}
           <div style={{
-            background: '#0e1320',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '14px',
             padding: '16px 18px'
           }}>
-            <div style={{ fontSize: '11.5px', color: '#8896ab', marginBottom: '6px' }}>
+            <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)', marginBottom: '6px' }}>
               Overall Session Score
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '4px' }}>
-              <span style={{ fontSize: '32px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em' }}>
+              <span style={{ fontSize: '32px', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.02em' }}>
                 82
               </span>
-              <span style={{ fontSize: '14px', color: '#64748b' }}>/ 100</span>
+              <span style={{ fontSize: '14px', color: 'var(--text-muted)' }}>/ 100</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '11.5px', color: '#10b981', fontWeight: 600 }}>
               <TrendingUp size={13} />
@@ -145,18 +145,18 @@ export const AuthReadinessPreview: React.FC = () => {
 
           {/* Readiness Calibration */}
           <div style={{
-            background: '#0e1320',
-            border: '1px solid rgba(255, 255, 255, 0.06)',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '14px',
             padding: '16px 18px'
           }}>
-            <div style={{ fontSize: '11.5px', color: '#8896ab', marginBottom: '6px' }}>
+            <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)', marginBottom: '6px' }}>
               Readiness Calibration
             </div>
-            <div style={{ fontSize: '22px', fontWeight: 800, color: '#818cf8', letterSpacing: '-0.02em', marginBottom: '4px', marginTop: '4px' }}>
+            <div style={{ fontSize: '22px', fontWeight: 800, color: 'var(--primary-color)', letterSpacing: '-0.02em', marginBottom: '4px', marginTop: '4px' }}>
               Staff Tier
             </div>
-            <div style={{ fontSize: '11.5px', color: '#64748b' }}>
+            <div style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>
               Top 12% in System Concurrency
             </div>
           </div>
@@ -172,23 +172,23 @@ export const AuthReadinessPreview: React.FC = () => {
             fontWeight: 700,
             letterSpacing: '0.06em',
             textTransform: 'uppercase',
-            color: '#64748b',
+            color: 'var(--text-muted)',
             marginBottom: '14px'
           }}>
             <span>MULTIMODAL EVALUATION VECTORS</span>
-            <span style={{ color: '#818cf8' }}>4 DIMENSIONS</span>
+            <span style={{ color: 'var(--primary-color)' }}>4 DIMENSIONS</span>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {vectors.map((vec, idx) => (
               <div key={idx}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px', marginBottom: '6px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#cbd5e1' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-secondary)' }}>
                     <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: vec.color, display: 'inline-block' }} />
                     <span>{vec.label}</span>
                   </div>
-                  <div style={{ color: '#ffffff', fontWeight: 700 }}>
-                    {vec.score} <span style={{ color: '#64748b', fontWeight: 400 }}>/ 100</span>
+                  <div style={{ color: 'var(--text-main)', fontWeight: 700 }}>
+                    {vec.score} <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>/ 100</span>
                   </div>
                 </div>
 
@@ -196,7 +196,8 @@ export const AuthReadinessPreview: React.FC = () => {
                 <div style={{
                   height: '6px',
                   borderRadius: '100px',
-                  background: 'rgba(255, 255, 255, 0.06)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   overflow: 'hidden'
                 }}>
                   <div style={{
@@ -235,8 +236,8 @@ export const AuthReadinessPreview: React.FC = () => {
             <Sparkles size={14} color="#818cf8" />
           </div>
 
-          <p style={{ fontSize: '12px', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
-            <strong style={{ color: '#ffffff' }}>Recommended Next Drill:</strong> "Quantify trade-offs when transitioning from async Celery tasks to event-driven Kafka workers."
+          <p style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
+            <strong style={{ color: 'var(--text-main)' }}>Recommended Next Drill:</strong> "Quantify trade-offs when transitioning from async Celery tasks to event-driven Kafka workers."
           </p>
         </div>
 
@@ -244,8 +245,8 @@ export const AuthReadinessPreview: React.FC = () => {
 
       {/* Responsible AI Transparency Box */}
       <div style={{
-        background: '#090d16',
-        border: '1px solid rgba(255, 255, 255, 0.06)',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '16px',
         padding: '18px 20px',
         display: 'flex',
@@ -266,10 +267,10 @@ export const AuthReadinessPreview: React.FC = () => {
         </div>
 
         <div>
-          <div style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+          <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
             Responsible AI & Multimodal Transparency
           </div>
-          <p style={{ fontSize: '12px', color: '#94a3b8', lineHeight: 1.55, margin: 0 }}>
+          <p style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.55, margin: 0 }}>
             Feedback is derived solely from observable technical responses, acoustic speech pacing, and camera framing hygiene. Inprep AI strictly disclaims psychological inference, emotion detection, honesty claims, or automated hiring decisions.
           </p>
         </div>

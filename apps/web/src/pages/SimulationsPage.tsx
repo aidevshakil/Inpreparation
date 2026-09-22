@@ -4,7 +4,9 @@ import { DashboardNavbar } from '../components/dashboard/DashboardNavbar';
 import { TargetRoleCatalog } from '../components/interview-library/TargetRoleCatalog';
 import { DashboardFooter } from '../components/dashboard/DashboardFooter';
 import { LiveSimulationModal } from '../components/LiveSimulationModal';
-import { Search, Filter, CheckCircle2, Bookmark, BarChart2, Layers, ArrowRight } from 'lucide-react';
+import { Navbar } from '../components/Navbar';
+import { Footer } from '../components/Footer';
+import { Search, Filter, CheckCircle2, Bookmark, BarChart2, Layers, ArrowRight, Sparkles } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { getUserSimulationHistory, getUserSavedTracks } from '../services/api';
 
@@ -19,6 +21,12 @@ interface SimulationsPageProps {
   onNavigateToSearch?: () => void;
   onNavigateToSimulationDetails?: () => void;
   onNavigateToAi?: () => void;
+  onNavigateToLogin?: () => void;
+  onNavigateToSignup?: () => void;
+  onNavigateToFeatures?: () => void;
+  onNavigateToHowItWorks?: () => void;
+  onNavigateToPricing?: () => void;
+  onNavigateToFaq?: () => void;
 }
 
 export const SimulationsPage: React.FC<SimulationsPageProps> = ({
@@ -32,8 +40,14 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
   onNavigateToSearch,
   onNavigateToSimulationDetails,
   onNavigateToAi,
+  onNavigateToLogin,
+  onNavigateToSignup,
+  onNavigateToFeatures,
+  onNavigateToHowItWorks,
+  onNavigateToPricing,
+  onNavigateToFaq,
 }) => {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const [activeNav, setActiveNav] = useState<NavItemKey>('library');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [simulationModalOpen, setSimulationModalOpen] = useState(false);
@@ -52,7 +66,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
   useEffect(() => {
     let isMounted = true;
     async function loadUserData() {
-      if (!user?.id) {
+      if (!user?.id || !isAuthenticated) {
         setIsLoadingUserData(false);
         return;
       }
@@ -82,7 +96,7 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [user?.id]);
+  }, [user?.id, isAuthenticated]);
 
   const handleSelectNav = (key: NavItemKey) => {
     setActiveNav(key);
@@ -96,7 +110,22 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
     else if (key === 'improvement' && onNavigateToAi) onNavigateToAi();
   };
 
+  const handleStartPractice = (_role?: string) => {
+    if (isAuthenticated) {
+      if (onNavigateToDashboard) onNavigateToDashboard();
+      else window.location.hash = 'dashboard';
+    } else {
+      if (onNavigateToSignup) onNavigateToSignup();
+      else window.location.hash = 'signup';
+    }
+  };
+
   const handleStartSimulationTrack = (role: string) => {
+    if (!isAuthenticated) {
+      handleStartPractice(role);
+      return;
+    }
+
     if (onNavigateToSimulationDetails) {
       onNavigateToSimulationDetails();
     } else {
@@ -113,6 +142,242 @@ export const SimulationsPage: React.FC<SimulationsPageProps> = ({
     { name: 'Architecture', count: 2 },
   ];
 
+  // ==========================================
+  // UN-AUTHENTICATED PUBLIC INTERVIEW LIBRARY
+  // ==========================================
+  if (!isAuthenticated) {
+    return (
+      <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-main)', color: 'var(--text-main)', display: 'flex', flexDirection: 'column' }}>
+        <Navbar
+          onStartPractice={() => handleStartPractice()}
+          onNavigateToAi={onNavigateToAi}
+          currentPage="simulations"
+          onNavigate={(page) => {
+            if (page === 'home' && onNavigateToHome) onNavigateToHome();
+            else if (page === 'features' && onNavigateToFeatures) onNavigateToFeatures();
+            else if (page === 'how-it-works' && onNavigateToHowItWorks) onNavigateToHowItWorks();
+            else if (page === 'simulations') window.scrollTo({ top: 0, behavior: 'smooth' });
+            else if (page === 'pricing' && onNavigateToPricing) onNavigateToPricing();
+            else if (page === 'faq' && onNavigateToFaq) onNavigateToFaq();
+            else if (page === 'about') window.location.hash = 'about';
+            else if (page === 'login') onNavigateToLogin ? onNavigateToLogin() : (window.location.hash = 'login');
+            else if (page === 'signup') onNavigateToSignup ? onNavigateToSignup() : (window.location.hash = 'signup');
+            else if (page === 'dashboard' && onNavigateToDashboard) onNavigateToDashboard();
+          }}
+        />
+
+        <main style={{ flex: 1, padding: '40px 24px 80px', maxWidth: '1280px', width: '100%', margin: '0 auto' }}>
+          {/* Public Hero */}
+          <div style={{ textAlign: 'center', marginBottom: '48px', paddingTop: '16px' }}>
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '6px 14px',
+              borderRadius: '20px',
+              background: 'rgba(99, 102, 241, 0.1)',
+              border: '1px solid rgba(99, 102, 241, 0.25)',
+              fontSize: '12px',
+              fontWeight: 700,
+              color: 'var(--primary-color)',
+              marginBottom: '16px'
+            }}>
+              <Sparkles size={14} color="var(--primary-color)" />
+              <span>CURATED INTERVIEW TRACKS</span>
+            </div>
+
+            <h1 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', fontWeight: 800, margin: '0 0 16px 0', letterSpacing: '-0.02em', color: 'var(--text-main)' }}>
+              Explore Our Full Interview Simulation Library
+            </h1>
+            <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', maxWidth: '720px', margin: '0 auto 28px', lineHeight: 1.6 }}>
+              Browse 100+ industry-calibrated interview tracks across Engineering, Data & AI, Cloud & DevOps, and System Architecture. Test your knowledge with deterministic rubric scoring.
+            </p>
+
+            <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <button
+                onClick={() => handleStartPractice()}
+                style={{
+                  background: 'linear-gradient(135deg, #7c3aed 0%, #6366f1 100%)',
+                  color: '#ffffff',
+                  border: 'none',
+                  padding: '12px 28px',
+                  borderRadius: '10px',
+                  fontWeight: 700,
+                  fontSize: '14px',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 20px rgba(124, 58, 237, 0.35)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
+              >
+                Sign Up Free to Practice &rarr;
+              </button>
+              <button
+                onClick={() => {
+                  if (onNavigateToLogin) onNavigateToLogin();
+                  else window.location.hash = 'login';
+                }}
+                style={{
+                  background: 'var(--bg-surface)',
+                  color: 'var(--text-main)',
+                  border: '1px solid var(--border-subtle)',
+                  padding: '12px 24px',
+                  borderRadius: '10px',
+                  fontWeight: 600,
+                  fontSize: '14px',
+                  cursor: 'pointer'
+                }}
+              >
+                Log In to Existing Account
+              </button>
+            </div>
+          </div>
+
+          {/* Filter & Search Bar */}
+          <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', borderRadius: '12px', padding: '16px', marginBottom: '32px', boxShadow: 'var(--shadow-sm)' }}>
+            <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+              <div style={{ flex: 1, position: 'relative' }}>
+                <Search size={16} color="var(--text-muted)" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)' }} />
+                <input 
+                  type="text" 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search interviews by role, skill, technology or topic..." 
+                  style={{ width: '100%', background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', padding: '12px 16px 12px 42px', borderRadius: '8px', color: 'var(--text-main)', fontSize: '0.9rem', outline: 'none' }} 
+                />
+              </div>
+              {(searchQuery || selectedCategory !== 'All') && (
+                <button 
+                  onClick={() => { setSearchQuery(''); setSelectedCategory('All'); }}
+                  style={{ background: 'transparent', border: 'none', color: '#38bdf8', fontSize: '0.8rem', cursor: 'pointer', whiteSpace: 'nowrap', padding: '6px 12px' }}
+                >
+                  Reset Filters
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Popular Categories */}
+          <div style={{ marginBottom: '36px' }}>
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+              {categoryCounts.map((cat, i) => {
+                const isActive = selectedCategory === cat.name;
+                return (
+                  <button 
+                    key={i} 
+                    onClick={() => setSelectedCategory(cat.name)}
+                    style={{ 
+                      background: isActive ? 'rgba(99, 102, 241, 0.12)' : 'var(--bg-card)', 
+                      border: `1px solid ${isActive ? 'var(--primary-color)' : 'var(--border-subtle)'}`, 
+                      color: isActive ? 'var(--primary-color)' : 'var(--text-secondary)', 
+                      padding: '8px 16px', 
+                      borderRadius: '100px', 
+                      fontSize: '0.82rem', 
+                      fontWeight: 600, 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: '6px', 
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      boxShadow: 'var(--shadow-sm)'
+                    }}
+                  >
+                    {cat.name} <span style={{ color: isActive ? 'var(--primary-color)' : 'var(--text-muted)', fontSize: '0.72rem' }}>({cat.count})</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Featured Practice Session */}
+          <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', borderRadius: '16px', padding: '32px', display: 'flex', gap: '40px', alignItems: 'center', marginBottom: '40px', flexWrap: 'wrap', boxShadow: 'var(--shadow-sm)' }}>
+            <div style={{ flex: 1, minWidth: '280px' }}>
+              <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
+                <span style={{ background: 'rgba(99, 102, 241, 0.12)', color: 'var(--primary-color)', fontSize: '0.7rem', padding: '4px 8px', borderRadius: '4px', fontWeight: 700, border: '1px solid rgba(99, 102, 241, 0.25)' }}>FEATURED TRACK</span>
+                <span style={{ background: 'var(--bg-surface)', color: 'var(--text-secondary)', fontSize: '0.7rem', padding: '4px 8px', borderRadius: '4px', fontWeight: 700, border: '1px solid var(--border-subtle)' }}>Senior / Lead Target</span>
+              </div>
+              <h2 style={{ fontSize: '1.6rem', fontWeight: 800, marginBottom: '14px', lineHeight: 1.25, color: 'var(--text-main)' }}>
+                Full Stack Systems & Cloud Architecture Simulation
+              </h2>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '22px', lineHeight: 1.6 }}>
+                Practice articulating end-to-end technical trade-offs across React frontend state mutations, high-concurrency Node/Go API gateway pipelines, PostgreSQL schema partitioning, and cloud infrastructure.
+              </p>
+              <button onClick={() => handleStartPractice('Full Stack Developer')} style={{ background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', border: 'none', color: '#ffffff', padding: '12px 24px', borderRadius: '8px', fontSize: '0.9rem', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '8px', cursor: 'pointer', boxShadow: '0 4px 14px rgba(124, 58, 237, 0.35)' }}>
+                Start Practice Session &rarr;
+              </button>
+            </div>
+          </div>
+
+          {/* All Interview Sessions */}
+          <div style={{ marginBottom: '48px' }}>
+            <h2 style={{ fontSize: '1.4rem', fontWeight: 800, margin: '0 0 20px 0', color: 'var(--text-main)' }}>
+              All Interview Tracks
+            </h2>
+            <TargetRoleCatalog
+              searchQuery={searchQuery}
+              selectedRoleDomain={selectedCategory}
+              selectedLevel={'All'}
+              selectedDifficulty={'All'}
+              onSelectRole={handleStartSimulationTrack}
+            />
+          </div>
+
+          {/* Bottom Call-To-Action Banner */}
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(124, 58, 237, 0.06) 100%)',
+            border: '1px solid rgba(99, 102, 241, 0.25)',
+            borderRadius: '20px',
+            padding: '40px 32px',
+            textAlign: 'center',
+            boxShadow: 'var(--shadow-md)'
+          }}>
+            <h3 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: '10px' }}>
+              Accelerate Your Interview Readiness Today
+            </h3>
+            <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', maxWidth: '580px', margin: '0 auto 24px auto', lineHeight: 1.6 }}>
+              Sign up free to access adaptive interview questions, comprehensive speech analytics, CV alignment scoring, and personalized improvement plans.
+            </p>
+            <button
+              onClick={() => handleStartPractice()}
+              style={{
+                background: 'linear-gradient(135deg, #7c3aed 0%, #6366f1 100%)',
+                color: '#ffffff',
+                border: 'none',
+                padding: '13px 32px',
+                borderRadius: '10px',
+                fontWeight: 700,
+                fontSize: '14px',
+                cursor: 'pointer',
+                boxShadow: '0 4px 20px rgba(124, 58, 237, 0.35)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              <span>Create Your Free Account</span>
+              <ArrowRight size={16} />
+            </button>
+          </div>
+        </main>
+
+        <Footer
+          onNavigate={(page) => {
+            if (page === 'features' && onNavigateToFeatures) onNavigateToFeatures();
+            else if (page === 'how-it-works' && onNavigateToHowItWorks) onNavigateToHowItWorks();
+            else if (page === 'simulations') window.scrollTo({ top: 0, behavior: 'smooth' });
+            else if (page === 'pricing' && onNavigateToPricing) onNavigateToPricing();
+            else if (page === 'faq' && onNavigateToFaq) onNavigateToFaq();
+            else if (page === 'about') window.location.hash = 'about';
+          }}
+        />
+      </div>
+    );
+  }
+
+  // ==========================================
+  // AUTHENTICATED CANDIDATE WORKSPACE VIEW
+  // ==========================================
   return (
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-main)', color: 'var(--text-main)', display: 'flex', flexDirection: 'column', transition: 'background-color 0.25s ease, color 0.25s ease' }}>
       <div style={{ display: 'flex', flex: 1, minHeight: '100vh' }}>

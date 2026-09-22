@@ -381,7 +381,7 @@ export const DemoVideoModal: React.FC<DemoVideoModalProps> = ({ isOpen, onClose,
                 onClose();
                 onStartPractice();
               }}
-              className="btn-primary"
+              className="btn btn-primary"
               style={{ padding: '10px 22px', fontSize: '14px' }}
             >
               <span>Launch Live Simulator Now</span>

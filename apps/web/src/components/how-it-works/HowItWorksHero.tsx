@@ -94,10 +94,9 @@ export const HowItWorksHero: React.FC<HowItWorksHeroProps> = ({
 
       <div className="container" style={{ position: 'relative', zIndex: 2, textAlign: 'center', maxWidth: '1080px', margin: '0 auto', padding: '0 20px' }}>
         
-        {/* Top Tag */}
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(255, 255, 255, 0.04)', border: '1px solid rgba(255, 255, 255, 0.08)', padding: '6px 14px', borderRadius: '100px', marginBottom: '24px' }}>
-          <Sparkles size={13} color="#94a3b8" />
-          <span style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.06em', color: '#94a3b8', textTransform: 'uppercase' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', padding: '6px 14px', borderRadius: '100px', marginBottom: '24px' }}>
+          <Sparkles size={13} color="var(--text-secondary)" />
+          <span style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.06em', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>
             HOW IT WORKS
           </span>
         </div>
@@ -109,7 +108,7 @@ export const HowItWorksHero: React.FC<HowItWorksHeroProps> = ({
           lineHeight: 1.2,
           letterSpacing: '-0.025em',
           marginBottom: '20px',
-          color: '#ffffff'
+          color: 'var(--text-main)'
         }}>
           From Your CV to Interview Ready —{' '}
           <span style={{
@@ -121,10 +120,9 @@ export const HowItWorksHero: React.FC<HowItWorksHeroProps> = ({
           </span>
         </h1>
 
-        {/* Subtitle */}
         <p style={{
           fontSize: 'clamp(15px, 1.8vw, 17px)',
-          color: '#94a3b8',
+          color: 'var(--text-secondary)',
           lineHeight: 1.6,
           maxWidth: '780px',
           margin: '0 auto 32px'
@@ -142,8 +140,8 @@ export const HowItWorksHero: React.FC<HowItWorksHeroProps> = ({
               gap: '8px',
               padding: '12px 28px',
               borderRadius: '9999px',
-              background: '#6366f1',
-              color: '#ffffff',
+              background: 'var(--primary-color)',
+              color: 'var(--bg-main)',
               fontSize: '15px',
               fontWeight: 600,
               border: 'none',
@@ -163,16 +161,16 @@ export const HowItWorksHero: React.FC<HowItWorksHeroProps> = ({
             style={{
               padding: '12px 26px',
               borderRadius: '9999px',
-              background: 'rgba(255, 255, 255, 0.05)',
-              color: '#cbd5e1',
+              background: 'var(--bg-surface)',
+              color: 'var(--text-main)',
               fontSize: '15px',
               fontWeight: 500,
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              border: '1px solid var(--border-subtle)',
               cursor: 'pointer',
               transition: 'all 0.2s ease'
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)'; e.currentTarget.style.color = '#ffffff'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)'; e.currentTarget.style.color = '#cbd5e1'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--bg-card-hover)'; e.currentTarget.style.color = 'var(--text-main)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--bg-surface)'; e.currentTarget.style.color = 'var(--text-main)'; }}
           >
             Explore Interviews
           </button>
@@ -186,7 +184,7 @@ export const HowItWorksHero: React.FC<HowItWorksHeroProps> = ({
           justifyContent: 'center',
           gap: '12px 24px',
           marginBottom: '52px',
-          color: '#94a3b8',
+          color: 'var(--text-secondary)',
           fontSize: '13px',
           fontWeight: 500
         }}>
@@ -197,7 +195,7 @@ export const HowItWorksHero: React.FC<HowItWorksHeroProps> = ({
                 <span>{badge.text}</span>
               </div>
               {idx < trustBadges.length - 1 && (
-                <span style={{ color: 'rgba(255, 255, 255, 0.2)', fontSize: '10px' }}>•</span>
+                <span style={{ color: 'var(--border-subtle)', fontSize: '10px' }}>•</span>
               )}
             </React.Fragment>
           ))}
@@ -205,8 +203,8 @@ export const HowItWorksHero: React.FC<HowItWorksHeroProps> = ({
 
         {/* Live Architecture Pipeline Card */}
         <div style={{
-          background: '#0a0e17',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '20px',
           padding: '24px 28px',
           boxShadow: '0 20px 40px -15px rgba(0, 0, 0, 0.5)',
@@ -218,16 +216,16 @@ export const HowItWorksHero: React.FC<HowItWorksHeroProps> = ({
             alignItems: 'center',
             justifyContent: 'space-between',
             marginBottom: '20px',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+            borderBottom: '1px solid var(--border-subtle)',
             paddingBottom: '14px'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#38bdf8', boxShadow: '0 0 10px #38bdf8' }} />
-              <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', color: '#94a3b8', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>
                 LIVE ARCHITECTURE PIPELINE
               </span>
             </div>
-            <span style={{ fontSize: '12px', color: '#64748b' }}>
+            <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
               Zero Latency Feedback Loop
             </span>
           </div>
@@ -244,8 +242,8 @@ export const HowItWorksHero: React.FC<HowItWorksHeroProps> = ({
                 <div
                   key={i}
                   style={{
-                    background: '#0f1422',
-                    border: '1px solid rgba(255, 255, 255, 0.05)',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-subtle)',
                     borderRadius: '14px',
                     padding: '16px 12px',
                     textAlign: 'center',
@@ -268,10 +266,10 @@ export const HowItWorksHero: React.FC<HowItWorksHeroProps> = ({
                   }}>
                     <StepIcon size={20} color={step.iconColor} />
                   </div>
-                  <div style={{ fontSize: '13px', fontWeight: 700, color: '#f8fafc', marginBottom: '4px' }}>
+                  <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
                     {step.title}
                   </div>
-                  <div style={{ fontSize: '11px', color: '#64748b', lineHeight: 1.3 }}>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: 1.3 }}>
                     {step.subtitle}
                   </div>
                 </div>

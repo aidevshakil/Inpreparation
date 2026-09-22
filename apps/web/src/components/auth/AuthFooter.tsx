@@ -21,8 +21,8 @@ export const AuthFooter: React.FC<AuthFooterProps> = ({
 }) => {
   return (
     <footer style={{
-      background: '#04060b',
-      borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+      background: 'var(--bg-card)',
+      borderTop: '1px solid var(--border-subtle)',
       padding: '28px 24px 24px',
       marginTop: 'auto'
     }}>
@@ -36,7 +36,7 @@ export const AuthFooter: React.FC<AuthFooterProps> = ({
           justifyContent: 'space-between',
           gap: '16px',
           paddingBottom: '20px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+          borderBottom: '1px solid var(--border-subtle)',
           marginBottom: '18px'
         }}>
           {/* Left Gateway tag */}
@@ -45,12 +45,12 @@ export const AuthFooter: React.FC<AuthFooterProps> = ({
               width: '8px',
               height: '8px',
               borderRadius: '50%',
-              background: '#818cf8',
+              background: 'var(--primary-color)',
               display: 'inline-block'
             }} />
-            <span style={{ color: '#ffffff', fontWeight: 600 }}>{gatewayLabel}</span>
-            <span style={{ color: '#64748b' }}>•</span>
-            <span style={{ color: '#64748b' }}>{screenLabel}</span>
+            <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>{gatewayLabel}</span>
+            <span style={{ color: 'var(--text-muted)' }}>•</span>
+            <span style={{ color: 'var(--text-muted)' }}>{screenLabel}</span>
           </div>
 
           {/* Right Links */}
@@ -60,7 +60,7 @@ export const AuthFooter: React.FC<AuthFooterProps> = ({
             <button onClick={onNavigatePricing} style={linkStyle}>Pricing</button>
             <button onClick={onNavigateFaq} style={linkStyle}>FAQ</button>
             <button onClick={onNavigateContact} style={linkStyle}>Contact</button>
-            <a href="#" style={{ color: '#8896ab', textDecoration: 'none' }}>Responsible AI</a>
+            <a href="#" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>Responsible AI</a>
           </div>
         </div>
 
@@ -72,13 +72,13 @@ export const AuthFooter: React.FC<AuthFooterProps> = ({
           justifyContent: 'space-between',
           gap: '14px',
           fontSize: '11.5px',
-          color: '#64748b'
+          color: 'var(--text-muted)'
         }}>
           <div>
             © 2026 Inprep AI. All rights reserved. Built for technical interview excellence.
           </div>
 
-          <div style={{ color: '#8896ab' }}>
+          <div style={{ color: 'var(--text-muted)' }}>
             Observable Signals Only • Zero Psychological Profiling
           </div>
         </div>
@@ -91,7 +91,7 @@ export const AuthFooter: React.FC<AuthFooterProps> = ({
 const linkStyle: React.CSSProperties = {
   background: 'transparent',
   border: 'none',
-  color: '#8896ab',
+  color: 'var(--text-secondary)',
   cursor: 'pointer',
   padding: 0,
   fontSize: '12.5px',

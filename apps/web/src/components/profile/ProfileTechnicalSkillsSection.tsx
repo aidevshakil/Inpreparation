@@ -86,7 +86,7 @@ export const ProfileTechnicalSkillsSection: React.FC<ProfileTechnicalSkillsProps
           {/* Top Level Skills */}
           <div>
             <span className="label" style={{ marginBottom: '8px' }}>Core Technologies</span>
-            <div className="flex items-center flex-wrap gap-2">
+            <div className="flex items-center gap-2" style={{ flexWrap: 'wrap' }}>
               {skills.map((skill) => (
                 <span key={skill} className="badge">
                   {skill}
@@ -121,7 +121,7 @@ export const ProfileTechnicalSkillsSection: React.FC<ProfileTechnicalSkillsProps
           {/* 1. Skill Tags Input */}
           <div>
             <label className="label">Core Technologies &amp; Languages</label>
-            <div className="flex items-center flex-wrap gap-2" style={{ padding: '12px', minHeight: '48px', backgroundColor: 'var(--bg-main)', border: '1px solid var(--border-subtle)', borderRadius: '10px', marginBottom: '8px' }}>
+            <div className="flex items-center gap-2" style={{ flexWrap: 'wrap', padding: '12px', minHeight: '48px', backgroundColor: 'var(--bg-main)', border: '1px solid var(--border-subtle)', borderRadius: '10px', marginBottom: '8px' }}>
               {skills.map((skill) => (
                 <div key={skill} className="badge" style={{ padding: '4px 8px', gap: '4px' }}>
                   <span>{skill}</span>

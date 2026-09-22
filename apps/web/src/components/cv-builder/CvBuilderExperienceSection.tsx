@@ -29,12 +29,12 @@ export const CvBuilderExperienceSection: React.FC<CvBuilderExperienceSectionProp
     <div
       id="section-experience"
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-surface)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '22px',
         marginBottom: '20px',
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.1)',
       }}
     >
       {/* Header */}
@@ -58,13 +58,13 @@ export const CvBuilderExperienceSection: React.FC<CvBuilderExperienceSectionProp
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#818cf8',
+              color: 'var(--primary-color)',
             }}
           >
             <Briefcase size={14} />
           </span>
-          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
-            3. Work Experience
+          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
+            3. Professional Experience
           </h3>
         </div>
 
@@ -78,7 +78,7 @@ export const CvBuilderExperienceSection: React.FC<CvBuilderExperienceSectionProp
             borderRadius: '8px',
             backgroundColor: 'rgba(99, 102, 241, 0.15)',
             border: '1px solid rgba(99, 102, 241, 0.35)',
-            color: '#a5b4fc',
+            color: 'var(--primary-color)',
             fontSize: '0.74rem',
             fontWeight: 600,
             cursor: 'pointer',
@@ -95,8 +95,8 @@ export const CvBuilderExperienceSection: React.FC<CvBuilderExperienceSectionProp
           <div
             key={exp.id}
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.02)',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '12px',
               padding: '16px',
             }}
@@ -113,11 +113,11 @@ export const CvBuilderExperienceSection: React.FC<CvBuilderExperienceSectionProp
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <GripVertical size={14} style={{ color: '#64748b', cursor: 'grab' }} />
-                <span style={{ fontSize: '0.88rem', fontWeight: 700, color: '#f8fafc' }}>
+                <GripVertical size={14} style={{ color: 'var(--text-muted)', cursor: 'grab' }} />
+                <span style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-main)' }}>
                   {exp.roleTitle || `Role #${idx + 1}`}
                 </span>
-                <span style={{ fontSize: '0.74rem', color: '#94a3b8' }}>
+                <span style={{ fontSize: '0.74rem', color: 'var(--text-secondary)' }}>
                   • {exp.company || 'Company'} ({exp.location || 'Location'})
                 </span>
               </div>
@@ -130,7 +130,7 @@ export const CvBuilderExperienceSection: React.FC<CvBuilderExperienceSectionProp
                     padding: '2px 8px',
                     borderRadius: '9999px',
                     backgroundColor: 'rgba(99, 102, 241, 0.15)',
-                    color: '#a5b4fc',
+                    color: 'var(--primary-color)',
                     border: '1px solid rgba(99, 102, 241, 0.3)',
                   }}
                 >
@@ -142,7 +142,7 @@ export const CvBuilderExperienceSection: React.FC<CvBuilderExperienceSectionProp
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    color: '#818cf8',
+                    color: 'var(--primary-color)',
                     cursor: 'pointer',
                     padding: '2px',
                   }}
@@ -177,7 +177,7 @@ export const CvBuilderExperienceSection: React.FC<CvBuilderExperienceSectionProp
               }}
             >
               <div>
-                <label style={{ display: 'block', fontSize: '0.68rem', color: '#94a3b8', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.68rem', color: 'var(--text-secondary)', marginBottom: '4px' }}>
                   Role Title
                 </label>
                 <input
@@ -187,10 +187,10 @@ export const CvBuilderExperienceSection: React.FC<CvBuilderExperienceSectionProp
                   style={{
                     width: '100%',
                     padding: '7px 10px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    backgroundColor: 'var(--bg-main)',
+                    border: '1px solid var(--border-subtle)',
                     borderRadius: '6px',
-                    color: '#f8fafc',
+                    color: 'var(--text-main)',
                     fontSize: '0.78rem',
                     outline: 'none',
                     boxSizing: 'border-box',
@@ -199,7 +199,7 @@ export const CvBuilderExperienceSection: React.FC<CvBuilderExperienceSectionProp
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.68rem', color: '#94a3b8', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.68rem', color: 'var(--text-secondary)', marginBottom: '4px' }}>
                   Company
                 </label>
                 <input
@@ -209,10 +209,10 @@ export const CvBuilderExperienceSection: React.FC<CvBuilderExperienceSectionProp
                   style={{
                     width: '100%',
                     padding: '7px 10px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    backgroundColor: 'var(--bg-main)',
+                    border: '1px solid var(--border-subtle)',
                     borderRadius: '6px',
-                    color: '#f8fafc',
+                    color: 'var(--text-main)',
                     fontSize: '0.78rem',
                     outline: 'none',
                     boxSizing: 'border-box',
@@ -221,7 +221,7 @@ export const CvBuilderExperienceSection: React.FC<CvBuilderExperienceSectionProp
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.68rem', color: '#94a3b8', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.68rem', color: 'var(--text-secondary)', marginBottom: '4px' }}>
                   Timeline
                 </label>
                 <input
@@ -231,10 +231,10 @@ export const CvBuilderExperienceSection: React.FC<CvBuilderExperienceSectionProp
                   style={{
                     width: '100%',
                     padding: '7px 10px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    backgroundColor: 'var(--bg-main)',
+                    border: '1px solid var(--border-subtle)',
                     borderRadius: '6px',
-                    color: '#f8fafc',
+                    color: 'var(--text-main)',
                     fontSize: '0.78rem',
                     outline: 'none',
                     boxSizing: 'border-box',
@@ -253,7 +253,7 @@ export const CvBuilderExperienceSection: React.FC<CvBuilderExperienceSectionProp
                   marginBottom: '6px',
                 }}
               >
-                <label style={{ fontSize: '0.68rem', fontWeight: 600, color: '#cbd5e1' }}>
+                <label style={{ fontSize: '0.68rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
                   Impact &amp; Key Deliverables (Bullet Points)
                 </label>
                 <button
@@ -261,7 +261,7 @@ export const CvBuilderExperienceSection: React.FC<CvBuilderExperienceSectionProp
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    color: '#818cf8',
+                    color: 'var(--primary-color)',
                     fontSize: '0.7rem',
                     fontWeight: 600,
                     cursor: 'pointer',
@@ -284,10 +284,10 @@ export const CvBuilderExperienceSection: React.FC<CvBuilderExperienceSectionProp
                 style={{
                   width: '100%',
                   padding: '9px 12px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.025)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: 'var(--bg-main)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '8px',
-                  color: '#f8fafc',
+                  color: 'var(--text-main)',
                   fontSize: '0.78rem',
                   lineHeight: 1.5,
                   outline: 'none',

@@ -42,7 +42,7 @@ export const TechStackMatrix: React.FC<TechStackMatrixProps> = ({
             fontWeight: 800,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: '#38bdf8',
+            color: '#0284c7',
             marginBottom: '8px'
           }}>
             TECHNICAL STACKS
@@ -50,7 +50,7 @@ export const TechStackMatrix: React.FC<TechStackMatrixProps> = ({
           <h2 style={{
             fontSize: 'clamp(26px, 3.2vw, 34px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '6px'
           }}>
@@ -58,10 +58,11 @@ export const TechStackMatrix: React.FC<TechStackMatrixProps> = ({
           </h2>
           <p style={{
             fontSize: '14.5px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
+            lineHeight: 1.6,
             margin: 0
           }}>
-            Filter interviews targeting your explicit technical competencies.
+            Filter targeted interview sessions and algorithmic problems by tech stack.
           </p>
         </div>
 
@@ -75,25 +76,25 @@ export const TechStackMatrix: React.FC<TechStackMatrixProps> = ({
             <div
               key={idx}
               style={{
-                background: '#0a0e18',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '20px',
                 padding: '24px 22px',
                 display: 'flex',
                 flexDirection: 'column',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.4)',
+                boxShadow: 'var(--shadow-md)',
                 transition: 'all 0.2s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                e.currentTarget.style.borderColor = 'var(--border-accent)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.borderColor = 'var(--border-subtle)';
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
                 {cat.icon}
-                <h3 style={{ fontSize: '17px', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+                <h3 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                   {cat.title}
                 </h3>
               </div>
@@ -104,24 +105,24 @@ export const TechStackMatrix: React.FC<TechStackMatrixProps> = ({
                     key={iIdx}
                     onClick={() => onSelectTechnology(item)}
                     style={{
-                      background: '#121726',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      background: 'var(--bg-surface)',
+                      border: '1px solid var(--border-subtle)',
                       borderRadius: '8px',
                       padding: '7px 12px',
                       fontSize: '12.5px',
-                      color: '#cbd5e1',
+                      color: 'var(--text-secondary)',
                       cursor: 'pointer',
                       transition: 'all 0.15s ease'
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'rgba(99, 102, 241, 0.2)';
-                      e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)';
-                      e.currentTarget.style.color = '#ffffff';
+                      e.currentTarget.style.background = 'rgba(99, 102, 241, 0.12)';
+                      e.currentTarget.style.borderColor = 'var(--primary-color)';
+                      e.currentTarget.style.color = 'var(--text-main)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = '#121726';
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                      e.currentTarget.style.color = '#cbd5e1';
+                      e.currentTarget.style.background = 'var(--bg-surface)';
+                      e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                      e.currentTarget.style.color = 'var(--text-secondary)';
                     }}
                   >
                     {item}

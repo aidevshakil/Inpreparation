@@ -74,7 +74,7 @@ export const SignupJourneyPreview: React.FC = () => {
         <h2 style={{
           fontSize: 'clamp(28px, 4vw, 42px)',
           fontWeight: 800,
-          color: '#ffffff',
+          color: 'var(--text-main)',
           letterSpacing: '-0.03em',
           lineHeight: 1.15,
           marginBottom: '10px'
@@ -85,7 +85,7 @@ export const SignupJourneyPreview: React.FC = () => {
         {/* Subtitle */}
         <p style={{
           fontSize: '14px',
-          color: '#94a3b8',
+          color: 'var(--text-secondary)',
           lineHeight: 1.6,
           margin: 0
         }}>
@@ -95,11 +95,11 @@ export const SignupJourneyPreview: React.FC = () => {
 
       {/* The Candidate Journey Flow Box */}
       <div style={{
-        background: '#090d16',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '20px',
         padding: '24px 22px',
-        boxShadow: '0 15px 40px rgba(0, 0, 0, 0.5)'
+        boxShadow: 'var(--shadow-md)'
       }}>
         {/* Header */}
         <div style={{
@@ -108,8 +108,8 @@ export const SignupJourneyPreview: React.FC = () => {
           justifyContent: 'space-between',
           marginBottom: '18px'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11.5px', fontWeight: 800, color: '#64748b', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-            <TrendingUp size={14} color="#818cf8" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11.5px', fontWeight: 800, color: 'var(--text-muted)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+            <TrendingUp size={14} color="var(--primary-color)" />
             <span>THE CANDIDATE JOURNEY FLOW</span>
           </div>
 
@@ -118,9 +118,9 @@ export const SignupJourneyPreview: React.FC = () => {
             fontWeight: 700,
             padding: '3px 10px',
             borderRadius: '100px',
-            background: 'rgba(124, 58, 237, 0.15)',
-            border: '1px solid rgba(168, 85, 247, 0.3)',
-            color: '#c084fc',
+            background: 'rgba(99, 102, 241, 0.12)',
+            border: '1px solid rgba(99, 102, 241, 0.25)',
+            color: 'var(--primary-color)',
             letterSpacing: '0.04em'
           }}>
             6 Progressive Stages
@@ -137,19 +137,19 @@ export const SignupJourneyPreview: React.FC = () => {
             <div
               key={idx}
               style={{
-                background: '#0e1320',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '12px',
                 padding: '12px 14px',
                 position: 'relative',
                 transition: 'all 0.2s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(129, 140, 248, 0.3)';
+                e.currentTarget.style.borderColor = 'var(--border-accent)';
                 e.currentTarget.style.transform = 'translateY(-1px)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
+                e.currentTarget.style.borderColor = 'var(--border-subtle)';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
@@ -161,17 +161,17 @@ export const SignupJourneyPreview: React.FC = () => {
                 width: '6px',
                 height: '6px',
                 borderRadius: '50%',
-                background: '#6366f1',
-                boxShadow: '0 0 6px #6366f1'
+                background: 'var(--primary-color)',
+                boxShadow: '0 0 6px rgba(99, 102, 241, 0.5)'
               }} />
 
-              <div style={{ fontSize: '11px', fontWeight: 800, color: '#818cf8', marginBottom: '4px' }}>
+              <div style={{ fontSize: '11px', fontWeight: 800, color: 'var(--primary-color)', marginBottom: '4px' }}>
                 {stg.num}
               </div>
-              <div style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff', marginBottom: '2px' }}>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '2px' }}>
                 {stg.title}
               </div>
-              <div style={{ fontSize: '11px', color: '#64748b' }}>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
                 {stg.desc}
               </div>
             </div>
@@ -189,28 +189,27 @@ export const SignupJourneyPreview: React.FC = () => {
           <div
             key={idx}
             style={{
-              background: '#090d16',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '16px',
               padding: '18px 16px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
+              boxShadow: 'var(--shadow-sm)',
               transition: 'all 0.2s ease'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.14)';
-              e.currentTarget.style.transform = 'translateY(-1px)';
+              e.currentTarget.style.borderColor = 'var(--border-accent)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
-              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = 'var(--border-subtle)';
             }}
           >
             <div>
               <div style={{
-                width: '32px',
-                height: '32px',
+                width: '34px',
+                height: '34px',
                 borderRadius: '8px',
                 background: pil.iconBg,
                 display: 'flex',
@@ -221,11 +220,11 @@ export const SignupJourneyPreview: React.FC = () => {
                 {pil.icon}
               </div>
 
-              <div style={{ fontSize: '13.5px', fontWeight: 700, color: '#ffffff', marginBottom: '6px' }}>
+              <div style={{ fontSize: '13.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
                 {pil.title}
               </div>
 
-              <p style={{ fontSize: '11.5px', color: '#8896ab', lineHeight: 1.55, margin: 0 }}>
+              <p style={{ fontSize: '11.5px', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
                 {pil.desc}
               </p>
             </div>
@@ -235,8 +234,8 @@ export const SignupJourneyPreview: React.FC = () => {
 
       {/* Responsible AI Transparency Notice */}
       <div style={{
-        background: '#090d16',
-        border: '1px solid rgba(255, 255, 255, 0.06)',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '16px',
         padding: '16px 18px',
         display: 'flex',
@@ -257,10 +256,10 @@ export const SignupJourneyPreview: React.FC = () => {
         </div>
 
         <div>
-          <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+          <div style={{ fontSize: '12.5px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
             Responsible AI & Multimodal Transparency
           </div>
-          <p style={{ fontSize: '11.5px', color: '#94a3b8', lineHeight: 1.5, margin: 0 }}>
+          <p style={{ fontSize: '11.5px', color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
             AI feedback focuses solely on observable technical responses, acoustic speech pacing, and camera framing hygiene. Inprep AI strictly disclaims psychological inference, emotion detection, honesty claims, or automated hiring decisions.
           </p>
         </div>

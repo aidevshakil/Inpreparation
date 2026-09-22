@@ -355,7 +355,10 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                 return (
                   <div key={item.key} style={{ display: 'flex', flexDirection: 'column' }}>
                     <button
-                      onClick={() => onSelectItem(item.key)}
+                      onClick={() => {
+                        window.location.hash = item.key;
+                        onSelectItem(item.key);
+                      }}
                       style={{
                         width: '100%',
                         display: 'flex',
@@ -490,7 +493,10 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                           return (
                             <button
                               key={sIdx}
-                              onClick={() => onSelectItem(sub.key)}
+                              onClick={() => {
+                                window.location.hash = sub.key;
+                                onSelectItem(sub.key);
+                              }}
                               style={{
                                 width: '100%',
                                 textAlign: 'left',
@@ -553,7 +559,10 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
             return (
               <button
                 key={item.key}
-                onClick={() => onSelectItem(item.key)}
+                onClick={() => {
+                  window.location.hash = item.key;
+                  onSelectItem(item.key);
+                }}
                 style={{
                   width: '100%',
                   display: 'flex',

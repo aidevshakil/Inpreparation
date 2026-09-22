@@ -169,7 +169,7 @@ export const ComparePlansMatrix: React.FC = () => {
         return (
           <Check
             size={16}
-            color={isProColumn ? '#a5b4fc' : '#38bdf8'}
+            color={isProColumn ? 'var(--primary-color)' : '#0284c7'}
             style={{ margin: '0 auto', display: 'block' }}
           />
         );
@@ -177,7 +177,7 @@ export const ComparePlansMatrix: React.FC = () => {
       return (
         <Minus
           size={14}
-          color="#475569"
+          color="var(--text-muted)"
           style={{ margin: '0 auto', display: 'block' }}
         />
       );
@@ -185,7 +185,7 @@ export const ComparePlansMatrix: React.FC = () => {
     return (
       <span style={{
         fontSize: '13px',
-        color: isCyan ? '#38bdf8' : isProHighlight ? '#818cf8' : isProColumn ? '#ffffff' : '#cbd5e1',
+        color: isCyan ? '#0284c7' : isProHighlight ? 'var(--primary-color)' : isProColumn ? 'var(--text-main)' : 'var(--text-secondary)',
         fontWeight: isCyan || isProHighlight ? 700 : isProColumn ? 600 : 400
       }}>
         {val}
@@ -204,7 +204,7 @@ export const ComparePlansMatrix: React.FC = () => {
             fontWeight: 800,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: '#38bdf8',
+            color: '#0284c7',
             marginBottom: '10px'
           }}>
             GRANULAR MATRIX
@@ -212,7 +212,7 @@ export const ComparePlansMatrix: React.FC = () => {
           <h2 style={{
             fontSize: 'clamp(28px, 3.5vw, 38px)',
             fontWeight: 700,
-            color: '#ffffff',
+            color: 'var(--text-main)',
             letterSpacing: '-0.02em',
             marginBottom: '10px'
           }}>
@@ -220,7 +220,7 @@ export const ComparePlansMatrix: React.FC = () => {
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             lineHeight: 1.6,
             margin: 0
           }}>
@@ -230,11 +230,11 @@ export const ComparePlansMatrix: React.FC = () => {
 
         {/* Matrix Table Card */}
         <div style={{
-          background: '#090d16',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '20px',
           overflow: 'hidden',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)'
+          boxShadow: 'var(--shadow-lg)'
         }}>
           <div style={{ overflowX: 'auto' }}>
             <table style={{
@@ -244,27 +244,27 @@ export const ComparePlansMatrix: React.FC = () => {
               minWidth: '780px'
             }}>
               <thead>
-                <tr style={{ background: '#0e1320', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
-                  <th style={{ padding: '22px 28px', fontSize: '15px', fontWeight: 700, color: '#ffffff', width: '40%' }}>
+                <tr style={{ background: 'var(--bg-surface)', borderBottom: '1px solid var(--border-subtle)' }}>
+                  <th style={{ padding: '22px 28px', fontSize: '15px', fontWeight: 700, color: 'var(--text-main)', width: '40%' }}>
                     Feature Category
                   </th>
-                  <th style={{ padding: '22px 20px', fontSize: '14px', fontWeight: 600, color: '#cbd5e1', textAlign: 'center', width: '20%' }}>
+                  <th style={{ padding: '22px 20px', fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)', textAlign: 'center', width: '20%' }}>
                     Free
                   </th>
                   <th style={{
                     padding: '22px 20px',
                     fontSize: '14px',
                     fontWeight: 700,
-                    color: '#a5b4fc',
+                    color: 'var(--primary-color)',
                     textAlign: 'center',
-                    background: 'rgba(99, 102, 241, 0.1)',
-                    borderLeft: '1px solid rgba(99, 102, 241, 0.25)',
-                    borderRight: '1px solid rgba(99, 102, 241, 0.25)',
+                    background: 'rgba(99, 102, 241, 0.08)',
+                    borderLeft: '1px solid var(--border-subtle)',
+                    borderRight: '1px solid var(--border-subtle)',
                     width: '20%'
                   }}>
                     Pro Plan
                   </th>
-                  <th style={{ padding: '22px 20px', fontSize: '14px', fontWeight: 600, color: '#cbd5e1', textAlign: 'center', width: '20%' }}>
+                  <th style={{ padding: '22px 20px', fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)', textAlign: 'center', width: '20%' }}>
                     Premium
                   </th>
                 </tr>
@@ -274,14 +274,14 @@ export const ComparePlansMatrix: React.FC = () => {
                 {sections.map((sec, sIdx) => (
                   <React.Fragment key={sIdx}>
                     {/* Category Title Row */}
-                    <tr style={{ background: 'rgba(56, 189, 248, 0.04)', borderTop: '1px solid rgba(255, 255, 255, 0.06)', borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
+                    <tr style={{ background: 'var(--bg-surface)', borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)' }}>
                       <td
                         colSpan={4}
                         style={{
                           padding: '12px 28px',
                           fontSize: '11px',
                           fontWeight: 800,
-                          color: '#38bdf8',
+                          color: '#0284c7',
                           letterSpacing: '0.08em',
                           textTransform: 'uppercase'
                         }}
@@ -295,17 +295,17 @@ export const ComparePlansMatrix: React.FC = () => {
                       <tr
                         key={rIdx}
                         style={{
-                          borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
+                          borderBottom: '1px solid var(--border-subtle)',
                           transition: 'background 0.15s ease'
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
+                          e.currentTarget.style.background = 'var(--bg-card-hover)';
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.background = 'transparent';
                         }}
                       >
-                        <td style={{ padding: '16px 28px', fontSize: '13.5px', color: '#f1f5f9', fontWeight: 500 }}>
+                        <td style={{ padding: '16px 28px', fontSize: '13.5px', color: 'var(--text-main)', fontWeight: 500 }}>
                           {row.feature}
                         </td>
                         <td style={{ padding: '16px 20px', textAlign: 'center' }}>
@@ -314,9 +314,9 @@ export const ComparePlansMatrix: React.FC = () => {
                         <td style={{
                           padding: '16px 20px',
                           textAlign: 'center',
-                          background: 'rgba(99, 102, 241, 0.06)',
-                          borderLeft: '1px solid rgba(99, 102, 241, 0.15)',
-                          borderRight: '1px solid rgba(99, 102, 241, 0.15)'
+                          background: 'rgba(99, 102, 241, 0.04)',
+                          borderLeft: '1px solid var(--border-subtle)',
+                          borderRight: '1px solid var(--border-subtle)'
                         }}>
                           {renderCell(row.pro, true, (row as any).proHighlight)}
                         </td>

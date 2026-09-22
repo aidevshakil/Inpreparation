@@ -248,7 +248,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
   ];
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#080c14', color: '#f8fafc' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg-main)', color: 'var(--text-main)' }}>
       {/* Sticky Navigation */}
       <Navbar
         onStartPractice={handleStartPractice}
@@ -277,15 +277,15 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                background: 'rgba(99, 102, 241, 0.12)',
-                border: '1px solid rgba(99, 102, 241, 0.3)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '9999px',
                 padding: '6px 18px',
                 fontSize: '11px',
                 fontWeight: 800,
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
-                color: '#c7d2fe'
+                color: 'var(--text-main)'
               }}>
                 <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#818cf8', display: 'inline-block' }} />
                 POWERFUL AI INTERVIEW TOOLS
@@ -299,7 +299,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
               lineHeight: 1.15,
               marginBottom: '20px',
               maxWidth: '860px',
-              margin: '0 auto 20px'
+              margin: '0 auto 20px',
+              color: 'var(--text-main)'
             }}>
               Everything You Need to Become{' '}
               <span style={{ color: '#38bdf8' }}>Interview</span>{' '}
@@ -315,7 +316,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
 
             <p style={{
               fontSize: '16px',
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
               lineHeight: 1.65,
               maxWidth: '720px',
               margin: '0 auto 34px'
@@ -359,9 +360,9 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  color: '#e2e8f0',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
+                  color: 'var(--text-main)',
                   borderRadius: '9999px',
                   padding: '14px 28px',
                   fontSize: '15px',
@@ -400,24 +401,24 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '8px',
-                      background: 'rgba(15, 21, 35, 0.75)',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border-subtle)',
                       borderRadius: '9999px',
                       padding: '8px 16px',
                       fontSize: '12px',
                       fontWeight: 600,
-                      color: '#cbd5e1',
+                      color: 'var(--text-secondary)',
                       textDecoration: 'none',
                       transition: 'all 0.2s ease'
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.borderColor = pill.color;
-                      e.currentTarget.style.color = '#ffffff';
+                      e.currentTarget.style.color = 'var(--text-main)';
                       e.currentTarget.style.transform = 'translateY(-1px)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                      e.currentTarget.style.color = '#cbd5e1';
+                      e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                      e.currentTarget.style.color = 'var(--text-secondary)';
                       e.currentTarget.style.transform = 'translateY(0)';
                     }}
                   >
@@ -455,11 +456,11 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                 }}>
                   SYSTEM ARCHITECTURE
                 </span>
-                <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 42px)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.025em', margin: 0 }}>
+                <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 42px)', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.025em', margin: 0 }}>
                   One Platform for Your Complete Interview Journey
                 </h2>
               </div>
-              <p style={{ fontSize: '14px', color: '#94a3b8', maxWidth: '440px', margin: 0, lineHeight: 1.6 }}>
+              <p style={{ fontSize: '14px', color: 'var(--text-secondary)', maxWidth: '440px', margin: 0, lineHeight: 1.6 }}>
                 A coherent end-to-end preparation suite that calibrates your technical depth, strategic speaking, and visual poise before elite hiring committees.
               </p>
             </div>
@@ -476,8 +477,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   <div
                     key={card.stage}
                     style={{
-                      background: 'rgba(15, 21, 35, 0.65)',
-                      border: '1px solid rgba(255, 255, 255, 0.07)',
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border-subtle)',
                       borderRadius: '18px',
                       padding: '28px',
                       backdropFilter: 'blur(12px)',
@@ -490,15 +491,15 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   >
                     <div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#64748b', letterSpacing: '0.08em', fontFamily: 'JetBrains Mono, monospace' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-muted)', letterSpacing: '0.08em', fontFamily: 'JetBrains Mono, monospace' }}>
                           {card.stage}
                         </span>
                         <div style={{
                           width: '34px',
                           height: '34px',
                           borderRadius: '10px',
-                          background: 'rgba(255, 255, 255, 0.04)',
-                          border: '1px solid rgba(255, 255, 255, 0.06)',
+                          background: 'var(--bg-surface)',
+                          border: '1px solid var(--border-subtle)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center'
@@ -507,11 +508,11 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                         </div>
                       </div>
 
-                      <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#ffffff', marginBottom: '10px', letterSpacing: '-0.01em' }}>
+                      <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-main)', marginBottom: '10px', letterSpacing: '-0.01em' }}>
                         {card.title}
                       </h3>
 
-                      <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: 1.6, marginBottom: '20px' }}>
+                      <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '20px' }}>
                         {card.desc}
                       </p>
 
@@ -522,9 +523,9 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                             <span
                               key={tIdx}
                               style={{
-                                background: isSpecial ? 'rgba(6, 182, 212, 0.15)' : 'rgba(255, 255, 255, 0.04)',
-                                border: isSpecial ? '1px solid rgba(6, 182, 212, 0.35)' : '1px solid rgba(255, 255, 255, 0.06)',
-                                color: isSpecial ? '#67e8f9' : '#cbd5e1',
+                                background: isSpecial ? 'rgba(6, 182, 212, 0.15)' : 'var(--bg-surface)',
+                                border: isSpecial ? '1px solid rgba(6, 182, 212, 0.35)' : '1px solid var(--border-subtle)',
+                                color: isSpecial ? '#67e8f9' : 'var(--text-secondary)',
                                 fontSize: '11px',
                                 fontWeight: isSpecial ? 700 : 500,
                                 padding: '3px 8px',
@@ -538,7 +539,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                       </div>
                     </div>
 
-                    <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.06)', paddingTop: '14px' }}>
+                    <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '14px' }}>
                       <a
                         href={card.href}
                         onClick={(e) => {
@@ -587,8 +588,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   gap: '6px',
                   padding: '5px 12px',
                   borderRadius: '9999px',
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   marginBottom: '14px'
                 }}>
                   <Sparkles size={12} color="#818cf8" />
@@ -597,17 +598,17 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     fontWeight: 700,
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
-                    color: '#94a3b8'
+                    color: 'var(--text-secondary)'
                   }}>
                     AI EVALUATION
                   </span>
                 </div>
 
-                <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 40px)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.025em', lineHeight: 1.2, marginBottom: '14px' }}>
+                <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 40px)', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.025em', lineHeight: 1.2, marginBottom: '14px' }}>
                   Understand the Quality of Your Answers
                 </h2>
 
-                <p style={{ fontSize: '14px', color: '#94a3b8', lineHeight: 1.65, marginBottom: '28px', maxWidth: '480px' }}>
+                <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.65, marginBottom: '28px', maxWidth: '480px' }}>
                   Inprep AI evaluates your answers beyond simply marking them right or wrong. Our neural evaluators break apart algorithmic complexity, structural rigor, and technical maturity against Principal-level standards.
                 </p>
 
@@ -620,8 +621,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                         key={dim.id}
                         onClick={() => setSelectedEvalDimension(idx)}
                         style={{
-                          background: isSelected ? 'rgba(20, 28, 48, 0.85)' : 'rgba(15, 21, 35, 0.65)',
-                          border: isSelected ? '1px solid rgba(99, 102, 241, 0.45)' : '1px solid rgba(255, 255, 255, 0.06)',
+                          background: isSelected ? 'var(--bg-surface)' : 'var(--bg-card)',
+                          border: isSelected ? '1px solid var(--primary-color)' : '1px solid var(--border-subtle)',
                           borderRadius: '12px',
                           padding: '14px 18px',
                           cursor: 'pointer',
@@ -635,7 +636,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                       >
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                           <Icon size={17} color={isSelected ? '#818cf8' : '#a855f7'} />
-                          <span style={{ fontSize: '13.5px', fontWeight: 600, color: '#f1f5f9' }}>
+                          <span style={{ fontSize: '13.5px', fontWeight: 600, color: 'var(--text-main)' }}>
                             {dim.title}
                           </span>
                         </div>
@@ -658,8 +659,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
 
               {/* Right Column: Question 2 Evaluation Card */}
               <div style={{
-                background: 'rgba(14, 20, 32, 0.85)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '20px',
                 padding: '32px',
                 backdropFilter: 'blur(16px)',
@@ -672,7 +673,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   alignItems: 'flex-start',
                   marginBottom: '26px',
                   paddingBottom: '20px',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.06)'
+                  borderBottom: '1px solid var(--border-subtle)'
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                     <div style={{
@@ -693,17 +694,17 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                       {'{ }'}
                     </div>
                     <div>
-                      <div style={{ fontSize: '17px', fontWeight: 700, color: '#ffffff' }}>
+                      <div style={{ fontSize: '17px', fontWeight: 700, color: 'var(--text-main)' }}>
                         Question 2 Evaluation
                       </div>
-                      <div style={{ fontSize: '12.5px', color: '#94a3b8', marginTop: '2px' }}>
+                      <div style={{ fontSize: '12.5px', color: 'var(--text-secondary)', marginTop: '2px' }}>
                         Distributed Caching Invalidation Protocol
                       </div>
                     </div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: '32px', fontWeight: 800, color: '#ffffff', lineHeight: 1 }}>
-                      86<span style={{ fontSize: '15px', color: '#64748b' }}>/100</span>
+                    <div style={{ fontSize: '32px', fontWeight: 800, color: 'var(--text-main)', lineHeight: 1 }}>
+                      86<span style={{ fontSize: '15px', color: 'var(--text-muted)' }}>/100</span>
                     </div>
                     <div style={{
                       fontSize: '9.5px',
@@ -742,10 +743,10 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   ].map((bar, idx) => (
                     <div key={idx}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px', marginBottom: '7px' }}>
-                        <span style={{ color: '#cbd5e1', fontWeight: 500 }}>{bar.label}</span>
-                        <span style={{ color: '#94a3b8', fontSize: '12px', fontWeight: 600 }}>{bar.scoreText}</span>
+                        <span style={{ color: 'var(--text-main)', fontWeight: 500 }}>{bar.label}</span>
+                        <span style={{ color: 'var(--text-secondary)', fontSize: '12px', fontWeight: 600 }}>{bar.scoreText}</span>
                       </div>
-                      <div style={{ width: '100%', height: '6px', background: 'rgba(255, 255, 255, 0.07)', borderRadius: '3px', overflow: 'hidden' }}>
+                      <div style={{ width: '100%', height: '6px', background: 'var(--border-subtle)', borderRadius: '3px', overflow: 'hidden' }}>
                         <div style={{ width: `${bar.percent}%`, height: '100%', background: bar.fill, borderRadius: '3px' }} />
                       </div>
                     </div>
@@ -754,8 +755,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
 
                 {/* Evaluation Synthesis Callout */}
                 <div style={{
-                  background: 'rgba(255, 255, 255, 0.02)',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '12px',
                   padding: '16px 18px'
                 }}>
@@ -765,7 +766,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     gap: '6px',
                     fontSize: '10.5px',
                     fontWeight: 700,
-                    color: '#94a3b8',
+                    color: 'var(--text-secondary)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.08em',
                     marginBottom: '8px'
@@ -775,7 +776,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   </div>
                   <p style={{
                     fontSize: '12.5px',
-                    color: '#94a3b8',
+                    color: 'var(--text-secondary)',
                     lineHeight: 1.6,
                     margin: 0
                   }}>
@@ -793,8 +794,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
         <section id="communication-matrix" style={{ padding: '40px 0 70px', position: 'relative' }}>
           <div className="container">
             <div style={{
-              background: 'rgba(13, 19, 32, 0.85)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '24px',
               padding: '44px 40px',
               backdropFilter: 'blur(16px)',
@@ -807,8 +808,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                 gap: '6px',
                 padding: '5px 12px',
                 borderRadius: '9999px',
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 marginBottom: '14px'
               }}>
                 <MessageSquare size={12} color="#818cf8" />
@@ -817,18 +818,18 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   fontWeight: 700,
                   letterSpacing: '0.1em',
                   textTransform: 'uppercase',
-                  color: '#94a3b8'
+                  color: 'var(--text-secondary)'
                 }}>
                   COMMUNICATION MATRIX
                 </span>
               </div>
 
               {/* Header */}
-              <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 38px)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.025em', lineHeight: 1.2, marginBottom: '12px' }}>
+              <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 38px)', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.025em', lineHeight: 1.2, marginBottom: '12px' }}>
                 Improve How You Explain Your Ideas
               </h2>
 
-              <p style={{ fontSize: '14px', color: '#94a3b8', lineHeight: 1.65, maxWidth: '740px', marginBottom: '32px' }}>
+              <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.65, maxWidth: '740px', marginBottom: '32px' }}>
                 Executive hiring managers evaluate your ability to distill complex architectural narratives without meandering. Our communication engine verifies structural cohesion from initial hypothesis to metric conclusion.
               </p>
 
@@ -843,8 +844,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   <div
                     key={idx}
                     style={{
-                      background: 'rgba(18, 24, 40, 0.5)',
-                      border: '1px solid rgba(255, 255, 255, 0.06)',
+                      background: 'var(--bg-surface)',
+                      border: '1px solid var(--border-subtle)',
                       borderRadius: '14px',
                       padding: '22px 14px',
                       textAlign: 'center'
@@ -853,17 +854,16 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     <div style={{ fontSize: '36px', fontWeight: 800, color: m.color, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: '8px' }}>
                       {m.score}
                     </div>
-                    <div style={{ fontSize: '12px', color: '#94a3b8', fontWeight: 500 }}>
+                    <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: 500 }}>
                       {m.label}
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* RECOMMENDED ANSWER STRUCTURAL CADENCE Container */}
               <div style={{
-                background: 'rgba(10, 15, 26, 0.7)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '16px',
                 padding: '22px 24px',
                 marginBottom: '18px'
@@ -873,7 +873,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   fontWeight: 700,
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
-                  color: '#64748b',
+                  color: 'var(--text-muted)',
                   marginBottom: '16px'
                 }}>
                   RECOMMENDED ANSWER STRUCTURAL CADENCE
@@ -888,8 +888,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     <div
                       key={c.step}
                       style={{
-                        background: 'rgba(18, 25, 42, 0.6)',
-                        border: '1px solid rgba(255, 255, 255, 0.05)',
+                        background: 'var(--bg-card)',
+                        border: '1px solid var(--border-subtle)',
                         borderRadius: '12px',
                         padding: '16px 12px',
                         textAlign: 'center'
@@ -911,10 +911,10 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                       }}>
                         {c.step}
                       </div>
-                      <div style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+                      <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
                         {c.title}
                       </div>
-                      <div style={{ fontSize: '11px', color: '#94a3b8', lineHeight: 1.4 }}>
+                      <div style={{ fontSize: '11px', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
                         {c.desc}
                       </div>
                     </div>
@@ -922,10 +922,9 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                 </div>
               </div>
 
-              {/* Executive Communication Tip Callout */}
               <div style={{
-                background: 'rgba(10, 15, 26, 0.7)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '14px',
                 padding: '16px 20px',
                 display: 'flex',
@@ -934,10 +933,10 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
               }}>
                 <Lightbulb size={18} color="#c084fc" style={{ flexShrink: 0, marginTop: '2px' }} />
                 <div>
-                  <div style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff', marginBottom: '3px' }}>
+                  <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '3px' }}>
                     Executive Communication Tip
                   </div>
-                  <div style={{ fontSize: '12.5px', color: '#94a3b8', lineHeight: 1.55 }}>
+                  <div style={{ fontSize: '12.5px', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
                     When addressing Staff+ interviewers, front-load your answer with the design constraint trade-off before walking through step-by-step implementation. It immediately signals high organizational agency.
                   </div>
                 </div>
@@ -959,8 +958,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
             }}>
               {/* Left Column: Audio Spectral Telemetry HUD */}
               <div style={{
-                background: 'rgba(14, 20, 32, 0.85)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '20px',
                 padding: '24px',
                 backdropFilter: 'blur(16px)',
@@ -970,7 +969,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ef4444', display: 'inline-block', boxShadow: '0 0 8px #ef4444' }} />
-                    <span style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                    <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                       AUDIO SPECTRAL TELEMETRY
                     </span>
                   </div>
@@ -989,13 +988,13 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
 
                 {/* Waveform Display Box */}
                 <div style={{
-                  background: 'rgba(0, 0, 0, 0.45)',
-                  border: '1px solid rgba(255, 255, 255, 0.05)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '12px',
                   padding: '16px 20px',
                   marginBottom: '18px'
                 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#64748b', marginBottom: '12px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-muted)', marginBottom: '12px' }}>
                     <span>00:00</span>
                     <span style={{ color: '#38bdf8', fontWeight: 600 }}>Filler Detected (03:14)</span>
                     <span>06:42</span>
@@ -1014,7 +1013,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     </svg>
                   </div>
 
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#94a3b8', marginTop: '10px', paddingTop: '10px', borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-secondary)', marginTop: '10px', paddingTop: '10px', borderTop: '1px solid var(--border-subtle)' }}>
                     <span>Avg Cadence: 142 WPM</span>
                     <span style={{ color: '#38bdf8', fontWeight: 600 }}>✦ Pacing: Steady</span>
                   </div>
@@ -1022,26 +1021,26 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
 
                 {/* 3 Metric Cards */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginBottom: '16px' }}>
-                  <div style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.05)', padding: '12px', borderRadius: '10px' }}>
-                    <div style={{ fontSize: '11px', color: '#94a3b8' }}>Speaking Rate</div>
-                    <div style={{ fontSize: '18px', fontWeight: 800, color: '#ffffff', marginTop: '3px' }}>
+                  <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', padding: '12px', borderRadius: '10px' }}>
+                    <div style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>Speaking Rate</div>
+                    <div style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-main)', marginTop: '3px' }}>
                       142 <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 600 }}>WPM</span>
                     </div>
                     <div style={{ fontSize: '10.5px', color: '#38bdf8', fontWeight: 600, marginTop: '2px' }}>Optimal Range</div>
                   </div>
 
-                  <div style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.05)', padding: '12px', borderRadius: '10px' }}>
-                    <div style={{ fontSize: '11px', color: '#94a3b8' }}>Filler Words</div>
-                    <div style={{ fontSize: '18px', fontWeight: 800, color: '#ffffff', marginTop: '3px' }}>
-                      11 <span style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 500 }}>total</span>
+                  <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', padding: '12px', borderRadius: '10px' }}>
+                    <div style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>Filler Words</div>
+                    <div style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-main)', marginTop: '3px' }}>
+                      11 <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontWeight: 500 }}>total</span>
                     </div>
-                    <div style={{ fontSize: '10.5px', color: '#94a3b8', marginTop: '2px' }}>um (4), like (5)</div>
+                    <div style={{ fontSize: '10.5px', color: 'var(--text-secondary)', marginTop: '2px' }}>um (4), like (5)</div>
                   </div>
 
-                  <div style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.05)', padding: '12px', borderRadius: '10px' }}>
-                    <div style={{ fontSize: '11px', color: '#94a3b8' }}>Fluency Score</div>
-                    <div style={{ fontSize: '18px', fontWeight: 800, color: '#ffffff', marginTop: '3px' }}>
-                      84<span style={{ fontSize: '11px', color: '#64748b' }}>/100</span>
+                  <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', padding: '12px', borderRadius: '10px' }}>
+                    <div style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>Fluency Score</div>
+                    <div style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-main)', marginTop: '3px' }}>
+                      84<span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>/100</span>
                     </div>
                     <div style={{ fontSize: '10.5px', color: '#38bdf8', fontWeight: 600, marginTop: '2px' }}>Above Benchmark</div>
                   </div>
@@ -1058,7 +1057,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   gap: '10px'
                 }}>
                   <Volume2 size={15} color="#38bdf8" style={{ flexShrink: 0, marginTop: '2px' }} />
-                  <p style={{ fontSize: '11.5px', color: '#cbd5e1', lineHeight: 1.55, margin: 0 }}>
+                  <p style={{ fontSize: '11.5px', color: 'var(--text-secondary)', lineHeight: 1.55, margin: 0 }}>
                     <strong style={{ color: '#38bdf8' }}>AI Audio Coach:</strong> Try replacing filler words with short intentional pauses (1.5s) while organizing your thoughts. Senior interviewers perceive silence as deliberate composure.
                   </p>
                 </div>
@@ -1072,8 +1071,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   gap: '6px',
                   padding: '5px 12px',
                   borderRadius: '9999px',
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   marginBottom: '14px'
                 }}>
                   <Radio size={12} color="#38bdf8" />
@@ -1082,30 +1081,30 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     fontWeight: 700,
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
-                    color: '#94a3b8'
+                    color: 'var(--text-secondary)'
                   }}>
                     SPEECH INTELLIGENCE
                   </span>
                 </div>
 
-                <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 40px)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.025em', lineHeight: 1.2, marginBottom: '16px' }}>
+                <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 40px)', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.025em', lineHeight: 1.2, marginBottom: '16px' }}>
                   Improve Your Verbal Delivery
                 </h2>
 
-                <p style={{ fontSize: '14px', color: '#94a3b8', lineHeight: 1.65, marginBottom: '24px' }}>
+                <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.65, marginBottom: '24px' }}>
                   Pacing, vocal inflection, and involuntary crutch words alter how your competence is perceived. Our low-latency acoustic models isolate prosody metrics to give you surgical delivery diagnostics.
                 </p>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '13.5px', color: '#cbd5e1' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '13.5px', color: 'var(--text-main)' }}>
                     <Check size={16} color="#38bdf8" style={{ marginTop: '3px', flexShrink: 0 }} />
                     <span>Real-time Words-Per-Minute telemetry with optimal target bands (130–155 WPM).</span>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '13.5px', color: '#cbd5e1' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '13.5px', color: 'var(--text-main)' }}>
                     <Check size={16} color="#38bdf8" style={{ marginTop: '3px', flexShrink: 0 }} />
                     <span>Phonetic timestamping for every non-lexical filler and hesitation pause.</span>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '13.5px', color: '#cbd5e1' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '13.5px', color: 'var(--text-main)' }}>
                     <Check size={16} color="#38bdf8" style={{ marginTop: '3px', flexShrink: 0 }} />
                     <span>Repeated phrase detection preventing semantic circularity.</span>
                   </div>
@@ -1134,8 +1133,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   gap: '6px',
                   padding: '5px 12px',
                   borderRadius: '9999px',
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   marginBottom: '14px'
                 }}>
                   <Video size={12} color="#818cf8" />
@@ -1144,35 +1143,35 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     fontWeight: 700,
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
-                    color: '#94a3b8'
+                    color: 'var(--text-secondary)'
                   }}>
                     COMPUTER VISION
                   </span>
                 </div>
 
-                <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 40px)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.025em', lineHeight: 1.2, marginBottom: '16px' }}>
+                <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 40px)', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.025em', lineHeight: 1.2, marginBottom: '16px' }}>
                   Improve Your On-Camera Presentation
                 </h2>
 
-                <p style={{ fontSize: '14px', color: '#94a3b8', lineHeight: 1.65, marginBottom: '28px' }}>
+                <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.65, marginBottom: '28px' }}>
                   Our Computer Vision layer analyzes observable visual signals from your interview video to help improve your presentation setup and on-camera habits.
                 </p>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
-                  <div style={{ background: 'rgba(15, 21, 35, 0.65)', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '14px', padding: '16px 18px' }}>
-                    <div style={{ fontSize: '11.5px', color: '#94a3b8', marginBottom: '4px' }}>Face Visibility</div>
-                    <div style={{ fontSize: '26px', fontWeight: 800, color: '#ffffff' }}>96%</div>
+                  <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', borderRadius: '14px', padding: '16px 18px' }}>
+                    <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)', marginBottom: '4px' }}>Face Visibility</div>
+                    <div style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-main)' }}>96%</div>
                   </div>
-                  <div style={{ background: 'rgba(15, 21, 35, 0.65)', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '14px', padding: '16px 18px' }}>
-                    <div style={{ fontSize: '11.5px', color: '#94a3b8', marginBottom: '4px' }}>Camera Attention</div>
-                    <div style={{ fontSize: '26px', fontWeight: 800, color: '#ffffff' }}>88%</div>
+                  <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', borderRadius: '14px', padding: '16px 18px' }}>
+                    <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)', marginBottom: '4px' }}>Camera Attention</div>
+                    <div style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-main)' }}>88%</div>
                   </div>
-                  <div style={{ background: 'rgba(15, 21, 35, 0.65)', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '14px', padding: '16px 18px' }}>
-                    <div style={{ fontSize: '11.5px', color: '#94a3b8', marginBottom: '4px' }}>Subject Framing</div>
+                  <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', borderRadius: '14px', padding: '16px 18px' }}>
+                    <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)', marginBottom: '4px' }}>Subject Framing</div>
                     <div style={{ fontSize: '26px', fontWeight: 800, color: '#38bdf8' }}>94%</div>
                   </div>
-                  <div style={{ background: 'rgba(15, 21, 35, 0.65)', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '14px', padding: '16px 18px' }}>
-                    <div style={{ fontSize: '11.5px', color: '#94a3b8', marginBottom: '4px' }}>Posture & Lighting</div>
+                  <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', borderRadius: '14px', padding: '16px 18px' }}>
+                    <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)', marginBottom: '4px' }}>Posture & Lighting</div>
                     <div style={{ fontSize: '26px', fontWeight: 800, color: '#c084fc' }}>89%</div>
                   </div>
                 </div>
@@ -1180,8 +1179,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
 
               {/* Right Column: Video Preview HUD */}
               <div style={{
-                background: 'rgba(14, 20, 32, 0.85)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '22px',
                 padding: '16px',
                 backdropFilter: 'blur(16px)',
@@ -1305,12 +1304,11 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   </div>
                 </div>
 
-                {/* Responsible AI Notice */}
                 <div style={{
                   marginTop: '14px',
                   padding: '14px 16px',
-                  background: 'rgba(255, 255, 255, 0.02)',
-                  border: '1px solid rgba(255, 255, 255, 0.05)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '12px'
                 }}>
                   <div style={{
@@ -1319,7 +1317,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     gap: '6px',
                     fontSize: '10px',
                     fontWeight: 700,
-                    color: '#94a3b8',
+                    color: 'var(--text-secondary)',
                     letterSpacing: '0.08em',
                     textTransform: 'uppercase',
                     marginBottom: '6px'
@@ -1329,7 +1327,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   </div>
                   <p style={{
                     fontSize: '10.5px',
-                    color: '#64748b',
+                    color: 'var(--text-muted)',
                     lineHeight: 1.55,
                     margin: 0
                   }}>
@@ -1358,10 +1356,10 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
               }}>
                 BENCHMARK BLUEPRINT
               </span>
-              <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.025em', marginBottom: '12px' }}>
+              <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.025em', marginBottom: '12px' }}>
                 Learn From Every Answer
               </h2>
-              <p style={{ fontSize: '15px', color: '#94a3b8', margin: 0 }}>
+              <p style={{ fontSize: '15px', color: 'var(--text-secondary)', margin: 0 }}>
                 After each session, our engine dissects your response structure against Principal Engineer and Director tier exemplars.
               </p>
             </div>
@@ -1374,8 +1372,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
             }}>
               {/* Left Column: Candidate Transcription */}
               <div style={{
-                background: 'rgba(15, 21, 35, 0.65)',
-                border: '1px solid rgba(255, 255, 255, 0.07)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '18px',
                 padding: '26px',
                 backdropFilter: 'blur(12px)',
@@ -1385,12 +1383,12 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
               }}>
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <span style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                    <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                       CANDIDATE TRANSCRIPTION
                     </span>
-                    <span style={{ fontSize: '11px', color: '#64748b' }}>Candidate Baseline</span>
+                    <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Candidate Baseline</span>
                   </div>
-                  <p style={{ fontSize: '13px', color: '#cbd5e1', lineHeight: 1.65, margin: '0 0 24px 0' }}>
+                  <p style={{ fontSize: '13px', color: 'var(--text-main)', lineHeight: 1.65, margin: '0 0 24px 0' }}>
                     “When microservices become slow, we usually implement Redis to cache the database reads. Then we set TTLs so old data expires. If things still lag, we scale up our replica pods in Kubernetes.”
                   </p>
                 </div>
@@ -1405,7 +1403,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   <div style={{ fontSize: '11px', fontWeight: 700, color: '#f43f5e', marginBottom: '4px' }}>
                     Diagnostic Gap:
                   </div>
-                  <div style={{ fontSize: '11.5px', color: '#cbd5e1', lineHeight: 1.5 }}>
+                  <div style={{ fontSize: '11.5px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
                     Lacks systemic trade-off analysis regarding cache penetration, write stampedes, and distributed cache invalidation strategies.
                   </div>
                 </div>
@@ -1413,8 +1411,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
 
               {/* Right Column: Staff-Tier Benchmark Response */}
               <div style={{
-                background: 'rgba(15, 21, 35, 0.75)',
-                border: '1px solid rgba(99, 102, 241, 0.35)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--primary-color)',
                 borderRight: '4px solid #a855f7',
                 borderRadius: '18px',
                 padding: '26px',
@@ -1450,21 +1448,21 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     </div>
                   </div>
 
-                  <p style={{ fontSize: '13px', color: '#ffffff', lineHeight: 1.65, margin: '0 0 20px 0' }}>
+                  <p style={{ fontSize: '13px', color: 'var(--text-main)', lineHeight: 1.65, margin: '0 0 20px 0' }}>
                     “We address downstream bottlenecks by implementing a two-layer cache strategy using Redis Cluster with write-through invalidation to resolve read latency while defending against stampedes via single-flight mutex locks...”
                   </p>
                 </div>
 
                 {/* 5 Blueprint Pills */}
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', paddingTop: '16px', borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', paddingTop: '16px', borderTop: '1px solid var(--border-subtle)' }}>
                   {['1. Define Architecture', '2. Explain Latency', '3. Reason Concurrency', '4. Concrete Metric', '5. Resiliency Fallback'].map((pill, idx) => (
                     <span
                       key={idx}
                       style={{
                         fontSize: '10.5px',
-                        color: '#94a3b8',
-                        background: 'rgba(255, 255, 255, 0.04)',
-                        border: '1px solid rgba(255, 255, 255, 0.08)',
+                        color: 'var(--text-secondary)',
+                        background: 'var(--bg-surface)',
+                        border: '1px solid var(--border-subtle)',
                         padding: '4px 9px',
                         borderRadius: '6px',
                         fontWeight: 500
@@ -1478,7 +1476,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
             </div>
 
             {/* Footnote note */}
-            <div style={{ textAlign: 'center', marginTop: '18px', fontSize: '11.5px', color: '#64748b' }}>
+            <div style={{ textAlign: 'center', marginTop: '18px', fontSize: '11.5px', color: 'var(--text-muted)' }}>
               Note: All suggested answers are structured learning benchmarks, not verbatim scripts to memorize.
             </div>
           </div>
@@ -1490,8 +1488,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
         <section id="curated-curriculum" style={{ padding: '40px 0 70px', position: 'relative' }}>
           <div className="container">
             <div style={{
-              background: 'rgba(13, 19, 32, 0.85)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '24px',
               padding: '44px 40px',
               backdropFilter: 'blur(16px)',
@@ -1509,10 +1507,10 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                 }}>
                   CURATED CURRICULUM
                 </span>
-                <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 38px)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.025em', marginBottom: '12px' }}>
+                <h2 style={{ fontSize: 'clamp(28px, 3.8vw, 38px)', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.025em', marginBottom: '12px' }}>
                   Practice What Matters Most for You
                 </h2>
-                <p style={{ fontSize: '14px', color: '#94a3b8', lineHeight: 1.6, margin: '0 auto 24px' }}>
+                <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6, margin: '0 auto 24px' }}>
                   Our recommendation pipeline synthesizes your career credentials into specialized mock modules across critical engineering paradigms.
                 </p>
 
@@ -1523,10 +1521,10 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   gap: '8px',
                   padding: '6px 16px',
                   borderRadius: '9999px',
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   fontSize: '11px',
-                  color: '#94a3b8'
+                  color: 'var(--text-secondary)'
                 }}>
                   <span>CV Profile</span>
                   <span style={{ color: '#475569' }}>→</span>
@@ -1551,8 +1549,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                       key={idx}
                       onClick={() => handleStartPractice(track.title)}
                       style={{
-                        background: 'rgba(18, 25, 42, 0.65)',
-                        border: '1px solid rgba(255, 255, 255, 0.06)',
+                        background: 'var(--bg-surface)',
+                        border: '1px solid var(--border-subtle)',
                         borderRadius: '12px',
                         padding: '16px 14px',
                         cursor: 'pointer',
@@ -1566,7 +1564,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
                         <Icon size={16} color={track.color} />
-                        <span style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff' }}>
+                        <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)' }}>
                           {track.title}
                         </span>
                       </div>
@@ -1603,22 +1601,22 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                 marginBottom: '16px'
               }}>
                 <span style={{ color: '#818cf8', fontWeight: 900, fontSize: '11px' }}>▌</span>
-                <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#c7d2fe' }}>
+                <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--primary-color)' }}>
                   IMMERSIVE SIMULATION
                 </span>
               </div>
-              <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.025em', marginBottom: '14px' }}>
+              <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.025em', marginBottom: '14px' }}>
                 Practice in a Real Interview Environment
               </h2>
-              <p style={{ fontSize: '15.5px', color: '#94a3b8', margin: 0, lineHeight: 1.6 }}>
+              <p style={{ fontSize: '15.5px', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.6 }}>
                 Strict 5-question structured rounds with dynamic interviewer avatars, mic calibration, and answer reviews before final submission.
               </p>
             </div>
 
             {/* Room Simulation Container */}
             <div style={{
-              background: 'rgba(12, 17, 29, 0.95)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '24px',
               padding: '24px',
               boxShadow: '0 25px 70px rgba(0, 0, 0, 0.85), 0 0 40px rgba(99, 102, 241, 0.08)',
@@ -1633,13 +1631,13 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                 gap: '12px',
                 marginBottom: '20px',
                 paddingBottom: '16px',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.06)'
+                borderBottom: '1px solid var(--border-subtle)'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <span style={{
                     background: 'rgba(129, 140, 248, 0.15)',
                     border: '1px solid rgba(129, 140, 248, 0.3)',
-                    color: '#c7d2fe',
+                    color: 'var(--primary-color)',
                     fontSize: '11px',
                     fontWeight: 700,
                     padding: '4px 10px',
@@ -1649,9 +1647,9 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     Round 1: Architecture
                   </span>
                   <span style={{
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    color: '#e2e8f0',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-subtle)',
+                    color: 'var(--text-main)',
                     fontSize: '11px',
                     fontWeight: 700,
                     padding: '4px 10px',
@@ -1678,9 +1676,9 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     <span>REC 03:24</span>
                   </div>
                   <div style={{
-                    background: 'rgba(0, 0, 0, 0.4)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    color: '#94a3b8',
+                    background: 'var(--bg-surface)',
+                    border: '1px solid var(--border-subtle)',
+                    color: 'var(--text-secondary)',
                     fontSize: '11px',
                     fontWeight: 600,
                     padding: '4px 12px',
@@ -1704,8 +1702,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   height: '280px',
                   borderRadius: '16px',
                   overflow: 'hidden',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  background: '#070b14'
+                  border: '1px solid var(--border-subtle)',
+                  background: 'var(--bg-main)'
                 }}>
                   <img
                     src="/interviewer_sarah.jpg"
@@ -1756,8 +1754,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   height: '280px',
                   borderRadius: '16px',
                   overflow: 'hidden',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  background: '#070b14'
+                  border: '1px solid var(--border-subtle)',
+                  background: 'var(--bg-main)'
                 }}>
                   <img
                     src="/candidate_alex.jpg"
@@ -1813,8 +1811,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
 
               {/* Bottom Control Bar */}
               <div style={{
-                background: 'rgba(0, 0, 0, 0.35)',
-                border: '1px solid rgba(255, 255, 255, 0.05)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '14px',
                 padding: '12px 20px',
                 display: 'flex',
@@ -1829,12 +1827,12 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     width: '36px',
                     height: '36px',
                     borderRadius: '50%',
-                    background: 'rgba(255, 255, 255, 0.06)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    background: 'var(--bg-card)',
+                    border: '1px solid var(--border-subtle)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#e2e8f0'
+                    color: 'var(--text-main)'
                   }}>
                     <Mic size={16} />
                   </div>
@@ -1842,12 +1840,12 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     width: '36px',
                     height: '36px',
                     borderRadius: '50%',
-                    background: 'rgba(255, 255, 255, 0.06)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    background: 'var(--bg-card)',
+                    border: '1px solid var(--border-subtle)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#e2e8f0'
+                    color: 'var(--text-main)'
                   }}>
                     <Video size={16} />
                   </div>
@@ -1855,12 +1853,12 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     width: '36px',
                     height: '36px',
                     borderRadius: '50%',
-                    background: 'rgba(255, 255, 255, 0.06)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    background: 'var(--bg-card)',
+                    border: '1px solid var(--border-subtle)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#94a3b8'
+                    color: 'var(--text-secondary)'
                   }}>
                     <FileText size={16} />
                   </div>
@@ -1929,31 +1927,31 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   marginBottom: '14px'
                 }}>
                   <span style={{ color: '#38bdf8', fontWeight: 900, fontSize: '11px' }}>▌</span>
-                  <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#bae6fd' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--primary-color)' }}>
                     LONGITUDINAL TELEMETRY
                   </span>
                 </div>
-                <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.025em', marginBottom: '12px' }}>
+                <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.025em', marginBottom: '12px' }}>
                   From One Score to a Complete Performance Report
                 </h2>
-                <p style={{ fontSize: '15px', color: '#94a3b8', margin: 0, lineHeight: 1.6 }}>
+                <p style={{ fontSize: '15px', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.6 }}>
                   Beyond surface-level pass/fail ratings. Inprep provides deep dimensional breakdowns and trajectory modeling across your entire preparation timeline.
                 </p>
               </div>
 
               {/* Right Score Pill */}
               <div style={{
-                background: 'rgba(15, 21, 35, 0.8)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '16px',
                 padding: '16px 24px',
                 textAlign: 'right'
               }}>
                 <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'flex-end', gap: '6px' }}>
-                  <span style={{ fontSize: '36px', fontWeight: 800, color: '#ffffff', lineHeight: 1 }}>82</span>
-                  <span style={{ fontSize: '14px', color: '#64748b' }}>/ 100</span>
+                  <span style={{ fontSize: '36px', fontWeight: 800, color: 'var(--text-main)', lineHeight: 1 }}>82</span>
+                  <span style={{ fontSize: '14px', color: 'var(--text-muted)' }}>/ 100</span>
                 </div>
-                <span style={{ fontSize: '11.5px', color: '#94a3b8', fontWeight: 600, display: 'block', marginTop: '4px' }}>
+                <span style={{ fontSize: '11.5px', color: 'var(--text-secondary)', fontWeight: 600, display: 'block', marginTop: '4px' }}>
                   Session Average Readiness
                 </span>
               </div>
@@ -1967,8 +1965,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
             }}>
               {/* Left Column: Diagnostic Matrix Card */}
               <div style={{
-                background: 'rgba(13, 18, 30, 0.85)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '20px',
                 padding: '28px',
                 display: 'flex',
@@ -1976,10 +1974,10 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                 justifyContent: 'space-between'
               }}>
                 <div>
-                  <h3 style={{ fontSize: '17px', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+                  <h3 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
                     Diagnostic Matrix
                   </h3>
-                  <p style={{ fontSize: '12.5px', color: '#64748b', marginBottom: '24px' }}>
+                  <p style={{ fontSize: '12.5px', color: 'var(--text-muted)', marginBottom: '24px' }}>
                     4 core pillars evaluated across 20 distinct metrics
                   </p>
 
@@ -1991,11 +1989,11 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                       { name: 'Presentation & Executive Setup', score: '85/100', val: 85, color: '#34d399' }
                     ].map((m, idx) => (
                       <div key={idx}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px', marginBottom: '6px', color: '#e2e8f0' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px', marginBottom: '6px', color: 'var(--text-main)' }}>
                           <span style={{ fontWeight: 500 }}>{m.name}</span>
                           <span style={{ fontWeight: 700, color: m.color }}>{m.score}</span>
                         </div>
-                        <div style={{ width: '100%', height: '6px', background: 'rgba(255, 255, 255, 0.06)', borderRadius: '3px', overflow: 'hidden' }}>
+                        <div style={{ width: '100%', height: '6px', background: 'var(--bg-surface)', borderRadius: '3px', overflow: 'hidden' }}>
                           <div style={{ width: `${m.val}%`, height: '100%', background: m.color, borderRadius: '3px' }} />
                         </div>
                       </div>
@@ -2016,7 +2014,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                       PRIMARY STRENGTH
                     </span>
                   </div>
-                  <p style={{ fontSize: '12.5px', color: '#e2e8f0', margin: 0, lineHeight: 1.5 }}>
+                  <p style={{ fontSize: '12.5px', color: 'var(--text-main)', margin: 0, lineHeight: 1.5 }}>
                     Concise trade-off framing under high-pressure scenarios.
                   </p>
                 </div>
@@ -2026,17 +2024,17 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 {/* Top: Interview Growth Velocity */}
                 <div style={{
-                  background: 'rgba(13, 18, 30, 0.85)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '20px',
                   padding: '24px'
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                     <div>
-                      <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+                      <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                         Interview Growth Velocity
                       </h3>
-                      <span style={{ fontSize: '11.5px', color: '#64748b' }}>Overall Readiness Progression</span>
+                      <span style={{ fontSize: '11.5px', color: 'var(--text-muted)' }}>Overall Readiness Progression</span>
                     </div>
                     <span style={{
                       background: 'rgba(16, 185, 129, 0.15)',
@@ -2079,16 +2077,16 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     display: 'flex',
                     justifyContent: 'space-between',
                     fontSize: '11px',
-                    color: '#94a3b8',
-                    borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+                    color: 'var(--text-secondary)',
+                    borderTop: '1px solid var(--border-subtle)',
                     paddingTop: '10px'
                   }}>
-                    <span>Attempt 1: <strong style={{ color: '#f8fafc' }}>68</strong></span>
-                    <span>Attempt 3: <strong style={{ color: '#f8fafc' }}>74</strong></span>
-                    <span>Attempt 5: <strong style={{ color: '#f8fafc' }}>79</strong></span>
+                    <span>Attempt 1: <strong style={{ color: 'var(--text-main)' }}>68</strong></span>
+                    <span>Attempt 3: <strong style={{ color: 'var(--text-main)' }}>74</strong></span>
+                    <span>Attempt 5: <strong style={{ color: 'var(--text-main)' }}>79</strong></span>
                     <span style={{ color: '#38bdf8', fontWeight: 700 }}>Latest: 82</span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10.5px', color: '#64748b', marginTop: '6px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10.5px', color: 'var(--text-muted)', marginTop: '6px' }}>
                     <span>Week 1 Baseline</span>
                     <span style={{ color: '#818cf8' }}>Target Readiness: 85+ (Senior/Staff)</span>
                   </div>
@@ -2096,13 +2094,13 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
 
                 {/* Bottom: Active Improvement Plan */}
                 <div style={{
-                  background: 'rgba(13, 18, 30, 0.85)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '20px',
                   padding: '24px'
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+                    <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
                       Active Improvement Plan
                     </h3>
                     <span style={{
@@ -2130,8 +2128,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                           display: 'flex',
                           alignItems: 'center',
                           gap: '10px',
-                          background: 'rgba(255, 255, 255, 0.03)',
-                          border: '1px solid rgba(255, 255, 255, 0.05)',
+                          background: 'var(--bg-surface)',
+                          border: '1px solid var(--border-subtle)',
                           borderRadius: '10px',
                           padding: '10px 14px'
                         }}
@@ -2143,7 +2141,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                         )}
                         <span style={{
                           fontSize: '12.5px',
-                          color: t.done ? '#e2e8f0' : '#94a3b8',
+                          color: t.done ? 'var(--text-main)' : 'var(--text-secondary)',
                           textDecoration: t.done ? 'line-through' : 'none',
                           opacity: t.done ? 0.85 : 1
                         }}>
@@ -2174,14 +2172,14 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
               marginBottom: '14px'
             }}>
               <span style={{ color: '#818cf8', fontWeight: 900, fontSize: '11px' }}>▌</span>
-              <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#c7d2fe' }}>
+              <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--primary-color)' }}>
                 COHESIVE ARCHITECTURE
               </span>
             </div>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.025em', marginBottom: '14px' }}>
+            <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.025em', marginBottom: '14px' }}>
               Everything Works Together
             </h2>
-            <p style={{ fontSize: '15px', color: '#94a3b8', maxWidth: '680px', margin: '0 auto 48px', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '15px', color: 'var(--text-secondary)', maxWidth: '680px', margin: '0 auto 48px', lineHeight: 1.6 }}>
               A continuous feedback loop designed to transform raw experience into refined executive delivery.
             </p>
 
@@ -2197,8 +2195,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                   <div
                     key={idx}
                     style={{
-                      background: step.isCurrent ? 'rgba(124, 58, 237, 0.15)' : 'rgba(15, 21, 35, 0.7)',
-                      border: step.isCurrent ? '1px solid rgba(168, 85, 247, 0.4)' : '1px solid rgba(255, 255, 255, 0.07)',
+                      background: step.isCurrent ? 'rgba(124, 58, 237, 0.15)' : 'var(--bg-surface)',
+                      border: step.isCurrent ? '1px solid rgba(168, 85, 247, 0.4)' : '1px solid var(--border-subtle)',
                       borderRadius: '16px',
                       padding: '20px 12px',
                       display: 'flex',
@@ -2224,7 +2222,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                       width: '36px',
                       height: '36px',
                       borderRadius: '50%',
-                      background: 'rgba(255, 255, 255, 0.05)',
+                      background: 'var(--bg-surface)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -2232,10 +2230,10 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     }}>
                       <Icon size={18} color={step.color} />
                     </div>
-                    <span style={{ fontSize: '13px', fontWeight: 700, color: '#ffffff', display: 'block', marginBottom: '4px' }}>
+                    <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-main)', display: 'block', marginBottom: '4px' }}>
                       {step.name}
                     </span>
-                    <span style={{ fontSize: '10.5px', color: '#64748b' }}>
+                    <span style={{ fontSize: '10.5px', color: 'var(--text-muted)' }}>
                       {step.sub}
                     </span>
                   </div>
@@ -2252,8 +2250,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
           <div className="container">
             {/* Container Card */}
             <div style={{
-              background: 'rgba(13, 18, 30, 0.85)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '24px',
               padding: '48px 36px',
               position: 'relative'
@@ -2274,10 +2272,10 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     TRUST & PRIVACY
                   </span>
                 </div>
-                <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.025em', marginBottom: '12px' }}>
+                <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: 'var(--text-main)', letterSpacing: '-0.025em', marginBottom: '12px' }}>
                   Our Responsible AI Commitments
                 </h2>
-                <p style={{ fontSize: '15px', color: '#94a3b8', margin: 0, lineHeight: 1.6 }}>
+                <p style={{ fontSize: '15px', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.6 }}>
                   Engineered around candidate dignity and clear boundaries. We do not evaluate what does not predict job performance.
                 </p>
               </div>
@@ -2294,8 +2292,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     <div
                       key={idx}
                       style={{
-                        background: 'rgba(18, 24, 40, 0.7)',
-                        border: '1px solid rgba(255, 255, 255, 0.06)',
+                        background: 'var(--bg-surface)',
+                        border: '1px solid var(--border-subtle)',
                         borderRadius: '16px',
                         padding: '24px 20px',
                         backdropFilter: 'blur(12px)'
@@ -2306,7 +2304,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                         width: '36px',
                         height: '36px',
                         borderRadius: '10px',
-                        background: 'rgba(255, 255, 255, 0.04)',
+                        background: 'var(--bg-card)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -2314,10 +2312,10 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                       }}>
                         <Icon size={20} color={p.color} strokeWidth={2} />
                       </div>
-                      <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#ffffff', marginBottom: '8px' }}>
+                      <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px' }}>
                         {p.title}
                       </h3>
-                      <p style={{ fontSize: '12px', color: '#94a3b8', margin: 0, lineHeight: 1.55 }}>
+                      <p style={{ fontSize: '12px', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.55 }}>
                         {p.desc}
                       </p>
                     </div>
@@ -2334,28 +2332,29 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
         <section style={{ padding: '40px 0 100px', position: 'relative' }}>
           <div className="container">
             <div style={{
-              background: 'radial-gradient(ellipse 80% 60% at 50% -20%, rgba(124, 58, 237, 0.35), transparent 70%), linear-gradient(180deg, rgba(17, 24, 39, 0.8) 0%, rgba(10, 14, 24, 0.98) 100%)',
-              border: '1px solid rgba(168, 85, 247, 0.25)',
+              backgroundColor: 'var(--bg-card)',
+              backgroundImage: 'radial-gradient(ellipse 80% 60% at 50% -20%, rgba(124, 58, 237, 0.15), transparent 70%)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '28px',
               padding: '64px 32px',
               textAlign: 'center',
               position: 'relative',
               overflow: 'hidden',
-              boxShadow: '0 30px 80px -20px rgba(0, 0, 0, 0.9), 0 0 70px rgba(124, 58, 237, 0.2)'
+              boxShadow: '0 10px 40px -10px rgba(124, 58, 237, 0.1)'
             }}>
               <div style={{ position: 'relative', zIndex: 2, maxWidth: '760px', margin: '0 auto' }}>
                 <div style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '8px',
-                  background: 'rgba(30, 27, 75, 0.8)',
-                  border: '1px solid rgba(129, 140, 248, 0.3)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-subtle)',
                   borderRadius: '9999px',
                   padding: '6px 16px',
                   marginBottom: '20px'
                 }}>
                   <span style={{ color: '#818cf8', fontWeight: 900, fontSize: '11px' }}>▌</span>
-                  <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#c7d2fe' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--primary-color)' }}>
                     GET STARTED TODAY
                   </span>
                 </div>
@@ -2363,7 +2362,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                 <h2 style={{
                   fontSize: 'clamp(32px, 4.5vw, 48px)',
                   fontWeight: 800,
-                  color: '#ffffff',
+                  color: 'var(--text-main)',
                   letterSpacing: '-0.025em',
                   lineHeight: 1.18,
                   marginBottom: '16px'
@@ -2373,7 +2372,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
 
                 <p style={{
                   fontSize: '15.5px',
-                  color: '#cbd5e1',
+                  color: 'var(--text-secondary)',
                   lineHeight: 1.65,
                   maxWidth: '640px',
                   margin: '0 auto 36px'
@@ -2415,9 +2414,9 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
-                      background: 'rgba(255, 255, 255, 0.07)',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
-                      color: '#e2e8f0',
+                      background: 'var(--bg-surface)',
+                      border: '1px solid var(--border-subtle)',
+                      color: 'var(--text-main)',
                       borderRadius: '9999px',
                       padding: '14px 26px',
                       fontSize: '14px',

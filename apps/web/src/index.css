@@ -219,7 +219,7 @@ a:hover {
 }
 
 .btn-primary:hover {
-  background-color: #d4d4d8;
+  opacity: 0.85;
   transform: translateY(-1px);
 }
 
@@ -531,6 +531,12 @@ a:hover {
 [data-theme="light"] [style*="14,18,28"] div[style*="border-top: 1px solid rgba(255, 255, 255"],
 [data-theme="light"] [style*="14,18,28"] div[style*="borderTop: '1px solid rgba(255, 255, 255"] {
   border-color: var(--border-subtle) !important;
+}
+
+@media (max-width: 1024px) {
+  .auth-nav-links {
+    display: none !important;
+  }
 }
 
 

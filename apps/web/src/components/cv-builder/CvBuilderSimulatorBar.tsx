@@ -41,7 +41,7 @@ export const CvBuilderSimulatorBar: React.FC<CvBuilderSimulatorBarProps> = ({
         flexWrap: 'wrap',
         gap: '12px',
         fontSize: '0.78rem',
-        color: '#94a3b8',
+        color: 'var(--text-secondary)',
         zIndex: 50,
         position: 'sticky',
         top: 0,
@@ -76,11 +76,11 @@ export const CvBuilderSimulatorBar: React.FC<CvBuilderSimulatorBarProps> = ({
                 borderRadius: '6px',
                 fontSize: '0.74rem',
                 fontWeight: isActive ? 600 : 400,
-                backgroundColor: isActive ? '#4f46e5' : 'rgba(255, 255, 255, 0.05)',
+                backgroundColor: isActive ? '#4f46e5' : 'var(--border-subtle)',
                 color: isActive ? '#ffffff' : state.color || '#94a3b8',
                 border: isActive
                   ? '1px solid rgba(129, 140, 248, 0.6)'
-                  : '1px solid rgba(255, 255, 255, 0.08)',
+                  : '1px solid var(--border-subtle)',
                 cursor: 'pointer',
                 transition: 'all 0.18s ease',
                 boxShadow: isActive ? '0 0 12px rgba(79, 70, 229, 0.4)' : 'none',

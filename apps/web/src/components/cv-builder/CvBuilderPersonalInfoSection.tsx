@@ -26,12 +26,12 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
     <div
       id="section-personal"
       style={{
-        backgroundColor: 'rgba(14, 18, 28, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: 'var(--bg-surface)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '22px',
         marginBottom: '20px',
-        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.25)',
+        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.1)',
       }}
     >
       {/* Header */}
@@ -53,12 +53,12 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#818cf8',
+              color: 'var(--text-muted)',
             }}
           >
             <User size={14} />
           </span>
-          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#f8fafc', margin: 0 }}>
+          <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
             1. Personal Information
           </h3>
         </div>
@@ -70,7 +70,7 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
             padding: '2px 8px',
             borderRadius: '9999px',
             backgroundColor: 'rgba(56, 189, 248, 0.12)',
-            color: '#38bdf8',
+            color: 'var(--text-secondary)',
             border: '1px solid rgba(56, 189, 248, 0.25)',
           }}
         >
@@ -86,9 +86,9 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
           gap: '16px',
           marginBottom: '20px',
           padding: '14px',
-          backgroundColor: 'rgba(255, 255, 255, 0.02)',
+          backgroundColor: 'var(--bg-card)',
           borderRadius: '12px',
-          border: '1px solid rgba(255, 255, 255, 0.05)',
+          border: '1px solid var(--border-subtle)',
         }}
       >
         <div style={{ position: 'relative', width: '56px', height: '56px', flexShrink: 0 }}>
@@ -106,10 +106,10 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
         </div>
 
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#f8fafc', marginBottom: '2px' }}>
+          <div style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '2px' }}>
             Profile Photo (Optional)
           </div>
-          <p style={{ fontSize: '0.72rem', color: '#94a3b8', margin: '0 0 6px 0', lineHeight: 1.4 }}>
+          <p style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', margin: '0 0 6px 0', lineHeight: 1.4 }}>
             Supported JPG, PNG, WebP up to 5MB. Suitable for international format CVs.
           </p>
 
@@ -119,7 +119,7 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: '#818cf8',
+                color: 'var(--primary-color)',
                 fontSize: '0.72rem',
                 fontWeight: 600,
                 cursor: 'pointer',
@@ -133,7 +133,7 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
               <span>Change Photo</span>
             </button>
 
-            <span style={{ color: '#475569' }}>•</span>
+            <span style={{ color: 'var(--text-muted)' }}>•</span>
 
             <button
               onClick={() => onChange('avatarUrl', '')}
@@ -167,7 +167,7 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
       >
         {/* Full Name */}
         <div>
-          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: '#94a3b8', marginBottom: '5px' }}>
+          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>
             Full Name
           </label>
           <input
@@ -178,10 +178,10 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
             style={{
               width: '100%',
               padding: '9px 12px',
-              backgroundColor: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.09)',
+              backgroundColor: 'var(--bg-main)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '8px',
-              color: '#f8fafc',
+              color: 'var(--text-main)',
               fontSize: '0.82rem',
               outline: 'none',
               boxSizing: 'border-box',
@@ -191,7 +191,7 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
 
         {/* Professional Title */}
         <div>
-          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: '#94a3b8', marginBottom: '5px' }}>
+          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>
             Professional Title
           </label>
           <input
@@ -202,10 +202,10 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
             style={{
               width: '100%',
               padding: '9px 12px',
-              backgroundColor: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.09)',
+              backgroundColor: 'var(--bg-main)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: '8px',
-              color: '#f8fafc',
+              color: 'var(--text-main)',
               fontSize: '0.82rem',
               outline: 'none',
               boxSizing: 'border-box',
@@ -216,7 +216,7 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
         {/* Email */}
         <div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '5px' }}>
-            <label style={{ fontSize: '0.72rem', fontWeight: 600, color: '#94a3b8' }}>
+            <label style={{ fontSize: '0.72rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
               Email Address
             </label>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', fontSize: '0.66rem', color: '#34d399', fontWeight: 600 }}>
@@ -232,22 +232,22 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
               style={{
                 width: '100%',
                 padding: '9px 12px 9px 34px',
-                backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.09)',
+                backgroundColor: 'var(--bg-main)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '8px',
-                color: '#f8fafc',
+                color: 'var(--text-main)',
                 fontSize: '0.82rem',
                 outline: 'none',
                 boxSizing: 'border-box',
               }}
             />
-            <Mail size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: '#64748b' }} />
+            <Mail size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: 'var(--text-muted)' }} />
           </div>
         </div>
 
         {/* Phone Number */}
         <div>
-          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: '#94a3b8', marginBottom: '5px' }}>
+          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>
             Phone Number
           </label>
           <div style={{ position: 'relative' }}>
@@ -259,22 +259,22 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
               style={{
                 width: '100%',
                 padding: '9px 12px 9px 34px',
-                backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.09)',
+                backgroundColor: 'var(--bg-main)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '8px',
-                color: '#f8fafc',
+                color: 'var(--text-main)',
                 fontSize: '0.82rem',
                 outline: 'none',
                 boxSizing: 'border-box',
               }}
             />
-            <Phone size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: '#64748b' }} />
+            <Phone size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: 'var(--text-muted)' }} />
           </div>
         </div>
 
         {/* Location */}
         <div>
-          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: '#94a3b8', marginBottom: '5px' }}>
+          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>
             Location
           </label>
           <div style={{ position: 'relative' }}>
@@ -286,22 +286,22 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
               style={{
                 width: '100%',
                 padding: '9px 12px 9px 34px',
-                backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.09)',
+                backgroundColor: 'var(--bg-main)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '8px',
-                color: '#f8fafc',
+                color: 'var(--text-main)',
                 fontSize: '0.82rem',
                 outline: 'none',
                 boxSizing: 'border-box',
               }}
             />
-            <MapPin size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: '#64748b' }} />
+            <MapPin size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: 'var(--text-muted)' }} />
           </div>
         </div>
 
         {/* LinkedIn Profile */}
         <div>
-          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: '#94a3b8', marginBottom: '5px' }}>
+          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>
             LinkedIn Profile URL
           </label>
           <div style={{ position: 'relative' }}>
@@ -313,22 +313,22 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
               style={{
                 width: '100%',
                 padding: '9px 12px 9px 34px',
-                backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.09)',
+                backgroundColor: 'var(--bg-main)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '8px',
-                color: '#f8fafc',
+                color: 'var(--text-main)',
                 fontSize: '0.82rem',
                 outline: 'none',
                 boxSizing: 'border-box',
               }}
             />
-            <Linkedin size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: '#64748b' }} />
+            <Linkedin size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: 'var(--text-muted)' }} />
           </div>
         </div>
 
         {/* GitHub Repository */}
         <div>
-          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: '#94a3b8', marginBottom: '5px' }}>
+          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>
             GitHub Repository URL
           </label>
           <div style={{ position: 'relative' }}>
@@ -340,22 +340,22 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
               style={{
                 width: '100%',
                 padding: '9px 12px 9px 34px',
-                backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.09)',
+                backgroundColor: 'var(--bg-main)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '8px',
-                color: '#f8fafc',
+                color: 'var(--text-main)',
                 fontSize: '0.82rem',
                 outline: 'none',
                 boxSizing: 'border-box',
               }}
             />
-            <Github size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: '#64748b' }} />
+            <Github size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: 'var(--text-muted)' }} />
           </div>
         </div>
 
         {/* Portfolio or Personal Site */}
         <div>
-          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: '#94a3b8', marginBottom: '5px' }}>
+          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '5px' }}>
             Portfolio or Personal Site
           </label>
           <div style={{ position: 'relative' }}>
@@ -367,16 +367,16 @@ export const CvBuilderPersonalInfoSection: React.FC<CvBuilderPersonalInfoSection
               style={{
                 width: '100%',
                 padding: '9px 12px 9px 34px',
-                backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.09)',
+                backgroundColor: 'var(--bg-main)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: '8px',
-                color: '#f8fafc',
+                color: 'var(--text-main)',
                 fontSize: '0.82rem',
                 outline: 'none',
                 boxSizing: 'border-box',
               }}
             />
-            <Globe size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: '#64748b' }} />
+            <Globe size={14} style={{ position: 'absolute', left: '10px', top: '11px', color: 'var(--text-muted)' }} />
           </div>
         </div>
       </div>

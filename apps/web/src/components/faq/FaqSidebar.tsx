@@ -63,11 +63,11 @@ export const FaqSidebar: React.FC<FaqSidebarProps> = ({
       
       {/* Directory Navigation Card */}
       <div style={{
-        background: '#0a0e18',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '20px 16px',
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.4)',
+        boxShadow: 'var(--shadow-md)',
         marginBottom: '20px'
       }}>
         {/* Header */}
@@ -76,13 +76,13 @@ export const FaqSidebar: React.FC<FaqSidebarProps> = ({
           justifyContent: 'space-between',
           alignItems: 'center',
           padding: '0 8px 14px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+          borderBottom: '1px solid var(--border-subtle)',
           marginBottom: '12px'
         }}>
-          <span style={{ fontSize: '11px', fontWeight: 800, color: '#64748b', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-muted)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
             FAQ DIRECTORY
           </span>
-          <span style={{ fontSize: '11px', fontWeight: 700, color: '#38bdf8' }}>
+          <span style={{ fontSize: '11px', fontWeight: 700, color: '#0284c7' }}>
             {totalAnswersCount} Verified Answers
           </span>
         </div>
@@ -102,26 +102,26 @@ export const FaqSidebar: React.FC<FaqSidebarProps> = ({
                   justifyContent: 'space-between',
                   padding: '10px 12px',
                   borderRadius: '10px',
-                  background: isActive ? 'linear-gradient(135deg, #7c3aed 0%, #6366f1 100%)' : 'transparent',
-                  border: isActive ? '1px solid rgba(168, 85, 247, 0.4)' : '1px solid transparent',
-                  color: isActive ? '#ffffff' : '#94a3b8',
+                  background: isActive ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)' : 'transparent',
+                  border: isActive ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid transparent',
+                  color: isActive ? '#ffffff' : 'var(--text-secondary)',
                   fontSize: '13px',
                   fontWeight: isActive ? 700 : 500,
                   cursor: 'pointer',
                   textAlign: 'left',
                   transition: 'all 0.15s ease',
-                  boxShadow: isActive ? '0 4px 15px rgba(124, 58, 237, 0.3)' : 'none'
+                  boxShadow: isActive ? '0 4px 15px rgba(99, 102, 241, 0.3)' : 'none'
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive) {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
-                    e.currentTarget.style.color = '#ffffff';
+                    e.currentTarget.style.background = 'var(--bg-surface)';
+                    e.currentTarget.style.color = 'var(--text-main)';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isActive) {
                     e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.color = '#94a3b8';
+                    e.currentTarget.style.color = 'var(--text-secondary)';
                   }
                 }}
               >
@@ -135,8 +135,8 @@ export const FaqSidebar: React.FC<FaqSidebarProps> = ({
                   fontWeight: 700,
                   padding: '2px 7px',
                   borderRadius: '100px',
-                  background: isActive ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.05)',
-                  color: isActive ? '#ffffff' : '#64748b'
+                  background: isActive ? 'rgba(255, 255, 255, 0.2)' : 'var(--bg-surface)',
+                  color: isActive ? '#ffffff' : 'var(--text-muted)'
                 }}>
                   {cat.count}
                 </span>
@@ -148,33 +148,33 @@ export const FaqSidebar: React.FC<FaqSidebarProps> = ({
 
       {/* Need Personalized Help? Support Box */}
       <div style={{
-        background: 'linear-gradient(135deg, #121829 0%, #090d16 100%)',
-        border: '1px solid rgba(124, 58, 237, 0.25)',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: '18px',
         padding: '22px 18px',
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.4)'
+        boxShadow: 'var(--shadow-md)'
       }}>
         {/* Support Icon */}
         <div style={{
           width: '36px',
           height: '36px',
           borderRadius: '10px',
-          background: 'linear-gradient(135deg, #7c3aed 0%, #6366f1 100%)',
+          background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           marginBottom: '14px',
-          boxShadow: '0 4px 12px rgba(124, 58, 237, 0.35)'
+          boxShadow: '0 4px 12px rgba(99, 102, 241, 0.35)'
         }}>
           <Headphones size={18} color="#ffffff" />
         </div>
 
         {/* Title & Subtext */}
-        <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#ffffff', marginBottom: '8px' }}>
+        <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-main)', marginBottom: '8px' }}>
           Need personalized help?
         </h3>
 
-        <p style={{ fontSize: '12px', color: '#94a3b8', lineHeight: 1.55, margin: '0 0 16px' }}>
+        <p style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.55, margin: '0 0 16px' }}>
           Our engineering & executive coaching support answers technical questions and setup hurdles in under 4 hours.
         </p>
 
@@ -188,10 +188,10 @@ export const FaqSidebar: React.FC<FaqSidebarProps> = ({
             gap: '8px',
             width: '100%',
             padding: '10px 0',
-            background: 'rgba(255, 255, 255, 0.06)',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
+            background: 'var(--bg-surface)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: '10px',
-            color: '#ffffff',
+            color: 'var(--text-main)',
             fontSize: '12.5px',
             fontWeight: 600,
             textDecoration: 'none',
@@ -199,15 +199,15 @@ export const FaqSidebar: React.FC<FaqSidebarProps> = ({
             marginBottom: '14px'
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(124, 58, 237, 0.25)';
-            e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.45)';
+            e.currentTarget.style.background = 'var(--bg-card-hover)';
+            e.currentTarget.style.borderColor = 'var(--border-accent)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
-            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+            e.currentTarget.style.background = 'var(--bg-surface)';
+            e.currentTarget.style.borderColor = 'var(--border-subtle)';
           }}
         >
-          <Mail size={14} color="#a5b4fc" />
+          <Mail size={14} color="var(--primary-color)" />
           <span>Contact Engineering Team</span>
         </a>
 
@@ -217,8 +217,8 @@ export const FaqSidebar: React.FC<FaqSidebarProps> = ({
           alignItems: 'center',
           justifyContent: 'space-between',
           fontSize: '11px',
-          color: '#64748b',
-          borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+          color: 'var(--text-muted)',
+          borderTop: '1px solid var(--border-subtle)',
           paddingTop: '10px'
         }}>
           <span>Avg. response: ~27 min</span>
@@ -231,7 +231,7 @@ export const FaqSidebar: React.FC<FaqSidebarProps> = ({
               display: 'inline-block',
               boxShadow: '0 0 6px #10b981'
             }} />
-            <span style={{ color: '#cbd5e1', fontWeight: 600 }}>Online</span>
+            <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>Online</span>
           </div>
         </div>
 
