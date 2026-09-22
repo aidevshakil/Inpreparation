@@ -28,7 +28,7 @@ services:
     name: inpreparation-api-backend
     runtime: node
     rootDir: .
-    buildCommand: pnpm run db:generate && pnpm run build --filter=@service/api-backend...
+    buildCommand: pnpm install --prod=false && pnpm run db:generate && pnpm run build --filter=@service/api-backend...
     startCommand: pnpm run db:push && node services/api-backend/dist/index.js
     plan: free
     envVars:
