@@ -28,8 +28,8 @@ services:
     name: inpreparation-api-backend
     runtime: node
     rootDir: .
-    buildCommand: npm install -g pnpm && pnpm install && pnpm run db:generate && pnpm run db:push && pnpm run build --filter=@service/api-backend...
-    startCommand: node services/api-backend/dist/index.js
+    buildCommand: corepack enable && pnpm install --frozen-lockfile=false && pnpm run db:generate && pnpm run build --filter=@service/api-backend...
+    startCommand: pnpm run db:push && node services/api-backend/dist/index.js
     plan: free
     envVars:
       - key: NODE_ENV
@@ -43,7 +43,7 @@ services:
       - key: CORS_ORIGINS
         value: "*"
       - key: AI_SERVICE_URL
-        sync: false # Render এ AI Service তৈরি হওয়ার পর তার URL দিতে হবে (e.g. https://inpreparation-ai-service.onrender.com/api/v1)
+        sync: false
 
   # ==========================================
   # 3. React Web Frontend (Vite Static Site)
@@ -52,7 +52,7 @@ services:
     name: inpreparation-web
     runtime: static
     rootDir: .
-    buildCommand: npm install -g pnpm && pnpm install && pnpm run build --filter=@app/web...
+    buildCommand: corepack enable && pnpm install --frozen-lockfile=false && pnpm run build --filter=@app/web...
     staticPublishPath: ./apps/web/dist
     envVars:
       - key: VITE_API_URL
