@@ -28,7 +28,7 @@ services:
     name: inpreparation-api-backend
     runtime: node
     rootDir: .
-    buildCommand: corepack enable && pnpm install --frozen-lockfile=false && pnpm run db:generate && pnpm run build --filter=@service/api-backend...
+    buildCommand: pnpm run db:generate && pnpm run build --filter=@service/api-backend...
     startCommand: pnpm run db:push && node services/api-backend/dist/index.js
     plan: free
     envVars:
@@ -52,7 +52,7 @@ services:
     name: inpreparation-web
     runtime: static
     rootDir: .
-    buildCommand: corepack enable && pnpm install --frozen-lockfile=false && pnpm run build --filter=@app/web...
+    buildCommand: pnpm run build --filter=@app/web...
     staticPublishPath: ./apps/web/dist
     envVars:
       - key: VITE_API_URL
