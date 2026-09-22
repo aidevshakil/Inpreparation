@@ -415,10 +415,14 @@ a:hover {
 
 [data-theme="light"] [style*="background-color: #07090e"],
 [data-theme="light"] [style*="backgroundColor: #07090e"],
+[data-theme="light"] [style*="background: #07090e"],
 [data-theme="light"] [style*="background-color: rgb(7, 9, 14)"],
 [data-theme="light"] [style*="background-color: rgb(7,9,14)"],
+[data-theme="light"] [style*="background: rgb(7, 9, 14)"],
+[data-theme="light"] [style*="background: rgb(7,9,14)"],
 [data-theme="light"] [style*="background-color: #090c15"],
 [data-theme="light"] [style*="backgroundColor: #090c15"],
+[data-theme="light"] [style*="background: #090c15"],
 [data-theme="light"] [style*="background-color: rgb(9, 12, 21)"],
 [data-theme="light"] [style*="background-color: rgb(9,12,21)"],
 [data-theme="light"] [style*="background-color: #090d16"],
@@ -427,6 +431,7 @@ a:hover {
 [data-theme="light"] [style*="background-color: #0f121b"],
 [data-theme="light"] [style*="background-color: #000000"] {
   background-color: var(--bg-main) !important;
+  background: var(--bg-main) !important;
   color: var(--text-main) !important;
 }
 
