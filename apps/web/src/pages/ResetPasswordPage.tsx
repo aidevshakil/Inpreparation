@@ -33,8 +33,8 @@ export const ResetPasswordPage: React.FC<ResetPasswordPageProps> = ({
       minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column',
-      background: '#07090e',
-      color: '#f8fafc'
+      background: 'var(--bg-main)',
+      color: 'var(--text-main)'
     }}>
       {/* 1. Candidate Studio Navbar */}
       <AuthNavbar
