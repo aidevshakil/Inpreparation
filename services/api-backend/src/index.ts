@@ -32,7 +32,7 @@ import { attachUser } from './middleware/authenticate';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler';
 
 const app = express();
-const PORT = process.env.BACKEND_PORT || 5000;
+const PORT = process.env.PORT || process.env.BACKEND_PORT || 5000;
 
 const logger = pino();
 const httpLogger = pinoHttp({

@@ -247,7 +247,7 @@ authRouter.post('/login', validate(loginSchema), async (req: Request, res: Respo
     const targetRole = user.targetRole || user.candidateProfile?.targetRole || '';
     const cvFileName = user.resumes?.[0]?.fileName;
     const cvSkills = user.candidateProfile?.skills || user.resumes?.[0]?.skills || [];
-    const cvAtsScore = user.resumes?.[0]?.atsScore;
+    const cvAtsScore = (user.resumes?.[0] as any)?.atsScore;
 
     return res.json({ 
       success: true, 
@@ -356,7 +356,7 @@ authRouter.post('/google', validate(googleSchema), async (req: Request, res: Res
     const targetRole = user.targetRole || user.candidateProfile?.targetRole || '';
     const cvFileName = user.resumes?.[0]?.fileName;
     const cvSkills = user.candidateProfile?.skills || user.resumes?.[0]?.skills || [];
-    const cvAtsScore = user.resumes?.[0]?.atsScore;
+    const cvAtsScore = (user.resumes?.[0] as any)?.atsScore;
 
     res.json({ 
       success: true, 
