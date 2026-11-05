@@ -10,7 +10,7 @@
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
     "lint": "tsc --noEmit",
-    "build": "node init && tsc"
+    "build": "tsc"
   },
   "dependencies": {
     "@prisma/client": "^5.14.0"
